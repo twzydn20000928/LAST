@@ -64,6 +64,22 @@ The manifest pins Python files by their Git blob hashes. This provides verified
 source acquisition, not a completed baseline video runner or installation of all
 its dependencies.
 
+Install the pinned optional baseline dependencies and check an upstream noise
+interface before attempting expensive video inversion:
+
+```bash
+pip install -e '.[video,baselines,test]'
+python -m last.baseline_probe --method videoshield \
+  --upstream /path/to/SIGMark-python --output /private/probes/videoshield
+```
+
+The probe saves/reloads native reference state, validates512information bits,
+and reports a direct original-noise round trip. It is **not** video robustness.
+`--method videomark` uses a fixed400candidate diagnostic registry and preserves
+native lookup. The pinned VideoMark save/load names disagree; our wrapper adds
+singular key aliases to private state without editing upstream source. Probe
+outputs are private and existing directories are never overwritten.
+
 ### VideoMark registration audit
 
 The pinned VideoMark reader first decodes PRC votes, then selects the nearest
