@@ -84,6 +84,13 @@ attack map. Its private JSON output contains512decoded information bits as a
 does not prove video authenticity; wrong messages can also decode successfully.
 The current frozen spatial input size is512×512. Keep decoded messages private.
 
+A two-condition standalone-process check is recorded in
+[blind CLI integration](results/blind_cli_integration.json): one Hunyuan I2V
+video gives512/512clean and371/512after deleting30frames, matching the evaluator's
+correct-bit counts. The child receives no truth-message or attack-map arguments;
+the parent compares truth only after it exits. This is an interface check, not
+an OS access sandbox, bitwise prediction comparison or completed benchmark.
+
 ## Receipts, tables and paired fidelity
 
 For the planned400sample LAST/LFG comparison, see [campaign commands](docs/CAMPAIGN.md).
