@@ -194,3 +194,31 @@ reported separately and must not be silently substituted. Identical pairs have
 infinite PSNR, represented by null plus an explicit infinity flag, not zero.
 This table does not supply the official V-score or perceptual/dynamic quality.
 
+## MMCV build compatibility work (not yet an accepted scorer environment)
+
+The upstream anatomy stack uses MMDetection 3.0, whose version check requires
+MMCV below 2.1. MMCV 2.0.1 forces C++14, whereas the selected PyTorch 2.5 build
+requires C++17. `tools/build_mmcv201.py` provides the explicit build-only fix:
+it verifies the pinned source archive, records the patch and hashes, changes
+only compiler-standard flags, and builds a wheel without installing it. It
+does not bypass MMDetection's version guard or change scoring formulas.
+
+With the intended quality-environment Python and PyTorch already installed:
+
+```bash
+python tools/build_mmcv201.py --output /private/new-mmcv-build \
+  --cuda-home /usr/local/cuda-12.1 --cuda-arch 8.9 --jobs 4
+```
+
+Use an unused output directory. An existing downloaded archive can be supplied
+with `--source-archive`; the same SHA-256 check applies. Architecture 8.9 is the
+L40 used here, not a universal GPU setting. Compilation hides CUDA devices and
+does not launch GPU kernels. `receipt.json`, `cpp17.patch`, and `build.log`
+retain provenance and failures. The CUDA toolkit and host compiler must be
+available in addition to PyTorch; this command does not install system tools.
+
+At publication of this helper, the server build is still running. The helper's
+checksum, extraction-safety and patch tests pass, but no successful wheel,
+CUDA-operator validation, complete dependency lock, or numerical anatomy-score
+validation is claimed. Do not treat this as a completed V-score installation.
+
