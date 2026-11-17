@@ -30,6 +30,8 @@ def run_worker(a):
     state=json.loads((a.state/'state.json').read_text())
     if state['manifest_sha256']!=plan['manifest_sha256']:raise ValueError('Private state belongs to another manifest')
     models=json.loads(a.models.read_text())
+    a.root.mkdir(parents=True,exist_ok=True)
+    subprocess.run([sys.executable,'-m','last.doctor','--strict','--output',str(a.root/f'environment-shard-{a.shard}.json')],check=True)
     completed=0
     for position,item in enumerate(plan['runs']):
         if position%a.shards!=a.shard:continue

@@ -37,7 +37,7 @@ Download a pinned checkpoint from `configs/models.json`. Supply a JSON case cont
 python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint --download
 python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \
   --hash-output /private/model-hashes.json
-python -m last.doctor --output /private/environment.json
+python -m last.doctor --strict --output /private/environment.json
 ```
 
 The model command uses the full pinned upstream revision. Existing cached weights
