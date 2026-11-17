@@ -33,6 +33,24 @@ code/configuration midway through a formal campaign without a new campaign root
 and an explicit reuse audit. Timing is a separate exclusive-GPU experiment;
 these throughput workers generate both reference and marked outputs for fidelity.
 
+## Frozen release used for the LFG branch
+
+Hunyuan I2V LFG entered the primary queue only after a fresh generated MP4,
+all seven attacks and paired fidelity completed. Its source is frozen at public
+commit `b4f9eeadb912b2850eef7d381b14b341c669dd89`; the downloaded archive passed
+42 tests and strict runtime-version checks. The earlier LAST branch remains on
+its original frozen release. This is versioned integration, not a claim that
+the whole primary comparison has completed.
+
+For an additional method on an updated release, create a **new plan** and use
+only that method filter. Existing results from another release must not be
+overwritten or resumed against the new plan. The project uses disjoint method
+subdirectories under a shared artifact root; every job records its own immutable
+plan hash. Both branches retain the same primary manifest and private state.
+The source change fixes LFG's final-step latent interface and adds runners; it
+does not select LFG parameters using primary outcomes. Do not pool jobs without
+checking their recorded protocol and plan provenance.
+
 ```bash
 python -m last.report --plan /private/primary-plan.json --root /private/primary-runs --output /path/to/tables --verify-artifacts
 ```
