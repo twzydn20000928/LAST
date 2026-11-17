@@ -89,6 +89,31 @@ automatic retries or a successful partial-pair record. This core is CPU-tested,
 but still needs complete generation/decode adapters and exclusive-GPU validation
 for each method. It is not itself a generation CLI or measured efficiency result.
 
+The LAST/LFG adapter is now available for both backbone/mode combinations:
+
+```bash
+python -m last.generation_timing --family hunyuan --mode i2v --method last \
+  --model-dir /path/to/model --case /private/case.json \
+  --key /private/secret.key --message /private/message.bin \
+  --order AB --protocol supplement --output /private/new-generation-timing
+```
+
+Take `--order` from the frozen acquisition plan, not observed speeds. Each
+branch independently samples from the same seed; neither branch reuses the
+other's endpoint. Models remain loaded and sequential CPU offload is used for
+both branches. Scheduler construction/reset, noise preparation, prompt encoding,
+sampling, write operation, VAE decoding and PIL frame conversion are inside
+timing. Model/carrier setup, conditioning-image file reads and MP4 encoding/export
+are outside. ELMC remains after the returned normalized endpoint, not inside a
+last-step callback (some pipelines change the latent after that callback).
+The LFG marked branch uses its late predicted-clean scheduler guidance.
+
+This adapter's occupied-GPU rejection has been exercised on the active server;
+it refused before loading models and retained a failed receipt. Actual exclusive
+GPU measurements and numerical parity with ordinary generation are still pending.
+Native SIGMark/VideoShield/VideoMark generation adapters are not implemented by
+this command. Do not pool adapter timings with a different offload/decode policy.
+
 For one method/backbone/condition, aggregate the frozen 30-video subset with:
 
 ```bash
