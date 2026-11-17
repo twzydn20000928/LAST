@@ -19,6 +19,13 @@ and mixed writer methods or reader revisions are rejected. This verifies recorde
 provenance, not a new audit of the MP4 bytes; retain raw files and receipts.
 The fixed-target writer experiment remains a separate required control.
 
+The first actual member of the frozen30 subset is recorded in
+`results/formal_reader_ablation_first_case.json` (`paper-003`, 28 completed
+condition/reader rows). Its source video, attacked MP4s and codebook hashes were
+checked before export. This is one of30 samples, distinct from the earlier
+`paper-000` integration diagnostic. Do not combine the two as two formal subset
+members or treat the first formal sample as the completed paper table.
+
 To regenerate the subset file at a new destination:
 
 ```bash
