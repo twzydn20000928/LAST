@@ -96,6 +96,29 @@ The recorded57.11seconds is concurrent CPU elapsed time, not formal efficiency.
 This single LFG-C input validates acquisition; it does not supply the LAST
 development calibration or any detection/AUROC result.
 
+Once all80 **LAST** development clips have their own audited responses, fit
+the disclosed reconstruction with a private JSON index. Each entry contains
+`video_id`, `run` (generation directory), `features` (candidate cache directory),
+and `responses` (null acquisition directory). Include each `dev-000` through
+`dev-079` exactly once. A single LFG-C integration input is not accepted here.
+
+```bash
+python -m last.null_fit --index /private/development-response-index.json \
+  --development configs/development_manifest.json --primary configs/primary_manifest.json \
+  --development-state /private/development-state --primary-state /private/primary-state \
+  --output /private/frozen-energy-calibration.json
+```
+
+The fitter checks all80 IDs before reading acquisition files, actual LAST keys
+against their registered slots, unchanged margin/profile, generation cases,
+video/cache/response hashes, and a common VAE, writer, feature implementation and
+64-key null bank. All16 real keys must be excluded. Inputs are checked again after
+fitting. The output is the frozen median/MAD reconstruction plus provenance;
+keep it private because it includes key fingerprints and video identifiers.
+Tests cover the completeness gate and underlying fit algebra; a full80-file
+real-data fit has not yet run. This command does not establish test performance,
+chain discrimination or AUROC.
+
 ## Primary component protocol
 
 ### Generate LAST development inputs
