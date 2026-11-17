@@ -43,6 +43,7 @@ def main():
     p.add_argument('--key', type=Path, required=True)
     p.add_argument('--model-dir', required=True)
     p.add_argument('--family', choices=['hunyuan', 'wan22'], required=True)
+    p.add_argument('--mode', choices=['i2v', 't2v'], required=True)
     p.add_argument('--method', choices=['last', 'lfg'], required=True)
     p.add_argument('--protocol', choices=['main', 'supplement'], required=True)
     p.add_argument('--output', type=Path, required=True)
@@ -95,7 +96,7 @@ def main():
         raise ValueError('Video changed during timing')
     if source != {f.name: hashlib.sha256(f.read_bytes()).hexdigest() for f in Path(__file__).parent.glob('*.py')}:
         raise ValueError('Source changed during timing')
-    result = dict(status='completed', method=a.method, family=a.family, protocol=a.protocol,
+    result = dict(status='completed', method=a.method, family=a.family, mode=a.mode, protocol=a.protocol,
                   scope='One-video warm-model extraction only; not generation overhead or the full timing table',
                   received_sha256=sha, source_sha256=source, warmups=2, repeats=repeats,
                   seconds=times, mean_seconds=statistics.mean(times), median_seconds=statistics.median(times),

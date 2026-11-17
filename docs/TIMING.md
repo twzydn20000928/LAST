@@ -10,7 +10,7 @@ other experiments. Current concurrent integration runtimes are not table data.
 For LAST or native-carrier LFG extraction on an already exported video:
 
 ```bash
-python -m last.reader_timing --method last --family hunyuan \
+python -m last.reader_timing --method last --family hunyuan --mode i2v \
   --video /path/to/marked.mp4 --key /path/to/secret.key \
   --model-dir /path/to/model --protocol main --output /path/to/new-timing.json
 ```
@@ -82,6 +82,8 @@ python -m last.timing_summary --index /path/to/timing-index.json \
 The index is a list of objects containing `video_id`, `condition` and `receipt`
 (path relative to the index or absolute). Use the saved `reader_timing` receipts.
 Missing or failed videos prevent final aggregate scores. Every completed video
+must declare its I2V or T2V mode; mixed or unspecified modes are rejected rather
+than merged into a misleading efficiency row. Every completed video
 must have two warmups and five repeats. The summary takes each video's median,
 then reports the across-video median, quartiles and a percentile interval from
 10,000 PCG64 seed0 bootstrap draws of videos. These numerical bootstrap choices

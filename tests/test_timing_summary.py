@@ -3,7 +3,7 @@ from last.timing_summary import summarize
 
 def row(name,times):
     return dict(video_id=name,status='completed',protocol='supplement',warmups=2,repeats=5,
-                seconds=times,family='hunyuan',method='last',condition='clean',gpu='L40')
+                seconds=times,family='hunyuan',mode='i2v',method='last',condition='clean',gpu='L40')
 
 def test_video_medians_not_pooled_repeats():
     a=row('a',[1,1,1,100,100]);b=row('b',[2,2,9,9,9])
@@ -21,3 +21,10 @@ def test_reject_mixed_or_duplicate_measurements():
     with pytest.raises(ValueError,match='Mixed'):summarize([a,b],['a','b'])
     a['warmups']=0
     with pytest.raises(ValueError,match='warmups'):summarize([a],['a'])
+
+def test_reject_mixed_or_undeclared_generation_modes():
+    a=row('a',[1]*5);b=row('b',[2]*5)
+    b['mode']='t2v'
+    with pytest.raises(ValueError,match='Mixed'):summarize([a,b],['a','b'])
+    del a['mode']
+    with pytest.raises(ValueError,match='declare'):summarize([a],['a'])

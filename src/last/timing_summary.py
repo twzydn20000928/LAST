@@ -24,9 +24,11 @@ def summarize(rows, expected_ids, draws=10000, seed=0):
         times=np.asarray(row['seconds'],dtype=float)
         if times.shape!=(5,) or not np.isfinite(times).all() or (times<=0).any():
             raise ValueError('Invalid timing repeats')
-        identity_set.add((row['family'],row['method'],row['condition'],row['gpu']))
+        if row.get('mode') not in ('i2v','t2v'):
+            raise ValueError('Timing receipt must declare i2v or t2v mode')
+        identity_set.add((row['family'],row['mode'],row['method'],row['condition'],row['gpu']))
         values.append(dict(video_id=identity,median_seconds=float(np.median(times))))
-    if len(identity_set)>1:raise ValueError('Mixed family/method/condition/hardware')
+    if len(identity_set)>1:raise ValueError('Mixed family/mode/method/condition/hardware')
     complete=not missing and not failed
     result=dict(complete=complete,expected=len(expected_ids),completed=len(values),missing=missing,failed=failed,
                 per_video=values,median_seconds=None,iqr_seconds=None,median_ci95_seconds=None,
