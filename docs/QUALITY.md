@@ -41,6 +41,22 @@ score must include the prescribed inputs, valid/applicable denominators and
 all18dimension outputs. Missing or not-applicable results are not zeros.
 ## Official dimension runner
 
+Before loading large scoring models, audit all eighteen dimension imports:
+
+```bash
+python -m last.quality_doctor --upstream /path/to/VBench/VBench-2.0 \
+  --output /private/quality-import-audit.json
+```
+
+Each import runs in its own offline CPU subprocess with a timeout. The audit
+retains import tracebacks, scorer source hashes and Python search paths. Explicit
+dependency overlays can be supplied with repeated `--extra-pythonpath` options;
+these are recorded, not treated as a clean installation. The output must be new.
+Import success does not verify scoring weights, GPU operators or numerical scores.
+The audit adds upstream's bundled dependency directories without changing their
+files. If an overlay is required, its packages must still be pinned and validated
+in the eventual standalone quality environment.
+
 Acquire the exact upstream source (including its license files) without
 executing its code during download:
 
