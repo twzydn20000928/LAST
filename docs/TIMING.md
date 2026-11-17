@@ -79,6 +79,16 @@ matched marked/unmarked measurement before aggregating videos. Schedule schema2
 makes these generation repeat counts explicit; earlier schema1 plans did not
 specify them and must not be treated as complete acquisition instructions.
 
+`last.paired_timing.measure_pairs` implements the shared acquisition core:
+adjacent AB/BA branches, synchronization and exclusive-process checks around
+each operation, two excluded warmup pairs and five measured pairs by default.
+Overheads are computed within each pair, including negative observed differences;
+they are not differences of separately selected medians. Optional receipt writes
+occur after the pair, outside the intervals. A branch failure propagates without
+automatic retries or a successful partial-pair record. This core is CPU-tested,
+but still needs complete generation/decode adapters and exclusive-GPU validation
+for each method. It is not itself a generation CLI or measured efficiency result.
+
 For one method/backbone/condition, aggregate the frozen 30-video subset with:
 
 ```bash
