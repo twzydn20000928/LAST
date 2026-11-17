@@ -328,3 +328,14 @@ pressure; the successful retry reused the identical MP4, and the original
 failure remains recorded. This is integration evidence only: no attack sweep,
 multi-video ranking or formal efficiency value is established by this result.
 Secrets and predicted messages are excluded from the public record.
+
+### Isolated-environment real-video check
+
+A single existing VideoMark Hunyuan I2V MP4 was re-extracted using public
+commit `1d331462fff777cd825e23f630b8ce3aa18b23fa` in the reconstructed
+`native_clean_v1` environment, without historical Python overlays. All 512
+information bits were recovered and the decoded bytes exactly matched the
+previous environment. Input video, private native state, and original receipts
+were checked for changes; evaluation truth was read after extraction exited.
+See `results/native_clean_videomark_video.json`. This verifies one clean-video
+extraction, not all baselines, attacks, model families, or benchmark timing.

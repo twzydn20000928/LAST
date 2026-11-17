@@ -1,0 +1,13 @@
+{
+  "status": "completed",
+  "source_commit": "1d331462fff777cd825e23f630b8ce3aa18b23fa",
+  "scope": "Single real VideoMark MP4 extraction in isolated native environment; no new video, no timing comparison",
+  "video_sha256": "1a4d8e344b17238f24ca235236950f12ff37558b9d054b0b6f9291d1c3b2bc5d",
+  "environment_receipt_sha256": "6238be25b7f590713fa6af600fb777e52fc42f549e490ec261a2f0b39ae9e6dc",
+  "returncode": 0,
+  "correct_bits": 512,
+  "total_bits": 512,
+  "exact_message": true,
+  "same_prediction_as_original": true,
+  "extraction_receipt_sha256": "648196a2dedbfa513e639396ab2e3c5e686a7a4bed5dcc27e2f72bb9bdd81867"
+}
