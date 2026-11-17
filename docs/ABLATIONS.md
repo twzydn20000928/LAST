@@ -98,6 +98,36 @@ development calibration or any detection/AUROC result.
 
 ## Primary component protocol
 
+### Generate LAST development inputs
+
+The LAST development inputs have a separate runner from the LFG-C strength grid.
+It uses all80 frozen development rows, their private development keys/messages,
+and the registered first-frame conditioning images. The LAST margin remains0.5
+with the main-paper nonuniform profile. It does not select videos by quality.
+
+```bash
+python -m last.development_run plan --family hunyuan \
+  --development configs/development_manifest.json --primary configs/primary_manifest.json \
+  --plan /private/last-development-plan.json
+python -m last.development_run run \
+  --development configs/development_manifest.json --primary configs/primary_manifest.json \
+  --plan /private/last-development-plan.json --state /private/development-state \
+  --conditioning /private/development-conditioning --model-dir /models/hunyuan \
+  --output /private/last-development --max-jobs 1
+```
+
+Run from a frozen checkout using the video environment. A plan binds the complete
+source; do not create it before modifying that checkout. Repeat the bounded run
+command to continue. Each pass skips only completed jobs whose recorded inputs
+and output hashes still match. Missing conditioning images remain pending;
+unfinished or failed jobs require inspection and are not overwritten. A per-case
+lock prevents duplicate launches. The memory gate is a local preflight, not a
+global GPU reservation: coordinate concurrent launches externally.
+
+The runner invokes the existing generation and paired-fidelity commands; it does
+not fit energy statistics or measure AUROC. Source/plan and conditioning tests
+have passed, but full80-video GPU execution is not yet complete.
+
 The main-paper protocol uses30I2V samples for ablations and three fixed
 development samples for the margin sweep. The30sample ablation/timing IDs are
 frozen in `configs/paper_subsets.json`, covering all18primary dimensions using
