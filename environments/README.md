@@ -88,3 +88,31 @@ transitive baseline dependencies; it is not a wheel-hash lock. Real video
 generation/inversion and timing in this environment remain unverified, and this
 does not install or validate the official VBench quality stack.
 
+
+## Quality environment candidate (not yet accepted)
+
+`quality-linux-py310-cu124-candidate.txt` records 153 observed package versions
+from the isolated quality environment. It excludes the editable LAST package
+and the locally built MMCV wheel. This candidate is separate from the video
+lock: VBench needs timm 0.4.12 and fsspec 2024.9.0. Do not install it into an
+active video-generation environment. See `results/quality_environment_candidate.json`.
+
+An exact candidate reconstruction uses `pip install --no-deps -r` on this
+inventory, then builds MMCV 2.0.1 with the disclosed C++17-only build helper in
+[QUALITY.md](../docs/QUALITY.md), installs that wheel with `--no-deps`, and
+installs the pinned LAST checkout with `--no-deps -e .`. The `--no-deps` choice
+is deliberate: the following upstream dependency declarations conflict with
+this runtime and must remain visible, rather than being silently rewritten:
+
+- MMEngine asks for the GUI `opencv-python` distribution; this runtime uses
+  `opencv-python-headless` 4.10.0.84 because GUI OpenCV failed on missing libGL.
+- RetinaFace 0.0.8 declares torch 1.9.0, torchvision 0.10.0 and albumentations
+  1.0.0; the observed runtime uses 2.5.1, 0.20.1 and 1.4.19 respectively.
+
+`pip check` therefore returns a nonzero result with four known messages.
+Do not suppress new or different failures. All 18 official modules imported,
+MMCV CPU/CUDA operator checks passed, and the unchanged RetinaFace detector ran
+on one real frame; these checks do not validate the full identity scorer or all
+model runtimes. Fresh-install replay and complete real-video scoring remain
+acceptance gates. A nonzero `pip check` is disclosed evidence, not a claim of a
+fully dependency-compatible or accepted environment.

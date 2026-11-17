@@ -1,0 +1,25 @@
+{
+  "status": "observed_candidate_not_fully_validated",
+  "python": "3.10.22",
+  "platform": "Linux x86_64",
+  "distributions": 153,
+  "separate_installations": {
+    "last-watermark": "0.1.0",
+    "mmcv": "2.0.1"
+  },
+  "pip_check_returncode": 1,
+  "known_metadata_conflicts": [
+    "mmengine 0.10.6 requires opencv-python, which is not installed.",
+    "retinaface-pytorch 0.0.8 has requirement albumentations==1.0.0, but you have albumentations 1.4.19.",
+    "retinaface-pytorch 0.0.8 has requirement torch==1.9.0, but you have torch 2.5.1.",
+    "retinaface-pytorch 0.0.8 has requirement torchvision==0.10.0, but you have torchvision 0.20.1."
+  ],
+  "all_18_importable": true,
+  "full_v_score_verified": false,
+  "limitations": [
+    "No fresh-install replay of this candidate lock yet",
+    "Full 18-scorer real-video execution pending",
+    "RetinaFace runtime probe is one CPU frame, not full Human Identity compatibility",
+    "Headless OpenCV is intentionally used to avoid missing libGL.so.1"
+  ]
+}
