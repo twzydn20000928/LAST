@@ -259,4 +259,19 @@ match generation. Missing provenance or changed files stop preparation; hashes
 are not backfilled into old receipts. Each coverage entry records which receipt
 anchored the video. These checks do not change official scoring or applicability.
 
+The scorer also verifies every selected MP4 against the prepared coverage before
+loading scoring models and after evaluation. This includes all 20 seeds in a
+Diversity group, not just the representative path used in the official result.
+Metadata, submodule configuration and coverage hashes are checked again before
+a result can be marked completed. Changed files cause failure; official output
+already produced is retained for diagnosis rather than counted as a valid score.
+
+Coverage produced before this check may lack explicit video paths. Regenerate it
+with `last.quality_inputs` using the same manifest and original run receipts in
+a **new output directory**, then pass that directory to `last.quality_score`.
+Do not add hashes or paths manually to old coverage: preparation must verify the
+existing generation or paired-fidelity evidence. Keep previous scoring outputs
+and their source revision for provenance. Frozen running experiments keep their
+original version; this change does not retroactively certify their inputs.
+
 
