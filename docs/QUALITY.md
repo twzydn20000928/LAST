@@ -217,8 +217,15 @@ does not launch GPU kernels. `receipt.json`, `cpp17.patch`, and `build.log`
 retain provenance and failures. The CUDA toolkit and host compiler must be
 available in addition to PyTorch; this command does not install system tools.
 
-At publication of this helper, the server build is still running. The helper's
-checksum, extraction-safety and patch tests pass, but no successful wheel,
-CUDA-operator validation, complete dependency lock, or numerical anatomy-score
-validation is claimed. Do not treat this as a completed V-score installation.
+The server build subsequently completed. The wheel SHA-256 is
+`14f5cdbf75a27ddb046c1920627a0ebccfb3112d166f7a2cd5f28b6ed044c0cc`.
+MMEngine0.10.5 initially failed to import with PyTorch2.5 because of duplicate
+Adafactor registration; the official0.10.6 compatibility fix resolved that error
+([release notes](https://github.com/open-mmlab/mmengine/releases/tag/v0.10.6)).
+After correcting the validation script to call the functional ROIAlign operator
+with positional arguments, its CPU forward and backward checks passed with
+MMCV2.0.1 and PyTorch2.5.1+cu124. Both failed validation attempts are retained.
+The 18-module audit still has two dependency import failures. CUDA-operator
+validation, a complete compatible dependency lock and numerical anatomy-score
+validation remain pending. This is not a completed V-score installation.
 
