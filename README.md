@@ -12,6 +12,11 @@ Generation is being verified on an NVIDIA L40; the manuscript specifies A800 gen
 
 Secret keys, private messages, credentials and model weights are not committed.
 
+Actual diagnostic results: [LAST across four backbone/mode pipelines](results/last_backbone_integrations.json)
+and [LFG adaptation integration](results/lfg_integration.json). Each is explicitly
+a single-case integration check, with raw bit counts and receipt hashes, not a
+completed paper benchmark. Temporal attacks still cause substantial errors.
+
 ## Install (Linux, Python3.10, CUDA-capable NVIDIA GPU)
 
 ```bash

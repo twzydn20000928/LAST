@@ -12,7 +12,7 @@ The checklist below is intentionally incomplete until verified.
 - [ ] Public data manifest, acquisition instructions, licenses and integrity checks.
 - [ ] Reader-owned secret generation and persistent private run state.
 - [ ] Public CLI for generation, embedding, blind extraction and attacks.
-- [ ] Both HunyuanVideo and Wan2.2, both T2V and I2V, verified end to end.
+- [x] LAST on both HunyuanVideo and Wan2.2, both T2V and I2V, verified end to end on one integration case each (28 completed attack conditions; `results/last_backbone_integrations.json`). Full benchmarks and other methods remain incomplete.
 - [ ] Reproducible SIGMark, VideoShield, VideoMark and LFG baseline integrations.
 - [ ] Main-paper quality, robustness, efficiency, ablation and margin experiments.
 - [ ] Supplement controls, coding diagnostics, stress tests and repeated timing.

@@ -1,0 +1,402 @@
+{
+  "scope": "One diagnostic integration case per backbone/mode; not 400-sample benchmark or comparative superiority evidence",
+  "method": "LAST",
+  "runs": [
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "conditions": [
+        {
+          "condition": "clean",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "noise",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "compression",
+          "correct_bits": 494,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "blur",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "drop",
+          "correct_bits": 379,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 35,
+          "route": "ccta"
+        },
+        {
+          "condition": "insert",
+          "correct_bits": 427,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 95,
+          "route": "ccta"
+        },
+        {
+          "condition": "clip",
+          "correct_bits": 496,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 35,
+          "route": "ccta"
+        }
+      ],
+      "generation": {
+        "settings": {
+          "steps": 50,
+          "cfg": 6,
+          "shift": 7,
+          "frames": 65,
+          "size": [
+            512,
+            512
+          ],
+          "clean_crf": 18,
+          "fps": 8,
+          "vae": "float32",
+          "generator": "bfloat16"
+        },
+        "source_sha256": "d642fcfaf8cf04fe8f642c2abcb0eedff365c9d60b01b5976d6d8dfcf5b01ca2",
+        "seed": 2025,
+        "case_sha256": "2a5c0ea37094a8aa7161f5d009c13c73f321db1a834adb2e83a7dcbfdf1a86c0",
+        "hardware": "L40 (authorized A800 substitution)"
+      },
+      "receipt_sha256": {
+        "receipt.json": "161449e8c921d4c77d4797842f992b6c8a1d40ec63a144e4b8da6b2aa58462ae",
+        "attacks/blur.json": "9ad41a39a209b5b9682e98e3b977f8e8eb0bd286d8007256aee7d275bae4c475",
+        "attacks/clean.json": "a44cb64938cacbd231b853b546f5d084e1596134ffd972775514e8ad8b172144",
+        "attacks/clip.json": "f238b8f08d0c8f0f4c1b22874df7accb2bbbd41efc4cecf261e69c3353444654",
+        "attacks/compression.json": "80f45a0930e4995acf86665db5fc9d472367adf3471d946bb30f8aea2d2c74c2",
+        "attacks/drop.json": "34356c19f3d174a19e2e811c2b4957ded5bd8e73feb223f2e330a9c2a9c3472f",
+        "attacks/insert.json": "c9c19e3c2010d51a84c2cbfca9551414dbb425c032065b2a221d3f6c9cdec37a",
+        "attacks/noise.json": "acc3d634bfd9d14cea940b613e8162ec00233c4b814a24b3ba5e6ee4d599e7a3"
+      }
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "conditions": [
+        {
+          "condition": "clean",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "noise",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "compression",
+          "correct_bits": 499,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "blur",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "drop",
+          "correct_bits": 447,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 35,
+          "route": "ccta"
+        },
+        {
+          "condition": "insert",
+          "correct_bits": 460,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 95,
+          "route": "ccta"
+        },
+        {
+          "condition": "clip",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 35,
+          "route": "ccta"
+        }
+      ],
+      "generation": {
+        "settings": {
+          "steps": 50,
+          "cfg": 6,
+          "shift": 7,
+          "frames": 65,
+          "size": [
+            512,
+            512
+          ],
+          "clean_crf": 18,
+          "fps": 8,
+          "vae": "float32",
+          "generator": "bfloat16"
+        },
+        "source_sha256": "d642fcfaf8cf04fe8f642c2abcb0eedff365c9d60b01b5976d6d8dfcf5b01ca2",
+        "seed": 2025,
+        "case_sha256": "2a5c0ea37094a8aa7161f5d009c13c73f321db1a834adb2e83a7dcbfdf1a86c0",
+        "hardware": "L40 (authorized A800 substitution)"
+      },
+      "receipt_sha256": {
+        "receipt.json": "6a4c49a0e4df1d8681cdd4f680c77357111fc8a1996938a37dd4a720111f15bc",
+        "attacks/blur.json": "c61433a946ad3bdffbeb52f494aeb8a3a4111091ed415b642ee657c22c5f4b6c",
+        "attacks/clean.json": "5a6c4e903758f7c5b9dd20a41df1533b299bb0e38a733d6658268b8de56151f2",
+        "attacks/clip.json": "2c98275684cf15224da26727295ab648beee2d29991c335ddf1fa1bdcb890562",
+        "attacks/compression.json": "a7c30c3ce2dac6d828576fd31dfff8b60360c1eba35ff144be1c66ce9869adec",
+        "attacks/drop.json": "2d65af61594d3eccdbd5410a0f80aa2b9f506c1b4a973c251fa109eb0c5d2050",
+        "attacks/insert.json": "31c6458560f53c3e4ff5763e581f0fba917b342e4995e335ea23049227bd843a",
+        "attacks/noise.json": "ce1c3cfd638e40634d51a1c4c087e2392d138f7126308a93d045ccc2627299d9"
+      }
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "conditions": [
+        {
+          "condition": "clean",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "noise",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "compression",
+          "correct_bits": 503,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "blur",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "drop",
+          "correct_bits": 328,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 35,
+          "route": "ccta"
+        },
+        {
+          "condition": "insert",
+          "correct_bits": 367,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 95,
+          "route": "ccta"
+        },
+        {
+          "condition": "clip",
+          "correct_bits": 499,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 35,
+          "route": "ccta"
+        }
+      ],
+      "generation": {
+        "settings": {
+          "steps": 50,
+          "cfg": 5,
+          "shift": 5,
+          "frames": 65,
+          "size": [
+            512,
+            512
+          ],
+          "clean_crf": 18,
+          "fps": 8,
+          "vae": "float32",
+          "generator": "bfloat16"
+        },
+        "source_sha256": "d642fcfaf8cf04fe8f642c2abcb0eedff365c9d60b01b5976d6d8dfcf5b01ca2",
+        "seed": 2025,
+        "case_sha256": "2a5c0ea37094a8aa7161f5d009c13c73f321db1a834adb2e83a7dcbfdf1a86c0",
+        "hardware": "L40 (authorized A800 substitution)"
+      },
+      "receipt_sha256": {
+        "receipt.json": "94d81ad28b87e59629568cb65d6bcef5241d015f212884195f77eb0f3aac7591",
+        "attacks/blur.json": "2aa01954f47eb8793d8ccf8e76e8e3a967c7966d420e7512c312eac4b3f60e0c",
+        "attacks/clean.json": "808c1317b0f4db3351b4384098a1c22b75a042e53cafe438094764459a6b4caf",
+        "attacks/clip.json": "81fed6063510d13ddef43e82248227d0d23221f90087cf2c50627aad0d0a0c2d",
+        "attacks/compression.json": "0b1c5e3e38eed875745c405b1dbb2d25a2f709ae7f4667ec0807275593173fc5",
+        "attacks/drop.json": "05952ff499e1bde6de6792172c51c7a15f80de62b8d6452bfc3b29fa20668703",
+        "attacks/insert.json": "8f2200d73f9f0de418709890928d1acbe351188edc35e75afc3090eefe35d131",
+        "attacks/noise.json": "4f4eeedd2a08fef6f93c05688f7ddd79e9ce4c3e59aa9a63dd3061e8891ea045"
+      }
+    },
+    {
+      "family": "wan22",
+      "mode": "t2v",
+      "conditions": [
+        {
+          "condition": "clean",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "noise",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "compression",
+          "correct_bits": 492,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "blur",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "exact_message": true,
+          "bch_success": true,
+          "frames": 65,
+          "route": "ccta"
+        },
+        {
+          "condition": "drop",
+          "correct_bits": 371,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 35,
+          "route": "ccta"
+        },
+        {
+          "condition": "insert",
+          "correct_bits": 382,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 95,
+          "route": "ccta"
+        },
+        {
+          "condition": "clip",
+          "correct_bits": 494,
+          "total_bits": 512,
+          "exact_message": false,
+          "bch_success": false,
+          "frames": 35,
+          "route": "ccta"
+        }
+      ],
+      "generation": {
+        "settings": {
+          "steps": 50,
+          "cfg": 5,
+          "shift": 5,
+          "frames": 65,
+          "size": [
+            512,
+            512
+          ],
+          "clean_crf": 18,
+          "fps": 8,
+          "vae": "float32",
+          "generator": "bfloat16"
+        },
+        "source_sha256": "feeabdbc0e639184dbf896cd25786fa59a377205a77a6d115609dc0e06467c7c",
+        "seed": 2025,
+        "case_sha256": "2a5c0ea37094a8aa7161f5d009c13c73f321db1a834adb2e83a7dcbfdf1a86c0",
+        "hardware": "L40 (authorized A800 substitution)"
+      },
+      "receipt_sha256": {
+        "receipt.json": "e94a7535a7e11958ed67e684a3f1e90ff667474a19cd2ff820f1fb8af09b9a99",
+        "attacks/blur.json": "d396fde8acbaf81f30c466ae7697d74cc90fce9cc68b6128f7b695ce0e10289d",
+        "attacks/clean.json": "3467a58b778f923069a33b290e781d1fe0704f140a6b7ae6130353e90357ca1d",
+        "attacks/clip.json": "a739c71e75e1cfb45b67e314ee0a9e2b1e57af1275241618de53a27271426323",
+        "attacks/compression.json": "8a70e5e26855dcfe8b5990f3c9f3d927ca214c7b55bac110091cf43a24c2ea53",
+        "attacks/drop.json": "ebe3c552dbe3728964992a7b88b5e7acd7947c8f5fb4e944e0631cb9902f91d4",
+        "attacks/insert.json": "677fa1dad98e76af8b527350673c244d8cec4205fea189a793e24974ea7d6b41",
+        "attacks/noise.json": "d5b539fae800275c605bc6d15ec5860729a87c25a4d06bc01753c7066d5853c0"
+      }
+    }
+  ]
+}
