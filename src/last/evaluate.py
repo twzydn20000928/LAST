@@ -78,8 +78,17 @@ def extract_lfg(frames,vae,processor,family,key):
             z=(z-mean)/std
         return scores(z,key),{'route':'lfg_received_order','groups':16}
 
+def evaluation_directory(run,map_seed):
+    if map_seed not in range(5):raise ValueError('Expected map seed0..4')
+    return Path(run)/('attacks' if map_seed==0 else f'attacks-map-{map_seed}')
+
+def check_cached(row,video_id,method,source_sha,map_seed):
+    if row.get('video_id')!=video_id or row.get('method',method)!=method or row.get('source_sha256')!=source_sha or row.get('map_seed',0)!=map_seed:
+        raise ValueError('Existing attack receipt belongs to another source/method/map')
+
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--run',type=Path,required=True);p.add_argument('--model-dir',required=True);p.add_argument('--video-id',required=True);p.add_argument('--family',choices=['hunyuan','wan22'],required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--run',type=Path,required=True);p.add_argument('--model-dir',required=True);p.add_argument('--video-id',required=True);p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
+    p.add_argument('--map-seed',type=int,choices=range(5),default=0);a=p.parse_args()
     os.umask(0o077);torch.set_num_threads(4);torch.cuda.set_per_process_memory_fraction(.20)
     from diffusers import AutoencoderKLHunyuanVideo,AutoencoderKLWan
     from diffusers.video_processor import VideoProcessor
@@ -87,29 +96,35 @@ def main():
     vae=cls.from_pretrained(a.model_dir,subfolder='vae',torch_dtype=torch.float32,local_files_only=True).to('cuda');vae.enable_tiling()
     processor=VideoProcessor(vae_scale_factor=8)
     codes=torch.load(a.run/'codes.pt',weights_only=True);truth=np.load(a.run/'message.npy');codec=BCH512()
-    method=json.loads((a.run/'receipt.json').read_text()).get('method','last')
+    generation=json.loads((a.run/'receipt.json').read_text());method=generation.get('method','last')
+    if generation.get('status')!='completed' or generation.get('family')!=a.family:raise ValueError('Require completed generation for matching family')
     if method not in ('last','lfg'):raise ValueError('Unsupported method in generation receipt')
-    source=load_mp4(a.run/'marked.mp4');directory=a.run/'attacks';directory.mkdir(exist_ok=True)
+    source=load_mp4(a.run/'marked.mp4');source_sha=hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()
+    directory=evaluation_directory(a.run,a.map_seed);directory.mkdir(exist_ok=True);failed=False
     for name in ['clean','noise','compression','blur','drop','insert','clip']:
         receipt=directory/(name+'.json')
-        if receipt.exists() and json.loads(receipt.read_text()).get('status')=='completed':continue
+        if receipt.exists():
+            prior=json.loads(receipt.read_text());check_cached(prior,a.video_id,method,source_sha,a.map_seed)
+            if prior.get('condition')!=name:raise ValueError('Cached condition mismatch')
+            if prior.get('status')=='completed':continue
         if receipt.exists():receipt.rename(directory/(name+f'.previous-{time.time_ns()}.json'))
-        started=time.time();row={'condition':name,'video_id':a.video_id,'status':'running','source_sha256':hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()}
+        started=time.time();row={'condition':name,'video_id':a.video_id,'status':'running','source_sha256':source_sha,'map_seed':a.map_seed}
         try:
-            edited,mapping=attacked(source,name,a.video_id)
+            edited,mapping=attacked(source,name,a.video_id,seed=a.map_seed if name in ('drop','insert','clip') else 0)
             if name=='clean':path=a.run/'marked.mp4'
             else:
                 path=directory/(name+'.mp4');row['codec_command']=export_mp4(edited,path,crf=28 if name=='compression' else 18)
             # Mapping is evaluator metadata; it is never passed to extract().
-            row['attack_map']=mapping;received=load_mp4(path)
+            row['attack_map']=mapping;row['received_sha256']=hashlib.sha256(path.read_bytes()).hexdigest();received=load_mp4(path)
             if method=='lfg':soft,meta=extract_lfg(received,vae,processor,a.family,(a.run/'secret.key').read_bytes())
             else:soft,meta=extract(received,vae,processor,a.family,codes)
             row['method']=method
             prediction,dec=codec.decode(soft.numpy());raw=(soft.numpy()>0).astype(np.uint8)
             row.update(status='completed',correct_bits=int((prediction==truth).sum()),total_bits=512,exact_message=bool(np.array_equal(prediction,truth)),raw_information_correct=int((raw[:512]==truth).sum()),coded_correct=int((raw==codec.encode(truth)).sum()),coded_total=592,frames=len(received),**dec,**meta)
-        except Exception:row.update(status='failed',error=traceback.format_exc())
+        except Exception:row.update(status='failed',error=traceback.format_exc());failed=True
         row['seconds']=time.time()-started
         temp=receipt.with_suffix('.tmp');temp.write_text(json.dumps(row,indent=2));temp.replace(receipt)
         print(name,row['status'],row.get('correct_bits'),flush=True)
+    if failed:raise SystemExit(1)
 
 if __name__=='__main__':main()

@@ -1,5 +1,19 @@
 # Supplement temporal stress protocol
 
+The primary seven-condition evaluator also supports the four supplementary map
+seeds without overwriting map0:
+
+```bash
+python -m last.evaluate --run /private/last-run --family hunyuan \
+  --model-dir /path/to/Hunyuan-I2V --video-id paper-000 --map-seed 1
+```
+
+Repeat for seeds2,3,4. Map0 remains in `attacks`; other seeds use
+`attacks-map-N`. Only temporal randomization changes: spatial attacks retain
+their primary pixel settings and randomness. Cached results must match the
+source hash, video ID, method and map seed. The primary table reporter reads
+map0 only; repeated-map aggregation remains a separate analysis.
+
 ```bash
 python -m last.stress --video /private/run/marked.mp4 --video-id paper-000 \
   --attack drop45 --seed 0 --output /private/stress/paper-000/drop45/map0
