@@ -236,6 +236,25 @@ PSNR/SSIM calibration remain pending. Do not call it matched distortion until
 the measured development results meet the specified budget; no parameter is
 selected to match a target paper accuracy.
 
+Freeze the full supplemental grid before choosing an operating point:
+
+```bash
+python -m last.lfg_calibration --method lfg-c --family hunyuan \
+  --output /private/new-lfg-c-development-plan.json
+```
+
+This enumerates all 80 disjoint development cases at each of the 15 declared
+strength/step combinations (1200 runs). It only creates a plan; it does not
+launch generation. Each item supplies the arguments for `last.smoke`, using
+the development image, key and message, followed by paired `last.quality`.
+The initial alpha=.05, ten-step integration is only one cell, not a selected
+operating point. Select only after complete coverage, using development mean
+per-video PSNR within33.1±0.1dB and mean SSIM≥.950. If several points qualify,
+our explicit tie-break is PSNR distance, then fewer steps, then smaller strength;
+this tie-break is a reconstruction detail rather than a rule stated in the paper.
+If none qualify, report an unmatched control. Never choose by primary accuracy.
+Quality aggregation/selection automation for this grid is still pending.
+
 ### Native LFG writer with CCTA reading only
 
 `last.lfg_native_reader` reuses already-exported native-LFG attack MP4s; it does
