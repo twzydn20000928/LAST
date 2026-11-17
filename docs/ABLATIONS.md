@@ -1,5 +1,29 @@
 # Main-paper ablations and margin sweep
 
+## Supplement energy calibration: reconstruction boundary
+
+Supplement Section G specifies64 wrong-key responses per development candidate,
+but does not state the calibration transform. `last.energy_calibration` explicitly
+implements a reconstruction, not a verified original implementation: energy is
+mean absolute correlation over592 coded bits; for each of16 group positions,
+pool development candidate/key energies and fit the median and1.4826 times MAD
+(median absolute deviation), with a1e-8 scale floor. A received energy is scored
+as `(energy - development_median) / development_scale`. Candidates have equal
+weight. The statistics remain frozen at test time; no messages or source-frame
+maps enter this calculation.
+
+The fitting function requires the complete80-video disjoint development manifest
+and64 responses per candidate. It records degenerate groups rather than concealing
+zero dispersion. Acquisition still must verify that these are64 distinct wrong
+keys, bind energies to actual candidate features and their video/source hashes,
+and preserve private keys. These requirements are **not** proved by array shape
+or the algebra tests. Real development acquisition, monotone spacing-search
+integration, shared normalized fusion and the supplement AUROC experiment remain
+pending. The current primary CCTA/raw-energy fallback is unchanged. No calibrated
+energy benchmark or Table13/14 reproduction is claimed by this implementation.
+
+## Primary component protocol
+
 The main-paper protocol uses30I2V samples for ablations and three fixed
 development samples for the margin sweep. The30sample ablation/timing IDs are
 frozen in `configs/paper_subsets.json`, covering all18primary dimensions using
@@ -191,5 +215,4 @@ files, mismatched conditions and legacy receipts without received-video hashes
 are rejected; audit historical artifacts rather than filling in missing hashes
 as if they had been recorded originally. These checks leave the scientific
 reader variants unchanged and do not retroactively validate earlier runs.
-
 
