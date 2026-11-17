@@ -67,3 +67,11 @@ in clean/noise/compression/blur/drop/insert/clip order. Generation source,
 command completion, source/received video hashes and paired quality references
 were checked before the frozen 400-case T2V continuation was enabled.
 This is one formal sample, not completion of the 400-case branch or V-score.
+
+The first formal Wan2.2 I2V LAST case completed all seven MP4 conditions in the
+isolated video environment, recorded in `results/last_wan_i2v_primary_first_case.json`.
+Correct information-bit counts were 512, 512, 493, 512, 255, 377 and 487 out of
+512 (clean/noise/compression/blur/drop/insert/clip). Paired PSNR was 27.7252 dB
+and SSIM 0.92491. In particular, this case's deletion result is near chance;
+it must not be described as successful temporal recovery. These are one-case
+observations, not a backbone ranking or the completed 400-case experiment.
