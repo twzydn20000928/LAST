@@ -53,6 +53,18 @@ earlier integration case. Correct information bits are 500/512 clean,
 0.7813. These single-case measurements do not establish a method ranking or
 reproduce the LFG authors' reported results; full comparisons remain pending.
 
+Additional formal single-case records are available for LAST:
+
+| Pipeline | Clean | Noise | Compression | Blur | Delete | Insert | Clip | Paired PSNR / SSIM |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| [Hunyuan T2V](results/last_t2v_primary_first_case.json) | 512 | 512 | 512 | 512 | 447 | 445 | 500 | 28.4489 dB / 0.90084 |
+| [Wan2.2 I2V](results/last_wan_i2v_primary_first_case.json) | 512 | 512 | 493 | 512 | 255 | 377 | 487 | 27.7252 dB / 0.92491 |
+
+Entries are correct information bits out of 512 for one frozen sample per
+pipeline, not means over 400 videos. These different generation pipelines do
+not form a paired backbone ranking. The Wan deletion result is near chance;
+it is retained as measured. Full V-score and full-paper acceptance remain open.
+
 ## Install (Linux, Python3.10, CUDA-capable NVIDIA GPU)
 
 ```bash
@@ -96,7 +108,14 @@ python -m last.smoke --family hunyuan --mode i2v \
   --output /private/runs/smoke-hunyuan-i2v --memory-gib 12 --offload sequential
 ```
 
-Wan uses `--family wan22 --memory-gib 42 --offload model`. The smoke run generates a fresh secret/message, generates an unmarked endpoint, embeds LAST, exports CRF18 MP4, rereads it and blindly extracts512informationbits. It saves an honest receipt and private key material. **A smoke run is not a400-video benchmark.** The generated keys/messages/predictions and videos must not be committed.
+For the validated formal Wan I2V execution, use `--family wan22 --mode i2v --memory-gib 8 --offload sequential` with the matching Wan checkpoint. The
+earlier integration also supported model offload with a 42 GiB allocation;
+record the chosen offload mode and memory limit with each run. The smoke run
+generates a fresh secret/message, generates an unmarked endpoint, embeds LAST,
+exports CRF18 MP4, rereads it and blindly extracts 512 information bits. It saves
+an honest receipt and private key material. **A smoke run is not a 400-video
+benchmark.** The generated keys/messages/predictions and videos must not be
+committed.
 
 Evaluate the seven primary attack conditions on that exported video:
 
@@ -181,3 +200,4 @@ Additional experiment entry points are documented for [ablations](docs/ABLATIONS
 from completion of the full experimental matrix.
 
 Core tests are available. Fresh GPU integration checks are in progress. Dataset manifests, baseline adapters, complete attack runners, confidence intervals, supplemental controls and full-benchmark result bundles are release gates. No fabricated table or historical pilot value is shipped as a new measurement. Do not interpret this repository as a completed or independently validated reproduction.
+
