@@ -47,6 +47,24 @@ hypothesis, nor authentication. Primary CCTA and default raw-energy fusion keep
 their existing behavior. Synthetic bias/spacing tests verify this API only;
 real calibrated-reader results and shared-fusion crossed comparisons are pending.
 
+Acquire candidate features once, using the same frozen VAE, segmentation, window
+construction and feature normalization as `last.evaluate.extract`:
+
+```bash
+python -m last.feature_cache --video /private/received.mp4 --family hunyuan \
+  --model-dir /models/hunyuan --output /private/new-candidate-cache
+```
+
+This command needs no key, message or attack map. Its private output contains
+`features.npy`, `nodes.json` and a receipt binding them to the actual MP4, feature
+source and local VAE files. All are checked again before completion. Consumers
+must use `last.feature_cache.load(cache_directory, original_video)` to verify
+the artifacts. Keep caches private; key-free acquisition does not make video
+features anonymous. `--reader received` and `--no-scan` provide explicit control
+variants, not the primary full sliding-window input. Successful acquisition is
+not proof that a cache belongs to the development split: later calibration must
+also bind it to the frozen development manifest and complete key registry.
+
 ## Primary component protocol
 
 The main-paper protocol uses30I2V samples for ablations and three fixed

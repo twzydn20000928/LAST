@@ -43,7 +43,7 @@ def reader_nodes(frames,reader='ccta',scan=True):
         return nodes
     return list(windows(segments(frames),scan=scan))
 
-def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,feature_cache=None):
+def candidate_features(frames, vae, processor, family,reader='ccta',scan=True,feature_cache=None):
     nodes=reader_nodes(frames,reader,scan);features=[]
     with torch.inference_mode():
         for node in nodes:
@@ -61,8 +61,12 @@ def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,featur
             value=feature(z).cpu();features.append(value)
             if feature_cache is not None:feature_cache[cache_key]=value
     values=torch.stack(features) if features else torch.empty(0,1776)
+    return values,nodes
+
+def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,feature_cache=None):
+    values,nodes=candidate_features(frames,vae,processor,family,reader,scan,feature_cache)
     if reader=='received':
-        soft=sum((codes[g].float()@value for g,value in enumerate(features)),torch.zeros(codes.shape[1]))
+        soft=sum((codes[g].float()@value for g,value in enumerate(values)),torch.zeros(codes.shape[1]))
         return soft,{'route':'received_order','groups':len(nodes)}
     return align(values,nodes,codes,reader=reader)
 
