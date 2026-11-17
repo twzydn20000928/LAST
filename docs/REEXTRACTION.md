@@ -51,3 +51,19 @@ were audited, with all correct-bit counts matching the earlier records. See
 `results/legacy_reextract_four_verified.json`. This is integration evidence, not
 the complete400-video benchmark, a timing comparison, or a claim that separately
 generated videos are pixel-identical.
+
+The [audited partial primary snapshot](../results/last_hunyuan_i2v_audited_partial.json)
+now covers12 Hunyuan I2V LAST videos and84 conditions. It includes56 independent
+re-extractions across eight historical videos. The first used public reader
+`cb3a908471bc1f1a8b21767ef21972fcdd7a5cf8`; the next seven used
+`1d331462fff777cd825e23f630b8ce3aa18b23fa`. Each was checked against its actual
+source archive, not attributed to a single revision. An initially incorrect
+source mapping was rejected by the auditor and corrected without modifying
+original measurements.
+
+All seven cells retain400 planned videos,12 observed and388 missing; final
+scores remain null. Observed bit accuracies are clean100%, noise98.80%,
+compression97.30%, blur99.80%, deletion74.38%, insertion87.35%, and clipping99.02%.
+These are partial observations, not manuscript reproduction or evidence of
+superiority over another method. The snapshot records exact-message counts
+separately; high bit accuracy does not imply successful full-message recovery.
