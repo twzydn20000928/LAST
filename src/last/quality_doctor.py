@@ -27,11 +27,25 @@ def main():
     env['PYTHONPATH']=os.pathsep.join(map(str,paths))+os.pathsep+env.get('PYTHONPATH','')
     def probe(name):
         module=name.lower().replace('-','_');source=upstream/'vbench2'/(module+'.py')
-        code="import importlib; from pathlib import Path; m=importlib.import_module("+repr('vbench2.'+module)+"); assert Path(m.__file__).resolve()==Path("+repr(str(source))+"); assert callable(getattr(m,"+repr('compute_'+module)+")); print('IMPORT_OK')"
+        code="import importlib; from pathlib import Path; m=importlib.import_module("+repr('vbench2.'+module)+"); assert Path(m.__file__).resolve()==Path("+repr(str(source))+"); assert callable(getattr(m,"+repr('compute_'+module)+"))\n"
+        code+='''import sys,json,hashlib,importlib.metadata as metadata
+packages={}
+for name in ('torch','torchvision','numpy','scipy','transformers','accelerate','timm','mmcv','mmengine','mmdet','modelscope','swift','llava','decord','PIL','cv2','peft','safetensors'):
+    value=sys.modules.get(name)
+    if value is None:continue
+    path=getattr(value,'__file__',None)
+    packages[name]={'loaded_version':str(getattr(value,'__version__','unknown')),'path':path,'source_sha256':hashlib.sha256(Path(path).read_bytes()).hexdigest() if path and Path(path).is_file() else None}
+native={name:{'path':str(value.__file__),'sha256':hashlib.sha256(Path(value.__file__).read_bytes()).hexdigest()} for name,value in list(sys.modules.items()) if name.startswith('mmcv.') and str(getattr(value,'__file__','')).endswith(('.so','.pyd'))}
+print('LAST_IMPORT_PROVENANCE='+json.dumps({'packages':packages,'native_extensions':native}))
+'''
         start=time.monotonic()
         try:
             r=subprocess.run([sys.executable,'-c',code],cwd=upstream,env=env,capture_output=True,text=True,timeout=a.timeout)
             item=dict(status='importable' if r.returncode==0 else 'failed',returncode=r.returncode,stdout=r.stdout,stderr=r.stderr)
+            markers=[line for line in r.stdout.splitlines() if line.startswith('LAST_IMPORT_PROVENANCE=')]
+            if r.returncode==0:
+                if len(markers)!=1:raise RuntimeError('Missing unambiguous import provenance')
+                item['loaded_dependencies']=json.loads(markers[0].split('=',1)[1])
         except subprocess.TimeoutExpired:
             item=dict(status='timeout',timeout_seconds=a.timeout)
         item.update(seconds=time.monotonic()-start,source_sha256=hashlib.sha256(source.read_bytes()).hexdigest() if source.exists() else None)

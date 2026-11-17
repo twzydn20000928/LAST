@@ -1,0 +1,849 @@
+{
+  "scope": "Observed import environment; not standalone installation lock or full quality validation",
+  "dimensions": {
+    "Composition": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "70af3a13083f714b217e6dbeb16a6eaf457a903ce42c2dc820df09baf4908521"
+    },
+    "Diversity": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        }
+      },
+      "scorer_sha256": "ebae1914884b1874cba6908ac32fe4a8fc9b158547039124dba6121c29c9e755"
+    },
+    "Instance_Preservation": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "mmengine": {
+          "source_sha256": "a3f87418ee8b1836c8853e3cc2da9ca9e2cbd035c3ce3466ae8b8799a1dbe02d",
+          "version": "0.10.5"
+        },
+        "modelscope": {
+          "source_sha256": "381e677d165350c9a902a6baf5b4a54bb8ef2c18b4894dd3df22da959d7be2f7",
+          "version": "1.23.2"
+        },
+        "swift": {
+          "source_sha256": "57f5f17019998dd3d27b43f0b98dabd401959886c7406ca089dc047ec88c43ab",
+          "version": "3.5.0.dev0"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "peft": {
+          "source_sha256": "80a877bcbbf8344ff411835d5051f2be411a83c93e3e77ff577b3adbab73c2b8",
+          "version": "0.15.2"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "814b2c36e4e80634fd38a4bac99277dae8ae2c95c28f29db0ba4c894dda1db45"
+    },
+    "Motion_Rationality": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "ffd7d22bb4ab383bf8a3b2c7b3771436069f77b246900bb6982d94eac2502f0c"
+    },
+    "Camera_Motion": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        }
+      },
+      "scorer_sha256": "2f5deeb63a785ae87c4e082faeff55ed93dc8d9d0e12b59d95ca5039a1e1227e"
+    },
+    "Complex_Landscape": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "f13eacaab226b186e9d3490ce42f4d224a618e40fdfcd3db9baeeba9a36bf983"
+    },
+    "Complex_Plot": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "f0ef02b68e770c2e8ea9c532002f142690841c598cad9448e27fe6a4422ed11a"
+    },
+    "Dynamic_Attribute": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "fc7a49f710a4171ea308da43614f3776c8b03797cfecf9bab355c1eb10504ab3"
+    },
+    "Dynamic_Spatial_Relationship": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "78cc77d323490e334d81e14b12ea6daa74ef4e7e8c182c5b0532930c7ac42b63"
+    },
+    "Human_Interaction": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "07b1923afa6472897109f50f31ea16e835a659cbf4c69aca82e9e534b880b8a7"
+    },
+    "Motion_Order_Understanding": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "37dd653c4289c9015dbc0e52490985dff9c55d27ba15126628ee3e6bef23882f"
+    },
+    "Human_Anatomy": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "timm": {
+          "source_sha256": "f664ef352d89e92a0c681ad812fe9772673d106332b6e1709098146025d202b8",
+          "version": "0.4.12"
+        },
+        "mmcv": {
+          "source_sha256": "81da76107986f2354bda536e94bad1a3f6d6efe2b303ee91cbdc9c5596ce5907",
+          "version": "2.2.0"
+        },
+        "mmengine": {
+          "source_sha256": "a3f87418ee8b1836c8853e3cc2da9ca9e2cbd035c3ce3466ae8b8799a1dbe02d",
+          "version": "0.10.5"
+        },
+        "mmdet": {
+          "source_sha256": "c9f2864d3b0900705c2a6a6b99c3b4b9e7150e4531ecf8368f20bbcd5cd9edce",
+          "version": "3.0.0"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        }
+      },
+      "scorer_sha256": "cc6ccc9bc56f7e97b851efcc59068d551a906488227c3eaec9bd5e7d75df2496"
+    },
+    "Human_Clothes": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "30b2b06a7f1d6988d613f92f79dbe6102e14a429ddc4b05e416acd6e7a6d66c7"
+    },
+    "Human_Identity": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        }
+      },
+      "scorer_sha256": "e4b59054387c178a9a415d005cc96f6031470027ea5d1cbb26a40790bf8208d3"
+    },
+    "Material": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "40443744df64456d9f06f7a9882075803e905ee9826a59fd062a10aad3c90044"
+    },
+    "Mechanics": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "795c0f0641e67f89f91771a456a5dd2cb1ac738b4447b6a96a42439813909271"
+    },
+    "Multi-View_Consistency": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        }
+      },
+      "scorer_sha256": "f5fe798be6ad0d45600bddf9aa97680798338986c159dd4e991950d32ef02efd"
+    },
+    "Thermotics": {
+      "status": "importable",
+      "loaded_packages": {
+        "torch": {
+          "source_sha256": "e1b5bf4151bd246a21e3ac5318f6edfcf2e6ef0fd4f233bfb77a264698ec1319",
+          "version": "2.5.1+cu124"
+        },
+        "torchvision": {
+          "source_sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73",
+          "version": "0.20.1+cu124"
+        },
+        "numpy": {
+          "source_sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e",
+          "version": "1.26.3"
+        },
+        "scipy": {
+          "source_sha256": "185913aa107512fafd5cf89dfd452a8719b45a6eba833e2dcee2cbfd18b4bbe5",
+          "version": "1.15.3"
+        },
+        "transformers": {
+          "source_sha256": "232fb252944e3c1cc7a53b07cf9ba5315f34b08fef5efc24643dacf20605e6be",
+          "version": "4.51.0"
+        },
+        "accelerate": {
+          "source_sha256": "e21b742b2ec65a1f4e56cdd82ca3d44a176aee9680faf2a4daa1fc62c5a54d8a",
+          "version": "1.2.1"
+        },
+        "llava": {
+          "source_sha256": "52508db720555fae39081e92e8b7f26244df4153b5f3f6bc7bd4a647b7071310",
+          "version": "unknown"
+        },
+        "decord": {
+          "source_sha256": "0920d346a64d92aad5e43ca67cee12d358f0ae1bf07ea74ba4119a48def7bfb0",
+          "version": "0.6.0"
+        },
+        "PIL": {
+          "source_sha256": "7361b6ad3878589affe5956e4a4da24d71398b0891fd3a8c15e9362217b4ca01",
+          "version": "12.3.0"
+        },
+        "cv2": {
+          "source_sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8",
+          "version": "4.10.0"
+        },
+        "safetensors": {
+          "source_sha256": "92c988289b8c225a92f25e487ad5d7a1eb7e326eec0fedfc6b75e6f04d85e32f",
+          "version": "0.8.0"
+        }
+      },
+      "scorer_sha256": "209e351cd29c6cb619acaa47fb43f412429e1ea3c2a6704a6391b76bb7d41998"
+    }
+  }
+}

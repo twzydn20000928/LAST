@@ -50,6 +50,11 @@ python -m last.quality_doctor --upstream /path/to/VBench/VBench-2.0 \
 
 Each import runs in its own offline CPU subprocess with a timeout. The audit
 retains import tracebacks, scorer source hashes and Python search paths. Explicit
+For successful imports it also records the actually loaded package versions,
+module paths and source hashes, plus loaded MMCV binary-extension hashes. These
+can differ from package-manager metadata when compatibility overlays are used.
+This inventory is evidence for constructing a standalone environment, not by
+itself an installation lockfile or a validation of all compiled GPU operations.
 dependency overlays can be supplied with repeated `--extra-pythonpath` options;
 these are recorded, not treated as a clean installation. The output must be new.
 Import success does not verify scoring weights, GPU operators or numerical scores.
