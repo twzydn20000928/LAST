@@ -101,3 +101,38 @@ Run indices 0 through 19 once. Receipts record manifest/source hashes, settings,
 the actual video hash and selected PNG hash. Keep failed attempts and logs.
 Availability of this entry point does not imply that all images have finished;
 the complete image mapping must be verified before the I2V development campaign.
+
+## Legacy primary-reader receipt migration
+
+The initial Hunyuan I2V LAST campaign used public commit
+`c1f2f694cfb777053795e7bbf186b5776c9fecd0`. Its non-clean attack receipts did
+not record the hash of the MP4 supplied to extraction. A later hash of a file
+cannot retroactively prove what the old reader consumed. Original receipts
+remain unchanged; independent `last.reextract` runs provide separate evidence.
+
+To stop accumulating this gap without changing the legacy scientific code,
+`tools/patches/legacy-c1f2-received-sha.patch` adds only two statements to that
+commit's `src/last/evaluate.py`: hash the received MP4 before loading it and
+check it again after extraction. Removing those additions restores the original
+file; every other Python source hash was checked unchanged. The patch SHA-256
+is `8488952018a07bebba3814b97054220168c32afe52c8e4e49cb8c5ea66c3b45e`.
+
+For an explicitly separate legacy reproduction, from the current repository:
+
+```bash
+git worktree add --detach ../LAST-legacy-receipts c1f2f694cfb777053795e7bbf186b5776c9fecd0
+git -C ../LAST-legacy-receipts apply ../LAST/tools/patches/legacy-c1f2-received-sha.patch
+```
+
+The example assumes the current checkout directory is named `LAST`; adjust
+that patch path otherwise. Record both the base commit and patch hash. This
+is a transparent patched legacy execution, not an unmodified checkout or a
+claim that all later main-branch code is numerically identical.
+
+At the migration checkpoint, eight primary cases were complete and 392 remained
+(including two active generation subprocesses). Only owned scheduler parents
+were replaced; those GPU subprocesses continued naturally. The full 400-case
+manifest is unchanged. The remaining plan and the retained completed-case list
+jointly cover all400 cases. The running campaign, independent historical audits
+and final table aggregation still require completion; this record does not
+certify all results or resolve cross-environment pixel differences.
