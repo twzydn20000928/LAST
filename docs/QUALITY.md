@@ -247,3 +247,16 @@ the corrected path setup imports the bundled official Swift successfully.
 This fixes module discovery only, without changing scorer formulas or weights.
 The actual scorer records its bundled search paths in the receipt. Successful
 imports still do not establish successful model loading or complete V-score.
+
+### Input video provenance
+
+Quality-input preparation now compares each marked MP4 with its previously
+recorded generation hash, rather than accepting a new hash of any file at that
+path. For reference MP4s, it uses a recorded generation reference hash when
+available. Older LAST runs can instead use an existing paired `quality.json`:
+both reference and marked hashes must match, and the marked hash must also
+match generation. Missing provenance or changed files stop preparation; hashes
+are not backfilled into old receipts. Each coverage entry records which receipt
+anchored the video. These checks do not change official scoring or applicability.
+
+
