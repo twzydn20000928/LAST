@@ -39,5 +39,34 @@ The primary manifest requires20videos per ordinary dimension (five prompts,
 four seeds each), and60Diversity videos (three prompts,20seeds each). A complete
 score must include the prescribed inputs, valid/applicable denominators and
 all18dimension outputs. Missing or not-applicable results are not zeros.
-Official model acquisition, isolated scorer dependencies, per-dimension runners
-and aggregate validation still need completion in this release.
+## Official dimension runner
+
+`last.quality_score` calls the upstream `compute_<dimension>` function without
+changing its questions, frames, model code or score formula. Use VBench source
+revision `fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490`, with `--upstream` pointing to
+its `VBench-2.0` directory. Install that scorer's dependencies separately; the
+LAST video environment alone does not include all official scoring models.
+
+```bash
+python -m last.quality_score --upstream /path/to/VBench/VBench-2.0 \
+  --inputs /private/quality-inputs/hunyuan-i2v-last \
+  --dimension Camera_Motion --submodules /private/camera-submodules.json \
+  --device cuda --output /private/quality-scores/hunyuan-i2v-last/Camera_Motion
+```
+
+The submodules JSON is the exact dictionary expected by the upstream dimension
+function (for Camera Motion: `{"repo":"facebookresearch/co-tracker","model":"cotracker2"}`).
+Upstream model acquisition may require network access. This entry point does
+not silently redirect checkpoints, patch official code or substitute scores.
+The receipt records source, question-input and submodule-configuration hashes,
+runtime, seed and applicability counts. `official_result.json` retains raw
+outputs. Missing/duplicate video results or unexpected score ranges fail the
+run. `-1` remains not applicable; all-not-applicable gives a null mean.
+Diversity uses prompt-level units and requires 20 videos per prompt, even in
+explicit diagnostic mode. Other dimensions use video-level units.
+
+This runner has unit coverage for missing outputs, applicability and Diversity
+denominators; full GPU scorer integration is still pending. Official model
+acquisition, isolated scorer dependencies and aggregate validation still need
+completion in this release. Do not interpret availability of this command as
+evidence of a completed V-score.
