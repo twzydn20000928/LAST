@@ -183,3 +183,14 @@ Missing, failed or entirely not-applicable dimensions yield a null V-score;
 partial input coverage also yields null. Valid/applicable counts remain visible
 for every dimension; not-applicable samples are never converted to zeros.
 Receipts and raw outputs are hashed into the report for traceability.
+# Paired fidelity table aggregation
+
+Run `python -m last.fidelity_summary --plan /private/primary-plan.json --root
+/private/primary --output /private/new-fidelity-summary.json` to aggregate the
+planned PSNR/SSIM pairs. The command rechecks each reference/marked MP4 hash and
+generation identity. Missing samples prevent final scores. The main aggregate
+is the arithmetic mean of per-video PSNR; PSNR computed from average MSE is
+reported separately and must not be silently substituted. Identical pairs have
+infinite PSNR, represented by null plus an explicit infinity flag, not zero.
+This table does not supply the official V-score or perceptual/dynamic quality.
+
