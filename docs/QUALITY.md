@@ -49,18 +49,36 @@ python -m last.quality_doctor --upstream /path/to/VBench/VBench-2.0 \
 ```
 
 Each import runs in its own offline CPU subprocess with a timeout. The audit
-retains import tracebacks, scorer source hashes and Python search paths. Explicit
+retains import tracebacks, scorer source hashes and Python search paths.
 For successful imports it also records the actually loaded package versions,
 module paths and source hashes, plus loaded MMCV binary-extension hashes. These
 can differ from package-manager metadata when compatibility overlays are used.
 This inventory is evidence for constructing a standalone environment, not by
 itself an installation lockfile or a validation of all compiled GPU operations.
-dependency overlays can be supplied with repeated `--extra-pythonpath` options;
+Explicit dependency overlays can be supplied with repeated `--extra-pythonpath` options;
 these are recorded, not treated as a clean installation. The output must be new.
 Import success does not verify scoring weights, GPU operators or numerical scores.
 The audit adds upstream's bundled dependency directories without changing their
 files. If an overlay is required, its packages must still be pinned and validated
 in the eventual standalone quality environment.
+
+Audit reused package source against its installed wheel RECORD before claiming
+an unmodified environment:
+
+```bash
+python -m last.package_audit --dist-info /env/site-packages/mmdet-3.0.0.dist-info \
+  /env/site-packages/mmcv-2.2.0.dist-info --output /private/package-integrity.json
+```
+
+This checks Python-source hashes without importing the packages. RECORD itself
+is local evidence, not proof of upstream authenticity. The reused diagnostic
+environment has a disclosed MMDetection 3.0.0 modification: its MMCV upper-version
+guard was increased to 2.3.0 to permit the locally built MMCV 2.2.0. The audit
+found this one changed Python file among 1,158 MMDetection files and none among
+128 MMCV files. This bypass is not an upstream-supported compatibility claim.
+A small CUDA ROI Align check passed, but full anatomy evaluation and a standalone
+validated environment remain pending. Do not reproduce this environment merely
+by installing these two version numbers and assume the same behavior.
 
 Acquire the exact upstream source (including its license files) without
 executing its code during download:
