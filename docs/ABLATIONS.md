@@ -17,8 +17,8 @@ and64 responses per candidate. It records degenerate groups rather than conceali
 zero dispersion. Acquisition still must verify that these are64 distinct wrong
 keys, bind energies to actual candidate features and their video/source hashes,
 and preserve private keys. These requirements are **not** proved by array shape
-or the algebra tests. Real development acquisition, monotone spacing-search
-integration, shared normalized fusion and the supplement AUROC experiment remain
+or the algebra tests. Real development acquisition, video-CLI integration,
+shared normalization across all crossed readers and the supplement AUROC experiment remain
 pending. The current primary CCTA/raw-energy fallback is unchanged. No calibrated
 energy benchmark or Table13/14 reproduction is claimed by this implementation.
 
@@ -34,6 +34,18 @@ this function cannot infer omitted keys. Its input must be the same normalized
 audited separately. Tests of streaming and key exclusion are not real-video
 calibration results; the streaming test substitutes a simple known projection
 to check all1024 key/group indexes without claiming a full QR experiment.
+
+`last.calibrated_reader.align` now applies the frozen transform to candidate
+correlations and reuses the energy fallback's search: choose the best group for
+each window, then select nonoverlapping monotonically increasing groups with
+start difference equal to four times the group-index difference within a segment.
+Repeated group slots across segments retain the higher calibrated score. Its
+message readout averages L2-normalized selected group vectors, and its metadata
+records selected window/group identities for alignment auditing. This is still
+an explicit reconstruction; it is not exhaustive joint search over every group
+hypothesis, nor authentication. Primary CCTA and default raw-energy fusion keep
+their existing behavior. Synthetic bias/spacing tests verify this API only;
+real calibrated-reader results and shared-fusion crossed comparisons are pending.
 
 ## Primary component protocol
 

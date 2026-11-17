@@ -1,8 +1,10 @@
 """Truth-free candidate-chain scoring and documented energy-spacing fallback."""
 import torch
 
-def energy_fallback(corr, nodes, group_frames=4):
-    energy, ids = corr.abs().mean(-1).max(-1); slots={}
+def energy_fallback(corr, nodes, group_frames=4, hypothesis_scores=None, normalized_fusion=False):
+    scores=corr.abs().mean(-1) if hypothesis_scores is None else hypothesis_scores
+    if scores.shape!=corr.shape[:2] or not torch.isfinite(scores).all():raise ValueError('Invalid hypothesis scores')
+    energy, ids = scores.max(-1); slots={}
     for segment in sorted({n['segment'] for n in nodes}):
         choices=sorted([i for i,n in enumerate(nodes) if n['segment']==segment],key=lambda i:(nodes[i]['end'],nodes[i]['start']))
         dp={};previous={}
@@ -21,7 +23,11 @@ def energy_fallback(corr, nodes, group_frames=4):
             if g not in slots or energy[a]>energy[slots[g]]:slots[g]=a
             a=previous[a]
     if not slots:
-        a,g=divmod(int(corr.abs().mean(-1).argmax()),corr.shape[1]);slots[g]=a
+        a,g=divmod(int(scores.argmax()),corr.shape[1]);slots[g]=a
+    if normalized_fusion:
+        values=[corr[a,g]/corr[a,g].norm().clamp_min(1e-8) for g,a in slots.items()]
+        return torch.stack(values).mean(0), {'route':'calibrated_energy_spacing','groups':len(slots),
+            'selected':[{'candidate':a,'group':g,'start':nodes[a]['start'],'segment':nodes[a]['segment'],'score':float(scores[a,g])} for g,a in sorted(slots.items())]}
     return sum(corr[a,g] for g,a in slots.items()), {'route':'energy_spacing','groups':len(slots)}
 
 def align(features, nodes, codes, reader='ccta', group_frames=4):
