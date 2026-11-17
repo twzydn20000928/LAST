@@ -34,6 +34,18 @@ for the complete paper-code deliverable and outstanding work.
 Download a pinned checkpoint from `configs/models.json`. Supply a JSON case containing `prompt`, `seed` and, for I2V, a local `image` path. Keep output outside version control:
 
 ```bash
+python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint --download
+python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \
+  --hash-output /private/model-hashes.json
+python -m last.doctor --output /private/environment.json
+```
+
+The model command uses the full pinned upstream revision. Existing cached weights
+may be reused after verification; hashing records bytes but cannot alone prove
+an arbitrary local directory is the correct upstream revision. Provider access
+and model/data licenses remain applicable. Full checkpoint hashing can take time.
+
+```bash
 python -m last.smoke --family hunyuan --mode i2v \
   --model-dir /path/to/checkpoint --case /path/to/case.json \
   --output /private/runs/smoke-hunyuan-i2v --memory-gib 12 --offload sequential

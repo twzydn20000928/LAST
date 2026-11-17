@@ -12,7 +12,7 @@ def fidelity(reference,marked):
         a=np.asarray(left,dtype=np.float64)/255;b=np.asarray(right,dtype=np.float64)/255
         if a.shape!=b.shape or a.ndim!=3 or a.shape[-1]!=3 or min(a.shape[:2])<11:raise ValueError('Expected matched RGB frames at least11square')
         errors.append(float(np.mean((a-b)**2)))
-        filt=lambda x:gaussian_filter(x,sigma=(1.5,1.5,0),truncate=10/6,mode='reflect')
+        filt=lambda x:gaussian_filter(x,sigma=(1.5,1.5,0),truncate=10/3,mode='reflect')
         ma,mb=filt(a),filt(b);va=filt(a*a)-ma*ma;vb=filt(b*b)-mb*mb;cov=filt(a*b)-ma*mb
         score=((2*ma*mb+.01**2)*(2*cov+.03**2))/((ma*ma+mb*mb+.01**2)*(va+vb+.03**2))
         ssims.append(float(score[5:-5,5:-5].mean()))
