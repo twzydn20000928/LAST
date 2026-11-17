@@ -339,3 +339,30 @@ previous environment. Input video, private native state, and original receipts
 were checked for changes; evaluation truth was read after extraction exited.
 See `results/native_clean_videomark_video.json`. This verifies one clean-video
 extraction, not all baselines, attacks, model families, or benchmark timing.
+
+### Execute the development grid
+
+```bash
+python -m last.calibration_run --plan /private/lfg-c-plan.json \
+  --development configs/development_manifest.json --primary configs/primary_manifest.json \
+  --root /private/lfg-c-grid --state /private/development-state \
+  --conditioning /private/development-conditioning --model-dir /models/hunyuan-i2v \
+  --writer-root /path/to/pinned-LAST-checkout --writer-python /path/to/video-python \
+  --max-jobs 1 --memory-gib 8 --min-free-mib 32000
+```
+
+Use the same frozen writer checkout and dependency environment throughout a grid.
+The runner invokes public `last.smoke` and `last.quality`, keeps per-cell command
+receipts, and uses file locks to avoid duplicate workers. A bounded pass skips
+unavailable conditioning images; rerun after their generation completes. It
+verifies the full grid, disjoint manifests, development state, conditioning
+prompt/seed/image hash and completed videos before reuse. An unfinished cell
+requires explicit inspection rather than automatic overwrite or retry. The
+memory gate is an execution setting, not a scientific parameter; it does not
+reserve memory against unrelated jobs. Coordinate concurrent launchers.
+
+The runner never selects a candidate or evaluates message accuracy. Run
+`last.lfg_calibration_report` after acquisition; incomplete grids still return
+no selected parameter. Existing active cells started by other controllers must
+finish before using this runner on their output root. All commands must use
+reader-owned private keys and state, not the authors' experimental secrets.
