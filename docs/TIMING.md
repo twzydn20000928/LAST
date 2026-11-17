@@ -33,6 +33,23 @@ timing, the randomized 30-video/method schedule and length-scaling experiments
 remain to be implemented/validated. Do not present this partial entry point
 as the complete five-method Table 3 or supplementary Table 17 reproduction.
 
+Freeze the supplemental acquisition order before collecting any timings:
+
+```bash
+python -m last.timing_plan --output /private/timing-acquisition-plan.json
+```
+
+This uses the frozen thirty-video subset and all five methods: 300 reader jobs
+(clean and deletion conditions) and 150 marked/unmarked generation pairs for
+one backbone/mode. Each method has fifteen reference-first and fifteen
+marked-first pairs; pair members remain adjacent. NumPy PCG64 seed20261118 is
+an explicit reconstruction choice, not a seed specified in the manuscript.
+The plan contains no measured times and does not launch or reserve the GPU.
+Keep failed attempts in their scheduled slots; do not reorder by observed
+latency. Native timing runners and paired-generation timing boundaries still
+need implementation/validation before this plan can constitute a complete
+efficiency experiment.
+
 For one method/backbone/condition, aggregate the frozen 30-video subset with:
 
 ```bash
