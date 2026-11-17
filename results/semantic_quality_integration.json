@@ -1,0 +1,55 @@
+{
+  "scope": "One paired Hunyuan I2V video, official Complex_Landscape dimension with disclosed loading adapters; not a full V-score",
+  "dimension": "Complex_Landscape",
+  "sample_id": "paper-020",
+  "v_score": null,
+  "methods": {
+    "last": {
+      "mean": 0.2,
+      "expected_units": 1,
+      "valid_units": 1,
+      "not_applicable_units": 0,
+      "complete_input_coverage": false,
+      "seed": 0,
+      "source_sha256": "f13eacaab226b186e9d3490ce42f4d224a618e40fdfcd3db9baeeba9a36bf983",
+      "metadata_sha256": "56494caf17e02e6d985c35b5b6a568b4af68d88441d95ca9b8f1022c524be05f",
+      "submodules_sha256": "bed10021f524db65f2d260189bf85d1cddce30b985ea98027986fd6896d9e929",
+      "receipt_sha256": "58f6461e7d2c68b993c0429e18753d026ddc700cc23cdf65e1db2bf107b2ab19",
+      "raw_result_sha256": "a9048ef046d1b5e5f6fa3ab97a07b5b55cc84839601a50f90b6b7b23f4544c84",
+      "video_sha256": "99042b897a1ebb1bcedda84bb99411a931448e773a9e4292267bd0d35f169dc5",
+      "raw_scores": [
+        0.2
+      ],
+      "adapter": {
+        "attention": "sdpa",
+        "vision_microbatch": 4,
+        "frames": 64,
+        "quantization": false
+      }
+    },
+    "reference": {
+      "mean": 0,
+      "expected_units": 1,
+      "valid_units": 1,
+      "not_applicable_units": 0,
+      "complete_input_coverage": false,
+      "seed": 0,
+      "source_sha256": "f13eacaab226b186e9d3490ce42f4d224a618e40fdfcd3db9baeeba9a36bf983",
+      "metadata_sha256": "8d62026860021d52dd54d56176c581b43c2c8e68030684492eaa209c93cdf7e2",
+      "submodules_sha256": "bed10021f524db65f2d260189bf85d1cddce30b985ea98027986fd6896d9e929",
+      "receipt_sha256": "b24ce63bf5affd379d1840d377a23f96311551ae2f79bd75ed30fdbc5faa6704",
+      "raw_result_sha256": "024350e794da083be44cbfed42d6613f761b684751a265aeaa5b7042a046aeb9",
+      "video_sha256": "b5fca53f10ca3bae497652be284a9d3934fbefb1668f783375d5fa09a21caeb5",
+      "raw_scores": [
+        0
+      ],
+      "adapter": {
+        "attention": "sdpa",
+        "vision_microbatch": 4,
+        "frames": 64,
+        "quantization": false
+      }
+    }
+  },
+  "failure_history": "The original full-frame vision batch exhausted GPU memory; that failed run was preserved. This diagnostic uses all 64 sampled frames with SigLIP microbatch4."
+}

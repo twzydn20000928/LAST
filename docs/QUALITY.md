@@ -4,6 +4,16 @@ Paired PSNR/SSIM is implemented in `last.quality`; it is not the VBench2 V-score
 The full18dimension official scorer remains an open reproduction requirement.
 Historical small-sample or proxy scores are not imported into the new benchmark.
 
+The first new paired semantic diagnostic is stored in
+`results/semantic_quality_integration.json`: one Hunyuan I2V Complex Landscape
+case scores0.2for LAST and0.0for its unmarked reference, with one valid video
+per state. It uses the official scoring function and auxiliary questions,
+explicit local checkpoints, SDPA and SigLIP microbatch4 over all64sampled frames.
+The previous full-batch attempt failed with GPU memory exhaustion and remains
+in the audit history. This example does not establish an overall quality gain,
+independent replication, or a completed V-score; the public summary keeps
+`v_score` null and includes raw scores and receipt/video hashes.
+
 The SIGMark comparison's augmented prompts and auxiliary question metadata are
 pinned by37Git blob hashes in `configs/quality_metadata_manifest.json`:
 
