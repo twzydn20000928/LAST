@@ -235,3 +235,15 @@ RetinaFace/OpenCV dependency-metadata conflicts, a final clean-install lock,
 model-weight validation and full real-video scorer execution remain unresolved.
 This is not a completed V-score installation or an overall quality result.
 
+
+### Shared bundled-dependency paths
+
+The import doctor and real scorer now use `last.quality_paths.scorer_paths` to
+load the same bundled third-party directories. Previously, the doctor supplied
+these paths but the real scorer only supplied the VBench root (plus optional
+LLaVA), so Instance Preservation failed with `No module named swift` despite a
+successful import audit. An isolated offline subprocess reproduced that failure;
+the corrected path setup imports the bundled official Swift successfully.
+This fixes module discovery only, without changing scorer formulas or weights.
+The actual scorer records its bundled search paths in the receipt. Successful
+imports still do not establish successful model loading or complete V-score.

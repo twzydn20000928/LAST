@@ -9,6 +9,7 @@ from pathlib import Path
 import sys
 import time
 import traceback
+from .quality_paths import scorer_paths
 
 
 def summarize(result, rows, dimension):
@@ -76,9 +77,9 @@ def main():
         import numpy as np
         import random
         torch.manual_seed(a.seed); np.random.seed(a.seed); random.seed(a.seed)
-        sys.path.insert(0, str(upstream))
-        if a.llava_siglip:
-            sys.path.insert(0,str(upstream/'vbench2/third_party/LLaVA_NeXT'))
+        paths = list(map(str, scorer_paths(upstream)))
+        sys.path[:0] = paths
+        record['bundled_dependency_paths'] = paths
         if a.cotracker_checkpoint:
             if a.dimension not in ('Camera_Motion', 'Multi-View_Consistency'):
                 raise ValueError('CoTracker adapter is only for tracker dimensions')

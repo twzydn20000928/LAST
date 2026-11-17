@@ -9,6 +9,7 @@ import subprocess
 import sys
 import time
 from .quality_report import CATEGORIES
+from .quality_paths import scorer_paths
 
 
 def main():
@@ -21,8 +22,7 @@ def main():
     a=p.parse_args();upstream=a.upstream.resolve()
     if not (upstream/'vbench2').is_dir() or a.timeout<1:p.error('Invalid upstream or timeout')
     if a.output.exists():p.error('Output exists; retain the previous audit')
-    third=upstream/'vbench2/third_party'
-    paths=[upstream]+[d.resolve() for d in a.extra_pythonpath]+[third,third/'LLaVA_NeXT',third/'YOLO-World',third/'Instance_detector']
+    paths=[upstream]+[d.resolve() for d in a.extra_pythonpath]+scorer_paths(upstream)[1:]
     env=dict(os.environ,CUDA_VISIBLE_DEVICES='',HF_HUB_OFFLINE='1',TRANSFORMERS_OFFLINE='1',OMP_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1')
     env['PYTHONPATH']=os.pathsep.join(map(str,paths))+os.pathsep+env.get('PYTHONPATH','')
     def probe(name):
