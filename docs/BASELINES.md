@@ -267,3 +267,15 @@ MP4s. No condition recovers the entire message; every BCH status is failure.
 This is one sample, not a population estimate or evidence of correct grouping.
 This control is distinct from `--method lfg-c`, which changes the
 writer's carrier parameterization.
+
+## Native VideoMark real-video integration
+
+`results/videomark_native_integration.json` records one completed Hunyuan I2V
+65-frame exported-video test using pinned native VideoMark. Clean extraction
+recovered 512/512 information bits and the full message. The MP4, private state,
+generation/extraction receipts and independently recomputed bit count were
+checked before export. An initial extraction failed under concurrent GPU memory
+pressure; the successful retry reused the identical MP4, and the original
+failure remains recorded. This is integration evidence only: no attack sweep,
+multi-video ranking or formal efficiency value is established by this result.
+Secrets and predicted messages are excluded from the public record.

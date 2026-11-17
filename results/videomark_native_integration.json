@@ -1,0 +1,27 @@
+{
+  "status": "completed",
+  "scope": "One real exported MP4, clean native VideoMark integration; not attack benchmark or timing",
+  "method": "videomark",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "sample_count": 1,
+  "frames": 65,
+  "condition": "clean",
+  "correct_bits": 512,
+  "total_bits": 512,
+  "bit_accuracy": 1.0,
+  "exact_message": true,
+  "upstream_commit": "3713243f2e002cb21bbc3da896094d39b2b528c9",
+  "video_sha256": "1a4d8e344b17238f24ca235236950f12ff37558b9d054b0b6f9291d1c3b2bc5d",
+  "generation_receipt_sha256": "641c8a4d6025bd881117cb717b6da5aedffe2412f74723b2116780b49f8543eb",
+  "extraction_receipt_sha256": "24217d799b7a203e71f339710a21a40e9d4ead9ee5420b0ad7c15bc127cc8264",
+  "extraction_source_sha256": "abdd9b9881c588d46464ef733c956ef9490422aa21ec7492816a1380449ac003",
+  "generation_source_sha256": "3d0b236806588f2d46f848ee7c88877ee47dd85a5b9c086f50453684310792ef",
+  "failure_history": "First extraction failed during concurrent GPU memory pressure; original failure preserved; identical generated MP4 reused for successful retry",
+  "limitations": [
+    "No temporal/spatial attack results in this record",
+    "One video does not establish comparative robustness",
+    "Concurrent elapsed times excluded from efficiency evidence",
+    "No secret state, messages or decoded bits distributed"
+  ]
+}
