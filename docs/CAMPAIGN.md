@@ -34,8 +34,12 @@ and an explicit reuse audit. Timing is a separate exclusive-GPU experiment;
 these throughput workers generate both reference and marked outputs for fidelity.
 
 ```bash
-python -m last.report --plan /private/primary-plan.json --root /private/primary-runs --output /path/to/tables
+python -m last.report --plan /private/primary-plan.json --root /private/primary-runs --output /path/to/tables --verify-artifacts
 ```
 
 This reports all planned runs, including pending ones. It never turns a filtered
 or partial execution into a full400sample result.
+Artifact verification checks completed generation identity, the marked-video hash
+bound to each attack receipt, and presence of each attack MP4. The report records
+current receipt/video hashes and the plan hash. This is provenance checking, not
+a rerun of the decoder or proof of equivalence to manuscript results.

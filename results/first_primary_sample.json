@@ -1,0 +1,34 @@
+{
+  "scope": "First completed primary sample; not a full table or comparative conclusion",
+  "recorded_date": "2026-11-17",
+  "scientific_release": "c1f2f694cfb777053795e7bbf186b5776c9fecd0",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "last",
+  "video_id": "paper-000",
+  "hardware": "NVIDIA L40, authorized substitution for manuscript A800",
+  "planned_samples_in_this_cell": 400,
+  "completed_samples_in_this_snapshot": 1,
+  "information_bits": 512,
+  "correct_bits": {
+    "clean": 512,
+    "noise": 512,
+    "compression": 486,
+    "blur": 512,
+    "drop": 371,
+    "insert": 424,
+    "clip": 502
+  },
+  "paired_fidelity": {
+    "psnr_db": 29.34857121892414,
+    "ssim": 0.9299336842392852,
+    "frames": 65
+  },
+  "marked_mp4_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+  "limitations": [
+    "One sample does not establish population performance or comparative superiority.",
+    "Bit accuracy differs from exact-message recovery and authentication.",
+    "Paired fidelity is not VBench V-score or a perceptual-quality verdict.",
+    "Concurrent runtime is not the exclusive-GPU efficiency experiment."
+  ]
+}
