@@ -151,15 +151,16 @@ available command is not evidence that the full prescribed sample set has run.
 | Experiment or prerequisite | Reader entry point | Current scope |
 | --- | --- | --- |
 | Primary and disjoint development data | [Data preparation](docs/DATA.md) | Frozen manifests; development conditioning generation in progress |
-| Primary LAST/LFG generation and seven attacks | [Campaign](docs/CAMPAIGN.md), `last.smoke`, `last.evaluate` | Formal Hunyuan I2V runs in progress; four LAST backbone/mode integrations completed |
+| Primary LAST/LFG generation and seven attacks | [Campaign](docs/CAMPAIGN.md), `last.smoke`, `last.evaluate` | Formal Hunyuan I2V and first Wan I2V runs in progress; four LAST backbone/mode integrations completed |
 | SIGMark, VideoShield, VideoMark and LFG | [Baselines](docs/BASELINES.md) | Native interfaces and Hunyuan integrations; full baseline matrix pending |
 | Paired PSNR/SSIM and official V-score | [Quality](docs/QUALITY.md), `last.quality`, `last.quality_score`, `last.quality_report` | Basic metrics available; official camera and one paired semantic diagnostic completed; full V-score pending |
-| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation` | One LAST reader diagnostic completed; prescribed 30-sample study pending |
+| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `last.ablation_summary` | One diagnostic completed; first frozen 30-subset reader case running; full reader and writer studies incomplete |
 | Margin sweep and uniform-profile control | [Ablations](docs/ABLATIONS.md), `last.smoke --mu`, `--uniform-profile` | Public controls available; prescribed development/test runs pending |
 | Matched-writer LFG-C, native LFG+CCTA and oracle grouping | [Baselines](docs/BASELINES.md), [oracle diagnostic](docs/ABLATIONS.md) | Native LFG+CCTA and oracle single-case diagnostics completed; matched-fidelity calibration pending |
 | Additional temporal stress and repeated attack maps | [Stress protocol](docs/STRESS.md) | Single-case stress integration completed; full sample/map matrix pending |
 | Bit errors, whole-message recovery and uncertainty | [Statistics](docs/STATISTICS.md), `last.message_outcomes`, `last.cluster_intervals` | Implemented; final summaries require complete planned observations |
-| Exclusive-GPU main and repeated timing | [Frozen protocol](configs/paper_v1.json) | Not completed; concurrent diagnostic wall times are not formal timing results |
+| Exclusive-GPU main and repeated timing | [Timing](docs/TIMING.md), `last.reader_timing`, `last.embedding_timing`, `last.timing_summary` | LAST/LFG readout and ELMC kernel entry points available; formal measurements, native-baseline timing and paired generation overhead pending |
+| Fresh environment and independent re-extraction | [Environment reconstruction](environments/README.md), [audit protocol](docs/STATISTICS.md), `last.reextract` | Installation and two-condition clean-environment extraction passed; seven-condition separate re-extraction passed; fresh public-checkout generation underway |
 
 Diagnostic JSON files under [results](results/) retain their sample scope and
 provenance. They must not be pasted into full-benchmark table cells. The detailed
