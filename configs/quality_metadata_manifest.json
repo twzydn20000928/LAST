@@ -1,0 +1,155 @@
+{
+  "repository": "https://github.com/JeremyZhao1998/SIGMark-release",
+  "commit": "3713243f2e002cb21bbc3da896094d39b2b528c9",
+  "scope": "Official augmented prompt lists and auxiliary VBench2 question metadata; not scores",
+  "files": [
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Camera_Motion.txt",
+      "sha": "777e32b353cba750499aea29c7108aadf48cf9b2"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Complex_Landscape.txt",
+      "sha": "4971be1ae3cc35ed4ebee18c1c440566cf376894"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Complex_Plot.txt",
+      "sha": "81c0fd13732624a2de1c8bd31500fc0a7511f8f9"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Composition.txt",
+      "sha": "ce8e161d7dd472e9c45b08e3381a4e8248d590cf"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Diversity.txt",
+      "sha": "ba4a3986598db07bfddc66211b725c790746c648"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Dynamic_Attribute.txt",
+      "sha": "2af94f0ef7cd64c42fd27fee882ebd1c8f079e3e"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Dynamic_Spatial_Relationship.txt",
+      "sha": "9b6df176507551c30d25f5be6e900747b2461023"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Human_Anatomy.txt",
+      "sha": "1b8322782f2f395fc287bbfb3b91665f9a2fabdb"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Human_Clothes.txt",
+      "sha": "d8910195e8981fb3c14743aaab314ab31470e2c2"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Human_Identity.txt",
+      "sha": "d31ac12db8b203f9c667039ec98b560d5bf1ad63"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Human_Interaction.txt",
+      "sha": "722cb30bbd949c8848536196ba438faea4ffc156"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Instance_Preservation.txt",
+      "sha": "6e7b0e66bcfeeb44440164e620c87a018d33d34c"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Material.txt",
+      "sha": "676e06fe2513658882525fec8dcbad3924e058ee"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Mechanics.txt",
+      "sha": "4186bf94253af441e38e9a0c1f256612a23688e7"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Motion_Order_Understanding.txt",
+      "sha": "262aae48202681b8aa66a9179f9c2f76e9379689"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Motion_Rationality.txt",
+      "sha": "c7dc2644b292a9a8cd1535dd13d83d28110c16f6"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Multi-View_Consistency.txt",
+      "sha": "e237e13fe45c5058a76cea0a8e7edc23d66c4153"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/Thermotics.txt",
+      "sha": "5598295280768abb8835e73ed37e9f23e4471445"
+    },
+    {
+      "path": "prompt_set/VBench2_aug_prompt/VBench2_aug_400_info.json",
+      "sha": "5e1bbcb2588ed26da297f41869b4a80ad8a63ca9"
+    },
+    {
+      "path": "prompt_set/meta_info/Camera_Motion.json",
+      "sha": "4590c87f08861750048cbd5e826b880e7490d5c6"
+    },
+    {
+      "path": "prompt_set/meta_info/Complex_Landscape.json",
+      "sha": "9c21692db2354aed3507022e3b9cb94e55b6725c"
+    },
+    {
+      "path": "prompt_set/meta_info/Complex_Plot.json",
+      "sha": "07f0fc6ca965314bd1273b165fcfa74c27689b1d"
+    },
+    {
+      "path": "prompt_set/meta_info/Composition.json",
+      "sha": "c24fc8e8f1b41c3f1437d285fb2b8c896b7578be"
+    },
+    {
+      "path": "prompt_set/meta_info/Diversity.json",
+      "sha": "d386d11e0918ef3634520fbd1c1f5a578888f588"
+    },
+    {
+      "path": "prompt_set/meta_info/Dynamic_Attribute.json",
+      "sha": "371e6f1dddb6412ab5c86dd0622baa61b9874602"
+    },
+    {
+      "path": "prompt_set/meta_info/Dynamic_Spatial_Relationship.json",
+      "sha": "b6c85f99f1876ae8071450121ae7c54229427a5b"
+    },
+    {
+      "path": "prompt_set/meta_info/Human_Anatomy.json",
+      "sha": "c2ac1eaf611dc83fbdc71ebd4bd4c5809b9bc70a"
+    },
+    {
+      "path": "prompt_set/meta_info/Human_Clothes.json",
+      "sha": "15b44b49b4287eaede98459ad2807f1e96cb0c9f"
+    },
+    {
+      "path": "prompt_set/meta_info/Human_Identity.json",
+      "sha": "452aa1b0d1730dc32a26687b478f212cafd9fade"
+    },
+    {
+      "path": "prompt_set/meta_info/Human_Interaction.json",
+      "sha": "c70cd63ce4dfb220f73ed7b051fa1bb5b44abea2"
+    },
+    {
+      "path": "prompt_set/meta_info/Instance_Preservation.json",
+      "sha": "7ae5a00964104903d78cfbbb6fca26c03dda36f4"
+    },
+    {
+      "path": "prompt_set/meta_info/Material.json",
+      "sha": "2c7ad6ddf1ba36115bdb24378e662ab0e079c11b"
+    },
+    {
+      "path": "prompt_set/meta_info/Mechanics.json",
+      "sha": "b1fb82466327060c2caa6b3b7170cfd5ded73404"
+    },
+    {
+      "path": "prompt_set/meta_info/Motion_Order_Understanding.json",
+      "sha": "10d758babccb3f9d9b33cc71e34b5c7947de869e"
+    },
+    {
+      "path": "prompt_set/meta_info/Motion_Rationality.json",
+      "sha": "a1af8cc1bd248fa1928dcef8166f503b23a36bcf"
+    },
+    {
+      "path": "prompt_set/meta_info/Multi-View_Consistency.json",
+      "sha": "b50b9963ac424cd3fea44497ceb7dd85cd7ce01b"
+    },
+    {
+      "path": "prompt_set/meta_info/Thermotics.json",
+      "sha": "4a16adc98afbf33e88d963fd631c3b4eaf23af4b"
+    }
+  ]
+}
