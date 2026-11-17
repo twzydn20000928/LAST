@@ -28,3 +28,19 @@ distribution, so this is an explicit implementation choice. Temporal attack maps
 and pixel RNG depend on video ID, attack and seed, never on watermark method.
 Clean reads the original marked MP4 without a second encode. Attack maps are
 recorded only by the evaluator and never passed to the blind reader.
+
+## Development-input audit (2026-11-18)
+
+The conditioning archive contains13image files not named in the primary manifest.
+Twelve have prompts already used by the primary test set; the remaining checkpoint
+file duplicates a primary image. None qualifies as a disjoint-prompt development
+input. Different image bytes alone do not establish an independent prompt split.
+
+The historical30null-video pilot was also audited: all30MP4hashes match its frozen
+protocol, and its prompts do not overlap the primary manifest. However, there are
+only **four unique prompts**. These are candidate source inputs, not30independent
+scenes or new watermark measurements. Reusing their conditioning frames would
+require public input artifacts, source hashes, an explicit reconstruction rule,
+new disjoint keys and fresh paper-configured generation. No such development
+benchmark is currently marked complete; the80video development manifest remains
+an open requirement.
