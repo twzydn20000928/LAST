@@ -102,4 +102,9 @@ or proof of acceptable motion quality. No metric is filled using manuscript targ
 
 ## Implementation and result status
 
+Additional experiment entry points are documented for [ablations](docs/ABLATIONS.md),
+[temporal stress and repeated maps](docs/STRESS.md), and
+[prompt-cluster uncertainty](docs/STATISTICS.md). Their availability is separate
+from completion of the full experimental matrix.
+
 Core tests are available. Fresh GPU integration checks are in progress. Dataset manifests, baseline adapters, complete attack runners, confidence intervals, supplemental controls and full-benchmark result bundles are release gates. No fabricated table or historical pilot value is shipped as a new measurement. Do not interpret this repository as a completed or independently validated reproduction.
