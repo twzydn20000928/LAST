@@ -18,6 +18,23 @@ augmented prompt to its exact row in the corresponding dimension prompt file,
 then retain that row's official auxiliary questions. Do not invent replacement
 questions or evaluate these structured dimensions as unrestricted custom input.
 
+Prepare per-dimension metadata against the actual completed primary runs:
+
+```bash
+python -m last.quality_inputs --manifest configs/primary_manifest.json \
+  --metadata-root /path/to/SIGMark-quality-metadata \
+  --run-root /private/primary-runs --family hunyuan --mode i2v --method last \
+  --output /private/quality-inputs/hunyuan-i2v-last
+```
+
+The command verifies all37upstream file hashes, generation identity and video
+presence, preserves official auxiliary fields, and records video hashes. It
+withholds scorer files if any of the400inputs are absent, while saving a complete
+coverage report. `--allow-partial-diagnostic` explicitly permits diagnostic
+metadata but does not permit a full-score claim. Reference uses the paired
+unmarked videos from the LAST runs. Output directories must be new, preserving
+previous coverage snapshots instead of silently overwriting them.
+
 The primary manifest requires20videos per ordinary dimension (five prompts,
 four seeds each), and60Diversity videos (three prompts,20seeds each). A complete
 score must include the prescribed inputs, valid/applicable denominators and
