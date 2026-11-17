@@ -34,7 +34,10 @@ def aggregate(plan,root,verify_artifacts=False):
                         if row.get('source_sha256')!=marked_sha:raise ValueError('Attack receipt refers to a different source video')
                         attacked=folder/'marked.mp4' if condition=='clean' else folder/'attacks'/(condition+'.mp4')
                         if not attacked.is_file():raise ValueError('Completed attack video missing')
-                        audited.append(dict(run=item['run'],condition=condition,receipt_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),video_sha256=hashlib.sha256(attacked.read_bytes()).hexdigest()))
+                        received_sha=hashlib.sha256(attacked.read_bytes()).hexdigest()
+                        recorded_received=row.get('received_sha256',row.get('source_sha256') if condition=='clean' else None)
+                        if recorded_received!=received_sha:raise ValueError(f'Attack receipt received-video hash missing or mismatched: {path}')
+                        audited.append(dict(run=item['run'],condition=condition,receipt_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),video_sha256=received_sha))
             cells[identity[:3]+(condition,)].append((state,row))
             if state!='completed':diagnostics.append(dict(family=identity[0],mode=identity[1],method=identity[2],video_id=identity[3],condition=condition,status=state))
     output=[]

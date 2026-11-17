@@ -1,5 +1,14 @@
 # Prompt-cluster uncertainty
 
+Before reporting primary tables, run `last.report` with `--verify-artifacts`.
+This verifies both the original marked video and the exact received MP4 against
+the extraction receipt. Missing received-video hashes or changed files fail the
+audit; recomputing a new hash does not validate an old extraction result.
+For the clean condition only, the source hash also identifies the received
+video because both refer to the same `marked.mp4`.
+Legacy receipts without this provenance require a separately documented audit
+or re-extraction before inclusion in verified tables.
+
 `last.cluster_intervals` computes bit accuracy and exact-message recovery, or
 paired differences between two methods, using the supplement's prompt-cluster
 resampling unit. It does not resample individual bits or treat repeated attack
