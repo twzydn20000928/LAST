@@ -22,6 +22,19 @@ integration, shared normalized fusion and the supplement AUROC experiment remain
 pending. The current primary CCTA/raw-energy fallback is unchanged. No calibrated
 energy benchmark or Table13/14 reproduction is claimed by this implementation.
 
+`last.null_energy.responses` supplies the response-computation primitive. It
+requires64 distinct32-byte wrong keys and a nonempty real-key exclusion registry,
+rejects overlap, and streams the existing public QR carrier construction one
+group at a time. `new_wrong_keys` uses operating-system randomness; callers must
+persist the returned keys only in private run state and reuse them for replay.
+The output has candidate-by64-by16 energies, with key fingerprints and precision
+recorded separately. The caller must supply **all** actual development/test keys;
+this function cannot infer omitted keys. Its input must be the same normalized
+1776-dimensional candidate features as the reader, with acquisition provenance
+audited separately. Tests of streaming and key exclusion are not real-video
+calibration results; the streaming test substitutes a simple known projection
+to check all1024 key/group indexes without claiming a full QR experiment.
+
 ## Primary component protocol
 
 The main-paper protocol uses30I2V samples for ablations and three fixed
