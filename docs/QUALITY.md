@@ -77,3 +77,24 @@ denominators; full GPU scorer integration is still pending. Official model
 acquisition, isolated scorer dependencies and aggregate validation still need
 completion in this release. Do not interpret availability of this command as
 evidence of a completed V-score.
+
+## Aggregate verified dimension outputs
+
+Store each dimension's output under `scores/<Dimension>/` as in the command
+above, then run:
+
+```bash
+python -m last.quality_report --inputs /private/quality-inputs/hunyuan-i2v-last \
+  --scores /private/quality-scores/hunyuan-i2v-last \
+  --output /private/quality-scores/hunyuan-i2v-last/summary.json
+```
+
+The report checks question-input hashes, recomputes dimension means from raw
+official outputs, and checks the prescribed five prompts times four videos per
+ordinary dimension and three prompts times twenty videos for Diversity. It
+averages dimensions within each of the five official categories, then averages
+the five categories equally. This is not an unweighted mean of eighteen scores.
+Missing, failed or entirely not-applicable dimensions yield a null V-score;
+partial input coverage also yields null. Valid/applicable counts remain visible
+for every dimension; not-applicable samples are never converted to zeros.
+Receipts and raw outputs are hashed into the report for traceability.
