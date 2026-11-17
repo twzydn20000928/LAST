@@ -87,6 +87,15 @@ development membership: the complete registry and 80-video manifest must still
 be audited before fitting. Providing this CLI does not claim that the full
 development calibration or AUROC experiment has been run.
 
+An [actual acquisition integration](../results/null_cache_real_integration.json)
+now verifies this command from public revision `bf67a4c`: one existing LFG-C
+development video produced 62-by-64-by-16 responses using real QR carriers.
+The audit checked actual artifacts, excluded all16 registered primary/development
+keys, and recomputed the first key/group projection for all62 candidates.
+The recorded57.11seconds is concurrent CPU elapsed time, not formal efficiency.
+This single LFG-C input validates acquisition; it does not supply the LAST
+development calibration or any detection/AUROC result.
+
 ## Primary component protocol
 
 The main-paper protocol uses30I2V samples for ablations and three fixed

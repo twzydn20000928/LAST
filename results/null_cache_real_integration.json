@@ -1,0 +1,23 @@
+{
+  "status": "actual_wrong_key_acquisition_verified",
+  "source_commit": "bf67a4cfd4770d04399400aa2430565286e08d3b",
+  "archive_sha256": "2249366b7e1d8c2fc51f53bf062c6b20b1bae27a22f7d0d720e0e67cbba0e631",
+  "sample_id": "dev-000",
+  "writer": "LFG-C alpha0.025 final5steps",
+  "video_sha256": "fae2bb7997996e154e2e300090ac6b83dde586370b337bcbe443278348e3d671",
+  "shape": [
+    62,
+    64,
+    16
+  ],
+  "responses": 63488,
+  "distinct_wrong_keys": 64,
+  "excluded_primary_and_development_keys": 16,
+  "receipt_sha256": "d0c1144170ee668cf255040b47eca9240c89e4c4ed8676816f55116ee5d84e7b",
+  "energies_sha256": "1fdb15efa93c6948fbf812f89a8e0a987158737bc955824348637fdc4c82f629",
+  "seconds": 57.111771523952484,
+  "timing_scope": "Concurrent CPU integration elapsed time; not paper efficiency measurement",
+  "recomputation": "First wrong-key/group projection recomputed over all62 candidates, rtol1e-6 atol1e-8",
+  "full_calibration": false,
+  "scope": "Real-feature CLI validation only; not LAST80-video calibration, detection performance, AUROC or an ablation result"
+}
