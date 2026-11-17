@@ -56,8 +56,15 @@ python -m last.quality_score --upstream /path/to/VBench/VBench-2.0 \
 
 The submodules JSON is the exact dictionary expected by the upstream dimension
 function (for Camera Motion: `{"repo":"facebookresearch/co-tracker","model":"cotracker2"}`).
-Upstream model acquisition may require network access. This entry point does
-not silently redirect checkpoints, patch official code or substitute scores.
+Upstream model acquisition may require network access. For the tracker-based
+dimensions, an explicit `--cotracker-checkpoint /path/to/cotracker2.pth` avoids
+unversioned `torch.hub` code acquisition: it uses the selected VBench checkout's
+bundled CoTracker2 predictor with `window_len=8` and strict checkpoint loading.
+The receipt identifies this model-loading adaptation and hashes both the weight
+file and all bundled tracker Python files. The official scoring function remains
+unchanged. Other hub requests fail instead of silently downloading a substitute.
+Without that option the official model loader is used as-is. This entry point
+does not silently redirect checkpoints, patch official code or substitute scores.
 The receipt records source, question-input and submodule-configuration hashes,
 runtime, seed and applicability counts. `official_result.json` retains raw
 outputs. Missing/duplicate video results or unexpected score ranges fail the

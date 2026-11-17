@@ -37,6 +37,8 @@ def main():
     p.add_argument('--dimension', required=True)
     p.add_argument('--device', default='cuda')
     p.add_argument('--seed', type=int, default=0)
+    p.add_argument('--cotracker-checkpoint', type=Path,
+                   help='Explicit local CoTracker2 loading adapter; bundled upstream code, window_len=8')
     p.add_argument('--allow-partial-diagnostic', action='store_true')
     a = p.parse_args()
     upstream = a.upstream.resolve(); inputs = a.inputs.resolve()
@@ -71,6 +73,28 @@ def main():
         import random
         torch.manual_seed(a.seed); np.random.seed(a.seed); random.seed(a.seed)
         sys.path.insert(0, str(upstream))
+        if a.cotracker_checkpoint:
+            if a.dimension not in ('Camera_Motion', 'Multi-View_Consistency'):
+                raise ValueError('CoTracker adapter is only for tracker dimensions')
+            checkpoint = a.cotracker_checkpoint.resolve()
+            bundled = upstream/'vbench2/third_party'
+            sys.path.insert(0, str(bundled))
+            from cotracker.predictor import CoTrackerPredictor
+            import cotracker.predictor as predictor
+            if not Path(predictor.__file__).resolve().is_relative_to(bundled):
+                raise RuntimeError('CoTracker imported from a different checkout')
+            record['model_loading_adapter'] = dict(
+                name='local CoTracker2; bundled upstream predictor; window_len=8',
+                checkpoint_sha256=hashlib.sha256(checkpoint.read_bytes()).hexdigest(),
+                source_sha256={str(f.relative_to(bundled)):hashlib.sha256(f.read_bytes()).hexdigest()
+                               for f in sorted((bundled/'cotracker').rglob('*.py'))})
+            def local_tracker(repo, model, *args, **kwargs):
+                if repo != 'facebookresearch/co-tracker' or model != 'cotracker2' or args or kwargs:
+                    raise ValueError('Unexpected torch.hub request; refusing implicit fallback')
+                network = CoTrackerPredictor(checkpoint=None, window_len=8, v2=True)
+                network.model.load_state_dict(torch.load(checkpoint, map_location='cpu', weights_only=True), strict=True)
+                return network
+            torch.hub.load = local_tracker
         module_name = a.dimension.lower().replace('-', '_')
         module = importlib.import_module('vbench2.'+module_name)
         source = Path(module.__file__).resolve()
