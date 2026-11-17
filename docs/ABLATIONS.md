@@ -109,7 +109,7 @@ accidentally switching decoders. Inputs are hash-checked before and after replay
 The output directory must be new. Replay completion means video export only;
 extraction and fidelity remain separate measured steps. Its runtime is not full
 generation time. This equal-margin control is not the separate development-
-calibrated matched-PSNR control. Real-video replay validation remains pending.
+calibrated matched-PSNR control. The first paired real-video replay has completed all seven conditions; the full 30-case ablation remains pending.
 
 # Oracle grouping diagnostic
 
@@ -138,3 +138,25 @@ are compared only after readout. Do not include these map-assisted results in
 deployable extraction claims or treat them as a guaranteed upper bound: missing
 content, padding and local VAE re-encoding remain sources of error.
 
+
+## Audit a completed writer pair
+
+```bash
+python -m last.writer_pair_report --minimum /private/minimum-margin \
+  --fixed /private/fixed-target --output /private/new-writer-pair-report.json
+```
+
+This command verifies the replay's source artifacts, identical private inputs
+and reference MP4, paired generation settings, all seven received-video hashes,
+temporal edit maps, bit-count ranges and quality references. Private state and
+messages are excluded from its output. Missing evidence causes an error rather
+than a partial aggregate. The counts remain measured extraction receipts; this
+CPU audit does not rerun extraction.
+
+`results/paired_writer_first_case.json` records frozen case `paper-003` at margin
+0.5. Minimum-margin versus fixed-target recovered respectively
+512/512, 512/512, 499/497, 512/512, 332/272, 501/496 and 504/503 information bits
+(out of 512) for clean, noise, compression, blur, drop, insert and clip.
+Paired fidelity was 30.1615 versus 29.6723 dB PSNR and 0.93191 versus 0.92837 SSIM.
+These are one equal-margin endpoint pair, not the full ablation table,
+a matched-quality experiment, or evidence of statistical superiority.
