@@ -27,12 +27,12 @@ GPU synchronization encloses every measured read. Other compute processes
 cause rejection; checks are not an operating-system resource reservation, so
 reserve the GPU externally and keep other schedulers idle for the full run.
 
-The above entry point covers only LAST/LFG extraction. Native baseline extraction
-has a separate entry point below, still requiring real timing validation;
-paired generation in randomized AB/BA order, direct CUDA-event embedding
-timing, the randomized 30-video/method schedule and length-scaling experiments
-remain to be implemented/validated. Do not present this partial entry point
-as the complete five-method Table 3 or supplementary Table 17 reproduction.
+The above entry point covers only LAST/LFG extraction. Native extraction,
+paired generation, direct CUDA-event embedding and a randomized 30-video schedule
+have entry points described below, but real timing and parity validation remain
+pending. Native Wan adapters and length-scaling experiments are also incomplete.
+Do not present available commands as the complete five-method Table 3 or
+supplementary Table 17 reproduction.
 
 For native Hunyuan SIGMark, VideoShield or VideoMark:
 
@@ -68,8 +68,8 @@ marked-first pairs; pair members remain adjacent. NumPy PCG64 seed20261118 is
 an explicit reconstruction choice, not a seed specified in the manuscript.
 The plan contains no measured times and does not launch or reserve the GPU.
 Keep failed attempts in their scheduled slots; do not reorder by observed
-latency. Native timing runners and paired-generation timing boundaries still
-need implementation/validation before this plan can constitute a complete
+latency. The implemented timing runners and their generation/decode boundaries
+still need real GPU validation before this plan can constitute a complete
 efficiency experiment.
 
 Each generation-pair job specifies two warmup pairs and five measured pairs;
@@ -86,8 +86,8 @@ Overheads are computed within each pair, including negative observed differences
 they are not differences of separately selected medians. Optional receipt writes
 occur after the pair, outside the intervals. A branch failure propagates without
 automatic retries or a successful partial-pair record. This core is CPU-tested,
-but still needs complete generation/decode adapters and exclusive-GPU validation
-for each method. It is not itself a generation CLI or measured efficiency result.
+and the adapters below still need exclusive-GPU validation for each method.
+The core alone is not a generation CLI or measured efficiency result.
 
 The LAST/LFG adapter is now available for both backbone/mode combinations:
 
