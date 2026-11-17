@@ -115,8 +115,11 @@ video/cache/response hashes, and a common VAE, writer, feature implementation an
 64-key null bank. All16 real keys must be excluded. Inputs are checked again after
 fitting. The output is the frozen median/MAD reconstruction plus provenance;
 keep it private because it includes key fingerprints and video identifiers.
-Tests cover the completeness gate and underlying fit algebra; a full80-file
-real-data fit has not yet run. This command does not establish test performance,
+Tests cover the completeness gate, underlying fit algebra, and an80-entry
+synthetic file integration with a known expected center. Mutated video, key,
+feature and energy files, changed margins and incomplete exclusion registries
+are rejected. These fixtures are not generated videos or real QR acquisitions;
+a full80-video real-data fit has not yet run. This command does not establish test performance,
 chain discrimination or AUROC.
 
 ## Primary component protocol
