@@ -1,6 +1,6 @@
 """Freeze disjoint development prompts without reading any measured outcomes."""
 import argparse, hashlib, json
-from collections import defaultdict
+from collections import defaultdict, Counter
 from pathlib import Path
 from .data import validate
 from .upstream import verify
@@ -8,6 +8,26 @@ from .upstream import verify
 SALT='LAST-paper-v1-development-20261118'
 def normalize(text):return ' '.join(text.casefold().split())
 def rank(text):return hashlib.sha256((SALT+'|'+text).encode()).hexdigest()
+
+
+def validate_development(manifest, primary):
+    validate(primary)
+    if manifest.get('split')!='development':raise ValueError('Expected development split')
+    rows=manifest['samples'];excluded={normalize(r['prompt']) for r in primary['samples']}
+    if len(rows)!=80:raise ValueError('Expected 80 development videos')
+    groups=defaultdict(list)
+    for i,row in enumerate(rows):
+        if row['id']!=f'dev-{i:03d}' or row['index']!=i or row['key_slot']!=i%8:
+            raise ValueError('Invalid development assignment')
+        if row['seed']!=2026111800+i:raise ValueError('Invalid development seed')
+        key=normalize(row['prompt'])
+        if key in excluded:raise ValueError('Development prompt overlaps primary test')
+        groups[key].append(row['replicate'])
+    if len(groups)!=20 or any(sorted(v)!=list(range(4)) for v in groups.values()):
+        raise ValueError('Expected 20 development prompts with four seeds')
+    if Counter(r['key_slot'] for r in rows)!=dict.fromkeys(range(8),10):raise ValueError('Unbalanced keys')
+    if {r['seed'] for r in rows}&{r['seed'] for r in primary['samples']}:raise ValueError('Seed overlap')
+    return dict(samples=80,prompts=20,keys=8)
 
 
 def select(primary, prompts):

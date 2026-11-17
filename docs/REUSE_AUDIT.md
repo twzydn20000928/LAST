@@ -59,6 +59,23 @@ python -m last.development --metadata-root /path/to/SIGMark-quality-metadata \
 ```
 
 The published selection does not yet contain conditioning images. I2V input
-acquisition and separate private development keys remain release requirements;
-primary test images/keys must not be substituted. No development generation or
-parameter tuning is implied by publishing this manifest.
+acquisition remains a release requirement; primary test images/keys must not be
+substituted. No development generation or parameter tuning is implied by
+publishing this manifest.
+
+Create private development keys/messages once, checking against your primary
+state without printing or publishing either set of keys:
+
+```bash
+python -m last.prepare --manifest configs/development_manifest.json \
+  --primary-manifest configs/primary_manifest.json \
+  --exclude-state /private/primary-state --output /private/development-state
+```
+
+The command validates prompt and seed separation, primary state identity, and
+eight distinct 32-byte primary keys. It creates eight new disjoint keys and 80
+messages. Both directories must remain private and persistent across paired
+methods. An existing output is refused; do not regenerate private state after
+observing outcomes. Development state creation is tested and performed in the
+reproduction environment; conditioning inputs and actual development runs are
+still pending.
