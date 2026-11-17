@@ -34,3 +34,18 @@ overlay directories to `PYTHONPATH` to conceal missing dependencies. Keep
 failed installation logs and report differences rather than silently relaxing
 versions. Model weights, secret state and input datasets are not dependencies
 bundled in this lock.
+# Wan text preprocessing dependency correction
+
+The first formal Wan run in the clean environment failed before sampling with
+`NameError: name 'ftfy' is not defined`. Diffusers conditionally imports this
+optional dependency, so package import and `pip check` alone did not catch it.
+The video extra and observed lock now include `ftfy==6.3.1` and
+`wcwidth==0.2.13`. Existing installations can add those exact versions without
+changing model weights or numerical generation settings. The original failed
+receipt is retained; it is not a measured watermark-accuracy result.
+
+`tests/test_wan_text.py` exercises both the I2V and T2V prompt cleaners without
+loading weights, including HTML and malformed Unicode. It runs in the video CI
+job. Historical 59-package installation evidence remains historical; this
+correction adds two packages and does not by itself prove full Wan generation.
+
