@@ -65,6 +65,28 @@ variants, not the primary full sliding-window input. Successful acquisition is
 not proof that a cache belongs to the development split: later calibration must
 also bind it to the frozen development manifest and complete key registry.
 
+The CPU-only response acquisition CLI binds the saved energies to the candidate
+cache, actual MP4, key files and implementation hashes. Prepare a private JSON
+list containing **every** real development/test key as a 64-character hexadecimal
+string; do not put that list, the wrong-key bank, or the output in the repository.
+
+```bash
+python -m last.null_cache init-keys --real-keys /private/all-real-keys.json \
+  --output /private/wrong64.json
+OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 python -m last.null_cache acquire \
+  --cache /private/new-candidate-cache --video /private/received.mp4 \
+  --wrong-keys /private/wrong64.json --real-keys /private/all-real-keys.json \
+  --output /private/new-null-responses
+```
+
+Reuse the saved wrong-key bank for replay. Existing outputs are not overwritten;
+failures retain their receipt. Each acquisition performs 1024 actual QR carrier
+projections and stores candidate-by-64-by-16 energies. It verifies input/source
+hashes again before completion. It cannot detect omitted real keys or certify
+development membership: the complete registry and 80-video manifest must still
+be audited before fitting. Providing this CLI does not claim that the full
+development calibration or AUROC experiment has been run.
+
 ## Primary component protocol
 
 The main-paper protocol uses30I2V samples for ablations and three fixed
