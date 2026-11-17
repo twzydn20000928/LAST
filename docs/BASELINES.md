@@ -259,6 +259,11 @@ The original generation and all seven original attack receipts must be complete.
 The runner verifies received-video hashes, supplies no truth or edit map to
 alignment, then compares final decoded bits with truth. Predictions remain in
 the private output directory. Test coverage includes eight-frame spacing and
-short-window padding; actual-video results remain pending until the receipt
-completes. This control is distinct from `--method lfg-c`, which changes the
+short-window padding. One completed Hunyuan I2V diagnostic is recorded in
+`results/lfg_native_ccta_integration.json`: clean/noise/compression/blur/drop/
+insert/clip give 504/486/493/496/365/385/430 correct bits out of512, versus
+504/485/492/496/357/305/399 for the original received-order reader on the same
+MP4s. No condition recovers the entire message; every BCH status is failure.
+This is one sample, not a population estimate or evidence of correct grouping.
+This control is distinct from `--method lfg-c`, which changes the
 writer's carrier parameterization.
