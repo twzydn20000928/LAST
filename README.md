@@ -81,6 +81,11 @@ The current frozen spatial input size is512×512. Keep decoded messages private.
 
 ## Receipts, tables and paired fidelity
 
+For the planned400sample LAST/LFG comparison, see [campaign commands](docs/CAMPAIGN.md).
+The worker verifies the frozen source and sample manifest, supports disjoint shards
+and resumes complete jobs. Other baselines and supplemental experiments remain
+separate release requirements; a successful subset is not full-paper completion.
+
 ```bash
 python -m last.report --plan configs/integration_plan.json \
   --root /private/runs/paper_reproduction_v1 --output /path/to/report
