@@ -40,11 +40,11 @@ def perturbation(clean, spread, alpha=.15):
     delta=lift(alpha*sigma*spread.to(device=clean.device,dtype=torch.float32))
     return torch.cat([torch.zeros_like(clean[:,:,:1]),delta],dim=2) if clean.shape[2]==17 else delta
 
-def scores(encoded,key):
+def scores(encoded,key,prepared_carriers=None):
     if encoded.shape!=(1,16,17,64,64):raise ValueError('Reader requires aligned65frame latent')
     band=lowpass(encoded[:,:,1:]);groups=[]
     for p in range(8):
-        code=carriers(key,p).to(device=band.device,dtype=torch.float32)
+        code=(carriers(key,p) if prepared_carriers is None else prepared_carriers[p]).to(device=band.device,dtype=torch.float32)
         groups.append((code@band[0,:,p].flatten()/16384).reshape(2,592))
     return torch.cat(groups).mean(0).cpu()
 

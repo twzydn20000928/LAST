@@ -66,7 +66,7 @@ def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,featur
         return soft,{'route':'received_order','groups':len(nodes)}
     return align(values,nodes,codes,reader=reader)
 
-def extract_lfg(frames,vae,processor,family,key):
+def extract_lfg(frames,vae,processor,family,key,prepared_carriers=None):
     from .lfg import align_received_frames,scores
     with torch.inference_mode():
         x=processor.preprocess_video([align_received_frames(frames)]).to('cuda',torch.float32)
@@ -76,7 +76,7 @@ def extract_lfg(frames,vae,processor,family,key):
             mean=torch.as_tensor(vae.config.latents_mean,device=z.device).view(1,16,1,1,1)
             std=torch.as_tensor(vae.config.latents_std,device=z.device).view(1,16,1,1,1)
             z=(z-mean)/std
-        return scores(z,key),{'route':'lfg_received_order','groups':16}
+        return scores(z,key,prepared_carriers),{'route':'lfg_received_order','groups':16}
 
 def evaluation_directory(run,map_seed):
     if map_seed not in range(5):raise ValueError('Expected map seed0..4')
