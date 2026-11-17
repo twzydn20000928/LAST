@@ -1,0 +1,48 @@
+{
+  "status": "paired_camera_runtime_parity_verified",
+  "source_commit": "723f62ad22f584ed481016a91b466f526ff007b2",
+  "environment": "fresh replay of public quality candidate; no historical Python overlays",
+  "dimension": "Camera_Motion",
+  "rows": [
+    {
+      "state": "last",
+      "mean": 0.0,
+      "valid_units": 2,
+      "identical_official_result": true,
+      "metadata_sha256": "64450b6af0f26f27eceb02123be51ab26da597b20b1edd27742c94486705a95e",
+      "videos": [
+        {
+          "video_id": "paper-000",
+          "sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb"
+        },
+        {
+          "video_id": "paper-001",
+          "sha256": "84db39f1d73409349e39e9d06fe735893710073395e921bc049bc897848e80aa"
+        }
+      ],
+      "checkpoint_sha256": "362f5274376d610dc987b6daf2c2fefe63e06e1835f4ec1a10d0a15c5a4eef4f",
+      "receipt_sha256": "fa58c517a84828f323ac09ded4fd3a157f7a42e95632916715cf2686631ff2ae"
+    },
+    {
+      "state": "reference",
+      "mean": 0.0,
+      "valid_units": 2,
+      "identical_official_result": true,
+      "metadata_sha256": "6f9bde26e676d61e3824bdd8fba57b241c6e63fd77ddc1a6f2aa98a3fcbfd41f",
+      "videos": [
+        {
+          "video_id": "paper-000",
+          "sha256": "9209cfa4d17e5f93a1690fcbc3dfcf5194e5401a074399fe0a76556621fab553"
+        },
+        {
+          "video_id": "paper-001",
+          "sha256": "9c78feeca4adc41748c9e6e66bee4a9fd319dbf9cd78700644ac134e5801e313"
+        }
+      ],
+      "checkpoint_sha256": "362f5274376d610dc987b6daf2c2fefe63e06e1835f4ec1a10d0a15c5a4eef4f",
+      "receipt_sha256": "f5b9da62de9a3a30531adb7c93540f8de09479d647e674dfec2863bce909fb66"
+    }
+  ],
+  "full_v_score_verified": false,
+  "scope": "Two paired videos; one official scorer runtime consistency check, not full quality or robustness evidence"
+}

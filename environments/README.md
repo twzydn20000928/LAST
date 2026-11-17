@@ -124,6 +124,10 @@ imported. `pip check` reported exactly the four disclosed messages above.
 See [the replay receipt](../results/quality_environment_fresh_replay.json) for
 source/archive, lock and wheel hashes and individual step outcomes. This is
 installation/import evidence, not a clean metadata check or a full V-score.
-Complete real-video scoring remains an acceptance gate; paired Camera Motion
-runtime verification in this fresh environment is queued separately.
+Complete real-video scoring remains an acceptance gate. Paired Camera Motion
+runtime verification in this fresh environment has now completed on two LAST
+and two corresponding reference videos. All official outputs match the prior
+environment, with two applicable units and a mean of 0.0 for each state.
+See [the paired runtime receipt](../results/quality_fresh_camera_pair.json).
+This validates one scorer on four inputs, not all eighteen scorers or full V-score.
 
