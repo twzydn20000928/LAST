@@ -36,6 +36,14 @@ versions. Model weights, secret state and input datasets are not dependencies
 bundled in this lock.
 # Wan text preprocessing dependency correction
 
+`last.doctor` also records cuDNN, TF32, attention backend and deterministic-
+algorithm switches, plus explicitly allowlisted numerical environment variables.
+It does not enable deterministic algorithms or change the paper settings.
+Matching version strings alone is insufficient evidence of bitwise reproduction;
+the report describes its own process, not unrecorded historical flags. Keep the
+report with each acquisition environment and retain discrepancies when comparing
+independently generated videos.
+
 The first formal Wan run in the clean environment failed before sampling with
 `NameError: name 'ftfy' is not defined`. Diffusers conditionally imports this
 optional dependency, so package import and `pip check` alone did not catch it.
