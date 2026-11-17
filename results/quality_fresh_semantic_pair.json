@@ -1,0 +1,47 @@
+{
+  "status": "paired_semantic_runtime_parity_verified",
+  "source_commit": "723f62ad22f584ed481016a91b466f526ff007b2",
+  "dimension": "Complex_Landscape",
+  "environment": "Fresh public quality candidate replay, without historical Python overlays",
+  "adapter": {
+    "attention": "sdpa",
+    "vision_microbatch": 4,
+    "frames": 64
+  },
+  "rows": [
+    {
+      "state": "last",
+      "mean": 0.2,
+      "valid_units": 1,
+      "not_applicable_units": 0,
+      "videos": [
+        {
+          "video_id": "paper-020",
+          "sha256": "99042b897a1ebb1bcedda84bb99411a931448e773a9e4292267bd0d35f169dc5"
+        }
+      ],
+      "receipt_sha256": "50ce7f160e7d32e3ec9851d41d012fd16a4dc0b214c46130d9d7ebf91f5b9e94",
+      "metadata_sha256": "56494caf17e02e6d985c35b5b6a568b4af68d88441d95ca9b8f1022c524be05f",
+      "official_result_sha256": "a9048ef046d1b5e5f6fa3ab97a07b5b55cc84839601a50f90b6b7b23f4544c84",
+      "identical_official_result": true
+    },
+    {
+      "state": "reference",
+      "mean": 0.0,
+      "valid_units": 1,
+      "not_applicable_units": 0,
+      "videos": [
+        {
+          "video_id": "paper-020",
+          "sha256": "b5fca53f10ca3bae497652be284a9d3934fbefb1668f783375d5fa09a21caeb5"
+        }
+      ],
+      "receipt_sha256": "b203440b22c7e50d05b2edfb5e130cf57988177156dbc03653d09d7a096b4428",
+      "metadata_sha256": "8d62026860021d52dd54d56176c581b43c2c8e68030684492eaa209c93cdf7e2",
+      "official_result_sha256": "024350e794da083be44cbfed42d6613f761b684751a265aeaa5b7042a046aeb9",
+      "identical_official_result": true
+    }
+  ],
+  "full_v_score_verified": false,
+  "scope": "One paired video; runtime parity only, not a full quality comparison or evidence of improvement"
+}

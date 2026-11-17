@@ -274,4 +274,19 @@ existing generation or paired-fidelity evidence. Keep previous scoring outputs
 and their source revision for provenance. Frozen running experiments keep their
 original version; this change does not retroactively certify their inputs.
 
+### Fresh-environment semantic scorer check
+
+[Verified paired evidence](../results/quality_fresh_semantic_pair.json) records
+one `Complex_Landscape` pair (`paper-020`) evaluated from public revision
+`723f62ad22f584ed481016a91b466f526ff007b2` in the fresh quality environment,
+without historical Python overlays. LAST scored 0.2 and its reference 0.0;
+both had one applicable video, and both official outputs exactly matched the
+previous environment. The reference zero is an actual valid score, not a value
+substituted for a failed or inapplicable evaluation.
+
+An independent post-run audit checked the actual MP4s, metadata, submodule
+configuration, receipts and raw result hashes, and matched the loading adapters.
+The disclosed adapter used SDPA attention and vision microbatches of four while
+retaining all 64 sampled frames. This is a runtime consistency check for one
+dimension and one pair, not a full V-score or evidence of improved video quality.
 
