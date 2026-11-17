@@ -1,0 +1,110 @@
+{
+  "scope": "One formal Wan2.2 I2V case: blind reader versus true-map-assisted diagnostic, not deployable performance",
+  "video_id": "paper-000",
+  "family": "wan22",
+  "mode": "i2v",
+  "source_commit": "1d331462fff777cd825e23f630b8ce3aa18b23fa",
+  "oracle_source_sha256": "807f5a63030a286083504fd26a7f4267abd160014d81e151740a99a24bf1f73e",
+  "oracle_receipt_sha256": "6491ec541be52ccc679f8fe92f152c1fd17ec01a73c7f38186f3602832ef3226",
+  "fill_policy": "Nearest surviving same-group frame; earlier tie; absent groups omitted; inserted/duplicate frames excluded",
+  "rows": [
+    {
+      "condition": "clean",
+      "blind_correct_bits": 512,
+      "oracle_correct_bits": 512,
+      "total_bits": 512,
+      "blind_exact_message": true,
+      "oracle_exact_message": true,
+      "complete_groups": 16,
+      "filled_slots": 0,
+      "missing_groups": 0,
+      "received_sha256": "0ec5dc0b755d8b425cadc31794c2f3d20eec3c64c75db3340d60ebc9f3951b0e",
+      "attack_receipt_sha256": "4b998d28e7f035a86103732949fd6f3ec23631cf085d623872efc0a5ee8fd8a3"
+    },
+    {
+      "condition": "noise",
+      "blind_correct_bits": 512,
+      "oracle_correct_bits": 512,
+      "total_bits": 512,
+      "blind_exact_message": true,
+      "oracle_exact_message": true,
+      "complete_groups": 16,
+      "filled_slots": 0,
+      "missing_groups": 0,
+      "received_sha256": "16c8ba27edc29aea8602e84edb7e4307e97bf338c4c23e6068ad8ffeb8daaebe",
+      "attack_receipt_sha256": "1862190baaf37f36848679ad9ca4286cf4a00a66e0e71de5be14362a8c9a388e"
+    },
+    {
+      "condition": "compression",
+      "blind_correct_bits": 493,
+      "oracle_correct_bits": 493,
+      "total_bits": 512,
+      "blind_exact_message": false,
+      "oracle_exact_message": false,
+      "complete_groups": 16,
+      "filled_slots": 0,
+      "missing_groups": 0,
+      "received_sha256": "b5588c9055bdeaf253d3eb74b3f0a751f3e6706284c0a2e7e773701e05a4f647",
+      "attack_receipt_sha256": "5389945a30f8298a84f869546afe70f6779fe9aeb0f31e2e83100e7b4cdd425a"
+    },
+    {
+      "condition": "blur",
+      "blind_correct_bits": 512,
+      "oracle_correct_bits": 512,
+      "total_bits": 512,
+      "blind_exact_message": true,
+      "oracle_exact_message": true,
+      "complete_groups": 16,
+      "filled_slots": 0,
+      "missing_groups": 0,
+      "received_sha256": "bf6ee6d759fb6c901a03c2050f3ce56e7269ad4b744f237b911a4453be8ee365",
+      "attack_receipt_sha256": "e80355ff706e0f7bfe53d255863b41a009fa5fb2b93fe4d61664c58a23407dec"
+    },
+    {
+      "condition": "drop",
+      "blind_correct_bits": 255,
+      "oracle_correct_bits": 501,
+      "total_bits": 512,
+      "blind_exact_message": false,
+      "oracle_exact_message": false,
+      "complete_groups": 0,
+      "filled_slots": 30,
+      "missing_groups": 0,
+      "received_sha256": "9369e7cbb88f151f41710bea1aa7e715d1290cfe6685d81e43ed82b01de71b0a",
+      "attack_receipt_sha256": "b02b699db5d3a04537afab7712df0d2afa5f86ff0c065a31d3b0789033c7c94f"
+    },
+    {
+      "condition": "insert",
+      "blind_correct_bits": 377,
+      "oracle_correct_bits": 512,
+      "total_bits": 512,
+      "blind_exact_message": false,
+      "oracle_exact_message": true,
+      "complete_groups": 16,
+      "filled_slots": 0,
+      "missing_groups": 0,
+      "received_sha256": "5f21b4a2975161f1182d5c9baa23b214981ad18471957aca9f4871f072817df8",
+      "attack_receipt_sha256": "31e5bdd2edaecf2e4a8ba757e5e758d3e748b85fe3de64e61e597f5766f91776"
+    },
+    {
+      "condition": "clip",
+      "blind_correct_bits": 487,
+      "oracle_correct_bits": 494,
+      "total_bits": 512,
+      "blind_exact_message": false,
+      "oracle_exact_message": false,
+      "complete_groups": 7,
+      "filled_slots": 2,
+      "missing_groups": 7,
+      "received_sha256": "a1618688a0c629190c22be2dfaf102f6511e7645c7f73652f412f6de75e8cad0",
+      "attack_receipt_sha256": "d62aad8d00f3e052213fe5548d04527ac7d6f48d3b33d2bb1c849a3d6addbdbf"
+    }
+  ],
+  "limitations": [
+    "The oracle receives the real temporal attack map; the blind reader does not",
+    "Grouping, missing-slot filling and fusion differ, so the gap does not isolate one module",
+    "No original deleted pixels are restored",
+    "Single-case evidence is not a backbone ranking or guaranteed upper bound",
+    "These scores must not replace blind extraction in primary tables"
+  ]
+}

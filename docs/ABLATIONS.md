@@ -160,3 +160,24 @@ CPU audit does not rerun extraction.
 Paired fidelity was 30.1615 versus 29.6723 dB PSNR and 0.93191 versus 0.92837 SSIM.
 These are one equal-margin endpoint pair, not the full ablation table,
 a matched-quality experiment, or evidence of statistical superiority.
+
+The first formal Wan I2V case now has a completed seven-condition oracle
+comparison in `results/wan_first_oracle_diagnostic.json`. The blind/oracle
+correct-bit counts (out of 512) are:
+
+| Condition | Blind | True-map-assisted diagnostic |
+|---|---:|---:|
+| Clean | 512 | 512 |
+| Noise | 512 | 512 |
+| Compression | 493 | 493 |
+| Blur | 512 | 512 |
+| Delete 30 | 255 | 501 |
+| Insert 30 | 377 | 512 |
+| Clip 30 | 487 | 494 |
+
+The received MP4 hashes and original attack receipts were verified for every
+pair. The deletion gap shows that substantial information remains readable
+with true-group assistance in this sample. It does not isolate alignment alone:
+the oracle also changes missing-slot filling and fusion. Deletion still does
+not recover the complete message. This is one diagnostic case, not primary
+blind performance, an aggregate ablation or a guaranteed upper bound.
