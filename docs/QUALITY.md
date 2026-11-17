@@ -41,6 +41,21 @@ score must include the prescribed inputs, valid/applicable denominators and
 all18dimension outputs. Missing or not-applicable results are not zeros.
 ## Official dimension runner
 
+Acquire the exact upstream source (including its license files) without
+executing its code during download:
+
+```bash
+python -m last.source_archive --manifest configs/vbench_source.json \
+  --archive /path/to/cache/VBench-fd18b3d0.zip \
+  --directory /path/to/VBench --download
+```
+
+An existing matching archive can be reused by omitting `--download`. The full
+archive SHA256 is checked before extraction, unsafe paths are rejected, and
+`LAST_SOURCE_RECEIPT.json` records every extracted file hash. Output must be a
+new directory. The fixed upstream revision is preserved; this does not install
+its dependencies or download scoring weights, and its own license applies.
+
 `last.quality_score` calls the upstream `compute_<dimension>` function without
 changing its questions, frames, model code or score formula. Use VBench source
 revision `fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490`, with `--upstream` pointing to

@@ -1,0 +1,120 @@
+{
+  "scope": "One Hunyuan I2V integration case; not the primary benchmark, not the LFG author implementation",
+  "method": "LFG adaptation",
+  "rows": [
+    {
+      "condition": "clean",
+      "status": "completed",
+      "correct_bits": 504,
+      "total_bits": 512,
+      "exact_message": false,
+      "bch_success": false,
+      "frames": 65,
+      "route": "lfg_received_order"
+    },
+    {
+      "condition": "noise",
+      "status": "completed",
+      "correct_bits": 485,
+      "total_bits": 512,
+      "exact_message": false,
+      "bch_success": false,
+      "frames": 65,
+      "route": "lfg_received_order"
+    },
+    {
+      "condition": "compression",
+      "status": "completed",
+      "correct_bits": 492,
+      "total_bits": 512,
+      "exact_message": false,
+      "bch_success": false,
+      "frames": 65,
+      "route": "lfg_received_order"
+    },
+    {
+      "condition": "blur",
+      "status": "completed",
+      "correct_bits": 496,
+      "total_bits": 512,
+      "exact_message": false,
+      "bch_success": false,
+      "frames": 65,
+      "route": "lfg_received_order"
+    },
+    {
+      "condition": "drop",
+      "status": "completed",
+      "correct_bits": 357,
+      "total_bits": 512,
+      "exact_message": false,
+      "bch_success": false,
+      "frames": 35,
+      "route": "lfg_received_order"
+    },
+    {
+      "condition": "insert",
+      "status": "completed",
+      "correct_bits": 305,
+      "total_bits": 512,
+      "exact_message": false,
+      "bch_success": false,
+      "frames": 95,
+      "route": "lfg_received_order"
+    },
+    {
+      "condition": "clip",
+      "status": "completed",
+      "correct_bits": 399,
+      "total_bits": 512,
+      "exact_message": false,
+      "bch_success": false,
+      "frames": 35,
+      "route": "lfg_received_order"
+    }
+  ],
+  "paired_fidelity": {
+    "frames": 65,
+    "rgb_mse": 0.00551044854647819,
+    "psnr_db": 22.588130484564182,
+    "identical": false,
+    "ssim": 0.7830717228422326,
+    "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+    "reference_sha256": "9209cfa4d17e5f93a1690fcbc3dfcf5194e5401a074399fe0a76556621fab553",
+    "marked_sha256": "c384fc214994768dbd03c6dd23f1e1999773e5d3c4e898648f7a9c417a205821",
+    "scope": "paired fidelity, not V-score or temporal perceptual quality"
+  },
+  "generation": {
+    "family": "hunyuan",
+    "mode": "i2v",
+    "settings": {
+      "steps": 50,
+      "cfg": 6,
+      "shift": 7,
+      "frames": 65,
+      "size": [
+        512,
+        512
+      ],
+      "clean_crf": 18,
+      "fps": 8,
+      "vae": "float32",
+      "generator": "bfloat16"
+    },
+    "hardware": "L40 (authorized A800 substitution)",
+    "source_sha256": "feeabdbc0e639184dbf896cd25786fa59a377205a77a6d115609dc0e06467c7c",
+    "seed": 2025,
+    "case_sha256": "2a5c0ea37094a8aa7161f5d009c13c73f321db1a834adb2e83a7dcbfdf1a86c0"
+  },
+  "receipt_sha256": {
+    "receipt.json": "5f7aec1d5503de252b692f47f46beeb268752c84766acdb47f98c9d93475f2d3",
+    "quality.json": "6f747269b0306a5124ec6856bc52dc10086158717e17bc6fe9802a4bf8d1f322",
+    "attacks/blur.json": "1866fcdcb4386b2df86e826e546381dd58da43e96dcf864b08cc633b76142157",
+    "attacks/clean.json": "d11eda630fce7afafb38f2196465bc9630798e53ee1d46639bedf1c199a5a989",
+    "attacks/clip.json": "0f8ce00c7a1509f1ea057e604c1e87ba70ff27241d189478be2dd46bf90e566d",
+    "attacks/compression.json": "df047f5d8f93de616cb9ed18c459e01f1d57d34d3bf94b89f44a6fa3b196e23f",
+    "attacks/drop.json": "ebc627783fcc7c1697ddd2eeec0d8e36249bef7fd03c916dd682a453b74df922",
+    "attacks/insert.json": "7f218b824ad2eb59946fe51c71b9fedf551ed436dbd40f06a0586de51d97ae27",
+    "attacks/noise.json": "2738a2f4873b0d6337eaabe0766fc387dcfe8b55cfe9b736713f0f350dfb198f"
+  }
+}
