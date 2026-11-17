@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "frozen_settings_not_reproduced_results",
+  "dataset": {"samples_per_method_mode_backbone": 400, "diversity": {"prompts": 3, "seeds_per_prompt": 20}, "other_dimensions": 17, "prompts_per_other_dimension": 5, "seeds_per_other_prompt": 4, "generation_seed_rule": "2025+video_index", "held_out_keys": 8, "key_assignment": "video_index%8", "development": {"videos": 80, "keys": 8, "disjoint_prompts": true}},
+  "video": {"height": 512, "width": 512, "frames": 65, "fps": 8, "codec": "libx264", "clean_crf": 18, "pixel_format": "yuv420p"},
+  "hunyuan": {"steps": 50, "guidance": 6, "shift": 7, "scheduler": "FlowMatchEulerDiscreteScheduler"},
+  "wan22": {"checkpoint_family": "A14B", "steps": 50, "guidance": 5, "shift": 5, "scheduler": "UniPCMultistepScheduler"},
+  "precision": {"generator": "bfloat16", "vae": "float32"},
+  "last": {"information_bits": 512, "coded_bits": 592, "groups": 16, "coordinates": 1776, "mu": 0.5, "profile": [0,0.5,0.5,1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5], "feature_normalization": "RMS+1e-8", "codebook": "sha256-key32-group-u32be/PCG64/float64-QR-positive-diagonal/v1"},
+  "lfg": {"final_steps": 10, "alpha": 0.15, "information_bits": 512, "coded_bits": 592},
+  "attacks": {"noise_sigma": 0.05, "compression_crf": 28, "blur_kernel": 5, "blur_sigma": 1, "temporal_count": 30, "primary_map_seed": 0, "sensitivity_map_seeds": [1,2,3,4]},
+  "ablations": {"videos": 30},
+  "margin_sweep": {"development_videos": 3, "mu": [0.1,0.25,0.5,0.75,1]},
+  "timing": {"primary_videos": 1, "supplementary_videos": 30, "extraction_repetitions": 2, "warmup": true, "exclusive_gpu": true},
+  "hardware": {"paper_generation": "A800", "actual_generation": "L40", "timing": "L40", "substitution_authorized": true}
+}

@@ -1,0 +1,18 @@
+{
+  "hunyuan_i2v": {
+    "repo": "hunyuanvideo-community/HunyuanVideo-I2V",
+    "revision": "fb9d287ef02fe6d39f2e23df6dcec1294e6c28d2"
+  },
+  "hunyuan_t2v": {
+    "repo": "hunyuanvideo-community/HunyuanVideo",
+    "revision": "e8c2aaa66fe3742a32c11a6766aecbf07c56e773"
+  },
+  "wan22_i2v": {
+    "repo": "Wan-AI/Wan2.2-I2V-A14B-Diffusers",
+    "revision": "596658fd9ca6b7b71d5057529bbf319ecbc61d74"
+  },
+  "wan22_t2v": {
+    "repo": "Wan-AI/Wan2.2-T2V-A14B-Diffusers",
+    "revision": "5be7df9619b54f4e2667b2755bc6a756675b5cd7"
+  }
+}
