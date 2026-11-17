@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: >-
+  Cite this software repository and the exact commit used for your experiments.
+  Full-paper reproduction is still in progress. This software citation does not
+  claim paper acceptance, an archival publication, or completed benchmark results.
+type: software
+title: "LAST: Training-Free and Inversion-Free Watermarking for Video Diffusion with Cross-Group Temporal Alignment"
+authors:
+  - name: LAST contributors
+repository-code: "https://github.com/twzydn20000928/LAST"
+url: "https://github.com/twzydn20000928/LAST"
+license: MIT
+keywords:
+  - video watermarking
+  - diffusion models
+  - reproducible research
+

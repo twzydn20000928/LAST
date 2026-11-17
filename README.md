@@ -201,3 +201,25 @@ from completion of the full experimental matrix.
 
 Core tests are available. Fresh GPU integration checks are in progress. Dataset manifests, baseline adapters, complete attack runners, confidence intervals, supplemental controls and full-benchmark result bundles are release gates. No fabricated table or historical pilot value is shipped as a new measurement. Do not interpret this repository as a completed or independently validated reproduction.
 
+## Citation and version identification
+
+[CITATION.cff](CITATION.cff) describes the software repository under its existing
+LAST contributors attribution. It is not a substitute for the manuscript author
+list or a claim of conference acceptance. An archival paper identifier and named
+paper authors are not supplied by the anonymous review manuscript, so none are
+invented here. Cite the exact Git commit used, together with the frozen protocol
+and environment files. For example:
+
+```bibtex
+@software{last_software,
+  author = {{LAST contributors}},
+  title = {{LAST}: Training-Free and Inversion-Free Watermarking for Video Diffusion with Cross-Group Temporal Alignment},
+  url = {https://github.com/twzydn20000928/LAST},
+  note = {Software under active reproduction; specify the exact commit used}
+}
+```
+
+A successful integration test or CI run does not establish complete reproduction
+of the manuscript tables; consult the release checklist and measured receipts.
+
+
