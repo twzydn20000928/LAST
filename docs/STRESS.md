@@ -1,0 +1,31 @@
+# Supplement temporal stress protocol
+
+```bash
+python -m last.stress --video /private/run/marked.mp4 --video-id paper-000 \
+  --attack drop45 --seed 0 --output /private/stress/paper-000/drop45/map0
+```
+
+Choices are `drop10`, `drop30`, `drop45`, `duplicate30`, `natural30`,
+`interpolate30`, and `drop30_crf28`. Map seeds0–4 are fixed before extraction.
+Drop30 uses exactly the primary deletion map. Combined editing uses this same
+map then CRF28; other exports use CRF18,8fps,yuv420p. Every export is reopened.
+
+Duplicate insertion samples30distinct source frames and copies each immediately
+after its source. Natural insertion requires `--donor-reference` pointing to an
+unwatermarked same-size clip, selects a contiguous30frame donor portion and
+inserts it at a uniformly chosen boundary. Freeze donor assignments before
+evaluation and keep them identical across methods; the complete donor assignment
+manifest remains pending. Do not use marked donors or choose donors by accuracy.
+
+Interpolation samples30distinct adjacent pairs. It computes forward/backward
+Farneback flow with scale.5,3levels,15window,3iterations,poly5,sigma1.2;
+each image is remapped by minus half its flow using bilinear interpolation and
+reflected boundaries, then the two warped images are averaged and rounded to
+RGB8. These explicit numerical choices fill details absent from the supplement;
+they are not claimed to be an unpublished author implementation.
+
+`attack.json` records edit positions and source/received/donor hashes. Pass only
+`received.mp4` and the key to `last.extract` (or native baseline video/state to
+`last.baseline_extract --temporal`). Attack metadata must not enter the reader.
+The exporter claims no bit accuracy. Aggregate repeated maps by original prompt
+cluster; five maps of one video are not five independent test videos.
