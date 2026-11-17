@@ -96,6 +96,18 @@ file and all bundled tracker Python files. The official scoring function remains
 unchanged. Other hub requests fail instead of silently downloading a substitute.
 Without that option the official model loader is used as-is. This entry point
 does not silently redirect checkpoints, patch official code or substitute scores.
+For LLaVA-based dimensions, `--llava-siglip /path/to/local/siglip` explicitly
+selects a local vision tower through the bundled LLaVA implementation. Combine
+it with `--llava-attention sdpa` (default for this adapter) or
+`--llava-attention flash_attention_2`. The adapter records the attention backend,
+SigLIP file hashes and bundled LLaVA Python hashes. SDPA is a disclosed backend
+adaptation, not a claim of bit-identical Flash Attention outputs. The dimension's
+official questions, 64-frame sampling where prescribed, generation parameters
+and score function remain unchanged. Set `HF_HUB_OFFLINE=1` and
+`TRANSFORMERS_OFFLINE=1` when testing cached models so an upstream fallback cannot
+silently acquire a different model. The submodules JSON must still supply the
+local LLaVA checkpoint under `llava`. Runtime validation of these large models
+is separate from the CPU import audit.
 The receipt records source, question-input and submodule-configuration hashes,
 runtime, seed and applicability counts. `official_result.json` retains raw
 outputs. Missing/duplicate video results or unexpected score ranges fail the
