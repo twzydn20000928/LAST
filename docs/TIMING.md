@@ -111,8 +111,22 @@ The LFG marked branch uses its late predicted-clean scheduler guidance.
 This adapter's occupied-GPU rejection has been exercised on the active server;
 it refused before loading models and retained a failed receipt. Actual exclusive
 GPU measurements and numerical parity with ordinary generation are still pending.
-Native SIGMark/VideoShield/VideoMark generation adapters are not implemented by
-this command. Do not pool adapter timings with a different offload/decode policy.
+Do not pool adapter timings with a different offload/decode policy.
+
+The same generation command also accepts `--method sigmark`, `videoshield` or
+`videomark` with `--family hunyuan --upstream /path/to/pinned-sigmark`; omit
+`--key` for these methods. Their native constructor prepares PRC keys outside
+timing; each marked call performs the native message-to-noise encoding inside
+timing. VideoShield's per-video ephemeral key/nonce draws are part of that native
+operation and remain included, explicitly distinguished from one-time setup.
+The post-constructor NumPy/Torch states are restored for repeated native encoding,
+and per-video registration accumulators are cleared to avoid growth across repeats.
+Sampling resets its seed after initial-noise construction as in ordinary generation.
+All five Hunyuan methods share the same decode/offload path in this entry point.
+Native Wan generation timing is rejected. Native dependency setup and complete
+GPU output parity still require validation; CLI availability is not a measured
+five-method efficiency comparison. VideoMark registration-based extraction is
+not exercised by generation timing.
 
 For one method/backbone/condition, aggregate the frozen 30-video subset with:
 

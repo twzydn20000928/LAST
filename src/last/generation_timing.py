@@ -1,4 +1,4 @@
-"""Warm-model paired LAST/LFG generation timing; requires an exclusive GPU."""
+"""Warm-model paired generation timing; requires an exclusive GPU."""
 import argparse
 import hashlib
 import json
@@ -13,15 +13,22 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--family', choices=['hunyuan', 'wan22'], required=True)
     p.add_argument('--mode', choices=['i2v', 't2v'], required=True)
-    p.add_argument('--method', choices=['last', 'lfg'], required=True)
+    p.add_argument('--method', choices=['last', 'lfg', 'sigmark', 'videoshield', 'videomark'], required=True)
     p.add_argument('--model-dir', type=Path, required=True)
     p.add_argument('--case', type=Path, required=True)
-    p.add_argument('--key', type=Path, required=True)
+    p.add_argument('--key', type=Path)
+    p.add_argument('--upstream', type=Path)
+    p.add_argument('--manifest', type=Path, default=Path('configs/sigmark_source_manifest.json'))
     p.add_argument('--message', type=Path, required=True)
     p.add_argument('--order', choices=['AB', 'BA'], required=True)
     p.add_argument('--protocol', choices=['main', 'supplement'], required=True)
     p.add_argument('--output', type=Path, required=True)
     a = p.parse_args()
+    native = a.method in ('sigmark', 'videoshield', 'videomark')
+    if native and (a.family != 'hunyuan' or a.upstream is None or a.key is not None):
+        p.error('Native timing requires --family hunyuan --upstream and uses native key setup, not --key')
+    if not native and a.key is None:
+        p.error('LAST/LFG require --key')
     os.umask(0o077)
     a.output.mkdir(parents=True, exist_ok=False)
     record = dict(status='preparing', family=a.family, mode=a.mode,
@@ -48,14 +55,35 @@ def main():
         from .lfg_schedulers import LFGFlowEuler, LFGUniPC
         torch.set_num_threads(4)
         case = json.loads(a.case.read_text())
-        key, message = a.key.read_bytes(), a.message.read_bytes()
-        if len(key) != 32 or len(message) != 64:
+        key, message = a.key.read_bytes() if a.key else None, a.message.read_bytes()
+        if (key is not None and len(key) != 32) or len(message) != 64:
             raise ValueError('Require a32byte key and64byte message')
-        input_hashes = {str(path): sha(path) for path in (a.case, a.key, a.message)}
+        input_hashes = {str(path): sha(path) for path in (a.case, a.key, a.message) if path is not None}
         source = {path.name: sha(path) for path in Path(__file__).parent.glob('*.py')}
         signs = BCH512().encode(np.unpackbits(np.frombuffer(message, dtype=np.uint8))).astype(np.float32)*2-1
         codes = torch.from_numpy(codebook(key)) if a.method == 'last' else None
         spread = watermark(key, signs).cuda() if a.method == 'lfg' else None
+        native_writer = None
+        if native:
+            from .baseline_probe import load_class
+            manifest = json.loads(a.manifest.read_text())
+            wm_cls = load_class(a.method, a.upstream, manifest)
+            seed = int(case['seed'])
+            torch.manual_seed(seed)
+            np.random.seed(seed)
+            native_writer = wm_cls(video_h=512, video_w=512, video_f=65, latent_c=16,
+                vae_scale_factor_spatial=8, vae_scale_factor_temporal=4,
+                ch_factor=2, hw_factor=8, fr_factor=16, batch_size=1,
+                seed=seed, dtype=torch.float32, device='cpu')
+            geometry = native_writer.get_watermark_message_shape()
+            if int(np.prod(geometry)) != 512:
+                raise ValueError('Unexpected native message geometry')
+            native_message = np.unpackbits(np.frombuffer(message, dtype=np.uint8)).reshape(geometry)
+            native_numpy_state, native_torch_state = np.random.get_state(), torch.get_rng_state()
+            record.update(upstream_commit=manifest['commit'],
+                native_setup='Constructor PRC key setup excluded; per-video encoding and VideoShield ephemeral key/nonce sampling included',
+                native_scope='Pinned SIGMark baseline implementation; generation timing only, no registration-based extraction')
+            input_hashes[str(a.manifest)] = sha(a.manifest)
         cls = ((HunyuanVideoImageToVideoPipeline if a.mode == 'i2v' else HunyuanVideoPipeline)
                if a.family == 'hunyuan' else (WanImageToVideoPipeline if a.mode == 'i2v' else WanPipeline))
         vae_cls = AutoencoderKLHunyuanVideo if a.family == 'hunyuan' else AutoencoderKLWan
@@ -85,9 +113,23 @@ def main():
                 pipe.scheduler.alpha, pipe.scheduler.late_steps = .15, 10
             torch.manual_seed(seed)
             torch.cuda.manual_seed_all(seed)
+            np.random.seed(seed)
+            if marked and native_writer is not None:
+                np.random.set_state(native_numpy_state)
+                torch.set_rng_state(native_torch_state)
+                if a.method == 'videoshield':
+                    native_writer.maintained_info = []
+                elif a.method == 'videomark':
+                    native_writer.maintained_info['watermark_messages'] = []
+                initial = native_writer.create_watermarked_latents(native_message).to('cuda', torch.bfloat16)
+            else:
+                initial = torch.randn(1,16,17,64,64, generator=torch.Generator().manual_seed(seed), dtype=torch.bfloat16).cuda()
+            # Match the ordinary adapter's reset immediately before diffusion.
+            torch.manual_seed(seed)
+            torch.cuda.manual_seed_all(seed)
             kwargs = dict(prompt=[case['prompt']], height=512, width=512, num_frames=65,
                           num_inference_steps=50, guidance_scale=6 if a.family == 'hunyuan' else 5,
-                          latents=torch.randn(1,16,17,64,64, generator=torch.Generator().manual_seed(seed), dtype=torch.bfloat16).cuda(),
+                          latents=initial,
                           output_type='latent', return_dict=False)
             if image is not None:
                 kwargs['image'] = image
@@ -127,6 +169,9 @@ def main():
             raise ValueError('Input changed during timing')
         if source != {path.name: sha(path) for path in Path(__file__).parent.glob('*.py')}:
             raise ValueError('Source changed during timing')
+        if native:
+            from .upstream import verify
+            verify(a.upstream, manifest)
         record.update(status='completed', measurement=result, decoded_frame_counts=shape_checks)
         save()
     except BaseException:
