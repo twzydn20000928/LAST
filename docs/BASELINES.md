@@ -300,7 +300,7 @@ This is one sample, not a population estimate or evidence of correct grouping.
 This control is distinct from `--method lfg-c`, which changes the
 writer's carrier parameterization.
 
-### Wan-2.2 native-carrier generation (extraction port pending)
+### Wan-2.2 native-carrier integration (real-video validation pending)
 
 `last.baseline_generate` now accepts `--family wan22` for the three native
 initial-noise carriers. It retains their original512-bit message/state handling,
@@ -309,13 +309,27 @@ with50-step flow-UniPC, guidance5, shift5, bfloat16 generation and float32 VAE.
 Wan's per-channel latent mean/std are restored before decoding; Hunyuan keeps
 its scalar VAE scaling and Euler/CFG6/shift7 defaults.
 
-This is a generation-only implementation. Channel normalization roundtrip and
-registry tests pass, but real Wan native-carrier GPU generation and extraction
-have not been validated. `last.baseline_run`, native inversion/SGO extraction and
-native efficiency adapters remain Hunyuan-only. Do not feed Wan outputs into
-the Hunyuan extractor or report this as completed Wan baseline reproduction.
-The missing Wan inversion/SGO port must be resolved without silently replacing
-the manuscript's UniPC generation configuration with Euler.
+Channel normalization roundtrip and registry tests pass, but real Wan
+native-carrier GPU generation and extraction have not been validated.
+`last.baseline_run` and native efficiency adapters remain Hunyuan-only.
+
+The experimental `last.baseline_extract --family wan22` entry point now uses
+Wan's per-channel mean/std, CFG5 for both A14B experts, and the appropriate
+T2V/I2V pipeline. A VAE facade supplies normalized mode latents to upstream
+SIGMark SGO, which otherwise assumes a Hunyuan scalar scale. The actual VAE
+inside the pipeline is unchanged, including image-conditioning encoding.
+Native PRC detection, group search and reference access remain upstream code.
+
+Extraction retains the upstream inverse Euler scheduler with shift5 and50
+steps. This is an explicitly reconstructed inversion adaptation: the supplied
+manuscript specifies UniPC generation but not a Wan inverse-solver recipe.
+Generation remains UniPC; no claim of exact inverse-UniPC or bitwise inversion
+is made. On Diffusers0.35.2, both real Wan pipeline classes accept the required
+call parameters and the inverse scheduler yields50 timesteps with51 ascending
+sigmas from0 to1. Five normalization/adapter tests pass. These CPU checks do
+not establish real-video extraction accuracy, temporal SGO correctness, or
+complete Wan baseline reproduction. Use explicit `--family wan22`; the default
+extractor family remains Hunyuan.
 
 ## Native VideoMark real-video integration
 
@@ -366,3 +380,4 @@ The runner never selects a candidate or evaluates message accuracy. Run
 no selected parameter. Existing active cells started by other controllers must
 finish before using this runner on their output root. All commands must use
 reader-owned private keys and state, not the authors' experimental secrets.
+
