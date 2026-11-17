@@ -162,3 +162,24 @@ are not a claim of blind extraction. Failure stops the run and retains the
 traceback. Output must be a new private directory; failed runs are not silently
 overwritten. This is clean-video integration, not the full attack benchmark,
 and concurrent wall time is not the paper's exclusive efficiency measurement.
+
+### Same-map spatial and temporal attacks
+
+```bash
+python -m last.baseline_evaluate --run /private/videomark-integration/generation \
+  --upstream /path/to/pinned-SIGMark --model-dir /path/to/hunyuan-i2v \
+  --video-id paper-000 --clean-extraction /private/videomark-integration/extraction \
+  --memory-gib 8
+```
+
+Use the same `--video-id` as LAST/LFG to obtain identical stochastic attacks.
+The runner imports the same attack function, exports and rereads MP4, and invokes
+the native reader in a separate process without the edit map or a separate truth
+file. Native reference/registration access remains intact. SIGMark temporal
+conditions enable upstream SGO; VideoShield/VideoMark use upstream frame-length
+alignment. `--map-seed 0..4` supports the supplementary edit-map repetitions.
+An optional clean extraction is reused only after checking method, mode, actual
+video hash, native-state hash and successful extraction status. Completed
+conditions may resume; a failed/unfinished condition stops with retained evidence
+and must be inspected. There is no fake bit vector for a failed extraction.
+Do not launch multiple evaluators for the same run/map simultaneously.
