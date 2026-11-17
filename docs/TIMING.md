@@ -62,7 +62,7 @@ python -m last.timing_plan --output /private/timing-acquisition-plan.json
 ```
 
 This uses the frozen thirty-video subset and all five methods: 300 reader jobs
-(clean and deletion conditions) and 150 marked/unmarked generation pairs for
+(clean and deletion conditions) and 150 marked/unmarked generation-pair jobs for
 one backbone/mode. Each method has fifteen reference-first and fifteen
 marked-first pairs; pair members remain adjacent. NumPy PCG64 seed20261118 is
 an explicit reconstruction choice, not a seed specified in the manuscript.
@@ -71,6 +71,13 @@ Keep failed attempts in their scheduled slots; do not reorder by observed
 latency. Native timing runners and paired-generation timing boundaries still
 need implementation/validation before this plan can constitute a complete
 efficiency experiment.
+
+Each generation-pair job specifies two warmup pairs and five measured pairs;
+each branch therefore gets two warmups and five measurements. It is not a
+single sampling call per video/method. Compute each paired overhead from its
+matched marked/unmarked measurement before aggregating videos. Schedule schema2
+makes these generation repeat counts explicit; earlier schema1 plans did not
+specify them and must not be treated as complete acquisition instructions.
 
 For one method/backbone/condition, aggregate the frozen 30-video subset with:
 

@@ -15,7 +15,7 @@ def make_plan(ids,seed=20261118):
         # Balance AB/BA across the thirty videos for every method. Pair members
         # stay adjacent; their model, case, seed and export boundaries must match.
         for method in rng.permutation(METHODS):
-            generation.append(dict(video_id=str(identity),method=str(method)))
+            generation.append(dict(video_id=str(identity),method=str(method),warmup_pairs=2,measured_pairs=5))
         for condition in rng.permutation(('clean','drop')):
             for method in rng.permutation(METHODS):
                 readers.append(dict(video_id=str(identity),method=str(method),condition=str(condition),warmups=2,repeats=5))
@@ -25,7 +25,7 @@ def make_plan(ids,seed=20261118):
         for row,order in zip(rows,orders):
             row['order']=str(order)
             row['branches']=['reference','marked'] if order=='AB' else ['marked','reference']
-    return dict(schema_version=1,status='planned_not_measured',seed=seed,rng='NumPy PCG64',
+    return dict(schema_version=2,status='planned_not_measured',seed=seed,rng='NumPy PCG64',
                 scope='One fixed backbone/mode on an exclusive L40; instantiate separately per reported configuration',
                 reconstruction='Paper requires randomized order; PCG64 seed and balanced AB/BA are explicit implementation choices',
                 reader_jobs=readers,generation_pairs=generation,
