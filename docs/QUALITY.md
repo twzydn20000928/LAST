@@ -225,7 +225,13 @@ Adafactor registration; the official0.10.6 compatibility fix resolved that error
 After correcting the validation script to call the functional ROIAlign operator
 with positional arguments, its CPU forward and backward checks passed with
 MMCV2.0.1 and PyTorch2.5.1+cu124. Both failed validation attempts are retained.
-The 18-module audit still has two dependency import failures. CUDA-operator
-validation, a complete compatible dependency lock and numerical anatomy-score
-validation remain pending. This is not a completed V-score installation.
+After installing the upstream quality-specific dependency versions, all18
+modules pass import checks in the isolated environment. A small CPU/CUDA
+ROIAlign forward/backward parity test also passes on L40 (maximum absolute
+errors5.96e-8 and1.19e-7). `results/quality_environment_progress.json` records
+the scorer source hashes and compiled-extension hash. The quality environment
+uses fsspec2024.9.0 and timm0.4.12; the video environment remains unchanged.
+RetinaFace/OpenCV dependency-metadata conflicts, a final clean-install lock,
+model-weight validation and full real-video scorer execution remain unresolved.
+This is not a completed V-score installation or an overall quality result.
 

@@ -1,0 +1,103 @@
+{
+  "dimensions": {
+    "Diversity": {
+      "status": "importable",
+      "scorer_source_sha256": "ebae1914884b1874cba6908ac32fe4a8fc9b158547039124dba6121c29c9e755"
+    },
+    "Multi-View_Consistency": {
+      "status": "importable",
+      "scorer_source_sha256": "f5fe798be6ad0d45600bddf9aa97680798338986c159dd4e991950d32ef02efd"
+    },
+    "Human_Anatomy": {
+      "status": "importable",
+      "scorer_source_sha256": "cc6ccc9bc56f7e97b851efcc59068d551a906488227c3eaec9bd5e7d75df2496"
+    },
+    "Motion_Order_Understanding": {
+      "status": "importable",
+      "scorer_source_sha256": "37dd653c4289c9015dbc0e52490985dff9c55d27ba15126628ee3e6bef23882f"
+    },
+    "Composition": {
+      "status": "importable",
+      "scorer_source_sha256": "70af3a13083f714b217e6dbeb16a6eaf457a903ce42c2dc820df09baf4908521"
+    },
+    "Dynamic_Attribute": {
+      "status": "importable",
+      "scorer_source_sha256": "fc7a49f710a4171ea308da43614f3776c8b03797cfecf9bab355c1eb10504ab3"
+    },
+    "Complex_Landscape": {
+      "status": "importable",
+      "scorer_source_sha256": "f13eacaab226b186e9d3490ce42f4d224a618e40fdfcd3db9baeeba9a36bf983"
+    },
+    "Motion_Rationality": {
+      "status": "importable",
+      "scorer_source_sha256": "ffd7d22bb4ab383bf8a3b2c7b3771436069f77b246900bb6982d94eac2502f0c"
+    },
+    "Human_Interaction": {
+      "status": "importable",
+      "scorer_source_sha256": "07b1923afa6472897109f50f31ea16e835a659cbf4c69aca82e9e534b880b8a7"
+    },
+    "Mechanics": {
+      "status": "importable",
+      "scorer_source_sha256": "795c0f0641e67f89f91771a456a5dd2cb1ac738b4447b6a96a42439813909271"
+    },
+    "Complex_Plot": {
+      "status": "importable",
+      "scorer_source_sha256": "f0ef02b68e770c2e8ea9c532002f142690841c598cad9448e27fe6a4422ed11a"
+    },
+    "Camera_Motion": {
+      "status": "importable",
+      "scorer_source_sha256": "2f5deeb63a785ae87c4e082faeff55ed93dc8d9d0e12b59d95ca5039a1e1227e"
+    },
+    "Instance_Preservation": {
+      "status": "importable",
+      "scorer_source_sha256": "814b2c36e4e80634fd38a4bac99277dae8ae2c95c28f29db0ba4c894dda1db45"
+    },
+    "Human_Identity": {
+      "status": "importable",
+      "scorer_source_sha256": "e4b59054387c178a9a415d005cc96f6031470027ea5d1cbb26a40790bf8208d3"
+    },
+    "Dynamic_Spatial_Relationship": {
+      "status": "importable",
+      "scorer_source_sha256": "78cc77d323490e334d81e14b12ea6daa74ef4e7e8c182c5b0532930c7ac42b63"
+    },
+    "Human_Clothes": {
+      "status": "importable",
+      "scorer_source_sha256": "30b2b06a7f1d6988d613f92f79dbe6102e14a429ddc4b05e416acd6e7a6d66c7"
+    },
+    "Material": {
+      "status": "importable",
+      "scorer_source_sha256": "40443744df64456d9f06f7a9882075803e905ee9826a59fd062a10aad3c90044"
+    },
+    "Thermotics": {
+      "status": "importable",
+      "scorer_source_sha256": "209e351cd29c6cb619acaa47fb43f412429e1ea3c2a6704a6391b76bb7d41998"
+    }
+  },
+  "all_18_importable": true,
+  "import_audit_sha256": "8a07ecb8f94fe9445a606714fbcd531dcaa2a1d191728e3ce625dafcfa7b529f",
+  "known_limitations": [
+    "Full scoring weights and runtime not validated",
+    "RetinaFace and OpenCV package metadata conflicts remain unresolved",
+    "No final clean-install dependency lock is claimed"
+  ],
+  "scope": "Environment progress only; no official video scores or complete V-score",
+  "upstream_commit": "fd18b3d055cb0fc6f066ca90fe2c3c8cbb698490",
+  "complete_v_score": false,
+  "cuda_operator": {
+    "scope": "CPU/CUDA ROIAlign forward/backward parity only; not official quality scoring or exclusive efficiency",
+    "mmcv": "2.0.1",
+    "torch": "2.5.1+cu124",
+    "cuda": "12.4",
+    "gpu": "NVIDIA L40",
+    "extension_sha256": "17e70d1152566a5bbf5142ad87a83f25377372deddbabe9076a0edc89690f4f6",
+    "forward_max_abs_error": 5.960464477539063E-08,
+    "backward_max_abs_error": 1.1920928955078125E-07,
+    "peak_allocated_mib": 0.00390625,
+    "passed": true
+  },
+  "adjustments": [
+    "MMCV 2.0.1 compiled with explicitly recorded C++17-only patch",
+    "MMEngine 0.10.6 official PyTorch 2.5 optimizer registry compatibility fix",
+    "Quality-specific fsspec 2024.9.0 and timm 0.4.12; video environment unchanged"
+  ]
+}
