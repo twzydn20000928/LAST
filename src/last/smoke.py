@@ -11,7 +11,7 @@ from .temporal import segments,windows
 from .video import export_mp4,load_mp4
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');p.add_argument('--key',type=Path);p.add_argument('--message',type=Path);p.add_argument('--method',choices=['last','lfg'],default='last')
+    p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');p.add_argument('--key',type=Path);p.add_argument('--message',type=Path);p.add_argument('--method',choices=['last','lfg','lfg-c'],default='last')
     p.add_argument('--mu',type=float,default=.5);p.add_argument('--fixed-target',action='store_true')
     p.add_argument('--lfg-alpha',type=float,default=.15)
     p.add_argument('--lfg-final-steps',type=int,choices=[5,10,20],default=10)
@@ -19,7 +19,7 @@ def main():
     if not np.isfinite(a.mu) or a.mu<0:p.error('--mu must be finite and nonnegative')
     if a.method!='last' and (a.mu!=.5 or a.fixed_target):p.error('Margin options apply only to LAST')
     if not np.isfinite(a.lfg_alpha) or a.lfg_alpha<0:p.error('--lfg-alpha must be finite and nonnegative')
-    if a.method!='lfg' and (a.lfg_alpha!=.15 or a.lfg_final_steps!=10):p.error('LFG options apply only to LFG')
+    if a.method not in ('lfg','lfg-c') and (a.lfg_alpha!=.15 or a.lfg_final_steps!=10):p.error('LFG options apply only to LFG')
     if bool(a.key)!=bool(a.message):p.error('--key and --message must be supplied together')
     os.umask(0o077);a.output.mkdir(parents=True,exist_ok=True);out=a.output/'receipt.json'
     if out.exists() and json.loads(out.read_text()).get('status')=='completed':
@@ -74,15 +74,20 @@ def main():
         torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
         with torch.inference_mode():
             z=pipe(**kwargs)[0].float();assert z.shape==(1,16,17,64,64)
-            if a.method=='lfg':
+            if a.method in ('lfg','lfg-c'):
                 from .lfg import watermark
                 from .lfg_schedulers import LFGFlowEuler,LFGUniPC
                 scheduler_cls=LFGFlowEuler if a.family=='hunyuan' else LFGUniPC
                 pipe.scheduler=scheduler_cls.from_config(pipe.scheduler.config)
                 pipe.scheduler.alpha=a.lfg_alpha;pipe.scheduler.late_steps=a.lfg_final_steps
-                pipe.scheduler.spread=watermark(keyfile.read_bytes(),signs).cuda()
+                if a.method=='lfg-c':
+                    from .lfg_c import watermark as shared_watermark,perturbation as shared_perturbation
+                    pipe.scheduler.spread=shared_watermark(codes,signs).cuda()
+                    pipe.scheduler.carrier_perturbation=shared_perturbation
+                    r['controlled_adaptation']='Shared DCT carrier; per-group coefficient standard deviation; no margin projection'
+                else:pipe.scheduler.spread=watermark(keyfile.read_bytes(),signs).cuda()
                 torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
-                r['generation_branch']='lfg';save()
+                r['generation_branch']=a.method;save()
                 marked=pipe(**kwargs)[0].float()
                 pipe.scheduler.spread=None
             pipe.remove_all_hooks()
@@ -122,3 +127,4 @@ def main():
     except BaseException:r.update(status='failed',error=traceback.format_exc());save();raise
 
 if __name__=='__main__':main()
+

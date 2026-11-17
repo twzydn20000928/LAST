@@ -209,4 +209,29 @@ check guidance timing and zero-strength equivalence for both Euler and UniPC,
 including the dynamic 16-frame I2V interface and full 17-frame interface.
 Actual development grid results remain pending. These options retain LFG's
 random CDMA/Haar writer; they are **not** the supplementary shared-codebook
-LFG-C control, which still requires separate implementation and verification.
+LFG-C control described below.
+
+### Shared-codebook LFG-C control
+
+`last.smoke --method lfg-c` applies late predicted-clean guidance through the
+same Euler/UniPC adapters, but replaces the native random Haar carriers with
+LAST's per-group orthonormal DCT codebooks and the same repeated 592-bit codeword.
+It does **not** invoke ELMC's minimum-margin projection. `last.evaluate` uses
+the identical CCTA front end and BCH decoder as LAST for this explicit method.
+
+The supplement does not give the complete carrier scaling equation. Our declared
+reconstruction uses `s_g = sqrt(1776/592) C_g^T b`, which has mean coordinate
+energy one for orthonormal rows. At each guided step, compute the population
+standard deviation of the group's 1776 selected DCT coefficients and add
+`alpha * std_g * s_g` in those coordinates. Inverse DCT maps the update back to
+the dynamic latent frames; the causal first latent frame stays unchanged.
+This changes the carrier parameterization and variance domain relative to Haar
+LFG and is a controlled adaptation, not unchanged LFG author code.
+
+Use a new output directory, the development cases/state, and explicit strength
+and final-step arguments as above. Mathematical tests verify carrier signs,
+unit-energy normalization, expected update norm, zero-strength behavior and
+causal-frame preservation. Actual-video verification and development-only
+PSNR/SSIM calibration remain pending. Do not call it matched distortion until
+the measured development results meet the specified budget; no parameter is
+selected to match a target paper accuracy.

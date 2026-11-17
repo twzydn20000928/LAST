@@ -98,7 +98,7 @@ def main():
     codes=torch.load(a.run/'codes.pt',weights_only=True);truth=np.load(a.run/'message.npy');codec=BCH512()
     generation=json.loads((a.run/'receipt.json').read_text());method=generation.get('method','last')
     if generation.get('status')!='completed' or generation.get('family')!=a.family:raise ValueError('Require completed generation for matching family')
-    if method not in ('last','lfg'):raise ValueError('Unsupported method in generation receipt')
+    if method not in ('last','lfg','lfg-c'):raise ValueError('Unsupported method in generation receipt')
     source=load_mp4(a.run/'marked.mp4');source_sha=hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()
     directory=evaluation_directory(a.run,a.map_seed);directory.mkdir(exist_ok=True);failed=False
     for name in ['clean','noise','compression','blur','drop','insert','clip']:

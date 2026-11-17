@@ -12,7 +12,8 @@ class LFGFlowEuler(FlowMatchEulerDiscreteScheduler):
             sigma=self.sigmas[self.step_index].to(sample.device)
             if float(sigma)<=0:raise ValueError('Cannot guide zero-sigma Euler step')
             clean=sample.float()-sigma*model_output.float()
-            model_output=model_output.float()-perturbation(clean,self.spread,self.alpha)/sigma
+            delta=getattr(self,'carrier_perturbation',perturbation)(clean,self.spread,self.alpha)
+            model_output=model_output.float()-delta/sigma
         return super().step(model_output,timestep,sample,*args,**kwargs)
 
 class LFGUniPC(UniPCMultistepScheduler):
@@ -23,5 +24,5 @@ class LFGUniPC(UniPCMultistepScheduler):
         clean=super().convert_model_output(model_output,*args,**kwargs)
         if self.spread is not None and self.step_index>=len(self.timesteps)-self.late_steps:
             if not self.predict_x0 or self.config.prediction_type!='flow_prediction':raise ValueError('LFG requires flow predicted-clean UniPC')
-            clean=clean+perturbation(clean,self.spread,self.alpha)
+            clean=clean+getattr(self,'carrier_perturbation',perturbation)(clean,self.spread,self.alpha)
         return clean

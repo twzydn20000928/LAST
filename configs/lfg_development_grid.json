@@ -6,5 +6,5 @@
   "final_steps": [5, 10, 20],
   "primary": {"strength": 0.15, "final_steps": 10},
   "status": "CLI and scheduler tests implemented; development image generation pending; no grid results yet",
-  "shared_codebook_lfg_c": "Separate implementation and evaluation still required; native random CDMA is not LFG-C"
+  "shared_codebook_lfg_c": "Explicit --method lfg-c implemented with mathematical tests; real-video and matched-distortion calibration pending; native random CDMA is not LFG-C"
 }
