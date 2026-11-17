@@ -42,7 +42,44 @@ expected to reproduce every bit error exactly. The current generation runner
 remains an integration entry point, not a completed full-benchmark orchestrator.
 
 Development prompts must be disjoint from these84unique texts. The80-video development
-manifest is a separate release gate and is not yet published; do not select
+manifest is frozen in `configs/development_manifest.json`; do not select
 parameters by evaluating the primary manifest. The integration smoke case used
 the first primary prompt only for interface diagnostics, so its results are not
 part of the held-out benchmark or used to tune parameters.
+
+## Development reproduction
+
+The development split contains20distinct prompts with four seeds each, eight
+new keys, and fixed sweep IDs dev-000/dev-004/dev-008. Its metadata-only selection
+excludes normalized primary prompt text; this is not semantic independence.
+To regenerate the manifest from verified official prompt assets:
+
+```bash
+python -m last.development --metadata-root /path/to/SIGMark-quality-metadata \
+  --output /private/development-manifest.json
+python -m last.prepare --manifest configs/development_manifest.json \
+  --primary-manifest configs/primary_manifest.json --exclude-state /private/primary-state \
+  --output /private/development-state
+```
+
+For I2V, generate one unmarked Hunyuan T2V conditioning video per prompt using
+the first of its four seeds, then take frame0 after CRF18 MP4 rereading. This
+is a disclosed reconstruction choice because the manuscript does not supply
+development images. Do not screen images by quality or watermark outcomes.
+
+```bash
+python -m last.conditioning --prompt-index 0 --model-dir /path/to/hunyuan-t2v \
+  --output /private/development-conditioning/prompt-00 --memory-gib 8
+python -m last.development_case --sample-id dev-000 --mode i2v \
+  --conditioning /private/development-conditioning/prompt-00 \
+  --output /private/cases/dev-000.json
+```
+
+Repeat conditioning for indices0..19. Samples0..3 share prompt00's image,
+samples4..7 share prompt01's image, and so on, retaining their own manifest seeds.
+The case exporter verifies completed conditioning, manifest and image hashes,
+prompt identity and first-seed provenance. For T2V, use `--mode t2v` without
+`--conditioning`. Then pass the exported case and that sample's development
+key/message to `last.smoke`; keep these fixed across strengths, writers and
+backbones. The public commands are available; the full development experiment
+has not yet completed.
