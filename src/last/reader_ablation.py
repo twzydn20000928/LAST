@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from .coding import BCH512
-from .evaluate import extract
+from .evaluate import extract,verify_received
 from .report import CONDITIONS
 from .video import load_mp4
 
@@ -17,6 +17,21 @@ def writer_method(generation,family):
         raise ValueError('Require matching completed LAST or shared-codebook LFG-C generation')
     return method
 
+
+def verified_attack(run,condition,generation):
+    """Require the exact exported MP4 identified by a completed attack receipt."""
+    run=Path(run)
+    source_sha=hashlib.sha256((run/'marked.mp4').read_bytes()).hexdigest()
+    if generation.get('marked_sha256')!=source_sha:
+        raise ValueError('Generation MP4 changed or lacks provenance')
+    attack=json.loads((run/'attacks'/(condition+'.json')).read_text())
+    if (attack.get('status')!='completed' or attack.get('source_sha256')!=source_sha
+        or attack.get('condition')!=condition):
+        raise ValueError('Require matching completed attack from this marked video')
+    path=run/'marked.mp4' if condition=='clean' else run/'attacks'/(condition+'.mp4')
+    verify_received(attack,path)
+    return attack,path
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ['run','model-dir','output']:p.add_argument('--'+name,type=Path,required=True)
@@ -27,6 +42,8 @@ def main():
     from diffusers.video_processor import VideoProcessor
     generation=json.loads((a.run/'receipt.json').read_text())
     method=writer_method(generation,a.family)
+    # Fail before loading a GPU model when historical exports are unverified.
+    attacks={condition:verified_attack(a.run,condition,generation) for condition in CONDITIONS}
     hashes={name:hashlib.sha256((Path(__file__).parent/(name+'.py')).read_bytes()).hexdigest()
             for name in ('reader_ablation','evaluate','ccta','temporal','coding','carriers')}
     codes_sha=hashlib.sha256((a.run/'codes.pt').read_bytes()).hexdigest()
@@ -36,9 +53,8 @@ def main():
     source_sha=hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()
     failed=False
     for condition in CONDITIONS:
-        attack=json.loads((a.run/'attacks'/(condition+'.json')).read_text())
-        if attack.get('status')!='completed' or attack['source_sha256']!=source_sha:raise ValueError('Require completed attack from this marked video')
-        path=a.run/'marked.mp4' if condition=='clean' else a.run/'attacks'/(condition+'.mp4')
+        attack,path=attacks[condition]
+        verify_received(attack,path)
         received=load_mp4(path);video_sha=hashlib.sha256(path.read_bytes()).hexdigest();cache={}
         for variant,(reader,scan) in VARIANTS.items():
             target=a.output/f'{condition}-{variant}.json'
@@ -52,6 +68,9 @@ def main():
             row=dict(status='running',variant=variant,condition=condition,video_id=attack['video_id'],video_sha256=video_sha,source_sha256=source_sha,writer_method=method,codes_sha256=codes_sha,implementation_sha256=hashes,scope='Reader ablation; features reused within condition, not a timing benchmark')
             try:
                 soft,meta=extract(received,vae,processor,a.family,codes,reader,scan,cache)
+                verify_received(attack,path)
+                if hashlib.sha256((a.run/'codes.pt').read_bytes()).hexdigest()!=codes_sha:
+                    raise ValueError('Codebook changed during ablation')
                 prediction,dec=codec.decode(soft.numpy())
                 # Truth is used only after the reader has returned.
                 truth=np.load(a.run/'message.npy')
@@ -62,3 +81,4 @@ def main():
     if failed:raise SystemExit(1)
 
 if __name__=='__main__':main()
+

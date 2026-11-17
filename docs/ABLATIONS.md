@@ -181,3 +181,15 @@ with true-group assistance in this sample. It does not isolate alignment alone:
 the oracle also changes missing-slot filling and fusion. Deletion still does
 not recover the complete message. This is one diagnostic case, not primary
 blind performance, an aggregate ablation or a guaranteed upper bound.
+
+### Verify identical exported inputs
+
+The reader-ablation runner verifies the marked-video hash and every completed
+attack receipt against the actual received MP4 before loading the VAE. It also
+rechecks the received file and secret codebook after extraction. Replaced
+files, mismatched conditions and legacy receipts without received-video hashes
+are rejected; audit historical artifacts rather than filling in missing hashes
+as if they had been recorded originally. These checks leave the scientific
+reader variants unchanged and do not retroactively validate earlier runs.
+
+
