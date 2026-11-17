@@ -80,6 +80,24 @@ native lookup. The pinned VideoMark save/load names disagree; our wrapper adds
 singular key aliases to private state without editing upstream source. Probe
 outputs are private and existing directories are never overwritten.
 
+The Hunyuan generation-only entry point uses the verified native noise writer,
+50 Euler steps, CFG6, shift7, bf16 generator and float32 VAE, then exports and
+reopens the65-frame512-square CRF18 MP4:
+
+```bash
+python -m last.baseline_generate --method videoshield --mode i2v \
+  --upstream /path/to/SIGMark-python --model-dir /path/to/Hunyuan-I2V \
+  --case /private/case.json --message /private/message.bin \
+  --output /private/videoshield-generation
+```
+
+`case.json` contains `prompt`, `seed` and an I2V `image` path; `message.bin`
+contains64bytes. VideoMark additionally requires `--registry` pointing to the
+frozen directory of distinct64-byte messages, including the evaluated message.
+The output status is deliberately `completed_generation_only`: inversion,
+SGO where applicable, and real-video extraction must be verified separately.
+This entry point currently supports Hunyuan only; Wan baseline ports remain open.
+
 ### VideoMark registration audit
 
 The pinned VideoMark reader first decodes PRC votes, then selects the nearest
