@@ -1,9 +1,19 @@
 # Main-paper ablations and margin sweep
 
 The main-paper protocol uses30I2V samples for ablations and three fixed
-development samples for the margin sweep. Freeze these sample IDs, keys and
-messages before inspecting results. A one-sample integration check is not the
-reported30sample experiment. The full selection manifest is still pending.
+development samples for the margin sweep. The30sample ablation/timing IDs are
+frozen in `configs/paper_subsets.json`, covering all18primary dimensions using
+a metadata-only deterministic rule. The file discloses that selection occurred
+after the first primary sample was measured; no results are inputs to selection.
+A one-sample integration check is not the reported30sample experiment. A
+separate disjoint development manifest for the three-sample sweep and80video
+supplement is still pending; primary samples must not be used for tuning.
+
+To regenerate the subset file at a new destination:
+
+```bash
+python -m last.subsets --manifest configs/primary_manifest.json --output /private/paper-subsets.json
+```
 
 For each completed LAST run with all seven attack MP4s:
 
