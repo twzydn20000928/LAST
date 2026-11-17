@@ -27,6 +27,14 @@ file an older extractor read. Private decoded messages must not be published.
 These audit rows are kept separate from the original primary table; they do
 not silently replace its measurements or rewrite its frozen source version.
 
+`results/primary_reextraction_integration.json` records the first completed
+seven-condition check on primary `paper-000`: clean/noise/compression/blur/
+drop/insert/clip recovered 512/512/486/512/371/424/502 correct bits out of512.
+Every correct-bit count matches the original evaluator. Original MP4 and receipt
+hashes were rechecked before export. This is one video's new measurement series,
+not a 400-video result, a proof of historical bitwise parity, or full-message
+recovery under all attacks. The original missing-hash receipts remain unchanged.
+
 `last.cluster_intervals` computes bit accuracy and exact-message recovery, or
 paired differences between two methods, using the supplement's prompt-cluster
 resampling unit. It does not resample individual bits or treat repeated attack
