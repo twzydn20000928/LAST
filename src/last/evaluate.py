@@ -44,6 +44,18 @@ def extract(frames, vae, processor, family, codes):
             features.append(feature(z).cpu())
     return align(torch.stack(features) if features else torch.empty(0,1776),nodes,codes)
 
+def extract_lfg(frames,vae,processor,family,key):
+    from .lfg import align_received_frames,scores
+    with torch.inference_mode():
+        x=processor.preprocess_video([align_received_frames(frames)]).to('cuda',torch.float32)
+        z=vae.encode(x).latent_dist.mode()
+        if family=='hunyuan':z=z*vae.config.scaling_factor
+        else:
+            mean=torch.as_tensor(vae.config.latents_mean,device=z.device).view(1,16,1,1,1)
+            std=torch.as_tensor(vae.config.latents_std,device=z.device).view(1,16,1,1,1)
+            z=(z-mean)/std
+        return scores(z,key),{'route':'lfg_received_order','groups':16}
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--run',type=Path,required=True);p.add_argument('--model-dir',required=True);p.add_argument('--video-id',required=True);p.add_argument('--family',choices=['hunyuan','wan22'],required=True);a=p.parse_args()
     os.umask(0o077);torch.set_num_threads(4);torch.cuda.set_per_process_memory_fraction(.20)
@@ -53,6 +65,8 @@ def main():
     vae=cls.from_pretrained(a.model_dir,subfolder='vae',torch_dtype=torch.float32,local_files_only=True).to('cuda');vae.enable_tiling()
     processor=VideoProcessor(vae_scale_factor=8)
     codes=torch.load(a.run/'codes.pt',weights_only=True);truth=np.load(a.run/'message.npy');codec=BCH512()
+    method=json.loads((a.run/'receipt.json').read_text()).get('method','last')
+    if method not in ('last','lfg'):raise ValueError('Unsupported method in generation receipt')
     source=load_mp4(a.run/'marked.mp4');directory=a.run/'attacks';directory.mkdir(exist_ok=True)
     for name in ['clean','noise','compression','blur','drop','insert','clip']:
         receipt=directory/(name+'.json')
@@ -66,7 +80,9 @@ def main():
                 path=directory/(name+'.mp4');row['codec_command']=export_mp4(edited,path,crf=28 if name=='compression' else 18)
             # Mapping is evaluator metadata; it is never passed to extract().
             row['attack_map']=mapping;received=load_mp4(path)
-            soft,meta=extract(received,vae,processor,a.family,codes)
+            if method=='lfg':soft,meta=extract_lfg(received,vae,processor,a.family,(a.run/'secret.key').read_bytes())
+            else:soft,meta=extract(received,vae,processor,a.family,codes)
+            row['method']=method
             prediction,dec=codec.decode(soft.numpy());raw=(soft.numpy()>0).astype(np.uint8)
             row.update(status='completed',correct_bits=int((prediction==truth).sum()),total_bits=512,exact_message=bool(np.array_equal(prediction,truth)),raw_information_correct=int((raw[:512]==truth).sum()),coded_correct=int((raw==codec.encode(truth)).sum()),coded_total=592,frames=len(received),**dec,**meta)
         except Exception:row.update(status='failed',error=traceback.format_exc())

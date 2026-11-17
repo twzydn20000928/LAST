@@ -11,11 +11,12 @@ from .temporal import segments,windows
 from .video import export_mp4,load_mp4
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');p.add_argument('--key',type=Path);p.add_argument('--message',type=Path);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');p.add_argument('--key',type=Path);p.add_argument('--message',type=Path);p.add_argument('--method',choices=['last','lfg'],default='last');a=p.parse_args()
     if bool(a.key)!=bool(a.message):p.error('--key and --message must be supplied together')
     os.umask(0o077);a.output.mkdir(parents=True,exist_ok=True);out=a.output/'receipt.json'
     if out.exists() and json.loads(out.read_text()).get('status')=='completed':
         prior=json.loads(out.read_text())
+        if prior.get('method','last')!=a.method:raise ValueError('Completed output belongs to a different method')
         if prior['family']!=a.family or prior['mode']!=a.mode or prior['case_sha256']!=hashlib.sha256(a.case.read_bytes()).hexdigest():raise ValueError('Completed output belongs to a different case/configuration')
         if a.key and (a.output/'secret.key').read_bytes()!=a.key.read_bytes():raise ValueError('Completed output belongs to a different key')
         if a.message and not np.array_equal(np.load(a.output/'message.npy'),np.unpackbits(np.frombuffer(a.message.read_bytes(),dtype=np.uint8))):raise ValueError('Completed output belongs to a different message')
@@ -24,7 +25,7 @@ def main():
     def save():
         r['seconds']=time.time()-start;r['peak_allocated_gib']=torch.cuda.max_memory_allocated()/1024**3;temp=out.with_suffix('.tmp');temp.write_text(json.dumps(r,indent=2));temp.replace(out)
     try:
-        r['offload']=a.offload;r['memory_limit_gib']=a.memory_gib;r['model_directory']=str(a.model_dir)
+        r['offload']=a.offload;r['memory_limit_gib']=a.memory_gib;r['model_directory']=str(a.model_dir);r['method']=a.method
         from diffusers import HunyuanVideoPipeline,HunyuanVideoImageToVideoPipeline,WanPipeline,WanImageToVideoPipeline,AutoencoderKLHunyuanVideo,AutoencoderKLWan,FlowMatchEulerDiscreteScheduler,UniPCMultistepScheduler
         from PIL import Image
         torch.set_num_threads(4);torch.cuda.set_per_process_memory_fraction(a.memory_gib*1024**3/torch.cuda.get_device_properties(0).total_memory)
@@ -62,6 +63,16 @@ def main():
         torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
         with torch.inference_mode():
             z=pipe(**kwargs)[0].float();assert z.shape==(1,16,17,64,64)
+            if a.method=='lfg':
+                from .lfg import watermark
+                from .lfg_schedulers import LFGFlowEuler,LFGUniPC
+                scheduler_cls=LFGFlowEuler if a.family=='hunyuan' else LFGUniPC
+                pipe.scheduler=scheduler_cls.from_config(pipe.scheduler.config)
+                pipe.scheduler.spread=watermark(keyfile.read_bytes(),signs).cuda()
+                torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
+                r['generation_branch']='lfg';save()
+                marked=pipe(**kwargs)[0].float()
+                pipe.scheduler.spread=None
             pipe.remove_all_hooks()
             for name in ['transformer','transformer_2','text_encoder','text_encoder_2','image_encoder']:
                 module=getattr(pipe,name,None)
@@ -73,18 +84,26 @@ def main():
             def norm(latent):
                 if a.family=='hunyuan':return latent*pipe.vae.config.scaling_factor
                 mean=torch.tensor(pipe.vae.config.latents_mean,device='cuda').view(1,16,1,1,1);std=torch.tensor(pipe.vae.config.latents_std,device='cuda').view(1,16,1,1,1);return (latent-mean)/std
-            r['status']='embedding';save();marked=embed(z,codes,signs)
+            r['status']='embedding';save()
+            if a.method=='last':marked=embed(z,codes,signs)
             for label,latent in [('reference',z),('marked',marked)]:
                 pixels=pipe.vae.decode(denorm(latent).float(),return_dict=False)[0];frames=pipe.video_processor.postprocess_video(pixels,output_type='pil')[0]
                 command=export_mp4(frames,a.output/f'{label}.mp4');r[label+'_codec_command']=command
                 del pixels,frames
             del z,marked;torch.cuda.empty_cache();r['status']='reading';save()
-            frames=load_mp4(a.output/'marked.mp4');nodes=list(windows(segments(frames)));features=[]
-            for n in nodes:
-                selected_frames=[frames[n['indices'][0]]]+[frames[i] for i in n['indices']]
-                x=pipe.video_processor.preprocess_video([selected_frames]).to('cuda',torch.float32)
-                latent=norm(pipe.vae.encode(x).latent_dist.mode());features.append(feature(latent).cpu())
-            soft,meta=align(torch.stack(features) if features else torch.empty(0,1776),nodes,codes)
+            frames=load_mp4(a.output/'marked.mp4')
+            if a.method=='lfg':
+                from .lfg import scores,align_received_frames
+                x=pipe.video_processor.preprocess_video([align_received_frames(frames)]).to('cuda',torch.float32)
+                latent=norm(pipe.vae.encode(x).latent_dist.mode())
+                soft=scores(latent,keyfile.read_bytes());meta={'route':'lfg_received_order','groups':16}
+            else:
+                nodes=list(windows(segments(frames)));features=[]
+                for n in nodes:
+                    selected_frames=[frames[n['indices'][0]]]+[frames[i] for i in n['indices']]
+                    x=pipe.video_processor.preprocess_video([selected_frames]).to('cuda',torch.float32)
+                    latent=norm(pipe.vae.encode(x).latent_dist.mode());features.append(feature(latent).cpu())
+                soft,meta=align(torch.stack(features) if features else torch.empty(0,1776),nodes,codes)
             predicted,dec=codec.decode(soft.cpu().numpy());np.save(a.output/'prediction.npy',predicted)
             r['rows']=[{'condition':'clean','correct_bits':int((predicted==bits).sum()),'total_bits':512,'exact_message':bool(np.array_equal(predicted,bits)),**dec,**meta}]
             r['marked_sha256']=hashlib.sha256((a.output/'marked.mp4').read_bytes()).hexdigest();r['status']='completed';save()
