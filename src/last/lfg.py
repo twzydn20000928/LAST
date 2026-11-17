@@ -28,13 +28,17 @@ def watermark(key, signs):
     return torch.stack([(repeated@carriers(key,p).float()/math.sqrt(1184)).reshape(16,32,32) for p in range(8)],dim=1)[None]
 
 def perturbation(clean, spread, alpha=.15):
-    if clean.shape!=(1,16,17,64,64):raise ValueError('Expected65frame512-square latent')
+    # Hunyuan I2V token_replace keeps the conditioning frame outside scheduler.step.
+    # T2V/Wan pass all17 frames; both paths guide the same16 dynamic frames.
+    if clean.shape not in ((1,16,17,64,64),(1,16,16,64,64)):
+        raise ValueError(f'Expected full17 or dynamic16 latent frames, got {tuple(clean.shape)}')
     if spread.shape!=(1,16,8,32,32):raise ValueError('Incorrect Haar carrier geometry')
     if alpha<0 or not math.isfinite(alpha):raise ValueError('Expected finite nonnegative strength')
-    band=lowpass(clean[:,:,1:])
+    dynamic=clean[:,:,1:] if clean.shape[2]==17 else clean
+    band=lowpass(dynamic)
     sigma=band.std((2,3,4),keepdim=True,unbiased=False)
     delta=lift(alpha*sigma*spread.to(device=clean.device,dtype=torch.float32))
-    return torch.cat([torch.zeros_like(clean[:,:,:1]),delta],dim=2)
+    return torch.cat([torch.zeros_like(clean[:,:,:1]),delta],dim=2) if clean.shape[2]==17 else delta
 
 def scores(encoded,key):
     if encoded.shape!=(1,16,17,64,64):raise ValueError('Reader requires aligned65frame latent')

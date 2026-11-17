@@ -8,7 +8,8 @@ from last.lfg_schedulers import LFGFlowEuler,LFGUniPC
     (FlowMatchEulerDiscreteScheduler,LFGFlowEuler,{'shift':7}),
     (UniPCMultistepScheduler,LFGUniPC,{'flow_shift':5,'use_flow_sigmas':True,'prediction_type':'flow_prediction'}),
 ])
-def test_guidance_timing_and_zero_strength_replay(monkeypatch,base_cls,guided_cls,config):
+@pytest.mark.parametrize('latent_frames',[16,17])
+def test_guidance_timing_and_zero_strength_replay(monkeypatch,base_cls,guided_cls,config,latent_frames):
     import last.lfg_schedulers as module
     torch.manual_seed(1)
     baseline=base_cls(**config);guided=guided_cls(**config)
@@ -17,7 +18,7 @@ def test_guidance_timing_and_zero_strength_replay(monkeypatch,base_cls,guided_cl
     calls=[];original=module.perturbation
     def traced(*args,**kwargs):calls.append(int(guided.step_index));return original(*args,**kwargs)
     monkeypatch.setattr(module,'perturbation',traced)
-    a=torch.randn(1,16,17,64,64);b=a.clone()
+    a=torch.randn(1,16,latent_frames,64,64);b=a.clone()
     for t in baseline.timesteps:
         prediction=torch.randn_like(a)
         a=baseline.step(prediction,t,a,return_dict=False)[0]

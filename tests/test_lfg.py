@@ -8,6 +8,7 @@ def test_haar_projection_and_first_causal_frame():
     z=torch.randn(1,16,17,64,64)
     d=perturbation(z,band)
     assert torch.count_nonzero(d[:,:,:1])==0
+    assert torch.equal(perturbation(z[:,:,1:],band),d[:,:,1:])
     assert torch.count_nonzero(perturbation(z,band,0))==0
     constant=torch.ones_like(z)
     assert torch.count_nonzero(perturbation(constant,band))==0
