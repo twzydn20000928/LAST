@@ -52,6 +52,21 @@ Use the same `--video-id` across methods to share attack maps. Each condition
 records a separate receipt; failed conditions remain failures, not zero accuracy.
 See [implementation choices and reuse policy](docs/REUSE_AUDIT.md).
 
+## Blind extraction of a received video
+
+```bash
+python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
+  --video /path/to/received.mp4 --key /private/secret.key \
+  --output /private/received.decoded.json
+```
+
+This entry point reconstructs the codebook from the key. It does not load the
+original message, unmarked video, generation seed, prompt, source positions or
+attack map. Its private JSON output contains512decoded information bits as a
+128-character hexadecimal string plus decoder/alignment diagnostics. BCH success
+does not prove video authenticity; wrong messages can also decode successfully.
+The current frozen spatial input size is512×512. Keep decoded messages private.
+
 ## Implementation and result status
 
 Core tests are available. Fresh GPU integration checks are in progress. Dataset manifests, baseline adapters, complete attack runners, confidence intervals, supplemental controls and full-benchmark result bundles are release gates. No fabricated table or historical pilot value is shipped as a new measurement. Do not interpret this repository as a completed or independently validated reproduction.

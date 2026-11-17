@@ -11,23 +11,41 @@ from .temporal import segments,windows
 from .video import export_mp4,load_mp4
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');p.add_argument('--key',type=Path);p.add_argument('--message',type=Path);a=p.parse_args()
+    if bool(a.key)!=bool(a.message):p.error('--key and --message must be supplied together')
     os.umask(0o077);a.output.mkdir(parents=True,exist_ok=True);out=a.output/'receipt.json'
-    if out.exists() and json.loads(out.read_text()).get('status')=='completed':return
+    if out.exists() and json.loads(out.read_text()).get('status')=='completed':
+        prior=json.loads(out.read_text())
+        if prior['family']!=a.family or prior['mode']!=a.mode or prior['case_sha256']!=hashlib.sha256(a.case.read_bytes()).hexdigest():raise ValueError('Completed output belongs to a different case/configuration')
+        if a.key and (a.output/'secret.key').read_bytes()!=a.key.read_bytes():raise ValueError('Completed output belongs to a different key')
+        if a.message and not np.array_equal(np.load(a.output/'message.npy'),np.unpackbits(np.frombuffer(a.message.read_bytes(),dtype=np.uint8))):raise ValueError('Completed output belongs to a different message')
+        return
     start=time.time();r={'status':'starting','scope':'fresh end-to-end smoke, not benchmark','family':a.family,'mode':a.mode,'rows':[],'settings':{'steps':50,'cfg':6 if a.family=='hunyuan' else 5,'shift':7 if a.family=='hunyuan' else 5,'frames':65,'size':[512,512],'clean_crf':18,'fps':8,'vae':'float32','generator':'bfloat16'},'hardware':'L40 (authorized A800 substitution)','source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
     def save():
         r['seconds']=time.time()-start;r['peak_allocated_gib']=torch.cuda.max_memory_allocated()/1024**3;temp=out.with_suffix('.tmp');temp.write_text(json.dumps(r,indent=2));temp.replace(out)
     try:
+        r['offload']=a.offload;r['memory_limit_gib']=a.memory_gib;r['model_directory']=str(a.model_dir)
         from diffusers import HunyuanVideoPipeline,HunyuanVideoImageToVideoPipeline,WanPipeline,WanImageToVideoPipeline,AutoencoderKLHunyuanVideo,AutoencoderKLWan,FlowMatchEulerDiscreteScheduler,UniPCMultistepScheduler
         from PIL import Image
         torch.set_num_threads(4);torch.cuda.set_per_process_memory_fraction(a.memory_gib*1024**3/torch.cuda.get_device_properties(0).total_memory)
         case=json.loads(a.case.read_text());seed=int(case['seed']);r['seed']=seed;r['case_sha256']=hashlib.sha256(a.case.read_bytes()).hexdigest();save()
         keyfile=a.output/'secret.key'
+        if a.key:
+            supplied=a.key.read_bytes()
+            if len(supplied)!=32:raise ValueError('Expected32byte key')
+            if keyfile.exists() and keyfile.read_bytes()!=supplied:raise ValueError('Existing run has a different key')
+            if not keyfile.exists():keyfile.write_bytes(supplied)
         if not keyfile.exists():keyfile.write_bytes(secrets.token_bytes(32));keyfile.chmod(0o600)
         private=a.output/'codes.pt'
         if not private.exists():torch.save(torch.from_numpy(codebook(keyfile.read_bytes())),private)
         codes=torch.load(private,weights_only=True);r['codebook_sha256']=hashlib.sha256(private.read_bytes()).hexdigest()
         msgfile=a.output/'message.npy'
+        if a.message:
+            supplied=a.message.read_bytes()
+            if len(supplied)!=64:raise ValueError('Expected64byte512bit message')
+            supplied_bits=np.unpackbits(np.frombuffer(supplied,dtype=np.uint8))
+            if msgfile.exists() and not np.array_equal(np.load(msgfile),supplied_bits):raise ValueError('Existing run has a different message')
+            if not msgfile.exists():np.save(msgfile,supplied_bits)
         if not msgfile.exists():np.save(msgfile,np.unpackbits(np.frombuffer(secrets.token_bytes(64),dtype=np.uint8)))
         bits=np.load(msgfile);codec=BCH512();signs=codec.encode(bits).astype(np.float32)*2-1
         cls=(HunyuanVideoImageToVideoPipeline if a.mode=='i2v' else HunyuanVideoPipeline) if a.family=='hunyuan' else (WanImageToVideoPipeline if a.mode=='i2v' else WanPipeline)

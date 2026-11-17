@@ -13,5 +13,6 @@ data/
 *.npy
 *.npz
 *.key
+*.decoded.json
 .env
 *private*
