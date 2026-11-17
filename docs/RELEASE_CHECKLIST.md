@@ -16,6 +16,16 @@ that environment without historical overlays: clean512/512 and drop30=371/512,
 matching old correct-bit counts. This does not cover fresh-checkout generation,
 other model/mode combinations or the quality/baseline environments.
 
+The pinned fresh-checkout Hunyuan I2V run has now completed generation and
+initial clean extraction (512/512), while its full attack/quality acceptance
+remains pending. `results/cross_environment_diagnostic.json` records an important
+limitation: despite identical case/key/message and matching clean bit counts,
+the old and fresh decoded videos are not pixel-identical. Cross-run reference
+PSNR is 41.00 dB and marked-video PSNR is 39.93 dB. These are not watermark
+fidelity losses. Version, initial-noise, FFmpeg and Python-source checks are
+recorded, but the cause remains unresolved; no bitwise reproduction claim is
+made and this partial evidence does not close the acceptance checklist.
+
 - [x] Core ELMC, CCTA and BCH implementation with mathematical tests.
 - [x] Frozen numerical protocol and model repository revisions.
 - [x] Explicit authorized L40-for-A800 hardware deviation.

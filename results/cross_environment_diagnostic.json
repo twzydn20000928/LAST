@@ -1,0 +1,109 @@
+{
+  "status": "diagnostic_completed",
+  "sample_count": 1,
+  "video_id": "paper-000",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "scope": "Cross-run old-overlay versus clean-environment discrepancy; NOT watermark-vs-reference fidelity",
+  "old_source_commit": "c1f2f694cfb777053795e7bbf186b5776c9fecd0",
+  "fresh_source_commit": "1d331462fff777cd825e23f630b8ce3aa18b23fa",
+  "paired_case_sha256": "42e53248c96444b31efb6851de2c5fd91bb07abe01fef360fd959c6a453487ab",
+  "same_private_key_and_message": true,
+  "cross_run_metrics": {
+    "reference": {
+      "frames": 65,
+      "rgb_mse": 7.940105980169962e-05,
+      "psnr_db": 41.00173700810204,
+      "identical": false,
+      "ssim": 0.9820209840915459,
+      "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+      "reference_sha256": "9209cfa4d17e5f93a1690fcbc3dfcf5194e5401a074399fe0a76556621fab553",
+      "marked_sha256": "4657b5a8d127ea103a632a53d586aadb5e3181553c2d618d7cfe79fddb6f4f22",
+      "scope": "paired fidelity, not V-score or temporal perceptual quality",
+      "metric_receipt_sha256": "5b2ff8f0bff98f17f8174cb68951dd556238cd7bd2f435ab437db1bd6e99f2d1"
+    },
+    "marked": {
+      "frames": 65,
+      "rgb_mse": 0.00010162630414834437,
+      "psnr_db": 39.929938681551164,
+      "identical": false,
+      "ssim": 0.978145339572551,
+      "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+      "reference_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+      "marked_sha256": "5b6d29f8a8e116358d6d37ea385db77d3bf08b696ccba12a56eadbd8b0aa0ed4",
+      "scope": "paired fidelity, not V-score or temporal perceptual quality",
+      "metric_receipt_sha256": "9bfd0fea603df8ad8410294e58ecee5447185d22fe31dcf58c55784a2a5ba2af"
+    }
+  },
+  "current_runtime_fingerprints": {
+    "legacy": {
+      "python": "3.10.22 (main, Oct  1 2026, 20:14:04) [GCC 14.3.0]",
+      "cuda_build": "12.4",
+      "packages": {
+        "torch": "2.5.1+cu124",
+        "numpy": "1.26.4",
+        "scipy": "1.14.1",
+        "PIL": "11.0.0",
+        "diffusers": "0.35.2",
+        "transformers": "4.51.0",
+        "imageio_ffmpeg": "0.6.0"
+      },
+      "scope": "Current runtime fingerprint, not proof of historical process state or causal attribution",
+      "ffmpeg_sha256": "e7e7fb30477f717e6f55f9180a70386c62677ef8a4d4d1a5d948f4098aa3eb99",
+      "ffmpeg_version": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+      "seed2025_initial_noise_sha256": "71dc415f4da701a57b129c695bb854f1a55c6783e0c286ad023edfd2370c392f"
+    },
+    "clean": {
+      "python": "3.10.22 (main, Oct  1 2026, 20:14:04) [GCC 14.3.0]",
+      "cuda_build": "12.4",
+      "packages": {
+        "torch": "2.5.1+cu124",
+        "numpy": "1.26.4",
+        "scipy": "1.14.1",
+        "PIL": "11.0.0",
+        "diffusers": "0.35.2",
+        "transformers": "4.51.0",
+        "imageio_ffmpeg": "0.6.0"
+      },
+      "scope": "Current runtime fingerprint, not proof of historical process state or causal attribution",
+      "ffmpeg_sha256": "e7e7fb30477f717e6f55f9180a70386c62677ef8a4d4d1a5d948f4098aa3eb99",
+      "ffmpeg_version": "ffmpeg version 7.0.2-static https://johnvansickle.com/ffmpeg/  Copyright (c) 2000-2024 the FFmpeg developers",
+      "seed2025_initial_noise_sha256": "71dc415f4da701a57b129c695bb854f1a55c6783e0c286ad023edfd2370c392f"
+    }
+  },
+  "source_comparison": {
+    "diffusers": {
+      "left_count": 695,
+      "right_count": 695,
+      "different": []
+    },
+    "transformers": {
+      "left_count": 1794,
+      "right_count": 1794,
+      "different": []
+    },
+    "torch": {
+      "left_count": 1875,
+      "right_count": 1875,
+      "different": []
+    },
+    "core_same": {
+      "elmc.py": true,
+      "carriers.py": true,
+      "coding.py": true,
+      "video.py": true
+    }
+  },
+  "clean_correct_bits": {
+    "old": 512,
+    "fresh": 512,
+    "total": 512
+  },
+  "conclusion": "Decoded pixels differ; matching clean bit counts do not establish bitwise video reproduction. Cause unresolved.",
+  "limitations": [
+    "Current probe processes are not historical process-state evidence",
+    "Matching Python files does not prove native binaries/kernels identical",
+    "Single sample; full clean-checkout attack and quality acceptance still pending",
+    "No secret keys, codebooks or message bits published"
+  ]
+}
