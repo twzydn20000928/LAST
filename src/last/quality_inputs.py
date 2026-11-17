@@ -47,7 +47,7 @@ def build(manifest,metadata_root,run_root,family,mode,method):
                 coverage[dimension]['missing'].append(row['id']);continue
             video_sha,anchor=verified_video(folder,record,method=='reference')
             item['video_list'].append(str(video.resolve()));coverage[dimension]['available']+=1
-            videos.append(dict(video_id=row['id'],sha256=video_sha,provenance=anchor))
+            videos.append(dict(video_id=row['id'],path=str(video.resolve()),sha256=video_sha,provenance=anchor))
         if item['video_list']:output[dimension].append(item)
     complete=all(v['expected']==v['available'] for v in coverage.values())
     return dict(output),dict(complete=complete,coverage=dict(coverage),metadata_sha256=sources,videos=videos,family=family,mode=mode,method=method)
@@ -70,4 +70,3 @@ def main():
     print(json.dumps(dict(complete=report['complete'],videos=len(report['videos']),dimension_files=len(files))))
 
 if __name__=='__main__':main()
-

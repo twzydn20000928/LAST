@@ -12,6 +12,31 @@ import traceback
 from .quality_paths import scorer_paths
 
 
+def verify_inputs(rows, coverage):
+    """Bind every scored file to the prepared coverage, including all diversity seeds."""
+    anchors = {}
+    for item in coverage['videos']:
+        if not item.get('path'):
+            raise ValueError('Coverage lacks video paths; regenerate inputs with provenance checks')
+        path = str(Path(item['path']).resolve())
+        if path in anchors:
+            raise ValueError('Duplicate video path in coverage')
+        anchors[path] = item['sha256']
+    verified = {}
+    for row in rows:
+        for video in row['video_list']:
+            path = str(Path(video).resolve())
+            if path in verified:
+                raise ValueError('Duplicate scoring video')
+            if path not in anchors:
+                raise ValueError('Scoring video absent from coverage')
+            digest = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+            if digest != anchors[path]:
+                raise ValueError('Scoring video changed since input preparation')
+            verified[path] = digest
+    return verified
+
+
 def summarize(result, rows, dimension):
     expected = [r['video_list'][0] for r in rows] if dimension == 'Diversity' else [v for r in rows for v in r['video_list']]
     if len(set(expected)) != len(expected):
@@ -61,11 +86,14 @@ def main():
             if not Path(video).is_file():
                 p.error('Missing input video: '+video)
     submodules = json.loads(a.submodules.read_text())
+    verified = verify_inputs(rows, coverage)
     output = a.output.resolve(); output.mkdir(parents=True, exist_ok=False)
     record = dict(status='running', dimension=a.dimension, device=a.device, seed=a.seed,
                   complete_input_coverage=coverage['complete'],
                   metadata_sha256=hashlib.sha256(metadata.read_bytes()).hexdigest(),
                   submodules_sha256=hashlib.sha256(a.submodules.read_bytes()).hexdigest(),
+                  coverage_sha256=hashlib.sha256((inputs/'coverage.json').read_bytes()).hexdigest(),
+                  videos_sha256=verified,
                   scope='Official dimension function; not a complete V-score')
     start = time.monotonic()
     def save():
@@ -156,6 +184,11 @@ def main():
             return value
         result = plain(result)
         (output/'official_result.json').write_text(json.dumps(result, indent=2))
+        verify_inputs(rows, coverage)
+        for path, key in ((metadata, 'metadata_sha256'), (a.submodules, 'submodules_sha256'),
+                          (inputs/'coverage.json', 'coverage_sha256')):
+            if hashlib.sha256(path.read_bytes()).hexdigest() != record[key]:
+                raise ValueError('Scoring inputs changed during evaluation: '+path.name)
         record.update(summarize(result, rows, a.dimension), status='completed')
         save()
     except BaseException:
