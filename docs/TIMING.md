@@ -27,11 +27,33 @@ GPU synchronization encloses every measured read. Other compute processes
 cause rejection; checks are not an operating-system resource reservation, so
 reserve the GPU externally and keep other schedulers idle for the full run.
 
-This entry point covers only LAST/LFG extraction. Native baseline extraction,
+The above entry point covers only LAST/LFG extraction. Native baseline extraction
+has a separate entry point below, still requiring real timing validation;
 paired generation in randomized AB/BA order, direct CUDA-event embedding
 timing, the randomized 30-video/method schedule and length-scaling experiments
 remain to be implemented/validated. Do not present this partial entry point
 as the complete five-method Table 3 or supplementary Table 17 reproduction.
+
+For native Hunyuan SIGMark, VideoShield or VideoMark:
+
+```bash
+python -m last.baseline_timing --method sigmark --mode i2v \
+  --upstream /path/to/pinned-sigmark --model-dir /path/to/hunyuan-i2v \
+  --video /private/received.mp4 --state /private/maintained_private.pkl \
+  --protocol supplement --temporal --output /private/new-native-timing.json
+```
+
+Use only your own trusted native pickle state. Omit `--temporal` for the clean
+65-frame input. With temporal recovery, SIGMark performs its native SGO inside
+every timed read, including all its inversion calls; the other two methods use
+their native received-length alignment. The final VAE encoding, 50-step
+inversion and native decoder are included. Models/state load once, two warmups
+precede two or five synchronized repeats. Sequential CPU offload transfers are
+inside timing and explicitly reported. There are no per-step receipt writes.
+Seed reset and lightweight repeat diagnostics are included; prediction
+consistency across warmups/repeats is reported without exposing message bits.
+This is Hunyuan-only and is not a validated Wan baseline timing adapter.
+Real exclusive-GPU execution and parity with ordinary extraction remain pending.
 
 Freeze the supplemental acquisition order before collecting any timings:
 
