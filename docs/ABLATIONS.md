@@ -83,6 +83,34 @@ be used to tune its settings. The fixed-target matched-PSNR control separately
 requires development calibration before test evaluation.
 Writer and reader adapters require real-video integration verification; no
 manuscript ablation number is imported as a measured result.
+
+## Strictly paired endpoint writer control
+
+Generate a LAST run with the additional `last.smoke --save-endpoint` option.
+The private `endpoint.pt` is the actual normalized diffusion output before
+embedding. It must not be committed or distributed with public results.
+Then change only the writer rule on that exact endpoint:
+
+```bash
+python -m last.writer_replay --run /private/minimum-margin \
+  --model-dir /path/to/same-model --output /private/fixed-target --fixed-target
+python -m last.evaluate --run /private/fixed-target --family hunyuan \
+  --model-dir /path/to/same-model --video-id paper-003
+python -m last.quality --reference /private/fixed-target/reference.mp4 \
+  --marked /private/fixed-target/marked.mp4 --output /private/fixed-target/quality.json
+```
+
+Evaluate the minimum-margin run with the same video ID and map seed. Replay
+retains the original margin/profile, codebook, message and reference video;
+it loads only the frozen VAE and changes `fixed_target`. Without that flag it
+can check the original writer path. Both families are supported; use the
+matching family for evaluation. The same model directory is required to avoid
+accidentally switching decoders. Inputs are hash-checked before and after replay.
+The output directory must be new. Replay completion means video export only;
+extraction and fidelity remain separate measured steps. Its runtime is not full
+generation time. This equal-margin control is not the separate development-
+calibrated matched-PSNR control. Real-video replay validation remains pending.
+
 # Oracle grouping diagnostic
 
 `last.oracle_reader` is deliberately **not blind**: it reads the evaluator's
