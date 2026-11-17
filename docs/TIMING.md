@@ -49,3 +49,25 @@ then reports the across-video median, quartiles and a percentile interval from
 are disclosed reconstruction choices. Repeats are never treated as independent
 videos. The caller must use the frozen randomized acquisition schedule; this
 aggregator cannot establish exclusivity or random ordering from elapsed times.
+
+## Direct embedding operation
+
+Add `--save-endpoint` to a new `last.smoke --method last` run to retain the
+normalized pre-embedding latent privately. This changes artifact retention,
+not the embedding formula. Existing runs without it cannot reconstruct that
+endpoint from an MP4; they must not substitute a VAE re-encoding or random tensor.
+
+On an otherwise idle GPU, run:
+
+```bash
+python -m last.embedding_timing --run /private/completed-run-with-endpoint \
+  --output /private/new-embedding-timing.json
+```
+
+The entry point hashes the saved endpoint, runs two warmups and five CUDA-event
+measurements of the actual ELMC call with resident GPU inputs, and reports their
+median and quartiles. It includes transforms, allocations and margin operations;
+disk reads, input transfers, model generation and decoding are outside the event
+interval. The measurement is distinct from paired end-to-end generation overhead.
+Keep endpoints, keys and messages private. This entry point still requires an
+actual idle-GPU measurement; CPU tests are not timing results.

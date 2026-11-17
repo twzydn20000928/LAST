@@ -14,17 +14,20 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');p.add_argument('--key',type=Path);p.add_argument('--message',type=Path);p.add_argument('--method',choices=['last','lfg','lfg-c'],default='last')
     p.add_argument('--mu',type=float,default=.5);p.add_argument('--fixed-target',action='store_true')
     p.add_argument('--uniform-profile',action='store_true',help='Supplement control: all sixteen message groups use mu; main default remains non-uniform')
+    p.add_argument('--save-endpoint',action='store_true',help='Keep the private normalized endpoint for separate CUDA-event embedding timing')
     p.add_argument('--lfg-alpha',type=float,default=.15)
     p.add_argument('--lfg-final-steps',type=int,choices=[5,10,20],default=10)
     a=p.parse_args()
     if not np.isfinite(a.mu) or a.mu<0:p.error('--mu must be finite and nonnegative')
     if a.method!='last' and (a.mu!=.5 or a.fixed_target or a.uniform_profile):p.error('Margin options apply only to LAST')
+    if a.save_endpoint and a.method!='last':p.error('--save-endpoint applies only to LAST')
     if not np.isfinite(a.lfg_alpha) or a.lfg_alpha<0:p.error('--lfg-alpha must be finite and nonnegative')
     if a.method not in ('lfg','lfg-c') and (a.lfg_alpha!=.15 or a.lfg_final_steps!=10):p.error('LFG options apply only to LFG')
     if bool(a.key)!=bool(a.message):p.error('--key and --message must be supplied together')
     os.umask(0o077);a.output.mkdir(parents=True,exist_ok=True);out=a.output/'receipt.json'
     if out.exists() and json.loads(out.read_text()).get('status')=='completed':
         prior=json.loads(out.read_text())
+        if a.save_endpoint and (not (a.output/'endpoint.pt').is_file() or prior.get('endpoint_sha256')!=hashlib.sha256((a.output/'endpoint.pt').read_bytes()).hexdigest()):raise ValueError('Completed run has no verified saved endpoint; use a new output directory')
         if prior.get('mu',.5)!=a.mu or prior.get('fixed_target',False)!=a.fixed_target:raise ValueError('Completed run has another embedding configuration')
         if prior.get('uniform_profile',False)!=a.uniform_profile:raise ValueError('Completed run has another group margin profile')
         if prior.get('method','last')!=a.method:raise ValueError('Completed output belongs to a different method')
@@ -105,6 +108,9 @@ def main():
                 if a.family=='hunyuan':return latent*pipe.vae.config.scaling_factor
                 mean=torch.tensor(pipe.vae.config.latents_mean,device='cuda').view(1,16,1,1,1);std=torch.tensor(pipe.vae.config.latents_std,device='cuda').view(1,16,1,1,1);return (latent-mean)/std
             r['status']='embedding';save()
+            if a.save_endpoint:
+                torch.save(z.detach().float().cpu(),a.output/'endpoint.pt')
+                r['endpoint_sha256']=hashlib.sha256((a.output/'endpoint.pt').read_bytes()).hexdigest();save()
             if a.method=='last':marked=embed(z,codes,signs,mu=a.mu,fixed_target=a.fixed_target,uniform=a.uniform_profile)
             for label,latent in [('reference',z),('marked',marked)]:
                 pixels=pipe.vae.decode(denorm(latent).float(),return_dict=False)[0];frames=pipe.video_processor.postprocess_video(pixels,output_type='pil')[0]
