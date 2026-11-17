@@ -268,6 +268,15 @@ never reads bit-accuracy fields to choose a point. Mixed writer-source versions
 require a separate audit rather than automatic pooling. Real-video completion
 of the full calibration grid remains pending.
 
+The first scheduled grid cell (`dev-000`, strength0.025, final5steps) has now
+completed generation and paired fidelity evaluation. Running the public report
+command against the full frozen grid verified both MP4 hashes, the development
+case, parameters and manifests. `results/lfgc_first_grid_verified_report.json`
+retains all1200 expected observations: only1 is complete and selection is null.
+That one video's PSNR is42.5864dB and SSIM0.975846; these are not an80-video
+candidate mean or a matched-fidelity operating point. The report selects by
+fidelity only and does not use message accuracy to choose parameters.
+
 ### Native LFG writer with CCTA reading only
 
 `last.lfg_native_reader` reuses already-exported native-LFG attack MP4s; it does
@@ -465,5 +474,4 @@ receipt hashes were checked. An earlier shared-GPU out-of-memory attempt remains
 preserved; the successful attempt reused the identical video without changing
 scientific settings. This is one clean-video integration, not a temporal SGO
 attack result, a 400-video aggregate or exclusive-GPU timing evidence.
-
 
