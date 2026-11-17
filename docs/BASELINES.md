@@ -253,7 +253,20 @@ per-video PSNR within33.1±0.1dB and mean SSIM≥.950. If several points qualify
 our explicit tie-break is PSNR distance, then fewer steps, then smaller strength;
 this tie-break is a reconstruction detail rather than a rule stated in the paper.
 If none qualify, report an unmatched control. Never choose by primary accuracy.
-Quality aggregation/selection automation for this grid is still pending.
+Keep an exact copy of the generation input `case.json` in each run directory.
+After computing paired quality for the grid, run:
+
+```bash
+python -m last.lfg_calibration_report --plan /private/new-lfg-c-development-plan.json \
+  --root /private/lfg-c-grid --output /private/new-calibration-report.json
+```
+
+The report verifies manifests, complete grid identity, generation case/parameters,
+video hashes and fidelity definitions. Missing cells leave selection null;
+unmatched fidelity leaves selection null even when the grid is complete. It
+never reads bit-accuracy fields to choose a point. Mixed writer-source versions
+require a separate audit rather than automatic pooling. Real-video completion
+of the full calibration grid remains pending.
 
 ### Native LFG writer with CCTA reading only
 
