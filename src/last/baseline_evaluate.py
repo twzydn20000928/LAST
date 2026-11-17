@@ -2,7 +2,7 @@
 import argparse, hashlib, json, os, subprocess, sys, time, traceback
 from pathlib import Path
 import numpy as np
-from .evaluate import attacked, evaluation_directory, check_cached
+from .evaluate import attacked, evaluation_directory, check_cached, verify_received
 from .video import load_mp4, export_mp4
 
 
@@ -35,7 +35,9 @@ def main():
         if receipt.exists():
             cached=json.loads(receipt.read_text());check_cached(cached,a.video_id,method,source_sha,a.map_seed)
             if cached.get('condition')!=name or cached.get('state_sha256')!=state_sha:raise ValueError('Cached native state mismatch')
-            if cached['status']=='completed':continue
+            if cached['status']=='completed':
+                verify_received(cached,video if name=='clean' else directory/(name+'.mp4'))
+                continue
             raise ValueError('Unfinished prior condition; inspect preserved failure before retry')
         started=time.monotonic()
         row=dict(status='running',condition=name,video_id=a.video_id,method=method,map_seed=a.map_seed,
@@ -62,6 +64,8 @@ def main():
                 subprocess.run(cmd,check=True)
             extracted=json.loads((extraction/'receipt.json').read_text())
             check_extraction(extracted,method,mode,received_sha,state_sha,temporal)
+            verify_received(row,received)
+            if hashlib.sha256(state.read_bytes()).hexdigest()!=state_sha:raise ValueError('Native state changed during extraction')
             prediction=np.unpackbits(np.frombuffer((extraction/'decoded.bin').read_bytes(),dtype=np.uint8))
             truth=np.unpackbits(np.frombuffer((run/'message.bin').read_bytes(),dtype=np.uint8))
             if len(prediction)!=512 or len(truth)!=512:raise ValueError('Expected 512 information bits')

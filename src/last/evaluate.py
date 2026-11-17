@@ -86,6 +86,11 @@ def check_cached(row,video_id,method,source_sha,map_seed):
     if row.get('video_id')!=video_id or row.get('method',method)!=method or row.get('source_sha256')!=source_sha or row.get('map_seed',0)!=map_seed:
         raise ValueError('Existing attack receipt belongs to another source/method/map')
 
+def verify_received(row,path):
+    expected=row.get('received_sha256')
+    if not expected or not Path(path).is_file() or hashlib.sha256(Path(path).read_bytes()).hexdigest()!=expected:
+        raise ValueError('Received MP4 missing, changed, or not fingerprinted; audit before reuse')
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--run',type=Path,required=True);p.add_argument('--model-dir',required=True);p.add_argument('--video-id',required=True);p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
     p.add_argument('--map-seed',type=int,choices=range(5),default=0);a=p.parse_args()
@@ -100,13 +105,16 @@ def main():
     if generation.get('status')!='completed' or generation.get('family')!=a.family:raise ValueError('Require completed generation for matching family')
     if method not in ('last','lfg','lfg-c'):raise ValueError('Unsupported method in generation receipt')
     source=load_mp4(a.run/'marked.mp4');source_sha=hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()
+    if generation.get('marked_sha256')!=source_sha:raise ValueError('Generation MP4 changed')
     directory=evaluation_directory(a.run,a.map_seed);directory.mkdir(exist_ok=True);failed=False
     for name in ['clean','noise','compression','blur','drop','insert','clip']:
         receipt=directory/(name+'.json')
         if receipt.exists():
             prior=json.loads(receipt.read_text());check_cached(prior,a.video_id,method,source_sha,a.map_seed)
             if prior.get('condition')!=name:raise ValueError('Cached condition mismatch')
-            if prior.get('status')=='completed':continue
+            if prior.get('status')=='completed':
+                verify_received(prior,a.run/'marked.mp4' if name=='clean' else directory/(name+'.mp4'))
+                continue
         if receipt.exists():receipt.rename(directory/(name+f'.previous-{time.time_ns()}.json'))
         started=time.time();row={'condition':name,'video_id':a.video_id,'status':'running','source_sha256':source_sha,'map_seed':a.map_seed}
         try:
@@ -118,6 +126,7 @@ def main():
             row['attack_map']=mapping;row['received_sha256']=hashlib.sha256(path.read_bytes()).hexdigest();received=load_mp4(path)
             if method=='lfg':soft,meta=extract_lfg(received,vae,processor,a.family,(a.run/'secret.key').read_bytes())
             else:soft,meta=extract(received,vae,processor,a.family,codes)
+            verify_received(row,path)
             row['method']=method
             prediction,dec=codec.decode(soft.numpy());raw=(soft.numpy()>0).astype(np.uint8)
             row.update(status='completed',correct_bits=int((prediction==truth).sum()),total_bits=512,exact_message=bool(np.array_equal(prediction,truth)),raw_information_correct=int((raw[:512]==truth).sum()),coded_correct=int((raw==codec.encode(truth)).sum()),coded_total=592,frames=len(received),**dec,**meta)

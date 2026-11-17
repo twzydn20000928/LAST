@@ -136,3 +136,18 @@ manifest is unchanged. The remaining plan and the retained completed-case list
 jointly cover all400 cases. The running campaign, independent historical audits
 and final table aggregation still require completion; this record does not
 certify all results or resolve cross-environment pixel differences.
+
+## Reusing completed attack receipts
+
+The current LAST/LFG and native-baseline evaluators rehash the received MP4
+before skipping a completed condition. They reject a missing file, a changed
+file, or a receipt without a received-video fingerprint. They also recheck the
+received file after fresh extraction; native extraction checks its private state
+has not changed. The LAST/LFG evaluator verifies the marked generation video
+against its generation receipt. These checks do not change decoding or attacks.
+
+Do not insert a current hash into a historical receipt to make it pass: it would
+not establish what was extracted originally. Retain the historical observation
+and perform an independently recorded re-extraction where needed. Frozen
+running campaigns retain their original source versions; this stricter public
+resume behavior applies to newly prepared source versions and plans.
