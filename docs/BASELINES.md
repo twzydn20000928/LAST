@@ -235,3 +235,30 @@ causal-frame preservation. Actual-video verification and development-only
 PSNR/SSIM calibration remain pending. Do not call it matched distortion until
 the measured development results meet the specified budget; no parameter is
 selected to match a target paper accuracy.
+
+### Native LFG writer with CCTA reading only
+
+`last.lfg_native_reader` reuses already-exported native-LFG attack MP4s; it does
+not regenerate or rewrite them. Native temporal Haar combines two dynamic latent
+frames, so candidates contain eight received frames plus one duplicated prefix.
+The VAE produces three latent frames; excluding its causal prefix leaves the
+two frames needed for the original Haar transform. The reader uses the original
+1184 random CDMA carriers per Haar pair, averages the two repeated 592-bit
+responses, and forms eight candidate pair identities. CCTA uses eight-frame
+spacing for this control; LAST's default four-frame grouping is unchanged.
+The eight-pair frontend is an explicit adaptation to the native writer's support,
+not a change to native embedded signals or an assertion of recovered alignment.
+
+```bash
+python -m last.lfg_native_reader --family hunyuan \
+  --model-dir /path/to/hunyuan-i2v --run /private/original-lfg-run \
+  --output /private/original-lfg-ccta-read
+```
+
+The original generation and all seven original attack receipts must be complete.
+The runner verifies received-video hashes, supplies no truth or edit map to
+alignment, then compares final decoded bits with truth. Predictions remain in
+the private output directory. Test coverage includes eight-frame spacing and
+short-window padding; actual-video results remain pending until the receipt
+completes. This control is distinct from `--method lfg-c`, which changes the
+writer's carrier parameterization.

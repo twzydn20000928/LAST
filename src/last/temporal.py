@@ -25,10 +25,11 @@ def segments(frames):
     cuts=[0]+[i+1 for i,e in enumerate(energy) if e>.01 and e>med+4*mad]+[len(frames)]
     return [(a,b-1) for a,b in zip(cuts[:-1],cuts[1:])]
 
-def windows(segment_list, scan=True):
+def windows(segment_list, scan=True, group_frames=4):
+    if group_frames<1:raise ValueError('Positive window length required')
     for segment,(lo,hi) in enumerate(segment_list):
-        if hi-lo+1<4:
-            yield {'start':lo,'end':hi,'segment':segment,'indices':list(range(lo,hi+1))+[hi]*(4-(hi-lo+1)),'padded':True}
+        if hi-lo+1<group_frames:
+            yield {'start':lo,'end':hi,'segment':segment,'indices':list(range(lo,hi+1))+[hi]*(group_frames-(hi-lo+1)),'padded':True}
         else:
-            for start in range(lo,hi-2,1 if scan else 4):
-                yield {'start':start,'end':start+3,'segment':segment,'indices':list(range(start,start+4)),'padded':False}
+            for start in range(lo,hi-group_frames+2,1 if scan else group_frames):
+                yield {'start':start,'end':start+group_frames-1,'segment':segment,'indices':list(range(start,start+group_frames)),'padded':False}
