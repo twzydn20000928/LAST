@@ -35,6 +35,6 @@
     "seconds": 4.38
   },
   "installation_seconds": 11223.312525510788,
-  "real_video_validation": "running; no result claimed",
+  "real_video_validation": "Two-condition single-video extraction completed; see fresh_environment_reader.json. Full clean-checkout generation acceptance remains open.",
   "quality_and_native_baselines": "not installed by this video,test extra"
 }

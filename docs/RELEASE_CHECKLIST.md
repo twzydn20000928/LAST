@@ -10,7 +10,11 @@ new Python 3.10 virtual environment installing `.[video,test]`, successful
 `pip check`, 59 passing tests and CUDA/L40 detection. This used the working
 repository rather than a pinned fresh checkout. Real-video validation and the
 separate quality/baseline environments are not covered by that installation
-receipt, so the clean-environment acceptance item remains open.
+receipt, so the clean-environment acceptance item remains open. Subsequent
+`results/fresh_environment_reader.json` verifies one real Hunyuan I2V video in
+that environment without historical overlays: clean512/512 and drop30=371/512,
+matching old correct-bit counts. This does not cover fresh-checkout generation,
+other model/mode combinations or the quality/baseline environments.
 
 - [x] Core ELMC, CCTA and BCH implementation with mathematical tests.
 - [x] Frozen numerical protocol and model repository revisions.

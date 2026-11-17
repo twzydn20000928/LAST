@@ -59,6 +59,10 @@ The numerical core implements masked1776-coordinate orthonormal DCT-II carriers,
 
 ## Fresh end-to-end smoke check
 
+For the observed Linux/Python 3.10/CUDA 12.4 dependency versions, see
+[environment reconstruction](environments/README.md). This includes transitive
+dependencies and excludes server-specific overlay paths.
+
 First follow [data preparation](docs/DATA.md) for the frozen400sample manifest
 and verified conditioning images. See [release acceptance](docs/RELEASE_CHECKLIST.md)
 for the complete paper-code deliverable and outstanding work.
