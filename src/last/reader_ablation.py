@@ -10,6 +10,13 @@ from .video import load_mp4
 
 VARIANTS={'full':('ccta',True),'without_cgc':('energy',True),'without_sws':('ccta',False),'without_ccta':('received',False)}
 
+
+def writer_method(generation,family):
+    method=generation.get('method')
+    if generation.get('status')!='completed' or method not in ('last','lfg-c') or generation.get('family')!=family:
+        raise ValueError('Require matching completed LAST or shared-codebook LFG-C generation')
+    return method
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ['run','model-dir','output']:p.add_argument('--'+name,type=Path,required=True)
@@ -19,7 +26,10 @@ def main():
     from diffusers import AutoencoderKLHunyuanVideo,AutoencoderKLWan
     from diffusers.video_processor import VideoProcessor
     generation=json.loads((a.run/'receipt.json').read_text())
-    if generation.get('status')!='completed' or generation.get('method')!='last' or generation['family']!=a.family:raise ValueError('Require matching completed LAST generation')
+    method=writer_method(generation,a.family)
+    hashes={name:hashlib.sha256((Path(__file__).parent/(name+'.py')).read_bytes()).hexdigest()
+            for name in ('reader_ablation','evaluate','ccta','temporal','coding','carriers')}
+    codes_sha=hashlib.sha256((a.run/'codes.pt').read_bytes()).hexdigest()
     cls=AutoencoderKLHunyuanVideo if a.family=='hunyuan' else AutoencoderKLWan
     vae=cls.from_pretrained(a.model_dir,subfolder='vae',torch_dtype=torch.float32,local_files_only=True).to('cuda');vae.enable_tiling()
     processor=VideoProcessor(vae_scale_factor=8);codes=torch.load(a.run/'codes.pt',weights_only=True);codec=BCH512()
@@ -34,10 +44,12 @@ def main():
             target=a.output/f'{condition}-{variant}.json'
             if target.exists():
                 prior=json.loads(target.read_text())
-                if prior.get('video_sha256')!=video_sha:raise ValueError('Existing ablation uses another video')
+                if (prior.get('video_sha256')!=video_sha or prior.get('writer_method')!=method
+                    or prior.get('implementation_sha256')!=hashes or prior.get('codes_sha256')!=codes_sha):
+                    raise ValueError('Existing ablation has different or unrecorded video/writer/codebook/reader provenance; use a new output directory')
                 if prior.get('status')=='completed':continue
                 target.rename(target.with_suffix(f'.failed-{time.time_ns()}.json'))
-            row=dict(status='running',variant=variant,condition=condition,video_id=attack['video_id'],video_sha256=video_sha,source_sha256=source_sha,scope='Reader ablation; features reused within condition, not a timing benchmark')
+            row=dict(status='running',variant=variant,condition=condition,video_id=attack['video_id'],video_sha256=video_sha,source_sha256=source_sha,writer_method=method,codes_sha256=codes_sha,implementation_sha256=hashes,scope='Reader ablation; features reused within condition, not a timing benchmark')
             try:
                 soft,meta=extract(received,vae,processor,a.family,codes,reader,scan,cache)
                 prediction,dec=codec.decode(soft.numpy())

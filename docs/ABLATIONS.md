@@ -7,7 +7,8 @@ a metadata-only deterministic rule. The file discloses that selection occurred
 after the first primary sample was measured; no results are inputs to selection.
 A one-sample integration check is not the reported30sample experiment. A
 separate disjoint development manifest for the three-sample sweep and80video
-supplement is still pending; primary samples must not be used for tuning.
+supplement is frozen in `configs/development_manifest.json`; actual development
+runs remain pending. Primary samples must not be used for tuning.
 
 To regenerate the subset file at a new destination:
 
@@ -31,6 +32,16 @@ group repeats its last frame. Missing groups remain absent. This deterministic
 choice is explicit because the main text does not specify short-tail handling.
 There is no source-position oracle. Feature caching is per received video and
 does not share features across attacks; these runs are not timing measurements.
+
+For the supplement's crossed writer/reader control, use this same command with
+`--run /private/lfg-c-run` and a separate output directory. The generation receipt
+must identify the shared-codebook `lfg-c` writer; native Haar/CDMA `lfg` videos
+are rejected because they require `last.lfg_native_reader` instead. No video is
+rewritten when changing the reader. Each row records the writer, codebook hash
+and relevant reader implementation hashes. Resuming older outputs that lack
+this provenance is refused; retain those records and choose a new directory.
+This adds an executable control, not evidence that LFG-C has met the required
+matched-fidelity development criterion or completed its benchmark.
 
 For the writer ablation, rerun `last.smoke` with the same case, key and message
 and append `--fixed-target`; use a new output directory. Then run `last.evaluate`
