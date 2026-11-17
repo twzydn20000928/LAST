@@ -32,3 +32,20 @@ paired generation in randomized AB/BA order, direct CUDA-event embedding
 timing, the randomized 30-video/method schedule and length-scaling experiments
 remain to be implemented/validated. Do not present this partial entry point
 as the complete five-method Table 3 or supplementary Table 17 reproduction.
+
+For one method/backbone/condition, aggregate the frozen 30-video subset with:
+
+```bash
+python -m last.timing_summary --index /path/to/timing-index.json \
+  --output /path/to/new-summary.json
+```
+
+The index is a list of objects containing `video_id`, `condition` and `receipt`
+(path relative to the index or absolute). Use the saved `reader_timing` receipts.
+Missing or failed videos prevent final aggregate scores. Every completed video
+must have two warmups and five repeats. The summary takes each video's median,
+then reports the across-video median, quartiles and a percentile interval from
+10,000 PCG64 seed0 bootstrap draws of videos. These numerical bootstrap choices
+are disclosed reconstruction choices. Repeats are never treated as independent
+videos. The caller must use the frozen randomized acquisition schedule; this
+aggregator cannot establish exclusivity or random ordering from elapsed times.
