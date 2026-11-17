@@ -12,6 +12,33 @@ Generation is being verified on an NVIDIA L40; the manuscript specifies A800 gen
 
 Secret keys, private messages, credentials and model weights are not committed.
 
+## Method overview
+
+LAST writes a BCH-coded message into selected middle-frequency coefficients of
+the final diffusion latent. ELMC changes only coefficients that do not meet the
+required signed margin along keyed orthogonal directions. Each temporal group
+has its own codebook. The frozen VAE decodes the latent into the released video.
+
+At extraction, candidate short windows are encoded directly by the frozen VAE.
+CCTA combines keyed responses with temporal and cross-group message consistency,
+then fuses evidence for BCH decoding. It does not run diffusion inversion or
+require the original message, prompt, seed or unmarked video. This describes
+the implemented mechanism, not a guarantee of recovery under every edit.
+
+```mermaid
+flowchart LR
+  D[Diffusion endpoint] --> E[ELMC margin coding]
+  M[Message and secret key] --> E
+  E --> V[Frozen VAE decode]
+  V --> X[Released MP4]
+  X --> A[Received or attacked video]
+  A --> W[Candidate windows]
+  W --> R[Frozen VAE encode and frequency responses]
+  K[Secret key] --> R
+  R --> C[CCTA alignment and fusion]
+  C --> B[BCH decoded message]
+```
+
 Actual diagnostic results: [LAST across four backbone/mode pipelines](results/last_backbone_integrations.json)
 and [LFG adaptation integration](results/lfg_integration.json). Each is explicitly
 a single-case integration check, with raw bit counts and receipt hashes, not a
@@ -113,6 +140,26 @@ precise metric definition and input hashes. Neither metric is official V-score
 or proof of acceptable motion quality. No metric is filled using manuscript targets.
 
 ## Implementation and result status
+
+Use the following entry points for the corresponding paper experiments. An
+available command is not evidence that the full prescribed sample set has run.
+
+| Experiment or prerequisite | Reader entry point | Current scope |
+| --- | --- | --- |
+| Primary and disjoint development data | [Data preparation](docs/DATA.md) | Frozen manifests; development conditioning generation in progress |
+| Primary LAST/LFG generation and seven attacks | [Campaign](docs/CAMPAIGN.md), `last.smoke`, `last.evaluate` | Formal Hunyuan I2V runs in progress; four LAST backbone/mode integrations completed |
+| SIGMark, VideoShield, VideoMark and LFG | [Baselines](docs/BASELINES.md) | Native interfaces and Hunyuan integrations; full baseline matrix pending |
+| Paired PSNR/SSIM and official V-score | [Quality](docs/QUALITY.md), `last.quality`, `last.quality_score`, `last.quality_report` | Basic metrics available; official camera and one paired semantic diagnostic completed; full V-score pending |
+| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation` | One LAST reader diagnostic completed; prescribed 30-sample study pending |
+| Margin sweep and uniform-profile control | [Ablations](docs/ABLATIONS.md), `last.smoke --mu`, `--uniform-profile` | Public controls available; prescribed development/test runs pending |
+| Matched-writer LFG-C, native LFG+CCTA and oracle grouping | [Baselines](docs/BASELINES.md), [oracle diagnostic](docs/ABLATIONS.md) | Native LFG+CCTA and oracle single-case diagnostics completed; matched-fidelity calibration pending |
+| Additional temporal stress and repeated attack maps | [Stress protocol](docs/STRESS.md) | Single-case stress integration completed; full sample/map matrix pending |
+| Bit errors, whole-message recovery and uncertainty | [Statistics](docs/STATISTICS.md), `last.message_outcomes`, `last.cluster_intervals` | Implemented; final summaries require complete planned observations |
+| Exclusive-GPU main and repeated timing | [Frozen protocol](configs/paper_v1.json) | Not completed; concurrent diagnostic wall times are not formal timing results |
+
+Diagnostic JSON files under [results](results/) retain their sample scope and
+provenance. They must not be pasted into full-benchmark table cells. The detailed
+[release checklist](docs/RELEASE_CHECKLIST.md) remains the completion gate.
 
 Additional experiment entry points are documented for [ablations](docs/ABLATIONS.md),
 [temporal stress and repeated maps](docs/STRESS.md), and
