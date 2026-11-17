@@ -1,0 +1,107 @@
+{
+  "scope": "One VideoShield Hunyuan I2V integration case with seven real MP4 conditions; not full benchmark or timing",
+  "upstream_commit": "3713243f2e002cb21bbc3da896094d39b2b528c9",
+  "reader_source_commit": "1d331462fff777cd825e23f630b8ce3aa18b23fa",
+  "generation_receipt_sha256": "5051c92729c01c0189854cbccabfa44f7229d5ce6a80c18195a926e2bc216869",
+  "case_sha256": "2a5c0ea37094a8aa7161f5d009c13c73f321db1a834adb2e83a7dcbfdf1a86c0",
+  "settings": {
+    "frames": 65,
+    "size": [
+      512,
+      512
+    ],
+    "steps": 50,
+    "cfg": 6,
+    "shift": 7,
+    "fps": 8,
+    "crf": 18,
+    "vae": "float32",
+    "generator": "bfloat16"
+  },
+  "rows": [
+    {
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "attack_receipt_sha256": "fd6b379ecf1bf55381198564a2b0bf900b697f845ec41effb4b2ae7079e5ab4b",
+      "received_sha256": "519c67db8cb8baa519874bdb42f80a6ffee256724f8ca66ec2ee6789400e0fca",
+      "extraction_receipt_sha256": "59798d938d1da58a08a2fefcd3d3f089a00e4c320fcfdc70bed8775b173ce6f9",
+      "private_decoded_sha256": "6eb10aa0a422a258fb20b584eb22a3087a1e06f6c16bc6b51117537910df6610",
+      "received_frames": 65
+    },
+    {
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "attack_receipt_sha256": "a1850bec260eefd2ed91eaf8808fbd85afd50b8488a7925bc4cb64dc36397c5d",
+      "received_sha256": "a926a2e32a2b120681c1ba788e407f5e91f59415e9681f2338c07dc626a384f4",
+      "extraction_receipt_sha256": "830cc3d72317ddf10bd7e86c5b14d9e6159cf1970cd30a1c081de8a0423ec373",
+      "private_decoded_sha256": "6eb10aa0a422a258fb20b584eb22a3087a1e06f6c16bc6b51117537910df6610",
+      "received_frames": 65
+    },
+    {
+      "condition": "compression",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "attack_receipt_sha256": "6b22e1cee57a8d561de308525a9fbea703c6c1d7d4fc1b6eb0d3709e98491124",
+      "received_sha256": "109c1e236bc440adeca2321db836fbbb1bbe3b526d62cf7cdd5c9358bf75d534",
+      "extraction_receipt_sha256": "e676fedaa21f0e27a6fccc3ac993212aee375f6524508f0cb89a686a18ed7fd9",
+      "private_decoded_sha256": "6eb10aa0a422a258fb20b584eb22a3087a1e06f6c16bc6b51117537910df6610",
+      "received_frames": 65
+    },
+    {
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "attack_receipt_sha256": "a5178f6cc7a68f29289dba776f66acad009db6e0dca3fb9146e39c9b52127247",
+      "received_sha256": "04b41b0005b633a833cdf93a9969ae7acc52aaf58238d4900323fda42b92a611",
+      "extraction_receipt_sha256": "888882163f93cd92d476943c8791916672aac5da96dae6acf63c3462116f0e1f",
+      "private_decoded_sha256": "6eb10aa0a422a258fb20b584eb22a3087a1e06f6c16bc6b51117537910df6610",
+      "received_frames": 65
+    },
+    {
+      "condition": "drop",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "attack_receipt_sha256": "beaa3767e1df97c7bd0e1dbe0a082fc43cbcd19dd733838e8b159827274bc202",
+      "received_sha256": "b085b4b277590f404e7f84f1e33e28e3e34bc90a74bdd6f7128b09747df099b0",
+      "extraction_receipt_sha256": "9dae7c50a9574458de90219496ef9feedc9e753cd080a3a1ac3a1ac8f82cc3e8",
+      "private_decoded_sha256": "6eb10aa0a422a258fb20b584eb22a3087a1e06f6c16bc6b51117537910df6610",
+      "received_frames": 35
+    },
+    {
+      "condition": "insert",
+      "correct_bits": 511,
+      "total_bits": 512,
+      "exact_message": false,
+      "attack_receipt_sha256": "6feac2a8f60071e3865f1c80416b97e5a162ce27f7bd33ef83ede4852e26d938",
+      "received_sha256": "2049a41d95c272bf68229a5a08717dbbe59caac3682806de57e7131ca7e7e375",
+      "extraction_receipt_sha256": "fdf2d41d8bc325d7b78d2c64d575678b4d932141bffa60f810485728c95236e3",
+      "private_decoded_sha256": "6eb564062621e653d022fad1b1ea7b15dad43a0fa532f4c7e9d76380ef4835e9",
+      "received_frames": 95
+    },
+    {
+      "condition": "clip",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "attack_receipt_sha256": "ae86d7d400a4185f5485aab1750c04f769d77ac76071a1ccd420c0f719961227",
+      "received_sha256": "e25eb843fd8b84b86f11916e6e2ed393bff713d694f84790c8066de9dd4c42c9",
+      "extraction_receipt_sha256": "d4298a703d712f6054a816c9f0ea8a56c18fee879de3259f1c915f62de8e9342",
+      "private_decoded_sha256": "6eb10aa0a422a258fb20b584eb22a3087a1e06f6c16bc6b51117537910df6610",
+      "received_frames": 35
+    }
+  ],
+  "limitations": [
+    "Attack ID is integration-case-0, not paper-000; do not compare against primary cases as matched attacks.",
+    "Historical runtime with research overlays; not a fresh-environment generation validation.",
+    "Concurrent runtimes are not exclusive timing measurements.",
+    "Native state and decoded messages remain private."
+  ],
+  "verified_actual_conditions": 7
+}

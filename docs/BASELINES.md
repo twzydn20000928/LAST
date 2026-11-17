@@ -4,6 +4,16 @@ The primary comparison must keep512information bits and the frozen generation
 configuration. Different native redundancy mechanisms are not described as an
 equal-coded-length comparison. Baseline integration is still in progress.
 
+One historical native VideoShield Hunyuan I2V integration video has completed all
+seven actual MP4 conditions. `results/videoshield_seven_conditions_verified.json`
+records independently checked videos, native-state/extraction receipts, public
+reader source and decoded-bit counts:512/512 for clean, noise, compression, blur,
+drop and clip;511/512 for insert. Its attack identifier is `integration-case-0`,
+not a primary `paper-...` identifier. It therefore does not establish a matched
+comparison with primary LAST/LFG cases, a400-video result, fresh-environment
+generation, or exclusive timing. The historical overlay runtime and private
+native state remain explicit in the evidence; decoded messages are not public.
+
 ## LFG paper-equation adaptation
 
 `last.lfg` implements normalized3D Haar LLL spreading, per-channel population
