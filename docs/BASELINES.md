@@ -98,6 +98,25 @@ The output status is deliberately `completed_generation_only`: inversion,
 SGO where applicable, and real-video extraction must be verified separately.
 This entry point currently supports Hunyuan only; Wan baseline ports remain open.
 
+The companion extraction command takes no true message or attack index map:
+
+```bash
+python -m last.baseline_extract --method videoshield --mode i2v \
+  --upstream /path/to/SIGMark-python --model-dir /path/to/Hunyuan-I2V \
+  --video /private/videoshield-generation/marked.mp4 \
+  --state /private/videoshield-generation/maintained_private.pkl \
+  --output /private/videoshield-clean-read
+```
+
+Use only your own trusted native pickle state. `decoded.bin` holds512decoded
+information bits; compare it with the true message in a separate evaluator.
+Add `--temporal` for temporal attacks: SIGMark invokes upstream SGO, while the
+other two methods invoke upstream length alignment. The command uses the pinned
+inverse Euler scheduler, empty prompt,50steps,CFG6 and shift7. T2V omits the
+image argument supplied by upstream's I2V-oriented SGO helper. Failed recovery
+or invalid decoder output is recorded as failure, never replaced by fabricated
+bits. These are new adapters: CPU tests pass; real-video verification is pending.
+
 ### VideoMark registration audit
 
 The pinned VideoMark reader first decodes PRC votes, then selects the nearest
