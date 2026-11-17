@@ -44,6 +44,15 @@ and [LFG adaptation integration](results/lfg_integration.json). Each is explicit
 a single-case integration check, with raw bit counts and receipt hashes, not a
 completed paper benchmark. Temporal attacks still cause substantial errors.
 
+The [first formal LFG adaptation case](results/lfg_primary_first_case.json)
+has also completed all seven conditions with source and received-video hashes
+verified. This is paper-000 (1 of 400 Hunyuan I2V cases), distinct from the
+earlier integration case. Correct information bits are 500/512 clean,
+483/512 noise, 488/512 compression, 488/512 blur, 349/512 deletion,
+276/512 insertion and 358/512 clipping. Paired PSNR is 22.40 dB and SSIM
+0.7813. These single-case measurements do not establish a method ranking or
+reproduce the LFG authors' reported results; full comparisons remain pending.
+
 ## Install (Linux, Python3.10, CUDA-capable NVIDIA GPU)
 
 ```bash
