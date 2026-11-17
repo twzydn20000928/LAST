@@ -1,0 +1,10 @@
+{
+  "scope": "Single-prompt integration checks; not the held-out paper benchmark",
+  "runs": [
+    {"family":"hunyuan","mode":"i2v","method":"last","video_id":"integration-case-0","run":"smoke_hunyuan_i2v"},
+    {"family":"hunyuan","mode":"t2v","method":"last","video_id":"integration-case-0","run":"smoke_hunyuan_t2v"},
+    {"family":"wan22","mode":"i2v","method":"last","video_id":"integration-case-0","run":"smoke_wan22_i2v"},
+    {"family":"wan22","mode":"t2v","method":"last","video_id":"integration-case-0","run":"smoke_wan22_t2v"},
+    {"family":"hunyuan","mode":"i2v","method":"lfg","video_id":"integration-case-0","run":"smoke_hunyuan_i2v_lfg"}
+  ]
+}

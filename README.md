@@ -67,6 +67,22 @@ attack map. Its private JSON output contains512decoded information bits as a
 does not prove video authenticity; wrong messages can also decode successfully.
 The current frozen spatial input size is512×512. Keep decoded messages private.
 
+## Receipts, tables and paired fidelity
+
+```bash
+python -m last.report --plan configs/integration_plan.json \
+  --root /private/runs/paper_reproduction_v1 --output /path/to/report
+python -m last.quality --reference /private/run/reference.mp4 \
+  --marked /private/run/marked.mp4 --output /private/run/quality.json
+```
+
+Reporting writes JSON, CSV and Markdown from an explicit list of planned runs.
+Missing/failed observations stay visible; incomplete cells have no final score.
+The bundled plan covers integration checks only, not the400sample benchmark.
+Paired fidelity reports global RGB-MSE PSNR and11×11 Gaussian SSIM with the
+precise metric definition and input hashes. Neither metric is official V-score
+or proof of acceptable motion quality. No metric is filled using manuscript targets.
+
 ## Implementation and result status
 
 Core tests are available. Fresh GPU integration checks are in progress. Dataset manifests, baseline adapters, complete attack runners, confidence intervals, supplemental controls and full-benchmark result bundles are release gates. No fabricated table or historical pilot value is shipped as a new measurement. Do not interpret this repository as a completed or independently validated reproduction.
