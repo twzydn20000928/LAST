@@ -1,0 +1,10 @@
+{
+  "scope": "Supplementary development-only LFG controls; not a replacement for primary LFG",
+  "manifest": "configs/development_manifest.json",
+  "samples": 80,
+  "strengths": [0.025, 0.05, 0.10, 0.15, 0.20],
+  "final_steps": [5, 10, 20],
+  "primary": {"strength": 0.15, "final_steps": 10},
+  "status": "CLI and scheduler tests implemented; development image generation pending; no grid results yet",
+  "shared_codebook_lfg_c": "Separate implementation and evaluation still required; native random CDMA is not LFG-C"
+}

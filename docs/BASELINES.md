@@ -183,3 +183,30 @@ video hash, native-state hash and successful extraction status. Completed
 conditions may resume; a failed/unfinished condition stops with retained evidence
 and must be inspected. There is no fake bit vector for a failed extraction.
 Do not launch multiple evaluators for the same run/map simultaneously.
+
+### Supplementary LFG development controls
+
+The primary branch stays at strength 0.15 over the final ten steps. The appendix
+also specifies a development-only 5-by-3 grid, frozen in
+`configs/lfg_development_grid.json`. `last.smoke --method lfg` accepts
+`--lfg-alpha` and `--lfg-final-steps`; it records them and refuses to reuse a
+completed run with different settings. For example, after preparing a **development**
+case and the separate development state:
+
+```bash
+python -m last.smoke --method lfg --family hunyuan --mode i2v \
+  --model-dir /path/to/hunyuan-i2v --case /private/dev-000-case.json \
+  --key /private/development-state/keys/00.key \
+  --message /private/development-state/messages/dev-000.bin \
+  --lfg-alpha 0.05 --lfg-final-steps 20 \
+  --output /private/lfg-controls/a005-n20/dev-000 --memory-gib 8
+```
+
+Use the ordinary attack and paired-fidelity commands on each completed output.
+All settings share the same development cases, messages and keys. Do not tune
+on primary samples or overwrite primary results. The public scheduler tests
+check guidance timing and zero-strength equivalence for both Euler and UniPC,
+including the dynamic 16-frame I2V interface and full 17-frame interface.
+Actual development grid results remain pending. These options retain LFG's
+random CDMA/Haar writer; they are **not** the supplementary shared-codebook
+LFG-C control, which still requires separate implementation and verification.

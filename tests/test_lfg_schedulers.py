@@ -9,12 +9,13 @@ from last.lfg_schedulers import LFGFlowEuler,LFGUniPC
     (UniPCMultistepScheduler,LFGUniPC,{'flow_shift':5,'use_flow_sigmas':True,'prediction_type':'flow_prediction'}),
 ])
 @pytest.mark.parametrize('latent_frames',[16,17])
-def test_guidance_timing_and_zero_strength_replay(monkeypatch,base_cls,guided_cls,config,latent_frames):
+@pytest.mark.parametrize('late_steps',[1,2,4])
+def test_guidance_timing_and_zero_strength_replay(monkeypatch,base_cls,guided_cls,config,latent_frames,late_steps):
     import last.lfg_schedulers as module
     torch.manual_seed(1)
     baseline=base_cls(**config);guided=guided_cls(**config)
     baseline.set_timesteps(4);guided.set_timesteps(4)
-    guided.alpha=0;guided.late_steps=2;guided.spread=torch.zeros(1,16,8,32,32)
+    guided.alpha=0;guided.late_steps=late_steps;guided.spread=torch.zeros(1,16,8,32,32)
     calls=[];original=module.perturbation
     def traced(*args,**kwargs):calls.append(int(guided.step_index));return original(*args,**kwargs)
     monkeypatch.setattr(module,'perturbation',traced)
@@ -24,4 +25,4 @@ def test_guidance_timing_and_zero_strength_replay(monkeypatch,base_cls,guided_cl
         a=baseline.step(prediction,t,a,return_dict=False)[0]
         b=guided.step(prediction,t,b,return_dict=False)[0]
         assert torch.allclose(a,b,atol=1e-6,rtol=1e-6)
-    assert calls==[2,3]
+    assert calls==list(range(4-late_steps,4))

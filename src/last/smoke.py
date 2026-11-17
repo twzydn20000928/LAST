@@ -13,15 +13,20 @@ from .video import export_mp4,load_mp4
 def main():
     p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');p.add_argument('--key',type=Path);p.add_argument('--message',type=Path);p.add_argument('--method',choices=['last','lfg'],default='last')
     p.add_argument('--mu',type=float,default=.5);p.add_argument('--fixed-target',action='store_true')
+    p.add_argument('--lfg-alpha',type=float,default=.15)
+    p.add_argument('--lfg-final-steps',type=int,choices=[5,10,20],default=10)
     a=p.parse_args()
     if not np.isfinite(a.mu) or a.mu<0:p.error('--mu must be finite and nonnegative')
     if a.method!='last' and (a.mu!=.5 or a.fixed_target):p.error('Margin options apply only to LAST')
+    if not np.isfinite(a.lfg_alpha) or a.lfg_alpha<0:p.error('--lfg-alpha must be finite and nonnegative')
+    if a.method!='lfg' and (a.lfg_alpha!=.15 or a.lfg_final_steps!=10):p.error('LFG options apply only to LFG')
     if bool(a.key)!=bool(a.message):p.error('--key and --message must be supplied together')
     os.umask(0o077);a.output.mkdir(parents=True,exist_ok=True);out=a.output/'receipt.json'
     if out.exists() and json.loads(out.read_text()).get('status')=='completed':
         prior=json.loads(out.read_text())
         if prior.get('mu',.5)!=a.mu or prior.get('fixed_target',False)!=a.fixed_target:raise ValueError('Completed run has another embedding configuration')
         if prior.get('method','last')!=a.method:raise ValueError('Completed output belongs to a different method')
+        if prior.get('lfg_alpha',.15)!=a.lfg_alpha or prior.get('lfg_final_steps',10)!=a.lfg_final_steps:raise ValueError('Completed output has another LFG configuration')
         if prior['family']!=a.family or prior['mode']!=a.mode or prior['case_sha256']!=hashlib.sha256(a.case.read_bytes()).hexdigest():raise ValueError('Completed output belongs to a different case/configuration')
         if a.key and (a.output/'secret.key').read_bytes()!=a.key.read_bytes():raise ValueError('Completed output belongs to a different key')
         if a.message and not np.array_equal(np.load(a.output/'message.npy'),np.unpackbits(np.frombuffer(a.message.read_bytes(),dtype=np.uint8))):raise ValueError('Completed output belongs to a different message')
@@ -31,6 +36,7 @@ def main():
         r['seconds']=time.time()-start;r['peak_allocated_gib']=torch.cuda.max_memory_allocated()/1024**3;temp=out.with_suffix('.tmp');temp.write_text(json.dumps(r,indent=2));temp.replace(out)
     try:
         r['offload']=a.offload;r['memory_limit_gib']=a.memory_gib;r['model_directory']=str(a.model_dir);r['method']=a.method;r['mu']=a.mu;r['fixed_target']=a.fixed_target
+        r['lfg_alpha']=a.lfg_alpha;r['lfg_final_steps']=a.lfg_final_steps
         from diffusers import HunyuanVideoPipeline,HunyuanVideoImageToVideoPipeline,WanPipeline,WanImageToVideoPipeline,AutoencoderKLHunyuanVideo,AutoencoderKLWan,FlowMatchEulerDiscreteScheduler,UniPCMultistepScheduler
         from PIL import Image
         torch.set_num_threads(4);torch.cuda.set_per_process_memory_fraction(a.memory_gib*1024**3/torch.cuda.get_device_properties(0).total_memory)
@@ -73,6 +79,7 @@ def main():
                 from .lfg_schedulers import LFGFlowEuler,LFGUniPC
                 scheduler_cls=LFGFlowEuler if a.family=='hunyuan' else LFGUniPC
                 pipe.scheduler=scheduler_cls.from_config(pipe.scheduler.config)
+                pipe.scheduler.alpha=a.lfg_alpha;pipe.scheduler.late_steps=a.lfg_final_steps
                 pipe.scheduler.spread=watermark(keyfile.read_bytes(),signs).cuda()
                 torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
                 r['generation_branch']='lfg';save()
