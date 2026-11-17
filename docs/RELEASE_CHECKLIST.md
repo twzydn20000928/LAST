@@ -58,3 +58,12 @@ for readers. Scheduler helpers may be local infrastructure, but all scientific
 operations they dispatch must have documented repository entry points. Completion
 means the full deliverable is independently runnable and audited, not merely that
 some experiments passed or the repository contains source files.
+
+The first formal Hunyuan T2V LAST case also completed in the isolated video
+runtime using public checkout `1d331462fff777cd825e23f630b8ce3aa18b23fa`.
+`results/last_t2v_primary_first_case.json` records all seven MP4 conditions:
+512, 512, 512, 512, 447, 445 and 500 correct information bits out of 512,
+in clean/noise/compression/blur/drop/insert/clip order. Generation source,
+command completion, source/received video hashes and paired quality references
+were checked before the frozen 400-case T2V continuation was enabled.
+This is one formal sample, not completion of the 400-case branch or V-score.
