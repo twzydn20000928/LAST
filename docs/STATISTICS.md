@@ -33,3 +33,24 @@ single-video integration measurements therefore do not establish a population
 confidence interval. This module does not certify authentication or independence
 across secret keys, and a degenerate interval on an all-correct sample does not
 prove perfect population performance.
+
+## Message outcomes and error distribution
+
+```bash
+python -m last.message_outcomes --manifest configs/primary_manifest.json \
+  --root /path/to/primary --family hunyuan --mode i2v --method last \
+  --output /path/to/message-outcomes.json
+```
+
+This entry point reads the seven condition receipts without accessing secret
+keys or message files. It records receipt hashes, integer bit-error totals,
+pre-BCH errors where available, exact-message recovery and nearest-rank BER
+median/p95/p99/maximum. Missing videos remain missing: final rates stay null
+until every manifest case has completed. Observed partial rates are separate.
+
+Decoder success is not proof of message recovery. The report distinguishes
+wrong messages with decoder failure, wrong messages despite decoder success,
+and exact messages. It separately counts decoder failures that nonetheless
+return correct systematic information bits. These are decoding outcomes, not
+watermark authentication decisions. Descriptive 95% Wilson bounds on message
+recovery do not replace the prompt-cluster intervals above.
