@@ -47,3 +47,30 @@ clean; report paired PSNR and SSIM separately. The causal profile remains
 Default main-paper generation is unchanged (`--mu .5`, no `--fixed-target`).
 Writer and reader adapters require real-video integration verification; no
 manuscript ablation number is imported as a measured result.
+# Oracle grouping diagnostic
+
+`last.oracle_reader` is deliberately **not blind**: it reads the evaluator's
+true temporal edit map. It supports existing LAST and shared-codebook LFG-C
+videos, without changing their writer or attacked MP4s.
+
+```bash
+python -m last.oracle_reader --family hunyuan --model-dir /path/to/hunyuan-i2v \
+  --run /private/completed-marked-run --output /private/oracle-read
+```
+
+Original frame zero is the causal prefix; frames 1--4 belong to group zero,
+5--8 to group one, and so on. Inserted foreign frames are excluded and duplicate
+original identities count once. A missing slot uses the nearest surviving frame
+within its true group, choosing the earlier original frame on a tie. Completely
+absent groups contribute no evidence. The reader never retrieves deleted pixels
+from the unmarked or pre-attack video. This fill rule is an explicit
+reconstruction choice because the supplement does not specify it.
+
+Each recovered group uses the same five-frame VAE encoding, normalized DCT
+feature, codebook and BCH as LAST; group correlations are L2-normalized and
+averaged. The receipt reports complete groups, filled slots and missing groups,
+pre/post-BCH counts, exact-message recovery, and attack/video hashes. Truth bits
+are compared only after readout. Do not include these map-assisted results in
+deployable extraction claims or treat them as a guaranteed upper bound: missing
+content, padding and local VAE re-encoding remain sources of error.
+
