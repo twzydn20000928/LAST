@@ -42,5 +42,23 @@ only **four unique prompts**. These are candidate source inputs, not30independen
 scenes or new watermark measurements. Reusing their conditioning frames would
 require public input artifacts, source hashes, an explicit reconstruction rule,
 new disjoint keys and fresh paper-configured generation. No such development
-benchmark is currently marked complete; the80video development manifest remains
-an open requirement.
+benchmark is currently marked complete.
+
+The new `configs/development_manifest.json` freezes 80 development cases from
+verified SIGMark augmented prompt files: 20 distinct prompts, four seeds each,
+eight new key slots with ten cases each. `last.development` selects prompts by
+SHA256 ranking and dimension round robin, without reading outcomes; it rejects
+casefold/whitespace-normalized primary prompt matches. This is exact-text
+disjointness, not proof of semantic independence. The paper specifies the size
+and separation but not these individual examples; this selection is an explicit
+reconstruction choice. The three margin-sweep IDs use three different prompts.
+
+```bash
+python -m last.development --metadata-root /path/to/SIGMark-quality-metadata \
+  --output /private/development_manifest.json
+```
+
+The published selection does not yet contain conditioning images. I2V input
+acquisition and separate private development keys remain release requirements;
+primary test images/keys must not be substituted. No development generation or
+parameter tuning is implied by publishing this manifest.
