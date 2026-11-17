@@ -1,4 +1,4 @@
-"""Native Hunyuan baseline generation and isolated extraction integration."""
+"""Native baseline generation and isolated extraction integration."""
 import argparse, hashlib, json, os, subprocess, sys, time, traceback
 from pathlib import Path
 import numpy as np
@@ -8,6 +8,7 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--method',choices=['videoshield','videomark','sigmark'],required=True)
     p.add_argument('--mode',choices=['i2v','t2v'],required=True)
+    p.add_argument('--family',choices=['hunyuan','wan22'],default='hunyuan')
     for name in ('upstream','model-dir','case','message','output'):
         p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--registry',type=Path)
@@ -16,7 +17,7 @@ def main():
     if a.method=='videomark' and a.registry is None:p.error('VideoMark requires --registry')
     output=a.output.resolve();output.mkdir(parents=True,exist_ok=False,mode=0o700)
     generation=output/'generation';extraction=output/'extraction'
-    state=dict(status='starting',method=a.method,mode=a.mode,
+    state=dict(status='starting',method=a.method,mode=a.mode,family=a.family,
                scope='Single native baseline integration; not a benchmark or exclusive timing',
                source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
     start=time.monotonic()
@@ -25,7 +26,7 @@ def main():
         temp=output/'receipt.tmp';temp.write_text(json.dumps(state,indent=2));temp.replace(output/'receipt.json')
     save()
     try:
-        common=['--method',a.method,'--mode',a.mode,'--upstream',str(a.upstream.resolve()),
+        common=['--method',a.method,'--mode',a.mode,'--family',a.family,'--upstream',str(a.upstream.resolve()),
                 '--model-dir',str(a.model_dir.resolve()),'--memory-gib',str(a.memory_gib)]
         command=[sys.executable,'-m','last.baseline_generate',*common,'--case',str(a.case.resolve()),
                  '--message',str(a.message.resolve()),'--output',str(generation)]
@@ -53,3 +54,4 @@ def main():
 
 
 if __name__=='__main__':main()
+

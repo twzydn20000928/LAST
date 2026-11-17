@@ -311,7 +311,21 @@ its scalar VAE scaling and Euler/CFG6/shift7 defaults.
 
 Channel normalization roundtrip and registry tests pass, but real Wan
 native-carrier GPU generation and extraction have not been validated.
-`last.baseline_run` and native efficiency adapters remain Hunyuan-only.
+Native efficiency adapters remain Hunyuan-only. The single-case integration
+runner accepts an explicit family and forwards it to generation and extraction:
+
+```bash
+python -m last.baseline_run --family wan22 --method videomark --mode i2v \
+  --upstream /path/to/pinned-SIGMark --model-dir /path/to/Wan-I2V-A14B \
+  --case /private/cases/paper-000.json \
+  --message /private/primary-state/messages/paper-000.bin \
+  --registry /private/primary-state/messages \
+  --output /private/new-wan-videomark-integration --memory-gib 8
+```
+
+Use a new output directory and retain failed attempts. VideoMark requires the
+full frozen message registry; do not substitute a singleton correct answer.
+The runner evaluates truth only after the separate extractor has exited.
 
 The experimental `last.baseline_extract --family wan22` entry point now uses
 Wan's per-channel mean/std, CFG5 for both A14B experts, and the appropriate
