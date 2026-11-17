@@ -29,3 +29,18 @@ they are not claimed to be an unpublished author implementation.
 `last.baseline_extract --temporal`). Attack metadata must not enter the reader.
 The exporter claims no bit accuracy. Aggregate repeated maps by original prompt
 cluster; five maps of one video are not five independent test videos.
+
+For LAST, the batch evaluator runs an isolated `last.extract` process per exported
+condition, with no true message or edit map passed to it:
+
+```bash
+python -m last.stress_evaluate --run /private/last-run \
+  --attacks /private/stress/paper-000 --family hunyuan \
+  --model-dir /path/to/Hunyuan-I2V --output /private/stress-scores/paper-000
+```
+
+Each immediate subdirectory of `--attacks` contains `attack.json` and
+`received.mp4`. Source and received hashes are verified. The evaluator reads
+truth only after extraction exits, records failures explicitly, and retains
+private decoded outputs. This command currently evaluates LAST only; other
+baseline adapters still require separate stress integration.
