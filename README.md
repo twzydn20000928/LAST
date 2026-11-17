@@ -8,7 +8,7 @@ This repository is being constructed from a frozen manuscript protocol. Full-pap
 
 The reproduction targets 512 information bits, two video backbones (HunyuanVideo and Wan-2.2 A14B), both T2V and I2V, matched baselines, spatial/temporal attacks, quality evaluation and ablations. Runs record model revisions, software versions, seed schedules, codec settings, raw counts, failures and hardware differences.
 
-Generation is currently being prepared on an NVIDIA L40; the manuscript specifies A800 generation. This hardware difference will be recorded. Timing runs use an idle L40.
+Generation is being verified on an NVIDIA L40; the manuscript specifies A800 generation. This hardware difference is recorded. Timing runs use an idle L40.
 
 Secret keys, private messages, credentials and model weights are not committed.
 
@@ -27,6 +27,10 @@ The numerical core implements masked1776-coordinate orthonormal DCT-II carriers,
 
 ## Fresh end-to-end smoke check
 
+First follow [data preparation](docs/DATA.md) for the frozen400sample manifest
+and verified conditioning images. See [release acceptance](docs/RELEASE_CHECKLIST.md)
+for the complete paper-code deliverable and outstanding work.
+
 Download a pinned checkpoint from `configs/models.json`. Supply a JSON case containing `prompt`, `seed` and, for I2V, a local `image` path. Keep output outside version control:
 
 ```bash
@@ -36,6 +40,17 @@ python -m last.smoke --family hunyuan --mode i2v \
 ```
 
 Wan uses `--family wan22 --memory-gib 42 --offload model`. The smoke run generates a fresh secret/message, generates an unmarked endpoint, embeds LAST, exports CRF18 MP4, rereads it and blindly extracts512informationbits. It saves an honest receipt and private key material. **A smoke run is not a400-video benchmark.** The generated keys/messages/predictions and videos must not be committed.
+
+Evaluate the seven primary attack conditions on that exported video:
+
+```bash
+python -m last.evaluate --family hunyuan --model-dir /path/to/checkpoint \
+  --run /private/runs/smoke-hunyuan-i2v --video-id integration-case-0
+```
+
+Use the same `--video-id` across methods to share attack maps. Each condition
+records a separate receipt; failed conditions remain failures, not zero accuracy.
+See [implementation choices and reuse policy](docs/REUSE_AUDIT.md).
 
 ## Implementation and result status
 
