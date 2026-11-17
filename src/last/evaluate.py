@@ -29,10 +29,27 @@ def attacked(frames, name, video_id, seed=0):
         output.append(Image.fromarray(x))
     return output,None
 
-def extract(frames, vae, processor, family, codes):
-    nodes=list(windows(segments(frames)));features=[]
+def reader_nodes(frames,reader='ccta',scan=True):
+    if reader not in ('ccta','energy','received'):raise ValueError('Unknown reader')
+    if reader=='received':
+        # The first received frame is treated as the causal prefix, without
+        # estimating its original identity. Extra frames are clipped, missing
+        # complete groups remain absent; a short final group repeats its last frame.
+        nodes=[]
+        hi=min(len(frames)-1,64)
+        for start in range(1,hi+1,4):
+            end=min(start+3,hi);indices=list(range(start,end+1))
+            nodes.append(dict(start=start,end=end,segment=0,indices=indices+[end]*(4-len(indices)),padded=end-start<3))
+        return nodes
+    return list(windows(segments(frames),scan=scan))
+
+def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,feature_cache=None):
+    nodes=reader_nodes(frames,reader,scan);features=[]
     with torch.inference_mode():
         for node in nodes:
+            cache_key=tuple(node['indices'])
+            if feature_cache is not None and cache_key in feature_cache:
+                features.append(feature_cache[cache_key]);continue
             content=[frames[node['indices'][0]]]+[frames[i] for i in node['indices']]
             x=processor.preprocess_video([content]).to('cuda',torch.float32)
             z=vae.encode(x).latent_dist.mode()
@@ -41,8 +58,13 @@ def extract(frames, vae, processor, family, codes):
                 mean=torch.as_tensor(vae.config.latents_mean,device=z.device).view(1,16,1,1,1)
                 std=torch.as_tensor(vae.config.latents_std,device=z.device).view(1,16,1,1,1)
                 z=(z-mean)/std
-            features.append(feature(z).cpu())
-    return align(torch.stack(features) if features else torch.empty(0,1776),nodes,codes)
+            value=feature(z).cpu();features.append(value)
+            if feature_cache is not None:feature_cache[cache_key]=value
+    values=torch.stack(features) if features else torch.empty(0,1776)
+    if reader=='received':
+        soft=sum((codes[g].float()@value for g,value in enumerate(features)),torch.zeros(codes.shape[1]))
+        return soft,{'route':'received_order','groups':len(nodes)}
+    return align(values,nodes,codes,reader=reader)
 
 def extract_lfg(frames,vae,processor,family,key):
     from .lfg import align_received_frames,scores
