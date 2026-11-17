@@ -1,0 +1,21 @@
+{
+  "status": "verified_single_clean_video",
+  "method": "sigmark",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "source_commit": "1d331462fff777cd825e23f630b8ce3aa18b23fa",
+  "upstream_commit": "3713243f2e002cb21bbc3da896094d39b2b528c9",
+  "isolated_environment": "native_clean_v1",
+  "historical_python_overlays": false,
+  "information_bits": 512,
+  "correct_bits": 512,
+  "bit_accuracy": 1.0,
+  "exact_message": true,
+  "frames": 65,
+  "video_sha256": "571d0b86a706fabdea30ed0e07fb287c8cefbf23bba3bd9798f2cc743465d306",
+  "reader_source_sha256": "abdd9b9881c588d46464ef733c956ef9490422aa21ec7492816a1380449ac003",
+  "extraction_receipt_sha256": "238d0fd91a27a44f389849fcaded6ad155a264def57a2503f8aec84cd1afe99a",
+  "original_failure_preserved": true,
+  "original_failure": "Shared-GPU out of memory; same exported video retried without scientific parameter changes",
+  "scope": "One clean exported-video integration in isolated native environment; no temporal attacks, full benchmark, or exclusive timing claim"
+}

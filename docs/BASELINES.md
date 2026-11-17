@@ -453,3 +453,17 @@ must be validated before launching its full matrix. CPU plan/command tests do
 not establish robustness or complete reproduction.
 
 
+### Isolated SIGMark clean-video integration
+
+`results/native_clean_sigmark_video.json` records successful extraction of one
+65-frame Hunyuan I2V MP4 using public reader revision
+`1d331462fff777cd825e23f630b8ce3aa18b23fa` in the isolated native environment,
+without historical Python overlays. All 512 information bits and the complete
+message were recovered. The actual decoded bytes were independently compared
+with truth after extraction exited, and video, native state, reader source and
+receipt hashes were checked. An earlier shared-GPU out-of-memory attempt remains
+preserved; the successful attempt reused the identical video without changing
+scientific settings. This is one clean-video integration, not a temporal SGO
+attack result, a 400-video aggregate or exclusive-GPU timing evidence.
+
+
