@@ -56,6 +56,15 @@ clean; report paired PSNR and SSIM separately. The causal profile remains
 `[0,mu,mu,2*mu,mu,...]`. Do not choose the three examples by the resulting score.
 
 Default main-paper generation is unchanged (`--mu .5`, no `--fixed-target`).
+For supplement Table16's uniform writing control, add `--uniform-profile`
+to `last.smoke --method last --mu .5` and use a new run directory. All sixteen
+message groups then have margin0.5 instead of the default first-group0 and
+fourth-group1 exceptions. The initial causal VAE latent remains untouched.
+Keep case/key/message and subsequent attack IDs identical to the paired primary
+run. The receipt records the switch and refuses reuse under a different profile.
+This alternative does not replace any primary run; test-video quality must not
+be used to tune its settings. The fixed-target matched-PSNR control separately
+requires development calibration before test evaluation.
 Writer and reader adapters require real-video integration verification; no
 manuscript ablation number is imported as a measured result.
 # Oracle grouping diagnostic

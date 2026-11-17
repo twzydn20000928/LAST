@@ -13,11 +13,12 @@ from .video import export_mp4,load_mp4
 def main():
     p=argparse.ArgumentParser();p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True);p.add_argument('--model-dir',type=Path,required=True);p.add_argument('--case',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--memory-gib',type=float,default=12);p.add_argument('--offload',choices=['model','sequential'],default='sequential');p.add_argument('--key',type=Path);p.add_argument('--message',type=Path);p.add_argument('--method',choices=['last','lfg','lfg-c'],default='last')
     p.add_argument('--mu',type=float,default=.5);p.add_argument('--fixed-target',action='store_true')
+    p.add_argument('--uniform-profile',action='store_true',help='Supplement control: all sixteen message groups use mu; main default remains non-uniform')
     p.add_argument('--lfg-alpha',type=float,default=.15)
     p.add_argument('--lfg-final-steps',type=int,choices=[5,10,20],default=10)
     a=p.parse_args()
     if not np.isfinite(a.mu) or a.mu<0:p.error('--mu must be finite and nonnegative')
-    if a.method!='last' and (a.mu!=.5 or a.fixed_target):p.error('Margin options apply only to LAST')
+    if a.method!='last' and (a.mu!=.5 or a.fixed_target or a.uniform_profile):p.error('Margin options apply only to LAST')
     if not np.isfinite(a.lfg_alpha) or a.lfg_alpha<0:p.error('--lfg-alpha must be finite and nonnegative')
     if a.method not in ('lfg','lfg-c') and (a.lfg_alpha!=.15 or a.lfg_final_steps!=10):p.error('LFG options apply only to LFG')
     if bool(a.key)!=bool(a.message):p.error('--key and --message must be supplied together')
@@ -25,6 +26,7 @@ def main():
     if out.exists() and json.loads(out.read_text()).get('status')=='completed':
         prior=json.loads(out.read_text())
         if prior.get('mu',.5)!=a.mu or prior.get('fixed_target',False)!=a.fixed_target:raise ValueError('Completed run has another embedding configuration')
+        if prior.get('uniform_profile',False)!=a.uniform_profile:raise ValueError('Completed run has another group margin profile')
         if prior.get('method','last')!=a.method:raise ValueError('Completed output belongs to a different method')
         if prior.get('lfg_alpha',.15)!=a.lfg_alpha or prior.get('lfg_final_steps',10)!=a.lfg_final_steps:raise ValueError('Completed output has another LFG configuration')
         if prior['family']!=a.family or prior['mode']!=a.mode or prior['case_sha256']!=hashlib.sha256(a.case.read_bytes()).hexdigest():raise ValueError('Completed output belongs to a different case/configuration')
@@ -37,6 +39,7 @@ def main():
     try:
         r['offload']=a.offload;r['memory_limit_gib']=a.memory_gib;r['model_directory']=str(a.model_dir);r['method']=a.method;r['mu']=a.mu;r['fixed_target']=a.fixed_target
         r['lfg_alpha']=a.lfg_alpha;r['lfg_final_steps']=a.lfg_final_steps
+        r['uniform_profile']=a.uniform_profile
         from diffusers import HunyuanVideoPipeline,HunyuanVideoImageToVideoPipeline,WanPipeline,WanImageToVideoPipeline,AutoencoderKLHunyuanVideo,AutoencoderKLWan,FlowMatchEulerDiscreteScheduler,UniPCMultistepScheduler
         from PIL import Image
         torch.set_num_threads(4);torch.cuda.set_per_process_memory_fraction(a.memory_gib*1024**3/torch.cuda.get_device_properties(0).total_memory)
@@ -102,7 +105,7 @@ def main():
                 if a.family=='hunyuan':return latent*pipe.vae.config.scaling_factor
                 mean=torch.tensor(pipe.vae.config.latents_mean,device='cuda').view(1,16,1,1,1);std=torch.tensor(pipe.vae.config.latents_std,device='cuda').view(1,16,1,1,1);return (latent-mean)/std
             r['status']='embedding';save()
-            if a.method=='last':marked=embed(z,codes,signs,mu=a.mu,fixed_target=a.fixed_target)
+            if a.method=='last':marked=embed(z,codes,signs,mu=a.mu,fixed_target=a.fixed_target,uniform=a.uniform_profile)
             for label,latent in [('reference',z),('marked',marked)]:
                 pixels=pipe.vae.decode(denorm(latent).float(),return_dict=False)[0];frames=pipe.video_processor.postprocess_video(pixels,output_type='pil')[0]
                 command=export_mp4(frames,a.output/f'{label}.mp4');r[label+'_codec_command']=command

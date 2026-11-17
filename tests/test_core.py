@@ -51,3 +51,8 @@ def test_minimum_margin_constraints_and_excluded_coordinates():
     assert change[...,8,8].abs().max()<1e-4
     fixed=embed(z,c,b,fixed_target=True)
     assert (y-z).square().sum() <= (fixed-z).square().sum()+1e-3
+    uniform=embed(z,c,b,uniform=True)
+    uniform_response=torch.einsum('gmd,gd->gm',c,selected(transform(uniform[0,:,1:].permute(1,0,2,3))))
+    assert torch.all(uniform_response*b>=.5-1e-4)
+    assert torch.equal(uniform[:,:,0],z[:,:,0])
+    assert not torch.allclose(uniform,y)
