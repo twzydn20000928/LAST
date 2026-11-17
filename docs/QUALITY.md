@@ -131,6 +131,15 @@ and score function remain unchanged. Set `HF_HUB_OFFLINE=1` and
 silently acquire a different model. The submodules JSON must still supply the
 local LLaVA checkpoint under `llava`. Runtime validation of these large models
 is separate from the CPU import audit.
+If full-batch SigLIP encoding exhausts GPU memory, the explicit option
+`--llava-vision-batch 4` processes the same sampled images in groups of four,
+concatenating features in original frame order. This does not remove frames or
+change questions, pooling or downstream scoring. The receipt records the
+microbatch size; the default0 retains the original full batch. SigLIP encodes
+each image independently, but a changed batch shape may change floating-point
+roundoff. Tests verify frame count/order using an independent-image fixture;
+they do not prove bit-identical scores from the pretrained model. Keep runtime
+failures and compare actual scoring results before declaring this adapter valid.
 The receipt records source, question-input and submodule-configuration hashes,
 runtime, seed and applicability counts. `official_result.json` retains raw
 outputs. Missing/duplicate video results or unexpected score ranges fail the

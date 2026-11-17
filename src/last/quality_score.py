@@ -39,10 +39,12 @@ def main():
     p.add_argument('--seed', type=int, default=0)
     p.add_argument('--llava-siglip',type=Path,help='Explicit local SigLIP directory for the bundled LLaVA loader')
     p.add_argument('--llava-attention',choices=['sdpa','flash_attention_2'],default='sdpa')
+    p.add_argument('--llava-vision-batch',type=int,default=0,help='Explicit per-image SigLIP microbatch; 0 keeps original full batch')
     p.add_argument('--cotracker-checkpoint', type=Path,
                    help='Explicit local CoTracker2 loading adapter; bundled upstream code, window_len=8')
     p.add_argument('--allow-partial-diagnostic', action='store_true')
     a = p.parse_args()
+    if a.llava_vision_batch<0 or (a.llava_vision_batch and not a.llava_siglip):p.error('Vision batching requires local SigLIP and a nonnegative size')
     upstream = a.upstream.resolve(); inputs = a.inputs.resolve()
     coverage = json.loads((inputs/'coverage.json').read_text())
     if not coverage['complete'] and not a.allow_partial_diagnostic:
@@ -118,7 +120,12 @@ def main():
             original_tower=llava_arch.build_vision_tower
             def local_tower(config,**kwargs):
                 if getattr(config,'mm_vision_tower',None)==str(tower_path):
-                    return SigLipVisionTower(str(tower_path),vision_tower_cfg=config,**kwargs)
+                    tower=SigLipVisionTower(str(tower_path),vision_tower_cfg=config,**kwargs)
+                    if a.llava_vision_batch:
+                        from .vision_batch import forward_images
+                        original_forward=tower.forward
+                        tower.forward=lambda images:forward_images(original_forward,images,a.llava_vision_batch)
+                    return tower
                 return original_tower(config,**kwargs)
             llava_arch.build_vision_tower=local_tower
             original_loader=module.load_pretrained_model
@@ -127,6 +134,7 @@ def main():
                 return original_loader(*args,**kwargs)
             module.load_pretrained_model=local_loader
             record['llava_loading_adapter']=dict(attention=a.llava_attention,
+                vision_microbatch=a.llava_vision_batch,
                 siglip_path=str(tower_path),
                 siglip_files={str(f.relative_to(tower_path)):hashlib.sha256(f.read_bytes()).hexdigest()
                               for f in sorted(tower_path.rglob('*')) if f.is_file() and '.cache' not in f.parts},
