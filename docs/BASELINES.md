@@ -395,3 +395,24 @@ no selected parameter. Existing active cells started by other controllers must
 finish before using this runner on their output root. All commands must use
 reader-owned private keys and state, not the authors' experimental secrets.
 
+### Wan attack sweep entry point
+
+After a native Wan integration completes, its generation directory can be passed
+to the same attack evaluator. The model family is read from the verified
+generation receipt and forwarded explicitly to extraction. Reused extraction
+receipts must match family, mode, method, video, private state and temporal flag.
+
+```bash
+python -m last.baseline_evaluate --run /private/new-wan-videomark-integration/generation \
+  --upstream /path/to/pinned-SIGMark --model-dir /path/to/Wan-I2V-A14B \
+  --video-id paper-000 --memory-gib 8 \
+  --clean-extraction /private/new-wan-videomark-integration/extraction
+```
+
+This covers the same seven exported MP4 conditions and map seeds as LAST.
+SIGMark temporal conditions invoke native SGO through the Wan adapter; the
+other native baselines retain their original length alignment. This entry point
+is implemented and its family/provenance checks are tested; real Wan baseline
+attack results remain pending. Do not infer robustness from CPU interface tests.
+
+
