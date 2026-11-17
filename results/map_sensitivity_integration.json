@@ -1,0 +1,366 @@
+{
+  "scope": "Five deterministic attack maps on one existing Hunyuan I2V LAST video; not five independent videos or complete supplementary benchmark",
+  "video_id": "paper-000",
+  "source_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+  "rows": [
+    {
+      "map_seed": 0,
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb"
+    },
+    {
+      "map_seed": 0,
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "2bc99682aa3f81454c9a0c179b7b484f13bb041ea3f58016a3204ae323e76464"
+    },
+    {
+      "map_seed": 0,
+      "condition": "compression",
+      "correct_bits": 486,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "bcff2291d777fb1ea32447092fdd274ed1bd7624dffa8a5f641c2edcf84e0e38"
+    },
+    {
+      "map_seed": 0,
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "9ed8c48fca94502c910906cc22114b31a80c18106133df7c89501567edaabf94"
+    },
+    {
+      "map_seed": 0,
+      "condition": "drop",
+      "correct_bits": 371,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "8562a0f6e475a3a671a5747f77dad6b3ddb358245911ec240a5df58d363bbcf1"
+    },
+    {
+      "map_seed": 0,
+      "condition": "insert",
+      "correct_bits": 424,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "e631398a5c358a90ef9f68417e68af67344d7c540ff33ef4e8e5586759964c7d"
+    },
+    {
+      "map_seed": 0,
+      "condition": "clip",
+      "correct_bits": 502,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "d036a1f680076c58ea9857f89ee5fbdb0c95b1f4951ec585e9de0a0a7a8e9c44"
+    },
+    {
+      "map_seed": 1,
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb"
+    },
+    {
+      "map_seed": 1,
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "2bc99682aa3f81454c9a0c179b7b484f13bb041ea3f58016a3204ae323e76464"
+    },
+    {
+      "map_seed": 1,
+      "condition": "compression",
+      "correct_bits": 486,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "bcff2291d777fb1ea32447092fdd274ed1bd7624dffa8a5f641c2edcf84e0e38"
+    },
+    {
+      "map_seed": 1,
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "9ed8c48fca94502c910906cc22114b31a80c18106133df7c89501567edaabf94"
+    },
+    {
+      "map_seed": 1,
+      "condition": "drop",
+      "correct_bits": 372,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "8b2f2462110689ea3f91eca5ca7f5748746abb1001e6eb02e201b831152ec3a7"
+    },
+    {
+      "map_seed": 1,
+      "condition": "insert",
+      "correct_bits": 413,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "c481a62137e7a6c4b2edafd5a086046e2d5fbad975d03e4d276c0b731c0e5798"
+    },
+    {
+      "map_seed": 1,
+      "condition": "clip",
+      "correct_bits": 492,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "fac20a3b55f82151487d23cae374afcb0dff36a46f59025afb169e9e6665fd91"
+    },
+    {
+      "map_seed": 2,
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb"
+    },
+    {
+      "map_seed": 2,
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "2bc99682aa3f81454c9a0c179b7b484f13bb041ea3f58016a3204ae323e76464"
+    },
+    {
+      "map_seed": 2,
+      "condition": "compression",
+      "correct_bits": 486,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "bcff2291d777fb1ea32447092fdd274ed1bd7624dffa8a5f641c2edcf84e0e38"
+    },
+    {
+      "map_seed": 2,
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "9ed8c48fca94502c910906cc22114b31a80c18106133df7c89501567edaabf94"
+    },
+    {
+      "map_seed": 2,
+      "condition": "drop",
+      "correct_bits": 415,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "1fab6796f96b6b40164d0c62a8425b5323b895abc1b11e6dd26bb52c22f6becf"
+    },
+    {
+      "map_seed": 2,
+      "condition": "insert",
+      "correct_bits": 474,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "f5fea0ce926a60d0bcff2df6ab71a3434c2811c5390f876d46dd9c6b4afb9000"
+    },
+    {
+      "map_seed": 2,
+      "condition": "clip",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "9f15f1b4162f08ba24b838d25f9b9ddea1cfae2130b1be34fdcdce493d6c921e"
+    },
+    {
+      "map_seed": 3,
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb"
+    },
+    {
+      "map_seed": 3,
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "2bc99682aa3f81454c9a0c179b7b484f13bb041ea3f58016a3204ae323e76464"
+    },
+    {
+      "map_seed": 3,
+      "condition": "compression",
+      "correct_bits": 486,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "bcff2291d777fb1ea32447092fdd274ed1bd7624dffa8a5f641c2edcf84e0e38"
+    },
+    {
+      "map_seed": 3,
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "9ed8c48fca94502c910906cc22114b31a80c18106133df7c89501567edaabf94"
+    },
+    {
+      "map_seed": 3,
+      "condition": "drop",
+      "correct_bits": 404,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "cd19c9bbbf5403e6b3d8a2e4729ecdcbff0ef7553033ccd1bc5253a61d40e27a"
+    },
+    {
+      "map_seed": 3,
+      "condition": "insert",
+      "correct_bits": 426,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "b8b7782f7b3247250d23a62eaa3ab242b035b3f599f2391ac37d43c7b8b996dc"
+    },
+    {
+      "map_seed": 3,
+      "condition": "clip",
+      "correct_bits": 481,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "a07e02fcf92b5717019db1caa48f3c247be54a2916e706ea4085fe62792624c9"
+    },
+    {
+      "map_seed": 4,
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb"
+    },
+    {
+      "map_seed": 4,
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "2bc99682aa3f81454c9a0c179b7b484f13bb041ea3f58016a3204ae323e76464"
+    },
+    {
+      "map_seed": 4,
+      "condition": "compression",
+      "correct_bits": 486,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "bcff2291d777fb1ea32447092fdd274ed1bd7624dffa8a5f641c2edcf84e0e38"
+    },
+    {
+      "map_seed": 4,
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "9ed8c48fca94502c910906cc22114b31a80c18106133df7c89501567edaabf94"
+    },
+    {
+      "map_seed": 4,
+      "condition": "drop",
+      "correct_bits": 357,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "b1edcee326a524e7c1a4db24ce323765a7b9d167e91daf185151b5dd0dfae860"
+    },
+    {
+      "map_seed": 4,
+      "condition": "insert",
+      "correct_bits": 414,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "b6febeb16a0eff54fd6637d19e7642d58ab88c219baf61ba23578e5bb1712c64"
+    },
+    {
+      "map_seed": 4,
+      "condition": "clip",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "ce7f090bab13fd435ef4f6966b285c46475899ad1f3f42e0294e6094fd6653da"
+    }
+  ],
+  "receipt_sha256": {
+    "0/clean": "d47427c9e1a7c7459ac82ed54bfe760aa3fb3fc22652bdb6dd26d0a8dec46d20",
+    "0/noise": "55bf95e919afaeddf65c69062ff3392eb1a46efd5e9e96774f3d6c4bb2afe25e",
+    "0/compression": "17c9836a903a194d7839f823d9f25ac8cd788a70019da300e93350aa1704ea8b",
+    "0/blur": "e4d245399e928b77487d4178ee4202c1e45baf34fe1d846b502ba7e142de2beb",
+    "0/drop": "522d3e7d2bf39ce8518b5951d99cc751910cd9fce1a941b4d2c92e0275d5fe5d",
+    "0/insert": "1c9d95411b6190bbf743a6fbf0c2dae3881b5eaf1bb4dd8847e5c351179df6cc",
+    "0/clip": "a7803bbcee38039b0101a8582a6c79026b986156be440ab6ac4574d2d57e5493",
+    "1/clean": "4c452f3f98cc197469492c0302975f96c7f410897186f24fa2f8ac0852bd8bf0",
+    "1/noise": "b2da670d6607c351046ad98e11b0f88737787d778e83faf0272d6d7da485f6a1",
+    "1/compression": "aa503316364a1304239ebb042e5124d1f16b972d4e342c8f2b359a5ee4067337",
+    "1/blur": "78018b15e9c488629ee37d117c984e1c9df3d3b6de7d05c87cebfa0129e36c95",
+    "1/drop": "fac6db75add792e0c4a7155dbdddb2ed91983992aaf3ffa0798841caaf993482",
+    "1/insert": "3ab44b50603325fa10bb673ad082b4e938acf1c257a333ecfc73ce7f2236b4e5",
+    "1/clip": "6166a068cc50eb05443844b9da2cebba17321004e915526de49c2947dcca9933",
+    "2/clean": "668981c46eb0033776510b120d78db878f3a518bb60ad901d21d53d0fc4aaf07",
+    "2/noise": "1263ef27cff4612611affa25958d1d4d58ab1a6f9bc6a904308e9b29466d8a58",
+    "2/compression": "657ec57872e0d0ff967ccdc8ae7f1b31caaa55da3a2c9f6d60f0b0b6db4d0cf0",
+    "2/blur": "074d33a1d1b58dfb34cdcd6cd47d3acefe5ee2a9b067f952f671b749cd9a58bb",
+    "2/drop": "abe8a0ac6e188d2db12022ed86f7987119393ac457bbb464e21f25292106724d",
+    "2/insert": "8060fdb5478169119e0ba33a2661357d7781159f5b46375e3022446b6c197ace",
+    "2/clip": "2c1b92537ad99813594087369447c9e29b089b11ad009899730f96cca48c8791",
+    "3/clean": "22773a1a40820c65b13073fdd3d47ed752e039377603ef4c4ce0fee052b22637",
+    "3/noise": "2cac27d396cc257edbf12296eea1a8fcd2eefa09ed2ae50ac8e8ac897f065c96",
+    "3/compression": "7c0973322b0ac55c385e2d007ac3d3e556a9de01b7da58d82978b53267c8f41c",
+    "3/blur": "cc26d89041971bc19e59e3bfc4ef8cad7e40b0accba67822271dc0564d483bcf",
+    "3/drop": "453af501d509f4f974f6c48e685dd8e768ca9c15587bf47a339ee7e922b6f768",
+    "3/insert": "53bcb620f1e29206d9d9ee0d5c03d918e8566c3f7dc23665b982201e04a636bc",
+    "3/clip": "ce2f763d1c7fdafc311014fae3bcd7d7830b094e940a4e63103186d80fce22d2",
+    "4/clean": "4a2592dd6faba1b362264c054a6902ef12e91e8f5b36b89f1ef029e4d6844ae7",
+    "4/noise": "a51a01b3b6c40b1daa2b6ca019962b2d18bbdfba4281c55e5439a68b0b1184ea",
+    "4/compression": "3ee35b79bb189a4f396842aa4d5fd24857d15babfd39a313c87c2242f81c6ac1",
+    "4/blur": "fee52f280e653642aab8d41bdd5b6b635e22e4d9dbe08ad7cfb5c44fdbb8649b",
+    "4/drop": "f8b4b7ff41e34cddbe2d4381df3beca618300bb7b3978b232956eb283d1a7405",
+    "4/insert": "e53975223f7478ed0de3c30b83865b9eef0802a86cf4c2c284ca969c4519bbf2",
+    "4/clip": "293d18716ca1ab0f1f5853b7db6fe89b65fbee1630416109939f944bb31a101b"
+  },
+  "all_35_conditions_completed": true,
+  "temporal_summary": {
+    "drop": {
+      "correct_bits_by_map": [
+        371,
+        372,
+        415,
+        404,
+        357
+      ],
+      "mean_bit_accuracy": 0.749609375,
+      "exact_messages": 0,
+      "maps": 5,
+      "independent_videos": 1
+    },
+    "insert": {
+      "correct_bits_by_map": [
+        424,
+        413,
+        474,
+        426,
+        414
+      ],
+      "mean_bit_accuracy": 0.840234375,
+      "exact_messages": 0,
+      "maps": 5,
+      "independent_videos": 1
+    },
+    "clip": {
+      "correct_bits_by_map": [
+        502,
+        492,
+        512,
+        481,
+        512
+      ],
+      "mean_bit_accuracy": 0.976171875,
+      "exact_messages": 2,
+      "maps": 5,
+      "independent_videos": 1
+    }
+  }
+}

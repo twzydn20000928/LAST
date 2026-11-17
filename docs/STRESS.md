@@ -58,3 +58,21 @@ Each immediate subdirectory of `--attacks` contains `attack.json` and
 truth only after extraction exits, records failures explicitly, and retains
 private decoded outputs. This command currently evaluates LAST only; other
 baseline adapters still require separate stress integration.
+
+## Completed repeated-map diagnostic
+
+`results/map_sensitivity_integration.json` records seeds0..4 for all seven
+primary conditions on one existing Hunyuan I2V LAST video, including source,
+received-video and receipt hashes. All35conditions completed. Correct-bit
+counts below are ordered by map seed, with512informationbits per observation:
+
+| Attack | Correct bits for maps0,1,2,3,4 | Exact messages |
+| --- | --- | --- |
+| Delete30frames | 371,372,415,404,357 | 0/5 |
+| Insert30noise frames | 424,413,474,426,414 | 0/5 |
+| Retain30contiguous frames | 502,492,512,481,512 | 2/5 |
+
+These are five edits of the same original video. They are not independent
+samples, a population confidence interval, or a completed400-video stress test.
+The primary seed0 results remain the primary results; none is replaced by the
+best-performing map. Only temporal randomness changes between map seeds.
