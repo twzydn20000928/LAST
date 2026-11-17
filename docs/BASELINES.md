@@ -300,6 +300,23 @@ This is one sample, not a population estimate or evidence of correct grouping.
 This control is distinct from `--method lfg-c`, which changes the
 writer's carrier parameterization.
 
+### Wan-2.2 native-carrier generation (extraction port pending)
+
+`last.baseline_generate` now accepts `--family wan22` for the three native
+initial-noise carriers. It retains their original512-bit message/state handling,
+including VideoMark's multi-message registry, and uses the A14B T2V/I2V pipeline
+with50-step flow-UniPC, guidance5, shift5, bfloat16 generation and float32 VAE.
+Wan's per-channel latent mean/std are restored before decoding; Hunyuan keeps
+its scalar VAE scaling and Euler/CFG6/shift7 defaults.
+
+This is a generation-only implementation. Channel normalization roundtrip and
+registry tests pass, but real Wan native-carrier GPU generation and extraction
+have not been validated. `last.baseline_run`, native inversion/SGO extraction and
+native efficiency adapters remain Hunyuan-only. Do not feed Wan outputs into
+the Hunyuan extractor or report this as completed Wan baseline reproduction.
+The missing Wan inversion/SGO port must be resolved without silently replacing
+the manuscript's UniPC generation configuration with Euler.
+
 ## Native VideoMark real-video integration
 
 `results/videomark_native_integration.json` records one completed Hunyuan I2V
