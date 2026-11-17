@@ -136,3 +136,29 @@ before completing this baseline integration.
 All ports require upstream revision/license records, numerical interface tests,
 real MP4 extraction and per-condition receipts before benchmark eligibility.
 Old private pilot runners are references for auditing, not public dependencies.
+
+### End-to-end native integration
+
+```bash
+python -m last.baseline_run --method videomark --mode i2v \
+  --upstream /path/to/pinned-SIGMark --model-dir /path/to/hunyuan-i2v \
+  --case /private/case.json --message /private/messages/sample.bin \
+  --registry /private/messages --output /private/videomark-integration \
+  --memory-gib 8
+```
+
+Use `sigmark` or `videoshield` with the same arguments except `--registry` for
+the other native adapters. This command uses the repository's pinned source
+manifest and requires the baseline dependencies described above. The message
+must contain 64 bytes; VideoMark's frozen registry must contain multiple distinct
+64-byte messages including that message. Current integration uses all 400 primary
+messages as candidates, not a singleton chosen for the tested video.
+
+The command preserves separate generation and extraction receipts, actual MP4
+and native private state. Extraction runs in a separate process with each
+baseline's documented reference/registry access; only after it exits does the
+evaluator compare decoded bits with truth. These native reference requirements
+are not a claim of blind extraction. Failure stops the run and retains the
+traceback. Output must be a new private directory; failed runs are not silently
+overwritten. This is clean-video integration, not the full attack benchmark,
+and concurrent wall time is not the paper's exclusive efficiency measurement.
