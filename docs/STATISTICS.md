@@ -9,6 +9,24 @@ video because both refer to the same `marked.mp4`.
 Legacy receipts without this provenance require a separately documented audit
 or re-extraction before inclusion in verified tables.
 
+To independently check existing LAST attack videos without replacing any old
+receipts or regenerating videos:
+
+```bash
+python -m last.reextract --run /path/to/completed-last-run \
+  --model-dir /path/to/frozen-model --output /path/to/new-private-audit
+```
+
+The output directory must be new. Each MP4 is passed to the public blind CLI
+in a separate process; truth is loaded by the evaluator only after it exits.
+The audit hashes videos before and after extraction, prior receipts, reader
+sources and private predictions. It records discrepancies rather than keeping
+only matching scores. This is a new measurement: equal correct-bit counts do
+not prove identical predicted bits, and it cannot retroactively prove which
+file an older extractor read. Private decoded messages must not be published.
+These audit rows are kept separate from the original primary table; they do
+not silently replace its measurements or rewrite its frozen source version.
+
 `last.cluster_intervals` computes bit accuracy and exact-message recovery, or
 paired differences between two methods, using the supplement's prompt-cluster
 resampling unit. It does not resample individual bits or treat repeated attack
