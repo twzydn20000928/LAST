@@ -113,6 +113,17 @@ this runtime and must remain visible, rather than being silently rewritten:
 Do not suppress new or different failures. All 18 official modules imported,
 MMCV CPU/CUDA operator checks passed, and the unchanged RetinaFace detector ran
 on one real frame; these checks do not validate the full identity scorer or all
-model runtimes. Fresh-install replay and complete real-video scoring remain
-acceptance gates. A nonzero `pip check` is disclosed evidence, not a claim of a
+model runtimes. A nonzero `pip check` is disclosed evidence, not a claim of a
 fully dependency-compatible or accepted environment.
+
+The candidate has now been replayed in a new Python virtual environment from
+public checkout `723f62ad22f584ed481016a91b466f526ff007b2`, without inherited
+Python dependency overlays. All 153 dependency installations succeeded, the
+previously audited MMCV wheel was reused, and all 18 official scorer modules
+imported. `pip check` reported exactly the four disclosed messages above.
+See [the replay receipt](../results/quality_environment_fresh_replay.json) for
+source/archive, lock and wheel hashes and individual step outcomes. This is
+installation/import evidence, not a clean metadata check or a full V-score.
+Complete real-video scoring remains an acceptance gate; paired Camera Motion
+runtime verification in this fresh environment is queued separately.
+

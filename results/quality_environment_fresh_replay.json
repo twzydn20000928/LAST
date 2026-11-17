@@ -1,0 +1,53 @@
+{
+  "status": "fresh_candidate_install_and_imports_verified",
+  "source_commit": "723f62ad22f584ed481016a91b466f526ff007b2",
+  "source_archive_sha256": "ef5fe09d24d3fce74cf89ca318d5b61cbd475dc874364318fd035f2e958105e9",
+  "dependency_file_sha256": "32c940f4897033be940c4c61b4d49bab754553d96a311bc57200c4269b2a2579",
+  "cached_mmcv_wheel_sha256": "14f5cdbf75a27ddb046c1920627a0ebccfb3112d166f7a2cd5f28b6ed044c0cc",
+  "steps": [
+    {
+      "name": "venv",
+      "returncode": 0,
+      "seconds": 3.7345804944634438
+    },
+    {
+      "name": "dependencies",
+      "returncode": 0,
+      "seconds": 179.1267712637782
+    },
+    {
+      "name": "mmcv",
+      "returncode": 0,
+      "seconds": 2.3253706581890583
+    },
+    {
+      "name": "last",
+      "returncode": 0,
+      "seconds": 3.332618337124586
+    },
+    {
+      "name": "pip-check",
+      "returncode": 1,
+      "seconds": 2.779702588915825
+    },
+    {
+      "name": "imports",
+      "returncode": 0,
+      "seconds": 35.99721799790859
+    }
+  ],
+  "known_metadata_conflicts": [
+    "mmengine 0.10.6 requires opencv-python, which is not installed.",
+    "retinaface-pytorch 0.0.8 has requirement albumentations==1.0.0, but you have albumentations 1.4.19.",
+    "retinaface-pytorch 0.0.8 has requirement torch==1.9.0, but you have torch 2.5.1.",
+    "retinaface-pytorch 0.0.8 has requirement torchvision==0.10.0, but you have torchvision 0.20.1."
+  ],
+  "all_18_importable": true,
+  "full_v_score_verified": false,
+  "limitations": [
+    "Cached audited MMCV wheel reused; not rebuilt in this replay",
+    "Four dependency metadata conflicts remain explicitly disclosed",
+    "Import checks do not verify all model weights or real-video scoring",
+    "Real-video paired Camera Motion replay queued separately"
+  ]
+}
