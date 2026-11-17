@@ -416,3 +416,40 @@ is implemented and its family/provenance checks are tested; real Wan baseline
 attack results remain pending. Do not infer robustness from CPU interface tests.
 
 
+### Frozen native primary campaign
+
+```bash
+python -m last.native_campaign plan --manifest configs/primary_manifest.json \
+  --output /private/native-primary-plan.json
+python -m last.native_campaign run --plan /private/native-primary-plan.json \
+  --manifest configs/primary_manifest.json --root /private/native-primary \
+  --state /private/primary-state --image-root /path/to/images \
+  --models /private/model-paths.json --upstream /path/to/pinned-SIGMark \
+  --family hunyuan --mode i2v --method videomark --max-jobs 1 \
+  --memory-gib 8 --min-free-mib 32000
+```
+
+The plan covers 4,800 videos: three native methods, both model families and
+both modes, with all 400 manifest samples in every cell. Model paths use the
+same four keys as the LAST/LFG campaign. Run from the pinned repository root
+in the native dependency environment. Any scientific source change requires an
+explicitly audited new plan. Filters do not shrink the planned denominator.
+
+The runner uses the original native carrier/key setup and the full frozen
+400-message VideoMark registry. It invokes public generation and attack CLIs;
+it does not add BCH or replace native reference access. The shared manifest key
+slot is retained as metadata, not a claim that native keys equal LAST keys.
+Private job records and locks live under `.native-jobs`; generated videos keep
+the standard family/mode/method/sample directory layout for `last.report` and
+`last.quality_inputs`. Completed jobs must pass actual artifact checks before
+reuse. Interrupted/failed or unowned directories require inspection; automatic
+overwrite and unrecorded retries are refused. The memory check is a launch gate,
+not a resource reservation against unrelated processes.
+
+This orchestrates generation and seven attacks only. Official V-score scoring,
+paired fidelity where required and exclusive efficiency acquisition remain
+separate workflows. The full native campaign has not run; real Wan integration
+must be validated before launching its full matrix. CPU plan/command tests do
+not establish robustness or complete reproduction.
+
+
