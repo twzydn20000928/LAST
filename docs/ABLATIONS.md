@@ -10,6 +10,15 @@ separate disjoint development manifest for the three-sample sweep and80video
 supplement is frozen in `configs/development_manifest.json`; actual development
 runs remain pending. Primary samples must not be used for tuning.
 
+Aggregate reader outputs with `python -m last.ablation_summary --index index.json
+--output /private/new-ablation-summary`. The index maps frozen sample IDs to
+their reader-ablation directories. Missing sample IDs remain in the denominator;
+only complete cells receive final scores. JSON and CSV retain observed partial
+rates separately. Paired variants must reference identical video/codebook hashes,
+and mixed writer methods or reader revisions are rejected. This verifies recorded
+provenance, not a new audit of the MP4 bytes; retain raw files and receipts.
+The fixed-target writer experiment remains a separate required control.
+
 To regenerate the subset file at a new destination:
 
 ```bash
