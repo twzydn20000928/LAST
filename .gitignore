@@ -16,3 +16,6 @@ data/
 *.decoded.json
 .env
 *private*
+# CI acquires external sources and generates private native state locally.
+.ci-upstream/
+.ci-probes/

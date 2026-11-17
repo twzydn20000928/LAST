@@ -22,3 +22,36 @@ jobs:
       - run: pip install -e '.[video,test]'
       - run: pip check
       - run: pytest -q
+  native-baseline-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install -e '.[video,baselines]'
+      - run: pip check
+      - run: python -m last.upstream --directory .ci-upstream --download
+      - name: Native initial-noise interfaces (not video robustness)
+        env:
+          OMP_NUM_THREADS: '2'
+          OPENBLAS_NUM_THREADS: '2'
+        run: |
+          for method in videoshield videomark sigmark; do
+            python -m last.baseline_probe --method "$method" --upstream .ci-upstream --output ".ci-probes/$method"
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for method in ('videoshield', 'videomark', 'sigmark'):
+              result = json.loads((Path('.ci-probes') / method / 'receipt.json').read_text())
+              assert result['status'] == 'completed' and result['correct_bits'] == 512, result
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-interface-receipts
+          path: .ci-probes/*/receipt.json
+          if-no-files-found: ignore
