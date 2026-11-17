@@ -29,7 +29,8 @@ not interpret this file as evidence that every paper experiment has completed.
 
 This lock covers the numerical core, video generation/extraction and tests.
 Native baseline extras and the official VBench quality stack are separate;
-their additional environments are not covered. Do not add historical server
+their additional environments are not covered by the video-only lock. A native
+baseline lock and its narrower validation scope are documented below. Do not add historical server
 overlay directories to `PYTHONPATH` to conceal missing dependencies. Keep
 failed installation logs and report differences rather than silently relaxing
 versions. Model weights, secret state and input datasets are not dependencies
@@ -56,4 +57,34 @@ receipt is retained; it is not a measured watermark-accuracy result.
 loading weights, including HTML and malformed Unicode. It runs in the video CI
 job. Historical 59-package installation evidence remains historical; this
 correction adds two packages and does not by itself prove full Wan generation.
+
+## Native comparison environment
+
+`native-linux-py310-cu124.txt` records 80 observed distributions from a separate
+Linux Python3.10 environment. Installation, `pip check`, and all three pinned
+native original-noise interfaces passed without historical `PYTHONPATH` overlays.
+See `results/native_clean_environment.json`: VideoShield, VideoMark and SIGMark
+each recovered512/512 bits; VideoMark used a400-candidate diagnostic registry.
+These are CPU noise tests, not generated-video or attack results.
+
+```bash
+python3.10 -m venv .venv-native
+source .venv-native/bin/activate
+unset PYTHONPATH
+export PYTHONNOUSERSITE=1
+python -m pip install -r environments/native-linux-py310-cu124.txt
+python -m pip install --no-deps --no-build-isolation -e .
+python -m pip check
+python -m last.upstream --directory /path/to/SIGMark-python --download
+python -m last.baseline_probe --method sigmark \
+  --upstream /path/to/SIGMark-python --output /private/new-sigmark-probe
+```
+
+Repeat the probe with `videoshield` and `videomark`, each in a new private output
+directory. The recorded validation used public revision
+`1d331462fff777cd825e23f630b8ce3aa18b23fa` with the later video dependency lock
+(including the disclosed ftfy correction). The observed native lock includes
+transitive baseline dependencies; it is not a wheel-hash lock. Real video
+generation/inversion and timing in this environment remain unverified, and this
+does not install or validate the official VBench quality stack.
 
