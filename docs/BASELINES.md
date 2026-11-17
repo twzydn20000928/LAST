@@ -48,6 +48,34 @@ mathematical tests alone do not establish baseline fidelity or robustness.
 
 ## Other primary baselines (pending integration)
 
+The shared comparison source is SIGMark-release commit
+`3713243f2e002cb21bbc3da896094d39b2b528c9`. Its VideoShield/VideoMark classes
+describe themselves as reimplementations; they are not the separate authors'
+original packages. The pinned root has no LICENSE file. LAST does not vendor or
+relicense this code: obtain it separately from its original repository, preserve
+attribution and review upstream terms.
+
+```bash
+python -m last.upstream --directory /path/to/SIGMark-python --download
+python -m last.upstream --directory /path/to/SIGMark-python
+```
+
+The manifest pins Python files by their Git blob hashes. This provides verified
+source acquisition, not a completed baseline video runner or installation of all
+its dependencies.
+
+### VideoMark registration audit
+
+The pinned VideoMark reader first decodes PRC votes, then selects the nearest
+registered message. A registry containing only the evaluated message can return
+that answer regardless of corrupted votes. Therefore a one-entry registry is
+not an eligible bit-accuracy benchmark. Preserve native registration access, but
+freeze a multi-message registry before attacks and disclose its candidate count;
+report raw pre-lookup votes separately when that diagnostic is implemented.
+Old512bit experiments that removed this lookup are adaptations and cannot be
+silently reused as native-reader results. Registration policy must be frozen
+before completing this baseline integration.
+
 - SIGMark: retain native PRC redundancy and inversion/SGO readout.
 - VideoShield: retain native carrier repetition and non-blind reference access.
 - VideoMark: retain native carrier repetition and non-blind reference access.
