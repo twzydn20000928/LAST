@@ -79,3 +79,25 @@ methods. An existing output is refused; do not regenerate private state after
 observing outcomes. Development state creation is tested and performed in the
 reproduction environment; conditioning inputs and actual development runs are
 still pending.
+
+### Development conditioning reconstruction
+
+The manuscript does not supply the development conditioning images. We use a
+declared reconstruction: for each of the 20 development prompts, generate one
+unmarked Hunyuan T2V reference using that prompt's first fixed seed and the
+paper's 65-frame/512-square/50-step settings. Export CRF18 MP4, reread it, and
+take frame zero as PNG. Reuse that image for all four I2V seeds of the prompt.
+No watermark key/message or quality score is used to choose the image; do not
+retry seeds to find a more favorable picture. This is not the original authors'
+unreleased image set and does not alter primary test conditioning images.
+
+```bash
+python -m last.conditioning --prompt-index 0 \
+  --model-dir /path/to/pinned-hunyuan-t2v \
+  --output /private/development-conditioning/prompt-00 --memory-gib 8
+```
+
+Run indices 0 through 19 once. Receipts record manifest/source hashes, settings,
+the actual video hash and selected PNG hash. Keep failed attempts and logs.
+Availability of this entry point does not imply that all images have finished;
+the complete image mapping must be verified before the I2V development campaign.
