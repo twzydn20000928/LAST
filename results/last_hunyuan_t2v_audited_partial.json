@@ -1,0 +1,251 @@
+{
+  "scope": "Partial frozen400 Hunyuan T2V LAST primary snapshot; not a completed benchmark",
+  "complete": false,
+  "artifact_verification": true,
+  "plan_sha256": "50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447",
+  "generation_source_commit": "1d331462fff777cd825e23f630b8ce3aa18b23fa",
+  "cells": [
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "last",
+      "condition": "blur",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 1024,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "observed_message_recovery": 1.0,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "last",
+      "condition": "clean",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 1024,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "observed_message_recovery": 1.0,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "last",
+      "condition": "clip",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 1012,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 0.98828125,
+      "final_bit_accuracy": null,
+      "exact_messages": 1,
+      "observed_message_recovery": 0.5,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "last",
+      "condition": "compression",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 1024,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "observed_message_recovery": 1.0,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "last",
+      "condition": "drop",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 862,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 0.841796875,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": 0.0,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "last",
+      "condition": "insert",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 921,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 0.8994140625,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": 0.0,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "last",
+      "condition": "noise",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 1024,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "observed_message_recovery": 1.0,
+      "complete": false
+    }
+  ],
+  "audited_observations": [
+    {
+      "run": "hunyuan/t2v/last/paper-000",
+      "condition": "clean",
+      "receipt_sha256": "d912288bc902ae2cb74989483fb558f98b65a3b63a47d6d156be6bc8aeaf53a9",
+      "video_sha256": "8e56dba1656e7fb772d78f0a50c44c7d5d375f5c7bd8c6f2726af31dd2677dd4"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-000",
+      "condition": "noise",
+      "receipt_sha256": "4e78ef92e5ae60acca96a2801bf5319227095514072d2e9894cacee1e39afa8a",
+      "video_sha256": "ebc8991e4f2b6b88a1d531eb7d7bab0aab39d0cfb51601b2959682836d0cdc60"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-000",
+      "condition": "compression",
+      "receipt_sha256": "23d7ae96f45708159668610507497af3df7893a7173c943575bdf4ec1cc79316",
+      "video_sha256": "c5e0d302e7a4235f511949f26c710c1c716d3b13f8708f00a5bc853e7b460094"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-000",
+      "condition": "blur",
+      "receipt_sha256": "eaf739638e7870bf144825831948c8733200c70e96bb1d7b7ecf501a1c0791a6",
+      "video_sha256": "104c3521ec48334062f3a8d7ea26e9d886d8d774d2f298fcfd289e5a73dbaae1"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-000",
+      "condition": "drop",
+      "receipt_sha256": "c12c0d26c417ad176dc1dee7b9b855d1c2ab294ef3079dc33c27847a3dcd9553",
+      "video_sha256": "097d256a5097d0243214fdd37d329be8dc8d4dc47b09b6f4995a8bb4566a36d0"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-000",
+      "condition": "insert",
+      "receipt_sha256": "59b910d0387b948e57f69b7eaf467532f29906de8d04a9c48d7ad97e452c5d5c",
+      "video_sha256": "e7659ffb005b1304e1d6da727c4e5aef13698e511e841948d1171c9c3a1c37d5"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-000",
+      "condition": "clip",
+      "receipt_sha256": "f0984e2e7b67a5fe1f14d605ea0d1e0aa72c01d1c432e3d8ece370410a5805f4",
+      "video_sha256": "4a65735d9108d86c34102c629f2f53671fa4cf8b487d03a19efc706e89eb9502"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-001",
+      "condition": "clean",
+      "receipt_sha256": "9eb43819429ec3e878133d84d386d3f413f90f24be483f5891dff50a4298be7c",
+      "video_sha256": "debf28eedfea9b0d5fe064c33f528897be2c4ea344b4c7940611c21b1025807d"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-001",
+      "condition": "noise",
+      "receipt_sha256": "48507d99afc3e265f19ea6fd114ac3d9bcc0cbe70eb1833e6ec76a779612654e",
+      "video_sha256": "c8cf225c612878ccbbb324cdf9aa3e2b55c69ef16b7d0920d34a2aebaadc01be"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-001",
+      "condition": "compression",
+      "receipt_sha256": "f7f3b95d8ed9564c96eecae1d4b3fe770c82f0b109f29b22f9232b224b488305",
+      "video_sha256": "ff2179e025042a96acdc903e42cbab7b9c0b822b7a7e612bb464e16a2eb11084"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-001",
+      "condition": "blur",
+      "receipt_sha256": "d6a4e7de67d0536b9af7a5bd045ac4db56361b7e224f7ebecc36d6e064adcf40",
+      "video_sha256": "72557172e85a904357c579bc465a0a05f3ee878f0cc80550b4a7da57f768f582"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-001",
+      "condition": "drop",
+      "receipt_sha256": "1821d737fca95379379c0d680f926220a5d8298dc83151e5f9ae0d965ab64f1d",
+      "video_sha256": "829e1f2e3d4d799983173f4a431cc259ed7561f27bcc2545f852ec2596f0dd6f"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-001",
+      "condition": "insert",
+      "receipt_sha256": "55e8911f5e15bd0a92a82ace31427c2660dfc79455920a8df543a4afd7d339bc",
+      "video_sha256": "8f45fe2de8f6a815388f7ccde09aa013d053acac8cdaab7fe73c6c1b180da95e"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-001",
+      "condition": "clip",
+      "receipt_sha256": "a2e74059150528da443dcf233f70caf67b215abcdb4c56fbc24562e54d2f1c50",
+      "video_sha256": "5ee7c4e8c0d59d45984cf5d3a475709cced2e10aca704a1e865e8df3d6eaeebf"
+    }
+  ],
+  "quality": [
+    {
+      "video_id": "paper-000",
+      "quality": {
+        "frames": 65,
+        "rgb_mse": 0.0014292439534358394,
+        "psnr_db": 28.44893636437464,
+        "identical": false,
+        "ssim": 0.9008424592169303,
+        "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+        "reference_sha256": "40f3c6c2f84bc72b51540a32fc61b1ed29167e49054967805d765bd8249b45c8",
+        "marked_sha256": "8e56dba1656e7fb772d78f0a50c44c7d5d375f5c7bd8c6f2726af31dd2677dd4",
+        "scope": "paired fidelity, not V-score or temporal perceptual quality"
+      },
+      "generation_receipt_sha256": "f45443e7afa354123bd7ddc760a1fba2f1f7fb3c3b617b916875b5284653d189"
+    },
+    {
+      "video_id": "paper-001",
+      "quality": {
+        "frames": 65,
+        "rgb_mse": 0.001435014914133182,
+        "psnr_db": 28.43143585276968,
+        "identical": false,
+        "ssim": 0.8900340234444023,
+        "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+        "reference_sha256": "1575401252ddf58d892c75f8298faca0180d47c8ba4f7b1b246789590a98ca7d",
+        "marked_sha256": "debf28eedfea9b0d5fe064c33f528897be2c4ea344b4c7940611c21b1025807d",
+        "scope": "paired fidelity, not V-score or temporal perceptual quality"
+      },
+      "generation_receipt_sha256": "ad6cd3ef6961846fcf45f407aea61305d6ff7ff47b8d62a1b217a00fe179de42"
+    }
+  ],
+  "limitations": [
+    "Partial sample, not method ranking or reproduction of manuscript averages.",
+    "Exact-message recovery and bit accuracy are distinct; concurrent elapsed times are not formal efficiency."
+  ],
+  "full_report_sha256": "b3f6a0a3ec881fdd1199db3c1f8fc91dc07d8f14d07c999ea2821f2e1d170063"
+}

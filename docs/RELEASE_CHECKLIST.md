@@ -68,6 +68,15 @@ command completion, source/received video hashes and paired quality references
 were checked before the frozen 400-case T2V continuation was enabled.
 This is one formal sample, not completion of the 400-case branch or V-score.
 
+The later snapshot `results/last_hunyuan_t2v_audited_partial.json` independently
+audits two completed T2V samples and all14 actual MP4 conditions. Combined correct
+bits out of1,024 are clean1,024, noise1,024, compression1,024, blur1,024,
+drop862, insert921 and clip1,012. Exact-message counts are2/2 for each spatial
+condition and clean,0/2 for deletion and insertion, and1/2 for clipping.
+Each cell retains the400 planned denominator,398 missing cases and a null final
+accuracy. The second pair has PSNR28.4314dB and SSIM0.89003. These are observed
+partial results, not manuscript averages, a method ranking or full V-score.
+
 The first formal Wan2.2 I2V LAST case completed all seven MP4 conditions in the
 isolated video environment, recorded in `results/last_wan_i2v_primary_first_case.json`.
 Correct information-bit counts were 512, 512, 493, 512, 255, 377 and 487 out of
