@@ -503,3 +503,16 @@ seven-condition campaign, a method ranking or an exclusive timing measurement.
 The standard `last.baseline_evaluate` command above runs the attacks on a new
 user-generated case; the private recovery paths are not required to run it.
 
+### SIGMark compression integration
+
+`results/sigmark_compression_verified.json` records the subsequent CRF28
+compression extraction on the same 65-frame Hunyuan I2V integration case:
+**483/512 information bits (94.3359375%)**, without complete-message recovery.
+The independent audit recomputed the count from decoded bytes and checked the
+actual marked and compressed video hashes, native state, attack and extraction
+receipts, public reader revision `f72378689d8f62bd5a580d5dc4d5469daad50507`,
+and successful 50-step inversion. It also verified the recorded CRF28 export
+command. The remaining attacks are not implied complete by this result.
+This is a single-case integration check, not a method ranking or an exclusive
+efficiency measurement; private messages and native state are not published.
+

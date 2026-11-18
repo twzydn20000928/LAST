@@ -1,0 +1,19 @@
+{
+  "scope": "One native Hunyuan I2V SIGMark integration case; not full benchmark",
+  "condition": "compression",
+  "crf": 28,
+  "frames": 65,
+  "correct_bits": 483,
+  "total_bits": 512,
+  "bit_accuracy": 0.943359375,
+  "exact_message": false,
+  "reader_source_commit": "f72378689d8f62bd5a580d5dc4d5469daad50507",
+  "received_sha256": "9e0dec7f3d50334e8b8c40b29606acbddaafbd9575a66a7899c596bdd18b0cc3",
+  "extraction_receipt_sha256": "5d19a78351da413c90dd0dc59a6770956088ff1dca36376465e96428ce875e4c",
+  "attack_receipt_sha256": "8f7e07f57242daf70846be399d8cb4ad52f8efe6a0a65343ff302eea428fd88d",
+  "private_decoded_sha256": "a0ebbaeab830df28e8b0b36705560086d29ea1a7e9020cbd17bb84198a5e64fb",
+  "limitations": [
+    "Single case cannot establish method ranking.",
+    "Concurrent elapsed time is not exclusive efficiency evidence."
+  ]
+}
