@@ -59,6 +59,18 @@ truth only after extraction exits, records failures explicitly, and retains
 private decoded outputs. This command currently evaluates LAST only; other
 baseline adapters still require separate stress integration.
 
+New stress evaluation receipts bind the generation receipt, original/received
+MP4, attack receipt, private key/message, VAE model files and Python source files
+by SHA256. Inputs and source are checked again after the isolated reader exits;
+the private prediction is hashed separately. Completed cached evaluations must
+match those fingerprints before being reused. Older receipts without this
+provenance are rejected: retain them and choose a new output directory for a
+pinned-reader replay. No historical score is silently promoted to verified
+status. The provenance tests use synthetic files; fresh real-video validation
+of this updated evaluator remains pending. Keep evaluation receipts private
+because they include private-file paths and fingerprints; publish only sanitized
+aggregate records.
+
 ## Completed repeated-map diagnostic
 
 `results/map_sensitivity_integration.json` records seeds0..4 for all seven
