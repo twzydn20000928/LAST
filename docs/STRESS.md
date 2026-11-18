@@ -71,6 +71,12 @@ of this updated evaluator remains pending. Keep evaluation receipts private
 because they include private-file paths and fingerprints; publish only sanitized
 aggregate records.
 
+Reuse also recomputes correct-bit and exact-message counts from the saved private
+prediction and bound truth file, and checks attack name, seed, video ID and model
+family. A changed score in a receipt cannot pass merely because the decoded file
+hash still matches. This check is post-extraction evaluation; truth never enters
+the isolated blind reader. Four CPU tests cover the provenance and count checks.
+
 ## Completed repeated-map diagnostic
 
 `results/map_sensitivity_integration.json` records seeds0..4 for all seven

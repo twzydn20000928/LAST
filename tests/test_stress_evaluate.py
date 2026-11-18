@@ -2,6 +2,8 @@ import hashlib,json
 import pytest
 from last.stress_evaluate import verify_attack
 from last.stress_evaluate import verify_completed
+from last.stress_evaluate import recount,verify_counts
+import numpy as np
 
 def test_stress_verifier_rejects_replaced_video_and_wrong_source(tmp_path):
     video=tmp_path/'received.mp4';video.write_bytes(b'fixture')
@@ -33,3 +35,21 @@ def test_cached_result_binds_private_output_inputs_and_source(tmp_path):
 def test_legacy_completed_receipt_is_not_silently_reused(tmp_path):
     with pytest.raises(ValueError,match='new output directory'):
         verify_completed({'status':'completed'},{'video':'hash'},{'extract.py':'hash'},tmp_path/'absent')
+
+
+def test_saved_count_is_recomputed_and_attack_identity_checked():
+    truth=np.zeros(512,dtype=np.uint8)
+    bits=truth.copy();bits[:7]=1
+    prediction=dict(video_sha256='video',family='hunyuan',information_bits=512,
+                    message_hex=np.packbits(bits).tobytes().hex())
+    measured=recount(prediction,truth,'video','hunyuan')
+    assert measured==dict(correct_bits=505,total_bits=512,exact_message=False)
+    attack=dict(attack='drop45',seed=0,video_id='case',received_sha256='video')
+    record=dict(attack='drop45',seed=0,video_id='case',**measured)
+    verify_counts(record,prediction,truth,attack,'hunyuan')
+    with pytest.raises(ValueError,match='counts disagree'):
+        verify_counts(dict(record,correct_bits=512),prediction,truth,attack,'hunyuan')
+    with pytest.raises(ValueError,match='condition mismatch'):
+        verify_counts(dict(record,seed=1),prediction,truth,attack,'hunyuan')
+    with pytest.raises(ValueError,match='identity mismatch'):
+        recount(prediction,truth,'video','wan22')

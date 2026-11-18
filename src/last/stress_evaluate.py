@@ -5,6 +5,25 @@ import numpy as np
 from .campaign import digest,source_digest
 
 
+def recount(prediction, truth, video_sha, family):
+    if (prediction.get('video_sha256')!=video_sha or prediction.get('family')!=family
+            or prediction.get('information_bits')!=512):
+        raise ValueError('Decoded output identity mismatch')
+    bits=np.unpackbits(np.frombuffer(bytes.fromhex(prediction['message_hex']),dtype=np.uint8))
+    if bits.shape!=(512,) or truth.shape!=(512,) or not np.isin(truth,[0,1]).all():
+        raise ValueError('Wrong information payload')
+    return dict(correct_bits=int((bits==truth).sum()),total_bits=512,
+                exact_message=bool(np.array_equal(bits,truth)))
+
+
+def verify_counts(record, prediction, truth, attack, family):
+    if any(record.get(k)!=attack[k] for k in ('attack','seed','video_id')):
+        raise ValueError('Cached stress condition mismatch')
+    measured=recount(prediction,truth,attack['received_sha256'],family)
+    if any(record.get(k)!=v for k,v in measured.items()):
+        raise ValueError('Cached stress counts disagree with saved prediction')
+
+
 def verify_completed(record, inputs, sources, decoded):
     if (record.get('status')!='completed' or record.get('input_sha256')!=inputs
             or record.get('source_sha256_files')!=sources):
@@ -45,6 +64,7 @@ def main():
             if prior.get('received_sha256')!=attack['received_sha256']:raise ValueError('Existing evaluation belongs to another video')
             if prior.get('status')=='completed':
                 verify_completed(prior,inputs,sources,decoded)
+                verify_counts(prior,json.loads(decoded.read_text()),np.load(a.run/'message.npy',allow_pickle=False),attack,a.family)
                 continue
             receipt.rename(out/f'evaluation.failed-{time.time_ns()}.json')
         # Preserve any unsuccessful prior extraction output; never silently reuse it.
@@ -56,12 +76,9 @@ def main():
             with (out/'reader.log').open('ab') as log:subprocess.run(cmd,stdout=log,stderr=subprocess.STDOUT,check=True)
             prediction=json.loads(decoded.read_text())
             if source_digest()!=sources or any(digest(Path(path))!=expected for path,expected in inputs.items()):raise ValueError('Stress inputs or source changed during extraction')
-            if prediction['video_sha256']!=attack['received_sha256'] or prediction['information_bits']!=512:raise ValueError('Decoded output identity mismatch')
-            bits=np.unpackbits(np.frombuffer(bytes.fromhex(prediction['message_hex']),dtype=np.uint8))
-            truth=np.load(a.run/'message.npy')
-            if bits.shape!=(512,) or truth.shape!=(512,) or not np.isin(truth,[0,1]).all():raise ValueError('Wrong information payload')
+            measured=recount(prediction,np.load(a.run/'message.npy',allow_pickle=False),attack['received_sha256'],a.family)
             result['decoded_sha256']=digest(decoded)
-            result.update(status='completed',correct_bits=int((bits==truth).sum()),total_bits=512,exact_message=bool(np.array_equal(bits,truth)),bch_success=prediction['bch_success'],route=prediction['route'],groups=prediction['groups'])
+            result.update(status='completed',**measured,bch_success=prediction['bch_success'],route=prediction['route'],groups=prediction['groups'])
         except Exception:result.update(status='failed',error=traceback.format_exc());failed=True
         result['seconds']=time.monotonic()-start
         temp=receipt.with_suffix('.tmp');temp.write_text(json.dumps(result,indent=2));temp.replace(receipt)
