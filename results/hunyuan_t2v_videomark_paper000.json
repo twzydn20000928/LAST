@@ -1,0 +1,59 @@
+{
+  "scope": "One of 400 planned Hunyuan T2V VideoMark cases, seven conditions on the same generated video. Counts independently recounted from retained decoded bytes against the frozen native campaign message. Legacy extraction receipts omit a digest of decoded bytes. No aggregate ranking.",
+  "sample": "paper-000",
+  "registry_size": 400,
+  "seed": 2025,
+  "upstream_commit": "3713243f2e002cb21bbc3da896094d39b2b528c9",
+  "generation_receipt_sha256": "61df3129e4b9456f0f00f9e3180cd2f9c97947daae5316b6da141e144364f8f5",
+  "conditions": {
+    "clean": {
+      "correct_bits": 264,
+      "total_bits": 512,
+      "exact_message": false,
+      "attack_receipt_sha256": "0dc5114713561861329306852213682f9096c9ba5b727f4050ed4f332236e9bc",
+      "received_mp4_sha256": "7f8d8e81875f1accdc66bdaba5922e063bfa7df5241842dbb44111e8cbf76215"
+    },
+    "noise": {
+      "correct_bits": 264,
+      "total_bits": 512,
+      "exact_message": false,
+      "attack_receipt_sha256": "f3eb3fc0cb95281f61c9def3712f5ff5ab93d14add1ee7b1093b09813b338a77",
+      "received_mp4_sha256": "37c4b5fb8eb67bd4b3b442cdc9a6dbe020cf5f56a13cd1987127e2e1661202ec"
+    },
+    "compression": {
+      "correct_bits": 264,
+      "total_bits": 512,
+      "exact_message": false,
+      "attack_receipt_sha256": "82a226e09f6f62a2d3677c0cf134aaf2563645dd539f714084c1f7a3e8a2f6f8",
+      "received_mp4_sha256": "9a60aa820333a36d9fc64e7ea662b1b68471da5b7d681a43b38dd47d1fa0bc43"
+    },
+    "blur": {
+      "correct_bits": 264,
+      "total_bits": 512,
+      "exact_message": false,
+      "attack_receipt_sha256": "4c2ce840c4663720426bc8f0f2545e1d5bcf500ffa478b8c3877e84d560cd823",
+      "received_mp4_sha256": "9b0f05597e1732a129e38cc4a1e1f0e122dd3fc5e03d817d49f03ab65e8c53dc"
+    },
+    "drop": {
+      "correct_bits": 264,
+      "total_bits": 512,
+      "exact_message": false,
+      "attack_receipt_sha256": "4ae4e59bbaf0e5f7cadf64d7db1089e15bb989bcd03873c8fcaa26e72e84494a",
+      "received_mp4_sha256": "02ba5a1e877b3c7837a981b8c8109c48a5abd6c7a4db1ec71ea2b9f3d21efcee"
+    },
+    "insert": {
+      "correct_bits": 278,
+      "total_bits": 512,
+      "exact_message": false,
+      "attack_receipt_sha256": "275ee1de1177a4c7801cbbf2fdecc680aa3057fc642cf03b999603566c322ec7",
+      "received_mp4_sha256": "306df612644d1f5d46b32fa16b84435a8f7037c519d17106fa2355fad5d21687"
+    },
+    "clip": {
+      "correct_bits": 264,
+      "total_bits": 512,
+      "exact_message": false,
+      "attack_receipt_sha256": "277f569a3828cd51b4900d77fe34dcf0576ad1ff00f539445f75ca20892357cb",
+      "received_mp4_sha256": "b60ec4738c1c3763ee4b4ec28d93d1c571e9a30e14530b35c2515c92b5ae7f57"
+    }
+  }
+}
