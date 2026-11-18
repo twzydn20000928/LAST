@@ -290,3 +290,69 @@ The disclosed adapter used SDPA attention and vision microbatches of four while
 retaining all 64 sampled frames. This is a runtime consistency check for one
 dimension and one pair, not a full V-score or evidence of improved video quality.
 
+### Camera Motion on all 20 planned Hunyuan I2V pairs
+
+Five camera-motion prompts have four samples each. All 40 videos received a
+valid official score using the same CoTracker checkpoint on the L40. The
+reference mean was 0.35 and the LAST mean was 0.25. Five pairs scored 1 for
+both videos, thirteen scored 0 for both, and two scored 1 for the reference
+and 0 for LAST. These scores cover one dimension of VBench2.
+
+The [paired scores](../results/quality_camera_motion_20_pairs.json) include the
+sample IDs, MP4 hashes, scorer revision, checkpoint hash and raw result hashes.
+
+The camera scorer uses the 204,396,415-byte `cotracker2.pth` from Meta's
+[`facebook/cotracker` release](https://huggingface.co/facebook/cotracker/blob/60495999ebd33af25fc51d89f83d1d6de3bc18a5/cotracker2.pth).
+To populate the model cache from a fixed revision, run:
+
+```bash
+TRACKER="$(hf download facebook/cotracker cotracker2.pth --revision 60495999ebd33af25fc51d89f83d1d6de3bc18a5)"
+```
+
+Alternatively, download the linked file and set `TRACKER` to its local path.
+The scoring example below checks its SHA-256 against the measured run.
+
+To score the same subset, run the following from the repository root in the
+quality environment. Set `PRIMARY_RUNS` to the primary campaign output,
+`QUALITY_METADATA` to the pinned SIGMark metadata directory, `VBENCH` to the
+`VBench-2.0` source directory, `TRACKER` to the local CoTracker2 checkpoint
+and `CAMERA_OUT` to a new output directory. Both states read the same LAST
+sample directories. Each directory must contain its marked and reference videos.
+
+```bash
+(
+  set -eu
+  mkdir "${CAMERA_OUT:?}"
+  printf '%s\n' '{"repo":"facebookresearch/co-tracker","model":"cotracker2"}' > "$CAMERA_OUT/tracker.json"
+  printf '%s  %s\n' 362f5274376d610dc987b6daf2c2fefe63e06e1835f4ec1a10d0a15c5a4eef4f "${TRACKER:?}" | sha256sum --check
+  for state in last reference; do
+    inputs="$CAMERA_OUT/$state-inputs"
+    python -m last.quality_inputs --manifest configs/primary_manifest.json \
+      --metadata-root "${QUALITY_METADATA:?}" --run-root "${PRIMARY_RUNS:?}" \
+      --family hunyuan --mode i2v --method "$state" --allow-partial-diagnostic --output "$inputs"
+    python - "$inputs/Camera_Motion.json" configs/primary_manifest.json <<'PY'
+import json
+import sys
+from pathlib import Path
+
+questions, manifest = (json.loads(Path(p).read_text()) for p in sys.argv[1:])
+expected = {s["id"] for s in manifest["samples"] if s["dimension"] == "Camera_Motion"}
+ids = [Path(v).parent.name for q in questions for v in q["video_list"]]
+if len(questions) != 5 or any(len(q["video_list"]) != 4 for q in questions):
+    raise SystemExit("Camera Motion requires five prompts and four videos per prompt")
+if len(ids) != 20 or len(set(ids)) != 20 or set(ids) != expected:
+    raise SystemExit("Missing, duplicate or unexpected Camera Motion sample")
+PY
+    HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python -m last.quality_score \
+      --upstream "${VBENCH:?}" --inputs "$inputs" --dimension Camera_Motion \
+      --submodules "$CAMERA_OUT/tracker.json" --cotracker-checkpoint "$TRACKER" \
+      --device cuda --allow-partial-diagnostic --output "$CAMERA_OUT/$state"
+  done
+)
+```
+
+Each state's `receipt.json` contains the mean and valid-video count.
+`official_result.json` contains the per-video scores. The partial-input flag
+allows the other dimensions to be absent while the sample check above requires
+full Camera Motion coverage.
+
