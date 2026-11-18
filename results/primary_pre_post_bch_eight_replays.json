@@ -1,0 +1,66 @@
+{
+  "scope": "Eight preselected historical Hunyuan I2V LAST primary replay cases from the v5 snapshot; partial supplement evidence, 400 planned. Compare systematic 512 information decisions before BCH decoding with the 512 output bits on the same extraction.",
+  "source_commit": "356e07489e9c76d63311f2b823697b2d91c21422",
+  "snapshot_sha256": "66755f2886d74e82919d47e9cb3af24a8a115f05dc1e09afef08a9b3e53ad113",
+  "replay_receipt_sha256": {
+    "paper-000": "609311668c4f86dc84782a4d1df9210655514d327cc6372e2463948717e4c58c",
+    "paper-001": "d9d411c19ca392440f7c9986f44d609bcdeef591eeb8795aaf44bd58478e0e1e",
+    "paper-002": "51fa7e25f941d01be7c8769884881d88c10af7e4caf68f7f1d5f0d3fee4e9351",
+    "paper-003": "474a5130804d49effecb7e7af90332bb5fd6b2eb206343a89b4ab15db75863f9",
+    "paper-004": "b422d34c9b08eaaf523eb8a428a35e3eea0968a6a2b23504c37199cad885debe",
+    "paper-020": "4e172efa514519e94ad246b8a5d0898d85707d483d82992826688a6f878a95c3",
+    "paper-040": "c3195519ac20293ded15671efadb510d860a7afb652463cdd5aace32329314a1",
+    "paper-060": "9d45f907b56d2263be521179ad663b30bf75a9a478e56905f5ad2f834449a672"
+  },
+  "conditions": {
+    "clean": {
+      "videos": 8,
+      "total_information_bits": 4096,
+      "pre_bch_wrong_bits": 0,
+      "post_bch_wrong_bits": 0,
+      "post_bch_exact_messages": 8
+    },
+    "noise": {
+      "videos": 8,
+      "total_information_bits": 4096,
+      "pre_bch_wrong_bits": 62,
+      "post_bch_wrong_bits": 49,
+      "post_bch_exact_messages": 6
+    },
+    "compression": {
+      "videos": 8,
+      "total_information_bits": 4096,
+      "pre_bch_wrong_bits": 139,
+      "post_bch_wrong_bits": 134,
+      "post_bch_exact_messages": 2
+    },
+    "blur": {
+      "videos": 8,
+      "total_information_bits": 4096,
+      "pre_bch_wrong_bits": 31,
+      "post_bch_wrong_bits": 12,
+      "post_bch_exact_messages": 7
+    },
+    "drop": {
+      "videos": 8,
+      "total_information_bits": 4096,
+      "pre_bch_wrong_bits": 1142,
+      "post_bch_wrong_bits": 1142,
+      "post_bch_exact_messages": 0
+    },
+    "insert": {
+      "videos": 8,
+      "total_information_bits": 4096,
+      "pre_bch_wrong_bits": 649,
+      "post_bch_wrong_bits": 649,
+      "post_bch_exact_messages": 0
+    },
+    "clip": {
+      "videos": 8,
+      "total_information_bits": 4096,
+      "pre_bch_wrong_bits": 36,
+      "post_bch_wrong_bits": 28,
+      "post_bch_exact_messages": 5
+    }
+  }
+}
