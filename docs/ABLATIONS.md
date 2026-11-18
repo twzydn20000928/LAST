@@ -68,8 +68,28 @@ selection supplies groups, followed by the same shared fusion.
 and explicitly labels its output nonblind. It does not reconstruct that evidence
 itself. Synthetic tests recover the same known message through all four readout
 paths with identical fusion outputs; they do not establish real-video alignment.
-The full video-level crossed runner and real shared-fusion experiment remain
-pending. Neither primary results nor existing frozen workers use these controls.
+The CPU-only blind extraction command consumes an audited feature cache:
+
+```bash
+python -m last.controlled_extract --reader ccta --video /private/received.mp4 \
+  --cache /private/candidate-cache --codes /private/codes.pt \
+  --output /private/new-controlled-readout
+```
+
+Use a separately acquired `--reader received` feature cache for the received
+control. `--reader calibrated_energy` additionally requires `--calibration`
+pointing to the audited80-video fit; its VAE and feature implementation must match
+the cache. The command has no truth-message or attack-map argument, checks inputs
+and source before/after, and saves decoded bits privately. BCH success alone is
+not watermark detection. The output must be evaluated separately against truth.
+
+An actual existing LFG-C development cache (62 candidates) completed controlled
+CCTA extraction, selecting groups7 and8. An independent CPU comparison using
+public revision `41dfb73` found primary/controlled readouts both252/512, identical
+decoded bits and maximum soft-response difference3.73e-9. This one local chain
+does not establish equivalence across temporal edits or multiple segments.
+Received-order, calibrated-energy and full video-level crossed experiments are
+still pending. Neither primary results nor existing frozen workers use these controls.
 
 Acquire candidate features once, using the same frozen VAE, segmentation, window
 construction and feature normalization as `last.evaluate.extract`:
