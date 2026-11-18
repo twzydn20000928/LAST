@@ -525,3 +525,13 @@ All three rows refer to the same 65-frame Hunyuan image-to-video case. The JSON 
 | Noise | 398/512 | 77.73% | No |
 | Compression (CRF28) | 483/512 | 94.34% | No |
 | Blur | 512/512 | 100.00% | Yes |
+
+### Wan 2.2 VideoMark clean extraction
+
+On one 65-frame I2V video, the native reader used a registry of 400 messages and
+recovered 254 of 512 bits (49.61%). The full message was incorrect. The initial
+extraction encountered a conditioning-image interface error. The retry used the
+same CRF18 MP4 and saved native state. An independent byte comparison verified
+the count. Model settings and receipt hashes are in
+[the single-video record](../results/wan22_videomark_clean_verified.json).
+The decoded 512-bit value matched a different registered message exactly. Both the intended and selected messages were present in the original, fingerprint-verified registry.

@@ -20,7 +20,7 @@ def reader_command(video, key, family, model, output):
     # Neither ground truth nor attack maps are arguments to the reader.
     return [sys.executable, '-m', 'last.extract', '--video', str(video),
             '--key', str(key), '--family', family, '--model-dir', str(model),
-            '--output', str(output)]
+            '--output', str(output), '--include-pre-bch']
 
 
 def compare(decoded, truth, prior, video_sha):
@@ -35,9 +35,16 @@ def compare(decoded, truth, prior, video_sha):
     prediction = np.unpackbits(np.frombuffer(payload, dtype=np.uint8), bitorder='big')
     correct = int((prediction == truth).sum())
     old = prior.get('correct_bits') if prior.get('status') == 'completed' else None
-    return dict(correct_bits=correct, total_bits=512, exact_message=correct == 512,
+    counts = dict(correct_bits=correct, total_bits=512, exact_message=correct == 512,
                 prior_correct_bits=old, same_correct_bit_count=correct == old if old is not None else None,
                 bch_success=decoded['bch_success'], route=decoded['route'])
+    if 'pre_bch_information_hex' in decoded:
+        raw = bytes.fromhex(decoded['pre_bch_information_hex'])
+        if len(raw) != 64:
+            raise ValueError('Expected 512 pre-BCH information decisions')
+        raw_bits = np.unpackbits(np.frombuffer(raw, dtype=np.uint8), bitorder='big')
+        counts['raw_information_correct'] = int((raw_bits == truth).sum())
+    return counts
 
 
 def main():

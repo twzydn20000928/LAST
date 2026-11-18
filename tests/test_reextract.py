@@ -7,7 +7,7 @@ def test_truth_and_maps_are_not_reader_arguments():
     command = reader_command('received.mp4', 'secret.key', 'hunyuan', 'model', 'private.json')
     assert command[2:4] == ['last.extract', '--video']
     assert set(x for x in command if x.startswith('--')) == {
-        '--video', '--key', '--family', '--model-dir', '--output'}
+        '--video', '--key', '--family', '--model-dir', '--output', '--include-pre-bch'}
 
 
 def test_changed_accuracy_is_retained_not_selected_away():
@@ -15,6 +15,9 @@ def test_changed_accuracy_is_retained_not_selected_away():
     row = compare(decoded, np.zeros(512), dict(status='completed', correct_bits=500), 'video')
     assert row['correct_bits'] == 512 and row['same_correct_bit_count'] is False
     assert row['exact_message'] and not row['bch_success']
+    assert 'raw_information_correct' not in row
+    decoded['pre_bch_information_hex'] = '80' + '00'*63
+    assert compare(decoded, np.zeros(512), {}, 'video')['raw_information_correct'] == 511
     with pytest.raises(ValueError, match='different video'):
         compare(decoded, np.zeros(512), {}, 'changed')
     with pytest.raises(ValueError, match='shape'):

@@ -53,6 +53,16 @@ missing, failed, duplicate or extra rows prevent a final estimate. Add
 `--paired-rows /path/to/lfg-drop-rows.json` for LAST minus LFG on the same cases.
 Paired conditions, families and modes must agree whenever those fields are supplied.
 
+For the primary map (seed 0), a newly generated artifact-verified
+`last.report` summary includes the individual bit counts in
+`audited_observations`. For example, extract the Hunyuan I2V LAST deletion
+rows with the following command and pass the resulting file to
+`last.cluster_intervals` with `--map-seeds 0`.
+
+```bash
+jq '[.audited_observations[] | select(.family == "hunyuan" and .mode == "i2v" and .method == "last" and .condition == "drop")]' summary.json > last-drop-rows.json
+```
+
 Clusters are SHA256 hashes of stripped prompt text, so the same prompt reused in
 different dimensions still belongs to one cluster. Each bootstrap draw samples
 the original number of prompt clusters with replacement, retaining every video
@@ -74,7 +84,7 @@ prove perfect population performance.
 ```bash
 python -m last.message_outcomes --manifest configs/primary_manifest.json \
   --root /path/to/primary --family hunyuan --mode i2v --method last \
-  --output /path/to/message-outcomes.json
+  --output /path/to/message-outcomes.json --markdown /path/to/tables-10-11.md
 ```
 
 This entry point reads the seven condition receipts without accessing secret
@@ -89,3 +99,11 @@ and exact messages. It separately counts decoder failures that nonetheless
 return correct systematic information bits. These are decoding outcomes, not
 watermark authentication decisions. Descriptive 95% Wilson bounds on message
 recovery do not replace the prompt-cluster intervals above.
+
+When the primary Hunyuan I2V results include independently repeated extractions,
+pass the corresponding `--reextraction-index` to the message-outcome command.
+The evaluator checks each indexed MP4, prediction and source revision against
+its replay receipt and uses that pass for both pre- and post-decoding counts.
+Older predictions containing only the decoded message contribute to post-BCH
+statistics. A pooled pre-BCH result requires raw decisions for every completed
+observation in the cell. Keep private predictions on the experiment server.

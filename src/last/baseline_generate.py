@@ -4,6 +4,7 @@ Generation only: this command does not claim extraction or benchmark completion.
 Private native state is needed by the corresponding baseline reader.
 """
 import argparse,hashlib,json,os,time,traceback
+from io import BytesIO
 from pathlib import Path
 import numpy as np
 import torch
@@ -46,11 +47,12 @@ def main():
         temp=a.output/'receipt.tmp';temp.write_text(json.dumps(receipt,indent=2));temp.replace(a.output/'receipt.json')
     try:
         torch.set_num_threads(4)
-        case=json.loads(a.case.read_text());seed=int(case['seed'])
+        case_bytes = a.case.read_bytes()
+        case=json.loads(case_bytes);seed=int(case['seed'])
         raw=a.message.read_bytes()
         if len(raw)!=64:raise ValueError('Expected64byte information message')
         manifest=json.loads(a.manifest.read_text());cls=load_class(a.method,a.upstream,manifest)
-        receipt.update(upstream_commit=manifest['commit'],case_sha256=hashlib.sha256(a.case.read_bytes()).hexdigest(),seed=seed,information_bits=512,settings=dict(frames=65,size=[512,512],steps=50,cfg=6 if a.family=='hunyuan' else 5,shift=7 if a.family=='hunyuan' else 5,scheduler='FlowMatchEuler' if a.family=='hunyuan' else 'UniPC-flow',fps=8,crf=18,vae='float32',generator='bfloat16'),source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
+        receipt.update(upstream_commit=manifest['commit'],case_sha256=hashlib.sha256(case_bytes).hexdigest(),seed=seed,information_bits=512,settings=dict(frames=65,size=[512,512],steps=50,cfg=6 if a.family=='hunyuan' else 5,shift=7 if a.family=='hunyuan' else 5,scheduler='FlowMatchEuler' if a.family=='hunyuan' else 'UniPC-flow',fps=8,crf=18,vae='float32',generator='bfloat16'),source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
         torch.manual_seed(seed);np.random.seed(seed)
         wm=cls(video_h=512,video_w=512,video_f=65,latent_c=16,vae_scale_factor_spatial=8,vae_scale_factor_temporal=4,ch_factor=2,hw_factor=8,fr_factor=16,batch_size=1,seed=seed,dtype=torch.float32,device='cpu')
         shape=wm.get_watermark_message_shape()
@@ -66,6 +68,8 @@ def main():
             receipt['registration_candidates']=len(catalog)
             receipt['registry_sha256']=hashlib.sha256(b''.join(m.tobytes() for m in catalog)).hexdigest()
         wm.save_maintained_info(str(a.output/'maintained_private.pkl'))
+        receipt['state_sha256'] = hashlib.sha256((a.output/'maintained_private.pkl').read_bytes()).hexdigest()
+        receipt['message_sha256'] = hashlib.sha256(raw).hexdigest()
         torch.save(initial,a.output/'initial_private.pt')
         (a.output/'message.bin').write_bytes(raw)
         receipt['status']='loading_model';save()
@@ -81,7 +85,11 @@ def main():
         pipe.enable_sequential_cpu_offload(device='cuda:0')
         def callback(pipeline,step,timestep,kw):receipt.update(status='generating',step=int(step));save();return kw
         kwargs=dict(prompt=[case['prompt']],height=512,width=512,num_frames=65,num_inference_steps=50,guidance_scale=receipt['settings']['cfg'],latents=initial.to('cuda',torch.bfloat16),output_type='latent',return_dict=False,callback_on_step_end=callback)
-        if a.mode=='i2v':kwargs['image']=Image.open(case['image']).convert('RGB').resize((512,512))
+        if a.mode=='i2v':
+            image_bytes = Path(case['image']).read_bytes()
+            receipt['conditioning_image_sha256'] = hashlib.sha256(image_bytes).hexdigest()
+            with Image.open(BytesIO(image_bytes)) as image:
+                kwargs['image'] = image.convert('RGB').resize((512,512))
         torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
         with torch.inference_mode():
             z=pipe(**kwargs)[0].float();pipe.remove_all_hooks()

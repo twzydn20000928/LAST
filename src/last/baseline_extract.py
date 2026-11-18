@@ -71,7 +71,9 @@ def main():
             initial=measured(**kw)[0]
             receipt['status']='decoding';save()
             prediction=validate_prediction(wm.extract_watermark(initial))
-        (a.output/'decoded.bin').write_bytes(np.packbits(prediction).tobytes())
+        decoded = np.packbits(prediction).tobytes()
+        (a.output/'decoded.bin').write_bytes(decoded)
+        receipt['decoded_sha256'] = hashlib.sha256(decoded).hexdigest()
         receipt.update(status='completed_extraction',information_bits=512,peak_allocated_gib=torch.cuda.max_memory_allocated()/1024**3)
     except Exception:
         receipt.update(status='failed',error=traceback.format_exc());raise

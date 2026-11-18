@@ -98,13 +98,15 @@ Download a pinned checkpoint from `configs/models.json`. Supply a JSON case cont
 ```bash
 python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint --download
 python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \
+  --verify-manifest configs/checkpoint_files.json
+python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \
   --hash-output /private/model-hashes.json
 python -m last.doctor --strict --output /private/environment.json
 ```
 
-The model command uses the full pinned upstream revision. Existing cached weights
-may be reused after verification; hashing records bytes but cannot alone prove
-an arbitrary local directory is the correct upstream revision. Provider access
+The offline verification command compares cached model files with the Git blob
+and LFS digests from the pinned Hugging Face revision. Model cards, figures and
+example assets are optional. The manifest covers all four model entries. Provider access
 and model/data licenses remain applicable. Full checkpoint hashing can take time.
 
 ```bash

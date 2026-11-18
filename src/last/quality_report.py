@@ -36,7 +36,9 @@ def aggregate(dimensions, complete_inputs):
 
 def build(inputs, scores):
     inputs, scores = Path(inputs), Path(scores)
-    coverage = json.loads((inputs/'coverage.json').read_text())
+    coverage_bytes = (inputs/'coverage.json').read_bytes()
+    coverage = json.loads(coverage_bytes)
+    coverage_sha256 = hashlib.sha256(coverage_bytes).hexdigest()
     dimensions = {}; sources = {}
     anchors = {v['path']: v['sha256'] for v in coverage['videos']}
     if len(anchors) != len(coverage['videos']):
@@ -54,6 +56,8 @@ def build(inputs, scores):
         if name != 'Diversity' and (len(rows) != 5 or any(len(r['video_list']) != 4 for r in rows)):
             complete_inputs = False
         state = json.loads(receipt.read_text())
+        if 'coverage_sha256' in state and state['coverage_sha256'] != coverage_sha256:
+            raise ValueError('Scoring receipt belongs to a different coverage manifest')
         if state.get('dimension') != name: raise ValueError('Dimension identity mismatch')
         if state.get('metadata_sha256') != hashlib.sha256(meta.read_bytes()).hexdigest():
             raise ValueError('Scoring receipt belongs to different input metadata')
@@ -70,7 +74,7 @@ def build(inputs, scores):
         sources[name]['raw_sha256'] = hashlib.sha256(raw.read_bytes()).hexdigest()
     result = aggregate(dimensions, complete_inputs)
     result.update(family=coverage['family'],mode=coverage['mode'],method=coverage['method'],
-                  source_hashes=sources, coverage_sha256=hashlib.sha256((inputs/'coverage.json').read_bytes()).hexdigest())
+                  source_hashes=sources, coverage_sha256=coverage_sha256)
     return result
 
 

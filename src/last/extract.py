@@ -15,6 +15,7 @@ def main():
     p.add_argument('--model-dir',required=True)
     p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
     p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--include-pre-bch',action='store_true',help='Include the 512 systematic hard decisions in the private prediction file')
     a=p.parse_args();os.umask(0o077);torch.set_num_threads(4)
     torch.cuda.set_per_process_memory_fraction(.20)
     started=time.time()
@@ -30,6 +31,8 @@ def main():
     soft,alignment=extract(frames,vae,VideoProcessor(vae_scale_factor=8),a.family,codes)
     bits,decoder=BCH512().decode(soft.numpy())
     result=dict(schema_version=1,information_bits=512,message_hex=np.packbits(bits,bitorder='big').tobytes().hex(),family=a.family,video_sha256=hashlib.sha256(a.video.read_bytes()).hexdigest(),frames=len(frames),seconds=time.time()-started,**decoder,**alignment)
+    if a.include_pre_bch:
+        result['pre_bch_information_hex'] = np.packbits(soft.numpy()[:512] > 0, bitorder='big').tobytes().hex()
     a.output.parent.mkdir(parents=True,exist_ok=True)
     fd=os.open(a.output,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
     with os.fdopen(fd,'w') as f:json.dump(result,f,indent=2)

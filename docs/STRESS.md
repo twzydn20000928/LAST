@@ -105,3 +105,10 @@ not retain a 30-frame excerpt. An earlier label in this document said otherwise;
 checking all five recorded edit maps and received-video hashes confirmed the
 35 retained frames and consecutive 30 removed indices. The label is corrected;
 the videos, maps and measured bit counts have not been changed.
+
+For `paper-000`, the pinned reader also completed the seven supplementary edits.
+The [measured results](../results/stress_seven_edits_verified.json) list decoded
+frame counts, correct information bits, exact recovery and hashes for each MP4
+and evaluation receipt. Deleting 30 frames yielded 371/512; adding CRF28
+compression to the deletion yielded 331/512 on this case.
+For this recorded natural insertion, the first seven source frames are followed by donor frames 21 through 50 (zero-based), then the remaining 58 source frames. The JSON includes the actual edit maps and CRF for all seven observations.

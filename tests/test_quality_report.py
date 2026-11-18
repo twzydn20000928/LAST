@@ -37,3 +37,13 @@ def test_replaced_video_at_same_path_invalidates_cached_score(tmp_path):
     (tmp_path/'coverage.json').write_text(json.dumps(coverage))
     with pytest.raises(ValueError,match='hashes'):
         build(tmp_path,tmp_path)
+    coverage['videos'][0]['sha256'] = 'a'*64
+    manifest = tmp_path/'coverage.json'
+    manifest.write_text(json.dumps(coverage))
+    state['coverage_sha256'] = hashlib.sha256(manifest.read_bytes()).hexdigest()
+    (folder/'receipt.json').write_text(json.dumps(state))
+    assert build(tmp_path,tmp_path)['method'] == 'last'
+    coverage['method'] = 'lfg'
+    manifest.write_text(json.dumps(coverage))
+    with pytest.raises(ValueError, match='coverage manifest'):
+        build(tmp_path,tmp_path)

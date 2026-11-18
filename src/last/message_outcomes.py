@@ -50,15 +50,67 @@ def summarize(rows,expected_ids):
                 interpretation='Exact + wrong/decoder-failure + wrong/decoder-success partition evaluated videos. Decoder failure can still return correct systematic bits. Wilson intervals are descriptive clip-level bounds, not cluster-aware paired inference or authentication.')
 
 
+def render_tables(result):
+    def value(n):
+        return '—' if n is None else f'{n:.3f}'
+
+    identity = ' / '.join(result[k] for k in ('family','mode','method'))
+    first = [f'# Message outcomes — {identity}, map {result["map_seed"]}', '',
+             'Each row gives the observed sample count and planned denominator.', '',
+             '| Attack | Coverage | Pre-BCH bit accuracy | Post-BCH bit accuracy | Exact | Rejected wrong | Miscorrected | MRR Wilson 95% CI |',
+             '|---|---:|---:|---:|---:|---:|---:|---|']
+    second = ['| Attack | Coverage | Errors pre | Errors post | BER median | BER P95 | BER P99 | BER max |',
+              '|---|---:|---:|---:|---:|---:|---:|---:|']
+    for condition in CONDITIONS:
+        row = result['conditions'][condition]
+        n = row['completed']
+        coverage = f"{n}/{row['expected']}"
+        errors = row['pre_bch_error_bits']
+        pre = 1 - errors / (512*n) if n and errors is not None else None
+        interval = row['observed_mrr_wilson95']
+        ci = '—' if interval is None else f'[{interval[0]:.3f}, {interval[1]:.3f}]'
+        first.append('| ' + ' | '.join([condition, coverage, value(pre), value(row['observed_bit_accuracy']),
+                     f"{row['exact_messages']}/{n}" if n else '—',
+                     str(row['wrong_decoder_failure']) if n else '—',
+                     str(row['wrong_decoder_success']) if n else '—', ci]) + ' |')
+        counts = [str(errors) if errors is not None else '—', str(row['post_bch_error_bits']) if n else '—']
+        quantiles = [value(row['post_bch_ber_quantiles'][q]) for q in ('median','p95','p99','max')]
+        second.append('| ' + ' | '.join([condition, coverage, *counts, *quantiles]) + ' |')
+    return '\n'.join(first + ['', *second, ''])
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('manifest','root','output'):p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True)
     p.add_argument('--method',choices=['last','lfg','lfg-c'],required=True)
-    p.add_argument('--map-seed',type=int,choices=range(5),default=0);a=p.parse_args()
+    p.add_argument('--map-seed',type=int,choices=range(5),default=0)
+    p.add_argument('--markdown',type=Path,help='Also render the message recovery and error quantile tables')
+    p.add_argument('--reextraction-index',type=Path,help='Verified primary LAST replay runs for this pipeline')
+    a=p.parse_args()
+    if a.markdown and a.markdown.resolve()==a.output.resolve():
+        p.error('Choose distinct JSON and Markdown outputs')
     manifest=json.loads(a.manifest.read_text());ids=[r['id'] for r in manifest['samples']];root=a.root.resolve()
     result=dict(family=a.family,mode=a.mode,method=a.method,map_seed=a.map_seed,
                 manifest_sha256=hashlib.sha256(a.manifest.read_bytes()).hexdigest(),conditions={},receipt_sha256={})
+    replays = {}
+    if a.reextraction_index:
+        from .reextract_evidence import verified_rows
+        if a.map_seed != 0 or a.method != 'last':
+            p.error('The replay index applies to primary-map LAST observations')
+        planned = {f'{a.family}/{a.mode}/{a.method}/{identity}': identity for identity in ids}
+        index_bytes = a.reextraction_index.read_bytes()
+        for entry in json.loads(index_bytes):
+            run = entry['run']
+            if run not in planned or planned[run] in replays:
+                raise ValueError('Unexpected or duplicate replay run')
+            folder = (root/run).resolve()
+            if not folder.is_relative_to(root):
+                raise ValueError('Unsafe replay path')
+            replays[planned[run]] = verified_rows(folder, entry['output'], entry['source'])
+        result['reextraction_index_sha256'] = hashlib.sha256(index_bytes).hexdigest()
+        result['reextraction_receipt_sha256'] = {
+            identity: next(iter(rows.values()))['reextraction_receipt_sha256'] for identity, rows in replays.items()}
     for condition in CONDITIONS:
         rows=[]
         for identity in ids:
@@ -69,10 +121,17 @@ def main():
                 row=json.loads(path.read_text())
                 if row.get('video_id')!=identity or row.get('condition')!=condition or row.get('method',a.method)!=a.method or row.get('map_seed',0)!=a.map_seed:
                     raise ValueError('Receipt identity mismatch')
+                if condition in replays.get(identity, {}):
+                    # Historical pre-decoding decisions belong to the original pass.
+                    row.pop('raw_information_correct', None)
+                    row.update(replays[identity][condition])
                 rows.append(row);result['receipt_sha256'][str(path.relative_to(root))]=hashlib.sha256(path.read_bytes()).hexdigest()
         result['conditions'][condition]=summarize(rows,ids)
     result['complete']=all(r['complete'] for r in result['conditions'].values())
     a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(result,indent=2,allow_nan=False))
+    if a.markdown:
+        a.markdown.parent.mkdir(parents=True,exist_ok=True)
+        a.markdown.write_text(render_tables(result),encoding='utf-8')
     print(json.dumps(dict(complete=result['complete'],completed={k:v['completed'] for k,v in result['conditions'].items()})))
 
 

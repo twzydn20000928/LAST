@@ -25,7 +25,10 @@ def aggregate(plan,root,verify_artifacts=False,reextractions=None):
         for condition in CONDITIONS:
             path=folder/'attacks'/(condition+'.json');state='missing';row=None
             if path.exists():
-                row=json.loads(path.read_text());state=row['status']
+                receipt_bytes = path.read_bytes()
+                row=json.loads(receipt_bytes);state=row['status']
+                if row.get('map_seed', 0) != 0:
+                    raise ValueError(f'Expected map seed 0 in the primary attacks directory: {path}')
                 if row.get('video_id')!=item['video_id'] or row.get('condition')!=condition:raise ValueError(f'Receipt identity mismatch:{path}')
                 if row.get('method',item['method'])!=item['method']:raise ValueError(f'Method mismatch:{path}')
                 if condition in replacement:
@@ -47,7 +50,11 @@ def aggregate(plan,root,verify_artifacts=False,reextractions=None):
                         received_sha=hashlib.sha256(attacked.read_bytes()).hexdigest()
                         recorded_received=row.get('received_sha256',row.get('source_sha256') if condition=='clean' else None)
                         if recorded_received!=received_sha:raise ValueError(f'Attack receipt received-video hash missing or mismatched: {path}')
-                        evidence=dict(run=item['run'],condition=condition,receipt_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),video_sha256=received_sha)
+                        evidence = dict(family=item['family'], mode=item['mode'], method=item['method'],
+                                        video_id=item['video_id'], run=item['run'], condition=condition,
+                                        map_seed=0, status=state, correct_bits=correct, total_bits=total,
+                                        exact_message=(correct == total), video_sha256=received_sha,
+                                        receipt_sha256=hashlib.sha256(receipt_bytes).hexdigest())
                         if condition in replacement:
                             evidence.update({k:v for k,v in replacement[condition].items() if k.startswith('reextraction_')})
                             evidence.update(prior_correct_bits=row['prior_correct_bits'],same_correct_bit_count=row['same_correct_bit_count'])

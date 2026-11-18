@@ -1,0 +1,38 @@
+{
+  "scope": "One clean Wan 2.2 I2V VideoMark integration video; extraction retried after a conditioning-image interface error",
+  "method": "videomark",
+  "family": "wan22",
+  "mode": "i2v",
+  "condition": "clean",
+  "settings": {
+    "frames": 65,
+    "size": [
+      512,
+      512
+    ],
+    "steps": 50,
+    "cfg": 5,
+    "shift": 5,
+    "scheduler": "UniPC-flow",
+    "fps": 8,
+    "crf": 18,
+    "vae": "float32",
+    "generator": "bfloat16"
+  },
+  "registration_candidates": 400,
+  "reader_commit": "c32aa9cb0e9da07642ca8eee09e039b0e19b6655",
+  "marked_video_sha256": "ebbf97dd51d7b5164fe8880b8acf4270566862fc7d8079dcce0670177cbca6a1",
+  "generation_receipt_sha256": "c7a261bd783265aeff857305d241e515e68545903dd551c0c96cd178aaa02875",
+  "extraction_receipt_sha256": "283708398cdf60011156d3f9e695b561b01695b66a1eaf92584e384b185b851b",
+  "retry_receipt_sha256": "25ee537e94e27bcbd91ebbd5dff4ea57293c8fe4ff8e94f33f266996d71fca62",
+  "correct_bits": 254,
+  "total_bits": 512,
+  "bit_accuracy": 0.49609375,
+  "exact_message": false,
+  "registry_check": {
+    "registry_fingerprint_matches_generation": true,
+    "true_message_registered": true,
+    "decoded_message_registered": true,
+    "decoded_matches_registered_truth": false
+  }
+}
