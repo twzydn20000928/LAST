@@ -311,6 +311,34 @@ calibrated matched-PSNR control. The first paired real-video replay has complete
 
 # Oracle grouping diagnostic
 
+## Shared-fusion per-case workflow
+
+```bash
+python -m last.controlled_evaluate --run /private/completed-writer-case \
+  --family hunyuan --model-dir /path/to/hunyuan-i2v \
+  --calibration /private/full80-frozen-calibration.json \
+  --output /private/new-controlled-comparison
+```
+
+This runs all four controlled readers on the identical clean, delete30 and
+compression MP4s required by Table12. Generation and all three attack receipts
+must already be complete and verifiable. The CCTA candidate cache is shared by
+CCTA and calibrated energy; received-order and oracle acquire their own window
+sets. The codebook, VAE, inputs and implementation are hash-checked, and truth is
+read only after each extraction subprocess returns. Raw correct-bit counts,
+exact-message flags and extraction/feature receipt hashes are recorded per row.
+The oracle rows remain explicitly non-blind.
+
+The default requires the audited full80 development calibration. For a clearly
+partial interface check, `--readers received ccta oracle` omits calibrated energy
+and records `complete_reader_set: false`; this is not a completed crossed table.
+Use a new output directory: failed and interrupted outputs are retained for
+inspection rather than silently reused. This per-case wrapper does not generate
+the matched LFG-C videos, certify their fidelity match, schedule all400 cases,
+or supply the native LFG-N+CCTA rows. Those remain separate unfinished tasks.
+Command-contract tests cover map/secret separation, common extraction dispatch
+and missing-calibration rejection; a full real-video wrapper run is pending.
+
 The controlled comparison can acquire true-map-assisted features separately
 and pass them through the **same** `controlled_fusion.readout` used by the other
 controlled readers:
