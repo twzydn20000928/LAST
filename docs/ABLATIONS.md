@@ -311,6 +311,35 @@ calibrated matched-PSNR control. The first paired real-video replay has complete
 
 # Oracle grouping diagnostic
 
+The controlled comparison can acquire true-map-assisted features separately
+and pass them through the **same** `controlled_fusion.readout` used by the other
+controlled readers:
+
+```bash
+python -m last.oracle_feature_cache --family hunyuan --model-dir /path/to/hunyuan-i2v \
+  --video /private/run/attacks/drop.mp4 \
+  --attack-receipt /private/run/attacks/drop.json --output /private/oracle-drop-features
+python -m last.controlled_extract --reader oracle \
+  --video /private/run/attacks/drop.mp4 --cache /private/oracle-drop-features \
+  --codes /private/run/codes.pt --output /private/controlled-oracle-drop
+```
+
+Acquisition verifies the receipt against the received MP4 and records the VAE,
+source and output hashes. The cache contains no message or codebook. The readout
+normalizes each selected group's correlation vector, averages unique groups and
+uses the shared BCH decoder. Both stages explicitly report `blind: false`:
+the evaluator's edit map is privileged information, even though the second
+command does not reload it. No deleted pixels are retrieved from an original
+video. The nearest surviving same-group fill rule below still differs from blind
+candidate construction, so shared fusion alone does not isolate every source of
+the performance gap.
+
+CPU tests verify received-frame selection, exclusion of foreign/duplicate
+identities, missing-group handling and both families' latent scaling with mocked
+VAE outputs. Actual GPU acquisition with this new cache CLI and the complete
+controlled comparison remain pending. The earlier `last.oracle_reader` results
+below used its original direct acquisition path, not this new CLI.
+
 `last.oracle_reader` is deliberately **not blind**: it reads the evaluator's
 true temporal edit map. It supports existing LAST and shared-codebook LFG-C
 videos, without changing their writer or attacked MP4s.
