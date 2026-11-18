@@ -70,9 +70,16 @@ counts below are ordered by map seed, with512informationbits per observation:
 | --- | --- | --- |
 | Delete30frames | 371,372,415,404,357 | 0/5 |
 | Insert30noise frames | 424,413,474,426,414 | 0/5 |
-| Retain30contiguous frames | 502,492,512,481,512 | 2/5 |
+| Remove30contiguous frames (retain35) | 502,492,512,481,512 | 2/5 |
 
 These are five edits of the same original video. They are not independent
 samples, a population confidence interval, or a completed400-video stress test.
 The primary seed0 results remain the primary results; none is replaced by the
 best-performing map. Only temporal randomness changes between map seeds.
+
+The clipping row removes a contiguous 30-frame interval from the 65-frame
+source and concatenates the remaining frames in their original order. It does
+not retain a 30-frame excerpt. An earlier label in this document said otherwise;
+checking all five recorded edit maps and received-video hashes confirmed the
+35 retained frames and consecutive 30 removed indices. The label is corrected;
+the videos, maps and measured bit counts have not been changed.

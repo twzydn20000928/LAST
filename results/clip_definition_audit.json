@@ -1,0 +1,46 @@
+{
+  "scope": "Attack definition audit only; original scores unchanged",
+  "definition": "Remove one contiguous 30-frame interval from 65 frames, retaining 35",
+  "rows": [
+    {
+      "map_seed": 0,
+      "retained_frames": 35,
+      "removed_start": 8,
+      "removed_frames": 30,
+      "received_sha256": "d036a1f680076c58ea9857f89ee5fbdb0c95b1f4951ec585e9de0a0a7a8e9c44",
+      "receipt_sha256": "a7803bbcee38039b0101a8582a6c79026b986156be440ab6ac4574d2d57e5493"
+    },
+    {
+      "map_seed": 1,
+      "retained_frames": 35,
+      "removed_start": 30,
+      "removed_frames": 30,
+      "received_sha256": "fac20a3b55f82151487d23cae374afcb0dff36a46f59025afb169e9e6665fd91",
+      "receipt_sha256": "6166a068cc50eb05443844b9da2cebba17321004e915526de49c2947dcca9933"
+    },
+    {
+      "map_seed": 2,
+      "retained_frames": 35,
+      "removed_start": 33,
+      "removed_frames": 30,
+      "received_sha256": "9f15f1b4162f08ba24b838d25f9b9ddea1cfae2130b1be34fdcdce493d6c921e",
+      "receipt_sha256": "2c1b92537ad99813594087369447c9e29b089b11ad009899730f96cca48c8791"
+    },
+    {
+      "map_seed": 3,
+      "retained_frames": 35,
+      "removed_start": 22,
+      "removed_frames": 30,
+      "received_sha256": "a07e02fcf92b5717019db1caa48f3c247be54a2916e706ea4085fe62792624c9",
+      "receipt_sha256": "ce2f763d1c7fdafc311014fae3bcd7d7830b094e940a4e63103186d80fce22d2"
+    },
+    {
+      "map_seed": 4,
+      "retained_frames": 35,
+      "removed_start": 34,
+      "removed_frames": 30,
+      "received_sha256": "ce7f090bab13fd435ef4f6966b285c46475899ad1f3f42e0294e6094fd6653da",
+      "receipt_sha256": "293d18716ca1ab0f1f5853b7db6fe89b65fbee1630416109939f944bb31a101b"
+    }
+  ]
+}
