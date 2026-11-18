@@ -1,8 +1,24 @@
 # Resumable primary LAST/LFG comparison
 
-Prepare the verified dataset and private state following DATA.md. Create a local
-JSON model-path mapping with keys `hunyuan_i2v`, `hunyuan_t2v`, `wan22_i2v`,
-`wan22_t2v`, each pointing to its pinned downloaded checkpoint directory.
+Prepare the verified dataset and private state following [Data preparation](DATA.md).
+Run commands from the repository root in the generation environment. Use
+`last.models` to download and verify the pinned checkpoints, then create
+`/private/model-paths.json` using your local directories. For example:
+
+```json
+{
+  "hunyuan_i2v": "/models/hunyuan-i2v",
+  "hunyuan_t2v": "/models/hunyuan-t2v",
+  "wan22_i2v": "/models/wan22-i2v",
+  "wan22_t2v": "/models/wan22-t2v"
+}
+```
+
+The filtered run below reads the `hunyuan_i2v` entry. Its first sample writes
+`hunyuan/i2v/last/paper-000/` under the run root. Within that directory,
+`attacks/clean.json` through the six attack receipts record the extraction
+counts, `quality.json` holds paired fidelity, and `campaign.json` records the
+commands and job status. Keep the run root and the private state for resuming.
 
 ```bash
 python -m last.campaign plan --manifest configs/primary_manifest.json --output /private/primary-plan.json
@@ -13,8 +29,8 @@ python -m last.campaign run --plan /private/primary-plan.json \
   --method last --max-jobs 1 --memory-gib 12 --offload sequential
 ```
 
-The first command freezes3200marked-video jobs:400samples×2backbones×2modes×2methods,
-with22400attack observations. This is the LAST/LFG portion only; it does not claim
+The first command freezes 3,200 marked-video jobs (400 samples × 2 backbones ×
+2 modes × 2 methods), with 22,400 clean and attacked observations. This is the LAST/LFG portion only; it does not claim
 that SIGMark, VideoShield, VideoMark, VBench or supplementary experiments are done.
 Start with one job to validate your installation, then omit filters/job limit for
 the full portion. Integrations are still being verified on the project server.

@@ -217,6 +217,31 @@ and mixed writer methods or reader revisions are rejected. This verifies recorde
 provenance, not a new audit of the MP4 bytes; retain raw files and receipts.
 The fixed-target writer experiment remains a separate required control.
 
+For a batch stored as `formal-ablation-003/readers` for `paper-003` and
+analogously for the other cases, build the index once from the frozen list.
+Run the following from the repository root with `ABLATION_ROOT` set to the
+directory containing those case directories:
+
+```bash
+python - "$ABLATION_ROOT" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+ids = json.loads(Path("configs/paper_subsets.json").read_bytes())["ablation_i2v_30"]
+index = {video: f"formal-ablation-{video.removeprefix('paper-')}/readers" for video in ids}
+with (root / "formal-reader-index.json").open("x") as stream:
+    json.dump(index, stream, indent=2)
+PY
+python -m last.ablation_summary --index "$ABLATION_ROOT/formal-reader-index.json" \
+  --output "$ABLATION_ROOT/summary-snapshot-01"
+```
+
+Reuse the index and choose a fresh output directory for each snapshot.
+Each cell counts the completed videos for one attack and one reader variant
+out of 30. JSON records the receipt hashes used for that snapshot.
+
 The first actual member of the frozen30 subset is recorded in
 `results/formal_reader_ablation_first_case.json` (`paper-003`, 28 completed
 condition/reader rows). Its source video, attacked MP4s and codebook hashes were

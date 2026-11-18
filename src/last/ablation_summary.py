@@ -7,7 +7,7 @@ from .report import CONDITIONS
 
 def summarize(rows, expected):
     if not expected or len(set(expected))!=len(expected):raise ValueError('Unique sample IDs required')
-    indexed={};pairs={};writers=set();implementations=set();video_codes={}
+    indexed={};pairs={};writers=set();implementations=set();video_codes={};sources={}
     for row in rows:
         key=(row['video_id'],row['condition'],row['variant'])
         if key[0] not in expected or key[1] not in CONDITIONS or key[2] not in VARIANTS or key in indexed:
@@ -23,6 +23,9 @@ def summarize(rows, expected):
         pair=(row['video_sha256'],row['source_sha256'],row['codes_sha256'])
         if key[:2] in pairs and pairs[key[:2]]!=pair:raise ValueError('Variants did not use identical videos/codebooks')
         pairs[key[:2]]=pair
+        if key[0] in sources and sources[key[0]]!=row['source_sha256']:
+            raise ValueError('Source MP4 changed across attacks')
+        sources[key[0]]=row['source_sha256']
         if key[0] in video_codes and video_codes[key[0]]!=row['codes_sha256']:raise ValueError('Codebook changed across attacks')
         video_codes[key[0]]=row['codes_sha256']
     if len(writers)>1 or len(implementations)>1:raise ValueError('Mixed writer or reader revisions; report separately')
@@ -49,8 +52,9 @@ def main():
     p.add_argument('--subsets',type=Path,default=Path('configs/paper_subsets.json'))
     p.add_argument('--index',type=Path,required=True,help='JSON mapping sample IDs to ablation output directories')
     p.add_argument('--output',type=Path,required=True)
-    a=p.parse_args();expected=json.loads(a.subsets.read_text())['ablation_i2v_30']
-    index=json.loads(a.index.read_text());rows=[];evidence=[]
+    a=p.parse_args();subset_data=a.subsets.read_bytes();index_data=a.index.read_bytes()
+    expected=json.loads(subset_data)['ablation_i2v_30']
+    index=json.loads(index_data);rows=[];evidence=[]
     if set(index)-set(expected):raise ValueError('Index includes samples outside frozen subset')
     for video_id,folder in index.items():
         folder=Path(folder)
@@ -59,11 +63,12 @@ def main():
             for variant in VARIANTS:
                 path=folder/f'{condition}-{variant}.json'
                 if not path.exists():continue
-                row=json.loads(path.read_text())
+                data=path.read_bytes()
+                row=json.loads(data)
                 if (row['video_id'],row['condition'],row['variant'])!=(video_id,condition,variant):raise ValueError('Receipt identity mismatch')
-                rows.append(row);evidence.append(dict(video_id=video_id,condition=condition,variant=variant,sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
+                rows.append(row);evidence.append(dict(video_id=video_id,condition=condition,variant=variant,sha256=hashlib.sha256(data).hexdigest()))
     result=summarize(rows,expected)
-    result.update(receipts=evidence,index_sha256=hashlib.sha256(a.index.read_bytes()).hexdigest(),subsets_sha256=hashlib.sha256(a.subsets.read_bytes()).hexdigest())
+    result.update(receipts=evidence,index_sha256=hashlib.sha256(index_data).hexdigest(),subsets_sha256=hashlib.sha256(subset_data).hexdigest())
     a.output.mkdir(parents=True,exist_ok=False)
     (a.output/'summary.json').write_text(json.dumps(result,indent=2))
     with (a.output/'summary.csv').open('w',newline='') as f:

@@ -20,6 +20,15 @@ def seconds(value):
     return value
 
 
+def check_received_frames(attack, video_id, condition):
+    if condition == "clean":
+        require(attack.get("frames") == 65 and attack.get("attack_map") is None,
+                "Expected the full 65-frame clean input")
+    else:
+        from last.timing_summary import check_drop_frames
+        check_drop_frames(attack, video_id)
+
+
 def render(index):
     spec = json.loads(index.read_bytes())
     require(set(spec["methods"]) == set(METHODS), "Expected five timing methods")
@@ -58,6 +67,7 @@ def render(index):
                     ("completed", "main", method, *identity[1:]), "Extraction timing mismatch")
             require((attack["status"], attack["video_id"], attack["method"], attack["condition"], attack["map_seed"]) ==
                     ("completed", spec["video_id"], method, condition, 0), "Attack identity mismatch")
+            check_received_frames(attack, spec["video_id"], condition)
             require(r["received_sha256"] == attack["received_sha256"] and len(r["received_sha256"]) == 64,
                     "Timed video differs from evaluation")
             if condition == "clean":

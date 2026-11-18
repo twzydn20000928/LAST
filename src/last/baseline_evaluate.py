@@ -33,7 +33,8 @@ def main():
     truth_bytes = (run/'message.bin').read_bytes()
     if len(truth_bytes) != 64:
         raise ValueError('Expected 512 information bits in the source message')
-    for field, actual in [('state_sha256', state_sha), ('message_sha256', hashlib.sha256(truth_bytes).hexdigest())]:
+    message_sha = hashlib.sha256(truth_bytes).hexdigest()
+    for field, actual in [('state_sha256', state_sha), ('message_sha256', message_sha)]:
         if field in generation and generation[field] != actual:
             raise ValueError(f'Generation {field} differs from evaluation inputs')
     truth = np.unpackbits(np.frombuffer(truth_bytes, dtype=np.uint8))
@@ -46,6 +47,8 @@ def main():
             # Historical Hunyuan attack receipts predate the family field.
             if cached.get('family','hunyuan')!=family:raise ValueError('Cached native family mismatch')
             if cached['status']=='completed':
+                if cached.get('message_sha256',message_sha)!=message_sha:
+                    raise ValueError('Cached score was computed against a different message')
                 verify_received(cached,video if name=='clean' else directory/(name+'.mp4'))
                 continue
             raise ValueError('Unfinished prior condition; inspect preserved failure before retry')
@@ -72,18 +75,21 @@ def main():
                 if temporal:cmd.append('--temporal')
                 # No edit mapping or separate ground-truth file is supplied.
                 subprocess.run(cmd,check=True)
-            extracted=json.loads((extraction/'receipt.json').read_text())
+            receipt_bytes=(extraction/'receipt.json').read_bytes()
+            extracted=json.loads(receipt_bytes)
             check_extraction(extracted,method,mode,received_sha,state_sha,temporal,family)
             verify_received(row,received)
             if hashlib.sha256(state.read_bytes()).hexdigest()!=state_sha:raise ValueError('Native state changed during extraction')
             decoded = (extraction/'decoded.bin').read_bytes()
-            if 'decoded_sha256' in extracted and hashlib.sha256(decoded).hexdigest() != extracted['decoded_sha256']:
+            decoded_sha = hashlib.sha256(decoded).hexdigest()
+            if 'decoded_sha256' in extracted and decoded_sha != extracted['decoded_sha256']:
                 raise ValueError('Decoded bytes differ from the extraction receipt')
             prediction=np.unpackbits(np.frombuffer(decoded,dtype=np.uint8))
             if len(prediction)!=512 or len(truth)!=512:raise ValueError('Expected 512 information bits')
             row.update(status='completed',correct_bits=int((truth==prediction).sum()),total_bits=512,
                        exact_message=bool(np.array_equal(truth,prediction)),
-                       extraction_receipt_sha256=hashlib.sha256((extraction/'receipt.json').read_bytes()).hexdigest())
+                       decoded_sha256=decoded_sha, message_sha256=message_sha,
+                       extraction_receipt_sha256=hashlib.sha256(receipt_bytes).hexdigest())
             save();print(name,row['correct_bits'],flush=True)
         except BaseException:
             row.update(status='failed',error=traceback.format_exc());save();raise

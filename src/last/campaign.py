@@ -6,6 +6,12 @@ from .report import CONDITIONS
 
 def digest(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
+def save_job(receipt, job):
+    # The caller holds the per-job lock. Readers may inspect this path concurrently.
+    pending = receipt.with_suffix('.tmp')
+    pending.write_text(json.dumps(job, indent=2))
+    pending.replace(receipt)
+
 def source_digest():
     h=hashlib.sha256()
     for path in sorted(Path(__file__).parent.glob('*.py')):
@@ -67,7 +73,7 @@ def run_worker(a):
             ]
             try:
                 for command in commands:
-                    receipt.write_text(json.dumps(job,indent=2))
+                    save_job(receipt,job)
                     with (folder/'job.log').open('ab') as log:result=subprocess.run(command,stdout=log,stderr=subprocess.STDOUT)
                     job['commands'].append(dict(argv=command,returncode=result.returncode))
                     if result.returncode:raise RuntimeError(f'Command failed:{command[2]}')
@@ -76,7 +82,7 @@ def run_worker(a):
                     if r['status']!='completed':raise RuntimeError(f'Incomplete attack:{name}')
                 job['status']='completed';completed+=1
             except Exception as exc:job.update(status='failed',error=str(exc))
-            job['seconds']=time.time()-job['started'];receipt.write_text(json.dumps(job,indent=2));print(json.dumps(dict(run=item['run'],status=job['status'])),flush=True)
+            job['seconds']=time.time()-job['started'];save_job(receipt,job);print(json.dumps(dict(run=item['run'],status=job['status'])),flush=True)
             if job['status']=='failed':raise SystemExit(1)
             if a.max_jobs and completed>=a.max_jobs:return
 

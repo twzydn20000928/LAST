@@ -55,5 +55,36 @@
       "attack_receipt_sha256": "277f569a3828cd51b4900d77fe34dcf0576ad1ff00f539445f75ca20892357cb",
       "received_mp4_sha256": "b60ec4738c1c3763ee4b4ec28d93d1c571e9a30e14530b35c2515c92b5ae7f57"
     }
+  },
+  "prediction_groups": [
+    {
+      "conditions": [
+        "clean",
+        "noise",
+        "compression",
+        "blur",
+        "drop",
+        "clip"
+      ],
+      "correct_bits": 264,
+      "exact_registry_matches": 1,
+      "equals_transmitted_message": false
+    },
+    {
+      "conditions": [
+        "insert"
+      ],
+      "correct_bits": 278,
+      "exact_registry_matches": 1,
+      "equals_transmitted_message": false
+    }
+  ],
+  "initial_latent_diagnostic": {
+    "correct_bits": 512,
+    "total_bits": 512,
+    "input": "saved original initial latent",
+    "dtype": "float32",
+    "registry_candidates": 400,
+    "clean_video_correct_bits": 264
   }
 }

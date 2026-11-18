@@ -2,6 +2,13 @@
 import argparse, hashlib, json
 from pathlib import Path
 import numpy as np
+from .temporal import attack_map
+
+
+def check_drop_frames(attack, video_id):
+    expected = attack_map(video_id, "drop", seed=0, frames=65, count=30)
+    if attack.get("frames") != len(expected) or attack.get("attack_map") != expected:
+        raise ValueError("Expected the protocol's 35 surviving frames after deletion")
 
 
 def generation_summary(index, expected_ids, base):
@@ -143,6 +150,8 @@ def main():
                 or attack.get('video_id')!=item['video_id'] or attack.get('condition')!=item['condition']
                 or attack.get('method')!=row['method'] or attack.get('map_seed')!=0):
                 raise ValueError('Attack receipt does not match timed video, method or condition')
+            if item['condition'] == 'drop':
+                check_drop_frames(attack, item['video_id'])
             record.update(received_sha256=received,attack_receipt_sha256=hashlib.sha256(attack_data).hexdigest())
         evidence.append(record)
     result=summarize(rows,json.loads(a.subsets.read_text())['supplement_timing_30'])

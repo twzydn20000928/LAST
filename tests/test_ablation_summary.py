@@ -17,3 +17,10 @@ def test_reject_unpaired_files_and_versions():
     b=row('without_cgc');b['implementation_sha256']={'reader':'new'}
     with pytest.raises(ValueError,match='revisions'):summarize([a,b],['a'])
     with pytest.raises(ValueError,match='duplicate'):summarize([a,a],['a'])
+
+def test_reject_different_source_across_attacks():
+    clean = row()
+    drop = dict(clean, condition='drop', video_sha256='edited')
+    summarize([clean, drop], ['a'])
+    with pytest.raises(ValueError, match='Source MP4 changed'):
+        summarize([clean, dict(drop, source_sha256='another-generation')], ['a'])

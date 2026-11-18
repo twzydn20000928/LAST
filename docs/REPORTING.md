@@ -65,3 +65,15 @@ artifact from a successful workflow run to obtain the Markdown table, CSV counts
 and input/source receipt for that exact public revision. This checks that the
 published snapshots can be rendered by the released formatter; it does not
 repeat the private video audit or turn incomplete snapshots into final results.
+
+### Three matched Hunyuan I2V cases
+
+From the repository root, run `python tools/paired_lfg_table.py` to render
+the LAST and LFG adaptation results for paper-000 through paper-002. The
+command uses Python's standard library and reads the published per-case
+observations. Each condition covers three messages of 512 information bits.
+The exact-message column counts videos with all 512 bits correct.
+
+The runs share case records, payloads and realized attack maps. Their unmarked
+reference videos differ slightly after decoding (RGB PSNR 39.98–41.00 dB).
+The three-case subset has limited coverage of the planned 400 cases.
