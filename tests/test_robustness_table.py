@@ -25,6 +25,8 @@ def test_overlap_and_invalid_final_or_missing_conditions_rejected():
 
 
 def test_impossible_exact_counts_and_unaudited_input_rejected():
+    bad=sample();bad['cells'][0]['correct_bits']=1023
+    with pytest.raises(ValueError,match='incorrect bit'):collect([bad])
     bad=sample();bad['cells'][0]['exact_messages']=2
     with pytest.raises(ValueError):collect([bad])
     bad=sample();bad['artifact_verification']=False

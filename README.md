@@ -70,10 +70,15 @@ it is retained as measured. Full V-score and full-paper acceptance remain open.
 ```bash
 git clone https://github.com/twzydn20000928/LAST.git
 cd LAST
-python -m venv .venv
+python3.10 -m venv .venv
 source .venv/bin/activate
-pip install -e '.[video,test]'
-pytest -q
+unset PYTHONPATH
+export PYTHONNOUSERSITE=1
+python -m pip install -r environments/video-linux-py310-cu124.txt
+python -m pip install --no-deps -e .
+python -m pip check
+python -m last.doctor --strict --require-paper-runtime --output .venv/environment.json
+python -m pytest -q
 ```
 
 The numerical core implements masked1776-coordinate orthonormal DCT-II carriers, deterministic keyed QR, minimum signed margins, truth-free CCTA, an energy-spacing fallback and shortened BCH. It is distinct from earlier pilot implementations. See [the reproduction contract](docs/REPRODUCTION.md) and [frozen settings](configs/paper_v1.json).
@@ -221,5 +226,3 @@ and environment files. For example:
 
 A successful integration test or CI run does not establish complete reproduction
 of the manuscript tables; consult the release checklist and measured receipts.
-
-

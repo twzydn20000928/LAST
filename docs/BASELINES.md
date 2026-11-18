@@ -516,3 +516,12 @@ command. The remaining attacks are not implied complete by this result.
 This is a single-case integration check, not a method ranking or an exclusive
 efficiency measurement; private messages and native state are not published.
 
+### SIGMark single-video attack results
+
+All three rows refer to the same 65-frame Hunyuan image-to-video case. The JSON records in `results/` include the bit counts and provenance for each extraction.
+
+| Attack | Correct information bits | Bit accuracy | Exact message |
+|---|---:|---:|---|
+| Noise | 398/512 | 77.73% | No |
+| Compression (CRF28) | 483/512 | 94.34% | No |
+| Blur | 512/512 | 100.00% | Yes |

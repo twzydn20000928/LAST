@@ -27,10 +27,25 @@ GPU synchronization encloses every measured read. Other compute processes
 cause rejection; checks are not an operating-system resource reservation, so
 reserve the GPU externally and keep other schedulers idle for the full run.
 
+For the supplement's LAST length study, supply one clean MP4 of the
+specified length to each invocation. Use `--protocol supplement` with
+`--length-study-frames 65`, `129`, or `257` respectively. The runner checks the
+decoded frame count and times five complete extractions after two warmups.
+Report the median of the five seconds values per clip. Divide
+`peak_allocated_bytes` by 2³⁰ for GiB. PyTorch resets the allocation high-water
+mark after warmup and before the first measured read, so resident model memory
+is included. Keep the MP4 generation provenance with the timing receipt.
+The manuscript leaves construction of the longer inputs unspecified; only
+the 65-frame generation configuration is defined in the standard campaign.
+
 The above entry point covers only LAST/LFG extraction. Native extraction,
 paired generation, direct CUDA-event embedding and a randomized 30-video schedule
 have entry points described below, but real timing and parity validation remain
-pending. Native Wan adapters and length-scaling experiments are also incomplete.
+pending. For native Wan timing, pass `--family wan22` and the corresponding
+I2V or T2V checkpoint to `last.baseline_timing`. Timing and extraction share
+the same inversion pipeline loader, scheduler shift, Wan latent normalization
+and image-input conversion. The Hunyuan default uses shift 7 and Wan uses
+shift 5. Real exclusive-GPU Wan timing and length-scaling measurements remain pending.
 Do not present available commands as the complete five-method Table 3 or
 supplementary Table 17 reproduction.
 
@@ -52,8 +67,21 @@ precede two or five synchronized repeats. Sequential CPU offload transfers are
 inside timing and explicitly reported. There are no per-step receipt writes.
 Seed reset and lightweight repeat diagnostics are included; prediction
 consistency across warmups/repeats is reported without exposing message bits.
-This is Hunyuan-only and is not a validated Wan baseline timing adapter.
 Real exclusive-GPU execution and parity with ordinary extraction remain pending.
+
+### Main Table 3
+
+Run `python tools/main_timing_table.py --index /private/timing-index.json --output table3`
+after acquiring all five methods on the same case and L40. The index has a
+`video_id` and a `methods` object with keys `sigmark`, `videoshield`, `videomark`,
+`lfg`, and `last`. Each method maps `case`, `generation`, `clean`, `drop`,
+`clean_attack`, and `drop_attack` to JSON paths relative to the index. Supply the
+case file, paired generation timing, two extraction timings, and corresponding
+evaluation receipts, respectively. Use a private output directory when index
+paths contain local identifiers. The Markdown table contains only method names
+and measured seconds. Generation uses the mean marked duration. Overhead uses
+the mean of the two within-pair differences and retains negative observations.
+Clean and deletion columns each use the mean of two synchronized reads.
 
 Freeze the supplemental acquisition order before collecting any timings:
 
@@ -122,8 +150,10 @@ operation and remain included, explicitly distinguished from one-time setup.
 The post-constructor NumPy/Torch states are restored for repeated native encoding,
 and per-video registration accumulators are cleared to avoid growth across repeats.
 Sampling resets its seed after initial-noise construction as in ordinary generation.
-All five Hunyuan methods share the same decode/offload path in this entry point.
-Native Wan generation timing is rejected. Native dependency setup and complete
+All five methods share the same decode and offload path within each backbone.
+For a paired Wan run, choose `--family wan22` and its matching mode-specific
+checkpoint. Both branches use the Wan UniPC flow scheduler and the same
+per-channel VAE denormalization as native video generation. Native dependency setup and complete
 GPU output parity still require validation; CLI availability is not a measured
 five-method efficiency comparison. VideoMark registration-based extraction is
 not exercised by generation timing.
@@ -146,6 +176,24 @@ then reports the across-video median, quartiles and a percentile interval from
 are disclosed reconstruction choices. Repeats are never treated as independent
 videos. The caller must use the frozen randomized acquisition schedule; this
 aggregator cannot establish exclusivity or random ordering from elapsed times.
+
+For the generation and overhead columns of supplement Table 17, pass
+`--generation` to `last.timing_summary` with an index listing `video_id`, `case`,
+and paired generation timing `receipt` for each measured clip. Paths resolve
+relative to the index. Each clip contributes its median of five marked
+durations and its median of five within-pair differences. Across 30 clips,
+generation is summarized by median and quartiles. The overhead interval uses
+10,000 video-level bootstrap samples with PCG64 seed 0. The summary checks
+that 15 videos used each pair order. Missing cases retain null aggregate
+values; pass completed receipts and retain any failed attempts separately.
+
+For a paper measurement, include the corresponding `attack_receipt` path in
+each index entry and run the summary with `--verify-attack-receipts`. The
+summary checks the timed MP4 fingerprint against the completed evaluation
+receipt for that sample, method, condition and default attack seed. It records
+both receipt fingerprints. This catches a deletion timing accidentally indexed
+as clean even when the timing JSON itself has no condition label. Older index
+files remain usable for summaries with unverified sample and condition labels.
 
 ## Direct embedding operation
 

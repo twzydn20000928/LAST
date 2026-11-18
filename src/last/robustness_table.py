@@ -19,6 +19,8 @@ def collect(reports):
                 raise ValueError('Invalid coverage counts')
             if total!=done*512 or not 0<=correct<=total or not 0<=exact<=done or exact*512>correct:
                 raise ValueError('Invalid recovery counts')
+            if total - correct < done - exact:
+                raise ValueError('Each non-exact message must contain at least one incorrect bit')
             complete=done==expected
             if row['complete']!=complete:raise ValueError('Incorrect completion flag')
             score=correct/total if total else None
@@ -67,7 +69,7 @@ def main():
     (a.output/'table.md').write_text(markdown,encoding='utf-8')
     with (a.output/'counts.csv').open('w',newline='',encoding='utf-8') as stream:
         writer=csv.DictWriter(stream,fieldnames=list(counts[0]));writer.writeheader();writer.writerows(counts)
-    receipt=dict(status='completed_rendering',full_benchmark_complete=all(r['complete'] for g in groups.values() for r in g.values()),
+    receipt=dict(status='completed_rendering',supplied_cells_complete=all(r['complete'] for g in groups.values() for r in g.values()),
                  input_sha256=inputs,source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                  scope='Formatting only; no new measurements or comparability validation')
     (a.output/'receipt.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')

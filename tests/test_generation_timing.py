@@ -15,8 +15,9 @@ def argv(tmp_path, method, family='hunyuan'):
 
 
 @pytest.mark.parametrize('method', ['last','lfg','sigmark','videoshield','videomark'])
-def test_occupied_gpu_preserves_failed_receipt_before_any_asset_load(tmp_path, monkeypatch, method):
-    monkeypatch.setattr(sys, 'argv', argv(tmp_path, method))
+@pytest.mark.parametrize('family', ['hunyuan','wan22'])
+def test_occupied_gpu_preserves_failed_receipt_before_any_asset_load(tmp_path, monkeypatch, method, family):
+    monkeypatch.setattr(sys, 'argv', argv(tmp_path, method, family))
     def reject():
         raise RuntimeError('occupied GPU test sentinel')
     monkeypatch.setattr(generation_timing, 'require_exclusive', reject)
@@ -26,14 +27,15 @@ def test_occupied_gpu_preserves_failed_receipt_before_any_asset_load(tmp_path, m
         generation_timing.main()
     record = json.loads((tmp_path/'out/receipt.json').read_text())
     assert record['status'] == 'failed' and record['pairs'] == []
+    assert (record['family'], record['method']) == (family, method)
     assert 'occupied GPU test sentinel' in record['error']
     with pytest.raises(FileExistsError):
         generation_timing.main()
 
 
 @pytest.mark.parametrize('method', ['sigmark','videoshield','videomark'])
-def test_unsupported_native_wan_is_rejected_without_output(tmp_path, monkeypatch, method):
-    monkeypatch.setattr(sys, 'argv', argv(tmp_path, method, family='wan22'))
+def test_native_wan_rejects_explicit_last_key_without_output(tmp_path, monkeypatch, method):
+    monkeypatch.setattr(sys, 'argv', argv(tmp_path, method, family='wan22') + ['--key', 'unused'])
     with pytest.raises(SystemExit) as exc:
         generation_timing.main()
     assert exc.value.code == 2

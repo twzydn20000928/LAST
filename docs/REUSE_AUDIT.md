@@ -12,6 +12,16 @@ an older result does not become a new-protocol observation by relabeling it.
 | Prior bit accuracy or quality scores | Conditional | Same inputs, attacks, readout, score implementation and complete raw receipts |
 | Development or hypothetical target tables | Exclude from benchmark | Never counted as held-out measurements |
 
+The archival change register identifies the expansion from 20 to 400 videos
+per method and mode as a planned protocol. For Table 4 it records that the
+three-example means were carried forward when the planned sample size changed
+to 30. Table 3's twenty rendered timing cells match the archived scenario
+source. In particular the register records a VideoMark overhead change from
+−1.97511043 s to +1.98 s. Neither figure supplies the paired timings needed
+for the new Table 3. Use the signed difference measured for each pair. The
+archived 400-video error histograms are explicitly labeled synthetic and are
+excluded from error distributions, confidence intervals and exact-message totals.
+
 No historical full benchmark result has yet passed this audit. Old pilot settings
 include different frequency dimensions, codecs and Wan schedulers; these cannot
 silently replace the paper protocol. The two fresh Hunyuan integration videos can
@@ -151,3 +161,21 @@ not establish what was extracted originally. Retain the historical observation
 and perform an independently recorded re-extraction where needed. Frozen
 running campaigns retain their original source versions; this stricter public
 resume behavior applies to newly prepared source versions and plans.
+# Figure 3 frame provenance
+
+The submitted Figure 3 matches the archived qualitative grid: all 24 decoded
+512 × 512 RGB image buffers have identical SHA256 fingerprints across the two
+PDFs. The archive's frame manifest identifies Hunyuan I2V development cases
+00 and 04, frames 4 and 16 (zero-based), from the early 16-information-bit
+study. Its LAST column used the earlier SBIR reader/adapter configuration.
+The archived preparation script assigns seeds 2026111300 and 2026111304.
+Each conditioning image comes from frame zero of its earlier unmarked CRF18
+video, resized to 512 × 512 using OpenCV area interpolation. Both historical
+21-frame runs use the prompt “A natural video of the scene in the input image,
+with gentle motion.” A new 65-frame run using those inputs would be a paired
+illustrative rerun on development content.
+These identifiers belong to the historical development suite. They are
+distinct from the frozen primary sample IDs. The grid documents the original
+illustration; it provides no measured 512-bit fidelity or recovery result.
+For a new 512-bit visual comparison, use the paired generation outputs and
+record their case IDs and MP4 fingerprints with the figure.

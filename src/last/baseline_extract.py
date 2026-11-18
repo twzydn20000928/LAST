@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from .baseline_probe import load_class
 from .video import load_mp4
-from .native_model_adapter import normalize_endpoint,SGOVAE,native_call_kwargs
+from .native_model_adapter import normalize_endpoint,SGOVAE,native_call_kwargs,load_inversion_pipeline
 
 def validate_prediction(value):
     result=np.asarray(value)
@@ -37,17 +37,11 @@ def main():
         if not frames or any(f.size!=(512,512) for f in frames):raise ValueError('Expected nonempty512-square received video')
         receipt['received_frames']=len(frames)
         if not a.temporal and len(frames)!=65:raise ValueError('Length changed; explicitly select temporal recovery')
-        from diffusers import HunyuanVideoPipeline,HunyuanVideoImageToVideoPipeline,AutoencoderKLHunyuanVideo,WanPipeline,WanImageToVideoPipeline,AutoencoderKLWan
         native_scheduler=importlib.import_module('models.schedulers').FlowMatchEulerDiscreteInverseScheduler
         torch.cuda.set_per_process_memory_fraction(a.memory_gib*1024**3/torch.cuda.get_device_properties(0).total_memory)
-        vae_cls=AutoencoderKLHunyuanVideo if a.family=='hunyuan' else AutoencoderKLWan
-        vae=vae_cls.from_pretrained(a.model_dir,subfolder='vae',torch_dtype=torch.float32,local_files_only=True);vae.enable_tiling()
-        pipeline_cls=(HunyuanVideoImageToVideoPipeline if a.mode=='i2v' else HunyuanVideoPipeline) if a.family=='hunyuan' else (WanImageToVideoPipeline if a.mode=='i2v' else WanPipeline)
-        pipe=pipeline_cls.from_pretrained(a.model_dir,vae=vae,torch_dtype=torch.bfloat16,local_files_only=True,low_cpu_mem_usage=True)
-        pipe.scheduler=native_scheduler.from_config(pipe.scheduler.config,shift=7 if a.family=='hunyuan' else 5)
+        pipe=load_inversion_pipeline(a.model_dir,a.family,a.mode,native_scheduler)
         receipt['inversion_settings']=dict(scheduler='upstream FlowMatchEulerDiscreteInverseScheduler',steps=50,shift=7 if a.family=='hunyuan' else 5,guidance=6 if a.family=='hunyuan' else 5,wan_scope='Explicit inversion adaptation; UniPC generation unchanged; real-video validation pending' if a.family=='wan22' else None)
         receipt['adapter_source_sha256']=hashlib.sha256((Path(__file__).parent/'native_model_adapter.py').read_bytes()).hexdigest()
-        pipe.enable_sequential_cpu_offload(device='cuda:0')
         def callback(pipeline,step,timestep,kw):receipt['last_step']=int(step);save();return kw
         class MeasuredPipeline:
             @property
@@ -84,4 +78,3 @@ def main():
     finally:save()
 
 if __name__=='__main__':main()
-

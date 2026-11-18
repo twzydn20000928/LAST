@@ -19,7 +19,7 @@ python -m pip install -r environments/video-linux-py310-cu124.txt
 python -m pip install --no-deps -e .
 python -m pip check
 python -m pytest -q
-python -m last.doctor --strict --output /private/environment.json
+python -m last.doctor --strict --require-paper-runtime --output .venv/environment.json
 ```
 
 Then follow the README's pinned-model acquisition and real-video smoke/extraction
@@ -130,4 +130,3 @@ and two corresponding reference videos. All official outputs match the prior
 environment, with two applicable units and a mean of 0.0 for each state.
 See [the paired runtime receipt](../results/quality_fresh_camera_pair.json).
 This validates one scorer on four inputs, not all eighteen scorers or full V-score.
-

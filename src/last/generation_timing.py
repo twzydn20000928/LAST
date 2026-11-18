@@ -25,8 +25,8 @@ def main():
     p.add_argument('--output', type=Path, required=True)
     a = p.parse_args()
     native = a.method in ('sigmark', 'videoshield', 'videomark')
-    if native and (a.family != 'hunyuan' or a.upstream is None or a.key is not None):
-        p.error('Native timing requires --family hunyuan --upstream and uses native key setup, not --key')
+    if native and (a.upstream is None or a.key is not None):
+        p.error('Native timing requires --upstream and uses native key setup, not --key')
     if not native and a.key is None:
         p.error('LAST/LFG require --key')
     os.umask(0o077)
@@ -50,6 +50,7 @@ def main():
             AutoencoderKLWan, FlowMatchEulerDiscreteScheduler, UniPCMultistepScheduler)
         from .carriers import codebook
         from .coding import BCH512
+        from .baseline_generate import denormalize_endpoint
         from .elmc import embed
         from .lfg import watermark
         from .lfg_schedulers import LFGFlowEuler, LFGUniPC
@@ -139,12 +140,7 @@ def main():
                     raise ValueError('Unexpected endpoint shape')
                 if marked and a.method == 'last':
                     z = embed(z, codes, signs, mu=.5)
-                if a.family == 'hunyuan':
-                    z = z / vae.config.scaling_factor
-                else:
-                    mean = torch.tensor(vae.config.latents_mean, device=z.device).view(1,16,1,1,1)
-                    std = torch.tensor(vae.config.latents_std, device=z.device).view(1,16,1,1,1)
-                    z = z * std + mean
+                z = denormalize_endpoint(z, vae.config, a.family)
                 pixels = vae.decode(z.float(), return_dict=False)[0]
                 if tuple(pixels.shape) != (1,3,65,512,512):
                     raise ValueError('Unexpected decoded shape')

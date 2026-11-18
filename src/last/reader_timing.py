@@ -21,11 +21,13 @@ def require_exclusive():
         raise RuntimeError(f'Timing requires exclusive GPU; other compute PIDs: {sorted(other)}')
 
 
-def measure(operation, synchronize, guard, warmups, repeats, clock=time.perf_counter):
+def measure(operation, synchronize, guard, warmups, repeats, clock=time.perf_counter, after_warmup=None):
     if warmups < 1 or repeats < 1:
         raise ValueError('Positive warmup and repeat counts required')
     for _ in range(warmups):
         guard(); operation(); synchronize(); guard()
+    if after_warmup is not None:
+        after_warmup()
     durations = []
     for _ in range(repeats):
         guard(); synchronize(); started = clock()
@@ -46,8 +48,12 @@ def main():
     p.add_argument('--mode', choices=['i2v', 't2v'], required=True)
     p.add_argument('--method', choices=['last', 'lfg'], required=True)
     p.add_argument('--protocol', choices=['main', 'supplement'], required=True)
+    p.add_argument('--length-study-frames', type=int, choices=(65,129,257),
+                   help='Supplement LAST clean extraction length, checked against the decoded MP4')
     p.add_argument('--output', type=Path, required=True)
     a = p.parse_args()
+    if a.length_study_frames is not None and (a.protocol != 'supplement' or a.method != 'last'):
+        p.error('--length-study-frames requires LAST and the supplement timing protocol')
     os.umask(0o077)
     if a.output.exists():
         raise ValueError('Use a new output file')
@@ -77,6 +83,8 @@ def main():
     sha = hashlib.sha256(a.video.read_bytes()).hexdigest()
     source = {f.name: hashlib.sha256(f.read_bytes()).hexdigest() for f in Path(__file__).parent.glob('*.py')}
     last_read = {}
+    if a.length_study_frames is not None and len(load_mp4(a.video)) != a.length_study_frames:
+        raise ValueError('Input MP4 frame count differs from requested length study')
 
     def operation():
         frames = load_mp4(a.video)  # MP4 decoding belongs inside the timed region.
@@ -91,7 +99,9 @@ def main():
         last_read.update(frames=len(frames), route=alignment['route'], bch_success=decoder['bch_success'])
 
     repeats = 2 if a.protocol == 'main' else 5
-    times = measure(operation, torch.cuda.synchronize, require_exclusive, 2, repeats)
+    times = measure(operation, torch.cuda.synchronize, require_exclusive, 2, repeats,
+                    after_warmup=torch.cuda.reset_peak_memory_stats)
+    peak_allocated_bytes = torch.cuda.max_memory_allocated()
     if hashlib.sha256(a.video.read_bytes()).hexdigest() != sha:
         raise ValueError('Video changed during timing')
     if source != {f.name: hashlib.sha256(f.read_bytes()).hexdigest() for f in Path(__file__).parent.glob('*.py')}:
@@ -105,6 +115,7 @@ def main():
                   excludes=['model loading', 'one-time key/codebook setup', 'export'],
                   concurrency_check='No other compute PID before/after every repetition; not an OS reservation',
                   gpu=torch.cuda.get_device_name(0), torch_version=torch.__version__, cuda_version=torch.version.cuda,
+                  peak_allocated_bytes=peak_allocated_bytes, length_study_frames=a.length_study_frames,
                   **last_read)
     a.output.parent.mkdir(parents=True, exist_ok=True)
     with a.output.open('x') as f:

@@ -1,5 +1,24 @@
 # Rebuild measured robustness tables
 
+For main Table 1, run `python -m last.clean_table --family hunyuan --reports
+results/last_hunyuan_t2v_audited_partial.json results/last_hunyuan_i2v_audited_partial.json
+--output table1.md` as a single command. Add `--quality` followed by the
+corresponding `last.quality_report` JSON paths as scores become available.
+The command displays both generation modes and coverage for clean recovery.
+Use `--family wan22` with Wan reports for the separate backbone comparison.
+Only official quality reports containing all applicable dimension means produce
+a numeric V-score.
+
+For the qualitative comparison, run `python -m last.qualitative_figure --index
+/private/figure3-cases.json --output figure3` as a single command. The index is
+a list of two animal-video cases. Each entry contains `video_id`, `family`,
+`mode`, the private `case` JSON path and a `runs` mapping from the five method
+names to their generation directories. Paths resolve relative to the index.
+The no-watermark panels use the paired reference from the LAST run. The output
+includes the lossless PNG and source fingerprints for all twelve video panels.
+Frame indices 4 and 16 are zero-based. Record the chosen sample IDs; the
+caption alone does not identify the original examples.
+
 First run `last.report --verify-artifacts` against the frozen experiment plan and
 actual run directory. If historical reader results were independently replayed,
 supply the audited `--reextraction-index` described in `REEXTRACTION.md`.
@@ -28,6 +47,10 @@ and formatter revision by SHA256. Partial cells keep null final scores; missing
 data is not zero accuracy. Overlapping snapshots are rejected rather than added
 together. Each pipeline must include all seven condition cells and one planned
 denominator, even when none of its videos has completed.
+
+The receipt field `supplied_cells_complete` covers only the reports passed to
+the command. A completed single-pipeline report can set this field to true.
+Whole-paper coverage requires checking the supplied pipelines against the paper protocol.
 
 The formatter recomputes percentages from integer counts. It does not rerun GPU
 extraction, replace the artifact audit, establish comparable protocols, compute

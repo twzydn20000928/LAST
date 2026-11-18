@@ -7,6 +7,25 @@ from types import SimpleNamespace
 import torch
 
 
+def load_inversion_pipeline(model_dir, family, mode, scheduler_cls):
+    from diffusers import (AutoencoderKLHunyuanVideo, AutoencoderKLWan,
+                           HunyuanVideoImageToVideoPipeline, HunyuanVideoPipeline,
+                           WanImageToVideoPipeline, WanPipeline)
+    vae_cls, pipeline_cls, shift = {
+        ('hunyuan', 'i2v'): (AutoencoderKLHunyuanVideo, HunyuanVideoImageToVideoPipeline, 7),
+        ('hunyuan', 't2v'): (AutoencoderKLHunyuanVideo, HunyuanVideoPipeline, 7),
+        ('wan22', 'i2v'): (AutoencoderKLWan, WanImageToVideoPipeline, 5),
+        ('wan22', 't2v'): (AutoencoderKLWan, WanPipeline, 5),
+    }[family, mode]
+    vae = vae_cls.from_pretrained(model_dir, subfolder='vae', torch_dtype=torch.float32, local_files_only=True)
+    vae.enable_tiling()
+    pipe = pipeline_cls.from_pretrained(model_dir, vae=vae, torch_dtype=torch.bfloat16,
+                                        local_files_only=True, low_cpu_mem_usage=True)
+    pipe.scheduler = scheduler_cls.from_config(pipe.scheduler.config, shift=shift)
+    pipe.enable_sequential_cpu_offload(device='cuda:0')
+    return pipe
+
+
 def normalize_endpoint(z,config,family):
     if family=='hunyuan':return z*config.scaling_factor
     if family!='wan22':raise ValueError('Unknown VAE family')

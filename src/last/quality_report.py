@@ -38,6 +38,9 @@ def build(inputs, scores):
     inputs, scores = Path(inputs), Path(scores)
     coverage = json.loads((inputs/'coverage.json').read_text())
     dimensions = {}; sources = {}
+    anchors = {v['path']: v['sha256'] for v in coverage['videos']}
+    if len(anchors) != len(coverage['videos']):
+        raise ValueError('Duplicate video in quality coverage')
     complete_inputs = coverage['complete']
     for name in sum(CATEGORIES.values(), []):
         meta = inputs/(name+'.json'); receipt = scores/name/'receipt.json'
@@ -57,13 +60,17 @@ def build(inputs, scores):
         sources[name] = dict(receipt_sha256=hashlib.sha256(receipt.read_bytes()).hexdigest())
         if state['status'] != 'completed':
             dimensions[name] = dict(status=state['status'], mean=None); continue
+        paths = [path for row in rows for path in row['video_list']]
+        if any(path not in anchors for path in paths) or state.get('videos_sha256') != {p: anchors[p] for p in paths}:
+            raise ValueError('Scored video hashes differ from the current quality inputs')
         raw = scores/name/'official_result.json'
         checked = summarize(json.loads(raw.read_text()), rows, name)
         if checked['mean'] != state.get('mean'): raise ValueError('Receipt mean differs from official raw scores')
         dimensions[name] = dict(status='completed', **checked)
         sources[name]['raw_sha256'] = hashlib.sha256(raw.read_bytes()).hexdigest()
     result = aggregate(dimensions, complete_inputs)
-    result.update(source_hashes=sources, coverage_sha256=hashlib.sha256((inputs/'coverage.json').read_bytes()).hexdigest())
+    result.update(family=coverage['family'],mode=coverage['mode'],method=coverage['method'],
+                  source_hashes=sources, coverage_sha256=hashlib.sha256((inputs/'coverage.json').read_bytes()).hexdigest())
     return result
 
 

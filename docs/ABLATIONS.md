@@ -224,6 +224,39 @@ checked before export. This is one of30 samples, distinct from the earlier
 `paper-000` integration diagnostic. Do not combine the two as two formal subset
 members or treat the first formal sample as the completed paper table.
 
+### Paired measurements for paper-003
+
+Each entry below counts correct information bits out of 512. Within each
+condition the four readers received the same MP4. CGC denotes cross-group
+consistency and SWS denotes sliding-window search.
+
+| Reader | Clean | Noise | Compression | Blur | Drop | Insert | Clip |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Full | 512 | 512 | 502 | 512 | 327 | 499 | 506 |
+| Without CGC | 230 | 240 | 275 | 261 | 273 | 260 | 237 |
+| Without SWS | 504 | 475 | 456 | 473 | 274 | 494 | 452 |
+| Without CCTA | 512 | 512 | 503 | 512 | 270 | 278 | 280 |
+
+For this case, removing CCTA cost 221 correctly recovered bits after insertion
+and 226 after clipping. After compression the same change gained one bit.
+The [28 reader records](../results/formal_reader_ablation_first_case.json)
+include the received-video fingerprints.
+
+The writer replay used one shared diffusion endpoint and margin 0.5. Each
+writer produced its own marked MP4. Its minimum-margin clean MP4 has a different
+SHA256 from the clean MP4 in the reader experiment above, even though both
+records use sample ID `paper-003`. Use the minimum-margin row below as the
+reference for the fixed-target comparison.
+
+| Writer | Clean | Noise | Compression | Blur | Drop | Insert | Clip | PSNR (dB) | SSIM |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Minimum margin | 512 | 512 | 499 | 512 | 332 | 501 | 504 | 30.16 | 0.9319 |
+| Fixed target | 512 | 512 | 497 | 512 | 272 | 496 | 503 | 29.67 | 0.9284 |
+
+Both comparisons cover one of the 30 planned samples. The
+[writer replay record](../results/paired_writer_first_case.json) contains
+the unrounded quality scores and the received-video hashes for both writers.
+
 To regenerate the subset file at a new destination:
 
 ```bash
@@ -268,6 +301,45 @@ the same evaluation and quality commands. Keep key/message/seed fixed across
 strengths. Average bit accuracy over the six attacked conditions, excluding
 clean; report paired PSNR and SSIM separately. The causal profile remains
 `[0,mu,mu,2*mu,mu,...]`. Do not choose the three examples by the resulting score.
+
+For example, set `DEV` to the completed development-generation root, `STATE`
+to its private development state, `MODEL` to the same checkpoint and `SWEEP`
+to the private sweep root. For one case and one new strength, use:
+
+```bash
+id=dev-000
+mu=0.25
+base="$DEV/$id"
+run="$SWEEP/$id/mu-$mu"
+slot=$(python -c 'import json,sys; print("%02d" % json.load(open(sys.argv[1]))["key_slot"])' "$base/case.json")
+family=$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["family"])' "$base/receipt.json")
+mkdir -p "$run"
+cp -n "$base/case.json" "$run/case.json"
+cmp "$base/case.json" "$run/case.json" || exit 1
+python -m last.smoke --case "$run/case.json" --family "$family" --mode i2v \
+  --model-dir "$MODEL" --method last --mu "$mu" --output "$run" \
+  --key "$STATE/keys/$slot.key" --message "$STATE/messages/$id.bin" \
+  --memory-gib 8 --offload sequential &&
+python -m last.evaluate --run "$run" --family "$family" --model-dir "$MODEL" --video-id "$id" &&
+python -m last.quality --reference "$run/reference.mp4" --marked "$run/marked.mp4" --output "$run/quality.json"
+```
+
+Use the three frozen IDs from `margin_sweep_ids`. At μ=0.5, a matching
+completed default development run already supplies generation and quality.
+Index that directory directly after evaluating its seven conditions.
+
+For a completed sweep, create a private JSON list with one entry per run, e.g.
+`{"video_id":"dev-000","run":"dev-000/mu-0.1"}`. Directory paths are relative
+to the index. Each run contains its development case, generation receipt, private
+key and message, quality receipt, MP4s and all seven evaluation receipts. From the
+repository root, in an environment with Matplotlib installed, run
+`python tools/plot_margin_sweep.py --index /private/index.json --output figure4`.
+The PDF shows one curve per metric. Each bit-accuracy point pools 9,216
+information bits (three videos × six attacks × 512 bits). Each quality point
+averages three video-level measurements. The accompanying CSV retains the
+numerators and denominators. The same command writes Appendix Table 5 to
+`table5.md`, including clean accuracy. Each condition uses 1,536 bits per margin.
+Incomplete sweeps produce no figure or table.
 
 Default main-paper generation is unchanged (`--mu .5`, no `--fixed-target`).
 For supplement Table16's uniform writing control, add `--uniform-profile`

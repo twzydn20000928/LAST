@@ -1,0 +1,84 @@
+"""Build clean-recovery and V-score tables for one backbone at a time."""
+import argparse
+import json
+from pathlib import Path
+
+from .quality_report import CATEGORIES, aggregate
+from .robustness_table import collect
+
+
+METHODS = {
+    'reference': ('No-mark', '—', '—'),
+    'videomark': ('VideoMark', 'No', 'Non-blind'),
+    'videoshield': ('VideoShield', 'No', 'Non-blind'),
+    'sigmark': ('SIGMark', 'No', 'Blind'),
+    'lfg': ('LFG', 'Yes', 'Blind'),
+    'last': ('LAST', 'Yes', 'Blind'),
+}
+
+
+def render(family, reports, quality):
+    clean = {}
+    for (backbone, mode, method), cells in collect(reports).items() if reports else ():
+        if backbone == family:
+            row = cells['clean']
+            if row['expected'] != 400 or mode not in ('i2v', 't2v') or method not in METHODS or method == 'reference':
+                raise ValueError('Unexpected recovery protocol for the clean table')
+            clean[mode, method] = row
+    scores = {}
+    for q in quality:
+        if q['family'] != family:
+            continue
+        key = (q['mode'], q['method'])
+        if key in scores or key[0] not in ('i2v', 't2v') or key[1] not in METHODS:
+            raise ValueError('Unexpected or duplicate quality report')
+        v = aggregate(q['dimensions'], q['complete'])['v_score']
+        if v != q['v_score']:
+            raise ValueError('V-score differs from dimension means')
+        if v is not None:
+            for names in CATEGORIES.values():
+                for name in names:
+                    d = q['dimensions'][name]
+                    n = 3 if name == 'Diversity' else 20
+                    if d['expected_units'] != n or not 0 < d['valid_units'] <= n or d['valid_units'] + d['not_applicable_units'] != n:
+                        raise ValueError('Incomplete or inconsistent official scoring units')
+        scores[key] = v
+    lines = [f'# Clean recovery and video quality — {family}', '',
+             '| Method | Inversion-free | Extraction | T2V bit accuracy | T2V V-score | I2V bit accuracy | I2V V-score |',
+             '|---|---|---|---:|---:|---:|---:|']
+    for method, labels in METHODS.items():
+        values = list(labels)
+        for mode in ('t2v', 'i2v'):
+            row = clean.get((mode, method))
+            bit = '—' if method == 'reference' else 'pending'
+            if row and row['completed']:
+                bit = f"{row['observed_bit_accuracy']:.3f} ({row['completed']}/400)"
+            elif row:
+                bit = 'pending (0/400)'
+            score = scores.get((mode, method))
+            values.extend([bit, 'pending' if score is None else f'{score:.3f}'])
+        lines.append('| ' + ' | '.join(values) + ' |')
+    lines.extend(['', 'Bit accuracy is pooled over 512 information bits per completed video. '
+                  'Counts below 400 indicate interim observations. V-score requires the full quality report.'])
+    return '\n'.join(lines) + '\n'
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--family', choices=('hunyuan', 'wan22'), required=True)
+    p.add_argument('--reports', nargs='+', type=Path, default=[])
+    p.add_argument('--quality', nargs='+', type=Path, default=[])
+    p.add_argument('--output', type=Path, required=True)
+    a = p.parse_args()
+    if not (a.reports or a.quality):
+        p.error('Supply measured reports')
+    def read(paths):
+        return [json.loads(path.read_bytes()) for path in paths]
+    table = render(a.family, read(a.reports), read(a.quality))
+    a.output.parent.mkdir(parents=True, exist_ok=True)
+    with a.output.open('x', encoding='utf-8') as stream:
+        stream.write(table)
+
+
+if __name__ == '__main__':
+    main()
