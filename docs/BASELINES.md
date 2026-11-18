@@ -485,3 +485,21 @@ preserved; the successful attempt reused the identical video without changing
 scientific settings. This is one clean-video integration, not a temporal SGO
 attack result, a 400-video aggregate or exclusive-GPU timing evidence.
 
+### SIGMark noise-retry integration
+
+`results/sigmark_noise_recovery_verified.json` records one actual Hunyuan I2V
+noise-attack extraction: **398/512 information bits (77.734375%)**, without
+complete-message recovery. The noise MP4 is unchanged from the original attempt
+that failed because of shared-GPU memory contention. The original failure and
+failed extraction remain preserved privately; the successful retry uses public
+reader revision `f72378689d8f62bd5a580d5dc4d5469daad50507` in the isolated native
+environment. Its 50-step inversion completed successfully. An independent audit
+recomputed the bit count from decoded bytes and checked the actual video,
+private state, message, source, extraction receipt and original-failure hashes.
+
+Only hashes and aggregate counts are published; decoded messages and native
+state remain private. This verifies one recovered acquisition path, not the full
+seven-condition campaign, a method ranking or an exclusive timing measurement.
+The standard `last.baseline_evaluate` command above runs the attacks on a new
+user-generated case; the private recovery paths are not required to run it.
+

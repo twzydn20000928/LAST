@@ -1,0 +1,18 @@
+{
+  "scope": "One Hunyuan I2V SIGMark noise integration case; not full benchmark",
+  "condition": "noise",
+  "correct_bits": 398,
+  "total_bits": 512,
+  "bit_accuracy": 0.77734375,
+  "exact_message": false,
+  "reader_source_commit": "f72378689d8f62bd5a580d5dc4d5469daad50507",
+  "received_sha256": "08f5d6f8fc7d06300e68461693a1251419bc903aa66b058757f988054dfa6f84",
+  "extraction_receipt_sha256": "0aba83945f0ae778e434f18e36fa55cac4c1b5686734022133229cb7246c2f55",
+  "private_decoded_sha256": "e2350f14c4b33cf2c5ecbbf10e109b412dc44903c879bdc7888266a82f5ee943",
+  "original_failure_sha256": "c35883077a711e1dd7ccffcff00c8bd65d21e2e671bf1aa46abc24f056f5f362",
+  "limitations": [
+    "Same MP4 retried after resource-contention OOM; original failure retained.",
+    "Concurrent elapsed time is not an exclusive efficiency measurement.",
+    "Single case does not establish method ranking."
+  ]
+}
