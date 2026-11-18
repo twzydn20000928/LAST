@@ -41,8 +41,12 @@ def native_call_kwargs(kwargs,family,mode):
     result=dict(kwargs)
     if mode=='t2v':result.pop('image',None)
     if family=='wan22':
+        # Native Hunyuan SGO and final inversion use a one-image list. Wan's
+        # actual I2V input validator accepts a tensor or PIL image, not a list.
+        if mode=='i2v' and isinstance(result.get('image'),(list,tuple)):
+            if len(result['image'])!=1:raise ValueError('Wan native extraction requires one conditioning image')
+            result['image']=result['image'][0]
         result['guidance_scale']=5
         # Both Wan A14B experts use the same declared guidance value.
         result['guidance_scale_2']=5
     return result
-

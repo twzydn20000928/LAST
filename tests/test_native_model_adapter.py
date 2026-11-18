@@ -43,3 +43,27 @@ def test_invalid_wan_normalization_is_rejected():
     with pytest.raises(ValueError,match='normalization'):
         normalize_endpoint(torch.zeros(1,16,2,2,2),SimpleNamespace(latents_mean=[0]*16,latents_std=[0]*16),'wan22')
 
+
+def test_wan_single_image_container_adapter_preserves_upstream_input():
+    image=object();original={'image':[image]}
+    assert native_call_kwargs(original,'wan22','i2v')['image'] is image
+    assert original['image']==[image]
+    assert native_call_kwargs(original,'hunyuan','i2v')['image']==[image]
+    for images in ([],[image,image]):
+        with pytest.raises(ValueError,match='one conditioning image'):
+            native_call_kwargs({'image':images},'wan22','i2v')
+
+
+def test_actual_diffusers_wan_check_inputs_accepts_adapted_image():
+    pytest.importorskip('diffusers')
+    from diffusers import WanImageToVideoPipeline
+    from PIL import Image
+    image=Image.new('RGB',(512,512))
+    # Exercise the real installed input validator without model weights or GPU.
+    receiver=SimpleNamespace(config=SimpleNamespace(boundary_ratio=.875))
+    original=dict(prompt=[''],negative_prompt=None,image=[image],height=512,width=512)
+    with pytest.raises(ValueError,match='image.*type'):
+        WanImageToVideoPipeline.check_inputs(receiver,**original)
+    adapted=native_call_kwargs(original,'wan22','i2v')
+    adapted.pop('guidance_scale')
+    WanImageToVideoPipeline.check_inputs(receiver,**adapted)
