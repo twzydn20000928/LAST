@@ -502,3 +502,24 @@ are rejected; audit historical artifacts rather than filling in missing hashes
 as if they had been recorded originally. These checks leave the scientific
 reader variants unchanged and do not retroactively validate earlier runs.
 
+
+### Fixed-length hypothesis statistics (Table 13 support)
+
+`last.hypothesis_statistics.four_group_consistency` computes the mean of the
+six pairwise cosine similarities in a four-group chain. It is separate from
+CCTA's length-scaled search score. It rejects zero/negligible projections,
+whose cosine direction is undefined. `matched_summary` takes equally sized
+correct/wrong arrays and identical, unique candidate IDs, and returns linear
+P05/median/P95 quantiles and pooled ROC AUC (half credit for equal scores).
+ROC AUC is not the fraction of matched pairs where the correct score wins.
+The module has no access to messages and does not alter primary extraction.
+
+Three CPU tests cover known cosine configurations, tied/reversed AUC and
+mismatched candidate rejection. These are statistical unit tests, not measured
+Table 13 results. Actual matched candidate acquisition, the complete frozen
+80-video calibration, provenance-bound score export and the full empirical
+Table 13 remain pending. ID equality alone does not prove correct pairing;
+the eventual acquisition audit must establish the common video/window and
+correct/wrong group labels. The supplement does not fully specify candidate
+sampling or zero-projection handling, so these choices must be recorded before
+collecting scores and must not be selected according to resulting AUC.
