@@ -1,0 +1,391 @@
+{
+  "scope": "Partial primary Hunyuan T2V LAST snapshot; completed cases only, seven conditions on each of the same cases. Counts from video-hash-verified evaluation receipts.",
+  "planned_cases": 400,
+  "observed_cases": 19,
+  "final_score": null,
+  "plan_sha256": "50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447",
+  "generation_source_commit": "1d331462fff777cd825e23f630b8ce3aa18b23fa",
+  "totals": {
+    "blur": {
+      "correct_bits": 9698,
+      "total_bits": 9728,
+      "exact_messages": 16
+    },
+    "clean": {
+      "correct_bits": 9728,
+      "total_bits": 9728,
+      "exact_messages": 19
+    },
+    "clip": {
+      "correct_bits": 9507,
+      "total_bits": 9728,
+      "exact_messages": 9
+    },
+    "compression": {
+      "correct_bits": 9454,
+      "total_bits": 9728,
+      "exact_messages": 6
+    },
+    "drop": {
+      "correct_bits": 7463,
+      "total_bits": 9728,
+      "exact_messages": 0
+    },
+    "insert": {
+      "correct_bits": 8702,
+      "total_bits": 9728,
+      "exact_messages": 1
+    },
+    "noise": {
+      "correct_bits": 9618,
+      "total_bits": 9728,
+      "exact_messages": 13
+    }
+  },
+  "correct_bits_per_512": {
+    "paper-000": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 500,
+      "compression": 512,
+      "drop": 447,
+      "insert": 445,
+      "noise": 512
+    },
+    "paper-001": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 512,
+      "drop": 415,
+      "insert": 476,
+      "noise": 512
+    },
+    "paper-002": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 512,
+      "drop": 489,
+      "insert": 476,
+      "noise": 512
+    },
+    "paper-003": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 499,
+      "drop": 316,
+      "insert": 494,
+      "noise": 512
+    },
+    "paper-004": {
+      "blur": 501,
+      "clean": 512,
+      "clip": 485,
+      "compression": 489,
+      "drop": 416,
+      "insert": 445,
+      "noise": 489
+    },
+    "paper-005": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 490,
+      "compression": 502,
+      "drop": 397,
+      "insert": 512,
+      "noise": 512
+    },
+    "paper-006": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 489,
+      "drop": 352,
+      "insert": 503,
+      "noise": 512
+    },
+    "paper-007": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 488,
+      "compression": 490,
+      "drop": 431,
+      "insert": 504,
+      "noise": 512
+    },
+    "paper-008": {
+      "blur": 503,
+      "clean": 512,
+      "clip": 481,
+      "compression": 464,
+      "drop": 257,
+      "insert": 404,
+      "noise": 487
+    },
+    "paper-009": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 481,
+      "compression": 477,
+      "drop": 342,
+      "insert": 443,
+      "noise": 498
+    },
+    "paper-010": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 497,
+      "compression": 479,
+      "drop": 331,
+      "insert": 409,
+      "noise": 492
+    },
+    "paper-011": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 502,
+      "drop": 417,
+      "insert": 414,
+      "noise": 512
+    },
+    "paper-012": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 504,
+      "drop": 404,
+      "insert": 476,
+      "noise": 512
+    },
+    "paper-013": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 512,
+      "drop": 407,
+      "insert": 500,
+      "noise": 512
+    },
+    "paper-014": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 512,
+      "drop": 402,
+      "insert": 480,
+      "noise": 512
+    },
+    "paper-015": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 512,
+      "compression": 512,
+      "drop": 465,
+      "insert": 484,
+      "noise": 512
+    },
+    "paper-016": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 476,
+      "compression": 491,
+      "drop": 344,
+      "insert": 420,
+      "noise": 502
+    },
+    "paper-017": {
+      "blur": 512,
+      "clean": 512,
+      "clip": 506,
+      "compression": 504,
+      "drop": 417,
+      "insert": 439,
+      "noise": 512
+    },
+    "paper-018": {
+      "blur": 502,
+      "clean": 512,
+      "clip": 495,
+      "compression": 492,
+      "drop": 414,
+      "insert": 378,
+      "noise": 494
+    }
+  },
+  "attack_receipt_sha256": {
+    "paper-000": {
+      "blur": "eaf739638e7870bf144825831948c8733200c70e96bb1d7b7ecf501a1c0791a6",
+      "clean": "d912288bc902ae2cb74989483fb558f98b65a3b63a47d6d156be6bc8aeaf53a9",
+      "clip": "f0984e2e7b67a5fe1f14d605ea0d1e0aa72c01d1c432e3d8ece370410a5805f4",
+      "compression": "23d7ae96f45708159668610507497af3df7893a7173c943575bdf4ec1cc79316",
+      "drop": "c12c0d26c417ad176dc1dee7b9b855d1c2ab294ef3079dc33c27847a3dcd9553",
+      "insert": "59b910d0387b948e57f69b7eaf467532f29906de8d04a9c48d7ad97e452c5d5c",
+      "noise": "4e78ef92e5ae60acca96a2801bf5319227095514072d2e9894cacee1e39afa8a"
+    },
+    "paper-001": {
+      "blur": "d6a4e7de67d0536b9af7a5bd045ac4db56361b7e224f7ebecc36d6e064adcf40",
+      "clean": "9eb43819429ec3e878133d84d386d3f413f90f24be483f5891dff50a4298be7c",
+      "clip": "a2e74059150528da443dcf233f70caf67b215abcdb4c56fbc24562e54d2f1c50",
+      "compression": "f7f3b95d8ed9564c96eecae1d4b3fe770c82f0b109f29b22f9232b224b488305",
+      "drop": "1821d737fca95379379c0d680f926220a5d8298dc83151e5f9ae0d965ab64f1d",
+      "insert": "55e8911f5e15bd0a92a82ace31427c2660dfc79455920a8df543a4afd7d339bc",
+      "noise": "48507d99afc3e265f19ea6fd114ac3d9bcc0cbe70eb1833e6ec76a779612654e"
+    },
+    "paper-002": {
+      "blur": "48264d2033fbc0da2ff230a25b3cc81b2f2c7493fcd8640e1fc03dc93701a304",
+      "clean": "0060750f8380e2aa3ac9e4237c47bf5bbf4683d4dc8bd3bfca8c543955ca7bc6",
+      "clip": "c596220c2dfeda554becab457e2c11f5efff8dd1c516b585d91cfb76e0fe0213",
+      "compression": "6b3c4b6137855132a2bf66e58cb84a37f4f0d7d43a0cff7ec92874fbf79b586e",
+      "drop": "d88d9e8cb7b5f80787edd8e9901829a55c980521b82ff104e7757e97b9d841a0",
+      "insert": "b8e06963b8f1214f05aca0076cb54616a702e8687011d0885a17656f190b7fe5",
+      "noise": "5249b58349fc72063d83e39065b34d545a336233b17ac18a37851b0b2d20c2c7"
+    },
+    "paper-003": {
+      "blur": "d0d98c544aee2910231279de024255160f6cc41dc2feedd433f9a1787084ff61",
+      "clean": "7ab83f70d75160121c0e963f690d466dec2586388c2b2e2a1ffe3c6abc65de9e",
+      "clip": "bee982628e72370c9f99a9cd7747df06c6e62604b3a3e7040a23b5dffad0c549",
+      "compression": "b5aaaaa08a44cf2d3273cc9a473a735676bee51a9e594d77368a8b2e949856ee",
+      "drop": "37b05b7fcf769bdde3a03a16bca77ccf4677f0a113c8052b6df773cbd9fce6ae",
+      "insert": "9e2a652cad03c7e2b4582fee8a77f3a8c7d300948df64f35a197bfcca142799e",
+      "noise": "51fe46334f87d4f12e9d0a25bb3b1f9f1b3738b2f705f9843504e1fab32f7eff"
+    },
+    "paper-004": {
+      "blur": "ac94e0a3ab082b1c731be8b90c6cceeb357173f4475898d8a46c8aa449296eac",
+      "clean": "e73588ae72528dbe9490dee8e1eb61343110bca2a2eb4023429086bec6629c4a",
+      "clip": "4164b32e22f7dafdf50b663eb69117a06331b9a9cee4fce7d19ed091fcca8fa5",
+      "compression": "8f7a5bccdf5d583be7d5de9b0ca98622c694f50f9bf2274eeffb4f6121409dc1",
+      "drop": "c430fb6d1aedfa25970a322261afa065c15c7d2162276c61977076d35b4e3657",
+      "insert": "1dbfa3e106c61d0704b7b5160e5d15f0758163e44c7444dc44e75ac8ee7cd231",
+      "noise": "688921a002fcf872c533478e825011727e54410e65088809be758a0b9975c830"
+    },
+    "paper-005": {
+      "blur": "8a62a94e199532bcfee8df70e00c4a3c7bb0a6253ac0987431ee5d9706e12f97",
+      "clean": "d16dc48ca5defbded7abc128bd23bc1ab6cfaec83ccf666fbdedce7c6da5a67c",
+      "clip": "ae7cd963d15efaacb1941ee51f3feeede78414128df0dea280cd5e8025b1483d",
+      "compression": "bdcb1bab361c97abfe7c7efadc431742b29490374edd95e7f3da1287afe34a7b",
+      "drop": "1580dc372d29d84553a77be69ef5955eecc9ffad7fa984471cf9ae22672b3d73",
+      "insert": "31c3c2cfc83c38fdd25b00a103bc3b892f9465672cdc0f2df6b38dc09f4120e1",
+      "noise": "01624a247f8153d6852e434671ecf069ceef809f8110d1ea207bd1957ecd444b"
+    },
+    "paper-006": {
+      "blur": "d1e3f445f0c1c125d6876393d16a598b433988df1c9531e7c44678822ac225c8",
+      "clean": "ff7c45dc4e58d287e7628bd5474e544a20590d760ecc5d39e04bd35eadb6b809",
+      "clip": "267da77320c4ba936a55736cee168d3c0d8f4b0445a7b4fe38c174a309abecbb",
+      "compression": "f0ff3c541e0b9250b6ad701b02fdf17a34420b88d7392431bf1adb05501232d4",
+      "drop": "bf9188a6974408d561a2392e050cf071d663fb484d50d651ea855d31ee046602",
+      "insert": "b3c67268b01dff2a60c3cc5bb677d6ee8f571b2545454b869e3f5bc0e2f2ef75",
+      "noise": "f77c17d1ea94481f4331d2d0775dba0dc86e2df1b0b063a567c142dc7ab8c3f0"
+    },
+    "paper-007": {
+      "blur": "7841fc1d9007253ab9cc987d1f7b21b1beb9674d504e249ce8d33edc4da89506",
+      "clean": "3320fd9ffd7fc887e325cdf1d3632d74009e5f3bdf3e105782d90a30478be172",
+      "clip": "e98f7311d456da55bdcd26736d9afbc8505211bd06da63f1ab5097165b17069e",
+      "compression": "d36bf8cbe660e7eebaebcd505800a95865afdef4b4d00657862cccefa4c13539",
+      "drop": "5489caa1f5801cbc5caf7cf0c1fb9576be0142fd76a724f52226fa70b398769c",
+      "insert": "22096b751c8ed666449180309e105493323cd80aa5b37d2e7a379cfceaab8aea",
+      "noise": "c9ccc3ca68639c298bb9cfe230cbb9cd841beb33c00ec0ba9abd3ae1ee0215dc"
+    },
+    "paper-008": {
+      "blur": "bc87346f723040210841468ba5c59bb607af14bbd2c627be2e8d0239f07c639d",
+      "clean": "cd9450b44a1ef84edf489af76abb6fc8a512a0ce1b0ff15dd1e70df8b5f57a53",
+      "clip": "6d57f4bf09c66e728a43aca4822a0599e3428b88ca85daa2c80dbf213c354fc7",
+      "compression": "349ee8cfc4d92a5de05117adab024070875f4730ce7405f266098cf7f8ee5e91",
+      "drop": "23a1dabcdfecca68455d65509512de741bcafe1aba54ac295b8586619d2b3d13",
+      "insert": "629ff0751c0a633e1a36d168309a5ad66a2b443e52f6c7dcfbe1c04c5f7be494",
+      "noise": "febc9b3bc64a1012ef4dc646f31b6d9c3ac63441085923375783452c3102b345"
+    },
+    "paper-009": {
+      "blur": "611d375ea72329898aa782ebacdbc3c9cf44c46c7fc3ba04872be8c3d41aab2d",
+      "clean": "609696e140f789878e8a567c71ff7f419bc651f4424a856321f67c5877731b4f",
+      "clip": "bdd2aa0470015977e12a181df49b5b03af77bfc5d950f0b2befa95ac40234142",
+      "compression": "780832faa5a3cd81c8a5e2903fc74d9a18a78ccd3321888bb4ff2516fccc4947",
+      "drop": "9cbdf150707036e64a63654e0221790af2e2f5505fbec3c4ddc6df9eea9776d8",
+      "insert": "39f670ba8f6bf8cab47316466c983a4108e736adcbab24f23face78f8fc623c1",
+      "noise": "73643ff1a9da356d2faa5f9dfb036286151fa9255d6d7d4d9a138a7587a6db55"
+    },
+    "paper-010": {
+      "blur": "fabe180071e5c3ccad8838ddbb01cebfbc7052a420316a2a4c058fb233a8dbe0",
+      "clean": "1b2978d559653146c0c9769b83821f6334cba70eba54e1eac0abf33c7a03b33e",
+      "clip": "4c06a8e02d1899c969bb235370d094b81f4d7419a41fce8ed1328bad397b6543",
+      "compression": "615f811ae3cb07fd97604fc4541ee507f72ea5fafd665983cf23ca993a3205c6",
+      "drop": "ea779b8ab2a9cc0dfc496397b5770ea2cd58a3c5526eb3c2d402d1697f47949a",
+      "insert": "ec341e2038b8ba6c5df5d6ba9d4e1b2d41ebdae44176121fd60f9331004bf29e",
+      "noise": "e405073e96cbc31dee64faefd611ee3294758bad63b7b76e92eeeaea8d5d3a35"
+    },
+    "paper-011": {
+      "blur": "a2ae273205c3545c19aa89d043c580ff8ae10bc270a8c2eb351c647e3e3c4080",
+      "clean": "8732fd1e71bfdaa961342fc14c3871bd410da010d74bd244ce06e78eafebdb14",
+      "clip": "21e24fa068d3e7aa33aa0cba0118f7ba210b9c0135085261b5b8b55612e067f1",
+      "compression": "634311896f9e15130f56503d790f08b71a2259ad3912c86233e9d99ea159efee",
+      "drop": "6f3aaf5592473c36a31ed06a34704732ba6102d944cd6294c7825d96e394dfa1",
+      "insert": "d7c5d69725e4bb7179dc226a8375e6c6b8f6f284c9eb7fe9e87115f707debf73",
+      "noise": "59d25c661008cb38996d348b384bbc7a3eb747d42d99c89a3d53c6b4c27a512a"
+    },
+    "paper-012": {
+      "blur": "516c2fc6bdefed3b48506d10cb8e90cd25f63005df39e2e95c0bc40152c39791",
+      "clean": "e90b1296f9d2cd62d297fed0e32ebcdce4cb5f884be9b678d785cacdd6217fea",
+      "clip": "0720e43307c09ffa1074687cb2e033abeed1a6c8c7d1f3be5894f5694f18dd08",
+      "compression": "b474f7a058317ee8c8579941711ad38a8a06fbd09872cb1bec21a0feab9bc63d",
+      "drop": "4dceba6fddf56b80f4d0b822ee0d37002d79603d080ee518ce15703070365d98",
+      "insert": "801c681b8d63e4ca3dd772a9be8d6bc504587925387691a5485e3ed555370abb",
+      "noise": "bdf930415e461e729b58e735924485bb5899ebf2b8ce934b8efb2862368b19c9"
+    },
+    "paper-013": {
+      "blur": "51e0649e1c395c89f44ba685b88e4ab1f0d4c8fa1d59c9da43debd139017146d",
+      "clean": "09a02d5afc11e154d87b9f838380c8ffe644f606075ff677a78ee6a0061f827a",
+      "clip": "c2a43003b6b82ca3fc8c37d1838ab4a40df0f1e6e7121f6e4e29b3d7a3cda671",
+      "compression": "b5281e1177fbf1873ae1b0d7d2b5e32a9b4c511c1dcd1c8b92c94033b0fff8b2",
+      "drop": "2fffe256fbc37f1364636cbe8fdb90724200468692505c0f4fcbf77ab0547e85",
+      "insert": "da74f9c2344c655039f3177c431e2ed38d4a93f2661974a50af4831277b1e249",
+      "noise": "67d027eb672ea42c0ccde558443fde053bdc0a737dbbc66f6540414088885ae1"
+    },
+    "paper-014": {
+      "blur": "f6c21bddf14a2422c986f0da15727e2d84775c8a1e96d4d8e8308fb6195ffaec",
+      "clean": "dfc069a1ce4e3ce44c8d6f7419f5e5c0127b44379c8dfa016a584267df7413e4",
+      "clip": "e2374dbc1a10c1c5d09fdf05f59cb79da20dad0c81848f8191e10f6c6e01e197",
+      "compression": "b44af49fdfeb3a40d04b28508b32b282a63bf6d5c7497d830eeb67d2bc7bd0a0",
+      "drop": "064f9478a2ba3c4479afba81f839bd66b7d76db01605fe1f564a4d0e9f70d763",
+      "insert": "e4a73d66ed9b6fddef7f2ebc6698ea249d90642a42779a94751902df46f4a497",
+      "noise": "5ffb526239399d4b4379dc59ccedf84d1017c8c2011457ed66f17d0d691d178e"
+    },
+    "paper-015": {
+      "blur": "84e99452e7503d1b3acf9dd96c3d6eb1cf9a4863b42b50ae800f48f471a68f3b",
+      "clean": "e030030f93d02758da6471d073745ba3a822f24b8855bb1f0c8e5c8c332b5f5f",
+      "clip": "09b34377cd78278de9b2ea5a3382f3d33fef8c8cffeffd9ee791ea5caf6c739e",
+      "compression": "ca4c4ff2886407975c955e7ea54b446c3315953c3f54149148cb66aed9c067e8",
+      "drop": "ccd9f9abbdf444b0becafb9fc1b17007a9fdcdaf2f57e6f67614fdb039248364",
+      "insert": "b0a663ac15f20ca9587b91b18bfa6ef5897b2185affb8dce709a4f0ea6038029",
+      "noise": "c70514ed72c7b101261a82ca0ef3d8ec00b1ba90f97a4148428c84d14c2a73aa"
+    },
+    "paper-016": {
+      "blur": "ac4fae2f4d96cb6c33edc8cb5f418b358877c81303de240a03f173da96828780",
+      "clean": "6b83b7796607ebee027d641a21d426266ad0667602c079a32cfcb55149dfee98",
+      "clip": "eced886776f386b1298959eff63cfc616947f05913acc05359c7801e67fb4159",
+      "compression": "e57b44afe98cebbfbb3c897aa1cdd497de738be4f8154ae6967f53f3d584ef45",
+      "drop": "b5c5aebdb3497c2f300f061a250e5c85360f7037dc1bbff7798280cc6ce92c5a",
+      "insert": "1e34fa5113862287a6b7c0212319ddc6ac4d4f3b7475bc376aac4333bf5a81c4",
+      "noise": "0bc15bb066698816ff3bf5661f057daa2b8cb8cf9a8aba42fa5838609b8e3565"
+    },
+    "paper-017": {
+      "blur": "95445f15cd9c22f21cc4dc6cacde5bf835b6986c50bb910ad1876f3613a09ac1",
+      "clean": "1d73fd0904877c929b2b83cace7090a569625859ffec919a1510a04e181e3182",
+      "clip": "81a7c841b5af12cea0f37ac939bbcac64fa0af8a671fda7ede996c00438927fe",
+      "compression": "2e26e65ec8dec17c4051f0654c253ac59a3d89b4ea6266e3f05a799e84dc85d3",
+      "drop": "e5a060e6c4e044536dac705f52dc1b206a40dda60430f0843fba35ddcf4dd3d3",
+      "insert": "ec5f119e09798efed34581bc88a5b325535f865101ca2bf5b42d3fe1ae50cff3",
+      "noise": "8d49fe44f233a5de342e64c260ac09800c3ce05119b06a5362f1f9ba5d76839f"
+    },
+    "paper-018": {
+      "blur": "81d086be906e421f761c4611b28b56c7a423eddd475ab35e25e58b79d832070b",
+      "clean": "65d806496f2ad7458ba03d0ffff4fa93fa9e9b1df71b8cd003dc67408c02d7be",
+      "clip": "0b2cf193ddd99c605eea866bd1baa8ddc12ec239ba97c0722fb63218601fab7a",
+      "compression": "8894ef1d6900effd5ba3e7ad306d12aefda3d3d3124c3734bd5136658ac9a9c7",
+      "drop": "70105225e64211ff77da569ede44b65c2e7ee32ef9d90c6d65adfd4f6baf84fb",
+      "insert": "7cfb584d7be875c39a6d36f8c7c345b6a181cfcd622424718eb49fb7f65f1861",
+      "noise": "50abf00af86f366d7e06b2c50798432ca34d8f718873ef4aa316cdabfe7b25a8"
+    }
+  }
+}
