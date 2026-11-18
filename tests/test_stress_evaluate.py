@@ -4,6 +4,9 @@ from last.stress_evaluate import verify_attack
 from last.stress_evaluate import verify_completed
 from last.stress_evaluate import recount,verify_counts
 import numpy as np
+import sys
+from pathlib import Path
+from last import stress_evaluate as workflow
 
 def test_stress_verifier_rejects_replaced_video_and_wrong_source(tmp_path):
     video=tmp_path/'received.mp4';video.write_bytes(b'fixture')
@@ -53,3 +56,49 @@ def test_saved_count_is_recomputed_and_attack_identity_checked():
         verify_counts(dict(record,seed=1),prediction,truth,attack,'hunyuan')
     with pytest.raises(ValueError,match='identity mismatch'):
         recount(prediction,truth,'video','wan22')
+
+
+@pytest.mark.parametrize('mutate_truth',[False,True])
+def test_full_workflow_resume_and_input_change(tmp_path,monkeypatch,mutate_truth):
+    """Synthetic process outputs exercise orchestration, not video accuracy."""
+    run=tmp_path/'run';run.mkdir()
+    (run/'marked.mp4').write_bytes(b'original fixture')
+    (run/'secret.key').write_bytes(b'k'*32)
+    np.save(run/'message.npy',np.zeros(512,dtype=np.uint8))
+    (run/'receipt.json').write_text(json.dumps(dict(status='completed',method='last',
+        family='hunyuan',marked_sha256=workflow.digest(run/'marked.mp4'))))
+    model=tmp_path/'model';(model/'vae').mkdir(parents=True)
+    (model/'vae/config.json').write_text('{}')
+    attacks=tmp_path/'attacks';folder=attacks/'drop45';folder.mkdir(parents=True)
+    video=folder/'received.mp4';video.write_bytes(b'edited fixture')
+    attack=dict(status='completed_attack_export',source_sha256=workflow.digest(run/'marked.mp4'),
+                received_sha256=workflow.digest(video),attack='drop45',seed=0,video_id='case')
+    (folder/'attack.json').write_text(json.dumps(attack))
+    out=tmp_path/'output';calls=[]
+    def child(command,**kwargs):
+        calls.append(command)
+        assert '--key' in command and '--video' in command
+        assert str(run/'message.npy') not in command and str(folder/'attack.json') not in command
+        destination=Path(command[command.index('--output')+1])
+        destination.write_text(json.dumps(dict(video_sha256=workflow.digest(video),family='hunyuan',
+            information_bits=512,message_hex=bytes(64).hex(),bch_success=True,route='fixture',groups=4)))
+        if mutate_truth:np.save(run/'message.npy',np.ones(512,dtype=np.uint8))
+    monkeypatch.setattr(workflow.subprocess,'run',child)
+    monkeypatch.setattr(sys,'argv',['stress_evaluate','--run',str(run),'--attacks',str(attacks),
+                                  '--model-dir',str(model),'--family','hunyuan','--output',str(out)])
+    receipt=out/'drop45/evaluation.json'
+    if mutate_truth:
+        with pytest.raises(SystemExit):workflow.main()
+        row=json.loads(receipt.read_text())
+        assert row['status']=='failed' and 'changed during extraction' in row['error']
+        assert 'correct_bits' not in row
+        assert (out/'drop45/decoded_private.json').exists()
+    else:
+        workflow.main()
+        row=json.loads(receipt.read_text())
+        assert row['status']=='completed' and row['correct_bits']==512
+        workflow.main()
+        assert len(calls)==1
+        row['correct_bits']=511;receipt.write_text(json.dumps(row))
+        with pytest.raises(ValueError,match='counts disagree'):workflow.main()
+        assert len(calls)==1

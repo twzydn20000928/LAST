@@ -75,7 +75,11 @@ Reuse also recomputes correct-bit and exact-message counts from the saved privat
 prediction and bound truth file, and checks attack name, seed, video ID and model
 family. A changed score in a receipt cannot pass merely because the decoded file
 hash still matches. This check is post-extraction evaluation; truth never enters
-the isolated blind reader. Four CPU tests cover the provenance and count checks.
+the isolated blind reader. Six CPU tests cover provenance and count checks,
+including a synthetic full evaluator run: no message/map argument reaches the
+child, a completed case resumes without launching another child, edited counts
+are rejected, and a truth-file change during the child marks the case failed.
+These orchestration tests do not measure real-video robustness.
 
 ## Completed repeated-map diagnostic
 
