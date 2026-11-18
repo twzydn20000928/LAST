@@ -311,6 +311,34 @@ calibrated matched-PSNR control. The first paired real-video replay has complete
 
 # Oracle grouping diagnostic
 
+## Post-hoc grouping diagnostics
+
+```bash
+python -m last.alignment_metrics --video /private/received.mp4 \
+  --cache /private/candidate-cache --extraction /private/completed-controlled-read \
+  --attack-receipt /private/run/attacks/drop.json --output /private/alignment.json
+```
+
+This evaluator reads the true edit map only **after** the blind reader has
+completed; it cannot change selection or decoding. An intact window must contain
+the four consecutive original identities of exactly one source group, in order.
+Windows crossing a boundary, containing inserted pixels or padding/repetition
+are not assigned a fictitious true group. They count as errors in
+`selected_alignment_accuracy`. The output separately reports group accuracy
+among intact selected windows and coverage of available intact groups, each with
+explicit counts. An empty denominator is null, not100% or zero by convention.
+These explicit denominator definitions are diagnostic choices, not a claim that
+the supplement completely specified every aggregation detail.
+
+Three CPU tests cover boundary crossing, foreign/padded/reordered windows,
+incorrect group identity and empty/duplicate selections. A real post-hoc check
+on the existing clean LFG-C `dev-000` cache found both selected windows intact
+but wrongly identified: true groups14/15 were predicted as7/8 (zero-based).
+This uses the full unedited generation MP4 verified by hash and identity map;
+it is one low-strength development case, not LAST primary performance or the
+30-video Table14 experiment. The feature acquisition and blind predictions were
+not rerun or changed. Full attacked-video diagnostics remain pending.
+
 ## Shared-fusion per-case workflow
 
 Freeze the shared-carrier block only after the full LFG-C development grid has
