@@ -11,6 +11,18 @@ jobs:
       - run: pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
       - run: pip install -e '.[test]'
       - run: pytest -q
+      - name: Rebuild audited partial robustness tables
+        run: |
+          python -m last.robustness_table --reports \
+            results/last_hunyuan_i2v_audited_partial.json \
+            results/last_hunyuan_t2v_audited_partial.json \
+            results/last_wan_i2v_audited_partial.json \
+            --output .ci-tables/robustness
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audited-partial-robustness-tables
+          path: .ci-tables/robustness/
+          if-no-files-found: error
   video-cpu:
     runs-on: ubuntu-latest
     steps:

@@ -35,3 +35,10 @@ statistical uncertainty or select a winner. Three CPU tests cover count-derived
 percentages, missing conditions, unaudited inputs, overlap, impossible recovery
 counts and rejection of final scores on partial results. Quality, efficiency,
 uncertainty and supplementary tables remain separate workflows.
+
+The `core-tests` GitHub Actions workflow also executes the command above in its
+core CPU job and uploads `audited-partial-robustness-tables`. Download that
+artifact from a successful workflow run to obtain the Markdown table, CSV counts
+and input/source receipt for that exact public revision. This checks that the
+published snapshots can be rendered by the released formatter; it does not
+repeat the private video audit or turn incomplete snapshots into final results.
