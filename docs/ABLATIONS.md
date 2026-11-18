@@ -55,8 +55,21 @@ the all-zero hard word has a valid BCH syndrome. This is not authentication.
 Tests check invariance to positive group amplitudes and group ordering, exact
 synthetic-message recovery, duplicate rejection and missing-evidence handling.
 The primary CCTA chain-weighted fusion and received-order sum remain unchanged.
-The primitive is not yet wired into every controlled selector; neither its tests
-nor its availability constitute the shared-fusion experiment.
+`last.controlled_reader.decode` now connects received-order, CCTA and calibrated
+energy selection to this same readout. Received-order requires its own fixed
+prefix/window cache; it cannot silently reuse the sliding-window candidate list.
+CCTA keeps its per-segment consistency ranking, but repeated group slots across
+segments use the highest-ranked chain (earlier segment on an exact tie) before
+equal-group fusion. This is a disclosed controlled change from primary CCTA's
+weighted segment fusion. If no consistency chain exists, raw-energy/spacing
+selection supplies groups, followed by the same shared fusion.
+
+`decode_oracle` accepts evidence already reconstructed using a true attack map
+and explicitly labels its output nonblind. It does not reconstruct that evidence
+itself. Synthetic tests recover the same known message through all four readout
+paths with identical fusion outputs; they do not establish real-video alignment.
+The full video-level crossed runner and real shared-fusion experiment remain
+pending. Neither primary results nor existing frozen workers use these controls.
 
 Acquire candidate features once, using the same frozen VAE, segmentation, window
 construction and feature normalization as `last.evaluate.extract`:
