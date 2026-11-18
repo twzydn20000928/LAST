@@ -313,6 +313,26 @@ calibrated matched-PSNR control. The first paired real-video replay has complete
 
 ## Shared-fusion per-case workflow
 
+Freeze the shared-carrier block only after the full LFG-C development grid has
+completed and selected a fidelity-matched point:
+
+```bash
+python -m last.controlled_plan --primary configs/primary_manifest.json \
+  --development configs/development_manifest.json \
+  --calibration-plan /private/lfg-c-development-plan.json \
+  --calibration-root /private/lfg-c-development \
+  --output /private/frozen-controlled-plan.json
+```
+
+This re-audits actual calibration videos/receipts, retains both writers' full400
+I2V sample lists, keeps LAST's original margin profile, and freezes four readers
+and three conditions (9,600 readouts). The CLI rejects incomplete grids, native
+LFG calibration and unmatched fidelity. It creates a plan only; it does not
+launch generation or batch extraction. Native LFG-N/CCTA rows are separate.
+The current real development grid is incomplete, so no successful full controlled
+plan is claimed. Planner tests use synthetic fidelity summaries to check coverage
+and rejection logic, not measured calibration results.
+
 ```bash
 python -m last.controlled_evaluate --run /private/completed-writer-case \
   --family hunyuan --model-dir /path/to/hunyuan-i2v \
