@@ -47,6 +47,17 @@ hypothesis, nor authentication. Primary CCTA and default raw-energy fusion keep
 their existing behavior. Synthetic bias/spacing tests verify this API only;
 real calibrated-reader results and shared-fusion crossed comparisons are pending.
 
+`last.controlled_fusion.readout` supplies a separate shared readout primitive for
+those controlled comparisons: one592-coefficient vector per unique recovered
+group, L2 normalization with floor1e-8, equal group mean, then the same BCH512.
+It rejects duplicate group slots and reports empty evidence explicitly even if
+the all-zero hard word has a valid BCH syndrome. This is not authentication.
+Tests check invariance to positive group amplitudes and group ordering, exact
+synthetic-message recovery, duplicate rejection and missing-evidence handling.
+The primary CCTA chain-weighted fusion and received-order sum remain unchanged.
+The primitive is not yet wired into every controlled selector; neither its tests
+nor its availability constitute the shared-fusion experiment.
+
 Acquire candidate features once, using the same frozen VAE, segmentation, window
 construction and feature normalization as `last.evaluate.extract`:
 
