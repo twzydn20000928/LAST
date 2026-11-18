@@ -16,7 +16,7 @@ python -m last.robustness_table --reports \
 ```
 
 This example uses checked-in partial snapshots, not live server state. It has
-actually rendered15 Hunyuan I2V,2 Hunyuan T2V and2 Wan I2V cases from their existing
+actually rendered15 Hunyuan I2V,3 Hunyuan T2V and2 Wan I2V cases from their existing
 audits. It does not compare those different pipelines as paired methods. For the
 final paper table, supply newly audited complete reports covering every required
 method and pipeline; the present example does not satisfy that requirement.

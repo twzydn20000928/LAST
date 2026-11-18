@@ -11,14 +11,14 @@
       "method": "last",
       "condition": "blur",
       "expected": 400,
-      "completed": 2,
-      "missing": 398,
+      "completed": 3,
+      "missing": 397,
       "failed": 0,
-      "correct_bits": 1024,
-      "total_bits": 1024,
+      "correct_bits": 1536,
+      "total_bits": 1536,
       "observed_bit_accuracy": 1.0,
       "final_bit_accuracy": null,
-      "exact_messages": 2,
+      "exact_messages": 3,
       "observed_message_recovery": 1.0,
       "complete": false
     },
@@ -28,14 +28,14 @@
       "method": "last",
       "condition": "clean",
       "expected": 400,
-      "completed": 2,
-      "missing": 398,
+      "completed": 3,
+      "missing": 397,
       "failed": 0,
-      "correct_bits": 1024,
-      "total_bits": 1024,
+      "correct_bits": 1536,
+      "total_bits": 1536,
       "observed_bit_accuracy": 1.0,
       "final_bit_accuracy": null,
-      "exact_messages": 2,
+      "exact_messages": 3,
       "observed_message_recovery": 1.0,
       "complete": false
     },
@@ -45,15 +45,15 @@
       "method": "last",
       "condition": "clip",
       "expected": 400,
-      "completed": 2,
-      "missing": 398,
+      "completed": 3,
+      "missing": 397,
       "failed": 0,
-      "correct_bits": 1012,
-      "total_bits": 1024,
-      "observed_bit_accuracy": 0.98828125,
+      "correct_bits": 1524,
+      "total_bits": 1536,
+      "observed_bit_accuracy": 0.9921875,
       "final_bit_accuracy": null,
-      "exact_messages": 1,
-      "observed_message_recovery": 0.5,
+      "exact_messages": 2,
+      "observed_message_recovery": 0.6666666666666666,
       "complete": false
     },
     {
@@ -62,14 +62,14 @@
       "method": "last",
       "condition": "compression",
       "expected": 400,
-      "completed": 2,
-      "missing": 398,
+      "completed": 3,
+      "missing": 397,
       "failed": 0,
-      "correct_bits": 1024,
-      "total_bits": 1024,
+      "correct_bits": 1536,
+      "total_bits": 1536,
       "observed_bit_accuracy": 1.0,
       "final_bit_accuracy": null,
-      "exact_messages": 2,
+      "exact_messages": 3,
       "observed_message_recovery": 1.0,
       "complete": false
     },
@@ -79,12 +79,12 @@
       "method": "last",
       "condition": "drop",
       "expected": 400,
-      "completed": 2,
-      "missing": 398,
+      "completed": 3,
+      "missing": 397,
       "failed": 0,
-      "correct_bits": 862,
-      "total_bits": 1024,
-      "observed_bit_accuracy": 0.841796875,
+      "correct_bits": 1351,
+      "total_bits": 1536,
+      "observed_bit_accuracy": 0.8795572916666666,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "observed_message_recovery": 0.0,
@@ -96,12 +96,12 @@
       "method": "last",
       "condition": "insert",
       "expected": 400,
-      "completed": 2,
-      "missing": 398,
+      "completed": 3,
+      "missing": 397,
       "failed": 0,
-      "correct_bits": 921,
-      "total_bits": 1024,
-      "observed_bit_accuracy": 0.8994140625,
+      "correct_bits": 1397,
+      "total_bits": 1536,
+      "observed_bit_accuracy": 0.9095052083333334,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "observed_message_recovery": 0.0,
@@ -113,14 +113,14 @@
       "method": "last",
       "condition": "noise",
       "expected": 400,
-      "completed": 2,
-      "missing": 398,
+      "completed": 3,
+      "missing": 397,
       "failed": 0,
-      "correct_bits": 1024,
-      "total_bits": 1024,
+      "correct_bits": 1536,
+      "total_bits": 1536,
       "observed_bit_accuracy": 1.0,
       "final_bit_accuracy": null,
-      "exact_messages": 2,
+      "exact_messages": 3,
       "observed_message_recovery": 1.0,
       "complete": false
     }
@@ -209,6 +209,48 @@
       "condition": "clip",
       "receipt_sha256": "a2e74059150528da443dcf233f70caf67b215abcdb4c56fbc24562e54d2f1c50",
       "video_sha256": "5ee7c4e8c0d59d45984cf5d3a475709cced2e10aca704a1e865e8df3d6eaeebf"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-002",
+      "condition": "clean",
+      "receipt_sha256": "0060750f8380e2aa3ac9e4237c47bf5bbf4683d4dc8bd3bfca8c543955ca7bc6",
+      "video_sha256": "1e1afbfabe9b4dcae58f5e5d233eda49471c6bf64750182d9c803c7c5b6bf485"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-002",
+      "condition": "noise",
+      "receipt_sha256": "5249b58349fc72063d83e39065b34d545a336233b17ac18a37851b0b2d20c2c7",
+      "video_sha256": "cd6cfcd35c8bbe08aee84cfd469c1d8ee6de13d898fcf3d3c801f5e6d4e9bfaa"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-002",
+      "condition": "compression",
+      "receipt_sha256": "6b3c4b6137855132a2bf66e58cb84a37f4f0d7d43a0cff7ec92874fbf79b586e",
+      "video_sha256": "d4822eefbf65955d684f79d02de2bf684263b81944a294406faaf402fc1c5685"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-002",
+      "condition": "blur",
+      "receipt_sha256": "48264d2033fbc0da2ff230a25b3cc81b2f2c7493fcd8640e1fc03dc93701a304",
+      "video_sha256": "abb577710323bc2a8b7101f69f1d2606fade014021071efe1c120ed6ffa12cb5"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-002",
+      "condition": "drop",
+      "receipt_sha256": "d88d9e8cb7b5f80787edd8e9901829a55c980521b82ff104e7757e97b9d841a0",
+      "video_sha256": "1bf116ef2f09d0ff284ff43172d18fd99c2c47f17ce9b7202061f68dd0ac5cb5"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-002",
+      "condition": "insert",
+      "receipt_sha256": "b8e06963b8f1214f05aca0076cb54616a702e8687011d0885a17656f190b7fe5",
+      "video_sha256": "b8fb683079de842a635188b2d008e8228b50461d4d77758deebf751b79a7a972"
+    },
+    {
+      "run": "hunyuan/t2v/last/paper-002",
+      "condition": "clip",
+      "receipt_sha256": "c596220c2dfeda554becab457e2c11f5efff8dd1c516b585d91cfb76e0fe0213",
+      "video_sha256": "b80099db38e889ca2d82cf9a2eed370d63143298aaffa1480356c56194f18637"
     }
   ],
   "quality": [
@@ -241,11 +283,26 @@
         "scope": "paired fidelity, not V-score or temporal perceptual quality"
       },
       "generation_receipt_sha256": "ad6cd3ef6961846fcf45f407aea61305d6ff7ff47b8d62a1b217a00fe179de42"
+    },
+    {
+      "video_id": "paper-002",
+      "quality": {
+        "frames": 65,
+        "rgb_mse": 0.0016938239438219374,
+        "psnr_db": 27.711317322580513,
+        "identical": false,
+        "ssim": 0.8762493726646491,
+        "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+        "reference_sha256": "527e9487df34222a23a59864b54997a88b13f5478bbc4df5641bb562809d08e7",
+        "marked_sha256": "1e1afbfabe9b4dcae58f5e5d233eda49471c6bf64750182d9c803c7c5b6bf485",
+        "scope": "paired fidelity, not V-score or temporal perceptual quality"
+      },
+      "generation_receipt_sha256": "c61111a845afd6f032138f59cbdbb4ef7b3305f88bbeb99c53934289d01a07ab"
     }
   ],
   "limitations": [
     "Partial sample, not method ranking or reproduction of manuscript averages.",
     "Exact-message recovery and bit accuracy are distinct; concurrent elapsed times are not formal efficiency."
   ],
-  "full_report_sha256": "b3f6a0a3ec881fdd1199db3c1f8fc91dc07d8f14d07c999ea2821f2e1d170063"
+  "full_report_sha256": "804aeef85cdb8b13cad4d1ec1af7d84e5c56406865775fcb307303df19e43934"
 }
