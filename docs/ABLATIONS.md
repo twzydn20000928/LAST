@@ -364,9 +364,16 @@ the performance gap.
 
 CPU tests verify received-frame selection, exclusion of foreign/duplicate
 identities, missing-group handling and both families' latent scaling with mocked
-VAE outputs. Actual GPU acquisition with this new cache CLI and the complete
-controlled comparison remain pending. The earlier `last.oracle_reader` results
-below used its original direct acquisition path, not this new CLI.
+VAE outputs. The public cache CLI and shared readout have now completed one real
+Wan I2V deletion case at revision `cc93c8e`, recorded in
+`results/controlled_oracle_real_verified.json`: 501/512 correct bits, without
+complete-message recovery. All16 groups retain some frames, but none retains
+all four; 30 missing slots use the documented same-group fill. Actual video,
+attack map, VAE, source, cache and private decoded output hashes were independently
+checked. The correct-bit count matches the older diagnostic, which does not prove
+bitwise prediction parity. This is non-blind single-case integration evidence;
+the complete controlled comparison remains pending. The earlier
+`last.oracle_reader` results below used its original direct acquisition path.
 
 `last.oracle_reader` is deliberately **not blind**: it reads the evaluator's
 true temporal edit map. It supports existing LAST and shared-codebook LFG-C

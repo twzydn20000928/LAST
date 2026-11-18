@@ -1,0 +1,27 @@
+{
+  "scope": "One actual Wan I2V deletion MP4; true-map-assisted integration, not blind performance",
+  "source_commit": "cc93c8e31961f4739f058a87c6bc21f4b666e23c",
+  "source_archive_sha256": "f3f750ba9d3bee27a68d63d2d7c5f024e115a35419d3ce217a02e61612a5c2b9",
+  "family": "wan22",
+  "mode": "i2v",
+  "video_id": "paper-000",
+  "condition": "drop",
+  "blind": false,
+  "correct_bits": 501,
+  "total_bits": 512,
+  "exact_message": false,
+  "previous_correct_bits": 501,
+  "same_correct_count": true,
+  "groups": 16,
+  "complete_groups": 0,
+  "filled_slots": 30,
+  "received_sha256": "9369e7cbb88f151f41710bea1aa7e715d1290cfe6685d81e43ed82b01de71b0a",
+  "feature_receipt_sha256": "7380a986b7e69fef851191eb9c564466e4d89fcf3354d43291231dc8807b7e87",
+  "extraction_receipt_sha256": "9d4ff17c89e3e375b7582b2fbe1734d9e841541bdf3b5f5342cdcf711b071384",
+  "private_prediction_sha256": "e6d9254e83c805eded224c0a3f75b2da586658a58c4c4888819e92e137ced1bd",
+  "limitations": [
+    "Uses true attack map; not LAST blind extraction.",
+    "Equal correct-bit counts do not prove identical decoded bits.",
+    "One case, not full crossed comparison or an efficiency measurement."
+  ]
+}
