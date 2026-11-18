@@ -1,0 +1,251 @@
+{
+  "scope": "Partial frozen400 Wan2.2 I2V LAST primary snapshot; not a completed benchmark",
+  "complete": false,
+  "artifact_verification": true,
+  "plan_sha256": "50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447",
+  "generation_source_commit": "1d331462fff777cd825e23f630b8ce3aa18b23fa",
+  "cells": [
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "blur",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 1024,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "observed_message_recovery": 1.0,
+      "complete": false
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "clean",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 1024,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "observed_message_recovery": 1.0,
+      "complete": false
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "clip",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 985,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 0.9619140625,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": 0.0,
+      "complete": false
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "compression",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 983,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 0.9599609375,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": 0.0,
+      "complete": false
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "drop",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 588,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 0.57421875,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": 0.0,
+      "complete": false
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "insert",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 800,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 0.78125,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": 0.0,
+      "complete": false
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "noise",
+      "expected": 400,
+      "completed": 2,
+      "missing": 398,
+      "failed": 0,
+      "correct_bits": 1024,
+      "total_bits": 1024,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "observed_message_recovery": 1.0,
+      "complete": false
+    }
+  ],
+  "audited_observations": [
+    {
+      "run": "wan22/i2v/last/paper-000",
+      "condition": "clean",
+      "receipt_sha256": "4b998d28e7f035a86103732949fd6f3ec23631cf085d623872efc0a5ee8fd8a3",
+      "video_sha256": "0ec5dc0b755d8b425cadc31794c2f3d20eec3c64c75db3340d60ebc9f3951b0e"
+    },
+    {
+      "run": "wan22/i2v/last/paper-000",
+      "condition": "noise",
+      "receipt_sha256": "1862190baaf37f36848679ad9ca4286cf4a00a66e0e71de5be14362a8c9a388e",
+      "video_sha256": "16c8ba27edc29aea8602e84edb7e4307e97bf338c4c23e6068ad8ffeb8daaebe"
+    },
+    {
+      "run": "wan22/i2v/last/paper-000",
+      "condition": "compression",
+      "receipt_sha256": "5389945a30f8298a84f869546afe70f6779fe9aeb0f31e2e83100e7b4cdd425a",
+      "video_sha256": "b5588c9055bdeaf253d3eb74b3f0a751f3e6706284c0a2e7e773701e05a4f647"
+    },
+    {
+      "run": "wan22/i2v/last/paper-000",
+      "condition": "blur",
+      "receipt_sha256": "e80355ff706e0f7bfe53d255863b41a009fa5fb2b93fe4d61664c58a23407dec",
+      "video_sha256": "bf6ee6d759fb6c901a03c2050f3ce56e7269ad4b744f237b911a4453be8ee365"
+    },
+    {
+      "run": "wan22/i2v/last/paper-000",
+      "condition": "drop",
+      "receipt_sha256": "b02b699db5d3a04537afab7712df0d2afa5f86ff0c065a31d3b0789033c7c94f",
+      "video_sha256": "9369e7cbb88f151f41710bea1aa7e715d1290cfe6685d81e43ed82b01de71b0a"
+    },
+    {
+      "run": "wan22/i2v/last/paper-000",
+      "condition": "insert",
+      "receipt_sha256": "31e5bdd2edaecf2e4a8ba757e5e758d3e748b85fe3de64e61e597f5766f91776",
+      "video_sha256": "5f21b4a2975161f1182d5c9baa23b214981ad18471957aca9f4871f072817df8"
+    },
+    {
+      "run": "wan22/i2v/last/paper-000",
+      "condition": "clip",
+      "receipt_sha256": "d62aad8d00f3e052213fe5548d04527ac7d6f48d3b33d2bb1c849a3d6addbdbf",
+      "video_sha256": "a1618688a0c629190c22be2dfaf102f6511e7645c7f73652f412f6de75e8cad0"
+    },
+    {
+      "run": "wan22/i2v/last/paper-001",
+      "condition": "clean",
+      "receipt_sha256": "2f4ef4bd955ec3b1a005910674ced3cf36df068855daf20aa628ad232be79112",
+      "video_sha256": "050c3d47ddafa48dfab64042023b4a3c8ddea0e8b5f392a897c5274f1423bcc8"
+    },
+    {
+      "run": "wan22/i2v/last/paper-001",
+      "condition": "noise",
+      "receipt_sha256": "ee58735ac232755a0874a84a880d9dfebe03e9f9cab40712e0e5c5b7ddcb6eba",
+      "video_sha256": "7a164948b819091de0206a71897302bc0e0a785b7116e93abc2af0f7cc56bf0f"
+    },
+    {
+      "run": "wan22/i2v/last/paper-001",
+      "condition": "compression",
+      "receipt_sha256": "61340cc387d37c35de4ff4053c7f3800c9354b2cf84004e94dc0ca8a44efba38",
+      "video_sha256": "dcb3b955fdda957e83a064bf455f0c08960fa6ea16f554bd8c2a664ecdcb0e14"
+    },
+    {
+      "run": "wan22/i2v/last/paper-001",
+      "condition": "blur",
+      "receipt_sha256": "17fce195b67d914c2a75d32b089cb3e1fd8a859847f003068c354ef5bd07dc63",
+      "video_sha256": "0e02ee3e5081ec071c33d30ebab72b6df347769f686d135857828dde47b40807"
+    },
+    {
+      "run": "wan22/i2v/last/paper-001",
+      "condition": "drop",
+      "receipt_sha256": "a66ea7e46c5d52689aa2b637db724b7b8f5c0cae13310fec9ae68d4492849ee8",
+      "video_sha256": "a90e2bdbf6b776a9dcfb95a47b78dda3b7962b4ef0350eef5d2e042a24e2df7b"
+    },
+    {
+      "run": "wan22/i2v/last/paper-001",
+      "condition": "insert",
+      "receipt_sha256": "b1d0c403748a6ce7e580143d90fd7bebbb753f8605f69fdb6327662e97c1171a",
+      "video_sha256": "c8b9c7e672d7bc318f77a44333e2e1d568f6a2b36008b9de1e359eb2f5bd7684"
+    },
+    {
+      "run": "wan22/i2v/last/paper-001",
+      "condition": "clip",
+      "receipt_sha256": "5a2c52f9cfe8514edb1073e825ef9f0997646d888c452b5bf2e3778bbfa496c4",
+      "video_sha256": "e6adb18ce59a5643ab528666c28fc570f8d83f41b2287a713c0cf10df94d8e1b"
+    }
+  ],
+  "quality": [
+    {
+      "video_id": "paper-000",
+      "quality": {
+        "frames": 65,
+        "rgb_mse": 0.0016884090711757418,
+        "psnr_db": 27.72522323213326,
+        "identical": false,
+        "ssim": 0.9249068801036548,
+        "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+        "reference_sha256": "5eb7bb4c9e19fe7a31a96f75137c3d00a7c4f5f24b51286be27c87666b021fb2",
+        "marked_sha256": "0ec5dc0b755d8b425cadc31794c2f3d20eec3c64c75db3340d60ebc9f3951b0e",
+        "scope": "paired fidelity, not V-score or temporal perceptual quality"
+      },
+      "generation_receipt_sha256": "5fccd6d70b7626d31285ef424beebbe143929f0a7abcbceda16113e1ec275561"
+    },
+    {
+      "video_id": "paper-001",
+      "quality": {
+        "frames": 65,
+        "rgb_mse": 0.0014738236346840065,
+        "psnr_db": 28.315544832790003,
+        "identical": false,
+        "ssim": 0.9263041018058591,
+        "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+        "reference_sha256": "ba42041c5097ecfeba15cb65ec4f246d914e9006ce8b05de5464ecc5b544190c",
+        "marked_sha256": "050c3d47ddafa48dfab64042023b4a3c8ddea0e8b5f392a897c5274f1423bcc8",
+        "scope": "paired fidelity, not V-score or temporal perceptual quality"
+      },
+      "generation_receipt_sha256": "7b3fe2b5f14a1aa2b299164b77722db50079895bf19b9aeca95767ac559c5e07"
+    }
+  ],
+  "limitations": [
+    "Partial sample, not method ranking or reproduction of manuscript averages.",
+    "Exact-message recovery and bit accuracy are distinct; concurrent elapsed times are not formal efficiency."
+  ],
+  "full_report_sha256": "581aa79576279083043d3327030c074c21bbdc4ba7f5169484ec10b16b9a6478"
+}
