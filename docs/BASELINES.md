@@ -584,3 +584,15 @@ correct bits). Insertion returned a different incorrect registered message
 A diagnostic CPU float32 read of the saved original initial latent recovered
 512/512 bits with the same registry. The clean-video benchmark value is
 264/512. This comparison leaves the source of the end-to-end loss unresolved.
+
+### Hunyuan T2V paired LAST and VideoMark results
+
+The [first four paired videos](../results/hunyuan_t2v_last_videomark_first_four.json)
+use matching prompts, generation seeds, 512-bit messages and temporal edit maps.
+Clean extraction recovered the entire message on four of four LAST outputs
+and two of four native VideoMark outputs. The corresponding bit accuracies
+were 2048/2048 and 1555/2048. The file covers seven conditions and contains
+the counts for each sample. All 28 VideoMark scores were recounted from the
+retained decoded bytes against their registered messages. These historical
+extraction receipts omit the decoded-byte digest. This subset covers four of
+the 400 planned samples per method.
