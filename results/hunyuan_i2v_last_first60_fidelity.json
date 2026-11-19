@@ -1,21 +1,18 @@
 {
-  "scope": "First 60 manifest entries, available Hunyuan I2V LAST paired MP4 fidelity on L40; interim coverage",
+  "scope": "First 60 manifest entries, Hunyuan I2V LAST paired MP4 fidelity on L40; full prefix, interim primary coverage",
   "family": "hunyuan",
   "mode": "i2v",
   "method": "last",
   "hardware": "L40",
   "primary_planned": 400,
   "prefix_planned": 60,
-  "missing_in_prefix": [
-    "paper-058",
-    "paper-059"
-  ],
+  "missing_in_prefix": [],
   "primary_manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
   "metric_definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
   "observed": {
-    "pairs": 58,
-    "mean_video_psnr_db": 32.217506367235536,
-    "mean_ssim": 0.9354446423809274
+    "pairs": 60,
+    "mean_video_psnr_db": 32.22330810393792,
+    "mean_ssim": 0.9354360854789802
   },
   "observed_by_dimension": {
     "Camera_Motion": {
@@ -29,9 +26,9 @@
       "mean_ssim": 0.9275209242259661
     },
     "Complex_Plot": {
-      "pairs": 18,
-      "mean_video_psnr_db": 33.04443322997516,
-      "mean_ssim": 0.9415001079056504
+      "pairs": 20,
+      "mean_video_psnr_db": 32.979145753808346,
+      "mean_ssim": 0.9408688906473365
     }
   },
   "rows": [
@@ -730,6 +727,30 @@
       "ssim": 0.9235310895394179,
       "reference_sha256": "eedf2ee12203e991f1437e296e2d07d1bba2e3d41ddad5a9051917de6f355286",
       "marked_sha256": "2483ab6b0669a0550a288586b8b6a97294d2f809d829e44d52acb7a06f710b26"
+    },
+    {
+      "video_id": "paper-058",
+      "dimension": "Complex_Plot",
+      "quality_receipt_sha256": "cf0c26f9e98b53eee01a476ca6af27e8bf3598289b743f7b37b0fbbe98664655",
+      "frames": 65,
+      "rgb_mse": 0.0006212787778785157,
+      "psnr_db": 32.06713481100659,
+      "identical": false,
+      "ssim": 0.93948176749634,
+      "reference_sha256": "35b455a2f3f34092535cd3c98b679ad77b0761ee95ebe1aae19e98d12d571927",
+      "marked_sha256": "e1f2b519f6d3f056f3f0b090ea25ea477acf2b57c08bb0f693a70005da490901"
+    },
+    {
+      "video_id": "paper-059",
+      "dimension": "Complex_Plot",
+      "quality_receipt_sha256": "9bbe15069e4abc719e5ff30c9557e7103a4f92009120995b0b9ddaba38e7be67",
+      "frames": 65,
+      "rgb_mse": 0.0005350591403281005,
+      "psnr_db": 32.71598212560734,
+      "identical": false,
+      "ssim": 0.9308941031486822,
+      "reference_sha256": "317d216173a68ea569dc5ae9de0018e1d000c94472f54635168a2ac6304ac82e",
+      "marked_sha256": "e095171b4bf4f7fd2eec0a63e228cc925b8491edbf7b3a59973fe75081a42b11"
     }
   ]
 }

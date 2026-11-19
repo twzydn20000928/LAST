@@ -201,8 +201,7 @@ scores. To reproduce a cell's observed SSIM, select entries with the same
 weight. The corresponding `cells` entry lists the expected count and missing IDs.
 
 The [first 60 Hunyuan I2V LAST sample IDs](../results/hunyuan_i2v_last_first60_fidelity.json)
-provide a worked example. The snapshot covers 58 pairs. At collection time
-`paper-058` and `paper-059` had no paired fidelity receipt. Both videos in
+provide a worked example. The snapshot covers all 60 pairs. Both videos in
 each measured pair were re-read from MP4 for the original metric, and both
 file hashes were checked against that receipt when collecting the snapshot.
 
@@ -210,8 +209,8 @@ file hashes were checked against that receipt when collecting the snapshot.
 | --- | ---: | ---: | ---: |
 | Camera Motion | 20 / 20 | 31.44 | 0.9379 |
 | Complex Landscape | 20 / 20 | 32.25 | 0.9275 |
-| Complex Plot | 18 / 20 | 33.04 | 0.9415 |
-| All observed pairs | 58 / 60 | 32.22 | 0.9354 |
+| Complex Plot | 20 / 20 | 32.98 | 0.9409 |
+| All observed pairs | 60 / 60 | 32.22 | 0.9354 |
 
 The frozen primary branch has 400 samples. These three dimensions appear
 first in manifest order, so the interim means characterize that prefix.
