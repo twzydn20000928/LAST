@@ -44,11 +44,16 @@ def build(inputs, scores):
     if len(anchors) != len(coverage['videos']):
         raise ValueError('Duplicate video in quality coverage')
     complete_inputs = coverage['complete']
+    assigned_videos = set()
     for name in sum(CATEGORIES.values(), []):
         meta = inputs/(name+'.json'); receipt = scores/name/'receipt.json'
         if not meta.exists() or not receipt.exists(): continue
         rows = json.loads(meta.read_text())
-        count = sum(len(r['video_list']) for r in rows)
+        paths = [path for row in rows for path in row['video_list']]
+        if len(set(paths)) != len(paths) or not assigned_videos.isdisjoint(paths):
+            raise ValueError('Video assigned more than once in quality dimensions')
+        assigned_videos.update(paths)
+        count = len(paths)
         required = 60 if name == 'Diversity' else 20
         if count != required: complete_inputs = False
         if name == 'Diversity' and (len(rows) != 3 or any(len(r['video_list']) != 20 for r in rows)):
@@ -64,7 +69,6 @@ def build(inputs, scores):
         sources[name] = dict(receipt_sha256=hashlib.sha256(receipt.read_bytes()).hexdigest())
         if state['status'] != 'completed':
             dimensions[name] = dict(status=state['status'], mean=None); continue
-        paths = [path for row in rows for path in row['video_list']]
         if any(path not in anchors for path in paths) or state.get('videos_sha256') != {p: anchors[p] for p in paths}:
             raise ValueError('Scored video hashes differ from the current quality inputs')
         raw = scores/name/'official_result.json'
@@ -72,7 +76,7 @@ def build(inputs, scores):
         if checked['mean'] != state.get('mean'): raise ValueError('Receipt mean differs from official raw scores')
         dimensions[name] = dict(status='completed', **checked)
         sources[name]['raw_sha256'] = hashlib.sha256(raw.read_bytes()).hexdigest()
-    result = aggregate(dimensions, complete_inputs)
+    result = aggregate(dimensions, complete_inputs and assigned_videos == set(anchors))
     result.update(family=coverage['family'],mode=coverage['mode'],method=coverage['method'],
                   source_hashes=sources, coverage_sha256=coverage_sha256)
     return result

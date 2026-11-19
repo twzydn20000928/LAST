@@ -47,3 +47,23 @@ def test_replaced_video_at_same_path_invalidates_cached_score(tmp_path):
     manifest.write_text(json.dumps(coverage))
     with pytest.raises(ValueError, match='coverage manifest'):
         build(tmp_path,tmp_path)
+
+
+def test_two_dimensions_cannot_count_the_same_sample(tmp_path):
+    video = '/runs/paper-000/marked.mp4'
+    coverage = dict(complete=False, family='hunyuan', mode='i2v', method='last',
+                    videos=[dict(path=video, sha256='a'*64)])
+    (tmp_path/'coverage.json').write_text(json.dumps(coverage))
+    for name in ('Composition', 'Camera_Motion'):
+        metadata = tmp_path/(name+'.json')
+        metadata.write_text(json.dumps([{'video_list': [video]}]))
+        folder = tmp_path/name
+        folder.mkdir()
+        state = dict(dimension=name, status='completed', mean=1,
+                     metadata_sha256=hashlib.sha256(metadata.read_bytes()).hexdigest(),
+                     videos_sha256={video: 'a'*64})
+        (folder/'receipt.json').write_text(json.dumps(state))
+        (folder/'official_result.json').write_text(json.dumps(
+            [1, [dict(video_path=video, video_results=1)]]))
+    with pytest.raises(ValueError, match='assigned more than once'):
+        build(tmp_path, tmp_path)

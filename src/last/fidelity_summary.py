@@ -52,7 +52,13 @@ def main():
         for name in ('reference','marked'):
             if hashlib.sha256((folder/(name+'.mp4')).read_bytes()).hexdigest()!=row[name+'_sha256']:raise ValueError('Quality pair video changed')
         group['rows'].append(dict(row,video_id=item['video_id']))
-        evidence.append(dict(run=item['run'],receipt_sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
+        evidence.append(dict(
+            run=item['run'], video_id=item['video_id'],
+            family=item['family'], mode=item['mode'], method=item['method'],
+            receipt_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+            **{key: row[key] for key in ('frames', 'rgb_mse', 'psnr_db', 'ssim',
+                                         'identical', 'reference_sha256', 'marked_sha256')}
+        ))
     cells=[dict(family=k[0],mode=k[1],method=k[2],**summarize(v['rows'],v['expected'])) for k,v in sorted(groups.items())]
     result=dict(scope='Paired fidelity only; not V-score, aesthetic quality or temporal perception',complete=bool(cells) and all(c['complete'] for c in cells),
                 cells=cells,receipts=evidence,plan_sha256=hashlib.sha256(a.plan.read_bytes()).hexdigest())

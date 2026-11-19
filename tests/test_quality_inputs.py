@@ -15,12 +15,18 @@ def test_quality_preparation_keeps_missing_denominator_and_auxiliary_questions(t
         questions=meta/'prompt_set/meta_info'/f'{dimension}.json';questions.parent.mkdir(parents=True,exist_ok=True);questions.write_text(json.dumps([dict(auxiliary_question='keep exact question') for _ in lines]))
     runs=tmp_path/'runs';folder=runs/'hunyuan/i2v/last/paper-000';folder.mkdir(parents=True)
     (folder/'marked.mp4').write_bytes(b'fixture')
-    (folder/'receipt.json').write_text(json.dumps(dict(status='completed',family='hunyuan',mode='i2v',method='last',marked_sha256=hashlib.sha256(b'fixture').hexdigest())))
+    row=manifest['samples'][0]
+    case=json.dumps(dict(prompt=row['prompt'],seed=row['seed'],video_id=row['id'])).encode()
+    (folder/'case.json').write_bytes(case)
+    (folder/'receipt.json').write_text(json.dumps(dict(status='completed',family='hunyuan',mode='i2v',method='last',seed=row['seed'],case_sha256=hashlib.sha256(case).hexdigest(),marked_sha256=hashlib.sha256(b'fixture').hexdigest())))
     files,report=build(manifest,meta,runs,'hunyuan','i2v','last')
     assert not report['complete'] and sum(c['expected'] for c in report['coverage'].values())==400
     assert sum(c['available'] for c in report['coverage'].values())==1
     assert report['coverage']['Diversity']['expected']==60
     assert files['Camera_Motion'][0]['auxiliary_question']=='keep exact question'
+    folder.rename(folder.with_name('paper-001'))
+    with pytest.raises(ValueError,match='frozen manifest'):
+        build(manifest,meta,runs,'hunyuan','i2v','last')
 
 
 def test_replaced_quality_video_is_rejected(tmp_path):
@@ -52,4 +58,3 @@ def test_recorded_reference_cannot_be_replaced(tmp_path):
     verified_video(tmp_path,record,True)
     (tmp_path/'reference.mp4').write_bytes(b'other')
     with pytest.raises(ValueError):verified_video(tmp_path,record,True)
-

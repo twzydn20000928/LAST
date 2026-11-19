@@ -45,6 +45,18 @@ def build(manifest,metadata_root,run_root,family,mode,method):
             valid=record.get('status') in ('completed','completed_generation_only') and record.get('family')==family and record.get('mode')==mode and record.get('method')==source_method
             if not video.is_file() or not valid:
                 coverage[dimension]['missing'].append(row['id']);continue
+            case_file = folder / 'case.json'
+            if source_method in ('sigmark', 'videoshield', 'videomark'):
+                job_name = '__'.join((family, mode, source_method, row['id']))
+                case_file = Path(run_root) / '.native-jobs' / (job_name + '.case.json')
+            case_bytes = case_file.read_bytes()
+            case = json.loads(case_bytes)
+            if (hashlib.sha256(case_bytes).hexdigest() != record.get('case_sha256')
+                    or record.get('seed') != row['seed']
+                    or case.get('video_id') != row['id']
+                    or case.get('seed') != row['seed']
+                    or case.get('prompt') != prompt):
+                raise ValueError(f"Quality sample does not match frozen manifest: {row['id']}")
             video_sha,anchor=verified_video(folder,record,method=='reference')
             item['video_list'].append(str(video.resolve()));coverage[dimension]['available']+=1
             videos.append(dict(video_id=row['id'],path=str(video.resolve()),sha256=video_sha,provenance=anchor))

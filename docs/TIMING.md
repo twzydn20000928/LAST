@@ -31,12 +31,22 @@ For the supplement's LAST length study, supply one clean MP4 of the
 specified length to each invocation. Use `--protocol supplement` with
 `--length-study-frames 65`, `129`, or `257` respectively. The runner checks the
 decoded frame count and times five complete extractions after two warmups.
+For LAST, the timing receipt also records `candidate_windows`, the number of
+windows actually encoded by the final read. The reader scans each optical-flow
+segment separately, so this count can vary between clips of the same duration.
 Report the median of the five seconds values per clip. Divide
 `peak_allocated_bytes` by 2³⁰ for GiB. PyTorch resets the allocation high-water
 mark after warmup and before the first measured read, so resident model memory
 is included. Keep the MP4 generation provenance with the timing receipt.
 The manuscript leaves construction of the longer inputs unspecified; only
 the 65-frame generation configuration is defined in the standard campaign.
+
+After collecting all three receipts with the same model, GPU, runtime and source
+revision, print the length table from the repository root:
+
+```bash
+python tools/length_timing_table.py timing/65.json timing/129.json timing/257.json
+```
 
 The above entry point covers only LAST/LFG extraction. Native extraction,
 paired generation, direct CUDA-event embedding and a randomized 30-video schedule
@@ -176,6 +186,11 @@ then reports the across-video median, quartiles and a percentile interval from
 are disclosed reconstruction choices. Repeats are never treated as independent
 videos. The caller must use the frozen randomized acquisition schedule; this
 aggregator cannot establish exclusivity or random ordering from elapsed times.
+
+For the native methods, index the clean-video run with temporal recovery off
+and the 30-frame deletion run with temporal recovery on. The summary checks the
+index condition against the recorded switch. Keep LAST length-study receipts
+in the length experiment even when the input length happens to be 65 frames.
 
 For the generation and overhead columns of supplement Table 17, pass
 `--generation` to `last.timing_summary` with an index listing `video_id`, `case`,

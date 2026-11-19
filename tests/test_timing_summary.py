@@ -42,3 +42,18 @@ def test_drop_timing_requires_the_same_surviving_frames():
             check_drop_frames({"frames": 35, "attack_map": other}, video)
     with pytest.raises(ValueError, match="surviving frames"):
         check_drop_frames({"frames": 36, "attack_map": drop}, video)
+
+
+def test_protocol_variants_cannot_enter_standard_extraction_cell():
+    sample = row('a', [1]*5)
+    sample['length_study_frames'] = 129
+    with pytest.raises(ValueError, match='Length-study'):
+        summarize([sample], ['a'])
+    sample.update(method='sigmark', length_study_frames=None, temporal=True)
+    with pytest.raises(ValueError, match='temporal recovery'):
+        summarize([sample], ['a'])
+    sample['condition'] = 'drop'
+    assert summarize([sample], ['a'])['complete']
+    sample['temporal'] = False
+    with pytest.raises(ValueError, match='temporal recovery'):
+        summarize([sample], ['a'])

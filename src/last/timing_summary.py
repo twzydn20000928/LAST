@@ -90,6 +90,11 @@ def summarize(rows, expected_ids, draws=10000, seed=0):
             raise ValueError('Invalid timing repeats')
         if row.get('mode') not in ('i2v','t2v'):
             raise ValueError('Timing receipt must declare i2v or t2v mode')
+        if row.get('length_study_frames') is not None:
+            raise ValueError('Length-study timing belongs in the separate length experiment')
+        if 'temporal' in row and row['condition'] in ('clean', 'drop'):
+            if row['temporal'] is not (row['condition'] == 'drop'):
+                raise ValueError('Native temporal recovery setting differs from indexed timing condition')
         identity_set.add((row['family'],row['mode'],row['method'],row['condition'],row['gpu']))
         values.append(dict(video_id=identity,median_seconds=float(np.median(times))))
     if len(identity_set)>1:raise ValueError('Mixed family/mode/method/condition/hardware')

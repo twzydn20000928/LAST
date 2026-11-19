@@ -97,6 +97,8 @@ def main():
                 soft, alignment = extract_lfg(frames, vae, processor, a.family, key, prepared)
             _, decoder = codec.decode(soft.cpu().numpy())
         last_read.update(frames=len(frames), route=alignment['route'], bch_success=decoder['bch_success'])
+        if a.method == 'last':
+            last_read['candidate_windows'] = alignment['candidate_windows']
 
     repeats = 2 if a.protocol == 'main' else 5
     times = measure(operation, torch.cuda.synchronize, require_exclusive, 2, repeats,

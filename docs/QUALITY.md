@@ -194,6 +194,28 @@ reported separately and must not be silently substituted. Identical pairs have
 infinite PSNR, represented by null plus an explicit infinity flag, not zero.
 This table does not supply the official V-score or perceptual/dynamic quality.
 
+The output's `receipts` list contains one entry per available pair, including
+the sample ID, method, backbone, generation mode, MP4 hashes and per-video
+scores. To reproduce a cell's observed SSIM, select entries with the same
+`family`, `mode` and `method` and average their `ssim` values with equal
+weight. The corresponding `cells` entry lists the expected count and missing IDs.
+
+The [first 60 Hunyuan I2V LAST sample IDs](../results/hunyuan_i2v_last_first60_fidelity.json)
+provide a worked example. The snapshot covers 58 pairs. At collection time
+`paper-058` and `paper-059` had no paired fidelity receipt. Both videos in
+each measured pair were re-read from MP4 for the original metric, and both
+file hashes were checked against that receipt when collecting the snapshot.
+
+| Prompt dimension | Measured / planned in prefix | Mean video PSNR (dB) | Mean SSIM |
+| --- | ---: | ---: | ---: |
+| Camera Motion | 20 / 20 | 31.44 | 0.9379 |
+| Complex Landscape | 20 / 20 | 32.25 | 0.9275 |
+| Complex Plot | 18 / 20 | 33.04 | 0.9415 |
+| All observed pairs | 58 / 60 | 32.22 | 0.9354 |
+
+The frozen primary branch has 400 samples. These three dimensions appear
+first in manifest order, so the interim means characterize that prefix.
+
 ## MMCV build compatibility work (not yet an accepted scorer environment)
 
 The upstream anatomy stack uses MMDetection 3.0, whose version check requires
@@ -355,4 +377,49 @@ Each state's `receipt.json` contains the mean and valid-video count.
 `official_result.json` contains the per-video scores. The partial-input flag
 allows the other dimensions to be absent while the sample check above requires
 full Camera Motion coverage.
+
+### Hunyuan I2V Complex Landscape pairs
+
+Use the same `PRIMARY_RUNS`, `QUALITY_METADATA` and `VBENCH` paths as above.
+Set `LANDSCAPE_OUT` to a new directory, `LLAVA` to the local LLaVA checkpoint
+directory, `QWEN` to the local Qwen checkpoint and `SIGLIP` to the local SigLIP directory. Run in the quality
+environment from the repository root. Both arms must contain the same 20
+planned sample IDs before either arm is scored.
+
+```bash
+(
+  set -eu
+  mkdir "${LANDSCAPE_OUT:?}"
+  python -c 'import json,sys; from pathlib import Path; print(json.dumps({k: str(Path(v).resolve(strict=True)) for k, v in zip(("llava", "qwen"), sys.argv[1:])}))' \
+    "${LLAVA:?}" "${QWEN:?}" > "$LANDSCAPE_OUT/submodules.json"
+  for state in last reference; do
+    inputs="$LANDSCAPE_OUT/$state-inputs"
+    python -m last.quality_inputs --manifest configs/primary_manifest.json \
+      --metadata-root "${QUALITY_METADATA:?}" --run-root "${PRIMARY_RUNS:?}" \
+      --family hunyuan --mode i2v --method "$state" --allow-partial-diagnostic --output "$inputs"
+    python - "$inputs/Complex_Landscape.json" configs/primary_manifest.json <<'PY'
+import json
+import sys
+from pathlib import Path
+
+questions, manifest = (json.loads(Path(p).read_text()) for p in sys.argv[1:])
+planned = {s["id"] for s in manifest["samples"] if s["dimension"] == "Complex_Landscape"}
+ids = [Path(video).parent.name for question in questions for video in question["video_list"]]
+if len(planned) != 20 or len(ids) != 20 or set(ids) != planned:
+    raise SystemExit("Incomplete or mismatched Complex Landscape subset")
+PY
+  done
+  for state in last reference; do
+    HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python -m last.quality_score \
+      --upstream "${VBENCH:?}" --inputs "$LANDSCAPE_OUT/$state-inputs" \
+      --dimension Complex_Landscape --submodules "$LANDSCAPE_OUT/submodules.json" \
+      --llava-siglip "${SIGLIP:?}" --llava-attention sdpa --llava-vision-batch 4 \
+      --device cuda --allow-partial-diagnostic --output "$LANDSCAPE_OUT/$state"
+  done
+)
+```
+
+For each state, read the dimension mean together with `valid_units` and
+`not_applicable_units` in `receipt.json`. Match rows in `official_result.json`
+by the parent sample directory of the video path when examining paired outcomes.
 

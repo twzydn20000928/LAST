@@ -68,7 +68,9 @@ def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,featur
     if reader=='received':
         soft=sum((codes[g].float()@value for g,value in enumerate(values)),torch.zeros(codes.shape[1]))
         return soft,{'route':'received_order','groups':len(nodes)}
-    return align(values,nodes,codes,reader=reader)
+    soft, alignment = align(values,nodes,codes,reader=reader)
+    alignment['candidate_windows'] = len(nodes)
+    return soft, alignment
 
 def extract_lfg(frames,vae,processor,family,key,prepared_carriers=None):
     from .lfg import align_received_frames,scores
