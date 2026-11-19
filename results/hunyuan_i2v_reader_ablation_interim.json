@@ -1,0 +1,1411 @@
+{
+  "complete": false,
+  "cells": [
+    {
+      "condition": "clean",
+      "variant": "full",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2560,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 5,
+      "complete": false
+    },
+    {
+      "condition": "clean",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1192,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.465625,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "clean",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2471,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.965234375,
+      "final_bit_accuracy": null,
+      "exact_messages": 1,
+      "complete": false
+    },
+    {
+      "condition": "clean",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2560,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 5,
+      "complete": false
+    },
+    {
+      "condition": "noise",
+      "variant": "full",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2508,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.9796875,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "complete": false
+    },
+    {
+      "condition": "noise",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1225,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.478515625,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "noise",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2283,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.891796875,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "noise",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2506,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.97890625,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "complete": false
+    },
+    {
+      "condition": "compression",
+      "variant": "full",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2458,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.96015625,
+      "final_bit_accuracy": null,
+      "exact_messages": 1,
+      "complete": false
+    },
+    {
+      "condition": "compression",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1279,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.499609375,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "compression",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2162,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.84453125,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "compression",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2445,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.955078125,
+      "final_bit_accuracy": null,
+      "exact_messages": 1,
+      "complete": false
+    },
+    {
+      "condition": "blur",
+      "variant": "full",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2560,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 5,
+      "complete": false
+    },
+    {
+      "condition": "blur",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1238,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.48359375,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "blur",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2307,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.901171875,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "blur",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2560,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 5,
+      "complete": false
+    },
+    {
+      "condition": "drop",
+      "variant": "full",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1902,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.74296875,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "drop",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1261,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.492578125,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "drop",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1646,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.64296875,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "drop",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1344,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.525,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "insert",
+      "variant": "full",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2224,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.86875,
+      "final_bit_accuracy": null,
+      "exact_messages": 1,
+      "complete": false
+    },
+    {
+      "condition": "insert",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1312,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.5125,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "insert",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2033,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.794140625,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "insert",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1442,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.56328125,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "clip",
+      "variant": "full",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2462,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.96171875,
+      "final_bit_accuracy": null,
+      "exact_messages": 2,
+      "complete": false
+    },
+    {
+      "condition": "clip",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1230,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.48046875,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "clip",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2247,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.877734375,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "clip",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 5,
+      "missing": 25,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 1741,
+      "total_bits": 2560,
+      "observed_bit_accuracy": 0.680078125,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    }
+  ],
+  "writer_method": "last",
+  "scope": "Reader ablations only; fixed-target writer ablation must be measured separately",
+  "subsets_sha256": "997caf75fcb9e61d09950c150023152eb851b08da5d2cead8d923a2a55bf4c41",
+  "observations": [
+    {
+      "video_id": "paper-033",
+      "condition": "blur",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "1a15a03ee3119d238c1c882b273fae7d9d51e28ced5f399fc53a08c39cd49463"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "blur",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "38e2ab187f6f68296af641cdef565f9d9c376d3b9e573206b682186a9888f8d9"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "blur",
+      "variant": "without_cgc",
+      "correct_bits": 249,
+      "receipt_sha256": "e954e604ceceaff846bfeef4452cc776b1a76395523e7851d603e981c97de4f9"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "blur",
+      "variant": "without_sws",
+      "correct_bits": 476,
+      "receipt_sha256": "41ce4ce2ae05531d38eb02b4c880a8aa8d3082d171f24ea7c6b7b733b0856e0d"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "clean",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "2c3defcffcf7d0d2926bb48616f5c60c6cd5d5b9b75d9b7379806015486fdb82"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "clean",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "04fbd3b396302be6ecc8a39653d4d43ef4e18f2ea5fdc1b4adf988417a0deadc"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "clean",
+      "variant": "without_cgc",
+      "correct_bits": 253,
+      "receipt_sha256": "5bbb2e64c137da06aae0c310023f7faf780c8a6be6c4091358f27a5233ec206b"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "clean",
+      "variant": "without_sws",
+      "correct_bits": 499,
+      "receipt_sha256": "a8b1273581a46abed17d2c711edefd597138a503b64b56e66814206ff83ec119"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "clip",
+      "variant": "full",
+      "correct_bits": 444,
+      "receipt_sha256": "403f4d0ffac948043a59211a71b96dcca935c53e52ffe67b06183c7ada66ce7c"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "clip",
+      "variant": "without_ccta",
+      "correct_bits": 426,
+      "receipt_sha256": "5b7562e1c31401215fa3b936a6ee80287d4aeaa7b6fcf4be8423ab0b77f237ea"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "clip",
+      "variant": "without_cgc",
+      "correct_bits": 241,
+      "receipt_sha256": "523727c93c7049f982a7dc8fa9b94f595c841f5337cfec90ec096384c12a917a"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "clip",
+      "variant": "without_sws",
+      "correct_bits": 417,
+      "receipt_sha256": "7cd24914b141a635b04432850643b388d3052c38a15b4ae36f3203e25136fe91"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "compression",
+      "variant": "full",
+      "correct_bits": 489,
+      "receipt_sha256": "8afd406815b68ecc59e55e47bc8084f28a63190b05118f46c305bed0087a60c6"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "compression",
+      "variant": "without_ccta",
+      "correct_bits": 483,
+      "receipt_sha256": "b1c34a379c40ddb443fc7fa8db1d383640a662a789c5f79836f46ea6f507b2a4"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "compression",
+      "variant": "without_cgc",
+      "correct_bits": 239,
+      "receipt_sha256": "2fde4668b9e94f573979a2329d39ce8a2ede5e75c2a0c16a19f3f1ac6a95805a"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "compression",
+      "variant": "without_sws",
+      "correct_bits": 437,
+      "receipt_sha256": "0b21d89b5a9f63775adb25697567db9980d73f80cdd0622c45e711af47671bec"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "drop",
+      "variant": "full",
+      "correct_bits": 386,
+      "receipt_sha256": "8b19655fd93358c34ba35d063fafc15891793fa84f448a7e6c5a260505e9fcb3"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "drop",
+      "variant": "without_ccta",
+      "correct_bits": 282,
+      "receipt_sha256": "465fea772b8666810c99bbd3b7e558d150feddf2c65ce8366f26866ebcfb4662"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "drop",
+      "variant": "without_cgc",
+      "correct_bits": 254,
+      "receipt_sha256": "14e1c7d36482be180262037d35213dd4f8cbcaa1b095f9627992dd1ecc43f893"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "drop",
+      "variant": "without_sws",
+      "correct_bits": 354,
+      "receipt_sha256": "8090cbea6bc34aa54ace3264964081f034ad4e6d233de99df95065ff0e9466a7"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "insert",
+      "variant": "full",
+      "correct_bits": 416,
+      "receipt_sha256": "3ce15dc807fe9a5b256f49adb1e57d0cb0c745f7dfeaa8584677d87fa98ce6e8"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "insert",
+      "variant": "without_ccta",
+      "correct_bits": 257,
+      "receipt_sha256": "0cf205a9dfc97c92216eaf0091ca75985cbe61126fef03e9f39a730de454e564"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "insert",
+      "variant": "without_cgc",
+      "correct_bits": 254,
+      "receipt_sha256": "8e092109051925387752a079acad57fb578c0742d14f989535caa01fa16859a4"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "insert",
+      "variant": "without_sws",
+      "correct_bits": 390,
+      "receipt_sha256": "73e6cec4920cc5492605e9385bc0922be0e85f18bbb957f68889e87aa6366180"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "noise",
+      "variant": "full",
+      "correct_bits": 505,
+      "receipt_sha256": "939c424923ffb4297c81b8db5eb458d5f38a4b3dfeb5141fb1b68e1a63cdf4e0"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "noise",
+      "variant": "without_ccta",
+      "correct_bits": 503,
+      "receipt_sha256": "91bf31e33a8e7e8403296891f2f578324b8df1b3a3989e8a9f4222b454df10f1"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "noise",
+      "variant": "without_cgc",
+      "correct_bits": 232,
+      "receipt_sha256": "6e636f8b78fe511f979ec82ec75552ba7dfcc3ccf397c94b7ba48891ce857e0b"
+    },
+    {
+      "video_id": "paper-033",
+      "condition": "noise",
+      "variant": "without_sws",
+      "correct_bits": 482,
+      "receipt_sha256": "3b1d6df54b4616935f1e10bda1657f9b1265822475c86b61ddbd9b895a6febc6"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "blur",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "a97ba34760393f11babca76c8fd0162604d164e702bd968a1abff80e5948c02e"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "blur",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "918e2316b5ef538c7c4b086ea1771251df3fea232ae0382b2c5ff78ea38c0674"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "blur",
+      "variant": "without_cgc",
+      "correct_bits": 261,
+      "receipt_sha256": "43b84fa0fffc03b9890ae325a540bf60671d756e2e88fb3a225ef7192e2a1320"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "blur",
+      "variant": "without_sws",
+      "correct_bits": 473,
+      "receipt_sha256": "5bdea0af244296117ba9a0eb914dec1f5cc88de2c7e7a763289116fa84cae765"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clean",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "b9783d57f33d62fd5025355e76d2469942557fa2e8c9a08314926a8944b79902"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clean",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "015b11e1bf3dba4aee97b76335dfbf0eec22fbec4cfe3d22f39423d2cfcd38a5"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clean",
+      "variant": "without_cgc",
+      "correct_bits": 230,
+      "receipt_sha256": "b2c4aa0d3c9e8629d98ee8e73a45ad8153504b2eed6997b2093fb573d3042da6"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clean",
+      "variant": "without_sws",
+      "correct_bits": 504,
+      "receipt_sha256": "063f5e70a10239b13050a9bfd88d8429937e020d74be9423e6bd488fbb934526"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clip",
+      "variant": "full",
+      "correct_bits": 506,
+      "receipt_sha256": "95e468cc140c6840fb0b5e8a32b6f6c9a37daa5acb0972c3f643db604241ec11"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clip",
+      "variant": "without_ccta",
+      "correct_bits": 280,
+      "receipt_sha256": "082f4bb642dc919ea4b25d110479f45c5ef6b3d82c838e7868076cc19217868f"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clip",
+      "variant": "without_cgc",
+      "correct_bits": 237,
+      "receipt_sha256": "efcc36d72b9d7242cd372fb76692c181c19b784805af4e5519d64b91a2b41302"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clip",
+      "variant": "without_sws",
+      "correct_bits": 452,
+      "receipt_sha256": "e586cb0f13596503fbb35f6007cc861b4d954a563fb23c1261f15a4a9f9f31ed"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "compression",
+      "variant": "full",
+      "correct_bits": 502,
+      "receipt_sha256": "d41a9cdfff6f6a57ff2a6a09837805ffa6f8c8a363290f4c161c935b93ef7156"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "compression",
+      "variant": "without_ccta",
+      "correct_bits": 503,
+      "receipt_sha256": "a1304ebc79440f7029dcaaf01162781f4976014ccac695d298b207f3f339c987"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "compression",
+      "variant": "without_cgc",
+      "correct_bits": 275,
+      "receipt_sha256": "cf6369f0448445b05e59d8e75ab6c4e63ac7910d84a1a0fced8ca3474c7aee88"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "compression",
+      "variant": "without_sws",
+      "correct_bits": 456,
+      "receipt_sha256": "7c53bb2ef986fcfb02b3c87ee0f9d33b8e31b8ba25560dee937a4b02951d2258"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "drop",
+      "variant": "full",
+      "correct_bits": 327,
+      "receipt_sha256": "6a141395318cfd5c8af0d0ffd145dac0103cd5724e02fcba012545c659bad842"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "drop",
+      "variant": "without_ccta",
+      "correct_bits": 270,
+      "receipt_sha256": "cf194e5560b4493ca672aafd3f8929817b50b2abb520319e56d21e7813927e20"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "drop",
+      "variant": "without_cgc",
+      "correct_bits": 273,
+      "receipt_sha256": "b58686dc027aa8f1562db10a9ff8757f5e2cf5c7fc0f1940eb10fb279713c094"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "drop",
+      "variant": "without_sws",
+      "correct_bits": 274,
+      "receipt_sha256": "d6b772a5e7082f2f2c3358aaac1be685b4a056157f33b8bea5934c87020cc40b"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "insert",
+      "variant": "full",
+      "correct_bits": 499,
+      "receipt_sha256": "bd7e806d2819bc302946f809d765f99fb1b22267745d3b243e7381beba1a21b0"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "insert",
+      "variant": "without_ccta",
+      "correct_bits": 278,
+      "receipt_sha256": "eee2a22fb377eafaf67ddcdaa8c93b19864b127fb829916685f44b7172b37bda"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "insert",
+      "variant": "without_cgc",
+      "correct_bits": 260,
+      "receipt_sha256": "4a76656b179d0a5a50c10a922b16352472e45bb9140d67660002ad5b560b04df"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "insert",
+      "variant": "without_sws",
+      "correct_bits": 494,
+      "receipt_sha256": "5189a541d848766627f1c24b02f4bfc0d5cbe746e073d194bf4b67f63dda673f"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "noise",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "f29c50d41d78e80f682626f0662d6a712fdbc789bc5b81acfa29fdc38e789818"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "noise",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "a62fe70539ba414877e161d46788e0bf1427513730cbb2ac06b1eb76640d648c"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "noise",
+      "variant": "without_cgc",
+      "correct_bits": 240,
+      "receipt_sha256": "32ce832719637273bf4a09ae8d552fdf6daff0a771d1541a44b10047e168b2d9"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "noise",
+      "variant": "without_sws",
+      "correct_bits": 475,
+      "receipt_sha256": "5247cfeda38d09ed76e483803aa1c7d55fdba4a3be55fa29609ab40bb3cebd80"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "blur",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "30f3d52ac5d9b4631ad30045d728df80ad334ec0243172a0bffd3a891bf1d622"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "blur",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "1539ef8e20ee09dcb1e1e372cb001a28d68ab5abee783c46786f775761ac1495"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "blur",
+      "variant": "without_cgc",
+      "correct_bits": 227,
+      "receipt_sha256": "c2cb18ee637dcb9b95d2e129a75ecd791e1b7bf1b1d4ba636d653f92c379652a"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "blur",
+      "variant": "without_sws",
+      "correct_bits": 413,
+      "receipt_sha256": "fbfa37551341ce2435d79b1a90c92d9e08b6e42804c8c57835e3d1234e078d38"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "clean",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "974942d885ca2bbe9384bd61bb2648e851a7c40e501be1f2dcacf9dd0b206a4b"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "clean",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "961e9c6ab2a323977769b8ff94d1046ba0875feccd73a7be31841ca81fabf77c"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "clean",
+      "variant": "without_cgc",
+      "correct_bits": 228,
+      "receipt_sha256": "74de24bb704feda8a1463fbd29faa29855ea2316b02f5c2e6f63e27aeb2188ac"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "clean",
+      "variant": "without_sws",
+      "correct_bits": 467,
+      "receipt_sha256": "9f49f1dd800eaf614610ac20ec67ba5c8d065f76bfab12ae79d4425a7463ea62"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "clip",
+      "variant": "full",
+      "correct_bits": 488,
+      "receipt_sha256": "b0589245504c47a7c8186e6b0dd6f248ed6318ed16e6dcf28594cce0a081b1e2"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "clip",
+      "variant": "without_ccta",
+      "correct_bits": 358,
+      "receipt_sha256": "8d12b4de74a9fb246566d13cc9379522a35615e5bbfefd45463ae0c77c1a8bbd"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "clip",
+      "variant": "without_cgc",
+      "correct_bits": 250,
+      "receipt_sha256": "946c5855f9d91b78a97d89977b85035c11ebc625707b7496486f00dd53b3fb8c"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "clip",
+      "variant": "without_sws",
+      "correct_bits": 470,
+      "receipt_sha256": "6118653bf2353bfceeef3b52138d82d71e92fa66f0779b10558e6107617099f6"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "compression",
+      "variant": "full",
+      "correct_bits": 472,
+      "receipt_sha256": "38fd373cdaf4523e69e14bc30664f53f0ba0e45cdf3fca3a77daed3a58e7b520"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "compression",
+      "variant": "without_ccta",
+      "correct_bits": 472,
+      "receipt_sha256": "734ba00fb89424561c9cde1f79ad17a9e8e0648d4a60622f45376849ad87526d"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "compression",
+      "variant": "without_cgc",
+      "correct_bits": 249,
+      "receipt_sha256": "6d14bebcbb8b7f77a0ed42aa6e11bf45b8eee07c0895bfcf006c23c51f1bbbfb"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "compression",
+      "variant": "without_sws",
+      "correct_bits": 370,
+      "receipt_sha256": "c5f3931e29dd8cade0f847622078c985dfe935764399da78d4a22983ee749ba5"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "drop",
+      "variant": "full",
+      "correct_bits": 393,
+      "receipt_sha256": "28e8c0128608e10de4ad6d91bca378549919ac1e61cd61b24f22cfb0b3eaf8f5"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "drop",
+      "variant": "without_ccta",
+      "correct_bits": 251,
+      "receipt_sha256": "971d8e51d560290aed27956f2bf1a936a97c061caeb3785a2241448cde587c40"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "drop",
+      "variant": "without_cgc",
+      "correct_bits": 252,
+      "receipt_sha256": "f81b5f524434ad100eb68297acefa69a38d8be68f2855a3f579f36fd34d1bcbc"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "drop",
+      "variant": "without_sws",
+      "correct_bits": 242,
+      "receipt_sha256": "03bd5b54048b9aa647a443889696f12b03796f1f77ef6e7eb4be6b2fa20a434c"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "insert",
+      "variant": "full",
+      "correct_bits": 338,
+      "receipt_sha256": "620c89c98560886fa7bbe4e6131669d01880640dd8ab27eddf6ff4acd120e1aa"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "insert",
+      "variant": "without_ccta",
+      "correct_bits": 266,
+      "receipt_sha256": "0de5e0d28d19664a2948444889ecfca6be2b30c3eb84d6f64abd26d35043d745"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "insert",
+      "variant": "without_cgc",
+      "correct_bits": 243,
+      "receipt_sha256": "a2e0ea49eff86e724b5d712e2e394c6a210d2a1d9864e1927b608ae9076e4b79"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "insert",
+      "variant": "without_sws",
+      "correct_bits": 255,
+      "receipt_sha256": "45f5ef162022d920921cd8cbb408af68cac0a2580f4ac242f7be00952d784e39"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "noise",
+      "variant": "full",
+      "correct_bits": 485,
+      "receipt_sha256": "04a09b8ea33c8006023fd614ce88a61bd67ccce4de232c61858e585358494e6a"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "noise",
+      "variant": "without_ccta",
+      "correct_bits": 485,
+      "receipt_sha256": "ddd40a1817e31ff869f93c58edde2aca5bfd466d0a70d364a480dcfb1885ef32"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "noise",
+      "variant": "without_cgc",
+      "correct_bits": 247,
+      "receipt_sha256": "a6d97456923b59eb95a73a247602c4a83dc1d8fe8f593c2900c1bd0476c330e0"
+    },
+    {
+      "video_id": "paper-043",
+      "condition": "noise",
+      "variant": "without_sws",
+      "correct_bits": 405,
+      "receipt_sha256": "305d9aa525fd3953ae168fa93c4617990c388ebff74fcfe77b388a565d436542"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "blur",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "a0b4e8b5ff452d7ccc9d8402381d3e520693c87b38b6035573d2861266de7a0a"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "blur",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "7cc51449881fe00de42f89336bc7f616b5512d5798b897bc313a99c23197c3e1"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "blur",
+      "variant": "without_cgc",
+      "correct_bits": 245,
+      "receipt_sha256": "f85aa91ef1ff3bfc10e213754a20a1ec680321f1482a02f7e17be0781f3f7a13"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "blur",
+      "variant": "without_sws",
+      "correct_bits": 451,
+      "receipt_sha256": "335d7d7c5033b10f58d4b93696874369d7adfc24e039ac5241a5fa59b9793c19"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "clean",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "ef18034eee59691358a79a6494a9fa35505976dd0b2d30a1c690face11fad54e"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "clean",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "ee5d8490678c2bea20b7f0abeac0e4d9f754a35391b8ea4612126e05262a0972"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "clean",
+      "variant": "without_cgc",
+      "correct_bits": 236,
+      "receipt_sha256": "97e0e3f34dc3e14707a55763e875e5a6d12cbe6102b50dee16cf71d5b2f04b0b"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "clean",
+      "variant": "without_sws",
+      "correct_bits": 489,
+      "receipt_sha256": "b7c9ffa019754a42a7e7b4e6fd53fe52d11d48b5195de24535f4e2dad263ee49"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "clip",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "5b7464733161382e19b49a911d389afa7754648c46e7f41227e77a37af49caec"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "clip",
+      "variant": "without_ccta",
+      "correct_bits": 280,
+      "receipt_sha256": "73aa3dce98efbe7e532b4a69cce22056e1021e527f128d411da4c4a2db702618"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "clip",
+      "variant": "without_cgc",
+      "correct_bits": 250,
+      "receipt_sha256": "4d6656488cbd9143768d5c443d9738352083264dc0c84457f2aee3f8a9b2ae20"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "clip",
+      "variant": "without_sws",
+      "correct_bits": 416,
+      "receipt_sha256": "0875fb3cb8aaa72c9a543444d43ad03af1a1915bfd95a9b684ae3f8329799779"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "compression",
+      "variant": "full",
+      "correct_bits": 483,
+      "receipt_sha256": "4df89f3411fac5c1a215bf539f7e554a988c4174318e735de7058e5eecad0a10"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "compression",
+      "variant": "without_ccta",
+      "correct_bits": 475,
+      "receipt_sha256": "08066da184e2293a5cf28ef9d6105ed37b0829fd37cb2ceb5b5b0f2694011d0c"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "compression",
+      "variant": "without_cgc",
+      "correct_bits": 243,
+      "receipt_sha256": "0b38ade3ea6e48fc24e6441de42b7464db1e453f90416705e77e68289652cfc4"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "compression",
+      "variant": "without_sws",
+      "correct_bits": 422,
+      "receipt_sha256": "e39875b664efb318d2a826a2218eade80b080ae451bbe53bd9b01f25955e0b1e"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "drop",
+      "variant": "full",
+      "correct_bits": 397,
+      "receipt_sha256": "cf3bc02c2f01db0af3f00c6d47aa6f8a32918a01ed252a4855d28624e2b117c7"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "drop",
+      "variant": "without_ccta",
+      "correct_bits": 277,
+      "receipt_sha256": "158a72c86e2d9d79b5421a791ef4da11416d902f86468e6fca423365c4689ad1"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "drop",
+      "variant": "without_cgc",
+      "correct_bits": 242,
+      "receipt_sha256": "09589a5cbacd4976deb8214f4968556c79cd540e59d1fbe18dc79e4d513d2d08"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "drop",
+      "variant": "without_sws",
+      "correct_bits": 377,
+      "receipt_sha256": "fe17b4cbf6b9566ee1ee0d9f3a4dd1ba3fb482f9381af497905cba1ae63f53a0"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "insert",
+      "variant": "full",
+      "correct_bits": 459,
+      "receipt_sha256": "e9df3fe561c7e85d3872167c0ac049e69351104713b2af3eb6c7971e7daacb36"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "insert",
+      "variant": "without_ccta",
+      "correct_bits": 348,
+      "receipt_sha256": "3bb0f96d39ed9ed49f4b0d492cc6850aa06067e40673c0ed1be165735ed35f30"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "insert",
+      "variant": "without_cgc",
+      "correct_bits": 247,
+      "receipt_sha256": "b2dd24a4146eb81d7a89edf8230143ecfd824452d542e174f1bd1d5f47702031"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "insert",
+      "variant": "without_sws",
+      "correct_bits": 394,
+      "receipt_sha256": "6df1cd37e436e2394865a9810a00eeb67c8cda83d3acad85fe04654c20368c46"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "noise",
+      "variant": "full",
+      "correct_bits": 494,
+      "receipt_sha256": "55b55ec5cd35145c11ba5a554b36d57510dc3f41269b69ef53daa79c3888e935"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "noise",
+      "variant": "without_ccta",
+      "correct_bits": 494,
+      "receipt_sha256": "3c7bd6bf7847bfc94b1c0bd65b8f3888eb658bf599d45e4b5029b41d26b3713e"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "noise",
+      "variant": "without_cgc",
+      "correct_bits": 247,
+      "receipt_sha256": "0c10b659d4bcdba86fd9bfabd7a6a38796ee228cd50420ee1030eb0c3da3927b"
+    },
+    {
+      "video_id": "paper-063",
+      "condition": "noise",
+      "variant": "without_sws",
+      "correct_bits": 431,
+      "receipt_sha256": "fbdad0176228e1e08fa01426bd508d422d8ea76a0aadc5ddcbfbcbb473e9b0c6"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "blur",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "4ae3e3e1c8eb3b47fed112ff39f4e9d3ad5b711ce95cdebba6b5ea042bd5651f"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "blur",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "0090f42faeda34e73a95cb6d9687fa9bb1afdad76b75af7b3bf6752bd50c3e25"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "blur",
+      "variant": "without_cgc",
+      "correct_bits": 256,
+      "receipt_sha256": "9a8cd254eb167b0d82ccfdb36c7f91057dd1cd32f531506abfeb2ac6fe9fe982"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "blur",
+      "variant": "without_sws",
+      "correct_bits": 494,
+      "receipt_sha256": "b8d35d23a1b89ed3faa8cd076ea5f781edb1575a486baaa9cffb306c6fe38604"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "clean",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "ef14df86dc8f4f9ddf9df296a4d5be27b1b4042cd4f5119b4c69d778946af1b4"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "clean",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "427cc40c90c62c0d3f4b946be7c718dde6385f8a95eaa8f5dd9515347fc93831"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "clean",
+      "variant": "without_cgc",
+      "correct_bits": 245,
+      "receipt_sha256": "f4cb60e1bb754fe4505a76e856e519f3ec1e0508c2999f5ea24d56080b1815a3"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "clean",
+      "variant": "without_sws",
+      "correct_bits": 512,
+      "receipt_sha256": "062c1ed12f945a265583f18dcbaa4c3b1a23c3fb4f6875f07bdedec2ce19a140"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "clip",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "f62cbf7e93ac284aea3083aee591ee9e3a8b54cd67a2fc6f855e0af7baf3d133"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "clip",
+      "variant": "without_ccta",
+      "correct_bits": 397,
+      "receipt_sha256": "23e27f01b5c7ac5468a069088198b4df6dffd4e475308b8ec886ebfe449e570a"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "clip",
+      "variant": "without_cgc",
+      "correct_bits": 252,
+      "receipt_sha256": "5ba7ed5fbc35b64cd95e72d901cd8a7a89361db8cb099a99d68a51f2a37d7ae8"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "clip",
+      "variant": "without_sws",
+      "correct_bits": 492,
+      "receipt_sha256": "1293a3f581ba65592059c7b8a98188972de78b98f1e6d7ea9496a75487d1b7dd"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "compression",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "3c3963f5ca39a41d2813b7c9296843343edf1fffe4fbf2badbf9a88e290378ca"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "compression",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "e5f11649aae936200b08371c6a2ca69e1c3180ecc0e5551b84ebf8f82fc6be04"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "compression",
+      "variant": "without_cgc",
+      "correct_bits": 273,
+      "receipt_sha256": "30c46d522941fb021e1fb98c4eb9bf181ee96b3887895dade3a9e6c83143ca05"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "compression",
+      "variant": "without_sws",
+      "correct_bits": 477,
+      "receipt_sha256": "eb00c138e391195d418ea85ee260f03de6b0e59f19b168dc7643aab088d87640"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "drop",
+      "variant": "full",
+      "correct_bits": 399,
+      "receipt_sha256": "aa3404616c182666a7732d8c3ad26728aaacfc69b994185311bcc7cd544ec31d"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "drop",
+      "variant": "without_ccta",
+      "correct_bits": 264,
+      "receipt_sha256": "bde96d74aff8232521dd7892513db1363439b11ca817298e834003eb6233a4de"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "drop",
+      "variant": "without_cgc",
+      "correct_bits": 240,
+      "receipt_sha256": "e982fe0dcbec745e8058c7457d47f654dfdc21526e3366610b84845e921c8924"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "drop",
+      "variant": "without_sws",
+      "correct_bits": 399,
+      "receipt_sha256": "e0d1d078bba0596badf58d040d51ce081a304ee2408e017a22c7a335e8319a9c"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "insert",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "680f01542b4340f026b0510b9f133152daa21fb93c822b788e230f7f600db40b"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "insert",
+      "variant": "without_ccta",
+      "correct_bits": 293,
+      "receipt_sha256": "0914509414d404fb9e00f3a30dd1b197aad1d4f5e7e67a684518a79a3c36189c"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "insert",
+      "variant": "without_cgc",
+      "correct_bits": 308,
+      "receipt_sha256": "96ee9ccd18685f1a812e7c9ca28c6455e2362c50a46d09047e23712ce7a9574c"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "insert",
+      "variant": "without_sws",
+      "correct_bits": 500,
+      "receipt_sha256": "53257942365647a903aeba82844e66de8a34d60643627b73e1e5162a4fa32636"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "noise",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "abeffae8f4d8d1aa3d9686bdbfae0b0b8bff4df4e17ac377b5cd24cabf41749e"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "noise",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "0c0e102da5da807c51313cb07a9587afcf4d057c705577e6528d01491ca4c24e"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "noise",
+      "variant": "without_cgc",
+      "correct_bits": 259,
+      "receipt_sha256": "b972ae664e919c6b0426e6945039fd755b683aa9d50c080bbc35573ce5af194c"
+    },
+    {
+      "video_id": "paper-032",
+      "condition": "noise",
+      "variant": "without_sws",
+      "correct_bits": 490,
+      "receipt_sha256": "40f130db080dd2e74dd8055f139f833d760979d02dc06b5c805532b6f03a5af1"
+    }
+  ],
+  "planned_videos": 30
+}
