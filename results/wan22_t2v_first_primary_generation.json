@@ -1,0 +1,29 @@
+{
+  "scope": "First frozen Wan T2V LAST sample; generation and decoded MP4 geometry",
+  "family": "wan22",
+  "mode": "t2v",
+  "method": "last",
+  "sample_id": "paper-000",
+  "seed": 2025,
+  "hardware": "L40",
+  "generation_receipt_sha256": "2d0ef095e74d72295f095c2c54c156f0c7472f1f288db5d9bfd68d1e72c6fe5a",
+  "case_sha256": "42e53248c96444b31efb6851de2c5fd91bb07abe01fef360fd959c6a453487ab",
+  "plan_sha256": "50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447",
+  "peak_allocated_gib": 3.9299392700195312,
+  "videos": {
+    "marked": {
+      "mp4_sha256": "f272ad4506433a2f244b16f5db1394eb1a01fe32d15681835818e6977f0a3f21",
+      "frames": 65,
+      "width": 512,
+      "height": 512,
+      "fps": 8.0
+    },
+    "reference": {
+      "mp4_sha256": "2fd72c919dca9fcf5cab07e5abb9e10ebae8edb6ce806bf55c4b9cb9b5b31d79",
+      "frames": 65,
+      "width": 512,
+      "height": 512,
+      "fps": 8.0
+    }
+  }
+}
