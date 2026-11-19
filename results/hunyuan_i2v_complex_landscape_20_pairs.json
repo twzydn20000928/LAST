@@ -1,0 +1,237 @@
+{
+  "scope": "Full Complex Landscape dimension, Hunyuan I2V, L40; paired LAST and unmarked reference",
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "arms": {
+    "last": {
+      "expected_units": 20,
+      "valid_units": 20,
+      "not_applicable_units": 0,
+      "unit": "video",
+      "mean": 0.13,
+      "all_applicable": true,
+      "receipt_sha256": "049400585e45a4bd66e611160d500ac2f47ceaa8794a19dbc49d06a0d6c6f3a9",
+      "raw_sha256": "72fd43927b028ecbd7f93b9062fdbd594188e4a14992e594572074a532fe7101",
+      "scorer_sha256": "f13eacaab226b186e9d3490ce42f4d224a618e40fdfcd3db9baeeba9a36bf983",
+      "submodules_sha256": "bed10021f524db65f2d260189bf85d1cddce30b985ea98027986fd6896d9e929"
+    },
+    "reference": {
+      "expected_units": 20,
+      "valid_units": 20,
+      "not_applicable_units": 0,
+      "unit": "video",
+      "mean": 0.13,
+      "all_applicable": true,
+      "receipt_sha256": "377b42400b5d9a14c712598e0ade79762f3682946609d92aa51b1f4b2cc45ce2",
+      "raw_sha256": "d7005a2ef0fa27e8ee676dc85a716c09b3cb102ffe3478a37d53e943eb6f5d66",
+      "scorer_sha256": "f13eacaab226b186e9d3490ce42f4d224a618e40fdfcd3db9baeeba9a36bf983",
+      "submodules_sha256": "bed10021f524db65f2d260189bf85d1cddce30b985ea98027986fd6896d9e929"
+    }
+  },
+  "per_sample": {
+    "paper-020": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "99042b897a1ebb1bcedda84bb99411a931448e773a9e4292267bd0d35f169dc5"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "b5fca53f10ca3bae497652be284a9d3934fbefb1668f783375d5fa09a21caeb5"
+      }
+    },
+    "paper-021": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "6b8f2aa099bfdca94aab3c3031525a33c4661739cad2903b9959e2ef93a5f2b1"
+      },
+      "reference": {
+        "score": 0.2,
+        "mp4_sha256": "d813f95c6b16f1165fa20b9517b6f428de8e0667d64a4282941b4f20396526a3"
+      }
+    },
+    "paper-022": {
+      "last": {
+        "score": 0.0,
+        "mp4_sha256": "353ea989973638c367b7179f2f3db151959a1c1ab8ad91a220bdf473efe23e71"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "fe59dacef3384c4f9671877d38c8e1daadc691cc5ac64a465d785ecc7a2ba828"
+      }
+    },
+    "paper-023": {
+      "last": {
+        "score": 0.0,
+        "mp4_sha256": "c07ab90fcf356a9bafafd447befc8f06146f5c5348f2df72c56e218dfc0aba2d"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "a9544a52b578aef5234b3edb477a6890518bcefb0c958ae80fb297defe403bbc"
+      }
+    },
+    "paper-024": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "7ae95903d953e7114b81d743a5840a5ac8f5427286e1dbddbdd9b0d1de2fd92c"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "be52a98b30c69db466eee083accba2c397e75d564a8205486f5aa2d664da8447"
+      }
+    },
+    "paper-025": {
+      "last": {
+        "score": 0.0,
+        "mp4_sha256": "1e93f837329a0b20da66e94238598a3b00e669a7d59c27b002c0037a5659b5d8"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "f049328fe6bcfabc8a32841b636b1c2b7670ae7e27f5e9c204b951fcd0a37f2f"
+      }
+    },
+    "paper-026": {
+      "last": {
+        "score": 0.0,
+        "mp4_sha256": "e1a76f1b28e98a6d08f59990220ac216354f7ae78c93a8e5434dd4af60a766ed"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "87aa769ed11989aa0f6a799cdda79fec13bad84fe4c9af626a30c316b13dc443"
+      }
+    },
+    "paper-027": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "c9afc978e5476599c4ec1d9476ab2597f7b66c2dca12de14df2507d7f9d95884"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "cedd8cb148d158266548b59da53a592b6bd1364bce4db5ccd0a0cba7284ad03e"
+      }
+    },
+    "paper-028": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "d14802ec7f62d7e6d05682dbe82ecdedd6d0bfaddbaf25ef0dbb206252f49609"
+      },
+      "reference": {
+        "score": 0.2,
+        "mp4_sha256": "41cef70e322f43d10284f2438bad49ce25e415c136848992da707857ea787fa5"
+      }
+    },
+    "paper-029": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "534beacbb3beac84a135929065ccfb45c788d73df807b2c1e610b595c2332e37"
+      },
+      "reference": {
+        "score": 0.2,
+        "mp4_sha256": "9f5c7d3c2491b56fe9cbe411e88844b793dd627f4ee9605539ca99b11e16020e"
+      }
+    },
+    "paper-030": {
+      "last": {
+        "score": 0.0,
+        "mp4_sha256": "61f693e835271780d5003181960aa9f9672905055d47cdd4676a90b0b8819316"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "eb2f1cba172429f9b633c362499a84e5f01facc19fbaab669550ba306c5e0a88"
+      }
+    },
+    "paper-031": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "eb063b27bcd30173177d77f38abdd682c6da8e7b4d8aae528dcc148207b474a2"
+      },
+      "reference": {
+        "score": 0.2,
+        "mp4_sha256": "44e76425f68f5d79ca72dd7c58abfabaf4f11ccdfe3db8a9d067662225194b12"
+      }
+    },
+    "paper-032": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "a38d7b99dd763e2a6a512cda684bc910fc58c17bad7f3d8bfe5f4528c471c2d0"
+      },
+      "reference": {
+        "score": 0.2,
+        "mp4_sha256": "07b0f5357979fd6b235ade6a63f45b6e3dd69f79365eb1669ff1ec7f21066fd3"
+      }
+    },
+    "paper-033": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "ad2e85b98b0dfb486c87a06f19f2e79c911caaa662b5bdbf3b271e7ac181146a"
+      },
+      "reference": {
+        "score": 0.4,
+        "mp4_sha256": "b48fde8b1e0a0e643bc06f238677fdb4ab8a3516e6fd334462113c623033e643"
+      }
+    },
+    "paper-034": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "f4dbdf1cd2f1bd1888614b98e36408175c9b663cf62ad2e7a911235ce9995cd6"
+      },
+      "reference": {
+        "score": 0.4,
+        "mp4_sha256": "bc62ac46a389f11fb80851ae980b6edd4025e968abdbdd163902bab8b7d57da3"
+      }
+    },
+    "paper-035": {
+      "last": {
+        "score": 0.4,
+        "mp4_sha256": "4ed2fc0c8e5006db5a8b042cd47630e41aaaa447e15e18647ec034ac39e292ff"
+      },
+      "reference": {
+        "score": 0.4,
+        "mp4_sha256": "7adf4766870c068cf5ddd0e269f78a88e15885130e2b883fce4365d02c83cc1d"
+      }
+    },
+    "paper-036": {
+      "last": {
+        "score": 0.0,
+        "mp4_sha256": "d858e2e69cdac6cee3838c66dd5c3329a02a5337fb6399bbb21da14411443e9a"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "2b27ca0197acfebb785ae3cd8bde94d6a9c9f7fd497b35b27489ba26c92f8345"
+      }
+    },
+    "paper-037": {
+      "last": {
+        "score": 0.0,
+        "mp4_sha256": "910f564a737af2007eb0995d831b36c4c96f995b3bdba30a71bc53d8317a5dcc"
+      },
+      "reference": {
+        "score": 0.0,
+        "mp4_sha256": "a6cdf0fd4614e5ce2713b965274b9cd7a747702c99fa9244f49c0c70c7ede883"
+      }
+    },
+    "paper-038": {
+      "last": {
+        "score": 0.0,
+        "mp4_sha256": "258e33b367be304f8d32f2c11045d5fb1810a8aba6f6c935cc9a8205fc50027f"
+      },
+      "reference": {
+        "score": 0.2,
+        "mp4_sha256": "711f6fb5c928f2fefe8822eb6f6985541c931f28d8fc1738c7686b68bb172eef"
+      }
+    },
+    "paper-039": {
+      "last": {
+        "score": 0.2,
+        "mp4_sha256": "410822c44f5c8bcb79a1c9e7f025ff08396fec1fd6a15f8920dfbc933f5ca520"
+      },
+      "reference": {
+        "score": 0.2,
+        "mp4_sha256": "4aa5b776ec32670eeda47c45c90980fb8680873aa886895dcb69508f1e6eec01"
+      }
+    }
+  },
+  "paired_counts": {
+    "higher": 3,
+    "equal": 14,
+    "lower": 3
+  }
+}

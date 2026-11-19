@@ -422,3 +422,9 @@ For each state, read the dimension mean together with `valid_units` and
 `not_applicable_units` in `receipt.json`. Match rows in `official_result.json`
 by the parent sample directory of the video path when examining paired outcomes.
 
+
+The [20 measured Complex Landscape pairs](../results/hunyuan_i2v_complex_landscape_20_pairs.json)
+scored 0.13 on average in each arm. All 40 videos received valid scores. LAST
+scored higher on three pairs, lower on three and equally on fourteen. The
+JSON records the official per-video scores and the hashes of the MP4s, raw
+outputs and scoring receipts.
