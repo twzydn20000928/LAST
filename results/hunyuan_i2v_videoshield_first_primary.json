@@ -1,0 +1,57 @@
+{
+  "scope": "First frozen Hunyuan I2V VideoShield sample; 1 of 400",
+  "video_id": "paper-000",
+  "plan_sha256": "24d2fcdc9646bb95fe7af03d3ffb981e80f0d9fdbf20698b0f7638711037086f",
+  "artifact_verification": true,
+  "rows": [
+    {
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_messages": 1,
+      "receipt_sha256": "15c65a4684813df1adadf43a18a6ebf7b80f725e1b03a42dd448284a1811c7e6"
+    },
+    {
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_messages": 1,
+      "receipt_sha256": "3edede680700359182749fa256625e72cada670baa396f133ae61eaebb03a9d8"
+    },
+    {
+      "condition": "clip",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_messages": 1,
+      "receipt_sha256": "937fa1f1fa4b358f93165ef5cdc0f8ca1b61bfd3cb7be70974eab00096b8003d"
+    },
+    {
+      "condition": "compression",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_messages": 1,
+      "receipt_sha256": "58eb17415363add52571664f4564999520ba3c4e2370d328f32264ac872b3b03"
+    },
+    {
+      "condition": "drop",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_messages": 1,
+      "receipt_sha256": "0e58ba11b42f0ba667f253f0b1dd4ad8363df2a4cfc9e97c5a12f451553a07f7"
+    },
+    {
+      "condition": "insert",
+      "correct_bits": 509,
+      "total_bits": 512,
+      "exact_messages": 0,
+      "receipt_sha256": "1e6da466aff1b46c7e0041afb32c54c3e46258dcdb3195d5f027784b59d89c40"
+    },
+    {
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_messages": 1,
+      "receipt_sha256": "fc32f05bef4a3907879088b9cdec43eb174c3fad5a28e236d59a96a11d3e69dc"
+    }
+  ]
+}
