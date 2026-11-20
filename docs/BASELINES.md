@@ -596,3 +596,15 @@ the counts for each sample. All 28 VideoMark scores were recounted from the
 retained decoded bytes against their registered messages. These historical
 extraction receipts omit the decoded-byte digest. This subset covers four of
 the 400 planned samples per method.
+
+### Hunyuan I2V VideoShield memory during generation
+
+On the shared L40, the first formal VideoShield run exhausted device memory
+during VAE decoding. The allocation request was 1.06 GiB, global free memory
+was 22.38 MiB and PyTorch had allocated 4.72 GiB under an 8 GiB process limit.
+The run had already written private initialization and template state but had
+yet to export the marked MP4. A free-memory check before model loading did
+not predict the available memory during decoding. For this configuration,
+reserve capacity through VAE decoding. Keep failed receipts and private state
+together when retrying with the original sample, seed, checkpoint and payload.
+Only a completed generation with an exported MP4 is eligible for attack scoring.
