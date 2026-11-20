@@ -1,0 +1,396 @@
+{
+  "scope": "First seven frozen Hunyuan T2V VideoMark cases",
+  "planned_videos": 400,
+  "completed_in_snapshot": 7,
+  "plan_sha256": "24d2fcdc9646bb95fe7af03d3ffb981e80f0d9fdbf20698b0f7638711037086f",
+  "artifact_verification": true,
+  "cells": [
+    {
+      "condition": "blur",
+      "correct_bits": 2031,
+      "total_bits": 3584,
+      "exact_messages": 1
+    },
+    {
+      "condition": "clean",
+      "correct_bits": 2301,
+      "total_bits": 3584,
+      "exact_messages": 2
+    },
+    {
+      "condition": "clip",
+      "correct_bits": 2056,
+      "total_bits": 3584,
+      "exact_messages": 1
+    },
+    {
+      "condition": "compression",
+      "correct_bits": 2044,
+      "total_bits": 3584,
+      "exact_messages": 1
+    },
+    {
+      "condition": "drop",
+      "correct_bits": 1791,
+      "total_bits": 3584,
+      "exact_messages": 0
+    },
+    {
+      "condition": "insert",
+      "correct_bits": 2074,
+      "total_bits": 3584,
+      "exact_messages": 1
+    },
+    {
+      "condition": "noise",
+      "correct_bits": 2298,
+      "total_bits": 3584,
+      "exact_messages": 2
+    }
+  ],
+  "observations": [
+    {
+      "video_id": "paper-000",
+      "condition": "blur",
+      "correct_bits": 264,
+      "total_bits": 512,
+      "receipt_sha256": "4c2ce840c4663720426bc8f0f2545e1d5bcf500ffa478b8c3877e84d560cd823"
+    },
+    {
+      "video_id": "paper-000",
+      "condition": "clean",
+      "correct_bits": 264,
+      "total_bits": 512,
+      "receipt_sha256": "0dc5114713561861329306852213682f9096c9ba5b727f4050ed4f332236e9bc"
+    },
+    {
+      "video_id": "paper-000",
+      "condition": "clip",
+      "correct_bits": 264,
+      "total_bits": 512,
+      "receipt_sha256": "277f569a3828cd51b4900d77fe34dcf0576ad1ff00f539445f75ca20892357cb"
+    },
+    {
+      "video_id": "paper-000",
+      "condition": "compression",
+      "correct_bits": 264,
+      "total_bits": 512,
+      "receipt_sha256": "82a226e09f6f62a2d3677c0cf134aaf2563645dd539f714084c1f7a3e8a2f6f8"
+    },
+    {
+      "video_id": "paper-000",
+      "condition": "drop",
+      "correct_bits": 264,
+      "total_bits": 512,
+      "receipt_sha256": "4ae4e59bbaf0e5f7cadf64d7db1089e15bb989bcd03873c8fcaa26e72e84494a"
+    },
+    {
+      "video_id": "paper-000",
+      "condition": "insert",
+      "correct_bits": 278,
+      "total_bits": 512,
+      "receipt_sha256": "275ee1de1177a4c7801cbbf2fdecc680aa3057fc642cf03b999603566c322ec7"
+    },
+    {
+      "video_id": "paper-000",
+      "condition": "noise",
+      "correct_bits": 264,
+      "total_bits": 512,
+      "receipt_sha256": "f3eb3fc0cb95281f61c9def3712f5ff5ab93d14add1ee7b1093b09813b338a77"
+    },
+    {
+      "video_id": "paper-001",
+      "condition": "blur",
+      "correct_bits": 251,
+      "total_bits": 512,
+      "receipt_sha256": "bb2b0e1b8977c383d03f279da87fec8053aa50fb317869631058c1860a9dc9df"
+    },
+    {
+      "video_id": "paper-001",
+      "condition": "clean",
+      "correct_bits": 267,
+      "total_bits": 512,
+      "receipt_sha256": "5d99718ef7ccac2159c091a209df0ac04f0620b5f6c25205a530cd844ea4f325"
+    },
+    {
+      "video_id": "paper-001",
+      "condition": "clip",
+      "correct_bits": 251,
+      "total_bits": 512,
+      "receipt_sha256": "a47df1a709900c436cb20ca13abcac9907f6010a11f53324f723caf5216670c5"
+    },
+    {
+      "video_id": "paper-001",
+      "condition": "compression",
+      "correct_bits": 251,
+      "total_bits": 512,
+      "receipt_sha256": "99c9889d015a5832fc061b5dfc49841d6d00835e381398d331c30f96eb202137"
+    },
+    {
+      "video_id": "paper-001",
+      "condition": "drop",
+      "correct_bits": 251,
+      "total_bits": 512,
+      "receipt_sha256": "826f225c50af4a0315337f389e3119b742d019eb7594796f4e1ba123814d8136"
+    },
+    {
+      "video_id": "paper-001",
+      "condition": "insert",
+      "correct_bits": 251,
+      "total_bits": 512,
+      "receipt_sha256": "ec24f39d3fd9cbc7d078e9bd685d074384ff10753dd8f6e5dcabc08141b7336f"
+    },
+    {
+      "video_id": "paper-001",
+      "condition": "noise",
+      "correct_bits": 251,
+      "total_bits": 512,
+      "receipt_sha256": "1554f4b1cd02941cbc12580f6818d39df0ca52ca68d96bc4866adca35ce6f201"
+    },
+    {
+      "video_id": "paper-002",
+      "condition": "blur",
+      "correct_bits": 234,
+      "total_bits": 512,
+      "receipt_sha256": "94a97555e6862247d5488a3a4b1977071f9eef44a6d34d08ec2e88efd103df4b"
+    },
+    {
+      "video_id": "paper-002",
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "receipt_sha256": "265ef63696d42ac8ef5d0cd294c94652e5273276a190a0ec45992111fb10dcf3"
+    },
+    {
+      "video_id": "paper-002",
+      "condition": "clip",
+      "correct_bits": 259,
+      "total_bits": 512,
+      "receipt_sha256": "c98cad62b47765d7c7dd42b8bf00100f32e71469db0bc6467b3de60cb4d93deb"
+    },
+    {
+      "video_id": "paper-002",
+      "condition": "compression",
+      "correct_bits": 248,
+      "total_bits": 512,
+      "receipt_sha256": "f324f86261c43f1fb1d3f0bdfe9252c9469ac5f8a03112b9941ef0c7d3c28638"
+    },
+    {
+      "video_id": "paper-002",
+      "condition": "drop",
+      "correct_bits": 263,
+      "total_bits": 512,
+      "receipt_sha256": "e1789ca26703db96627d7db0c5d23eb68f3587d32576d341361c3ec742fe7150"
+    },
+    {
+      "video_id": "paper-002",
+      "condition": "insert",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "receipt_sha256": "b1a0099cbbeb2989db4bca46326e4ca503968d5ca12aabd087b576f92e17cef5"
+    },
+    {
+      "video_id": "paper-002",
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "receipt_sha256": "b7cff8523f29454cede24ec3982f7fb8a9a67406e5e7b45beb7bd4516cf73d0f"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "receipt_sha256": "b5b9f7ac9763f510ae671d746f69c3326ad4965cbcb0350e298ce83a10606906"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "receipt_sha256": "98c611da13df5503ec028380560bc5a7ff9530e4210a556aed8ef6f0ae55bc3f"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "clip",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "receipt_sha256": "08235ad61fc10b5466771ec151e95ecb26a12d921c28e1d698d4e09c63d3348a"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "compression",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "receipt_sha256": "919a3f0d78a4d9bc33714c9f7d801eaf1cffb99f00cc48c2355ed9256357802d"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "drop",
+      "correct_bits": 244,
+      "total_bits": 512,
+      "receipt_sha256": "673cb16c9506f84b5bb4afe9b49f9ef34470edfa1138920762ec42108f0b8867"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "insert",
+      "correct_bits": 264,
+      "total_bits": 512,
+      "receipt_sha256": "ef2146e9c16db6ad8e71f13f7b55070e31ca09f488a1108fc4792f5f15ed01f9"
+    },
+    {
+      "video_id": "paper-003",
+      "condition": "noise",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "receipt_sha256": "2c80c891545e3d45677296d549c11dcec37106b6726cc12cd316895717ffa636"
+    },
+    {
+      "video_id": "paper-004",
+      "condition": "blur",
+      "correct_bits": 268,
+      "total_bits": 512,
+      "receipt_sha256": "1946fcac3a68a4a6f2b21632b23d1de5aa9cf76d06dd570086edbd3c51fd46e8"
+    },
+    {
+      "video_id": "paper-004",
+      "condition": "clean",
+      "correct_bits": 252,
+      "total_bits": 512,
+      "receipt_sha256": "2e87624970e7574aa6cf8f6616d43750ff5335a236df7ed6fb52a94ebf2a9e78"
+    },
+    {
+      "video_id": "paper-004",
+      "condition": "clip",
+      "correct_bits": 268,
+      "total_bits": 512,
+      "receipt_sha256": "8ae9f66a79ded0add257958bbeac8f1d6305d9ba44e9be049bc3ac3e1a284f7f"
+    },
+    {
+      "video_id": "paper-004",
+      "condition": "compression",
+      "correct_bits": 268,
+      "total_bits": 512,
+      "receipt_sha256": "04c6fed3b3e8d41252e554beeddf0ff07626376eabdbfc445ab1aa9725a6e144"
+    },
+    {
+      "video_id": "paper-004",
+      "condition": "drop",
+      "correct_bits": 268,
+      "total_bits": 512,
+      "receipt_sha256": "a63748832cec898bc7674e000a90c8c9a2f40ce67ae16ce9d815d9daaf79a5da"
+    },
+    {
+      "video_id": "paper-004",
+      "condition": "insert",
+      "correct_bits": 268,
+      "total_bits": 512,
+      "receipt_sha256": "bf71395ee95e22e2ddeccaec9cfa30080afc656ddc69528d413ba7f938fd75c8"
+    },
+    {
+      "video_id": "paper-004",
+      "condition": "noise",
+      "correct_bits": 258,
+      "total_bits": 512,
+      "receipt_sha256": "c60f28ebde39ff32f21bdd4d1f476afe08aab5342084d94f5a5f438d7db043ac"
+    },
+    {
+      "video_id": "paper-005",
+      "condition": "blur",
+      "correct_bits": 256,
+      "total_bits": 512,
+      "receipt_sha256": "77e488eaa2cc88e05ec3add09005232187e552de66419df73466dc896c53235f"
+    },
+    {
+      "video_id": "paper-005",
+      "condition": "clean",
+      "correct_bits": 248,
+      "total_bits": 512,
+      "receipt_sha256": "3beae5f509bc207df807b3fddfbe8e77fa33d3810ec0a0582bf561ef584a3a5b"
+    },
+    {
+      "video_id": "paper-005",
+      "condition": "clip",
+      "correct_bits": 256,
+      "total_bits": 512,
+      "receipt_sha256": "b785646dce20258c7296710bc7684ba6dc880f5dcdaa36086bad45ab1cb41146"
+    },
+    {
+      "video_id": "paper-005",
+      "condition": "compression",
+      "correct_bits": 255,
+      "total_bits": 512,
+      "receipt_sha256": "55ce3ee905646f6317d925d04f03c72ad6895a1c0aee92971a84772625e630c4"
+    },
+    {
+      "video_id": "paper-005",
+      "condition": "drop",
+      "correct_bits": 255,
+      "total_bits": 512,
+      "receipt_sha256": "ae1e47e76578ab419b85de44e8c74284d1254fe94a92e36a2811436b5377c881"
+    },
+    {
+      "video_id": "paper-005",
+      "condition": "insert",
+      "correct_bits": 255,
+      "total_bits": 512,
+      "receipt_sha256": "04faa806e8b032f46c0df28dbd7c38e96d67470f3f247908a2917f8faef09575"
+    },
+    {
+      "video_id": "paper-005",
+      "condition": "noise",
+      "correct_bits": 255,
+      "total_bits": 512,
+      "receipt_sha256": "0a225cb1a3abde34c8daaff2d34b588783f6ead46d8599b64481aa74220942bb"
+    },
+    {
+      "video_id": "paper-006",
+      "condition": "blur",
+      "correct_bits": 246,
+      "total_bits": 512,
+      "receipt_sha256": "1a6f7c7b92093cde81b32f6b984360af205633df533e906e47c57d812032be19"
+    },
+    {
+      "video_id": "paper-006",
+      "condition": "clean",
+      "correct_bits": 246,
+      "total_bits": 512,
+      "receipt_sha256": "f687878587c5a55a7c5060b76afc4ef3b0bdbb6aa3258f6d6a489078fbaee4e8"
+    },
+    {
+      "video_id": "paper-006",
+      "condition": "clip",
+      "correct_bits": 246,
+      "total_bits": 512,
+      "receipt_sha256": "5e6b6120ab0e55dd271f113dd4d6494b41715c47b8fbcae09da887f114b99444"
+    },
+    {
+      "video_id": "paper-006",
+      "condition": "compression",
+      "correct_bits": 246,
+      "total_bits": 512,
+      "receipt_sha256": "bf895faa642cda8f85b9330627920b3d0a87cdedc55fc242c44cb9d3438059f4"
+    },
+    {
+      "video_id": "paper-006",
+      "condition": "drop",
+      "correct_bits": 246,
+      "total_bits": 512,
+      "receipt_sha256": "97fe7ac42c8719cd6a9d796f16f2e0bc92f4d00c0ba7b458f1e0f7c5ba1f79df"
+    },
+    {
+      "video_id": "paper-006",
+      "condition": "insert",
+      "correct_bits": 246,
+      "total_bits": 512,
+      "receipt_sha256": "df428e424049e386fd5697e2afa779349563d647033a2e232f97324e5135828b"
+    },
+    {
+      "video_id": "paper-006",
+      "condition": "noise",
+      "correct_bits": 246,
+      "total_bits": 512,
+      "receipt_sha256": "2dbdd2ea1c1964f96b88d4062ed886502b87ec56358ebc704d8c7e9f4682f027"
+    }
+  ]
+}
