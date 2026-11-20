@@ -77,3 +77,17 @@ The exact-message column counts videos with all 512 bits correct.
 The runs share case records, payloads and realized attack maps. Their unmarked
 reference videos differ slightly after decoding (RGB PSNR 39.98–41.00 dB).
 The three-case subset has limited coverage of the planned 400 cases.
+
+### First 100 Hunyuan I2V LAST samples
+
+The [per-sample observations](../results/hunyuan_i2v_last_first100_robustness.json) span the first 100 entries in frozen manifest order. Each condition has 51,200 information bits. The prefix contains 20 samples each from Camera Motion, Complex Landscape, Complex Plot, Composition and Diversity. The full branch calls for 400 samples.
+
+| Condition | Correct bits / 51,200 | Bit accuracy | Entire 512-bit messages / 100 |
+| --- | ---: | ---: | ---: |
+| blur | 50952 | 99.52% | 80 |
+| clean | 51200 | 100.00% | 100 |
+| clip | 49941 | 97.54% | 51 |
+| compression | 49236 | 96.16% | 28 |
+| drop | 37704 | 73.64% | 1 |
+| insert | 42247 | 82.51% | 7 |
+| noise | 50013 | 97.68% | 47 |
