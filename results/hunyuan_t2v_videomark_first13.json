@@ -1,0 +1,677 @@
+{
+  "scope": "First thirteen frozen Hunyuan T2V VideoMark samples",
+  "complete": true,
+  "cells": [
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videomark",
+      "condition": "blur",
+      "expected": 13,
+      "completed": 13,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 3826,
+      "total_bits": 6656,
+      "observed_bit_accuracy": 0.5748197115384616,
+      "final_bit_accuracy": 0.5748197115384616,
+      "exact_messages": 2,
+      "observed_message_recovery": 0.15384615384615385,
+      "complete": true
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videomark",
+      "condition": "clean",
+      "expected": 13,
+      "completed": 13,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 4083,
+      "total_bits": 6656,
+      "observed_bit_accuracy": 0.6134314903846154,
+      "final_bit_accuracy": 0.6134314903846154,
+      "exact_messages": 3,
+      "observed_message_recovery": 0.23076923076923078,
+      "complete": true
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videomark",
+      "condition": "clip",
+      "expected": 13,
+      "completed": 13,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 3851,
+      "total_bits": 6656,
+      "observed_bit_accuracy": 0.5785757211538461,
+      "final_bit_accuracy": 0.5785757211538461,
+      "exact_messages": 2,
+      "observed_message_recovery": 0.15384615384615385,
+      "complete": true
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videomark",
+      "condition": "compression",
+      "expected": 13,
+      "completed": 13,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 3840,
+      "total_bits": 6656,
+      "observed_bit_accuracy": 0.5769230769230769,
+      "final_bit_accuracy": 0.5769230769230769,
+      "exact_messages": 2,
+      "observed_message_recovery": 0.15384615384615385,
+      "complete": true
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videomark",
+      "condition": "drop",
+      "expected": 13,
+      "completed": 13,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 3352,
+      "total_bits": 6656,
+      "observed_bit_accuracy": 0.5036057692307693,
+      "final_bit_accuracy": 0.5036057692307693,
+      "exact_messages": 0,
+      "observed_message_recovery": 0.0,
+      "complete": true
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videomark",
+      "condition": "insert",
+      "expected": 13,
+      "completed": 13,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 3600,
+      "total_bits": 6656,
+      "observed_bit_accuracy": 0.5408653846153846,
+      "final_bit_accuracy": 0.5408653846153846,
+      "exact_messages": 1,
+      "observed_message_recovery": 0.07692307692307693,
+      "complete": true
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videomark",
+      "condition": "noise",
+      "expected": 13,
+      "completed": 13,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 4093,
+      "total_bits": 6656,
+      "observed_bit_accuracy": 0.6149338942307693,
+      "final_bit_accuracy": 0.6149338942307693,
+      "exact_messages": 3,
+      "observed_message_recovery": 0.23076923076923078,
+      "complete": true
+    }
+  ],
+  "incomplete_observations": [],
+  "artifact_verification": true,
+  "audited_observations": [
+    {
+      "run": "hunyuan/t2v/videomark/paper-000",
+      "condition": "clean",
+      "receipt_sha256": "0dc5114713561861329306852213682f9096c9ba5b727f4050ed4f332236e9bc",
+      "video_sha256": "7f8d8e81875f1accdc66bdaba5922e063bfa7df5241842dbb44111e8cbf76215"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-000",
+      "condition": "noise",
+      "receipt_sha256": "f3eb3fc0cb95281f61c9def3712f5ff5ab93d14add1ee7b1093b09813b338a77",
+      "video_sha256": "37c4b5fb8eb67bd4b3b442cdc9a6dbe020cf5f56a13cd1987127e2e1661202ec"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-000",
+      "condition": "compression",
+      "receipt_sha256": "82a226e09f6f62a2d3677c0cf134aaf2563645dd539f714084c1f7a3e8a2f6f8",
+      "video_sha256": "9a60aa820333a36d9fc64e7ea662b1b68471da5b7d681a43b38dd47d1fa0bc43"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-000",
+      "condition": "blur",
+      "receipt_sha256": "4c2ce840c4663720426bc8f0f2545e1d5bcf500ffa478b8c3877e84d560cd823",
+      "video_sha256": "9b0f05597e1732a129e38cc4a1e1f0e122dd3fc5e03d817d49f03ab65e8c53dc"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-000",
+      "condition": "drop",
+      "receipt_sha256": "4ae4e59bbaf0e5f7cadf64d7db1089e15bb989bcd03873c8fcaa26e72e84494a",
+      "video_sha256": "02ba5a1e877b3c7837a981b8c8109c48a5abd6c7a4db1ec71ea2b9f3d21efcee"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-000",
+      "condition": "insert",
+      "receipt_sha256": "275ee1de1177a4c7801cbbf2fdecc680aa3057fc642cf03b999603566c322ec7",
+      "video_sha256": "306df612644d1f5d46b32fa16b84435a8f7037c519d17106fa2355fad5d21687"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-000",
+      "condition": "clip",
+      "receipt_sha256": "277f569a3828cd51b4900d77fe34dcf0576ad1ff00f539445f75ca20892357cb",
+      "video_sha256": "b60ec4738c1c3763ee4b4ec28d93d1c571e9a30e14530b35c2515c92b5ae7f57"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-001",
+      "condition": "clean",
+      "receipt_sha256": "5d99718ef7ccac2159c091a209df0ac04f0620b5f6c25205a530cd844ea4f325",
+      "video_sha256": "eb3f5386ab1b4db06e2504204c4792f70395d01ece7c459dcbf578d9205b7014"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-001",
+      "condition": "noise",
+      "receipt_sha256": "1554f4b1cd02941cbc12580f6818d39df0ca52ca68d96bc4866adca35ce6f201",
+      "video_sha256": "61eee39efc984cad5a2163748ba49cd34e06c6004f959da5d94301183840d3f9"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-001",
+      "condition": "compression",
+      "receipt_sha256": "99c9889d015a5832fc061b5dfc49841d6d00835e381398d331c30f96eb202137",
+      "video_sha256": "7a731f747e61781dae9e07871ca954a14bd6366dcde9dc65ce81f63bb74ef611"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-001",
+      "condition": "blur",
+      "receipt_sha256": "bb2b0e1b8977c383d03f279da87fec8053aa50fb317869631058c1860a9dc9df",
+      "video_sha256": "bb714e69f193987b2f7d03e727fa692b8708285d63f9f6dfd1ff0d35cd3bcda4"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-001",
+      "condition": "drop",
+      "receipt_sha256": "826f225c50af4a0315337f389e3119b742d019eb7594796f4e1ba123814d8136",
+      "video_sha256": "778f754c74e3298deca326d6a5ec1d11eb28bc002a61576d44f6a26e1e45e271"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-001",
+      "condition": "insert",
+      "receipt_sha256": "ec24f39d3fd9cbc7d078e9bd685d074384ff10753dd8f6e5dcabc08141b7336f",
+      "video_sha256": "ccd5fcdf65d4f36a48c280c468c0c98a523a9fa8bae3cdfe8926ae95eb3e555f"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-001",
+      "condition": "clip",
+      "receipt_sha256": "a47df1a709900c436cb20ca13abcac9907f6010a11f53324f723caf5216670c5",
+      "video_sha256": "ce864fd689dfc4f8ee36d08f2205792b1df083167d373a358087aec1fd3f39b9"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-002",
+      "condition": "clean",
+      "receipt_sha256": "265ef63696d42ac8ef5d0cd294c94652e5273276a190a0ec45992111fb10dcf3",
+      "video_sha256": "83df11c6852aa399450241215593ee751d7817d352eb71cc838cfa73122411b2"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-002",
+      "condition": "noise",
+      "receipt_sha256": "b7cff8523f29454cede24ec3982f7fb8a9a67406e5e7b45beb7bd4516cf73d0f",
+      "video_sha256": "5b0e08927a9d437a9ae036c7277cd1e941f58f5347e2746169e60fb94efcc259"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-002",
+      "condition": "compression",
+      "receipt_sha256": "f324f86261c43f1fb1d3f0bdfe9252c9469ac5f8a03112b9941ef0c7d3c28638",
+      "video_sha256": "aef4c048446337a3c77f2d8c99a98cff55197434c2f80d06fd7feb70bd8c3ea2"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-002",
+      "condition": "blur",
+      "receipt_sha256": "94a97555e6862247d5488a3a4b1977071f9eef44a6d34d08ec2e88efd103df4b",
+      "video_sha256": "5ea497e0da579c38069770a650061f2eac1bd44d2c147bb1098226206c6099e0"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-002",
+      "condition": "drop",
+      "receipt_sha256": "e1789ca26703db96627d7db0c5d23eb68f3587d32576d341361c3ec742fe7150",
+      "video_sha256": "374ecc4a85d84680b8ae62f031e69464220986ade0921c314c0b0f1124406fa4"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-002",
+      "condition": "insert",
+      "receipt_sha256": "b1a0099cbbeb2989db4bca46326e4ca503968d5ca12aabd087b576f92e17cef5",
+      "video_sha256": "4a02df869fffc0c43d7f2345617fd612e5a1261996a4f4a1f5dfbd085ead418e"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-002",
+      "condition": "clip",
+      "receipt_sha256": "c98cad62b47765d7c7dd42b8bf00100f32e71469db0bc6467b3de60cb4d93deb",
+      "video_sha256": "c556faa60df2861a62c2f8bdf9ef1478d8fd8c31c6689e53d0780f9f52c01c4f"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-003",
+      "condition": "clean",
+      "receipt_sha256": "98c611da13df5503ec028380560bc5a7ff9530e4210a556aed8ef6f0ae55bc3f",
+      "video_sha256": "362b17034f5ae3601d4604138d5ab12bd6bc3fabe4bd91f4cc2aaa15c477aa82"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-003",
+      "condition": "noise",
+      "receipt_sha256": "2c80c891545e3d45677296d549c11dcec37106b6726cc12cd316895717ffa636",
+      "video_sha256": "7a7b9867fa3eaab1e146bf14d292f8704997f165451695bc48f605f9288dd4a5"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-003",
+      "condition": "compression",
+      "receipt_sha256": "919a3f0d78a4d9bc33714c9f7d801eaf1cffb99f00cc48c2355ed9256357802d",
+      "video_sha256": "897937c6cfd633a29e655fc8f9141605ac15f70149b63452a84ab2da75a8e303"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-003",
+      "condition": "blur",
+      "receipt_sha256": "b5b9f7ac9763f510ae671d746f69c3326ad4965cbcb0350e298ce83a10606906",
+      "video_sha256": "9ad61260498aba5d4f0300e84796be42174adb7e5177250ae459283c05ad7c1f"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-003",
+      "condition": "drop",
+      "receipt_sha256": "673cb16c9506f84b5bb4afe9b49f9ef34470edfa1138920762ec42108f0b8867",
+      "video_sha256": "d00efba1ee0de9ef83d4b2d233f9d01c9348a9c4fded8f272ac9416150222f77"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-003",
+      "condition": "insert",
+      "receipt_sha256": "ef2146e9c16db6ad8e71f13f7b55070e31ca09f488a1108fc4792f5f15ed01f9",
+      "video_sha256": "4bf4d0b91b9ba7bca342f4b80c49e75d50d3cf85acee4cc858d6d5b6965e8846"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-003",
+      "condition": "clip",
+      "receipt_sha256": "08235ad61fc10b5466771ec151e95ecb26a12d921c28e1d698d4e09c63d3348a",
+      "video_sha256": "fc0d7e7711befdbe4a9a9a4421e7539f1abbbdbe86e2c71c1a39fadda599a362"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-004",
+      "condition": "clean",
+      "receipt_sha256": "2e87624970e7574aa6cf8f6616d43750ff5335a236df7ed6fb52a94ebf2a9e78",
+      "video_sha256": "10a1fd2927556e62dbef5cf1496f560eeeb9a00b2d706c8fa07f2bc6103438ce"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-004",
+      "condition": "noise",
+      "receipt_sha256": "c60f28ebde39ff32f21bdd4d1f476afe08aab5342084d94f5a5f438d7db043ac",
+      "video_sha256": "bbde1e2ab7f4bb8576c631469a92b62daca8001ad125633724884ccb45054ede"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-004",
+      "condition": "compression",
+      "receipt_sha256": "04c6fed3b3e8d41252e554beeddf0ff07626376eabdbfc445ab1aa9725a6e144",
+      "video_sha256": "ca211573681f05b9c1b9435ccc2b26bff37af50286926251df2693b798f203dc"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-004",
+      "condition": "blur",
+      "receipt_sha256": "1946fcac3a68a4a6f2b21632b23d1de5aa9cf76d06dd570086edbd3c51fd46e8",
+      "video_sha256": "d50eadf17c0d8f963eb1359c1997cd1c31b211ad30b13c413874f7ec9e205178"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-004",
+      "condition": "drop",
+      "receipt_sha256": "a63748832cec898bc7674e000a90c8c9a2f40ce67ae16ce9d815d9daaf79a5da",
+      "video_sha256": "161a94eaaa7a46bb65e65261c67a4f526f59b5851c3615e0c0fe408dc7f253f4"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-004",
+      "condition": "insert",
+      "receipt_sha256": "bf71395ee95e22e2ddeccaec9cfa30080afc656ddc69528d413ba7f938fd75c8",
+      "video_sha256": "2d68444897c23867c0804d9219c1be3589bf6079917938321625f5f6c947de8b"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-004",
+      "condition": "clip",
+      "receipt_sha256": "8ae9f66a79ded0add257958bbeac8f1d6305d9ba44e9be049bc3ac3e1a284f7f",
+      "video_sha256": "5b2fa8d0275f3f0912bee3cfbc53cb59fd9f6fcbc09015061007c7f053a5a101"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-005",
+      "condition": "clean",
+      "receipt_sha256": "3beae5f509bc207df807b3fddfbe8e77fa33d3810ec0a0582bf561ef584a3a5b",
+      "video_sha256": "d282531d9f40e78959165b453dd5710a8675cb93fd8f6500682318cc2bf6f703"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-005",
+      "condition": "noise",
+      "receipt_sha256": "0a225cb1a3abde34c8daaff2d34b588783f6ead46d8599b64481aa74220942bb",
+      "video_sha256": "cd3c9685bb582e143901d42dbdb18b82414dd124b92d26c7edc4696d05e5d04a"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-005",
+      "condition": "compression",
+      "receipt_sha256": "55ce3ee905646f6317d925d04f03c72ad6895a1c0aee92971a84772625e630c4",
+      "video_sha256": "81fffb6beb86fc024d668efc8614a01e2c4defcc93ea9446607f23a1ed6e72b4"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-005",
+      "condition": "blur",
+      "receipt_sha256": "77e488eaa2cc88e05ec3add09005232187e552de66419df73466dc896c53235f",
+      "video_sha256": "4198e7561992d1c6cf7c2525e34afd12b0865ea0c6bbb059c147b4af0dcadb37"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-005",
+      "condition": "drop",
+      "receipt_sha256": "ae1e47e76578ab419b85de44e8c74284d1254fe94a92e36a2811436b5377c881",
+      "video_sha256": "23c97eb6131d7cf8fb5b1bcec4a4c53135736b4c8063be14dc711b59d85c6ca5"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-005",
+      "condition": "insert",
+      "receipt_sha256": "04faa806e8b032f46c0df28dbd7c38e96d67470f3f247908a2917f8faef09575",
+      "video_sha256": "374669a442ea25bd05e8d65f12aee8ba5371e25318f08f4d3a5cb66f765846ed"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-005",
+      "condition": "clip",
+      "receipt_sha256": "b785646dce20258c7296710bc7684ba6dc880f5dcdaa36086bad45ab1cb41146",
+      "video_sha256": "85e2de6e65d233173cb85c634764008ac23b4016da00f0a1aeffc5e44e9ffd0b"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-006",
+      "condition": "clean",
+      "receipt_sha256": "f687878587c5a55a7c5060b76afc4ef3b0bdbb6aa3258f6d6a489078fbaee4e8",
+      "video_sha256": "2a1eb8af553fb525e8c4bfda839dba449551caacbb6ba868c946ea80b7f8648b"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-006",
+      "condition": "noise",
+      "receipt_sha256": "2dbdd2ea1c1964f96b88d4062ed886502b87ec56358ebc704d8c7e9f4682f027",
+      "video_sha256": "c097f6df5e2fcef84d0e93894c5e5d7437344785905637b7a7efcecae66e5948"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-006",
+      "condition": "compression",
+      "receipt_sha256": "bf895faa642cda8f85b9330627920b3d0a87cdedc55fc242c44cb9d3438059f4",
+      "video_sha256": "aca1314bdaf11ccb173f63cd033c224e7d92b436e37d4e8e2b9bc51ab9c1ed34"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-006",
+      "condition": "blur",
+      "receipt_sha256": "1a6f7c7b92093cde81b32f6b984360af205633df533e906e47c57d812032be19",
+      "video_sha256": "5fc2b98b0abc8ae89bdcd328d5fe8be8ec10afa373c36d60bfb7d4b9863927d8"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-006",
+      "condition": "drop",
+      "receipt_sha256": "97fe7ac42c8719cd6a9d796f16f2e0bc92f4d00c0ba7b458f1e0f7c5ba1f79df",
+      "video_sha256": "5965b1b31e9a40f000f6729adcb139fbe8f0fb1cca5cfebea0758a4e40293dd0"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-006",
+      "condition": "insert",
+      "receipt_sha256": "df428e424049e386fd5697e2afa779349563d647033a2e232f97324e5135828b",
+      "video_sha256": "29145e8da055e70cbcb330483ea93376812788d9d24ae28129f5efe7b9c417c6"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-006",
+      "condition": "clip",
+      "receipt_sha256": "5e6b6120ab0e55dd271f113dd4d6494b41715c47b8fbcae09da887f114b99444",
+      "video_sha256": "622e791ebe618076c04630a1b099ef87823bbd5195b02a2aa1107a6cf2bd5914"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-007",
+      "condition": "clean",
+      "receipt_sha256": "8f18bdcd8da8083e75c3dbec878ad5c12c676fbe73121838dfbea8c7f5ab5371",
+      "video_sha256": "781dfeaaed412f1a9d052a293cb1b6f49b9243525e3e54cf47478741d34404ce"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-007",
+      "condition": "noise",
+      "receipt_sha256": "c050a6ac0d3e164665da840e00d3a27a57baf8413b1abc49694988760039109b",
+      "video_sha256": "957d542df58550f2cd74b6895917538ad5d5e356ce16789892d86c55bbf45da0"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-007",
+      "condition": "compression",
+      "receipt_sha256": "e6dada458e2cda6d66b74a4fe6f42e717b88deecec6af587df17ebbad26858a4",
+      "video_sha256": "9dd38a278f6770b196f6840131b37a5026d9c6a3b1afa031c236e37b4bb6790a"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-007",
+      "condition": "blur",
+      "receipt_sha256": "8ffb51c8ae4d156914b9381f9bb7b039e8f927b82dae98af6564921fcde05884",
+      "video_sha256": "ff4e01126f3e20e284dbba8058b26b238ca3b33b0a12cba5bd0e3b73eaff9014"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-007",
+      "condition": "drop",
+      "receipt_sha256": "2e8fe60b6f23702389e6d375b22bda3962943bf0aed72ab1aa40820b34545750",
+      "video_sha256": "265a4d63abe9f25dfd26398d12dbbbbba6047d382fe1aebfabe717061398b257"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-007",
+      "condition": "insert",
+      "receipt_sha256": "fef501709c55c8f83bdb0e281f1749157e8de1af5ac2c247ac50171b0933a992",
+      "video_sha256": "7cb786a0af1835b8db1e70735c1063c985fd35684361a78cbaacffc80a3de00c"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-007",
+      "condition": "clip",
+      "receipt_sha256": "a59bee21b7c2af140c85bc86c475a542a64a1e9f8eb6d8a0291410f7a64a9d13",
+      "video_sha256": "9386124d6a0a8d1e35c7dca762e66eea4702964fbe8a18bb214977d7431615f2"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-008",
+      "condition": "clean",
+      "receipt_sha256": "fea3ca38fea3295da8be5a4d1bd4246afb5e543a169517b4070ed747979137a8",
+      "video_sha256": "f7ecbd9c60889527ecdaf22681641ef29c842d2909e71f6a6ff8542d305e1f52"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-008",
+      "condition": "noise",
+      "receipt_sha256": "7331c11de8f652209a17d0e27ac3ece0c920e9a1bff72688ed49f25276809b9a",
+      "video_sha256": "f982a675f2d042aca092bfeb6968059158f36d7c37588ebf0e06c08bc9633841"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-008",
+      "condition": "compression",
+      "receipt_sha256": "5ea51702290710f560a5bd7e6703087b8a5d714397da0189aaabfcec52fa359e",
+      "video_sha256": "0935dd8d21750452e84219463df091076e73d12c9670202f02d38471e96c3939"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-008",
+      "condition": "blur",
+      "receipt_sha256": "336e408207f22902c96da066f8565f3e518e65d00cff8329b8f716dae87a43dc",
+      "video_sha256": "165e642d076723ee9ff5c6f49d9a0e43da13760584ce8ab7cb2adc400d43d126"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-008",
+      "condition": "drop",
+      "receipt_sha256": "f199a038d62f4d6d2186f71c176c61da8574c9deffdee0f3f06d3a7ef20abaf3",
+      "video_sha256": "48cb36394811abfb490bd0e74575c4327768bfd25014e8e95eb649a350405771"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-008",
+      "condition": "insert",
+      "receipt_sha256": "37278dde259fcd6f7690fca56bcda7d03e918d566a1a09054aa2ad9ad079fb20",
+      "video_sha256": "127a6852522de3fbecbf0c78c9ffa33117f53115b517d102bd62d7ec20d09feb"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-008",
+      "condition": "clip",
+      "receipt_sha256": "f376b63ae568190a08bc7c9d9bc887d02bacc66fc251487ee828c50cb2bd6d88",
+      "video_sha256": "80c0b5b021158b126bcbf83db3ddb0645ed78bcc91402921d7942d70d2153948"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-009",
+      "condition": "clean",
+      "receipt_sha256": "2c547869eaa38d6216373a521ebf9cc4b0157cd97055567ae836abfce4c32a5f",
+      "video_sha256": "145e63983095a89b9772eeaafcf40001ca971d1a2223e58c44cc364ac6831d53"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-009",
+      "condition": "noise",
+      "receipt_sha256": "d224390c3dab72a9a9b434a02e8a3f252f9f2508bbca32c0c5279f6f674e6fe4",
+      "video_sha256": "129113f93bf53e7b4c6d43bea7309f1c706d5c950dfb2bb1ef71d3b98b746c0e"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-009",
+      "condition": "compression",
+      "receipt_sha256": "a3ae668d0d96aeda67b510fd04493777abd19aaeeae3519d4d54213a7aa8f3d4",
+      "video_sha256": "011ec2d031eddeb8319b9d70380ff1c0c977d054a9d5c1f7152ebb4c8c7e842e"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-009",
+      "condition": "blur",
+      "receipt_sha256": "72480f3fe9c84bc57541971013b71084da7efada5eaea4b3923c6ee43c8d0199",
+      "video_sha256": "90a11e41ba330185e55c39c63df58f8de727a00cc8ddc2047936636d8e7369f4"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-009",
+      "condition": "drop",
+      "receipt_sha256": "f97822e275bffd6cc81a1d963753ff4d257d613485ba94090eb26cf7c9527c53",
+      "video_sha256": "db14e366b255775285b398e7f779f7ca6dd44ffc052e3cffdab1e2c7d17cc3e2"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-009",
+      "condition": "insert",
+      "receipt_sha256": "422416e90ae3db6d9ace45262e6a756bfdca61c93d51a0a45b9bb82b915c5cb2",
+      "video_sha256": "9465d9fe5f997dac97359065c9c65aef3cb749017998392135e22921813c5f5d"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-009",
+      "condition": "clip",
+      "receipt_sha256": "2ddfa28c608f4267ebd46be53a5ca75c620ed50b242d59702e912e41e66a53ed",
+      "video_sha256": "ccf2e4fc65cd1da11d7b4791a94f410f7891e489b9c64ed08bab9ee3228f408b"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-010",
+      "condition": "clean",
+      "receipt_sha256": "d712391ae211d530481e0bb017ea48c8e214e9c0347240da87b2203e73b662fe",
+      "video_sha256": "d8d37c61cfd066a94ec648b6a8842e16bbeb20fa8d3b5c2561bff24b579b2449"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-010",
+      "condition": "noise",
+      "receipt_sha256": "5a2728319c2af0311d6ea5fdb534f54b66a862ec2501acee0bfdef9711548cec",
+      "video_sha256": "e54a4889f3c52dd0120874323523512548ca1f60c5d4d90e58490ec713f5291a"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-010",
+      "condition": "compression",
+      "receipt_sha256": "fc554fcb287055c4405a87b3d726dc03c4a7fc175dc7c6fa98928fc78838aa6c",
+      "video_sha256": "34cc7c71b21ce104904a593c93520e3a0fe88e5c74ad9630e258b8a8039c7e27"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-010",
+      "condition": "blur",
+      "receipt_sha256": "71c2f9ccf1cdb1c59abec011b9232d1aa9be14b73da138feb20511ef5682e2b9",
+      "video_sha256": "29485cf33805d507a74cd2256d4e86fc85968f103d78428ec6a88295a9104299"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-010",
+      "condition": "drop",
+      "receipt_sha256": "a810be644316c752519eacd66860a620a6c680eb8a086805b52d836478a3eb3f",
+      "video_sha256": "4222a9b2a310f46ef3db9770d11532dcd956e88992aa755342b4556826fc9c4e"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-010",
+      "condition": "insert",
+      "receipt_sha256": "a867b6be35afbcfa94e6767627729cf860ee5d92b0b2d9b91be002f15db66be9",
+      "video_sha256": "ed988ef4bc6b4834713efe1afa9db8009894a6d9593eebc7de7a9e005687ac29"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-010",
+      "condition": "clip",
+      "receipt_sha256": "21a1386946d53c245bded801b77e7347e81604cf9e825ff208e9b6b93bc7152f",
+      "video_sha256": "0c18c286b3cbce6aef528e144a19a0708164e44c8b08ca1742b7da10544bc401"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-011",
+      "condition": "clean",
+      "receipt_sha256": "46291489689ff87a48a4a74a48d9c8250f31af572644a59f73f7f130be9e33a7",
+      "video_sha256": "8ebc558979d04f779300e5ec1d6a659b606707523ebec30988466105f3a2ddc2"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-011",
+      "condition": "noise",
+      "receipt_sha256": "185be8be46b6c98d43da95129caecdb344434752c1ecd399e31c1eabead8f3f9",
+      "video_sha256": "0e1c71e1be0b45d16b3ccca33749b21f82bd494b6c844bbd5ddb5acee0421b80"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-011",
+      "condition": "compression",
+      "receipt_sha256": "28b62178408e46f5d58678b53dcc2fb5c35332bc6c313b1dabf472622dcf4877",
+      "video_sha256": "a6c37083e1fe4b1ef18809f31cee068b270446882543f71cc4bc650d4137c4ad"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-011",
+      "condition": "blur",
+      "receipt_sha256": "a8cddccc72cef7be57ba3b1ba928c6888fe6bfb63efadc150501dd582cb7a8aa",
+      "video_sha256": "2bdb4bd48de5ec194add69c5fd84b310a8d1d3a986c3693aa5290101bdb3bf5b"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-011",
+      "condition": "drop",
+      "receipt_sha256": "ba01d12658dce23f38bc32676238b885c99a694c84feb20b0ac5ca09e95d76b6",
+      "video_sha256": "2bb5dc4115211da6dfd0aae9a37e3a6335f5bb1705d72348ca53e531eeae0098"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-011",
+      "condition": "insert",
+      "receipt_sha256": "08b8112021d74167b0df164ea0d088ee694934d1210f57c590b4c779e72ba473",
+      "video_sha256": "23b5d7aff92c2c364319193eba70c9da597cd48f5e6fff596135ffc2fcba82e1"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-011",
+      "condition": "clip",
+      "receipt_sha256": "586eb00ecab0573da850450ff8148e8525c17efaacbc40aeb035760b5399b602",
+      "video_sha256": "187591337d8e9f49b7d8fda5e17dcc4a4a5896161f1b6d48c657aa037eb8086a"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-012",
+      "condition": "clean",
+      "receipt_sha256": "eb23252f833c23dfcd26314960e479604690dfacd2a2c3897109500d360483b3",
+      "video_sha256": "17ac19ecba03033426972e06d5731464ee9b583d541e08cd5687d62929e53671"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-012",
+      "condition": "noise",
+      "receipt_sha256": "1aec194fc076220964d7fe278e425dcc77a306ab5c4bb1a5855eb7e85e76e1f0",
+      "video_sha256": "aa8a027ab15b7342ca345f55b87dd800c87657ccc60b6dc1d34158fac6c5d73e"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-012",
+      "condition": "compression",
+      "receipt_sha256": "22653703955eb2e9576ec43c78b131058f9e6150ef26515ba6edbae099692706",
+      "video_sha256": "199d3b2bf066b480a52e5bf2156a43c162d04a72e3f525a883d8fc5a3bba5477"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-012",
+      "condition": "blur",
+      "receipt_sha256": "ec1933abb21c47805f4e5c255aa558043d1ec23127d6ec93c13b6af9c3491d33",
+      "video_sha256": "4c38d56cd8a41267c1a7c9a80477b38fb2ceac2c2650b2e64988e24879291014"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-012",
+      "condition": "drop",
+      "receipt_sha256": "5fd2cf74cffda09b851b9551bd56c7991c4d0ff1a48a9b0148a20f3b6bb0e1e7",
+      "video_sha256": "63e26a860576949907855106efbc219e04b1efa6060b1f57556c1e16fb8a25c9"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-012",
+      "condition": "insert",
+      "receipt_sha256": "94f1ced1c150871e7c5a24569180df3f571b933dc9fe8f109d18eac403783a0e",
+      "video_sha256": "382d3c317b87e4bcf1b37fecb272e4404ed19f82677938d94df8e19b778e468a"
+    },
+    {
+      "run": "hunyuan/t2v/videomark/paper-012",
+      "condition": "clip",
+      "receipt_sha256": "6a94c6ecb8eab338b3bcb75f741e6f0c23031d37fd115057061e9a72324c5c5f",
+      "video_sha256": "71f3cb5b8b12e745586ea97103e70cc5e8c417f058b713d45c4271a4a44a1d84"
+    }
+  ],
+  "planned_videos": 400,
+  "plan_sha256": "24d2fcdc9646bb95fe7af03d3ffb981e80f0d9fdbf20698b0f7638711037086f"
+}
