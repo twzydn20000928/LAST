@@ -5,28 +5,28 @@
       "condition": "clean",
       "variant": "full",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 4096,
-      "total_bits": 4096,
+      "correct_bits": 5632,
+      "total_bits": 5632,
       "observed_bit_accuracy": 1.0,
       "final_bit_accuracy": null,
-      "exact_messages": 8,
+      "exact_messages": 11,
       "complete": false
     },
     {
       "condition": "clean",
       "variant": "without_cgc",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 1947,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.475341796875,
+      "correct_bits": 2769,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.49165482954545453,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -35,13 +35,13 @@
       "condition": "clean",
       "variant": "without_sws",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 3967,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.968505859375,
+      "correct_bits": 5438,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.9655539772727273,
       "final_bit_accuracy": null,
       "exact_messages": 2,
       "complete": false
@@ -50,163 +50,163 @@
       "condition": "clean",
       "variant": "without_ccta",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 4096,
-      "total_bits": 4096,
+      "correct_bits": 5632,
+      "total_bits": 5632,
       "observed_bit_accuracy": 1.0,
+      "final_bit_accuracy": null,
+      "exact_messages": 11,
+      "complete": false
+    },
+    {
+      "condition": "noise",
+      "variant": "full",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 5464,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.9701704545454546,
+      "final_bit_accuracy": null,
+      "exact_messages": 3,
+      "complete": false
+    },
+    {
+      "condition": "noise",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2780,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.49360795454545453,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "noise",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 4957,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.8801491477272727,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "noise",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 5467,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.970703125,
+      "final_bit_accuracy": null,
+      "exact_messages": 3,
+      "complete": false
+    },
+    {
+      "condition": "compression",
+      "variant": "full",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 5315,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.9437144886363636,
+      "final_bit_accuracy": null,
+      "exact_messages": 1,
+      "complete": false
+    },
+    {
+      "condition": "compression",
+      "variant": "without_cgc",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 2842,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.5046164772727273,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "compression",
+      "variant": "without_sws",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 4691,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.8329190340909091,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "complete": false
+    },
+    {
+      "condition": "compression",
+      "variant": "without_ccta",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 5304,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.9417613636363636,
+      "final_bit_accuracy": null,
+      "exact_messages": 1,
+      "complete": false
+    },
+    {
+      "condition": "blur",
+      "variant": "full",
+      "expected": 30,
+      "completed": 11,
+      "missing": 19,
+      "failed": 0,
+      "pending": 0,
+      "correct_bits": 5597,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.9937855113636364,
       "final_bit_accuracy": null,
       "exact_messages": 8,
       "complete": false
     },
     {
-      "condition": "noise",
-      "variant": "full",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 3991,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.974365234375,
-      "final_bit_accuracy": null,
-      "exact_messages": 3,
-      "complete": false
-    },
-    {
-      "condition": "noise",
-      "variant": "without_cgc",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 2021,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.493408203125,
-      "final_bit_accuracy": null,
-      "exact_messages": 0,
-      "complete": false
-    },
-    {
-      "condition": "noise",
-      "variant": "without_sws",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 3639,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.888427734375,
-      "final_bit_accuracy": null,
-      "exact_messages": 0,
-      "complete": false
-    },
-    {
-      "condition": "noise",
-      "variant": "without_ccta",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 3993,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.974853515625,
-      "final_bit_accuracy": null,
-      "exact_messages": 3,
-      "complete": false
-    },
-    {
-      "condition": "compression",
-      "variant": "full",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 3892,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.9501953125,
-      "final_bit_accuracy": null,
-      "exact_messages": 1,
-      "complete": false
-    },
-    {
-      "condition": "compression",
-      "variant": "without_cgc",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 2057,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.502197265625,
-      "final_bit_accuracy": null,
-      "exact_messages": 0,
-      "complete": false
-    },
-    {
-      "condition": "compression",
-      "variant": "without_sws",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 3452,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.8427734375,
-      "final_bit_accuracy": null,
-      "exact_messages": 0,
-      "complete": false
-    },
-    {
-      "condition": "compression",
-      "variant": "without_ccta",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 3879,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.947021484375,
-      "final_bit_accuracy": null,
-      "exact_messages": 1,
-      "complete": false
-    },
-    {
-      "condition": "blur",
-      "variant": "full",
-      "expected": 30,
-      "completed": 8,
-      "missing": 22,
-      "failed": 0,
-      "pending": 0,
-      "correct_bits": 4074,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.99462890625,
-      "final_bit_accuracy": null,
-      "exact_messages": 6,
-      "complete": false
-    },
-    {
       "condition": "blur",
       "variant": "without_cgc",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 1999,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.488037109375,
+      "correct_bits": 2767,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.4912997159090909,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -215,13 +215,13 @@
       "condition": "blur",
       "variant": "without_sws",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 3697,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.902587890625,
+      "correct_bits": 5054,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.8973721590909091,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -230,28 +230,28 @@
       "condition": "blur",
       "variant": "without_ccta",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 4071,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.993896484375,
+      "correct_bits": 5596,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.9936079545454546,
       "final_bit_accuracy": null,
-      "exact_messages": 6,
+      "exact_messages": 8,
       "complete": false
     },
     {
       "condition": "drop",
       "variant": "full",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 3014,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.73583984375,
+      "correct_bits": 4153,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.7373934659090909,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -260,13 +260,13 @@
       "condition": "drop",
       "variant": "without_cgc",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 2006,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.48974609375,
+      "correct_bits": 2780,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.49360795454545453,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -275,13 +275,13 @@
       "condition": "drop",
       "variant": "without_sws",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 2661,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.649658203125,
+      "correct_bits": 3702,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.6573153409090909,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -290,13 +290,13 @@
       "condition": "drop",
       "variant": "without_ccta",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 2131,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.520263671875,
+      "correct_bits": 2993,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.5314275568181818,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -305,13 +305,13 @@
       "condition": "insert",
       "variant": "full",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 3498,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.85400390625,
+      "correct_bits": 4542,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.8064630681818182,
       "final_bit_accuracy": null,
       "exact_messages": 1,
       "complete": false
@@ -320,12 +320,12 @@
       "condition": "insert",
       "variant": "without_cgc",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 2064,
-      "total_bits": 4096,
+      "correct_bits": 2838,
+      "total_bits": 5632,
       "observed_bit_accuracy": 0.50390625,
       "final_bit_accuracy": null,
       "exact_messages": 0,
@@ -335,13 +335,13 @@
       "condition": "insert",
       "variant": "without_sws",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 3197,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.780517578125,
+      "correct_bits": 4174,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.7411221590909091,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -350,13 +350,13 @@
       "condition": "insert",
       "variant": "without_ccta",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 2238,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.54638671875,
+      "correct_bits": 3065,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.5442116477272727,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -365,13 +365,13 @@
       "condition": "clip",
       "variant": "full",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 3926,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.95849609375,
+      "correct_bits": 5397,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.9582741477272727,
       "final_bit_accuracy": null,
       "exact_messages": 3,
       "complete": false
@@ -380,13 +380,13 @@
       "condition": "clip",
       "variant": "without_cgc",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 2007,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.489990234375,
+      "correct_bits": 2780,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.49360795454545453,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -395,13 +395,13 @@
       "condition": "clip",
       "variant": "without_sws",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 3619,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.883544921875,
+      "correct_bits": 4917,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.873046875,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -410,13 +410,13 @@
       "condition": "clip",
       "variant": "without_ccta",
       "expected": 30,
-      "completed": 8,
-      "missing": 22,
+      "completed": 11,
+      "missing": 19,
       "failed": 0,
       "pending": 0,
-      "correct_bits": 2771,
-      "total_bits": 4096,
-      "observed_bit_accuracy": 0.676513671875,
+      "correct_bits": 3705,
+      "total_bits": 5632,
+      "observed_bit_accuracy": 0.6578480113636364,
       "final_bit_accuracy": null,
       "exact_messages": 0,
       "complete": false
@@ -425,7 +425,6 @@
   "writer_method": "last",
   "scope": "Reader ablations only; fixed-target writer ablation must be measured separately",
   "server_subsets_sha256": "df8d0c7a46e44acfe5010033e2da6c07062e8362f397df4f97669e8081f688f0",
-  "subsets_sha256": "997caf75fcb9e61d09950c150023152eb851b08da5d2cead8d923a2a55bf4c41",
   "observations": [
     {
       "video_id": "paper-071",
@@ -1016,6 +1015,202 @@
       "receipt_sha256": "115a518bb8d16c554343a498caf2010aa827de847318b83ac496ab9af6d08af3"
     },
     {
+      "video_id": "paper-146",
+      "condition": "blur",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "d36d024344241295bc2112177fc3f77f1ec3923bb55cb93f8822e70c18c04376"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "blur",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "e36487bf7d1ffb1ad537257baed0555043ea78a6fe047220e19a710a1bc5377c"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "blur",
+      "variant": "without_cgc",
+      "correct_bits": 254,
+      "receipt_sha256": "1d198d4922c267313214cf34bb1699d340c2d3b221f58cc74a3a54b1a4183ad3"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "blur",
+      "variant": "without_sws",
+      "correct_bits": 462,
+      "receipt_sha256": "d19593fb4002808981c4133f30f7fcaee35e9222f1a08920b911a0ab68f244c3"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "clean",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "7199ad1b6f3abae5074c0fa3a85854c4499fe11590d45be76159754104ba5219"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "clean",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "0d9609236e85880ee662fa862d2ddfaf3c4deb137ef8b3ed14398f6e08985d9f"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "clean",
+      "variant": "without_cgc",
+      "correct_bits": 278,
+      "receipt_sha256": "90dbc2e8bbe74924ca3a92c20e21a2307e7b0121f9765344a12ad9af6d2ac4c0"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "clean",
+      "variant": "without_sws",
+      "correct_bits": 494,
+      "receipt_sha256": "969bed9b4438eba79d7a42915445a540817e2e3045b375e2115bd31e7215e575"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "clip",
+      "variant": "full",
+      "correct_bits": 504,
+      "receipt_sha256": "a9259de616bbdc8928522f2670138f8d9b9b611f95ba65cace2c02ea9ec59cd2"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "clip",
+      "variant": "without_ccta",
+      "correct_bits": 380,
+      "receipt_sha256": "576869c6976ac2aa1f398aade86fbc39d5eb8ed53f651cc9c49634c04d5dbb2b"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "clip",
+      "variant": "without_cgc",
+      "correct_bits": 251,
+      "receipt_sha256": "c87140b1f9057190caeb3f35a23ad31e18df230c3f94c6f922339973b7e34c0b"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "clip",
+      "variant": "without_sws",
+      "correct_bits": 412,
+      "receipt_sha256": "7ca837e539c9588a13fd826108338b87945a7569bdd82d60a3d8cd13ce41941c"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "compression",
+      "variant": "full",
+      "correct_bits": 495,
+      "receipt_sha256": "2135b3952818bc5e567fb1f8753b8f73d89d055741c753b748fdd3985101875f"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "compression",
+      "variant": "without_ccta",
+      "correct_bits": 496,
+      "receipt_sha256": "e84501810f6d4a60bbfdc23dfd6ab257ecd21aed455b8599578143f8c2f79f19"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "compression",
+      "variant": "without_cgc",
+      "correct_bits": 273,
+      "receipt_sha256": "b649fc707a384a1620314d72a6a7103cf1ff94637bb2602e6bbf9590101bcc26"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "compression",
+      "variant": "without_sws",
+      "correct_bits": 430,
+      "receipt_sha256": "8d39129f5e0ceeeac4727e36afafa194455baaf534728b725ba58eb1947233cc"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "drop",
+      "variant": "full",
+      "correct_bits": 376,
+      "receipt_sha256": "85e9c44444e88713d78d081523286d8af8d72e900e01140ec9ba5ea046a7c28f"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "drop",
+      "variant": "without_ccta",
+      "correct_bits": 281,
+      "receipt_sha256": "c46378f7a2fd23ee4e483965abfc90f38ae0dc07a3cdfdc2b54db863e914311f"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "drop",
+      "variant": "without_cgc",
+      "correct_bits": 267,
+      "receipt_sha256": "3884eff4beb1b63c4c36b770d40367e7b85e2088396125f9619bcd76e5104d51"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "drop",
+      "variant": "without_sws",
+      "correct_bits": 351,
+      "receipt_sha256": "5bd2d3baeed57e7c25527c6f3a7f5d3f067efb44fafdc52acd9bdc55a481cd9d"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "insert",
+      "variant": "full",
+      "correct_bits": 382,
+      "receipt_sha256": "6dc27d8c9876bf172e6466ca807d4e16453e50103109cfe5362141d743c3578b"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "insert",
+      "variant": "without_ccta",
+      "correct_bits": 294,
+      "receipt_sha256": "eb229149ca6a4b04d43cde6ecb8511cee68642e8e31ad907cc8f515d7980c51c"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "insert",
+      "variant": "without_cgc",
+      "correct_bits": 263,
+      "receipt_sha256": "7fc6268c2bb4ed5339b51d62570b070e718cc9c3fdc6b9f65cc82a45137ca651"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "insert",
+      "variant": "without_sws",
+      "correct_bits": 338,
+      "receipt_sha256": "8562e0ae16196d3af9600c2b48cd979430787a1cbd940f8264efddce33cfb6d9"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "noise",
+      "variant": "full",
+      "correct_bits": 504,
+      "receipt_sha256": "b68756fd9032f884e19eb532c84e68ee5a8ba73631674627ca565c679ecba448"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "noise",
+      "variant": "without_ccta",
+      "correct_bits": 505,
+      "receipt_sha256": "4cb5da5f57fc9b0ad4c8dc8ccd4718044947c91c7b4dff33442c9c7bbcf337ec"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "noise",
+      "variant": "without_cgc",
+      "correct_bits": 274,
+      "receipt_sha256": "3ba71ad3c4cf18fdcda5831248f43d2bfb73a99254857f89cd26f40faa609132"
+    },
+    {
+      "video_id": "paper-146",
+      "condition": "noise",
+      "variant": "without_sws",
+      "correct_bits": 445,
+      "receipt_sha256": "3a60ab7f674a26749b9486af1a094ab1bb5c766f9c91956f259efda4e11d189f"
+    },
+    {
       "video_id": "paper-003",
       "condition": "blur",
       "variant": "full",
@@ -1604,6 +1799,202 @@
       "receipt_sha256": "fbdad0176228e1e08fa01426bd508d422d8ea76a0aadc5ddcbfbcbb473e9b0c6"
     },
     {
+      "video_id": "paper-160",
+      "condition": "blur",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "9a757a50a70d97828f43ff09f0cd3e8b0b6181e4a413a821b1461a3b59fccf82"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "blur",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "af8a25b9824bdca2c7772f142e55ff90c32db3b408a229d608621639a3bf2923"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "blur",
+      "variant": "without_cgc",
+      "correct_bits": 237,
+      "receipt_sha256": "daff00ce0065b2aff86253b48af968117766cccd9078e9299059b62f41ae040a"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "blur",
+      "variant": "without_sws",
+      "correct_bits": 437,
+      "receipt_sha256": "60366bd2d1ae55d56ff4be3c3f023f7e8baa3f076b4395b0211150600c75bf89"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "clean",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "68889646770b6cb868e4a8dd5615d81cbd1c93c6da41a81f929212067fa28353"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "clean",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "0f56e6691fcce7e8aeb6777812fbc8a43cf2d22304801e82a6162d1fc51ebb06"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "clean",
+      "variant": "without_cgc",
+      "correct_bits": 271,
+      "receipt_sha256": "2063a9f22c33c5c255d98a053f3db8efdc6b77b72d7d8234c0d8123741fb42eb"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "clean",
+      "variant": "without_sws",
+      "correct_bits": 477,
+      "receipt_sha256": "3e06d6759975880757d8212607f0ab1ec9796d6a11e51ca98d5d7587bf417e75"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "clip",
+      "variant": "full",
+      "correct_bits": 474,
+      "receipt_sha256": "5b629565afacfd848e6fdc30ec54100be60e07df8d37386ce8af3df291b0df2c"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "clip",
+      "variant": "without_ccta",
+      "correct_bits": 277,
+      "receipt_sha256": "eadcb17faa65f68573ae422b4f4a6e75895d1ac4a54ec226870b0d98ec1abe1f"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "clip",
+      "variant": "without_cgc",
+      "correct_bits": 262,
+      "receipt_sha256": "b5445f8e77c56d5ba4c00ba0f02df58e9934b2e4a8686b924e2f952beac82114"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "clip",
+      "variant": "without_sws",
+      "correct_bits": 394,
+      "receipt_sha256": "048cbdc3b202b55d4d0c51c32d20d01876cd8ae3060ce94906f04b8529ac67bc"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "compression",
+      "variant": "full",
+      "correct_bits": 469,
+      "receipt_sha256": "50e56c2ae77e0780f61021005b5b4667443298d6994e284ecafa17cbca837bba"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "compression",
+      "variant": "without_ccta",
+      "correct_bits": 469,
+      "receipt_sha256": "2d793583a29f376ddc8e36632ba46b8e42a019f4c2f1bf265ae14d8da530f8f8"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "compression",
+      "variant": "without_cgc",
+      "correct_bits": 243,
+      "receipt_sha256": "86f4a077a505c8cefec5caf6ee61071f1933ee749e8cb7dbadfd381baad35dff"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "compression",
+      "variant": "without_sws",
+      "correct_bits": 409,
+      "receipt_sha256": "340f13825ebb50dc6861df1a796d50ca95b8f81d5015e254df51ba50d89fadc1"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "drop",
+      "variant": "full",
+      "correct_bits": 390,
+      "receipt_sha256": "6488e2f5c225307a836f908e98b9cdf7b81d8167e724bc0fda5c81d6981fcc6c"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "drop",
+      "variant": "without_ccta",
+      "correct_bits": 269,
+      "receipt_sha256": "c0b0818221d6ef58083c906746a10f30583c1d8a7d4fba883e6058b2c1f044b6"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "drop",
+      "variant": "without_cgc",
+      "correct_bits": 257,
+      "receipt_sha256": "21607b93d7735ca1a1a61541e599b260b670cf1c91a8ef8792571e77e1c117b2"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "drop",
+      "variant": "without_sws",
+      "correct_bits": 390,
+      "receipt_sha256": "38e2dd49a808a26796280d158c74f56946223a7c417dc8364b9984314572edd9"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "insert",
+      "variant": "full",
+      "correct_bits": 259,
+      "receipt_sha256": "4c685da01056215f758a7c8a1e3ded805a5546b68443826577165668c86c7814"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "insert",
+      "variant": "without_ccta",
+      "correct_bits": 273,
+      "receipt_sha256": "1109f475d5e655391e4071e32d95add873a3ba8c3d2a520bef3469b763d79f1f"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "insert",
+      "variant": "without_cgc",
+      "correct_bits": 241,
+      "receipt_sha256": "789ee3faf66e604a42e635392cfae134d703750d732aa3485d6c07f74ec886b0"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "insert",
+      "variant": "without_sws",
+      "correct_bits": 259,
+      "receipt_sha256": "cd999f0eaf2014bc0df922c79ae3ed2b1a89ff41654801c2323c79a7e79ee5ae"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "noise",
+      "variant": "full",
+      "correct_bits": 475,
+      "receipt_sha256": "46f84498e3bbbe429352903b793d0c9febd2aeb603a9e76a9de36f0c24543284"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "noise",
+      "variant": "without_ccta",
+      "correct_bits": 476,
+      "receipt_sha256": "6c733427fc71fd05ccf481f938e0621fa768946542bf4178a4ee943cc687dddf"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "noise",
+      "variant": "without_cgc",
+      "correct_bits": 243,
+      "receipt_sha256": "a6ef6ce6c0093d0e64c000a8ed832dea68a4f8d04ac3279f76aa39da90eff87d"
+    },
+    {
+      "video_id": "paper-160",
+      "condition": "noise",
+      "variant": "without_sws",
+      "correct_bits": 417,
+      "receipt_sha256": "c5481b0bc56154af836cb814d9ae96a900f5e08ce7a9de5641df74c2dcfb61b2"
+    },
+    {
       "video_id": "paper-032",
       "condition": "blur",
       "variant": "full",
@@ -1994,7 +2385,236 @@
       "variant": "without_sws",
       "correct_bits": 413,
       "receipt_sha256": "fe38fc7d107f5808778fbee8e6677d9ff2efaa672b0591006f7af47bc0748704"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "blur",
+      "variant": "full",
+      "correct_bits": 499,
+      "receipt_sha256": "dddd950d698fffaf8534b0126029a2751441b97765c7ddfed85f102aa4a96490"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "blur",
+      "variant": "without_ccta",
+      "correct_bits": 501,
+      "receipt_sha256": "70fb9ead142438d2a1c50db855247e5b0ca5921207fe9104189108a7451d4cdc"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "blur",
+      "variant": "without_cgc",
+      "correct_bits": 277,
+      "receipt_sha256": "20d5ef756b3faa59802abb7493f7d0bbbd83de1a23fa0928e52c1d7edb466acb"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "blur",
+      "variant": "without_sws",
+      "correct_bits": 458,
+      "receipt_sha256": "11347ad13e314bf0cd793e0187ed9f2796b2d00b2db806622a7f4e02ae66b2c8"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "clean",
+      "variant": "full",
+      "correct_bits": 512,
+      "receipt_sha256": "4b445801a217efbd760dab889998015cb9995bc8786ec48ce1e5bb20b22718ea"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "clean",
+      "variant": "without_ccta",
+      "correct_bits": 512,
+      "receipt_sha256": "70ccae0724fc64b1b361ce31f874909f60d7fe7f6df1c7eb262e8f1b76ea3c71"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "clean",
+      "variant": "without_cgc",
+      "correct_bits": 273,
+      "receipt_sha256": "7d0c0087b9f2dc70a006055918c8289a8f5221a921f7b098c4bed907de17e63b"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "clean",
+      "variant": "without_sws",
+      "correct_bits": 500,
+      "receipt_sha256": "c7e764c0956bf92427f3a501009268dcc3a9f89f321dea221020742b1522c6ae"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "clip",
+      "variant": "full",
+      "correct_bits": 493,
+      "receipt_sha256": "a4f1803a6eebecae287260c8a3cc5388e8513f86bc6e88939f3e8165ffc92f4c"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "clip",
+      "variant": "without_ccta",
+      "correct_bits": 277,
+      "receipt_sha256": "8f750797d2bf17fd4183be4b905029c6199de5101ec48927212c36bc3304cc24"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "clip",
+      "variant": "without_cgc",
+      "correct_bits": 260,
+      "receipt_sha256": "5bb6d75741ffab884efcae9b8250b3a14c59ed62c1fcfa8277a30f8edf842565"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "clip",
+      "variant": "without_sws",
+      "correct_bits": 492,
+      "receipt_sha256": "cba024913bed82f18aa49c893808d9025e1a64fd2ac76490a4954cdf2255778e"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "compression",
+      "variant": "full",
+      "correct_bits": 459,
+      "receipt_sha256": "b049c02e29b20b19f54c227155e6566764323ad3f77a1470d708f4c6674ef2ca"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "compression",
+      "variant": "without_ccta",
+      "correct_bits": 460,
+      "receipt_sha256": "a0d766075a23cf01bb68c3cc47c065ea78fad9bebc9c4078247875e5c7165b37"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "compression",
+      "variant": "without_cgc",
+      "correct_bits": 269,
+      "receipt_sha256": "189017f5d089ba9f036f8b2de7095d9ebe9709fad3af3fb1e9c49b5a0dd24f95"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "compression",
+      "variant": "without_sws",
+      "correct_bits": 400,
+      "receipt_sha256": "c8724de945a0c1088a8435766a45cfc96d03b3eb87e51c78ff986f39463bba6a"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "drop",
+      "variant": "full",
+      "correct_bits": 373,
+      "receipt_sha256": "18af7e873d324ebcb0c85fe1938f1f27aaf8295c85717b701baca31df0061b8e"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "drop",
+      "variant": "without_ccta",
+      "correct_bits": 312,
+      "receipt_sha256": "58384cf64045e9486386059937b47d9e5477eb45e817def395120b6dd14c6512"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "drop",
+      "variant": "without_cgc",
+      "correct_bits": 250,
+      "receipt_sha256": "e65684ee846c8f9c512638b97d61a1795770ff40236acfa14c2dc6aa27efee05"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "drop",
+      "variant": "without_sws",
+      "correct_bits": 300,
+      "receipt_sha256": "a65f3da0549b633bd318b26e8a7a8e2721ec2ece08a3799ee6da33f8e9dd6075"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "insert",
+      "variant": "full",
+      "correct_bits": 403,
+      "receipt_sha256": "ce8b8e28e2d5b1372adf4b54e39541e17bd6b7fc0cfb4d7855a7a89b51ae0b39"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "insert",
+      "variant": "without_ccta",
+      "correct_bits": 260,
+      "receipt_sha256": "3840be3e508f233bb44438ac50347ce96a95787f5a83b453e4e4468e5e77151e"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "insert",
+      "variant": "without_cgc",
+      "correct_bits": 270,
+      "receipt_sha256": "29bc6840d76c9c9b7f2b9863f0c39c9a3f3f8e02a5326886317b08f625f7b255"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "insert",
+      "variant": "without_sws",
+      "correct_bits": 380,
+      "receipt_sha256": "3c72eb6a7a45a0196469a0d3068e793bfbb82622e9601fcb319119585115e83f"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "noise",
+      "variant": "full",
+      "correct_bits": 494,
+      "receipt_sha256": "9a0d626f581910ea05a5fca9efd58c6681c6b08bec3270559b30dc7446e39cbd"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "noise",
+      "variant": "without_ccta",
+      "correct_bits": 493,
+      "receipt_sha256": "a19536312b3758515ee188d11489de0579bbd46007d9474c682ea8dc79cd46cf"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "noise",
+      "variant": "without_cgc",
+      "correct_bits": 242,
+      "receipt_sha256": "970ea03b1f2c1bcf267504d66d749528c30e90df952794c6caab7f71f455df96"
+    },
+    {
+      "video_id": "paper-149",
+      "condition": "noise",
+      "variant": "without_sws",
+      "correct_bits": 456,
+      "receipt_sha256": "2609674a69f33f2b7953305c731c76c65be76406011fc0fd41d7a9c5ed7d506d"
     }
   ],
-  "planned_videos": 30
+  "planned_videos": 30,
+  "ordered_subset": [
+    "paper-291",
+    "paper-071",
+    "paper-270",
+    "paper-174",
+    "paper-033",
+    "paper-351",
+    "paper-254",
+    "paper-232",
+    "paper-112",
+    "paper-308",
+    "paper-377",
+    "paper-146",
+    "paper-391",
+    "paper-337",
+    "paper-182",
+    "paper-201",
+    "paper-003",
+    "paper-043",
+    "paper-282",
+    "paper-063",
+    "paper-269",
+    "paper-160",
+    "paper-032",
+    "paper-340",
+    "paper-258",
+    "paper-235",
+    "paper-098",
+    "paper-306",
+    "paper-364",
+    "paper-149"
+  ],
+  "subsets_sha256": "997caf75fcb9e61d09950c150023152eb851b08da5d2cead8d923a2a55bf4c41"
 }
