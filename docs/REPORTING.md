@@ -91,3 +91,15 @@ The [per-sample observations](../results/hunyuan_i2v_last_first100_robustness.js
 | drop | 37704 | 73.64% | 1 |
 | insert | 42247 | 82.51% | 7 |
 | noise | 50013 | 97.68% | 47 |
+
+## Additional primary evaluation records
+
+Each link contains results for the indicated prefix of a 400-video branch. Each condition contributes 512 information bits per video.
+
+| Generator and task | Method | Videos | Observations across seven conditions |
+| --- | --- | ---: | ---: |
+| Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first50.json) | 50 | 350 |
+| Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first4.json) | 4 | 28 |
+| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first7.json) | 7 | 49 |
+| Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
+Run `python tools/paired_videomark_table.py` from the repository root to compare the same seven prompt IDs (paper-000 through paper-006) for Hunyuan text-to-video. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition.
