@@ -1,8 +1,8 @@
-"""Compare the first seven published Hunyuan T2V cases under each attack."""
+"""Compare the first thirteen published Hunyuan T2V cases under each attack."""
 import json
 from paired_lfg_table import CONDITIONS, RESULTS, count_bits
 
-SAMPLES = tuple(f"paper-{i:03d}" for i in range(7))
+SAMPLES = tuple(f"paper-{i:03d}" for i in range(13))
 
 
 def load_counts(filename, field, samples=SAMPLES):
@@ -23,13 +23,13 @@ def load_counts(filename, field, samples=SAMPLES):
 
 def main():
     last = load_counts("hunyuan_t2v_last_first50.json", "audited_observations")
-    videomark = load_counts("hunyuan_t2v_videomark_first7.json", "observations")
+    videomark = load_counts("hunyuan_t2v_videomark_first13.json", "audited_observations")
     print("| Condition | LAST correct bits | VideoMark correct bits | LAST exact | VideoMark exact |")
     print("|---|---:|---:|---:|---:|")
     for condition in CONDITIONS:
         a = [last[sample, condition] for sample in SAMPLES]
         b = [videomark[sample, condition] for sample in SAMPLES]
-        print(f"| {condition} | {sum(a)}/3584 | {sum(b)}/3584 | {a.count(512)}/7 | {b.count(512)}/7 |")
+        print(f"| {condition} | {sum(a)}/{512 * len(SAMPLES)} | {sum(b)}/{512 * len(SAMPLES)} | {a.count(512)}/{len(SAMPLES)} | {b.count(512)}/{len(SAMPLES)} |")
 
 
 if __name__ == "__main__":
