@@ -5,18 +5,18 @@ from paired_lfg_table import CONDITIONS, RESULTS, count_bits
 SAMPLES = tuple(f"paper-{i:03d}" for i in range(7))
 
 
-def load_counts(filename, field):
+def load_counts(filename, field, samples=SAMPLES):
     report = json.loads((RESULTS / filename).read_bytes())
     counts = {}
     for row in report[field]:
         sample = row["video_id"]
-        if sample not in SAMPLES:
+        if sample not in samples:
             continue
         key = sample, row["condition"]
         if key in counts or key[1] not in CONDITIONS:
             raise ValueError(f"Unexpected observation in {filename}: {key}")
         counts[key] = count_bits(row)
-    if len(counts) != len(SAMPLES) * len(CONDITIONS):
+    if len(counts) != len(samples) * len(CONDITIONS):
         raise ValueError(f"Incomplete sample coverage in {filename}")
     return counts
 

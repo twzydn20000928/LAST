@@ -117,3 +117,4 @@ Both columns use paper-000 through paper-009 and 512 information bits per video.
 | drop | 3862 | 3736 | 0 | 0 |
 | insert | 4702 | 4323 | 1 | 1 |
 | clip | 4973 | 4943 | 4 | 6 |
+`python tools/paired_backbone_table.py` regenerates this table from the two published observation files.
