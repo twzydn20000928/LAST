@@ -103,3 +103,17 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 | Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first7.json) | 7 | 49 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
 Run `python tools/paired_videomark_table.py` from the repository root to compare the same seven prompt IDs (paper-000 through paper-006) for Hunyuan text-to-video. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition.
+
+## Text-to-video comparison on ten shared prompt IDs
+
+Both columns use paper-000 through paper-009 and 512 information bits per video. Each backbone generated its own videos. Entries show correct bits out of 5,120 and exact messages out of ten.
+
+| Condition | Hunyuan correct bits | Wan2.2 correct bits | Hunyuan exact | Wan2.2 exact |
+| --- | ---: | ---: | ---: | ---: |
+| clean | 5120 | 5120 | 10 | 10 |
+| noise | 5058 | 5044 | 7 | 7 |
+| compression | 4946 | 4954 | 3 | 6 |
+| blur | 5100 | 5074 | 8 | 7 |
+| drop | 3862 | 3736 | 0 | 0 |
+| insert | 4702 | 4323 | 1 | 1 |
+| clip | 4973 | 4943 | 4 | 6 |
