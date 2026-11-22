@@ -1,4 +1,4 @@
-"""Render the three-case Hunyuan I2V comparison from published per-video counts."""
+"""Render the paired Hunyuan I2V comparison from published per-video counts."""
 import json
 from pathlib import Path
 
@@ -15,30 +15,31 @@ def count_bits(row):
     return correct
 
 
-def main():
-    last = json.loads((RESULTS / "last_hunyuan_i2v_audited_partial.json").read_bytes())
-    lfg = json.loads((RESULTS / "lfg_hunyuan_i2v_three_cases.json").read_bytes())
+def main(samples=SAMPLES):
+    report = json.loads((RESULTS / "hunyuan_i2v_last_lfg_first_seven_paired.json").read_bytes())
     counts = {}
-    for row in last["audited_observations"]:
-        if row["video_id"] not in SAMPLES or row["condition"] not in CONDITIONS:
+    for row in report["observations"]:
+        if row["video_id"] not in samples:
             continue
-        key = (row["video_id"], row["condition"])
-        if key in counts or (row["family"], row["mode"], row["method"], row["status"]) != (
-            "hunyuan", "i2v", "last", "completed"
-        ):
-            raise ValueError(f"Unexpected or duplicate LAST observation for {key}")
+        key = row["video_id"], row["condition"], row["method"]
+        if key in counts or row["status"] != "completed":
+            raise ValueError(f"Duplicate or incomplete observation for {key}")
         counts[key] = count_bits(row)
-
     lines = ["| Condition | LAST correct bits | LFG correct bits | LAST exact | LFG exact |",
              "|---|---:|---:|---:|---:|"]
     for condition in CONDITIONS:
-        a = [counts[sample, condition] for sample in SAMPLES]
-        b = [count_bits(lfg["cases"][sample]["conditions"][condition]) for sample in SAMPLES]
-        total = 512 * len(SAMPLES)
+        a = [counts[sample, condition, "last"] for sample in samples]
+        b = [counts[sample, condition, "lfg"] for sample in samples]
+        total = 512 * len(samples)
         lines.append(f"| {condition} | {sum(a)}/{total} | {sum(b)}/{total} | "
                      f"{a.count(512)}/{len(a)} | {b.count(512)}/{len(b)} |")
     print("\n".join(lines))
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--samples", type=int, choices=(3, 7), default=3)
+    args = parser.parse_args()
+    main(tuple(f"paper-{i:03d}" for i in range(args.samples)))

@@ -118,3 +118,4 @@ Both columns use paper-000 through paper-009 and 512 information bits per video.
 | insert | 4702 | 4323 | 1 | 1 |
 | clip | 4973 | 4943 | 4 | 6 |
 `python tools/paired_backbone_table.py` regenerates this table from the two published observation files.
+Run `python tools/paired_lfg_table.py --samples 7` to regenerate the seven-prompt Hunyuan image-to-video comparison from the [matched LAST and LFG observations](../results/hunyuan_i2v_last_lfg_first_seven_paired.json).
