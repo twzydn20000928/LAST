@@ -16,7 +16,7 @@ def count_bits(row):
 
 
 def main(samples=SAMPLES):
-    report = json.loads((RESULTS / "hunyuan_i2v_last_lfg_first_seven_paired.json").read_bytes())
+    report = json.loads((RESULTS / "hunyuan_i2v_last_lfg_first_eight_paired.json").read_bytes())
     counts = {}
     for row in report["observations"]:
         if row["video_id"] not in samples:
@@ -40,6 +40,6 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--samples", type=int, choices=(3, 7), default=3)
+    parser.add_argument("--samples", type=int, choices=(3, 7, 8), default=3)
     args = parser.parse_args()
     main(tuple(f"paper-{i:03d}" for i in range(args.samples)))
