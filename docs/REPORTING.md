@@ -170,3 +170,4 @@ prefix. The command compares the actual case, private key and message locally,
 reconstructs editing positions, and verifies the received MP4s before exporting
 counts. Choose the sample count before comparing outcomes.
 For Wan-2.2 image-to-video, use the same command with `--family wan22 --mode i2v --count 1`. The [first Wan I2V pair](../results/wan22_i2v_paired_primary_first_case.json) reports seven conditions on paper-000 for both methods.
+The [first Wan T2V pair](../results/wan22_t2v_paired_primary_first_case.json) uses the same primary prefix and seven conditions. To audit it, change the arguments to `--family wan22 --mode t2v --count 1`.
