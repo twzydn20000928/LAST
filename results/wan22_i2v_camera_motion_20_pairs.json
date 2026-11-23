@@ -1,0 +1,92 @@
+{
+  "family": "wan22",
+  "mode": "i2v",
+  "dimension": "Camera_Motion",
+  "pairs": {
+    "paper-000": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-001": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-002": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-003": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-004": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-005": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-006": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-007": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-008": {
+      "last": 0.0,
+      "reference": 0.0
+    },
+    "paper-009": {
+      "last": 0.0,
+      "reference": 0.0
+    },
+    "paper-010": {
+      "last": 0.0,
+      "reference": 0.0
+    },
+    "paper-011": {
+      "last": 0.0,
+      "reference": 0.0
+    },
+    "paper-012": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-013": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-014": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-015": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-016": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-017": {
+      "last": 1.0,
+      "reference": 0.0
+    },
+    "paper-018": {
+      "last": 1.0,
+      "reference": 1.0
+    },
+    "paper-019": {
+      "last": 1.0,
+      "reference": 1.0
+    }
+  },
+  "means": {
+    "last": 0.8,
+    "reference": 0.75
+  },
+  "verification": "Recomputed from official_result.json per-video scores and matched frozen case IDs and branch paths. MP4s were not independently rehashed in this export."
+}
