@@ -153,3 +153,19 @@ window scan; `without_ccta` uses received order. The script checks sample
 membership and agreement between the observation sums and the stored cell
 counts. The snapshot covers 11 of the 30 frozen cases.
 The [clean-condition route records](../results/hunyuan_i2v_ablation_clean_routes.json) identify the selected route, group count and BCH decode status for each of the 44 reads. All 11 energy-only reads selected two to five distinct groups. The full reader used chains covering 15 or 16 group entries on these videos. Group counts alone do not establish correct group identity.
+
+### Hunyuan text-to-video paired primary results
+
+Use the shared LAST/LFG campaign plan, manifest and private run root to audit
+the first sample. Run from the repository root in the installed LAST environment:
+
+```bash
+python tools/paired_primary_subset.py --plan "$PLAN" --manifest "$MANIFEST" \
+  --root "$PRIMARY" --family hunyuan --mode t2v --count 1 > matched.json
+```
+
+The [first pair](../results/hunyuan_t2v_paired_primary_first_case.json) covers
+one of the planned 400 prompts. The completion field applies to the requested
+prefix. The command compares the actual case, private key and message locally,
+reconstructs editing positions, and verifies the received MP4s before exporting
+counts. Choose the sample count before comparing outcomes.
