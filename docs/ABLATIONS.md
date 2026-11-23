@@ -620,3 +620,10 @@ the eventual acquisition audit must establish the common video/window and
 correct/wrong group labels. The supplement does not fully specify candidate
 sampling or zero-projection handling, so these choices must be recorded before
 collecting scores and must not be selected according to resulting AUC.
+
+The [second audited equal-margin pair](../results/paired_writer_paper071.json)
+covers frozen Hunyuan I2V case paper-071. The paired intervention uses the
+same diffusion endpoint, reference MP4, key, message and seven seed-0 attack
+conditions. Minimum-margin and fixed-target achieved 32.695 and 31.966 dB PSNR
+respectively. On deletion they recovered 423 and 425 of 512 information bits;
+on insertion they recovered 489 and 487. These are single-video counts.

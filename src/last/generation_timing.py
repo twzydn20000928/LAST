@@ -161,6 +161,9 @@ def main():
         result = measure_pairs(lambda: operation(False), lambda: operation(True),
             torch.cuda.synchronize, require_exclusive, order=a.order, warmup_pairs=2,
             measured_pairs=2 if a.protocol == 'main' else 5, on_pair=persist)
+        expected_calls = 2 * (result['warmup_pairs'] + result['measured_pairs'])
+        if shape_checks != [65] * expected_calls:
+            raise ValueError(f'Expected {expected_calls} generation calls producing 65 frames each')
         if any(sha(Path(path)) != digest for path, digest in input_hashes.items()):
             raise ValueError('Input changed during timing')
         if source != {path.name: sha(path) for path in Path(__file__).parent.glob('*.py')}:

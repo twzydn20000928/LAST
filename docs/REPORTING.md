@@ -122,3 +122,34 @@ Both columns use paper-000 through paper-009 and 512 information bits per video.
 Run `python tools/paired_lfg_table.py --samples 7` to regenerate the seven-prompt Hunyuan image-to-video comparison from the [matched LAST and LFG observations](../results/hunyuan_i2v_last_lfg_first_seven_paired.json).
 For image-to-video, run `python tools/paired_backbone_table.py --mode i2v`. Each column uses the first 30 manifest entries, with 15,360 information bits per condition and 30 opportunities to recover an entire message.
 The [paired fidelity records](../results/hunyuan_i2v_last_first100_fidelity.json) cover the first 100 Hunyuan image-to-video LAST cases. Each row compares the 65-frame marked MP4 with its reference MP4. Summary fields give the arithmetic mean of the per-video PSNR (dB) and SSIM values.
+
+### Comparing unmarked controls across methods
+
+Use the same primary sample ID, backbone and generation mode on both sides. Run
+the command below from the repository root with OpenCV and NumPy installed.
+It compares all 65 decoded frames, counts changed color-channel values and
+reports their root mean squared difference on the 0–255 scale.
+
+```bash
+python tools/compare_references.py \
+  "$PRIMARY/hunyuan/i2v/last/paper-000/reference.mp4" \
+  "$PRIMARY/hunyuan/i2v/lfg/paper-000/reference.mp4"
+```
+
+Set `PRIMARY` to the directory containing the backbone/mode/method run trees.
+For the [first eight cases](../results/hunyuan_i2v_reference_differences.jsonl),
+two pairs match exactly. The six other reference pairs have RMS differences of
+2.03–2.56 intensity levels. Each method's [fidelity scores](../results/hunyuan_i2v_first8_paired_fidelity.json)
+use its own unmarked reference. These eight samples do not establish a causal
+effect of the memory limit on generation.
+
+### Reader ablation on matched received videos
+
+Run `python tools/reader_ablation_table.py` to reconstruct the seven-condition
+table from the checked-in [paired observations](../results/hunyuan_i2v_reader_ablation_interim.json).
+All four readers decode the same marked inputs. The energy reader replaces
+cross-group consistency in `without_cgc`; `without_sws` disables the frame-by-frame
+window scan; `without_ccta` uses received order. The script checks sample
+membership and agreement between the observation sums and the stored cell
+counts. The snapshot covers 11 of the 30 frozen cases.
+The [clean-condition route records](../results/hunyuan_i2v_ablation_clean_routes.json) identify the selected route, group count and BCH decode status for each of the 44 reads. All 11 energy-only reads selected two to five distinct groups. The full reader used chains covering 15 or 16 group entries on these videos. Group counts alone do not establish correct group identity.

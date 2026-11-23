@@ -1,0 +1,8 @@
+{"video_id": "paper-000", "frames": 65, "identical": false, "changed_channel_values": 37580737, "total_channel_values": 51118080, "max_abs_difference_8bit": 41, "rmse_8bit": 2.2722354441398713}
+{"video_id": "paper-001", "frames": 65, "identical": false, "changed_channel_values": 38683842, "total_channel_values": 51118080, "max_abs_difference_8bit": 34, "rmse_8bit": 2.555879906009682}
+{"video_id": "paper-002", "frames": 65, "identical": false, "changed_channel_values": 36807746, "total_channel_values": 51118080, "max_abs_difference_8bit": 36, "rmse_8bit": 2.4669269569831704}
+{"video_id": "paper-003", "frames": 65, "identical": false, "changed_channel_values": 36884550, "total_channel_values": 51118080, "max_abs_difference_8bit": 36, "rmse_8bit": 2.3301796893164064}
+{"video_id": "paper-004", "frames": 65, "identical": true, "changed_channel_values": 0, "total_channel_values": 51118080, "max_abs_difference_8bit": 0, "rmse_8bit": 0.0}
+{"video_id": "paper-005", "frames": 65, "identical": true, "changed_channel_values": 0, "total_channel_values": 51118080, "max_abs_difference_8bit": 0, "rmse_8bit": 0.0}
+{"video_id": "paper-006", "frames": 65, "identical": false, "changed_channel_values": 33822379, "total_channel_values": 51118080, "max_abs_difference_8bit": 27, "rmse_8bit": 2.028918795062257}
+{"video_id": "paper-007", "frames": 65, "identical": false, "changed_channel_values": 34881054, "total_channel_values": 51118080, "max_abs_difference_8bit": 24, "rmse_8bit": 2.1124209834146157}

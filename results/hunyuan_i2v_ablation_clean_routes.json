@@ -1,0 +1,401 @@
+{
+  "scope": "Clean condition only, 11 of 30 frozen Hunyuan I2V cases; groups are reader-selected counts, not verified group identities.",
+  "observations": [
+    {
+      "receipt_sha256": "b9783d57f33d62fd5025355e76d2469942557fa2e8c9a08314926a8944b79902",
+      "video_id": "paper-003",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "015b11e1bf3dba4aee97b76335dfbf0eec22fbec4cfe3d22f39423d2cfcd38a5",
+      "video_id": "paper-003",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "b2c4aa0d3c9e8629d98ee8e73a45ad8153504b2eed6997b2093fb573d3042da6",
+      "video_id": "paper-003",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 4,
+      "correct_bits": 230,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "063f5e70a10239b13050a9bfd88d8429937e020d74be9423e6bd488fbb934526",
+      "video_id": "paper-003",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 504,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "ef14df86dc8f4f9ddf9df296a4d5be27b1b4042cd4f5119b4c69d778946af1b4",
+      "video_id": "paper-032",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "427cc40c90c62c0d3f4b946be7c718dde6385f8a95eaa8f5dd9515347fc93831",
+      "video_id": "paper-032",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "f4cb60e1bb754fe4505a76e856e519f3ec1e0508c2999f5ea24d56080b1815a3",
+      "video_id": "paper-032",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 4,
+      "correct_bits": 245,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "062c1ed12f945a265583f18dcbaa4c3b1a23c3fb4f6875f07bdedec2ce19a140",
+      "video_id": "paper-032",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "2c3defcffcf7d0d2926bb48616f5c60c6cd5d5b9b75d9b7379806015486fdb82",
+      "video_id": "paper-033",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 15,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "04fbd3b396302be6ecc8a39653d4d43ef4e18f2ea5fdc1b4adf988417a0deadc",
+      "video_id": "paper-033",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "5bbb2e64c137da06aae0c310023f7faf780c8a6be6c4091358f27a5233ec206b",
+      "video_id": "paper-033",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 2,
+      "correct_bits": 253,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "a8b1273581a46abed17d2c711edefd597138a503b64b56e66814206ff83ec119",
+      "video_id": "paper-033",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 15,
+      "correct_bits": 499,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "974942d885ca2bbe9384bd61bb2648e851a7c40e501be1f2dcacf9dd0b206a4b",
+      "video_id": "paper-043",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "961e9c6ab2a323977769b8ff94d1046ba0875feccd73a7be31841ca81fabf77c",
+      "video_id": "paper-043",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "74de24bb704feda8a1463fbd29faa29855ea2316b02f5c2e6f63e27aeb2188ac",
+      "video_id": "paper-043",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 4,
+      "correct_bits": 228,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "9f49f1dd800eaf614610ac20ec67ba5c8d065f76bfab12ae79d4425a7463ea62",
+      "video_id": "paper-043",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 15,
+      "correct_bits": 467,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "ef18034eee59691358a79a6494a9fa35505976dd0b2d30a1c690face11fad54e",
+      "video_id": "paper-063",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "ee5d8490678c2bea20b7f0abeac0e4d9f754a35391b8ea4612126e05262a0972",
+      "video_id": "paper-063",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "97e0e3f34dc3e14707a55763e875e5a6d12cbe6102b50dee16cf71d5b2f04b0b",
+      "video_id": "paper-063",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 5,
+      "correct_bits": 236,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "b7c9ffa019754a42a7e7b4e6fd53fe52d11d48b5195de24535f4e2dad263ee49",
+      "video_id": "paper-063",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 489,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "e7705e29e5e2eb25212bdcaed5d1dacd0630f5e207f730377fea1eb95789b273",
+      "video_id": "paper-071",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 15,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "133aca5e17a27fded4e61f45b2e15b6f20fb6607a5fe9d304dff314f1c9eef22",
+      "video_id": "paper-071",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "d07b24d7c2a568d6bffdf4c0fec6f0d64f52954973b11eab1b96a62885a3706a",
+      "video_id": "paper-071",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 4,
+      "correct_bits": 268,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "be6bf7bd1dc918979d2501b7e0fbe664c73381e7e9b7b6228af024da048b4581",
+      "video_id": "paper-071",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 15,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "31453658ffd29baada02f5c48842f43b2a465cd62fbb2dd1ef8a771f006abae6",
+      "video_id": "paper-098",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 15,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "659f965f00964a17d7e2dd397441c2ee8d05e309d54806fa3eb5737e18e98d21",
+      "video_id": "paper-098",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "d9b02c0b5569ee1ce50dd102452471313411cbcf601c134b8ce9aaa815909309",
+      "video_id": "paper-098",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 4,
+      "correct_bits": 253,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "8714396d26c8615b8de8f851f414309dfbfc1bf2e5f4f5dee3fd31963df0949e",
+      "video_id": "paper-098",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 15,
+      "correct_bits": 480,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "68fbfbfd403779baa54db2f419c9d85e6e2a17bb7bece57710b444fe933b700f",
+      "video_id": "paper-112",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "2b7ac706eb53f0ac90ebcfdf1c14fb86cafc0607d7250d17680d1154feffb25f",
+      "video_id": "paper-112",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "4f172e077a64c3a9476b487bd585c7e95073fb35d6693529d8e30f5842b9054d",
+      "video_id": "paper-112",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 3,
+      "correct_bits": 234,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "fa3956669ef8dd470992d71e4b118e558dd2e299434d5339a9b4f962fa4d209c",
+      "video_id": "paper-112",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 504,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "7199ad1b6f3abae5074c0fa3a85854c4499fe11590d45be76159754104ba5219",
+      "video_id": "paper-146",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "0d9609236e85880ee662fa862d2ddfaf3c4deb137ef8b3ed14398f6e08985d9f",
+      "video_id": "paper-146",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "90dbc2e8bbe74924ca3a92c20e21a2307e7b0121f9765344a12ad9af6d2ac4c0",
+      "video_id": "paper-146",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 2,
+      "correct_bits": 278,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "969bed9b4438eba79d7a42915445a540817e2e3045b375e2115bd31e7215e575",
+      "video_id": "paper-146",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 494,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "4b445801a217efbd760dab889998015cb9995bc8786ec48ce1e5bb20b22718ea",
+      "video_id": "paper-149",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "70ccae0724fc64b1b361ce31f874909f60d7fe7f6df1c7eb262e8f1b76ea3c71",
+      "video_id": "paper-149",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "7d0c0087b9f2dc70a006055918c8289a8f5221a921f7b098c4bed907de17e63b",
+      "video_id": "paper-149",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 3,
+      "correct_bits": 273,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "c7e764c0956bf92427f3a501009268dcc3a9f89f321dea221020742b1522c6ae",
+      "video_id": "paper-149",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 500,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "68889646770b6cb868e4a8dd5615d81cbd1c93c6da41a81f929212067fa28353",
+      "video_id": "paper-160",
+      "variant": "full",
+      "route": "ccta",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "0f56e6691fcce7e8aeb6777812fbc8a43cf2d22304801e82a6162d1fc51ebb06",
+      "video_id": "paper-160",
+      "variant": "without_ccta",
+      "route": "received_order",
+      "groups": 16,
+      "correct_bits": 512,
+      "bch_success": true
+    },
+    {
+      "receipt_sha256": "2063a9f22c33c5c255d98a053f3db8efdc6b77b72d7d8234c0d8123741fb42eb",
+      "video_id": "paper-160",
+      "variant": "without_cgc",
+      "route": "energy_spacing",
+      "groups": 5,
+      "correct_bits": 271,
+      "bch_success": false
+    },
+    {
+      "receipt_sha256": "3e06d6759975880757d8212607f0ab1ec9796d6a11e51ca98d5d7587bf417e75",
+      "video_id": "paper-160",
+      "variant": "without_sws",
+      "route": "ccta",
+      "groups": 15,
+      "correct_bits": 477,
+      "bch_success": false
+    }
+  ]
+}

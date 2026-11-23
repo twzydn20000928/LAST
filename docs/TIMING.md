@@ -231,3 +231,13 @@ disk reads, input transfers, model generation and decoding are outside the event
 interval. The measurement is distinct from paired end-to-end generation overhead.
 Keep endpoints, keys and messages private. This entry point still requires an
 actual idle-GPU measurement; CPU tests are not timing results.
+
+### Interpreting the earlier single-clip pilot
+
+The earlier five-method Hunyuan I2V pilot timed one generation per method after
+a two-step warmup. The unmarked branch ran separately. Each clean and deletion
+extraction had one warmup and two measured reads. The LAST/LFG pilot reader
+loaded the VAE in bfloat16. Main Table 3 uses paired generation measurements,
+and the current LAST/LFG reader uses float32. Keep pilot durations separate
+when rebuilding the main table. The primary timing formatter checks that all
+eight generation calls (reference and marked in four pairs) decoded 65 frames.

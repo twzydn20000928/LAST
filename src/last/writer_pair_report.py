@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from last.temporal import attack_map
 
 CONDITIONS = ('clean', 'noise', 'compression', 'blur', 'drop', 'insert', 'clip')
 
@@ -36,7 +37,7 @@ def report(minimum, fixed):
     result = dict(scope='One paired real endpoint, equal margin; not the full ablation set or matched-PSNR control',
                   family=left['family'], mode=left['mode'], seed=left['seed'], margin=left['mu'],
                   settings=left['settings'], variants={})
-    maps = {}; identity = None; quality_definition = None
+    identity = None; quality_definition = None
     for name, folder, generation in [('minimum-margin', minimum, left), ('fixed-target', fixed, right)]:
         marked = digest(folder/'marked.mp4')
         if generation.get('marked_sha256') != marked:
@@ -56,9 +57,11 @@ def report(minimum, fixed):
                 raise ValueError('Attack source identity mismatch')
             received = folder/'marked.mp4' if condition == 'clean' else folder/'attacks'/(condition+'.mp4')
             if row.get('received_sha256') != digest(received): raise ValueError('Received MP4 mismatch')
-            signature = (row.get('map_seed'), row.get('attack_map'), row.get('frames'))
-            if name == 'minimum-margin': maps[condition] = signature
-            elif maps[condition] != signature: raise ValueError('Paired temporal maps differ')
+            mapping = attack_map(identity, condition) if condition in ('drop', 'insert', 'clip') else None
+            expected_frames = len(mapping) if mapping is not None else 65
+            if (row.get('map_seed') != 0 or row['attack_map'] != mapping
+                    or row.get('frames') != expected_frames):
+                raise ValueError(f'Attack differs from frozen protocol for {identity}/{condition}')
             correct = row.get('correct_bits')
             if type(correct) is not int or not 0 <= correct <= 512 or row.get('total_bits') != 512:
                 raise ValueError('Invalid information-bit counts')

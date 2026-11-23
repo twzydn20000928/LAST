@@ -1,6 +1,7 @@
 import json
 import pytest
 from last.writer_pair_report import CONDITIONS, digest, report
+from last.temporal import attack_map
 
 
 def write(path, value):
@@ -29,8 +30,9 @@ def pair(tmp_path):
             received = folder/'marked.mp4'
             if condition != 'clean':
                 received = folder/'attacks'/(condition+'.mp4');received.write_bytes(condition.encode())
+            mapping = attack_map('paper-003', condition) if condition in ('insert', 'drop', 'clip') else None
             write(folder/'attacks'/(condition+'.json'), dict(status='completed',condition=condition,method='last',video_id='paper-003',
-                  source_sha256=row['marked_sha256'],received_sha256=digest(received),map_seed=0,attack_map=[0,1],frames=2,
+                  source_sha256=row['marked_sha256'],received_sha256=digest(received),map_seed=0,attack_map=mapping,frames=len(mapping) if mapping else 65,
                   correct_bits=500,total_bits=512,exact_message=False))
     return left, right
 
@@ -51,3 +53,13 @@ def test_reject_unpaired_or_incomplete_evidence(pair, change):
     elif change == 'key': (right/'secret.key').write_bytes(b'changed')
     else: (right/'attacks/clip.json').unlink()
     with pytest.raises((ValueError, FileNotFoundError)): report(left, right)
+
+
+def test_reject_matching_but_wrong_maps(pair):
+    for folder in pair:
+        path = folder/'attacks/drop.json'
+        row = json.loads(path.read_text())
+        row['attack_map'] = attack_map('paper-003', 'drop', seed=1)
+        write(path, row)
+    with pytest.raises(ValueError, match='frozen protocol'):
+        report(*pair)

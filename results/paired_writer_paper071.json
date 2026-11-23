@@ -1,0 +1,170 @@
+{
+  "scope": "One paired real endpoint, equal margin; not the full ablation set or matched-PSNR control",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "seed": 2096,
+  "margin": 0.5,
+  "settings": {
+    "steps": 50,
+    "cfg": 6,
+    "shift": 7,
+    "frames": 65,
+    "size": [
+      512,
+      512
+    ],
+    "clean_crf": 18,
+    "fps": 8,
+    "vae": "float32",
+    "generator": "bfloat16"
+  },
+  "variants": {
+    "minimum-margin": {
+      "conditions": [
+        {
+          "condition": "clean",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "bit_accuracy": 1.0,
+          "exact_message": true,
+          "received_sha256": "eaf09237648e4c961873471863c4ffbd2623ced3cd1c84a0b9f94585488a7bd9",
+          "receipt_sha256": "94f2b182e156a2ff7afaab30818d6008fb5334070b041b0f003ea39f4a81a7ae"
+        },
+        {
+          "condition": "noise",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "bit_accuracy": 1.0,
+          "exact_message": true,
+          "received_sha256": "396d849b142d25ba89c1e197177b694112a20b9666b3a5be8090e6246604079c",
+          "receipt_sha256": "49ea7d8bc11d70bff622535540f5408801f42aee48d2c81ad8bf1a92ea163d8c"
+        },
+        {
+          "condition": "compression",
+          "correct_bits": 492,
+          "total_bits": 512,
+          "bit_accuracy": 0.9609375,
+          "exact_message": false,
+          "received_sha256": "39e16d889c38e10dd2e35e7f98b471985f3ac7d465a7bcc10af7458f1a7a7af7",
+          "receipt_sha256": "b267000e6d1a52ae0d7977edb24e37cb3de90879c4cc20d4cba513190263bc74"
+        },
+        {
+          "condition": "blur",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "bit_accuracy": 1.0,
+          "exact_message": true,
+          "received_sha256": "67cd9cd42c98542882981fcb3292ae32af654d5a4ef5e34b171feaaa5d845b08",
+          "receipt_sha256": "b00cfa90e649d58f83b100ccc0a6af4396e98802b741d90bfb3967e7bd3232aa"
+        },
+        {
+          "condition": "drop",
+          "correct_bits": 423,
+          "total_bits": 512,
+          "bit_accuracy": 0.826171875,
+          "exact_message": false,
+          "received_sha256": "cfb9c0aaf216e865201ed6abdf057f1b698eca48b604006183e05e3df23b71c6",
+          "receipt_sha256": "3add6497945ef204d2ac7372824a4786155a910b7ea41c4f45fc4b5995796e98"
+        },
+        {
+          "condition": "insert",
+          "correct_bits": 489,
+          "total_bits": 512,
+          "bit_accuracy": 0.955078125,
+          "exact_message": false,
+          "received_sha256": "476d2d072401f7e27105a559891a8b3eae9efd68e2a674589bcd04453418d19d",
+          "receipt_sha256": "3accdf5e74d846d7fef7e653bb3a7ca39fe0fbf0e06e6d1fa396b8289e3bdc81"
+        },
+        {
+          "condition": "clip",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "bit_accuracy": 1.0,
+          "exact_message": true,
+          "received_sha256": "28601048d53fc6de5be7300753c8c2fa46d742e561227a8c419ca89ee00795bd",
+          "receipt_sha256": "57e9baa82849f3ef9cb74ac4b64a9fa8a067f06724dacea0fbbc57dc49a074d3"
+        }
+      ],
+      "psnr_db": 32.6947200455922,
+      "ssim": 0.9367560750724081,
+      "marked_sha256": "eaf09237648e4c961873471863c4ffbd2623ced3cd1c84a0b9f94585488a7bd9",
+      "quality_receipt_sha256": "0a401e3814f208d16bb3f00d4e29aa2bfb5a50c5c215d1742600cdad8faba5dd",
+      "generation_receipt_sha256": "3b526cefea337c63dc7d62102e31fcdf999abe97c94ab5145cfce95a1a815041"
+    },
+    "fixed-target": {
+      "conditions": [
+        {
+          "condition": "clean",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "bit_accuracy": 1.0,
+          "exact_message": true,
+          "received_sha256": "45a38b639aa4cbf549d3ef053d8a9ccde057bc6b153805d084964a18fc7ce707",
+          "receipt_sha256": "0304a36fcbf468397cf54bf8ee14eb344181090252b24b7dc0b532b092ede894"
+        },
+        {
+          "condition": "noise",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "bit_accuracy": 1.0,
+          "exact_message": true,
+          "received_sha256": "cb371a279118293bb1189f0b65232bb6af6a33cc2373d4b88454b99a38c6d99c",
+          "receipt_sha256": "4deee7f3cc4e272557a9de493f408675638f04aeaba68eecf920226a7c3b54db"
+        },
+        {
+          "condition": "compression",
+          "correct_bits": 491,
+          "total_bits": 512,
+          "bit_accuracy": 0.958984375,
+          "exact_message": false,
+          "received_sha256": "0b52509ee7afe87f32152695e7b16f4883723aafead31cd97273210a6a3cc791",
+          "receipt_sha256": "46f73e09342a5c1955a81a22d3c842aeae2baf5c67418767065de6e67b0b7bb1"
+        },
+        {
+          "condition": "blur",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "bit_accuracy": 1.0,
+          "exact_message": true,
+          "received_sha256": "607a42a6a9c86b6ce6fb770e8a24a79ac20ba94661cc07789cdd6a9feeaaea35",
+          "receipt_sha256": "6067cb829e6f1059cfd1eb5d71e7525252b61f218be0ebcf5c58830670f8e294"
+        },
+        {
+          "condition": "drop",
+          "correct_bits": 425,
+          "total_bits": 512,
+          "bit_accuracy": 0.830078125,
+          "exact_message": false,
+          "received_sha256": "e5322f266d9ae6e893f97819091ac8f55fdb6d2e4aa6337ae2b8d3cd2fa0a02e",
+          "receipt_sha256": "c1d32b4c8cf879fd4bb02b959f2e049ef9ead517b9b076a4e74eed3afcf75898"
+        },
+        {
+          "condition": "insert",
+          "correct_bits": 487,
+          "total_bits": 512,
+          "bit_accuracy": 0.951171875,
+          "exact_message": false,
+          "received_sha256": "d3460132a83f7ad8039f5fec5f60c37999cce9888a62d6d543b070788492e94c",
+          "receipt_sha256": "835528e933498805a45b4493f1afcaa0e9531a415af7402e0866ddac42252402"
+        },
+        {
+          "condition": "clip",
+          "correct_bits": 512,
+          "total_bits": 512,
+          "bit_accuracy": 1.0,
+          "exact_message": true,
+          "received_sha256": "2b029bae1bd86d25fba9e69166c00d16c6b428fac9780248ca8134acdc5d7c67",
+          "receipt_sha256": "530e07266863bcbcea910e95119fa1b7f72ba01b17a492b311cf08ec02089591"
+        }
+      ],
+      "psnr_db": 31.96611220086818,
+      "ssim": 0.9335896891583497,
+      "marked_sha256": "45a38b639aa4cbf549d3ef053d8a9ccde057bc6b153805d084964a18fc7ce707",
+      "quality_receipt_sha256": "932373d5b6c8f7ee81aa4b6a3dcedc7d78f3dbaa7acb98f3a665277c9f019e00",
+      "generation_receipt_sha256": "5d2f0da5e11c7f6db0c40cf1a91bd0039e75549e742e408f5068705743b4f9ef"
+    }
+  },
+  "video_id": "paper-071",
+  "quality_definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+  "reference_sha256": "fd03bddcadd5cdf297046e759f73530682406ad1a4afa5a5f97dd43072411968"
+}

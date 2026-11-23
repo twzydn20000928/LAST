@@ -57,6 +57,8 @@ def render(index):
         pairs = m["pairs"]
         require(m["warmup_pairs"] == m["measured_pairs"] == len(pairs) == 2 and
                 all(p["warmup"] is False for p in pairs), "Expected two measured generation pairs")
+        require(g.get("decoded_frame_counts") == [65] * 8,
+                "Each reference and marked generation must decode 65 frames in both warmup and measured pairs")
         marked = [seconds(p["marked_seconds"]) for p in pairs]
         overhead = [t - seconds(p["reference_seconds"]) for t, p in zip(marked, pairs)]
         values = [mean(marked), mean(overhead)]
