@@ -327,6 +327,34 @@ strengths. Average bit accuracy over the six attacked conditions, excluding
 clean; report paired PSNR and SSIM separately. The causal profile remains
 `[0,mu,mu,2*mu,mu,...]`. Do not choose the three examples by the resulting score.
 
+To acquire the entire grid in one Linux process, prepare development state and
+conditioning with the same manifest used above. From the repository root run:
+
+```bash
+python tools/run_margin_sweep.py --state "$STATE" --conditioning "$CONDITIONING" \
+  --model-dir "$MODEL" --family hunyuan --output "$SWEEP"
+python tools/plot_margin_sweep.py --index "$SWEEP/index.json" --output figure4
+```
+
+The first command reads the three case IDs and five margins from the frozen
+configs. It runs generation, MP4 attack/extraction and paired quality for each
+cell. It reuses completed outputs in its sweep directory and writes the plot
+index after verifying all fifteen cells. Give each backbone its own output
+directory. The plotting command also writes Appendix Table 5.
+
+If all three baseline development outputs already exist, add
+`--reuse-development "$DEV"` to the acquisition command. Use the Python
+package revision recorded in the development plan. The runner checks the
+plan, case, key, message, writer configuration, artifact digests and paired
+quality receipt, then copies the default-margin inputs into a private sweep
+cell. It evaluates the attacks there. Other margins use the same case and
+private state.
+
+The first [measured development cell](../results/margin_sweep_dev000_mu05.json)
+at μ=0.5 recovered 2,879 of 3,072 attacked bits across six edits on dev-000.
+The separate clean condition recovered all 512 bits. Figure 4 requires all
+three selected cases at each of the five margins.
+
 For example, set `DEV` to the completed development-generation root, `STATE`
 to its private development state, `MODEL` to the same checkpoint and `SWEEP`
 to the private sweep root. For one case and one new strength, use:
@@ -364,7 +392,13 @@ information bits (three videos × six attacks × 512 bits). Each quality point
 averages three video-level measurements. The accompanying CSV retains the
 numerators and denominators. The same command writes Appendix Table 5 to
 `table5.md`, including clean accuracy. Each condition uses 1,536 bits per margin.
-Incomplete sweeps produce no figure or table.
+The collector checks each deletion, insertion and clipping map against the
+deterministic map for that development ID. For example, deleting 30 frames
+from a 65-frame video leaves 35 received frames, but a different choice of
+those 35 frames changes the experiment. The collector checks both the original
+indices and the received frame count, even when all strengths used the same
+edit. Quality receipts must cover all 65 frames and their PSNR must agree with
+the recorded RGB mean squared error. Incomplete sweeps produce no figure or table.
 
 Default main-paper generation is unchanged (`--mu .5`, no `--fixed-target`).
 For supplement Table16's uniform writing control, add `--uniform-profile`

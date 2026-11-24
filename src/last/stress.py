@@ -21,7 +21,7 @@ def edit(frames,attack,video_id,seed=0,donor=None):
     if len(frames)!=65:raise ValueError('Supplement protocol starts from65frames')
     digest=hashlib.sha256(f'LAST-stress-v1:{video_id}:{attack}:{seed}'.encode()).digest()
     rng=np.random.Generator(np.random.PCG64(int.from_bytes(digest,'big')))
-    if attack in ('drop10','drop30','drop45','drop30_crf28'):
+    if attack in ('drop10','drop20','drop30','drop45','drop30_crf28'):
         count=int(attack.split('_')[0][4:]);mapping=attack_map(video_id,'drop',seed,65,count)
         return [frames[i] for i in mapping],dict(source_indices=mapping)
     if attack=='duplicate30':
@@ -44,7 +44,7 @@ def edit(frames,attack,video_id,seed=0,donor=None):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--video',type=Path,required=True);p.add_argument('--video-id',required=True);p.add_argument('--output',type=Path,required=True)
-    p.add_argument('--attack',choices=['drop10','drop30','drop45','duplicate30','natural30','interpolate30','drop30_crf28'],required=True)
+    p.add_argument('--attack',choices=['drop10','drop20','drop30','drop45','duplicate30','natural30','interpolate30','drop30_crf28'],required=True)
     p.add_argument('--seed',type=int,choices=range(5),default=0);p.add_argument('--donor-reference',type=Path);a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=False)
     frames=load_mp4(a.video);donor=load_mp4(a.donor_reference) if a.donor_reference else None

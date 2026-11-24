@@ -1,0 +1,5 @@
+# Experiment plans bind SHA-256 to the exact bytes of these configuration files.
+configs/*.json text eol=lf
+# These two historical blobs were frozen with CRLF. Preserve their original bytes.
+configs/models.json -text
+configs/primary_manifest.json -text

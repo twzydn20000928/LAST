@@ -51,11 +51,22 @@ def main():
     if not model_files:raise ValueError('Missing VAE model files')
     sources=source_digest()
     common=[a.run/'receipt.json',a.run/'marked.mp4',a.run/'secret.key',a.run/'message.npy',*model_files]
-    folders=sorted(path.parent for path in a.attacks.glob('*/attack.json'))
+    folders = sorted(path.parent for pattern in ('*/attack.json', '*/*/attack.json')
+                     for path in a.attacks.glob(pattern))
     if not folders:raise ValueError('No exported stress conditions')
+    seen = set()
     failed=False
     for folder in folders:
-        attack,video=verify_attack(folder,source_sha);out=a.output/folder.name;out.mkdir(exist_ok=True,mode=0o700)
+        attack,video=verify_attack(folder,source_sha)
+        identity = (attack['video_id'], attack['attack'], attack['seed'])
+        if identity in seen:
+            raise ValueError(f'Duplicate stress condition: {identity}')
+        seen.add(identity)
+        relative = folder.relative_to(a.attacks)
+        if len(relative.parts) == 2 and relative.parts != (attack['attack'], f"map{attack['seed']}"):
+            raise ValueError(f'Stress directory disagrees with recorded attack or seed: {relative}')
+        out = a.output / relative
+        out.mkdir(parents=True, exist_ok=True, mode=0o700)
         inputs={str(f.resolve()):digest(f) for f in [*common,folder/'attack.json',video]}
         receipt=out/'evaluation.json'
         decoded=out/'decoded_private.json'

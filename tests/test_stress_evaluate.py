@@ -59,7 +59,8 @@ def test_saved_count_is_recomputed_and_attack_identity_checked():
 
 
 @pytest.mark.parametrize('mutate_truth',[False,True])
-def test_full_workflow_resume_and_input_change(tmp_path,monkeypatch,mutate_truth):
+@pytest.mark.parametrize('relative',['drop45','drop45/map0'])
+def test_full_workflow_resume_and_input_change(tmp_path,monkeypatch,mutate_truth,relative):
     """Synthetic process outputs exercise orchestration, not video accuracy."""
     run=tmp_path/'run';run.mkdir()
     (run/'marked.mp4').write_bytes(b'original fixture')
@@ -69,7 +70,7 @@ def test_full_workflow_resume_and_input_change(tmp_path,monkeypatch,mutate_truth
         family='hunyuan',marked_sha256=workflow.digest(run/'marked.mp4'))))
     model=tmp_path/'model';(model/'vae').mkdir(parents=True)
     (model/'vae/config.json').write_text('{}')
-    attacks=tmp_path/'attacks';folder=attacks/'drop45';folder.mkdir(parents=True)
+    attacks=tmp_path/'attacks';folder=attacks/relative;folder.mkdir(parents=True)
     video=folder/'received.mp4';video.write_bytes(b'edited fixture')
     attack=dict(status='completed_attack_export',source_sha256=workflow.digest(run/'marked.mp4'),
                 received_sha256=workflow.digest(video),attack='drop45',seed=0,video_id='case')
@@ -86,13 +87,13 @@ def test_full_workflow_resume_and_input_change(tmp_path,monkeypatch,mutate_truth
     monkeypatch.setattr(workflow.subprocess,'run',child)
     monkeypatch.setattr(sys,'argv',['stress_evaluate','--run',str(run),'--attacks',str(attacks),
                                   '--model-dir',str(model),'--family','hunyuan','--output',str(out)])
-    receipt=out/'drop45/evaluation.json'
+    receipt=out/relative/'evaluation.json'
     if mutate_truth:
         with pytest.raises(SystemExit):workflow.main()
         row=json.loads(receipt.read_text())
         assert row['status']=='failed' and 'changed during extraction' in row['error']
         assert 'correct_bits' not in row
-        assert (out/'drop45/decoded_private.json').exists()
+        assert (out/relative/'decoded_private.json').exists()
     else:
         workflow.main()
         row=json.loads(receipt.read_text())

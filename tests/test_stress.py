@@ -7,7 +7,7 @@ from last.temporal import attack_map
 
 def test_supplement_counts_determinism_and_primary_map_consistency():
     frames=[Image.fromarray(np.full((16,16,3),i,dtype=np.uint8)) for i in range(65)]
-    for attack,count in [('drop10',55),('drop30',35),('drop45',20),('duplicate30',95),('interpolate30',95),('drop30_crf28',35)]:
+    for attack,count in [('drop10',55),('drop20',45),('drop30',35),('drop45',20),('duplicate30',95),('interpolate30',95),('drop30_crf28',35)]:
         out,m=edit(frames,attack,'v');again,m2=edit(frames,attack,'v')
         assert len(out)==count and m==m2
         assert all(np.array_equal(a,b) for a,b in zip(out,again))

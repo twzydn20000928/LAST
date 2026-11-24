@@ -6,6 +6,7 @@ import json
 import math
 from pathlib import Path
 from statistics import mean
+from last.temporal import attack_map
 
 
 def digest(path):
@@ -26,7 +27,10 @@ def collect(index, config):
     manifest = read(manifest_path)
     ids = manifest["margin_sweep_ids"]
     samples = {s["id"]: s for s in manifest["samples"]}
-    strengths = read(config / "paper_v1.json")["margin_sweep"]["mu"]
+    protocol = read(config / "paper_v1.json")
+    strengths = protocol["margin_sweep"]["mu"]
+    frames = protocol["video"]["frames"]
+    seed = protocol["attacks"]["primary_map_seed"]
     attacks = ("noise", "compression", "blur", "drop", "insert", "clip")
     rows = {}
     paired = {}
@@ -38,13 +42,14 @@ def collect(index, config):
         q = read(folder / "quality.json")
         mu = g["mu"]
         require(name in ids and mu in strengths and (name, mu) not in rows, "Unexpected or duplicate sweep cell")
-        require(g["status"] == "completed" and g["method"] == "last" and not g["fixed_target"]
+        require(g["status"] == "completed" and g["method"] == "last" and g["mode"] == "i2v" and not g["fixed_target"]
                 and not g["uniform_profile"], f"{folder}: incorrect writer")
         case = read(folder / "case.json")
         require(g["case_sha256"] == digest(folder / "case.json") and case["video_id"] == name
                 and case["development_manifest_sha256"] == digest(manifest_path)
                 and case["seed"] == samples[name]["seed"] == g["seed"]
-                and case["prompt"] == samples[name]["prompt"], f"{folder}: case mismatch")
+                and case["prompt"] == samples[name]["prompt"] and case["key_slot"] == samples[name]["key_slot"],
+                f"{folder}: case mismatch")
         identity = (g["family"], g["mode"], g["source_sha256"], g["settings"], g["model_directory"])
         if pipeline is None:
             pipeline = identity
@@ -59,17 +64,19 @@ def collect(index, config):
             stem = folder / "attacks" / attack
             r = read(stem.with_suffix(".json"))
             received = marked if attack == "clean" else digest(stem.with_suffix(".mp4"))
+            mapping = attack_map(name, attack, seed, frames, protocol["attacks"]["temporal_count"]) if attack in ("drop", "insert", "clip") else None
             require(r["status"] == "completed" and r["video_id"] == name and r["method"] == "last"
                     and r["condition"] == attack and r["source_sha256"] == marked
                     and r["received_sha256"] == received
-                    and r["map_seed"] == 0 and r["total_bits"] == 512
+                    and r["map_seed"] == seed and r["attack_map"] == mapping
+                    and r["frames"] == (len(mapping) if mapping is not None else frames) and r["total_bits"] == 512
                     and type(r["correct_bits"]) is int and 0 <= r["correct_bits"] <= 512,
                     f"{stem}: attack receipt mismatch")
-            pairing.append(r["attack_map"])
             counts[attack] = r["correct_bits"]
         require(paired.setdefault(name, pairing) == pairing, f"{folder}: strengths are unpaired")
-        require(q["psnr_db"] is not None and math.isfinite(q["psnr_db"]) and math.isfinite(q["ssim"]),
-                f"{folder}: finite quality values required for this plot")
+        require(q["frames"] == frames and 0 < q["rgb_mse"] <= 1 and not q["identical"]
+                and q["psnr_db"] is not None and math.isclose(q["psnr_db"], -10 * math.log10(q["rgb_mse"]), abs_tol=1e-8)
+                and -1 <= q["ssim"] <= 1, f"{folder}: invalid paired quality measurements")
         rows[name, mu] = (counts, q["psnr_db"], q["ssim"])
     require(len(rows) == len(ids) * len(strengths), "Incomplete sweep")
     summary = []

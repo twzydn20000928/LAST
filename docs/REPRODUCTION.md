@@ -36,3 +36,7 @@ The author authorized current L40 generation in place of the manuscript A800. Pr
 6. Independent fresh-environment reproduction; documented limitations and unmatched manuscript targets.
 
 This repository is not yet through these gates. Missing implementations and pending results are not represented as complete.
+
+### Frozen manifest bytes
+
+Run receipts bind the exact bytes of the manifest. The development manifest SHA-256 is `8a3d1ec0397456faaff7a9cd98d7e7e1a05a15fc5e9a917745d0ce44affa76f7`, and the primary manifest SHA-256 is `348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58`. The repository preserves the original LF development file and CRLF primary file through Git checkout attributes. Transfer the files byte-for-byte when staging them on a compute server. To check an existing staging directory, run `sha256sum configs/development_manifest.json configs/primary_manifest.json` there. A JSON reserialization or line-ending conversion can preserve the prompts and seeds while changing the run receipt digest.

@@ -19,7 +19,7 @@ python -m last.stress --video /private/run/marked.mp4 --video-id paper-000 \
   --attack drop45 --seed 0 --output /private/stress/paper-000/drop45/map0
 ```
 
-Choices are `drop10`, `drop30`, `drop45`, `duplicate30`, `natural30`,
+Table 15 uses eight edits. Choices are `drop10`, `drop20`, `drop30`, `drop45`, `duplicate30`, `natural30`,
 `interpolate30`, and `drop30_crf28`. Map seeds0–4 are fixed before extraction.
 Drop30 uses exactly the primary deletion map. Combined editing uses this same
 map then CRF28; other exports use CRF18,8fps,yuv420p. Every export is reopened.
@@ -53,8 +53,12 @@ python -m last.stress_evaluate --run /private/last-run \
   --model-dir /path/to/Hunyuan-I2V --output /private/stress-scores/paper-000
 ```
 
-Each immediate subdirectory of `--attacks` contains `attack.json` and
-`received.mp4`. Source and received hashes are verified. The evaluator reads
+Use `<attack>/map<seed>/attack.json` and `received.mp4` under the sample
+directory, as in the export example. The evaluator checks the nested directory
+names against the recorded condition and seed and preserves that structure
+in its outputs. It also accepts earlier flat exports with one subdirectory per
+condition. Each video/attack/seed combination can occur once per evaluation.
+Source and received hashes are verified. The evaluator reads
 truth only after extraction exits, records failures explicitly, and retains
 private decoded outputs. This command currently evaluates LAST only; other
 baseline adapters still require separate stress integration.
@@ -106,9 +110,11 @@ checking all five recorded edit maps and received-video hashes confirmed the
 35 retained frames and consecutive 30 removed indices. The label is corrected;
 the videos, maps and measured bit counts have not been changed.
 
-For `paper-000`, the pinned reader also completed the seven supplementary edits.
+For `paper-000`, the pinned reader also completed seven of the eight supplementary edits at seed 0.
 The [measured results](../results/stress_seven_edits_verified.json) list decoded
 frame counts, correct information bits, exact recovery and hashes for each MP4
 and evaluation receipt. Deleting 30 frames yielded 371/512; adding CRF28
 compression to the deletion yielded 331/512 on this case.
 For this recorded natural insertion, the first seven source frames are followed by donor frames 21 through 50 (zero-based), then the remaining 58 source frames. The JSON includes the actual edit maps and CRF for all seven observations.
+
+The [20-frame deletion record](../results/stress_drop20_verified.json) completes the eight Table 15 edits for paper-000 at seed 0. The pinned reader recovered 439/512 bits from the 45 retained frames; the message had 73 errors. The received MP4 and prediction were verified, and the count was recomputed from the private prediction and truth on the experiment server. Table 15's mean message recovery rate measures whole messages across videos and map seeds. This single condition contributes one failed exact recovery to that statistic.
