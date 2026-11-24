@@ -1,0 +1,267 @@
+{
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "reference",
+  "dimension": "Diversity",
+  "mean": 0.25486306846141815,
+  "prompt_groups": [
+    {
+      "score": 0.1785636991262436,
+      "videos": [
+        {
+          "video_id": "paper-080",
+          "mp4_sha256": "7a19feb357a4957e816813cc08240eb66b4559bc3615cb3804074e8ebb7f11a4"
+        },
+        {
+          "video_id": "paper-081",
+          "mp4_sha256": "453e62a4f6672c2468444879e72e121cd9fef317b4ff67e16f0574763f065232"
+        },
+        {
+          "video_id": "paper-082",
+          "mp4_sha256": "9ffb010f0f4b347d56be2beb8cf1a520855676b0a76c423124fa5b65cd08550f"
+        },
+        {
+          "video_id": "paper-083",
+          "mp4_sha256": "717f8d7a5d8ec104c31f816c4df3c75cabb5609b28fd068fac278a9329259b27"
+        },
+        {
+          "video_id": "paper-084",
+          "mp4_sha256": "552a8327518f065596b9c55c5d8c81a2f6252d7cc73e4698c2e38478cd9c5d9b"
+        },
+        {
+          "video_id": "paper-085",
+          "mp4_sha256": "4e58c98dd6ac48cc1ad29a3693529a5ea668e38e07c80ad407bdca54cec40480"
+        },
+        {
+          "video_id": "paper-086",
+          "mp4_sha256": "bba00f95846aa194a559be4699b827c596c3d968aab351ad72833031f84c1ed8"
+        },
+        {
+          "video_id": "paper-087",
+          "mp4_sha256": "8800e90a96bb349a9408d1db926bf5a24acaa013c93567f3d8bd0aa5200f9d75"
+        },
+        {
+          "video_id": "paper-088",
+          "mp4_sha256": "0be24eabafa847de390246999c01a69f1c7e323ffcc930fb80b7a9d204ce2062"
+        },
+        {
+          "video_id": "paper-089",
+          "mp4_sha256": "ce654ceb85284f9f1cd0f4170a85e353502a232da058c60dc710984b4c884feb"
+        },
+        {
+          "video_id": "paper-090",
+          "mp4_sha256": "0afec334714f1e21df5d420542a7d9cd1207e458eb13dce8770f46b4b7e703c8"
+        },
+        {
+          "video_id": "paper-091",
+          "mp4_sha256": "a0a949af63ca6daac617ce6f7293738e4b9d1f1941d029facb3901819ef80f83"
+        },
+        {
+          "video_id": "paper-092",
+          "mp4_sha256": "5801cd63981992208230a3c68c9c1ef0447af2663c0b1c884c283b3eed754575"
+        },
+        {
+          "video_id": "paper-093",
+          "mp4_sha256": "af51b84b9f701c7cf606191885dff3532a02f17953d861640a8313ce2046f603"
+        },
+        {
+          "video_id": "paper-094",
+          "mp4_sha256": "e97090027aea6088138bdf11b288c3367443ed1c3a1a6069d84705012dc1c0da"
+        },
+        {
+          "video_id": "paper-095",
+          "mp4_sha256": "c844c9d5bd6652aa2c9acc3737b22488676fd055081d3488e33b41418ad3a3db"
+        },
+        {
+          "video_id": "paper-096",
+          "mp4_sha256": "e14cb3de3cbe1973b9b62d67dbe778b08118d93470740ac7d1fd8892530b14e8"
+        },
+        {
+          "video_id": "paper-097",
+          "mp4_sha256": "e43c3b5da5a524c1bef6bd3c4c3bac1f1cf94f2e4af27cf3de9384f604c6c575"
+        },
+        {
+          "video_id": "paper-098",
+          "mp4_sha256": "52479dd9264ab8ae29ddc326ee4d0d9d3ac310b3c1c464b4d52ba9fdd1cd17b8"
+        },
+        {
+          "video_id": "paper-099",
+          "mp4_sha256": "0f06b8ec0a7bb43abc4a0b190a2cfa47b637911a2659485e1d814d7ec47f013a"
+        }
+      ]
+    },
+    {
+      "score": 0.3257454037666321,
+      "videos": [
+        {
+          "video_id": "paper-100",
+          "mp4_sha256": "a166c3ab7c874475ee42cde6b18e31c589c050e239559904fff6f31684ebe88f"
+        },
+        {
+          "video_id": "paper-101",
+          "mp4_sha256": "4443eeadcb74e2c88b45a58059ee4b1aa34204c3238a1e8a0dc1b4b10bb8a370"
+        },
+        {
+          "video_id": "paper-102",
+          "mp4_sha256": "ff4d3173ddd7f423bb6a9474d8c9d287daefc2a97c7269c10e3808ea9d61686f"
+        },
+        {
+          "video_id": "paper-103",
+          "mp4_sha256": "fc01fda54c2e7b73c84f094821cf5490c89d0786c13ffe72f0336a7e9c1937cc"
+        },
+        {
+          "video_id": "paper-104",
+          "mp4_sha256": "41ae2c02aa592e563a091cbec103c12b3255debb0124bacbeecff2c104aae675"
+        },
+        {
+          "video_id": "paper-105",
+          "mp4_sha256": "4a195d590b231490c7d5df45e7e250ed468be8361ac9a815a10c9531c1f17799"
+        },
+        {
+          "video_id": "paper-106",
+          "mp4_sha256": "45e32d829c4d4d316357851bd8ff0b79e67a624d5a69d67ee4f35062a8978aa7"
+        },
+        {
+          "video_id": "paper-107",
+          "mp4_sha256": "a73747590403114b73c213b768d18a20031beeed40e5dd64ae93d1b3c0cafe4d"
+        },
+        {
+          "video_id": "paper-108",
+          "mp4_sha256": "638da68a0dfb014c40d23121f1ce5e42b80fade27bea8229f33007468650c907"
+        },
+        {
+          "video_id": "paper-109",
+          "mp4_sha256": "adbeb5207beaa26f432a84f6bc88692d58a989e54c4384b75f90e033b8870d55"
+        },
+        {
+          "video_id": "paper-110",
+          "mp4_sha256": "c9715458b33fe500aafa07c6f035cb6c5608e0e35a526d8eeec13bfd1a631e85"
+        },
+        {
+          "video_id": "paper-111",
+          "mp4_sha256": "fe52a7b3f7d7b76066678bb7a9f27bf35257fe17d9575e504fbffdac749e9d28"
+        },
+        {
+          "video_id": "paper-112",
+          "mp4_sha256": "2c33b06ee606310f88808c4ba26dbd17dfd8786f97b6ddfc3d92bb4eee6ef2d3"
+        },
+        {
+          "video_id": "paper-113",
+          "mp4_sha256": "7891336dec7a284d15b32e0790075fd57d5d81d33115fc38c061af682483d3bf"
+        },
+        {
+          "video_id": "paper-114",
+          "mp4_sha256": "b9444fcac036f6def4d172b3875e42b361b37f6a1b084e45ea9f9aefd3a9ec70"
+        },
+        {
+          "video_id": "paper-115",
+          "mp4_sha256": "c5d46bab4f5bc26c480e5a0d4617c09ea0b2c1c4b98a687f01d81feef55d8953"
+        },
+        {
+          "video_id": "paper-116",
+          "mp4_sha256": "d407c0cd463e17b4e87120ddcc85984e39c27cfb7db3c60cbe2a0f940c655024"
+        },
+        {
+          "video_id": "paper-117",
+          "mp4_sha256": "ba058235662743fdea203f96fbee61220f9ebc7a9344559fb1ef65e3234d0bc9"
+        },
+        {
+          "video_id": "paper-118",
+          "mp4_sha256": "e3d2f5be9e728f75c958787465a0e73c5df7d1b2c34c842ac4fb9b39100ef1ff"
+        },
+        {
+          "video_id": "paper-119",
+          "mp4_sha256": "812fb296273ec1dcdc4e9dccd74033bce9363b440835657e4477d1691bc3efd5"
+        }
+      ]
+    },
+    {
+      "score": 0.2602801024913788,
+      "videos": [
+        {
+          "video_id": "paper-120",
+          "mp4_sha256": "a7e1c4b46a93da87f2e24c44b35a55036017320dadc5da0c728a3b3303bc6d6a"
+        },
+        {
+          "video_id": "paper-121",
+          "mp4_sha256": "065cc7c7d7a7cd3cd9dc11dcff7cce5191a516de04e72e6de2045eaf8a8f84b9"
+        },
+        {
+          "video_id": "paper-122",
+          "mp4_sha256": "fba39a4a31d2f556eace2045b605a3a7e3f1d0fd9457824b030912f80fafe26d"
+        },
+        {
+          "video_id": "paper-123",
+          "mp4_sha256": "cdeb5a8416d61c4b4cb866d07479791c63031ac9cbd5477b1b5d53272bf750f2"
+        },
+        {
+          "video_id": "paper-124",
+          "mp4_sha256": "58e6feeac0a523e03f14680f94a69c2b03a7e97e0e534d532e0ac6edebce6550"
+        },
+        {
+          "video_id": "paper-125",
+          "mp4_sha256": "27f1ebd75248a0bc5b94d417236a5fc6f0a21c428587b9c37add7b2d40cf7287"
+        },
+        {
+          "video_id": "paper-126",
+          "mp4_sha256": "3e25281b852be920249e2cbc670c7bf37e294151f1672c75a8c739ebb7772366"
+        },
+        {
+          "video_id": "paper-127",
+          "mp4_sha256": "d376c74c92466a1bbb61124a199d12443e28b6301c9275c798c98efc6eadbff0"
+        },
+        {
+          "video_id": "paper-128",
+          "mp4_sha256": "508416e8b4419674d3c1d4e9b958713af6f589827e6b2b0d47b076747116180d"
+        },
+        {
+          "video_id": "paper-129",
+          "mp4_sha256": "e4ca3ca04f461bce0357502b22e7edc8b1dac4155e6454c9b0fbe6697367ac14"
+        },
+        {
+          "video_id": "paper-130",
+          "mp4_sha256": "0a52ac5d68b52a6e90f324258cfbcfd51f9439387be43e189917f546a5b87d39"
+        },
+        {
+          "video_id": "paper-131",
+          "mp4_sha256": "5dba41cc4bcca0ca686d8a85aa56dc47fdc646519bba47b5c4efc773a4a735e4"
+        },
+        {
+          "video_id": "paper-132",
+          "mp4_sha256": "0a861d108c252706a3855418550a8916c223c7143f61cb143aea122ab5e5feb8"
+        },
+        {
+          "video_id": "paper-133",
+          "mp4_sha256": "f47d5c8fc78b85031d00bf6c900739b4d58431acc2898ecdbbbbf1ae52734c5a"
+        },
+        {
+          "video_id": "paper-134",
+          "mp4_sha256": "0bafce0c17bb14664dd8475308826aea460a5602b9c0849d3321df736fe5be9e"
+        },
+        {
+          "video_id": "paper-135",
+          "mp4_sha256": "15a4bf08a2460d6ccc4a0092aec55c477908ad1ee863222c0fd48b2d03f02808"
+        },
+        {
+          "video_id": "paper-136",
+          "mp4_sha256": "b681c401ffd950ab71c93f8dd1741cd63349875c093343c1bef4fc7008c1e17d"
+        },
+        {
+          "video_id": "paper-137",
+          "mp4_sha256": "c7cf528bcdd78b3bde763011daaf27f526d8ad3ad3c27b5cf02aa74bb2e1c16f"
+        },
+        {
+          "video_id": "paper-138",
+          "mp4_sha256": "0e8ceeec8c289ee658af6eb8388736aa93943e237ef256311e057656818da4f8"
+        },
+        {
+          "video_id": "paper-139",
+          "mp4_sha256": "c9b8ff58fb4999edb740e68532847fd2aa18f5717dde3aa084cbe5d43c8d8f41"
+        }
+      ]
+    }
+  ],
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "receipt_sha256": "5757139e67be06a2a2be054b4b12151401b58a31a2066d4f63cecbf3cffba81b",
+  "official_result_sha256": "a3b3806862cd50e7571b6770430487e7484c8b9673f2696d65db0defac85b220"
+}
