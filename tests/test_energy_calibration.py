@@ -4,6 +4,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 from last.energy_calibration import fit,transform,projected_energy
+from last.hypothesis_statistics import clean_energy_pairs
 
 
 def manifests():
@@ -41,3 +42,21 @@ def test_energy_statistic_and_invalid_inputs():
     values[0,0,0]=np.nan
     with pytest.raises(ValueError):projected_energy(values)
     with pytest.raises(ValueError):projected_energy(np.ones((16,512)))
+
+
+def test_matched_clean_energy_uses_pooled_development_scale():
+    dev, primary = manifests()
+    bank = np.full((80, 64, 16), 7.)
+    bank[:, :40, :8] = 1.
+    calibration = fit(bank, [r['id'] for r in dev['samples']], dev, primary)
+    assert calibration['pooled_wrong_key_median'] == 7
+    assert np.median(calibration['center']) == 4
+    responses = np.full((16, 16, 592), -7.)
+    responses[np.arange(16), np.arange(16)] = -14.
+    rows = clean_energy_pairs(responses, calibration)
+    assert len(rows) == 156
+    assert all(r['raw_correct'] == 2 and r['raw_wrong'] == 1 for r in rows)
+    assert rows[0]['calibrated_correct'] == pytest.approx((14 - 1) / 1e-8)
+    del calibration['pooled_wrong_key_median']
+    with pytest.raises(ValueError, match='pooled'):
+        clean_energy_pairs(responses, calibration)

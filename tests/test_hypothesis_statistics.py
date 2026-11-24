@@ -1,6 +1,18 @@
 import numpy as np
 import pytest
-from last.hypothesis_statistics import four_group_consistency, matched_summary
+from last.hypothesis_statistics import clean_consistency_pairs, four_group_consistency, matched_summary
+
+
+def test_matched_chains_keep_windows_fixed_and_never_wrap():
+    values = np.zeros((16, 16, 592))
+    for window in range(16):
+        values[window, :, window] = 1
+        values[window, window] = 1
+    rows = clean_consistency_pairs(values)
+    assert {(r['window_start'], r['wrong_group_start']) for r in rows} == {
+        (i, j) for i in range(13) for j in range(13) if i != j}
+    assert len(rows) == 156
+    assert all(r['correct'] == pytest.approx(1) and r['wrong'] == 0 for r in rows)
 
 
 def test_fixed_four_pairwise_cosines():

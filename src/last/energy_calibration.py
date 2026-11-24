@@ -38,6 +38,7 @@ def fit(wrong_key_energy, video_ids, development, primary):
     return dict(schema_version=1, definition=DEFINITION, reconstruction=True,
                 scope='Development fitted energy transform; acquisition provenance and real-video validation required',
                 wrong_keys_per_candidate=64, groups=16, candidates=len(video_ids),
+                pooled_wrong_key_median=float(np.median(pooled)),
                 videos=sorted(expected), center=center.tolist(),
                 scale=np.maximum(raw_scale,1e-8).tolist(),
                 degenerate_groups=np.flatnonzero(raw_scale<1e-8).tolist())

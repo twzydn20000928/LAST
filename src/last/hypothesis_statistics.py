@@ -6,6 +6,54 @@ The caller must supply matched correct/wrong scores from the frozen protocol.
 import numpy as np
 
 
+def clean_energy_pairs(correlations, calibration):
+    """Use the same windows and consecutive group assignments as the consistency row."""
+    from .energy_calibration import projected_energy, transform
+
+    if np.shape(correlations) != (16, 16, 592):
+        raise ValueError("Expected 16 clean windows x 16 group hypotheses x 592 coefficients")
+    median = calibration.get("pooled_wrong_key_median")
+    if median is None or not np.isfinite(median) or median <= 0:
+        raise ValueError("Recompute a positive pooled wrong-key median from development responses")
+    energy = projected_energy(correlations)
+    calibrated = transform(energy, calibration)
+    pairs = []
+    offsets = np.arange(4)
+    for start in range(13):
+        windows = start + offsets
+        raw = [float(energy[windows, j + offsets].mean() / median) for j in range(13)]
+        adjusted = [float(calibrated[windows, j + offsets].mean()) for j in range(13)]
+        for j in range(13):
+            if j != start:
+                pairs.append(dict(window_start=start, wrong_group_start=j,
+                                  raw_correct=raw[start], raw_wrong=raw[j],
+                                  calibrated_correct=adjusted[start], calibrated_wrong=adjusted[j]))
+    return pairs
+
+
+def clean_consistency_pairs(correlations):
+    """Pair group assignments on the same four clean windows in source order.
+
+    Axis order is observed group, hypothesized group, BCH coefficient.
+    Callers must bind this array to a clean-video receipt and verified frame order.
+    """
+    values = np.asarray(correlations)
+    if values.shape != (16, 16, 592) or not np.isfinite(values).all():
+        raise ValueError("Expected 16 clean windows x 16 group hypotheses x 592 coefficients")
+    offsets = np.arange(4)
+    pairs = []
+    for start in range(13):
+        windows = start + offsets
+        correct = four_group_consistency(values[windows, windows])
+        for alternative in range(13):
+            if alternative == start:
+                continue
+            wrong = four_group_consistency(values[windows, alternative + offsets])
+            pairs.append(dict(window_start=start, wrong_group_start=alternative,
+                              correct=correct, wrong=wrong))
+    return pairs
+
+
 def four_group_consistency(rows):
     """Mean of six pairwise cosines, not the length-scaled search score."""
     rows = np.asarray(rows, dtype=np.float64)

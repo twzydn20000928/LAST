@@ -377,10 +377,10 @@ Each state's `receipt.json` contains the mean and valid-video count.
 allows the other dimensions to be absent while the sample check above requires
 full Camera Motion coverage.
 
-### Hunyuan I2V Complex Landscape pairs
+### Hunyuan I2V Complex Landscape and Dynamic Attribute pairs
 
 Use the same `PRIMARY_RUNS`, `QUALITY_METADATA` and `VBENCH` paths as above.
-Set `LANDSCAPE_OUT` to a new directory, `LLAVA` to the local LLaVA checkpoint
+For Complex Landscape use `DIMENSION=Complex_Landscape` (default). For Dynamic Attribute use `DIMENSION=Dynamic_Attribute`. Export the selected value and set `LANDSCAPE_OUT` to a new directory for that dimension, `LLAVA` to the local LLaVA checkpoint
 directory, `QWEN` to the local Qwen checkpoint and `SIGLIP` to the local SigLIP directory. Run in the quality
 environment from the repository root. Both arms must contain the same 20
 planned sample IDs before either arm is scored.
@@ -388,6 +388,8 @@ planned sample IDs before either arm is scored.
 ```bash
 (
   set -eu
+  dimension="${DIMENSION:-Complex_Landscape}"
+  case "$dimension" in Complex_Landscape|Dynamic_Attribute) ;; *) exit 2 ;; esac
   mkdir "${LANDSCAPE_OUT:?}"
   python -c 'import json,sys; from pathlib import Path; print(json.dumps({k: str(Path(v).resolve(strict=True)) for k, v in zip(("llava", "qwen"), sys.argv[1:])}))' \
     "${LLAVA:?}" "${QWEN:?}" > "$LANDSCAPE_OUT/submodules.json"
@@ -396,22 +398,23 @@ planned sample IDs before either arm is scored.
     python -m last.quality_inputs --manifest configs/primary_manifest.json \
       --metadata-root "${QUALITY_METADATA:?}" --run-root "${PRIMARY_RUNS:?}" \
       --family hunyuan --mode i2v --method "$state" --allow-partial-diagnostic --output "$inputs"
-    python - "$inputs/Complex_Landscape.json" configs/primary_manifest.json <<'PY'
+    python - "$inputs/$dimension.json" configs/primary_manifest.json "$dimension" <<'PY'
 import json
 import sys
 from pathlib import Path
 
-questions, manifest = (json.loads(Path(p).read_text()) for p in sys.argv[1:])
-planned = {s["id"] for s in manifest["samples"] if s["dimension"] == "Complex_Landscape"}
-ids = [Path(video).parent.name for question in questions for video in question["video_list"]]
-if len(planned) != 20 or len(ids) != 20 or set(ids) != planned:
-    raise SystemExit("Incomplete or mismatched Complex Landscape subset")
+questions, manifest = (json.loads(Path(p).read_text()) for p in sys.argv[1:3])
+planned = {s["id"]: s["prompt"] for s in manifest["samples"] if s["dimension"] == sys.argv[3]}
+observed = [(Path(v).parent.name, q["prompt_en"]) for q in questions for v in q["video_list"]]
+if (len(questions) != 5 or any(len(q["video_list"]) != 4 for q in questions)
+        or len(planned) != 20 or dict(observed) != planned):
+    raise SystemExit(f"Incomplete or mismatched {sys.argv[3]} subset")
 PY
   done
   for state in last reference; do
     HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python -m last.quality_score \
       --upstream "${VBENCH:?}" --inputs "$LANDSCAPE_OUT/$state-inputs" \
-      --dimension Complex_Landscape --submodules "$LANDSCAPE_OUT/submodules.json" \
+      --dimension "$dimension" --submodules "$LANDSCAPE_OUT/submodules.json" \
       --llava-siglip "${SIGLIP:?}" --llava-attention sdpa --llava-vision-batch 4 \
       --device cuda --allow-partial-diagnostic --output "$LANDSCAPE_OUT/$state"
   done
@@ -428,3 +431,5 @@ scored 0.13 on average in each arm. All 40 videos received valid scores. LAST
 scored higher on three pairs, lower on three and equally on fourteen. The
 JSON records the official per-video scores and the hashes of the MP4s, raw
 outputs and scoring receipts.
+
+For Dynamic Attribute, the official scorer samples 64 frames uniformly and asks the auxiliary questions for that prompt. A video scores 1 if every answer contains “yes” (case-insensitive), and 0 otherwise. Average the 20 video scores per arm. The coverage and scoring receipts identify the inputs used for each mean.
