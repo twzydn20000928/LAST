@@ -1,0 +1,227 @@
+{
+  "dimension": "Composition",
+  "family": "hunyuan",
+  "hardware": "NVIDIA L40",
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "mode": "i2v",
+  "pairs": {
+    "paper-060": {
+      "last": {
+        "mp4_sha256": "d26d9f9515cc065c6225452dd3d49ee266d99e210acab0c628b9399ed61bf421",
+        "score": 0.5
+      },
+      "reference": {
+        "mp4_sha256": "c25bea062ca34aebd073b1a9959d3e1d0374b32d02a48ed9f120ea64e7f6b7b9",
+        "score": 0.5
+      }
+    },
+    "paper-061": {
+      "last": {
+        "mp4_sha256": "79b8351e3970e6c7a990044c620cd3dcf89b824177b7f094c15bb539e0b8b641",
+        "score": 0.5
+      },
+      "reference": {
+        "mp4_sha256": "790c2545d636d327b44bee0721cea28842249364ee4e3f65b814b4630a8fa67f",
+        "score": 0.5
+      }
+    },
+    "paper-062": {
+      "last": {
+        "mp4_sha256": "0a8a80266691ef296c5de0a44d497e1adcc828ad26e886186bbff7b87f7c24dd",
+        "score": 0.5
+      },
+      "reference": {
+        "mp4_sha256": "6624abd880f838e4a5bf57d9c587ecbb62b9472e0f421d6b9fe5eb39d41aaf33",
+        "score": 0.5
+      }
+    },
+    "paper-063": {
+      "last": {
+        "mp4_sha256": "4ddbaa01e90179ae83bc6f9819a45a259dd4f32f15f2def1bf811421cac8f8b0",
+        "score": 0.5
+      },
+      "reference": {
+        "mp4_sha256": "d90ad8061fdf966f2bc1f4293bf4c4eb59d0f6b80289d7eb23291cc7875675b6",
+        "score": 0.5
+      }
+    },
+    "paper-064": {
+      "last": {
+        "mp4_sha256": "c554c871101b9c012a213fb797dc5c514992ccc0a0053b24b5b4b989d678462c",
+        "score": 0.5
+      },
+      "reference": {
+        "mp4_sha256": "e78e38f1f5638f4a7ea42b94f9ed035224ebffcaae265ac69b58eac1bb52aad9",
+        "score": 0.5
+      }
+    },
+    "paper-065": {
+      "last": {
+        "mp4_sha256": "00d7387a7867df6a3abc80ff46db6858bf85d3b6a624d9ed5e064ef6bfa7bc6f",
+        "score": 0.5
+      },
+      "reference": {
+        "mp4_sha256": "070efa64b3c522e76713bee5f8dbd1bb7f3ce4a0b107beb48ac2614410a0095a",
+        "score": 0.5
+      }
+    },
+    "paper-066": {
+      "last": {
+        "mp4_sha256": "e90b984a0e3dcd92362fc2845fee3dc9f09fb25ff1edf7257c1f81aeb2b490fd",
+        "score": 0.5
+      },
+      "reference": {
+        "mp4_sha256": "428e3d8818688e5444e5d18336bfd99db0a46c1d66ed5327eb457428f6e03430",
+        "score": 0.5
+      }
+    },
+    "paper-067": {
+      "last": {
+        "mp4_sha256": "cf41590ceed1b46d7e230222ec6be1f839fb820cb51a0cde5b4d298dcc5dbcc5",
+        "score": 0.5
+      },
+      "reference": {
+        "mp4_sha256": "4b70cc170e9b5465284f3ee6f41c5080481d61fa032c248bcba73dacc6718b1b",
+        "score": 0.5
+      }
+    },
+    "paper-068": {
+      "last": {
+        "mp4_sha256": "d001e01a04e5473891852139e55fb202fcc9cbaa791d8132d65e68e11c312406",
+        "score": 0.8
+      },
+      "reference": {
+        "mp4_sha256": "a70ec313919a306d88a42b5ad79e9d634a0e1e701e5184bfa6c9f364c7bd853c",
+        "score": 0.8
+      }
+    },
+    "paper-069": {
+      "last": {
+        "mp4_sha256": "894195ae0c4535cd52f9c761ab1dbaada210e85fb82869056bda40d1437d7da7",
+        "score": 0.8
+      },
+      "reference": {
+        "mp4_sha256": "5c6990115f6b3c00afb4d3ce7eea9ca47bc660753bf9906ee0ad5d7b7768e115",
+        "score": 0.8
+      }
+    },
+    "paper-070": {
+      "last": {
+        "mp4_sha256": "718b58df9aa476c1b96de04d7f7c5fcab6101dfb5a4d496d6a1d7f79302ee3a3",
+        "score": 0.8
+      },
+      "reference": {
+        "mp4_sha256": "68466e4983a916137230e5be018a70ca00860a860c33eb40d7aa1a6dd42f088b",
+        "score": 0.8
+      }
+    },
+    "paper-071": {
+      "last": {
+        "mp4_sha256": "eaf09237648e4c961873471863c4ffbd2623ced3cd1c84a0b9f94585488a7bd9",
+        "score": 0.6
+      },
+      "reference": {
+        "mp4_sha256": "fd03bddcadd5cdf297046e759f73530682406ad1a4afa5a5f97dd43072411968",
+        "score": 0.6
+      }
+    },
+    "paper-072": {
+      "last": {
+        "mp4_sha256": "f37a9cfc09b180ad864a5219746777b66d77da23e2c40a99bdfa3ef7c6e69370",
+        "score": 1.0
+      },
+      "reference": {
+        "mp4_sha256": "89c1cb140539be72ab31848931e68e4b5fd13fb99f87a3bb6603e5a42b264813",
+        "score": 1.0
+      }
+    },
+    "paper-073": {
+      "last": {
+        "mp4_sha256": "07c4f1f66372bd14aa05bd0d16f13e710c31b6d941e85fcaa7d7dcc75f99b8f6",
+        "score": 1.0
+      },
+      "reference": {
+        "mp4_sha256": "872b5aabaa8e80340317f5f07d683a8e616c311d73e2b9bfc4acf77823615b29",
+        "score": 1.0
+      }
+    },
+    "paper-074": {
+      "last": {
+        "mp4_sha256": "245229f1a4f69cbc1207c3d45ebf8a77b73a7b8b0e3de4aeac581988d14261e9",
+        "score": 1.0
+      },
+      "reference": {
+        "mp4_sha256": "0f61a6fcc09515c4838bb6544538207f4e20340e91cf0c8843d748c7960ef3ac",
+        "score": 1.0
+      }
+    },
+    "paper-075": {
+      "last": {
+        "mp4_sha256": "07e9230fdb6273270970aff3aee52c4b7cbe3fd38a0fb63d5fcce9fc66155698",
+        "score": 1.0
+      },
+      "reference": {
+        "mp4_sha256": "279c77609dfe420b1bf5eb7fe9c72373b96e765408f9426b3d154c3904150b17",
+        "score": 1.0
+      }
+    },
+    "paper-076": {
+      "last": {
+        "mp4_sha256": "731f7a0cfd898311bd629c67a29cd24e5069d4a6fb938800c39a87abfbe31efd",
+        "score": 0.0
+      },
+      "reference": {
+        "mp4_sha256": "f326103f191e7d4408e7c3e2aeac1c40d62f0ac8393136598f9c39476f02b86a",
+        "score": 0.0
+      }
+    },
+    "paper-077": {
+      "last": {
+        "mp4_sha256": "1044e45102cdbd637b10b7ad866edb5cdd9a3b977f6f2dca70e34e6af377fd53",
+        "score": 0.0
+      },
+      "reference": {
+        "mp4_sha256": "6758a96d5fcf09b84d154af710f4e340d0a9dac44905fc2a90b27f4fdebdb753",
+        "score": 0.0
+      }
+    },
+    "paper-078": {
+      "last": {
+        "mp4_sha256": "6d145d154ccef672ace4044399e6c2dbdb30c0dc57d21a4861f203276a076da6",
+        "score": 0.0
+      },
+      "reference": {
+        "mp4_sha256": "1bfe158cdbe0899c9a40ad161d6c49560d666ac1ea908ff8a0d8e20af056b982",
+        "score": 0.0
+      }
+    },
+    "paper-079": {
+      "last": {
+        "mp4_sha256": "c1d7331373667869caa31914baf0bdffd69e2863b5f8ebc9838c0e32cb129c0c",
+        "score": 0.0
+      },
+      "reference": {
+        "mp4_sha256": "0f88715c618422243abda2da1ee475e628a0f09c1f5b54dbc5ff80ff01a2607c",
+        "score": 0.0
+      }
+    }
+  },
+  "states": {
+    "last": {
+      "mean": 0.55,
+      "metadata_sha256": "d90453f7cb4d9b37c61a8de7f98dc6afd184339d19f4b28ec83439691625bf28",
+      "official_result_sha256": "373e5bdbd0f5d254b10a7789cc03a08cd485b9c9563a32acd42f30f23dbe6d60",
+      "receipt_sha256": "c0964bb66bfd9a5dcb7fd677d659cccea8020775d44599a3bd0a0b81fa35cb39",
+      "scorer_sha256": "70af3a13083f714b217e6dbeb16a6eaf457a903ce42c2dc820df09baf4908521",
+      "valid_videos": 20
+    },
+    "reference": {
+      "mean": 0.55,
+      "metadata_sha256": "37be14baa14ceadd253e6612057c439b41d7bbea61db1d73581d081063ac4252",
+      "official_result_sha256": "1404b7327ac0ea303db1d491edf5a5da41f31b20afdb400463dc57850bddfd48",
+      "receipt_sha256": "3789742b6c17f910f664806e8cf651fc83c5ee22998cc6f381920f7f1cbc3458",
+      "scorer_sha256": "70af3a13083f714b217e6dbeb16a6eaf457a903ce42c2dc820df09baf4908521",
+      "valid_videos": 20
+    }
+  }
+}
