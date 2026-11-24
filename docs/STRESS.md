@@ -141,14 +141,22 @@ The [20-frame deletion record](../results/stress_drop20_verified.json) completes
 
 ```bash
 python tools/stress_recovery_table.py --manifest configs/primary_manifest.json \
-  --reports results/stress_seven_edits_verified.json results/stress_drop20_verified.json
+  --index results/stress_recovery_index.json
 ```
+
+The [source index](../results/stress_recovery_index.json) selects the five-map
+series for Drop 20 and Drop 30, the registered donor for natural insertion,
+and the original seed-0 records for the other five edits. Each source is
+selected by attack protocol and seed coverage. Earlier predictions remain
+accessible in their original reports. Use `--reports file1.json file2.json`
+for a custom collection of nonoverlapping reports.
 
 The JSON output gives per-edit coverage, bit counts, and exact-message counts.
 For example, natural insertion recovered 512/512 bits on paper-000 at seed 0,
 contributing one exact message. Duplicate insertion recovered 451/512 bits on
-the same case, contributing zero. Each row currently has one of 2,000 planned
-video–map pairs. Once all 400 videos at each of the five seeds are present,
+the same case, contributing zero. Drop 20 and Drop 30 each cover five of 2,000
+planned video–map pairs. The other six edits each cover one. Once all 400
+videos at each of the five seeds are present,
 the script computes mean message recovery, its 95% prompt-cluster bootstrap
 interval, and the lowest and highest recovery rates among the five seeds.
 Resampling a prompt retains its videos and every associated map. Chain length,
@@ -242,7 +250,33 @@ reference for every map of a given target.
 The [five measured deletion maps](../results/stress_drop20_first_case_five_maps.json)
 for paper-000 yielded 439, 411, 400, 417 and 451 correct bits out of 512,
 respectively. This is 2,118/2,560 correct bits and 0/5 exact messages. Map0
-reuses the earlier checked prediction. For the combined eight-edit recovery
-table, pass this report and `stress_seven_edits_verified.json`, omitting the
-earlier single-map drop20 report to avoid counting map0 twice.
+reuses the earlier checked prediction. The source index above selects this
+five-map series as the Drop 20 input to the combined eight-edit table.
 For [five drop30 maps of paper-000](../results/stress_drop30_first_case_five_maps.json), the primary and stress exporters produced identical MP4s for every seed. Pinned blind-reader counts were 371, 372, 415, 404 and 357 of 512, matching the primary counts on all five. Map0 used its earlier verified pinned prediction. Count it once across protocols.
+
+### Export recovery counts from a private experiment
+
+Run this on the evaluation host using the original run and edit paths. The
+reader checkout must point to the Git revision used for extraction. Use
+matching roots for the attack and evaluation directories so that each map
+has the same relative path in both. The run directory name is its manifest ID.
+
+```bash
+python tools/export_stress_counts.py --run /private/runs/paper-000 \
+  --attacks /private/edits/paper-000 --evaluation /private/scores/paper-000 \
+  --reader-repo /path/to/pinned/LAST --output paper-000-counts.json
+python tools/stress_recovery_table.py --reports paper-000-counts.json
+```
+
+The exporter checks the committed reader source digest, attack and generation
+receipts, received video, saved prediction and private payload before counting
+matching bits. The public JSON contains counts and provenance fields. The
+secret key, payload, decoded bits and host file paths stay on the evaluation
+host. Choose a new output filename for each export.
+
+For a reader distributed as a Git source archive, pass its original tarball
+to `--reader-repo`. The exporter reads its embedded commit ID and hashes its
+Python sources using the evaluator's ordering. This path was checked against
+the registered natural-insertion recording for paper-000/map0. Inserting
+30 frames from paper-020 yielded 95 received frames and 512/512 correct bits.
+This recount refers to the existing trial.

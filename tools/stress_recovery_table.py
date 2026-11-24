@@ -11,6 +11,18 @@ ATTACKS = ("drop10", "drop20", "drop30", "drop45", "duplicate30", "natural30",
 SEEDS = tuple(range(5))
 
 
+def indexed_reports(index):
+    reports = []
+    for entry in json.loads(index.read_bytes())["sources"]:
+        report = json.loads((index.parent / entry["file"]).read_bytes())
+        requested = set(entry["attacks"])
+        rows = [r for r in report.get("rows", [report]) if r["attack"] in requested]
+        if not requested or {r["attack"] for r in rows} != requested:
+            raise ValueError(f"Missing indexed attack in {entry['file']}")
+        reports.append(dict(report, rows=rows))
+    return reports
+
+
 def collect(manifest, reports):
     samples = manifest["samples"]
     clusters = {sample["id"]: sample["prompt"].strip() for sample in samples}
@@ -63,10 +75,13 @@ def collect(manifest, reports):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--manifest", type=Path, default=Path("configs/primary_manifest.json"))
-    p.add_argument("--reports", type=Path, nargs="+", required=True)
+    sources = p.add_mutually_exclusive_group(required=True)
+    sources.add_argument("--reports", type=Path, nargs="+")
+    sources.add_argument("--index", type=Path, help="Report paths and attack names relative to the index file")
     a = p.parse_args()
     read = lambda path: json.loads(path.read_bytes())
-    cells = collect(read(a.manifest), [read(f) for f in a.reports])
+    reports = indexed_reports(a.index) if a.index else [read(f) for f in a.reports]
+    cells = collect(read(a.manifest), reports)
     print(json.dumps(cells, indent=2, allow_nan=False))
 
 

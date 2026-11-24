@@ -1,0 +1,21 @@
+{
+  "scope": "Published Table 15 recovery observations; one primary video with available map seeds",
+  "sources": [
+    {
+      "file": "stress_seven_edits_verified.json",
+      "attacks": ["drop10", "drop45", "duplicate30", "interpolate30", "drop30_crf28"]
+    },
+    {
+      "file": "stress_drop20_first_case_five_maps.json",
+      "attacks": ["drop20"]
+    },
+    {
+      "file": "stress_drop30_first_case_five_maps.json",
+      "attacks": ["drop30"]
+    },
+    {
+      "file": "stress_natural30_registered_first_case.json",
+      "attacks": ["natural30"]
+    }
+  ]
+}
