@@ -23,7 +23,9 @@ def audit(report, root):
             raise ValueError("Unexpected run path")
         campaign = json.loads((folder / "campaign.json").read_bytes())
         generation = json.loads((folder / "receipt.json").read_bytes())
-        if (campaign["status"] != "completed" or campaign["plan_sha256"] != report["plan_sha256"]
+        plan = report["plan_sha256"]
+        expected_plan = plan[r["method"]] if isinstance(plan, dict) else plan
+        if (campaign["status"] != "completed" or campaign["plan_sha256"] != expected_plan
                 or any(campaign["item"][k] != r[k] for k in ("video_id", "family", "mode", "method"))
                 or generation["status"] != "completed" or generation["method"] != r["method"]):
             raise ValueError("Generation or campaign differs from paired measurement")

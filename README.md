@@ -39,31 +39,24 @@ flowchart LR
   C --> B[BCH decoded message]
 ```
 
-Actual diagnostic results: [LAST across four backbone/mode pipelines](results/last_backbone_integrations.json)
-and [LFG adaptation integration](results/lfg_integration.json). Each is explicitly
-a single-case integration check, with raw bit counts and receipt hashes, not a
-completed paper benchmark. Temporal attacks still cause substantial errors.
+## Measured results
 
-The [first formal LFG adaptation case](results/lfg_primary_first_case.json)
-has also completed all seven conditions with source and received-video hashes
-verified. This is paper-000 (1 of 400 Hunyuan I2V cases), distinct from the
-earlier integration case. Correct information bits are 500/512 clean,
-483/512 noise, 488/512 compression, 488/512 blur, 349/512 deletion,
-276/512 insertion and 358/512 clipping. Paired PSNR is 22.40 dB and SSIM
-0.7813. These single-case measurements do not establish a method ranking or
-reproduce the LFG authors' reported results; full comparisons remain pending.
+The following paired subsets use the frozen primary manifest and 512 information bits per video. Each method has seven observations per video, covering clean extraction and six attacks. The paper protocol calls for 400 videos per generation pipeline. The counts below describe the paired records available in this release.
 
-Additional formal single-case records are available for LAST:
+| Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
+|---|---:|---|---|
+| HunyuanVideo, image-to-video | 12 | [Cases 000–007](results/hunyuan_i2v_last_lfg_first_eight_paired.json) and [008–011](results/hunyuan_i2v_paired_primary_008_011.json) | [12 pairs](results/hunyuan_i2v_first12_paired_fidelity.json) |
+| HunyuanVideo, text-to-video | 5 | [5 pairs](results/hunyuan_t2v_paired_primary_first_five.json) | [5 pairs](results/hunyuan_t2v_paired_fidelity_5.json) |
+| Wan-2.2, image-to-video | 5 | [5 pairs](results/wan22_i2v_paired_primary_first_five.json) | [5 pairs](results/wan22_i2v_paired_fidelity_5.json) |
+| Wan-2.2, text-to-video | 4 | [4 pairs](results/wan22_t2v_paired_primary_first_four.json) | [4 pairs](results/wan22_t2v_paired_fidelity_4.json) |
 
-| Pipeline | Clean | Noise | Compression | Blur | Delete | Insert | Clip | Paired PSNR / SSIM |
-|---|---:|---:|---:|---:|---:|---:|---:|---|
-| [Hunyuan T2V](results/last_t2v_primary_first_case.json) | 512 | 512 | 512 | 512 | 447 | 445 | 500 | 28.4489 dB / 0.90084 |
-| [Wan2.2 I2V](results/last_wan_i2v_primary_first_case.json) | 512 | 512 | 493 | 512 | 255 | 377 | 487 | 27.7252 dB / 0.92491 |
+To compute bit accuracy and the number of fully recovered messages from these records, run the command below for HunyuanVideo image-to-video. For any other row, supply its single bit-count file after `--report`. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
 
-Entries are correct information bits out of 512 for one frozen sample per
-pipeline, not means over 400 videos. These different generation pipelines do
-not form a paired backbone ranking. The Wan deletion result is near chance;
-it is retained as measured. Full V-score and full-paper acceptance remain open.
+```bash
+python tools/paired_lfg_table.py --report results/hunyuan_i2v_last_lfg_first_eight_paired.json results/hunyuan_i2v_paired_primary_008_011.json
+```
+
+Earlier evidence includes the [four LAST integration checks](results/last_backbone_integrations.json), the [LFG adaptation check](results/lfg_integration.json), and the first formal cases for [LFG Hunyuan I2V](results/lfg_primary_first_case.json), [LAST Hunyuan T2V](results/last_t2v_primary_first_case.json), and [LAST Wan I2V](results/last_wan_i2v_primary_first_case.json).
 
 ## Install (Linux, Python3.10, CUDA-capable NVIDIA GPU)
 
