@@ -183,3 +183,16 @@ All [20 Hunyuan I2V Composition pairs](../results/hunyuan_i2v_composition_20_pai
 
 For Hunyuan I2V, the Creativity category gives Composition and Diversity equal weight. Average the 20 individual Composition scores for each arm and the three prompt-level Diversity scores for the same arm, then average the two dimension means. Each Diversity prompt covers 20 distinct seeds. This gives (0.55 + 0.2454754263) / 2 = 0.397738 for LAST and (0.55 + 0.2548630685) / 2 = 0.402432 for the paired reference. The observed difference of -0.004694 comes entirely from Diversity. See the [LAST Diversity scores](../results/hunyuan_i2v_diversity_last_60.json) and [reference Diversity scores](../results/hunyuan_i2v_diversity_reference_60.json). A full V-score additionally requires the other four categories.
 For the [four-seed Wan I2V comparison](../results/wan22_i2v_paired_primary_first_four.json), pass --count 4 to the Wan I2V prefix audit. Both methods cover the first prompt and conditioning image at four different seeds, with 2,048 information bits per condition.
+For the [four-seed Wan T2V comparison](../results/wan22_t2v_paired_primary_first_four.json), use the Wan prefix audit with --mode t2v --count 4. The two methods share the first prompt and four seeds. On deletion LAST and LFG recovered 1,486 and 1,401 of 2,048 bits, respectively, with zero exact messages in either arm.
+The [five-video Hunyuan T2V prefix](../results/hunyuan_t2v_paired_primary_first_five.json) adds the first seed of the second prompt after four seeds of the first. Reproduce it with --family hunyuan --mode t2v --count 5. The new sample recovered 416/360 bits on deletion, 445/313 on insertion and 485/467 on clipping (LAST/LFG; 512 bits per video). Aggregates weight videos equally.
+
+To render the public paired counts without access to the private run directory, pass the exported JSON directly:
+
+```bash
+python tools/paired_lfg_table.py --report results/hunyuan_t2v_paired_primary_first_five.json
+python tools/paired_lfg_table.py --report results/wan22_t2v_paired_primary_first_four.json
+```
+
+Each row includes the integer numerator and denominator, its percentage rounded to two decimals, and the number of exactly recovered messages. Each video contributes 512 information bits per condition.
+
+For the same T2V samples, compare [five Hunyuan fidelity pairs](../results/hunyuan_t2v_paired_fidelity_5.json) and [four Wan fidelity pairs](../results/wan22_t2v_paired_fidelity_4.json). Recompute with `python tools/paired_prefix_fidelity.py --report results/hunyuan_t2v_paired_primary_first_five.json --root /private/primary-runs`, substituting the Wan report for Wan. Each method uses its own unmarked reference. Across methods, zero of five Hunyuan reference MP4s and all four Wan reference MP4s were byte-identical. These counts concern encoded files; decoded pixel identity was not assessed here.
