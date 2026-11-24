@@ -29,6 +29,16 @@ def check_received_frames(attack, video_id, condition):
         check_drop_frames(attack, video_id)
 
 
+def check_timed_frames(timing, expected):
+    if timing["method"] in ("last", "lfg"):
+        require(timing.get("frames") == expected, "Timed reader decoded an unexpected frame count")
+    else:
+        reads = timing["diagnostics_including_warmups"]
+        require(len(reads) == timing["warmups"] + timing["repeats"] and
+                all(read.get("received_frames") == expected for read in reads),
+                "Native timing diagnostics differ from the expected input length")
+
+
 def render(index):
     spec = json.loads(index.read_bytes())
     require(set(spec["methods"]) == set(METHODS), "Expected five timing methods")
@@ -70,6 +80,7 @@ def render(index):
             require((attack["status"], attack["video_id"], attack["method"], attack["condition"], attack["map_seed"]) ==
                     ("completed", spec["video_id"], method, condition, 0), "Attack identity mismatch")
             check_received_frames(attack, spec["video_id"], condition)
+            check_timed_frames(r, attack["frames"])
             require(r["received_sha256"] == attack["received_sha256"] and len(r["received_sha256"]) == 64,
                     "Timed video differs from evaluation")
             if condition == "clean":

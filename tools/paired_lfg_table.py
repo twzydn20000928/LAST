@@ -16,7 +16,8 @@ def count_bits(row):
 
 
 def main(samples=SAMPLES):
-    report = json.loads((RESULTS / "hunyuan_i2v_last_lfg_first_eight_paired.json").read_bytes())
+    size = "seven" if len(samples) == 7 else "eight"
+    report = json.loads((RESULTS / f"hunyuan_i2v_last_lfg_first_{size}_paired.json").read_bytes())
     counts = {}
     for row in report["observations"]:
         if row["video_id"] not in samples:

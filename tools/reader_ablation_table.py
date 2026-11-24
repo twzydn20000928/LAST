@@ -9,6 +9,9 @@ DEFAULT = Path(__file__).resolve().parents[1] / "results/hunyuan_i2v_reader_abla
 
 
 def render(report):
+    frozen = json.loads((DEFAULT.parents[1] / "configs/paper_subsets.json").read_bytes())
+    if report["ordered_subset"] != frozen["ablation_i2v_30"]:
+        raise ValueError("Reader ablation sample list differs from the frozen Hunyuan I2V subset")
     planned = set(report["ordered_subset"])
     if len(planned) != report["planned_videos"] or len(planned) != len(report["ordered_subset"]):
         raise ValueError("Inconsistent planned subset")

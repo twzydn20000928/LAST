@@ -9,6 +9,8 @@ def validate(manifest, image_root=None):
     if len({r['id'] for r in rows})!=400:raise ValueError('Duplicate sample IDs')
     dimensions=defaultdict(lambda:defaultdict(list))
     for i,r in enumerate(rows):
+        if r['id'] != f'paper-{i:03d}':
+            raise ValueError(f'Primary sample ID does not match its frozen index {i}')
         if r['index']!=i or r['seed']!=2025+i or r['key_slot']!=i%8:raise ValueError('Invalid frozen assignment')
         dimensions[r['dimension']][r['prompt']].append(r['replicate'])
     if len(dimensions)!=18:raise ValueError('Expected18dimensions')

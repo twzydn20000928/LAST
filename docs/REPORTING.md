@@ -103,9 +103,9 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 | Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first10.json) | 10 | 70 |
 | Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first20.json) | 20 | 140 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
-Run `python tools/paired_videomark_table.py` from the repository root to compare the same twenty prompt IDs (paper-000 through paper-019) for Hunyuan text-to-video. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition.
+Run `python tools/paired_videomark_table.py` from the repository root to compare the same twenty sample IDs across five prompts (paper-000 through paper-019) for Hunyuan text-to-video. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition.
 
-## Text-to-video comparison on ten shared prompt IDs
+## Text-to-video comparison on ten shared samples across three prompts
 
 Both columns use paper-000 through paper-009 and 512 information bits per video. Each backbone generated its own videos. Entries show correct bits out of 5,120 and exact messages out of ten.
 
@@ -119,7 +119,7 @@ Both columns use paper-000 through paper-009 and 512 information bits per video.
 | insert | 4702 | 4323 | 1 | 1 |
 | clip | 4973 | 4943 | 4 | 6 |
 `python tools/paired_backbone_table.py` regenerates this table from the two published observation files.
-Run `python tools/paired_lfg_table.py --samples 7` to regenerate the seven-prompt Hunyuan image-to-video comparison from the [matched LAST and LFG observations](../results/hunyuan_i2v_last_lfg_first_seven_paired.json).
+Run `python tools/paired_lfg_table.py --samples 7` to regenerate the seven-sample, two-prompt Hunyuan image-to-video comparison from the [matched LAST and LFG observations](../results/hunyuan_i2v_last_lfg_first_seven_paired.json).
 For image-to-video, run `python tools/paired_backbone_table.py --mode i2v`. Each column uses the first 30 manifest entries, with 15,360 information bits per condition and 30 opportunities to recover an entire message.
 The [paired fidelity records](../results/hunyuan_i2v_last_first100_fidelity.json) cover the first 100 Hunyuan image-to-video LAST cases. Each row compares the 65-frame marked MP4 with its reference MP4. Summary fields give the arithmetic mean of the per-video PSNR (dB) and SSIM values.
 
@@ -165,7 +165,7 @@ python tools/paired_primary_subset.py --plan "$PLAN" --manifest "$MANIFEST" \
 ```
 
 The [first pair](../results/hunyuan_t2v_paired_primary_first_case.json) covers
-one of the planned 400 prompts. The completion field applies to the requested
+one of the planned 400 video samples. The completion field applies to the requested
 prefix. The command compares the actual case, private key and message locally,
 reconstructs editing positions, and verifies the received MP4s before exporting
 counts. Choose the sample count before comparing outcomes.
@@ -180,3 +180,6 @@ The [LAST Hunyuan I2V Diversity result](../results/hunyuan_i2v_diversity_last_60
 The current matched T2V prefixes include [four Hunyuan seeds](../results/hunyuan_t2v_paired_primary_first_four.json) and [three Wan seeds](../results/wan22_t2v_paired_primary_first_three.json), all from the first prompt.
 The [paired unmarked Diversity record](../results/hunyuan_i2v_diversity_reference_60.json) uses the same three prompt groups and twenty seeds per group as LAST. The mean was 0.254863 for the reference and 0.245475 for LAST. All 120 input MP4 fingerprints were checked against the official scoring receipts.
 All [20 Hunyuan I2V Composition pairs](../results/hunyuan_i2v_composition_20_pairs.json) received identical within-pair scores from the official scorer. The mean was 0.55 in both arms. Each input MP4 was rehashed against its scoring receipt.
+
+For Hunyuan I2V, the Creativity category gives Composition and Diversity equal weight. Average the 20 individual Composition scores for each arm and the three prompt-level Diversity scores for the same arm, then average the two dimension means. Each Diversity prompt covers 20 distinct seeds. This gives (0.55 + 0.2454754263) / 2 = 0.397738 for LAST and (0.55 + 0.2548630685) / 2 = 0.402432 for the paired reference. The observed difference of -0.004694 comes entirely from Diversity. See the [LAST Diversity scores](../results/hunyuan_i2v_diversity_last_60.json) and [reference Diversity scores](../results/hunyuan_i2v_diversity_reference_60.json). A full V-score additionally requires the other four categories.
+For the [four-seed Wan I2V comparison](../results/wan22_i2v_paired_primary_first_four.json), pass --count 4 to the Wan I2V prefix audit. Both methods cover the first prompt and conditioning image at four different seeds, with 2,048 information bits per condition.

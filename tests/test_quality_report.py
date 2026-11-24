@@ -10,6 +10,12 @@ def test_five_categories_are_equally_weighted_not_eighteen_dimensions():
     for d in CATEGORIES['Creativity']: rows[d]['mean']=1
     assert aggregate(rows,True)['v_score']==pytest.approx(.2)
     assert aggregate(rows,False)['v_score'] is None
+    rows['Diversity']['full_dimension_inputs'] = False
+    partial = aggregate(rows, True)
+    assert partial['categories']['Creativity'] is None
+    assert partial['categories']['Commonsense'] == 0
+    assert partial['v_score'] is None
+    del rows['Diversity']['full_dimension_inputs']
     rows['Human_Identity']['mean']=None
     result=aggregate(rows,True)
     assert result['v_score'] is None and result['missing_or_invalid_dimensions']==['Human_Identity']
@@ -32,7 +38,9 @@ def test_replaced_video_at_same_path_invalidates_cached_score(tmp_path):
                  videos_sha256={video:'a'*64})
     (folder/'receipt.json').write_text(json.dumps(state))
     (folder/'official_result.json').write_text(json.dumps([0.8,[dict(video_path=video,video_results=0.8)]]))
-    assert build(tmp_path,tmp_path)['dimensions'][name]['mean']==0.8
+    dimension = build(tmp_path,tmp_path)['dimensions'][name]
+    assert dimension['mean'] == 0.8
+    assert dimension['full_dimension_inputs'] is False
     coverage['videos'][0]['sha256']='b'*64
     (tmp_path/'coverage.json').write_text(json.dumps(coverage))
     with pytest.raises(ValueError,match='hashes'):

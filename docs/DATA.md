@@ -38,8 +38,10 @@ Pass `--key /private/primary-state/keys/00.key` and
 `--message /private/primary-state/messages/paper-000.bin` to `last.smoke` for
 sample0; use each sample's manifest key slot. Keys and messages are not public
 seeds. Re-running a study with fresh keys estimates the same protocol but is not
-expected to reproduce every bit error exactly. The current generation runner
-remains an integration entry point, not a completed full-benchmark orchestrator.
+expected to reproduce every bit error exactly. To run generation, MP4 attacks,
+extraction and paired fidelity on these same sample IDs, pass the manifest and
+private state to the [primary campaign](CAMPAIGN.md). Use the resulting run root
+as the input to [quality evaluation](QUALITY.md).
 
 Development prompts must be disjoint from these84unique texts. The80-video development
 manifest is frozen in `configs/development_manifest.json`; do not select

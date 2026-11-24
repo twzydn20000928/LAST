@@ -22,7 +22,7 @@ def aggregate(dimensions, complete_inputs):
         for name in names:
             item = dimensions.get(name, {})
             value = item.get('mean')
-            if item.get('status') != 'completed' or value is None:
+            if item.get('status') != 'completed' or value is None or item.get('full_dimension_inputs') is False:
                 missing.append(name)
             else:
                 if not 0 <= value <= 1: raise ValueError('Out-of-range dimension mean')
@@ -53,13 +53,8 @@ def build(inputs, scores):
         if len(set(paths)) != len(paths) or not assigned_videos.isdisjoint(paths):
             raise ValueError('Video assigned more than once in quality dimensions')
         assigned_videos.update(paths)
-        count = len(paths)
-        required = 60 if name == 'Diversity' else 20
-        if count != required: complete_inputs = False
-        if name == 'Diversity' and (len(rows) != 3 or any(len(r['video_list']) != 20 for r in rows)):
-            complete_inputs = False
-        if name != 'Diversity' and (len(rows) != 5 or any(len(r['video_list']) != 4 for r in rows)):
-            complete_inputs = False
+        groups, seeds = (3, 20) if name == 'Diversity' else (5, 4)
+        full_dimension_inputs = len(rows) == groups and all(len(r['video_list']) == seeds for r in rows)
         state = json.loads(receipt.read_text())
         if 'coverage_sha256' in state and state['coverage_sha256'] != coverage_sha256:
             raise ValueError('Scoring receipt belongs to a different coverage manifest')
@@ -74,7 +69,7 @@ def build(inputs, scores):
         raw = scores/name/'official_result.json'
         checked = summarize(json.loads(raw.read_text()), rows, name)
         if checked['mean'] != state.get('mean'): raise ValueError('Receipt mean differs from official raw scores')
-        dimensions[name] = dict(status='completed', **checked)
+        dimensions[name] = dict(status='completed', full_dimension_inputs=full_dimension_inputs, **checked)
         sources[name]['raw_sha256'] = hashlib.sha256(raw.read_bytes()).hexdigest()
     result = aggregate(dimensions, complete_inputs and assigned_videos == set(anchors))
     result.update(family=coverage['family'],mode=coverage['mode'],method=coverage['method'],
