@@ -1,0 +1,28 @@
+{
+  "scope": "Registered different-prompt donor, one video/map",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "last",
+  "reader_commit": "5b26f7b6d47ac7593adf7e28d98ca69f66f746d3",
+  "received_frames": 95,
+  "evaluation_receipt_sha256": "4db5e6fc17fd1e3a1b9f55176c2aa32f36b4d8f9aa36889f30d3c05bc1541f04",
+  "attack_receipt_sha256": "928f8c4c283f7809cbe8b0aeabdde6353aede0f28ddea8cb826bff8995de2b5e",
+  "video_id": "paper-000",
+  "attack": "natural30",
+  "seed": 0,
+  "source_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+  "received_sha256": "d2639de085514a537a5e8a91e13b14e046f37dcf36fb18ffa69e66bb5b85098d",
+  "donor_video_id": "paper-020",
+  "donor_sha256": "b5fca53f10ca3bae497652be284a9d3934fbefb1668f783375d5fa09a21caeb5",
+  "donor_plan_sha256": "b0bc77a9154b1832a41149ffffee0c69d4c6efca39d24e30c70521b4ab44cfbc",
+  "mapping": {
+    "boundary": 7,
+    "donor_start": 21,
+    "donor_count": 30
+  },
+  "correct_bits": 512,
+  "total_bits": 512,
+  "exact_message": true,
+  "canonical_donor_plan_sha256": "369f9dff2f8cdd4962bb0a5e39949a7bad0fe283e4497c21135bbcd70dc34388",
+  "plan_serialization": "Execution copy used CRLF; public LF copy contains identical assignments."
+}

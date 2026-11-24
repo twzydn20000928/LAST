@@ -1,5 +1,5 @@
 import pytest
-from last.alignment_metrics import evaluate
+from last.alignment_metrics import evaluate, stress_source_indices
 
 
 def test_cross_boundary_window_cannot_be_given_a_fictitious_group():
@@ -24,3 +24,23 @@ def test_intact_wrong_identity_and_empty_selection_are_explicit():
     assert r['wrong_group_on_intact']==1 and r['false_window_selected']==0
     assert evaluate(nodes,[1,2,3,4],[])['selected_alignment_accuracy'] is None
     with pytest.raises(ValueError):evaluate(nodes,[1,2,3,4],[dict(candidate=0,group=0)]*2)
+
+
+@pytest.mark.parametrize('boundary', [0, 7, 65])
+def test_donor_indices_are_foreign_even_at_clip_boundaries(boundary):
+    receipt = dict(attack='natural30', frames=95, mapping=dict(boundary=boundary, donor_count=30))
+    mapping = stress_source_indices(receipt)
+    assert mapping[boundary:boundary+30] == [-1]*30
+    assert [i for i in mapping if i >= 0] == list(range(65))
+
+
+def test_synthetic_midpoints_and_exact_duplicates_have_different_truth():
+    positions = list(range(30))
+    midpoints = stress_source_indices(dict(attack='interpolate30', frames=95, mapping=dict(midpoint_pairs=positions)))
+    assert midpoints[:4] == [0, -1, 1, -1]
+    source = [j for i in range(65) for j in ([i, i] if i < 30 else [i])]
+    receipt = dict(attack='duplicate30', frames=95, mapping=dict(duplicated_indices=positions, source_indices=source))
+    assert stress_source_indices(receipt) == source
+    receipt['mapping']['source_indices'] = midpoints
+    with pytest.raises(ValueError, match='source order'):
+        stress_source_indices(receipt)

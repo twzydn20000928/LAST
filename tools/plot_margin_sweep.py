@@ -22,7 +22,7 @@ def require(condition, message):
         raise ValueError(message)
 
 
-def collect(index, config):
+def audit_cells(entries, root, config):
     manifest_path = config / "development_manifest.json"
     manifest = read(manifest_path)
     ids = manifest["margin_sweep_ids"]
@@ -35,9 +35,9 @@ def collect(index, config):
     rows = {}
     paired = {}
     pipeline = None
-    for entry in read(index):
+    for entry in entries:
         name = entry["video_id"]
-        folder = index.parent / entry["run"]
+        folder = root / entry["run"]
         g = read(folder / "receipt.json")
         q = read(folder / "quality.json")
         mu = g["mu"]
@@ -78,6 +78,11 @@ def collect(index, config):
                 and q["psnr_db"] is not None and math.isclose(q["psnr_db"], -10 * math.log10(q["rgb_mse"]), abs_tol=1e-8)
                 and -1 <= q["ssim"] <= 1, f"{folder}: invalid paired quality measurements")
         rows[name, mu] = (counts, q["psnr_db"], q["ssim"])
+    return rows, ids, strengths, attacks
+
+
+def collect(index, config):
+    rows, ids, strengths, attacks = audit_cells(read(index), index.parent, config)
     require(len(rows) == len(ids) * len(strengths), "Incomplete sweep")
     summary = []
     for mu in strengths:

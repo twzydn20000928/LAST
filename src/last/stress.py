@@ -45,15 +45,44 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--video',type=Path,required=True);p.add_argument('--video-id',required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--attack',choices=['drop10','drop20','drop30','drop45','duplicate30','natural30','interpolate30','drop30_crf28'],required=True)
-    p.add_argument('--seed',type=int,choices=range(5),default=0);p.add_argument('--donor-reference',type=Path);a=p.parse_args()
+    maps = p.add_mutually_exclusive_group()
+    maps.add_argument('--seed',type=int,choices=range(5),default=0)
+    maps.add_argument('--all-seeds',action='store_true',help='Write map0 through map4 below the attack output directory')
+    donors = p.add_mutually_exclusive_group()
+    donors.add_argument('--donor-reference',type=Path)
+    donors.add_argument('--donor-plan',type=Path)
+    p.add_argument('--manifest',type=Path,default=Path('configs/primary_manifest.json'))
+    p.add_argument('--reference-root',type=Path)
+    a=p.parse_args()
+    donor_id = None
+    if a.donor_plan:
+        if a.attack != 'natural30' or not a.reference_root:
+            p.error('--donor-plan requires natural30 and --reference-root')
+        from .stress_donors import resolve
+        a.donor_reference, donor_id = resolve(a.donor_plan, a.manifest, a.reference_root, a.video_id)
+    elif a.reference_root:
+        p.error('--reference-root requires --donor-plan')
+    donor_hash = hashlib.sha256(a.donor_reference.read_bytes()).hexdigest() if a.donor_reference else None
     a.output.mkdir(parents=True,exist_ok=False)
+    source_hash = hashlib.sha256(a.video.read_bytes()).hexdigest()
     frames=load_mp4(a.video);donor=load_mp4(a.donor_reference) if a.donor_reference else None
-    output,mapping=edit(frames,a.attack,a.video_id,a.seed,donor)
-    destination=a.output/'received.mp4';command=export_mp4(output,destination,crf=28 if a.attack=='drop30_crf28' else 18)
-    reread=load_mp4(destination)
-    if len(reread)!=len(output):raise ValueError('Codec changed frame count')
-    result=dict(status='completed_attack_export',video_id=a.video_id,attack=a.attack,seed=a.seed,source_sha256=hashlib.sha256(a.video.read_bytes()).hexdigest(),received_sha256=hashlib.sha256(destination.read_bytes()).hexdigest(),frames=len(reread),mapping=mapping,codec_command=command,scope='Attack construction only; no extraction or accuracy claim')
-    if a.donor_reference:result['donor_sha256']=hashlib.sha256(a.donor_reference.read_bytes()).hexdigest()
-    (a.output/'attack.json').write_text(json.dumps(result,indent=2));print(json.dumps({'status':result['status'],'frames':len(reread)}))
+    for seed in range(5) if a.all_seeds else [a.seed]:
+        directory = a.output
+        if a.all_seeds:
+            directory = directory / f'map{seed}'
+            directory.mkdir()
+        output,mapping=edit(frames,a.attack,a.video_id,seed,donor)
+        destination=directory/'received.mp4';command=export_mp4(output,destination,crf=28 if a.attack=='drop30_crf28' else 18)
+        reread=load_mp4(destination)
+        if len(reread)!=len(output):raise ValueError('Codec changed frame count')
+        if hashlib.sha256(a.video.read_bytes()).hexdigest()!=source_hash:raise ValueError('Source changed during export')
+        result=dict(status='completed_attack_export',video_id=a.video_id,attack=a.attack,seed=seed,source_sha256=source_hash,received_sha256=hashlib.sha256(destination.read_bytes()).hexdigest(),frames=len(reread),mapping=mapping,codec_command=command,scope='Attack construction only; no extraction or accuracy claim')
+        if a.donor_reference:
+            if hashlib.sha256(a.donor_reference.read_bytes()).hexdigest() != donor_hash:
+                raise ValueError('Donor file changed during export')
+            result['donor_sha256'] = donor_hash
+        if donor_id is not None:
+            result.update(donor_video_id=donor_id, donor_plan_sha256=hashlib.sha256(a.donor_plan.read_bytes()).hexdigest())
+        (directory/'attack.json').write_text(json.dumps(result,indent=2));print(json.dumps({'status':result['status'],'frames':len(reread),'seed':seed}))
 
 if __name__=='__main__':main()

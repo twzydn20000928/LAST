@@ -2,6 +2,42 @@
 import argparse,json
 from pathlib import Path
 from .feature_cache import load,sha
+from .temporal import attack_map
+
+
+def stress_source_indices(receipt):
+    """Recover original frame IDs from the exporter receipt for post-hoc scoring."""
+    kind, edit = receipt["attack"], receipt["mapping"]
+    source = list(range(65))
+    drops = {"drop10": 10, "drop20": 20, "drop30": 30, "drop45": 45, "drop30_crf28": 30}
+    if kind in drops:
+        mapping = edit["source_indices"]
+        if mapping != attack_map(receipt["video_id"], "drop", receipt["seed"], 65, drops[kind]):
+            raise ValueError("Deletion indices differ from the frozen map")
+    elif kind == "natural30":
+        boundary = edit["boundary"]
+        if type(boundary) is not int or not 0 <= boundary <= 65 or edit["donor_count"] != 30:
+            raise ValueError("Invalid donor insertion boundary or length")
+        mapping = source[:boundary] + [-1]*30 + source[boundary:]
+    elif kind in ("duplicate30", "interpolate30"):
+        duplicate = kind == "duplicate30"
+        positions = edit["duplicated_indices" if duplicate else "midpoint_pairs"]
+        limit = 65 if duplicate else 64
+        if (len(positions) != 30 or any(type(i) is not int or not 0 <= i < limit for i in positions)
+                or len(set(positions)) != 30):
+            raise ValueError("Invalid insertion positions")
+        mapping = []
+        for frame in source:
+            mapping.append(frame)
+            if frame in positions:
+                mapping.append(frame if duplicate else -1)
+        if duplicate and mapping != edit["source_indices"]:
+            raise ValueError("Duplicate indices disagree with emitted source order")
+    else:
+        raise ValueError(f"Unknown stress edit: {kind}")
+    if len(mapping) != receipt["frames"]:
+        raise ValueError("Stress mapping length differs from the exported video")
+    return mapping
 
 
 def evaluate(nodes,mapping,selected):
@@ -47,8 +83,13 @@ def main():
     for path in (a.video,a.cache/'receipt.json',a.cache/'nodes.json',a.cache/'features.npy'):
         if receipt['input_sha256'].get(str(path.resolve()))!=sha(path):raise ValueError('Extraction uses another video or cache')
     attack=json.loads(a.attack_receipt.read_text())
-    if attack.get('status')!='completed' or attack.get('received_sha256')!=sha(a.video):raise ValueError('Attack map is not bound to received video')
-    mapping=attack['attack_map']
+    if attack.get('received_sha256')!=sha(a.video):raise ValueError('Attack map is not bound to received video')
+    if attack.get('status') == 'completed_attack_export':
+        mapping = stress_source_indices(attack)
+    elif attack.get('status') == 'completed':
+        mapping = attack['attack_map']
+    else:
+        raise ValueError('Incomplete attack receipt')
     if mapping is None:
         if features['frames']!=65:raise ValueError('Missing map for changed-length input')
         mapping=list(range(65))

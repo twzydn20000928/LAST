@@ -1,0 +1,116 @@
+[
+  {
+    "attack": "drop10",
+    "evaluation_receipt_sha256": "172deef2cc5318467a8db9e930e7e95117be427bd4a635fd68e44439f610d437",
+    "route": "ccta",
+    "groups": 11,
+    "chains": [
+      {
+        "start": 9,
+        "first_group": 3,
+        "length": 11
+      }
+    ]
+  },
+  {
+    "attack": "drop30",
+    "evaluation_receipt_sha256": "24bf1c34357e5443215e3a9eea385b9fe6487fd91ed17ad00a4d7b582d7ddc95",
+    "route": "ccta",
+    "groups": 2,
+    "chains": [
+      {
+        "start": 26,
+        "first_group": 13,
+        "length": 2
+      }
+    ]
+  },
+  {
+    "attack": "drop30_crf28",
+    "evaluation_receipt_sha256": "310931d39abd571bac7609f8e07f5256850b3f16ca7f86fb3d06b92ac098766c",
+    "route": "ccta",
+    "groups": 2,
+    "chains": [
+      {
+        "start": 26,
+        "first_group": 13,
+        "length": 2
+      }
+    ]
+  },
+  {
+    "attack": "drop45",
+    "evaluation_receipt_sha256": "55f51b2657a4507db003cb8adedbc48f56c450352fd458e06409a0cbe74e8ce7",
+    "route": "ccta",
+    "groups": 2,
+    "chains": [
+      {
+        "start": 9,
+        "first_group": 9,
+        "length": 2
+      }
+    ]
+  },
+  {
+    "attack": "duplicate30",
+    "evaluation_receipt_sha256": "cff88e0f1249e192610dcbe776916629357886ff86c902a3b6452d70d54c967e",
+    "route": "ccta",
+    "groups": 5,
+    "chains": [
+      {
+        "start": 73,
+        "first_group": 11,
+        "length": 5
+      }
+    ]
+  },
+  {
+    "attack": "interpolate30",
+    "evaluation_receipt_sha256": "b243cd90158914825f06fd5b7a74976020796e8bcc2d3ea215e70dbda7d42271",
+    "route": "ccta",
+    "groups": 6,
+    "chains": [
+      {
+        "start": 65,
+        "first_group": 10,
+        "length": 6
+      }
+    ]
+  },
+  {
+    "attack": "natural30",
+    "evaluation_receipt_sha256": "a875518e139a92f7b67e37af5888842ac2567195559ccf773ed53c6aa5f15e20",
+    "route": "ccta",
+    "groups": 20,
+    "chains": [
+      {
+        "start": 8,
+        "first_group": 7,
+        "length": 4
+      },
+      {
+        "start": 29,
+        "first_group": 2,
+        "length": 2
+      },
+      {
+        "start": 39,
+        "first_group": 2,
+        "length": 14
+      }
+    ]
+  },
+  {
+    "attack": "drop20",
+    "evaluation_receipt_sha256": "b18103d1b938eabfd0d2cade3d38d9d069fa473740833b93e3f0e501914d0548",
+    "route": "ccta",
+    "groups": 3,
+    "chains": [
+      {
+        "start": 33,
+        "first_group": 13,
+        "length": 3
+      }
+    ]
+  }
+]

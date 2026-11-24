@@ -433,3 +433,4 @@ JSON records the official per-video scores and the hashes of the MP4s, raw
 outputs and scoring receipts.
 
 For Dynamic Attribute, the official scorer samples 64 frames uniformly and asks the auxiliary questions for that prompt. A video scores 1 if every answer contains “yes” (case-insensitive), and 0 otherwise. Average the 20 video scores per arm. The coverage and scoring receipts identify the inputs used for each mean.
+Wan-2.2 T2V Camera Motion has [20 paired official scores](../results/wan22_t2v_camera_motion_20_pairs.json). The scorer marked 12/20 LAST and 11/20 unmarked references correct; all 40 clips were applicable. This is one quality dimension.

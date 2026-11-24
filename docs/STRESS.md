@@ -27,9 +27,27 @@ map then CRF28; other exports use CRF18,8fps,yuv420p. Every export is reopened.
 Duplicate insertion samples30distinct source frames and copies each immediately
 after its source. Natural insertion requires `--donor-reference` pointing to an
 unwatermarked same-size clip, selects a contiguous30frame donor portion and
-inserts it at a uniformly chosen boundary. Freeze donor assignments before
-evaluation and keep them identical across methods; the complete donor assignment
-manifest remains pending. Do not use marked donors or choose donors by accuracy.
+inserts it at a uniformly chosen boundary. The supplement specifies an
+unmarked donor clip and leaves donor identities unspecified. For new campaign
+runs, use the [registered donor assignments](../configs/stress_donors.json).
+Group the primary manifest IDs by normalized prompt in first-occurrence order,
+preserve order within each prompt, then rotate this list by its largest group
+size (20). Each of the 400 targets receives a different-prompt donor, and each
+donor serves one target. The same donor serves all five map seeds. All methods
+use the same directory of unmarked LAST reference videos for the backbone and
+mode being compared. The exporter verifies the donor case and video receipts.
+
+```bash
+python -m last.stress_donors --manifest configs/primary_manifest.json --output /private/rebuilt-donors.json
+python -m last.stress --video /private/run/marked.mp4 --video-id paper-000 \
+  --attack natural30 --seed 0 --donor-plan configs/stress_donors.json \
+  --reference-root /private/primary/hunyuan/i2v/last \
+  --output /private/registered-stress/paper-000/natural30/map0
+```
+
+The earlier seven-edit integration used the Hunyuan T2V smoke reference as
+its donor. Its donor hash and score remain attached to that diagnostic. The
+new assignment for paper-000 uses the reference from paper-020.
 
 Interpolation samples30distinct adjacent pairs. It computes forward/backward
 Farneback flow with scale.5,3levels,15window,3iterations,poly5,sigma1.2;
@@ -118,3 +136,113 @@ compression to the deletion yielded 331/512 on this case.
 For this recorded natural insertion, the first seven source frames are followed by donor frames 21 through 50 (zero-based), then the remaining 58 source frames. The JSON includes the actual edit maps and CRF for all seven observations.
 
 The [20-frame deletion record](../results/stress_drop20_verified.json) completes the eight Table 15 edits for paper-000 at seed 0. The pinned reader recovered 439/512 bits from the 45 retained frames; the message had 73 errors. The received MP4 and prediction were verified, and the count was recomputed from the private prediction and truth on the experiment server. Table 15's mean message recovery rate measures whole messages across videos and map seeds. This single condition contributes one failed exact recovery to that statistic.
+
+### Recompute the Table 15 recovery columns
+
+```bash
+python tools/stress_recovery_table.py --manifest configs/primary_manifest.json \
+  --reports results/stress_seven_edits_verified.json results/stress_drop20_verified.json
+```
+
+The JSON output gives per-edit coverage, bit counts, and exact-message counts.
+For example, natural insertion recovered 512/512 bits on paper-000 at seed 0,
+contributing one exact message. Duplicate insertion recovered 451/512 bits on
+the same case, contributing zero. Each row currently has one of 2,000 planned
+video–map pairs. Once all 400 videos at each of the five seeds are present,
+the script computes mean message recovery, its 95% prompt-cluster bootstrap
+interval, and the lowest and highest recovery rates among the five seeds.
+Resampling a prompt retains its videos and every associated map. Chain length,
+fallback and group accuracy require separate alignment observations.
+
+### Intact groups after editing
+
+For post-extraction scoring, `last.alignment_metrics` accepts the exporter's
+`attack.json` as well as primary attack receipts. Pass the received MP4, its
+feature cache and the completed blind controlled extraction as described in
+[the alignment diagnostic](ABLATIONS.md#post-hoc-grouping-diagnostics).
+Both the extraction and the receipt must identify the same received video.
+A duplicate retains its original frame ID. A donor frame or a synthesized
+midpoint has no original ID. A valid group contains four consecutive original
+frames starting at frame 1, 5, 9, … (zero-based).
+
+For paper-000, seed 0, the eight recorded edit maps leave the following
+numbers of distinct intact original groups in any four-frame received window,
+before segmentation or reader selection:
+
+| Drop 10 | Drop 20 | Drop 30 | Drop 45 | Duplicate 30 | Natural insert 30 | Interpolate 30 | Drop 30 + CRF28 |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 8 | 4 | 0 | 0 | 4 | 15 | 2 | 0 |
+
+The unedited source has 16 groups. After Drop 30 in this example there are
+zero intact groups, so an intact-only accuracy has no denominator. A blind
+reader may still recover bits from mixed windows. The counts above describe
+the available source groups; measuring actual alignment requires the
+reader's saved selections.
+
+### Score the windows selected during blind extraction
+
+The published [chain selections](../results/stress_seed0_chain_selections.json)
+contain start indices, first group IDs and lengths recovered from the saved
+blind predictions. Each selection is joined to its edit by evaluation receipt
+digest. Run:
+
+```bash
+python tools/stress_chain_table.py --selections results/stress_seed0_chain_selections.json \
+  --reports results/stress_seven_edits_verified.json results/stress_drop20_verified.json
+```
+
+| Edit | Selected chain lengths | Selected windows | Intact selected | Correct group ID on intact |
+|---|---|---:|---:|---:|
+| Drop 10 | 11 | 11 | 2 | 2 |
+| Drop 20 | 3 | 3 | 1 | 1 |
+| Drop 30 | 2 | 2 | 0 | 0 |
+| Drop 45 | 2 | 2 | 0 | 0 |
+| Duplicate 30 | 5 | 5 | 1 | 1 |
+| Natural insert 30 | 4, 2, 14 | 20 | 14 | 14 |
+| Interpolate 30 | 6 | 6 | 0 | 0 |
+| Drop 30 + CRF28 | 2 | 2 | 0 | 0 |
+
+Each row covers paper-000 and map seed 0. With natural insertion the blind
+reader chose three chains from separate segments. Group numbers may recur
+across segments. Fourteen of the twenty selected windows contained four intact
+original frames in the correct group; the other six crossed or lay outside an
+intact group. With interpolation, the map retained two intact groups somewhere
+in the video, but neither was among the six selected windows. An intact-only
+accuracy is undefined whenever the intact-selected count is zero.
+
+The [first registered-donor run](../results/stress_natural30_registered_first_case.json)
+for paper-000/map0 used the unmarked Hunyuan I2V reference from paper-020.
+The 95-frame received clip yielded 512/512 correct bits under the same
+pinned reader as the earlier diagnostic. These two measurements share their
+source and map seed. Use the registered-donor observation for the new donor
+protocol; retain the earlier observation for its original comparison.
+The verified execution copy of the donor manifest used CRLF line endings;
+the result records both that file digest and the canonical LF digest.
+
+### Run all five edit maps for a video
+
+Replace `--seed 0` with `--all-seeds` and set the output to the attack
+directory. The exporter reads the source once, reuses the same donor for
+natural insertions, and creates map0 through map4. For example:
+
+```bash
+python -m last.stress --video /private/run/marked.mp4 --video-id paper-000 \
+  --attack drop20 --all-seeds --output /private/edits/paper-000/drop20
+python -m last.stress_evaluate --run /private/run --family hunyuan \
+  --model-dir /path/to/Hunyuan-I2V --attacks /private/edits/paper-000 \
+  --output /private/scores/paper-000
+```
+
+A single-map export and map0 of this batch produced byte-identical received
+MP4s for paper-000/drop20. Both use the same 45 retained frames. Each remaining
+seed contributes one additional trial for that video. When aggregating natural
+insertions, use one donor assignment protocol throughout and the same donor
+reference for every map of a given target.
+
+The [five measured deletion maps](../results/stress_drop20_first_case_five_maps.json)
+for paper-000 yielded 439, 411, 400, 417 and 451 correct bits out of 512,
+respectively. This is 2,118/2,560 correct bits and 0/5 exact messages. Map0
+reuses the earlier checked prediction. For the combined eight-edit recovery
+table, pass this report and `stress_seven_edits_verified.json`, omitting the
+earlier single-map drop20 report to avoid counting map0 twice.
+For [five drop30 maps of paper-000](../results/stress_drop30_first_case_five_maps.json), the primary and stress exporters produced identical MP4s for every seed. Pinned blind-reader counts were 371, 372, 415, 404 and 357 of 512, matching the primary counts on all five. Map0 used its earlier verified pinned prediction. Count it once across protocols.

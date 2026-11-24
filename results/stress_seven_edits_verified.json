@@ -1,5 +1,9 @@
 {
   "scope": "Seven edits of one Hunyuan I2V LAST video, paper-000",
+  "video_id": "paper-000",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "last",
   "reader_commit": "5b26f7b6d47ac7593adf7e28d98ca69f66f746d3",
   "replay_receipt_sha256": "d9ceedff30367fd4868a8b04f2e8c363f0771fb5535051051512fb78a64005c8",
   "rows": [
