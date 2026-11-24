@@ -48,7 +48,7 @@ The following paired subsets use the frozen primary manifest and 512 information
 | HunyuanVideo, image-to-video | 12 | [Cases 000–007](results/hunyuan_i2v_last_lfg_first_eight_paired.json) and [008–011](results/hunyuan_i2v_paired_primary_008_011.json) | [12 pairs](results/hunyuan_i2v_first12_paired_fidelity.json) |
 | HunyuanVideo, text-to-video | 5 | [5 pairs](results/hunyuan_t2v_paired_primary_first_five.json) | [5 pairs](results/hunyuan_t2v_paired_fidelity_5.json) |
 | Wan-2.2, image-to-video | 5 | [5 pairs](results/wan22_i2v_paired_primary_first_five.json) | [5 pairs](results/wan22_i2v_paired_fidelity_5.json) |
-| Wan-2.2, text-to-video | 4 | [4 pairs](results/wan22_t2v_paired_primary_first_four.json) | [4 pairs](results/wan22_t2v_paired_fidelity_4.json) |
+| Wan-2.2, text-to-video | 5 | [5 pairs](results/wan22_t2v_paired_primary_first_five.json) | [5 pairs](results/wan22_t2v_paired_fidelity_5.json) |
 
 To compute bit accuracy and the number of fully recovered messages from these records, run the command below for HunyuanVideo image-to-video. For any other row, supply its single bit-count file after `--report`. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
 

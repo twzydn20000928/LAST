@@ -212,3 +212,14 @@ python tools/paired_lfg_table.py --report results/hunyuan_i2v_last_lfg_first_eig
 This is an interim manifest prefix. Each attack column pools 6,144 information bits per method from twelve paired cases. Each exact-message count uses twelve messages as its denominator.
 
 The [paired fidelity records for these twelve cases](../results/hunyuan_i2v_first12_paired_fidelity.json) match all 24 clean extraction inputs by marked MP4 digest. Mean per-video PSNR and SSIM are 30.892 dB and 0.93611 for LAST, and 22.357 dB and 0.74177 for LFG. Each marked video is compared with its method's own unmarked reference. Only two of the twelve pairs have identical encoded references across methods. Average the twelve per-video values within each method to recover the reported means.
+
+### Render the current Wan-2.2 tables
+
+The two five-video reports cover the first two prompts of each generation mode. To render clean recovery (Table 1 layout) and attacked recovery (Table 2 layout), run:
+
+```bash
+python -m last.clean_table --family wan22 --reports results/wan22_t2v_paired_primary_first_five.json results/wan22_i2v_paired_primary_first_five.json --output tables/wan22-clean.md
+python -m last.robustness_table --reports results/wan22_t2v_paired_primary_first_five.json results/wan22_i2v_paired_primary_first_five.json --output tables/wan22-attacks
+```
+
+The coverage label 5/400 counts completed videos in the supplied subset against the planned benchmark. Bit accuracy uses the 2,560 measured information bits per cell. The attack table also exports integer bit counts and exact-message counts to CSV. Missing official quality scores remain pending. The [five text-to-video fidelity pairs](../results/wan22_t2v_paired_fidelity_5.json) use byte-identical reference files across methods for all five cases.

@@ -27,7 +27,12 @@ def collect(reports):
             if not complete and row.get('final_bit_accuracy') is not None:raise ValueError('Partial observations cannot carry a final score')
             if complete and (row.get('final_bit_accuracy') is None or not math.isclose(row['final_bit_accuracy'],score,abs_tol=1e-12)):
                 raise ValueError('Final accuracy differs from actual counts')
-            cells[condition]=dict(row,observed_bit_accuracy=score)
+            planned = report.get('planned_videos_per_method', expected)
+            if type(planned) is not int or planned < expected:
+                raise ValueError('Benchmark plan cannot be smaller than the audited subset')
+            cells[condition] = dict(row, expected=planned, complete=done == planned,
+                                    observed_bit_accuracy=score,
+                                    final_bit_accuracy=score if done == planned else None)
     if not groups:raise ValueError('No aggregate cells')
     for cells in groups.values():
         if set(cells)!=set(CONDITIONS) or len({r['expected'] for r in cells.values()})!=1:
@@ -42,7 +47,7 @@ def render(groups):
         values=[]
         for condition in CONDITIONS:
             r=cells[condition];score=r['observed_bit_accuracy']
-            value='pending' if score is None else f'{100*score:.2f}%'
+            value='pending' if score is None else f'{100*r["correct_bits"]/r["total_bits"]:.2f}%'
             if not r['complete']:value+=' [partial]'
             values.append(f'{value}; {r["completed"]}/{r["expected"]}')
             coverage.append(dict(family=key[0],mode=key[1],method=key[2],condition=condition,
