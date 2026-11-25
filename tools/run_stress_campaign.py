@@ -11,7 +11,7 @@ import tempfile
 
 from last.campaign import digest, source_digest
 from last.data import validate
-from last.stress_donors import resolve
+from last.stress_donors import plan as donor_plan, resolve
 from export_stress_counts import export, reader_identity
 from stress_recovery_table import ATTACKS
 
@@ -67,6 +67,23 @@ def evaluate_case(args, sample, directory):
     pending.replace(directory / "counts.json")
 
 
+def pending_primary_jobs(runs, video, donor):
+    waiting = []
+    for name in (video, donor):
+        path = runs / name / "campaign.json"
+        if not path.exists():
+            waiting.append(name)
+            continue
+        job = json.loads(path.read_bytes())
+        if job["item"]["video_id"] != name:
+            raise ValueError(f"Wrong primary job for {name}")
+        if job["status"] == "running":
+            waiting.append(name)
+        elif job["status"] != "completed":
+            raise ValueError(f"Inspect primary job {name}: {job['status']}")
+    return waiting
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ("runs", "model-dir", "output", "reader-repo"):
@@ -77,6 +94,8 @@ def main():
     p.add_argument("--mode", choices=["i2v", "t2v"], required=True)
     p.add_argument("--shard", type=int, default=0)
     p.add_argument("--shards", type=int, default=1)
+    p.add_argument("--ready-only", action="store_true",
+                   help="Process completed primary campaign pairs and report pending target or donor jobs")
     args = p.parse_args()
     if not 0 <= args.shard < args.shards:
         p.error("Expected 0 <= shard < shards")
@@ -85,14 +104,26 @@ def main():
     if reader_identity(args.reader_repo)[1] != source_digest():
         p.error("Installed LAST source differs from the selected reader revision")
     os.umask(0o077)
+    pending = {}
+    if args.ready_only:
+        donors = json.loads(args.donor_plan.read_bytes())
+        if donors != donor_plan(args.manifest):
+            p.error("Donor plan differs from the frozen manifest")
     for i, sample in enumerate(manifest["samples"]):
         if i % args.shards != args.shard:
             continue
+        if args.ready_only:
+            missing = pending_primary_jobs(args.runs, sample["id"], donors["assignments"][sample["id"]])
+            if missing:
+                pending[sample["id"]] = missing
+                continue
         directory = args.output / sample["id"]
         directory.mkdir(parents=True, exist_ok=True)
         with (directory / "worker.lock").open("a") as lock:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
             evaluate_case(args, sample, directory)
+    if args.ready_only:
+        print(json.dumps(dict(shard=args.shard, shards=args.shards, pending_dependencies=pending), indent=2))
 
 
 if __name__ == "__main__":

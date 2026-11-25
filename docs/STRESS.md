@@ -326,3 +326,14 @@ python tools/stress_recovery_table.py --reports results/stress_paper008_forty_ma
 All five natural-insertion trials recovered the entire message. Across the
 other seven edits, none of the 35 trials recovered all 512 bits. These
 observations share a single generated video.
+
+Four Hunyuan I2V LAST samples now have all 40 observations each on reader revision `1df83c5`. These are primary IDs 000, 001, 002 and 008. The first three share a prompt, and the five maps reuse each generated video. Recount them together:
+
+```bash
+python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json
+```
+
+Random deletion of 10, 20, 30 and 45 frames recovered 9,378, 8,413, 7,281 and 5,806 of 10,240 information bits, respectively. Deleting 30 frames followed by CRF28 compression recovered 6,241 bits. Natural insertion recovered all 20 messages; the other seven conditions recovered zero entire messages in 20 trials each. Each attack currently covers 20 of the planned 2,000 video/map combinations.
+
+To distinguish missing frames from missed groups, run `python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json`. The diagnostic reconstructs each deletion map after extraction and counts how many original four-frame groups survived. It compares this count with the windows in the saved CCTA chains. Across 20 drop30 trials, 24 intact groups survived out of 320 original groups. The reader selected 76 windows, six of which were intact and assigned the correct group ID. With the same deletion followed by CRF28 compression, five of 67 selected windows were intact and correct. Feature selection and message decoding can also be affected by partial groups.
+When primary generation is still in progress, add `--ready-only` to the stress campaign command. It handles cases whose primary target and assigned unmarked donor both have completed campaign receipts. Missing or running dependencies are listed by sample ID; failed primary jobs raise an error. Rerun the same command as more inputs arrive. This option requires primary campaign receipts and retains the 400-video denominator. The default invocation expects finished inputs.

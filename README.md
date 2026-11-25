@@ -43,7 +43,7 @@ flowchart LR
 
 For main Tables 1 and 2, the [reporting guide](docs/REPORTING.md) gives the
 clean and attacked table commands. The [paired temporal results](docs/REPORTING.md#matched-temporal-attacks-by-backbone-and-input-mode)
-cover 16, 9, 8 and 8 sample pairs for the four pipelines listed below.
+cover 16, 9, 9 and 8 sample pairs for the four pipelines listed below.
 For the component ablation, run the following command from the repository
 root to compare writer and reader variants on the same 12 of 30 planned
 videos. It prints all seven conditions and the two writer fidelity scores.
@@ -73,7 +73,7 @@ The following paired subsets use the frozen primary manifest and 512 information
 |---|---:|---|---|
 | HunyuanVideo, image-to-video | 16 | [16 pairs](results/hunyuan_i2v_paired_primary_first16.json) | [16 pairs](results/hunyuan_i2v_paired_fidelity_first16.json) |
 | HunyuanVideo, text-to-video | 9 | [9 pairs](results/hunyuan_t2v_primary9.json) | [9 pairs](results/hunyuan_t2v_fidelity9.json) |
-| Wan-2.2, image-to-video | 8 | [8 pairs](results/wan22_i2v_primary8.json) | [8 pairs](results/wan22_i2v_fidelity8.json) |
+| Wan-2.2, image-to-video | 9 | [9 pairs](results/wan22_i2v_primary9.json) | [9 pairs](results/wan22_i2v_fidelity9.json) |
 | Wan-2.2, text-to-video | 8 | [8 pairs](results/wan22_t2v_primary8.json) | [8 pairs](results/wan22_t2v_fidelity8.json) |
 
 To compute bit accuracy and the number of fully recovered messages from these records, run the command below for HunyuanVideo image-to-video. For any other row, supply its single bit-count file after `--report`. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
@@ -163,7 +163,7 @@ python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
 ```
 
 The reader rebuilds its codebook from a 32-byte key and encodes the received
-512 ¡Á 512 RGB video with the frozen VAE. The private output's `message_hex`
+512 Ã— 512 RGB video with the frozen VAE. The private output's `message_hex`
 field contains 64 decoded bytes (512 information bits, most significant bit
 first). The command also records the frame count, alignment route and BCH
 decoding status. Assessing accuracy requires a separate comparison to the
