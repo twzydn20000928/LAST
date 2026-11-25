@@ -37,6 +37,8 @@ def render(report, fidelity=None, all_conditions=False):
     cells = {(r["video_id"], r["condition"]): r for r in rows}
     if len(cells) != len(rows) or set(cells) != {(v, c) for v in ids for c in CONDITIONS}:
         raise ValueError("Expected one observation per sample and condition")
+    if len({row["reader_source_sha256"] for row in rows}) != 1:
+        raise ValueError("Cannot pool different CCTA reader implementations")
     for row in rows:
         if row["total_bits"] != 512 or any(type(row[k]) is not int or not 0 <= row[k] <= 512
                                             for k in ("original_bits", "ccta_bits")):

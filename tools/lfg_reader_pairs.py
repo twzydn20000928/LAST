@@ -84,8 +84,10 @@ if __name__ == "__main__":
         parser.error("Count exceeds the primary sample list")
     ids = [s["id"] for s in samples]
     report = json.loads(args.report.read_bytes()) if args.report else None
-    if report and ids != report["sample_ids"][:args.count]:
-        raise ValueError("Earlier baseline has a different primary prefix")
-    print(json.dumps(dict(sample_ids=ids, manifest_sha256=digest(args.manifest),
+    manifest_hash = digest(args.manifest)
+    if report is not None and (report["manifest_sha256"] != manifest_hash or
+                               ids != report["sample_ids"][:args.count]):
+        raise ValueError("Earlier baseline has a different manifest or primary prefix")
+    print(json.dumps(dict(sample_ids=ids, manifest_sha256=manifest_hash,
                           primary_report_sha256=digest(args.report) if report else None,
                           observations=audit(report,args.root,args.outputs,samples)), indent=2))
