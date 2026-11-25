@@ -68,10 +68,13 @@ python -m last.development --metadata-root /path/to/SIGMark-quality-metadata \
   --output /private/development_manifest.json
 ```
 
-The published selection does not yet contain conditioning images. I2V input
-acquisition remains a release requirement; primary test images/keys must not be
-substituted. No development generation or parameter tuning is implied by
-publishing this manifest.
+The development I2V runs use 20 generated conditioning images, one per prompt.
+For each prompt, use the first of its four development seeds to generate an
+unmarked Hunyuan T2V clip, encode it at CRF18, and take its first decoded frame.
+All four seeds then use that frame as their I2V input. The audit records the
+source MP4 and image hashes and the assignment of all 80 development cases.
+See the [generation commands](DATA.md#development-reproduction) and the
+[conditioning audit](../results/development_conditioning_20.json).
 
 Create private development keys/messages once, checking against your primary
 state without printing or publishing either set of keys:
