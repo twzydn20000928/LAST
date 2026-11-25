@@ -709,6 +709,16 @@ python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_pap
 
 Across 1,560 dependent comparisons, correct-group P05, median and P95 were 0.299087, 0.421767 and 0.598638. Wrong-group values were -0.027389, 0.000482 and 0.029469. The pooled AUROC was 1.0. Windows were fixed at intact group boundaries in clean videos; end-to-end blind localization under edits is a separate measurement. Twenty planned videos remain outside this snapshot.
 
+The 12-case snapshot adds paper-003 and paper-174. For paper-003 the original
+clean receipt records the source MP4 digest; the generation receipt independently
+identifies the same marked MP4. The new score report records this binding.
+Across 1,872 matched comparisons the correct and incorrect median scores are
+0.432466 and 0.000560. The pooled AUROC is 1.0. To replay the 12/30 result:
+
+```bash
+python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174}.json
+```
+
 To include both Table 13 energy rows, pass `--calibration /private/calibration.json` to `tools/clean_consistency_table.py`. Generate this file with `last.null_fit` from all 80 development videos. For the reconstructed raw scale, pool the development wrong-key responses over candidates, 64 keys and 16 groups and take one median. Earlier saved fits with only per-group medians require rerunning the fit on the original responses. The calibrated statistic uses each hypothesized group's frozen median and MAD scale. Average the four assigned group energies per chain; all three rows compare the same windows and assignments. Measured energy rows require the audited calibration file.
 Run the same pooling command on the calibrated per-video reports to obtain energy_summary for the raw and calibrated rows alongside summary for consistency. The program matches each energy score by video, window start and candidate group start, and requires one shared development calibration digest across all videos. It pools candidate scores before computing quantiles and AUROC.
 The [interim dev-000 sweep](../results/margin_sweep_dev000_interim.json) contains four paired margins, 0.1 through 0.75. Reference MP4 bytes matched across all four. Per-margin attacked-bit counts are pooled over six edits (3,072 bits per case). Complete figure generation still requires all fifteen cells.
