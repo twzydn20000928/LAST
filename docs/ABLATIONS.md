@@ -565,7 +565,9 @@ bash controlled-reads.sh
 ```
 
 Each command evaluates one writer and video on all three conditions using
-all four readers. The script runs sequentially and stops on the first failed
+all four readers. Before emitting commands the builder checks each generated
+case, conditioning image, seed and recorded writer parameters against the
+frozen block. The script runs sequentially and stops on the first failed
 command. For a partial run, retain completed outputs and execute the
 remaining commands individually with fresh destinations for retries.
 
