@@ -158,6 +158,24 @@ For the supplementary PSNR and SSIM intervals, run `python tools/fidelity_interv
 Primary deletion snapshot: `python tools/primary_deletion_errors.py --root /private/primary` scans original Hunyuan I2V LAST attack receipts and verifies the manifest case, primary frame map, marked MP4 and received MP4. The [observations](../results/hunyuan_i2v_primary_deletion_errors.json) cover 170 videos; eight legacy receipts lacked a recorded received-file hash and were excluded. Of 170, one recovered the whole message, 169 returned a wrong message with BCH failure, and none returned a wrong message with BCH success. Median post-decoding error was 130/512. Results from replayed extractions are tracked separately.
 On the same 170 primary deletion receipts, all 170 used the consistency-chain route. Among 643 selected windows, 154/87/166/172/64 had respectively 0/1/2/3/4 received frames from the predicted source group. Use `python tools/deletion_chain_audit.py --root /private/primary --report results/hunyuan_i2v_primary_deletion_errors.json` to recompute the [window counts](../results/hunyuan_i2v_primary_deletion_chains.json). Ground-truth frame indices are used only after blind extraction. A four-frame window with partial group support may still carry information; this histogram is separate from message recovery.
 For Tables 10–11 on the 170-case deletion cohort, run `python tools/primary_message_tables.py --report results/hunyuan_i2v_primary_message_170.json`. This uses exactly the same sample identifiers for all seven conditions. To acquire the measurements from the original generated files use `--root /private/primary --cohort results/hunyuan_i2v_primary_deletion_errors.json --export new-counts.json`. Every row requires both MP4 hashes, its primary attack map and its original correction status. All 1,190 public observations contain pre- and post-decoding counts.
+
+To include all of the first 179 videos in Tables 10 and 11, run:
+
+```bash
+python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json \
+  --verify-original-slice results/hunyuan_i2v_last_primary100_178.json \
+  --message-tables results/replayed_message_counts_eight.json
+```
+
+Of these videos, 171 contribute original extraction records. Eight contribute
+independent extractions from their archived MP4s. Each of the seven conditions
+covers the same 91,648 information bits. After deletion the BCH decoder reduced
+the total errors from 25,163 to 25,162; after blur, from 831 to 453.
+The second table gives the per-video error distribution. To rebuild the eight
+re-extraction records from the archived replay directory, run
+`python tools/export_replayed_message_counts.py --root /private/bch-replays --output replay-counts.json`.
+The exporter checks each source receipt hash, received video fingerprint and
+post-decoding count against the archived measurements.
 For fidelity on exactly the 170 Hunyuan I2V Table 10–11 videos, run `python tools/fidelity_intervals.py results/hunyuan_i2v_primary_fidelity_170.json`. These 32 prompt clusters yield mean per-video PSNR 33.025 dB and mean SSIM 0.94333. The report records the digest of its parent message table. To rebuild it, run `python tools/primary_message_fidelity.py --root /private/primary --report results/hunyuan_i2v_primary_message_170.json` against the original marked and reference MP4s.
 
 ### Complete 178-video prefix using two measurement sources

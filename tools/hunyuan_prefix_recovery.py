@@ -5,6 +5,8 @@ import re
 from pathlib import Path
 
 from paired_lfg_table import CONDITIONS, RESULTS, count_bits
+from primary_message_tables import summaries
+from last.message_outcomes import render_tables
 
 
 def read(name):
@@ -17,6 +19,8 @@ def main():
                         help="Additional disjoint original message reports extending the primary prefix")
     parser.add_argument("--verify-original-slice", type=Path,
                         help="Cross-check an audited Hunyuan I2V LAST report against original observations")
+    parser.add_argument("--message-tables", type=Path, metavar="REPLAY_ROWS",
+                        help="Also render Tables 10 and 11 with the per-video BCH re-extraction counts")
     args = parser.parse_args()
     primary = read("hunyuan_i2v_primary_message_170.json")
     replay = read("primary_pre_post_bch_eight_replays.json")
@@ -24,6 +28,13 @@ def main():
     deletion = read("hunyuan_i2v_primary_deletion_errors.json")
     primary_ids = set(primary["sample_ids"])
     replay_ids = set(replay["replay_receipt_sha256"])
+    if args.message_tables:
+        extractions = json.loads(args.message_tables.read_bytes())
+        if (extractions["manifest_sha256"] != primary["manifest_sha256"]
+                or extractions["replay_receipt_sha256"] != replay["replay_receipt_sha256"]
+                or sorted(extractions["sample_ids"]) != sorted(replay_ids)):
+            raise ValueError("Per-video BCH counts belong to another replay cohort")
+        message_rows = {}
     for path in args.additional_original:
         extra = json.loads(path.read_bytes())
         ids = set(extra["sample_ids"])
@@ -85,11 +96,24 @@ def main():
                 raise ValueError(f"Missing re-extraction provenance for {row['video_id']}/{c}")
         old, new = [[count_bits(dict(total_bits=512, **r)) for r in rows] for rows in (original, subset)]
         check = replay["conditions"][c]
+        if args.message_tables:
+            rows = extractions["observations"][c]
+            expected = {r["video_id"]: (r["video_sha256"], r["correct_bits"]) for r in subset}
+            measured = {r["video_id"]: (r["received_sha256"], r["correct_bits"]) for r in rows}
+            if (len(rows) != len(expected) or measured != expected
+                    or sum(512 - r["raw_information_correct"] for r in rows) != check["pre_bch_wrong_bits"]):
+                raise ValueError(f"Per-video BCH counts disagree: {c}")
+            message_rows[c] = original + rows
         if (check["total_information_bits"] != 512*len(new) or check["post_bch_wrong_bits"] != 512*len(new)-sum(new)
                 or check["post_bch_exact_messages"] != new.count(512)):
             raise ValueError(f"Independent recount disagrees: {c}")
         print(f"| {c} | {sum(old)}/{512*len(old)} | {sum(new)}/{512*len(new)} | "
               f"{(sum(old)+sum(new))/(512*n):.2%} | {old.count(512)+new.count(512)}/{n} |")
+    if args.message_tables:
+        evidence = dict(sample_ids=sorted(primary_ids | replay_ids), observations=message_rows)
+        manifest = json.loads((RESULTS.parent / "configs/primary_manifest.json").read_bytes())
+        print(f"\n{len(primary_ids)} original videos and {len(replay_ids)} independent re-extractions.\n")
+        print(render_tables(summaries(evidence, manifest)))
 
 
 if __name__ == "__main__":

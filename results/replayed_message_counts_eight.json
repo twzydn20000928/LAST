@@ -1,0 +1,431 @@
+{
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "replay_receipt_sha256": {
+    "paper-000": "609311668c4f86dc84782a4d1df9210655514d327cc6372e2463948717e4c58c",
+    "paper-001": "d9d411c19ca392440f7c9986f44d609bcdeef591eeb8795aaf44bd58478e0e1e",
+    "paper-002": "51fa7e25f941d01be7c8769884881d88c10af7e4caf68f7f1d5f0d3fee4e9351",
+    "paper-003": "474a5130804d49effecb7e7af90332bb5fd6b2eb206343a89b4ab15db75863f9",
+    "paper-004": "b422d34c9b08eaaf523eb8a428a35e3eea0968a6a2b23504c37199cad885debe",
+    "paper-020": "4e172efa514519e94ad246b8a5d0898d85707d483d82992826688a6f878a95c3",
+    "paper-040": "c3195519ac20293ded15671efadb510d860a7afb652463cdd5aace32329314a1",
+    "paper-060": "9d45f907b56d2263be521179ad663b30bf75a9a478e56905f5ad2f834449a672"
+  },
+  "sample_ids": [
+    "paper-000",
+    "paper-001",
+    "paper-002",
+    "paper-003",
+    "paper-004",
+    "paper-020",
+    "paper-040",
+    "paper-060"
+  ],
+  "observations": {
+    "clean": [
+      {
+        "video_id": "paper-000",
+        "received_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-001",
+        "received_sha256": "84db39f1d73409349e39e9d06fe735893710073395e921bc049bc897848e80aa",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-002",
+        "received_sha256": "1b12508605d8b293498feebff8983e25efb12eae5839203a5526ed4ff549881c",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-003",
+        "received_sha256": "f3ea49fdf0479f4d7fa2402df2e6f2d13a5333b8384c8b0e218a7ae56362e145",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-004",
+        "received_sha256": "561e21ee234426dd5c8a285ee5250d7280b15517a5053bbd8c1021b44ed58042",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-020",
+        "received_sha256": "99042b897a1ebb1bcedda84bb99411a931448e773a9e4292267bd0d35f169dc5",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-040",
+        "received_sha256": "3018cfff757e0a2f7e69a00aae1b0dbe964c15a192630c83dc632ed4be95f82e",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-060",
+        "received_sha256": "d26d9f9515cc065c6225452dd3d49ee266d99e210acab0c628b9399ed61bf421",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      }
+    ],
+    "noise": [
+      {
+        "video_id": "paper-000",
+        "received_sha256": "2bc99682aa3f81454c9a0c179b7b484f13bb041ea3f58016a3204ae323e76464",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 508
+      },
+      {
+        "video_id": "paper-001",
+        "received_sha256": "949547624f27258d3700ad88c550ae2aad99b046ab1427f5f5830f745dcf610c",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 509
+      },
+      {
+        "video_id": "paper-002",
+        "received_sha256": "1261893792ac0d942f1956949e339bb2ecc9f0a251629b0704496edb31cf4e15",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 510
+      },
+      {
+        "video_id": "paper-003",
+        "received_sha256": "eb4627d01315bd6c7f87cde15336dcbd0b47adeab84c05d34e0accc9f4a4bfaa",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 508
+      },
+      {
+        "video_id": "paper-004",
+        "received_sha256": "eee08b9f3e57872f56c805a19eb8dba0eddd3cc386af153cbffb8cabb09f88c9",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-020",
+        "received_sha256": "4d94cb2ba38a877947234f32b1ecb3b7e52be37ac61adb9fd4d97d297de2d769",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-040",
+        "received_sha256": "65f1d8f9e66208fb029ac56e92bd55ac4d91e48493d6ee8daa7c3584477237ee",
+        "correct_bits": 487,
+        "bch_success": false,
+        "raw_information_correct": 487
+      },
+      {
+        "video_id": "paper-060",
+        "received_sha256": "c525853a9354c4702508710804ef94d62cc3868e353cd1bd603ba1b4cda0c0fe",
+        "correct_bits": 488,
+        "bch_success": false,
+        "raw_information_correct": 488
+      }
+    ],
+    "compression": [
+      {
+        "video_id": "paper-000",
+        "received_sha256": "bcff2291d777fb1ea32447092fdd274ed1bd7624dffa8a5f641c2edcf84e0e38",
+        "correct_bits": 486,
+        "bch_success": false,
+        "raw_information_correct": 486
+      },
+      {
+        "video_id": "paper-001",
+        "received_sha256": "b9349624b6923ced390ab3a93028915aa9e8c6d29f55492086d76b4edd46ae59",
+        "correct_bits": 503,
+        "bch_success": false,
+        "raw_information_correct": 503
+      },
+      {
+        "video_id": "paper-002",
+        "received_sha256": "ff2e5fc6c75bb37e53e2def5b88ce787e10b6aaf8f6aabca00bb710a2e05741d",
+        "correct_bits": 504,
+        "bch_success": false,
+        "raw_information_correct": 504
+      },
+      {
+        "video_id": "paper-003",
+        "received_sha256": "aa1d09f6efd6dd855aff134082c485eec709640a01c895f2981c30ab832fd252",
+        "correct_bits": 502,
+        "bch_success": false,
+        "raw_information_correct": 502
+      },
+      {
+        "video_id": "paper-004",
+        "received_sha256": "38654b6490b11fef5300a7d605970c011c136f88b2b2ddc1a7d255b6a71ad021",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 511
+      },
+      {
+        "video_id": "paper-020",
+        "received_sha256": "f20e43b00bd119cd62b51c5faf68c47feda675c438f1f3d770fbafbed0a9adb2",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 508
+      },
+      {
+        "video_id": "paper-040",
+        "received_sha256": "e7c5d62fbd3d04597d44dff0e5ec7905b572b0c1e7f669fec5f18a03d60c36a2",
+        "correct_bits": 461,
+        "bch_success": false,
+        "raw_information_correct": 461
+      },
+      {
+        "video_id": "paper-060",
+        "received_sha256": "4c2c07eab34fba88da0493068643a2b35d5db5c904584edb792a88b1071010b6",
+        "correct_bits": 482,
+        "bch_success": false,
+        "raw_information_correct": 482
+      }
+    ],
+    "blur": [
+      {
+        "video_id": "paper-000",
+        "received_sha256": "9ed8c48fca94502c910906cc22114b31a80c18106133df7c89501567edaabf94",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 506
+      },
+      {
+        "video_id": "paper-001",
+        "received_sha256": "38a8ca26bf4a44c74255cceb22d8ce047990166edd4a607563667b1f23925ea8",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 510
+      },
+      {
+        "video_id": "paper-002",
+        "received_sha256": "6632d25e3382bdb76f518d5a86ddeca0e38bae81f92732cd0316fe7e8b72b05b",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 511
+      },
+      {
+        "video_id": "paper-003",
+        "received_sha256": "3347b51f81d085bb294a82cbde319faaa86d34dcedc951f9be0986bce4774b0f",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 508
+      },
+      {
+        "video_id": "paper-004",
+        "received_sha256": "59f5d91e0db38e462b464fdc6032248caae087f34cd849204304fb4a812d2447",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-020",
+        "received_sha256": "96d8852c7b4abcebd0cb61247fc9efa89991852f72eff3b094e03683c811a3b0",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-040",
+        "received_sha256": "313475ab3695781d7a17f3cb897a9a45a8b4fe956f539ee68ee0284294ae3a1a",
+        "correct_bits": 500,
+        "bch_success": false,
+        "raw_information_correct": 500
+      },
+      {
+        "video_id": "paper-060",
+        "received_sha256": "b6f8923c58bf8a2bfacc4eb9d67e234c48ea2cbe9b3623d58d1b50f450f6b097",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 506
+      }
+    ],
+    "drop": [
+      {
+        "video_id": "paper-000",
+        "received_sha256": "8562a0f6e475a3a671a5747f77dad6b3ddb358245911ec240a5df58d363bbcf1",
+        "correct_bits": 371,
+        "bch_success": false,
+        "raw_information_correct": 371
+      },
+      {
+        "video_id": "paper-001",
+        "received_sha256": "cfaeef9583b572eeea1cdcf8933477670eefcbf3d830db5c88a57ff3ec42a106",
+        "correct_bits": 368,
+        "bch_success": false,
+        "raw_information_correct": 368
+      },
+      {
+        "video_id": "paper-002",
+        "received_sha256": "a495064e317880bafd9cacc7c246d117573ebe234463d7549909c90f7a0d31bd",
+        "correct_bits": 382,
+        "bch_success": false,
+        "raw_information_correct": 382
+      },
+      {
+        "video_id": "paper-003",
+        "received_sha256": "b8e319e36ad05cb095f12048f5efb6b1cb82c33b2da663c5f31ca1493d093610",
+        "correct_bits": 327,
+        "bch_success": false,
+        "raw_information_correct": 327
+      },
+      {
+        "video_id": "paper-004",
+        "received_sha256": "c91ead1e9adfcfdeaa2035bed7b4a14ee9c4537a425c55e58bbf1451c2cfbfcd",
+        "correct_bits": 411,
+        "bch_success": false,
+        "raw_information_correct": 411
+      },
+      {
+        "video_id": "paper-020",
+        "received_sha256": "3b15a5222a712a2c048b4d9beb0aaab724573e49aaa44e346c1cdcd1afbbdaa7",
+        "correct_bits": 451,
+        "bch_success": false,
+        "raw_information_correct": 451
+      },
+      {
+        "video_id": "paper-040",
+        "received_sha256": "1137d593d78edce90b4440c89c8815b76e4faed140ff3a16cc822395ab4bb550",
+        "correct_bits": 376,
+        "bch_success": false,
+        "raw_information_correct": 376
+      },
+      {
+        "video_id": "paper-060",
+        "received_sha256": "1a702654414461e34ac2554d417c3510117749ee414a946623410ba81d710386",
+        "correct_bits": 268,
+        "bch_success": false,
+        "raw_information_correct": 268
+      }
+    ],
+    "insert": [
+      {
+        "video_id": "paper-000",
+        "received_sha256": "e631398a5c358a90ef9f68417e68af67344d7c540ff33ef4e8e5586759964c7d",
+        "correct_bits": 424,
+        "bch_success": false,
+        "raw_information_correct": 424
+      },
+      {
+        "video_id": "paper-001",
+        "received_sha256": "d19350e5aed8134179fd6aa8fa92d9ea95f650afc6ccef02ecb97eac75a3b6f2",
+        "correct_bits": 436,
+        "bch_success": false,
+        "raw_information_correct": 436
+      },
+      {
+        "video_id": "paper-002",
+        "received_sha256": "86eda341d3437e439c7e098b66fcc6b3dd22553d362d24249eee8d39e7070409",
+        "correct_bits": 408,
+        "bch_success": false,
+        "raw_information_correct": 408
+      },
+      {
+        "video_id": "paper-003",
+        "received_sha256": "96e86280628f674384c34a11c8500b2a30cf265afcac81c339950b7cbbd1dbb7",
+        "correct_bits": 499,
+        "bch_success": false,
+        "raw_information_correct": 499
+      },
+      {
+        "video_id": "paper-004",
+        "received_sha256": "fd1c4cd4c726e86f049c0c8738c3abf7352f3a0023b203f37569f27c4f5a4171",
+        "correct_bits": 503,
+        "bch_success": false,
+        "raw_information_correct": 503
+      },
+      {
+        "video_id": "paper-020",
+        "received_sha256": "3fc8a7709b329daa5da214dd7aa744893e4ff49db293d6070fb8a4139f5f4def",
+        "correct_bits": 444,
+        "bch_success": false,
+        "raw_information_correct": 444
+      },
+      {
+        "video_id": "paper-040",
+        "received_sha256": "0c6b9c303cce10275b2fbd3e514492b06d219c53ccb6c51f2f90f8be5fb1b680",
+        "correct_bits": 364,
+        "bch_success": false,
+        "raw_information_correct": 364
+      },
+      {
+        "video_id": "paper-060",
+        "received_sha256": "2f9e964db92d244d9c3f63e2655c231ecf38175a7e41f0fbcbef5732bb4267fd",
+        "correct_bits": 369,
+        "bch_success": false,
+        "raw_information_correct": 369
+      }
+    ],
+    "clip": [
+      {
+        "video_id": "paper-000",
+        "received_sha256": "d036a1f680076c58ea9857f89ee5fbdb0c95b1f4951ec585e9de0a0a7a8e9c44",
+        "correct_bits": 502,
+        "bch_success": false,
+        "raw_information_correct": 502
+      },
+      {
+        "video_id": "paper-001",
+        "received_sha256": "594043a521f649c04c9961f25a4ab133298fd74a7000655af9abcd0aa276a38f",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-002",
+        "received_sha256": "1c94004b89b3dd488025e148fcbf6c1b5c0aa4284dd9ec2e6c0bb1dccd518760",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 508
+      },
+      {
+        "video_id": "paper-003",
+        "received_sha256": "b12af7fe0f0fd4f9e3e3d111ba01ce7a89a87c54b19594a4865121a53ccb3072",
+        "correct_bits": 506,
+        "bch_success": false,
+        "raw_information_correct": 506
+      },
+      {
+        "video_id": "paper-004",
+        "received_sha256": "4fea3e8aa08278458b88cf1a8e945abdcd55ba4c2629ef1fb5747caa72216aeb",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-020",
+        "received_sha256": "7e173f1caaad5f51a07eea53005bc08841295afbee33dfbaff890c21b14da575",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 512
+      },
+      {
+        "video_id": "paper-040",
+        "received_sha256": "a98b15f2249dcf32ec97946581ca884706d86712016512e413d7b491008d465d",
+        "correct_bits": 500,
+        "bch_success": false,
+        "raw_information_correct": 500
+      },
+      {
+        "video_id": "paper-060",
+        "received_sha256": "34d39248205849a48f66c031dd571037bc5dee910094d0583e75e2141b210bb4",
+        "correct_bits": 512,
+        "bch_success": true,
+        "raw_information_correct": 508
+      }
+    ]
+  }
+}
