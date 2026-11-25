@@ -674,6 +674,20 @@ The [seven-case paired report](../results/hunyuan_i2v_lfg_ccta_first7.json) cont
 
 ### Replay the seven-condition reader comparison
 
+### Wan VideoMark single-condition recount
+
+On the archived Wan I2V VideoMark sample paper-000, the original clean read
+recovered 254/512 bits. The [noise read](../results/wan22_i2v_videomark_noise_paper000.json)
+on the same marked source recovered 264/512. Both have zero entire messages
+recovered. For attack receipts that store message and prediction hashes,
+recompute an individual observation with
+`python tools/recount_native_attack.py --run /private/native-generation --video-id paper-000 --condition noise`.
+The command verifies the generated and received MP4s, native registration and
+extraction receipt before recounting the private message. This one-clip
+integration has separate provenance from the full primary campaign.
+
+### Replay the seven-condition reader comparison
+
 Run from the repository root after installing the package. The first table reproduces the available supplement Table 12 columns. The second gives the correct and total information bits for each condition, pooled across the same videos.
 
 ```bash
