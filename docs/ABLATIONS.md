@@ -551,6 +551,24 @@ The current real development grid is incomplete, so no successful full controlle
 plan is claimed. Planner tests use synthetic fidelity summaries to check coverage
 and rejection logic, not measured calibration results.
 
+After generating the two writer blocks with the selected settings and
+completing their clean, drop and compression evaluations, render the
+800 per-case extraction commands on the execution host. Use the pipeline's
+own VAE and its audited 80-video energy calibration:
+
+```bash
+python tools/controlled_batch_commands.py --plan /private/frozen-controlled-plan.json \
+  --manifest configs/primary_manifest.json --runs /private/controlled-writers \
+  --model /path/to/hunyuan-i2v --calibration /private/full80-frozen-calibration.json \
+  --output /private/new-controlled-reads > controlled-reads.sh
+bash controlled-reads.sh
+```
+
+Each command evaluates one writer and video on all three conditions using
+all four readers. The script runs sequentially and stops on the first failed
+command. For a partial run, retain completed outputs and execute the
+remaining commands individually with fresh destinations for retries.
+
 ```bash
 python -m last.controlled_evaluate --run /private/completed-writer-case \
   --family hunyuan --model-dir /path/to/hunyuan-i2v \
