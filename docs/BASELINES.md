@@ -705,7 +705,7 @@ integration has separate provenance from the full primary campaign.
 Run from the repository root after installing the package. The first table reproduces the available supplement Table 12 columns. The second gives the correct and total information bits for each condition, pooled across the same videos.
 
 ```bash
-python tools/lfg_reader_table.py results/hunyuan_i2v_lfg_ccta_first13.json \
+python tools/lfg_reader_table.py results/hunyuan_i2v_lfg_ccta_first16.json \
   --fidelity results/hunyuan_i2v_paired_fidelity_first16.json --all-conditions
 ```
 
@@ -724,3 +724,5 @@ readers recovered 3/11 entire messages clean and 0/11 after random deletion.
 The [12-case report](../results/hunyuan_i2v_lfg_ccta_first12.json) covers three prompts with four seeds each. On identical insertion-edited MP4s, CCTA recovered 5,046 of 6,144 information bits versus 3,623 for the original LFG reader. Under random deletion the counts were 4,153 versus 4,053, with zero complete messages for either reader. Clean counts matched at 6,022 bits and three complete messages each. All 77 paired observations shared with the 11-case report matched exactly.
 
 The [13-case report](../results/hunyuan_i2v_lfg_ccta_first13.json) adds the first seed of the fourth prompt. On this clip the original and CCTA readers recovered 278 and 416 bits after insertion, 313 and 468 after contiguous removal, and 320 and 329 after random deletion (512 bits per condition). Across all 13 paired clips both readers recovered three entire clean messages and zero after random deletion. The 84 observations shared with the 12-case report match exactly.
+
+The [16-case report](../results/hunyuan_i2v_lfg_ccta_first16.json) covers four prompts with four seeds each. All 91 paired observations from the 13-case report agree. On identical edited videos, CCTA increased insertion bit accuracy from 58.22% to 80.57%, clipping from 75.16% to 87.41%, and random deletion from 65.26% to 67.46%. Neither reader recovered a complete message after deletion. Clean, noise, compression and blur each lost 1 to 11 correct bits out of 8,192. The sample covers 16 of the planned 400 videos.
