@@ -49,6 +49,11 @@ def audit(plan_path, manifest_path, root, family, mode, method):
             raise ValueError(f"Generation inputs differ from manifest: {video}")
         if hashlib.sha256(case_bytes).hexdigest() != receipt["case_sha256"]:
             raise ValueError(f"Generation receipt refers to a different case: {video}")
+        if (receipt["family"], receipt["mode"], receipt["method"], receipt["seed"]) != (
+                family, mode, method, sample["seed"]):
+            raise ValueError(f"Generation receipt differs from planned pipeline or seed: {video}")
+        if mode == "i2v" and hashlib.sha256(Path(case["image"]).read_bytes()).hexdigest() != sample["image_sha256"]:
+            raise ValueError(f"Conditioning image differs from manifest: {video}")
     result.update(plan_sha256=plan_digest,
                   manifest_sha256=manifest_digest,
                   planned_videos_per_method=len(runs))
