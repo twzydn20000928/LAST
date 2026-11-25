@@ -287,13 +287,13 @@ That one video's PSNR is42.5864dB and SSIM0.975846; these are not an80-video
 candidate mean or a matched-fidelity operating point. The report selects by
 fidelity only and does not use message accuracy to choose parameters.
 
-The [44-observation calibration report](../results/lfgc_grid_first44_observations.json)
+The [45-observation calibration report](../results/lfgc_grid_first45_observations.json)
 uses the same frozen plan and writer revision. The means below cover only the
 available videos for each setting.
 
 | LFG-C strength | Final guided steps | Measured videos | Mean video PSNR (dB) | Mean SSIM |
 |---:|---:|---:|---:|---:|
-| 0.025 | 5 | 37/80 | 42.6085 | 0.978707 |
+| 0.025 | 5 | 38/80 | 42.5891 | 0.978696 |
 | 0.050 | 5 | 7/80 | 43.5606 | 0.974914 |
 
 The remaining 13 settings have zero measured videos in this snapshot. The
