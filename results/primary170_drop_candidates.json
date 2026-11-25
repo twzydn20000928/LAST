@@ -1,0 +1,1025 @@
+{
+  "report_sha256": "fa181b0c57a27e716a02613c93e32a14e708f2caef060ea70fe0895eb62cad28",
+  "observations": [
+    {
+      "video_id": "paper-005",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-006",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-007",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-008",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-009",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-010",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-011",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-012",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-013",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-014",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-015",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-016",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-017",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-018",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-019",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-021",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-022",
+      "surviving": 1,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-023",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-024",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-025",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-026",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-027",
+      "surviving": 1,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-028",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-029",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-030",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-031",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-032",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-033",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-034",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-035",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-036",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-037",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-038",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-039",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-041",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-042",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-043",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-044",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-045",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-046",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-047",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-048",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-049",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-050",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-051",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 2
+    },
+    {
+      "video_id": "paper-052",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-053",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-054",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-055",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-056",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-057",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-058",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-059",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-061",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-062",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-063",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-064",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-065",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 2
+    },
+    {
+      "video_id": "paper-066",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-067",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-068",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-069",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-070",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-071",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-072",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-073",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 3
+    },
+    {
+      "video_id": "paper-074",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-075",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-076",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 2
+    },
+    {
+      "video_id": "paper-077",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-078",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-079",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-080",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-081",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-082",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-083",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-084",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-085",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-086",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-087",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-088",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-089",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-090",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 2
+    },
+    {
+      "video_id": "paper-091",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-092",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-093",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-094",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-095",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-096",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-097",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-098",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-099",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-100",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-101",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-102",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-103",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-104",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 2
+    },
+    {
+      "video_id": "paper-105",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-106",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-107",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-108",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-109",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-110",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-111",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-112",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-113",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-114",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-115",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-116",
+      "surviving": 5,
+      "proposed": 5,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-117",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-118",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-119",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-120",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-121",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-122",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-123",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-124",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-125",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-126",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-127",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-128",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-129",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-130",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-131",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-132",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-133",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-134",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-135",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-136",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-137",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-138",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-139",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-140",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-141",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 2
+    },
+    {
+      "video_id": "paper-142",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-143",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-144",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-145",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 2
+    },
+    {
+      "video_id": "paper-146",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-147",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-148",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-149",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-150",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-151",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-152",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-153",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-154",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-155",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-156",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-157",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-158",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-159",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-160",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-161",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-162",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-163",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-164",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-165",
+      "surviving": 3,
+      "proposed": 3,
+      "selected_correct": 2
+    },
+    {
+      "video_id": "paper-166",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-167",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-168",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-169",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-170",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-171",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-172",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-173",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-174",
+      "surviving": 1,
+      "proposed": 1,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-175",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    },
+    {
+      "video_id": "paper-176",
+      "surviving": 2,
+      "proposed": 2,
+      "selected_correct": 1
+    },
+    {
+      "video_id": "paper-177",
+      "surviving": 0,
+      "proposed": 0,
+      "selected_correct": 0
+    }
+  ]
+}

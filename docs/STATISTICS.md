@@ -270,3 +270,27 @@ for edit in ("drop", "clip"):
             cases["none survived"] += 1
     print(edit, cases)
 ```
+
+### Where intact deletion windows leave the reader
+
+Replay optical-flow segmentation and the four-frame sliding windows on the
+170 archived received MP4s. The script verifies the MP4 and evaluation receipt
+hashes and checks that every window in the saved CCTA chains occurs in the
+replayed candidate set.
+
+```bash
+python tools/deletion_candidate_audit.py --root /private/primary \
+  --report results/hunyuan_i2v_primary_message_170.json > drop-candidates.json
+```
+
+| Stage | Intact groups | Videos with at least one |
+|---|---:|---:|
+| Survived the edit | 215 | 137 |
+| Appeared among sliding-window candidates | 213 | 135 |
+| Selected with the correct group identity | 64 | 54 |
+
+Of the 83 videos with a surviving group but no correctly selected intact
+window, two lost every intact candidate at segmentation. The other 81 still
+had an intact candidate entering the reader. The [per-video counts](../results/primary170_drop_candidates.json)
+locate that loss after window generation; they do not distinguish identity
+scoring from subsequent chain selection.
