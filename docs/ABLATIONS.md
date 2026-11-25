@@ -1084,3 +1084,8 @@ python tools/matched_component_table.py --reader reader-counts.json --writers /p
 ```
 
 Use `--archived-reread` only to replace a complete reader case whose original baseline used different MP4s. The exporter checks all four readers against the seven received videos and the generation codebook before emitting counts.
+### Residual errors with the true frame map
+
+Across the first 92 Hunyuan I2V videos, deletion left 26 messages with errors even after the diagnostic reader received the true frame map. These 26 accounted for all 390 incorrect information bits, with 6–28 errors per affected message (median 15). Insertion left three affected messages with 8, 8 and 9 errors. Contiguous removal left 32 with 7–29 errors (median 15.5). In these three conditions, every affected receipt records `bch_success: false`; every exact recovery records `bch_success: true`. This describes the decoder outcome on these files. It does not identify which earlier operation introduced each error.
+
+To recount, use receipts `results/hunyuan_i2v_oracle_paper000.json` through `paper091.json`. For each of `drop`, `insert` and `clip`, take `512 - correct_bits` from each matching row and restrict the error distribution to strictly positive values. All 92 messages contribute to the bit accuracy reported in Table 12.
