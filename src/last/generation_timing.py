@@ -151,6 +151,7 @@ def main():
         record.update(status='measuring', case_sha256=sha(a.case), seed=seed,
                       source_sha256=source, offload='sequential',
                       gpu=torch.cuda.get_device_name(0), model_directory=str(a.model_dir),
+                      torch_version=str(torch.__version__), cuda_version=torch.version.cuda,
                       includes=['seed/noise preparation', 'scheduler reset', 'prompt encoding', '50-step sampling', 'watermark operation', 'VAE decode', 'PIL conversion'],
                       excludes=['model loading', 'one-time secret/carrier setup', 'input image file read', 'MP4 encoding and disk export'],
                       validation='Actual exclusive-GPU parity validation required; not a completed five-method table')

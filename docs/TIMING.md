@@ -7,6 +7,12 @@ five repeats per clip, reporting each clip's median before aggregating 30 clips.
 Use one otherwise idle L40; generation and extraction must not compete with
 other experiments. Current concurrent integration runtimes are not table data.
 
+The main table builder checks that all ten extraction receipts report the
+same PyTorch and CUDA build versions. New paired generation receipts record
+both versions as well. For older generation receipts that omit both fields,
+verify the generation environment from the run log before interpreting the
+generation and extraction times together.
+
 For LAST or native-carrier LFG extraction on an already exported video:
 
 ```bash

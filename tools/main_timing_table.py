@@ -35,6 +35,7 @@ def render(index):
     spec = json.loads(index.read_bytes())
     require(set(spec["methods"]) == set(METHODS), "Expected five timing methods")
     common_case = None
+    common_runtime = None
     evidence = {}
 
     def read(path):
@@ -66,6 +67,14 @@ def render(index):
             attack = read(files[condition + "_attack"])
             require((r["status"], r["protocol"], r["method"], r["family"], r["mode"], r["gpu"]) ==
                     ("completed", "main", method, *identity[1:]), "Extraction timing mismatch")
+            runtime = (r["torch_version"], r["cuda_version"])
+            require(all(isinstance(v, str) and v for v in runtime), "Missing extraction runtime versions")
+            if common_runtime is None:
+                common_runtime = runtime
+            require(runtime == common_runtime, "Different PyTorch or CUDA versions across timed reads")
+            if "torch_version" in g or "cuda_version" in g:
+                require((g.get("torch_version"), g.get("cuda_version")) == runtime,
+                        "Generation and extraction used different PyTorch or CUDA versions")
             require((attack["status"], attack["video_id"], attack["method"], attack["condition"], attack["map_seed"]) ==
                     ("completed", spec["video_id"], method, condition, 0), "Attack identity mismatch")
             check_received_frames(attack, spec["video_id"], condition)
