@@ -2,6 +2,7 @@
 import argparse
 import json
 from pathlib import Path
+from paired_oracle_table import load_blind_report
 
 from last.data import validate
 from last.report import CONDITIONS
@@ -10,12 +11,12 @@ from paired_prefix_fidelity import digest, measurement
 from primary_message_tables import summaries
 
 
-def audit(root, manifest, report):
+def audit(root, manifest, report, frozen_first100=None):
     validate(manifest)
-    if "audited_observations" in report:
-        if not report["artifact_verification"]:
+    if frozen_first100 is not None or "audited_observations" in report:
+        if frozen_first100 is None and not report["artifact_verification"]:
             raise ValueError("Require an artifact-verified attack report")
-        checked = report["audited_observations"]
+        checked = (frozen_first100 or report)["audited_observations"]
         targets = {(r["family"], r["mode"], r["method"]) for r in checked}
         if len(targets) != 1:
             raise ValueError("Expected a single method and generation pipeline")
@@ -55,13 +56,34 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
+    parser.add_argument("--additional-report", type=Path, action="append", default=[],
+                        help="Include a disjoint set of videos from the same pipeline")
     parser.add_argument("--manifest", type=Path, default=Path("configs/primary_manifest.json"))
     args = parser.parse_args()
-    original = json.loads(args.report.read_bytes())
+    manifest = json.loads(args.manifest.read_bytes())
     fingerprint = digest(args.manifest)
-    if original.get("manifest_sha256", fingerprint) != fingerprint:
-        raise ValueError("Primary manifest mismatch")
-    result = audit(args.root, json.loads(args.manifest.read_bytes()), original)
+    parts = []
+    reports = [args.report, *args.additional_report]
+    for path in reports:
+        original = json.loads(path.read_bytes())
+        if original.get("manifest_sha256", fingerprint) != fingerprint:
+            raise ValueError("Primary manifest mismatch")
+        first100 = (load_blind_report(path, args.manifest)
+                    if original.get("scope") == "First 100 frozen Hunyuan I2V LAST samples" else None)
+        parts.append(audit(args.root, manifest, original, first100))
+    result = parts[0]
+    if len(parts) > 1:
+        method = result["method"]
+        if any(any(p[k] != result[k] for k in ("family", "mode", "method")) for p in parts):
+            raise ValueError("Fidelity reports use different pipelines")
+        rows = [r for part in parts for r in part["observations"][method]]
+        ids = [row["video_id"] for row in rows]
+        if len(ids) != len(set(ids)):
+            raise ValueError("Fidelity cohorts overlap")
+        result.update(sample_ids=ids, observations={method: rows},
+                      cells={method: summarize(rows, [s["id"] for s in manifest["samples"]])},
+                      message_report_sha256_list=[digest(p) for p in reports])
+    else:
+        result["message_report_sha256"] = digest(args.report)
     result["manifest_sha256"] = fingerprint
-    result["message_report_sha256"] = digest(args.report)
     print(json.dumps(result, indent=2, allow_nan=False))

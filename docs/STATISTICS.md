@@ -176,6 +176,20 @@ re-extraction records from the archived replay directory, run
 `python tools/export_replayed_message_counts.py --root /private/bch-replays --output replay-counts.json`.
 The exporter checks each source receipt hash, received video fingerprint and
 post-decoding count against the archived measurements.
+
+Across those same 179 videos, mean per-video PSNR was 32.946 dB
+(95% interval 32.370–33.542) and mean SSIM was 0.94293 (0.93756–0.94817).
+Both compare the marked video with its own unmarked reference. The interval
+calculation resamples the 33 prompt clusters with 10,000 draws and seed 0.
+Rebuild the interval from the published observations with the first command.
+The second command verifies both MP4 files per video against the original runs.
+
+```bash
+python tools/fidelity_intervals.py results/hunyuan_i2v_primary_fidelity_179.json
+python tools/primary_message_fidelity.py --root /private/primary \
+  --report results/hunyuan_i2v_last_first100_robustness.json \
+  --additional-report results/hunyuan_i2v_last_primary100_178.json > fidelity179.json
+```
 For fidelity on exactly the 170 Hunyuan I2V Table 10–11 videos, run `python tools/fidelity_intervals.py results/hunyuan_i2v_primary_fidelity_170.json`. These 32 prompt clusters yield mean per-video PSNR 33.025 dB and mean SSIM 0.94333. The report records the digest of its parent message table. To rebuild it, run `python tools/primary_message_fidelity.py --root /private/primary --report results/hunyuan_i2v_primary_message_170.json` against the original marked and reference MP4s.
 
 ### Complete 178-video prefix using two measurement sources

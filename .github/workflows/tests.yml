@@ -32,6 +32,8 @@ jobs:
             --verify-original-slice results/hunyuan_i2v_last_primary100_178.json \
             --message-tables results/replayed_message_counts_eight.json \
             > .ci-tables/robustness/hunyuan-i2v-last-first179.md
+          python tools/fidelity_intervals.py results/hunyuan_i2v_primary_fidelity_179.json \
+            > .ci-tables/robustness/hunyuan-i2v-last-first179-fidelity.json
       - uses: actions/upload-artifact@v4
         with:
           name: audited-partial-robustness-tables
