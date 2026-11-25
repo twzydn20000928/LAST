@@ -70,7 +70,8 @@ def compare(report, oracle, video_id):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--report", type=Path, required=True)
+    parser.add_argument("--report", type=Path, action="append", required=True,
+                        help="Blind report; repeat for adjacent manifest slices in order")
     parser.add_argument("--manifest", type=Path, help="Original sample manifest for a full primary pipeline report")
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--oracle", type=Path)
@@ -78,7 +79,25 @@ if __name__ == "__main__":
     parser.add_argument("--video-id")
     parser.add_argument("--count", type=int, help="Compare the first N declared samples with --oracle-dir")
     args = parser.parse_args()
-    report = load_blind_report(args.report, args.manifest)
+    report = load_blind_report(args.report[0], args.manifest)
+    if len(args.report) > 1:
+        if args.manifest is None:
+            parser.error("Combining blind reports requires their original --manifest")
+        manifest = args.manifest.read_bytes()
+        digest = hashlib.sha256(manifest).hexdigest()
+        sample_ids = [sample["id"] for sample in json.loads(manifest)["samples"]]
+        offset = 0
+        combined = dict(sample_ids=[], audited_observations=[])
+        for path in args.report:
+            part = report if offset == 0 else load_blind_report(path, args.manifest)
+            ids = part["sample_ids"]
+            if (part.get("manifest_sha256") != digest or not ids
+                    or ids != sample_ids[offset:offset + len(ids)]):
+                parser.error(f"Expected consecutive samples from the supplied manifest: {path}")
+            combined["sample_ids"].extend(ids)
+            combined["audited_observations"].extend(part["audited_observations"])
+            offset += len(ids)
+        report = combined
     if args.oracle_dir:
         if args.video_id:
             parser.error("--video-id applies to a single --oracle")

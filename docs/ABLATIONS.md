@@ -714,6 +714,7 @@ method's exclusive exact count to the `Both exact` column.
 ```bash
 receipts=(results/hunyuan_i2v_oracle_paper*.json)
 python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
+  --report results/hunyuan_i2v_last_primary100_178.json --manifest configs/primary_manifest.json \
   --oracle-dir results --count "${#receipts[@]}"
 ```
 

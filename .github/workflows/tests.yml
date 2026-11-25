@@ -50,6 +50,7 @@ jobs:
             > ci-temporal-diagnostics/table12-shared-fusion.md
           receipts=(results/hunyuan_i2v_oracle_paper*.json)
           python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
+            --report results/hunyuan_i2v_last_primary100_178.json --manifest configs/primary_manifest.json \
             --oracle-dir results --count "${#receipts[@]}" > ci-temporal-diagnostics/table12-oracle.md
           python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json \
             --primary results/hunyuan_i2v_last_first100_robustness.json --alignment > ci-temporal-diagnostics/table15.json
