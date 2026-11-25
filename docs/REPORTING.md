@@ -17,7 +17,7 @@ python -m last.clean_table --family hunyuan \
   --output paired-table1/hunyuan.md
 
 python -m last.clean_table --family wan22 \
-  --reports results/wan22_i2v_primary9.json results/wan22_t2v_primary9.json \
+  --reports results/wan22_i2v_primary10.json results/wan22_t2v_primary9.json \
   --quality results/camera_motion/wan22_i2v_last_camera_quality.json \
     results/camera_motion/wan22_i2v_reference_camera_quality.json \
     results/camera_motion/wan22_t2v_last_camera_quality.json \
@@ -68,15 +68,15 @@ To rebuild the measured LAST, LFG and native baseline rows of Table 2 with attac
 python -m last.robustness_table --reports \
   results/hunyuan_i2v_primary17.json \
   results/hunyuan_t2v_primary10.json \
-  results/wan22_i2v_primary9.json \
+  results/wan22_i2v_primary10.json \
   results/wan22_t2v_primary9.json \
   results/hunyuan_i2v_videoshield_first1.json \
   results/hunyuan_t2v_videomark_first37.json \
   --output paired-table2
 ```
 
-LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 10 Hunyuan T2V, 9 Wan I2V and 9 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 37 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the nine Wan
-I2V pairs gives 66.30% for LAST and 68.06% for LFG. The paired subsets can be
+LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 10 Hunyuan T2V, 10 Wan I2V and 9 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 37 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the ten Wan
+I2V pairs gives 66.62% for LAST and 67.81% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
 
@@ -443,7 +443,7 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 |---|---:|---:|---:|---:|
 | [hunyuan i2v](../results/hunyuan_i2v_primary17.json) | 17 | 74.59% / 65.74% | 88.19% / 58.69% | 98.52% / 76.22% |
 | [hunyuan t2v](../results/hunyuan_t2v_primary10.json) | 10 | 75.43% / 66.37% | 91.84% / 59.51% | 97.13% / 76.97% |
-| [wan22 i2v](../results/wan22_i2v_primary9.json) | 9 | 66.30% / 68.06% | 87.00% / 57.73% | 96.72% / 80.38% |
+| [wan22 i2v](../results/wan22_i2v_primary10.json) | 10 | 66.62% / 67.81% | 86.56% / 57.36% | 95.92% / 80.59% |
 | [wan22 t2v](../results/wan22_t2v_primary9.json) | 9 | 73.52% / 66.32% | 84.96% / 54.88% | 97.59% / 78.88% |
 
 The fidelity scores below use the same samples as the temporal-attack rows above. Each PSNR value averages per-video PSNR in dB. Reference matches count byte-identical unmarked MP4s between methods, verified by SHA-256.
@@ -452,7 +452,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 |---|---:|---:|---:|---:|
 | [hunyuan_i2v](../results/hunyuan_i2v_fidelity17.json) | 17 | 2/17 | 31.44 / 22.67 | 0.9406 / 0.7515 |
 | [hunyuan_t2v](../results/hunyuan_t2v_fidelity10.json) | 10 | 0/10 | 30.66 / 21.76 | 0.9204 / 0.6928 |
-| [wan22_i2v](../results/wan22_i2v_fidelity9.json) | 9 | 9/9 | 29.24 / 22.66 | 0.9274 / 0.7850 |
+| [wan22_i2v](../results/wan22_i2v_fidelity10.json) | 10 | 10/10 | 29.16 / 22.58 | 0.9293 / 0.7891 |
 | [wan22_t2v](../results/wan22_t2v_fidelity9.json) | 9 | 9/9 | 30.84 / 24.77 | 0.9449 / 0.8344 |
 
 Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
