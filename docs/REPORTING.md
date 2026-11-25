@@ -6,7 +6,7 @@ for LAST and its unmarked reference. Run from the repository root.
 
 ```bash
 python -m last.clean_table --family hunyuan \
-  --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary9.json \
+  --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary10.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_last_camera_quality.json \
@@ -48,7 +48,7 @@ To rebuild the measured LAST and LFG rows of Table 2 with attacks as columns, ru
 ```bash
 python -m last.robustness_table --reports \
   results/hunyuan_i2v_primary17.json \
-  results/hunyuan_t2v_primary9.json \
+  results/hunyuan_t2v_primary10.json \
   results/wan22_i2v_primary9.json \
   results/wan22_t2v_primary9.json \
   --output paired-table2
@@ -424,7 +424,7 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 | Backbone and mode | Paired videos | Deletion | Insertion | Clip |
 |---|---:|---:|---:|---:|
 | [hunyuan i2v](../results/hunyuan_i2v_primary17.json) | 17 | 74.59% / 65.74% | 88.19% / 58.69% | 98.52% / 76.22% |
-| [hunyuan t2v](../results/hunyuan_t2v_primary9.json) | 9 | 76.39% / 67.25% | 92.43% / 60.00% | 97.48% / 77.34% |
+| [hunyuan t2v](../results/hunyuan_t2v_primary10.json) | 10 | 75.43% / 66.37% | 91.84% / 59.51% | 97.13% / 76.97% |
 | [wan22 i2v](../results/wan22_i2v_primary9.json) | 9 | 66.30% / 68.06% | 87.00% / 57.73% | 96.72% / 80.38% |
 | [wan22 t2v](../results/wan22_t2v_primary9.json) | 9 | 73.52% / 66.32% | 84.96% / 54.88% | 97.59% / 78.88% |
 
@@ -433,7 +433,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 | Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
 |---|---:|---:|---:|---:|
 | [hunyuan_i2v](../results/hunyuan_i2v_fidelity17.json) | 17 | 2/17 | 31.44 / 22.67 | 0.9406 / 0.7515 |
-| [hunyuan_t2v](../results/hunyuan_t2v_fidelity9.json) | 9 | 0/9 | 30.26 / 21.57 | 0.9166 / 0.6855 |
+| [hunyuan_t2v](../results/hunyuan_t2v_fidelity10.json) | 10 | 0/10 | 30.66 / 21.76 | 0.9204 / 0.6928 |
 | [wan22_i2v](../results/wan22_i2v_fidelity9.json) | 9 | 9/9 | 29.24 / 22.66 | 0.9274 / 0.7850 |
 | [wan22_t2v](../results/wan22_t2v_fidelity9.json) | 9 | 9/9 | 30.84 / 24.77 | 0.9449 / 0.8344 |
 
@@ -465,7 +465,7 @@ Both rows currently show five of 18 dimensions. Each dimension retains the numbe
 To render Tables 1 and 2 with the available VideoShield I2V and VideoMark T2V rows, run in Bash from the repository root:
 
 ```bash
-reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary9.json
+reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary10.json
          results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first37.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
   --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \

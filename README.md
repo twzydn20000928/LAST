@@ -43,7 +43,7 @@ flowchart LR
 
 For main Tables 1 and 2, the [reporting guide](docs/REPORTING.md) gives the
 clean and attacked table commands. The [paired temporal results](docs/REPORTING.md#matched-temporal-attacks-by-backbone-and-input-mode)
-cover 17, 9, 9 and 9 sample pairs for the four pipelines listed below.
+cover 17, 10, 9 and 9 sample pairs for the four pipelines listed below.
 For the component ablation, run the following command from the repository
 root to compare writer and reader variants on the same 12 of 30 planned
 videos. It prints all seven conditions and the two writer fidelity scores.
@@ -72,7 +72,7 @@ The following paired subsets use the frozen primary manifest and 512 information
 | Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
 |---|---:|---|---|
 | HunyuanVideo, image-to-video | 17 | [17 pairs](results/hunyuan_i2v_primary17.json) | [17 pairs](results/hunyuan_i2v_fidelity17.json) |
-| HunyuanVideo, text-to-video | 9 | [9 pairs](results/hunyuan_t2v_primary9.json) | [9 pairs](results/hunyuan_t2v_fidelity9.json) |
+| HunyuanVideo, text-to-video | 10 | [10 pairs](results/hunyuan_t2v_primary10.json) | [10 pairs](results/hunyuan_t2v_fidelity10.json) |
 | Wan-2.2, image-to-video | 9 | [9 pairs](results/wan22_i2v_primary9.json) | [9 pairs](results/wan22_i2v_fidelity9.json) |
 | Wan-2.2, text-to-video | 9 | [9 pairs](results/wan22_t2v_primary9.json) | [9 pairs](results/wan22_t2v_fidelity9.json) |
 
