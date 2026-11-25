@@ -41,10 +41,25 @@ flowchart LR
 
 ## Measured results
 
-**Primary random frame deletion remains a substantial reproduction discrepancy.**
-The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun obtained 72.59% bit accuracy and 1/170 exact messages on the 170 videos with verified original deletion receipts in this snapshot. A further eight historical receipts lack the received-video fingerprint required for this comparison. The median video had 130 wrong information bits out of 512. On a separately audited 13-video prefix, supplying original frame positions raised exact recovery after deletion from 0/13 to 12/13. The remaining causes of the discrepancy are under investigation.
+For main Tables 1 and 2, the [reporting guide](docs/REPORTING.md) gives the
+clean and attacked table commands. The [paired temporal results](docs/REPORTING.md#matched-temporal-attacks-by-backbone-and-input-mode)
+cover 16, 9, 8 and 8 sample pairs for the four pipelines listed below.
+For the component ablation, run the following command from the repository
+root to compare writer and reader variants on the same 12 of 30 planned
+videos. It prints all seven conditions and the two writer fidelity scores.
 
-Recompute the snapshot statistics from [per-video observations](results/hunyuan_i2v_primary_deletion_errors.json) on CPU:
+```bash
+python tools/matched_component_table.py --archived-reread results/hunyuan_i2v_archived_reader_pair.json
+```
+
+**Primary random frame deletion remains a substantial reproduction discrepancy.**
+The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun recovered **66,132/91,136 bits (72.56%) and 1/178 exact messages** across the first 178 videos. For 170 videos the original receipts identify the received MP4. The other eight use independent extractions from the archived videos because their original receipts lack that fingerprint. The two sets of video IDs are disjoint. Recount both contributions on CPU:
+
+```bash
+python tools/hunyuan_prefix_recovery.py
+```
+
+For deletion, the command reports 63,178/87,040 bits from original receipts and 2,954/4,096 bits from re-extraction. On a separate 13-video diagnostic subset, supplying the original frame positions raised exact recovery from 0/13 to 12/13. The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
 
 ```bash
 python tools/primary_deletion_errors.py --report results/hunyuan_i2v_primary_deletion_errors.json
