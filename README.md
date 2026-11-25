@@ -42,7 +42,7 @@ flowchart LR
 ## Measured results
 
 **Primary random frame deletion remains a substantial reproduction discrepancy.**
-The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun obtained 72.59% bit accuracy and 1/170 exact messages on the 170 videos with verified original deletion receipts in this snapshot. A further eight historical receipts lack the received-video fingerprint required for this comparison. The median video had 130 wrong information bits out of 512. On the first four videos in the separately audited blind/oracle comparison, supplying original frame positions enabled exact recovery after deletion. The remaining causes of the discrepancy are under investigation.
+The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun obtained 72.59% bit accuracy and 1/170 exact messages on the 170 videos with verified original deletion receipts in this snapshot. A further eight historical receipts lack the received-video fingerprint required for this comparison. The median video had 130 wrong information bits out of 512. On the first five videos in the separately audited blind/oracle comparison, supplying original frame positions enabled exact recovery after deletion. The remaining causes of the discrepancy are under investigation.
 
 Recompute the snapshot statistics from [per-video observations](results/hunyuan_i2v_primary_deletion_errors.json) on CPU:
 
