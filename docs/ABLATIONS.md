@@ -125,6 +125,15 @@ OMP_NUM_THREADS=4 OPENBLAS_NUM_THREADS=4 python -m last.null_cache acquire \
   --output /private/new-null-responses
 ```
 
+For the LAST operating point (Hunyuan I2V, margin 0.5), the first completed
+development acquisition, `dev-000`, had 62 candidate windows and 63,488
+energies. The saved array uses axes (candidate, wrong key, group). For each
+of the 62 windows we independently recomputed the four combinations of key
+indices 0 and 63 and group indices 0 and 15 from the saved feature and the
+keyed codebook. All 248 energies agreed at relative tolerance 1e-6 and
+absolute tolerance 1e-8. This checks a subset of projections for one video.
+Fit the calibration after collecting all 80 development cases.
+
 Reuse the saved wrong-key bank for replay. Existing outputs are not overwritten;
 failures retain their receipt. Each acquisition performs 1024 actual QR carrier
 projections and stores candidate-by-64-by-16 energies. It verifies input/source
