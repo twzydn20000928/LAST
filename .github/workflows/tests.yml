@@ -46,6 +46,8 @@ jobs:
       - name: Rebuild supplementary temporal diagnostics
         run: |
           mkdir ci-temporal-diagnostics
+          python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper005.json \
+            > ci-temporal-diagnostics/table12-shared-fusion.md
           receipts=(results/hunyuan_i2v_oracle_paper*.json)
           python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
             --oracle-dir results --count "${#receipts[@]}" > ci-temporal-diagnostics/table12-oracle.md

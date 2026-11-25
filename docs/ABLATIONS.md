@@ -605,6 +605,11 @@ Render the shared-fusion measurements from the public counts on CPU:
 python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper005.json
 ```
 
+The GitHub Actions artifact `audited-partial-temporal-diagnostics` includes
+this output as `table12-shared-fusion.md`. Its companion `table12-oracle.md`
+compares the primary blind reader with the direct true-map reader on a larger
+cohort. The two files use different fusion rules and sample counts.
+
 For a larger run, pass all per-case exports as positional arguments. Use the
 same sample IDs for both writers when comparing them, and keep each model,
 reader set and source revision in a separate table. The heading reports the
