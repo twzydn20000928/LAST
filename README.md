@@ -59,7 +59,13 @@ The manuscript reports 96.0% bit accuracy and 368/400 exact messages for Hunyuan
 python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json
 ```
 
-For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On the first 40 videos of the same primary cohort, blind reading recovered 1/40 complete messages after random deletion (16,161/20,480 bits). The diagnostic reader supplied with the true edit map recovered 39/40 (20,472/20,480 bits) on the identical attacked MP4s. This subset covers ten prompts at four seeds each, split evenly between Camera Motion and Complex Landscape. The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
+For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On the first 58 videos, blind extraction after deletion recovered 23,252/29,696 information bits (78.30%) and 1/58 complete messages. Supplying the true frame map to the diagnostic reader gave 29,623/29,696 bits (99.75%) and 52/58 complete messages on the same attacked files. The assisted reader also fills missing slots and fuses surviving groups, so this comparison measures their combined effect. These 15 prompts cover Camera Motion (20 videos), Complex Landscape (20) and Complex Plot (18). To reproduce this snapshot across all seven conditions:
+
+```bash
+python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json --oracle-dir results --count 58
+```
+
+The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
 
 ```bash
 python tools/primary_deletion_errors.py --report results/hunyuan_i2v_primary_deletion_errors.json
