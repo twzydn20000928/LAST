@@ -14,6 +14,7 @@ def audit(plan_path, manifest_path, root, family, mode, method):
     validate(manifest)
     plan_bytes = plan_path.read_bytes()
     plan = json.loads(plan_bytes)
+    plan_digest = hashlib.sha256(plan_bytes).hexdigest()
     manifest_digest = hashlib.sha256(manifest_bytes).hexdigest()
     if manifest_digest != plan["manifest_sha256"]:
         raise ValueError("Primary manifest differs from the generation plan")
@@ -30,8 +31,15 @@ def audit(plan_path, manifest_path, root, family, mode, method):
     scope = f"{family} {mode} {method}: measured primary attacks with archived MP4 verification"
     result = aggregate(dict(plan, runs=runs, scope=scope), root, verify_artifacts=True)
     measured_ids = {row["video_id"] for row in result["audited_observations"]}
-    for video in sorted(measured_ids):
+    for item in runs:
+        video = item["video_id"]
+        if video not in measured_ids:
+            continue
         folder = root / family / mode / method / video
+        campaign = json.loads((folder / "campaign.json").read_bytes())
+        if (campaign.get("item") != item or campaign.get("plan_sha256") != plan_digest
+                or campaign.get("manifest_sha256") != manifest_digest):
+            raise ValueError(f"Campaign does not match the supplied plan and manifest: {video}")
         case_bytes = (folder / "case.json").read_bytes()
         case = json.loads(case_bytes)
         receipt = json.loads((folder / "receipt.json").read_bytes())
@@ -41,7 +49,7 @@ def audit(plan_path, manifest_path, root, family, mode, method):
             raise ValueError(f"Generation inputs differ from manifest: {video}")
         if hashlib.sha256(case_bytes).hexdigest() != receipt["case_sha256"]:
             raise ValueError(f"Generation receipt refers to a different case: {video}")
-    result.update(plan_sha256=hashlib.sha256(plan_bytes).hexdigest(),
+    result.update(plan_sha256=plan_digest,
                   manifest_sha256=manifest_digest,
                   planned_videos_per_method=len(runs))
     return result
