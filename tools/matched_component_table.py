@@ -95,6 +95,8 @@ if __name__ == "__main__":
                         help="Paired reader report measured on archived writer MP4s")
     parser.add_argument("--reader", type=Path, default=results / "hunyuan_i2v_reader_ablation_first12.json")
     parser.add_argument("--writers", type=Path, nargs="+", help="Paired writer JSON reports, one per video")
+    parser.add_argument("--table4", action="store_true",
+                        help="Render the manuscript's row order and 0–1 bit accuracies to three decimal places")
     args = parser.parse_args()
     writers = [read(p) for p in (args.writers or sorted(results.glob("paired_writer_*.json")))]
     reader = read(args.reader)
@@ -106,8 +108,14 @@ if __name__ == "__main__":
     print("Unmatched full baseline by condition:", json.dumps(skipped))
     print("| Variant | " + " | ".join(CONDITIONS) + " |")
     print("|---" + "|---:" * len(CONDITIONS) + "|")
-    for v, values in counts.items():
-        print("| " + v + " | " + " | ".join(f"{values[c]/(512*len(ids)):.2%}" for c in CONDITIONS) + " |")
+    labels = {"full": "LAST", "fixed-target": "w/o MM", "without_cgc": "w/o CGC",
+              "without_sws": "w/o SWS", "without_ccta": "w/o CCTA"}
+    variants = labels if args.table4 else counts
+    precision = ".3f" if args.table4 else ".2%"
+    denominator = 512 * len(ids)
+    for v in variants:
+        cells = [format(counts[v][c] / denominator, precision) for c in CONDITIONS]
+        print("| " + (labels[v] if args.table4 else v) + " | " + " | ".join(cells) + " |")
     print("\n| Writer | Mean PSNR (dB) | Mean SSIM |\n|---|---:|---:|")
     for variant in ("minimum-margin", "fixed-target"):
         measurements = [w["variants"][variant] for w in writers if w["video_id"] in ids]
