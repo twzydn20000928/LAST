@@ -29,7 +29,7 @@ def paired_psnr(fidelity, ids, cells, manifest_hash):
     return statistics.mean(values)
 
 
-def render(report, fidelity=None):
+def render(report, fidelity=None, all_conditions=False):
     ids = report["sample_ids"]
     if not ids or len(ids) != len(set(ids)):
         raise ValueError("Expected distinct paired sample IDs")
@@ -54,11 +54,22 @@ def render(report, fidelity=None):
         print(f"| {label} | {exact('clean')}/{n} | {correct}/{512*n} "
               f"({correct/(512*n):.2%}) | {exact('drop')}/{n} | {exact('compression')}/{n} |" +
               (f" {psnr:.2f} |" if fidelity else ""))
+    if all_conditions:
+        print("\n| Condition | Original LFG bits | LFG + CCTA bits |")
+        print("|---|---:|---:|")
+        total = 512 * len(ids)
+        for condition in CONDITIONS:
+            counts = [sum(cells[v, condition][key] for v in ids)
+                      for key in ("original_bits", "ccta_bits")]
+            values = [f"{count}/{total} ({count / total:.2%})" for count in counts]
+            print(f"| {condition} | {values[0]} | {values[1]} |")
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report", type=Path)
+    parser.add_argument("--all-conditions", action="store_true", help="Also show bit counts and accuracy for every attack")
     parser.add_argument("--fidelity", type=Path, help="Matched primary fidelity report for the same marked MP4s")
     args = parser.parse_args()
-    render(json.loads(args.report.read_bytes()), json.loads(args.fidelity.read_bytes()) if args.fidelity else None)
+    render(json.loads(args.report.read_bytes()), json.loads(args.fidelity.read_bytes()) if args.fidelity else None,
+           args.all_conditions)

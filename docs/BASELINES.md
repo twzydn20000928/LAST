@@ -657,3 +657,12 @@ For five paired samples, pass [the five-case reader report](../results/hunyuan_i
 For native primary campaigns the recount accepts `--family hunyuan` or `--family wan22` along with the generation mode and method. It checks the family recorded by the extraction process and the plan assignment for each sample. The explicit Hunyuan command reproduced the 36-case VideoMark report byte for byte. The Wan branch requires native primary generation and seven completed attack receipts on each requested sample.
 
 The [seven-case paired report](../results/hunyuan_i2v_lfg_ccta_first7.json) contains 49 observations, including all 35 observations from the five-case report. With identical received MP4s, original LFG and LFG + CCTA recovered 2,174 and 3,070 bits after insertion, 2,737 and 3,247 after contiguous removal, and 2,470 and 2,477 after random deletion (3,584 bits per condition). Both recovered 3/7 whole messages clean and 0/7 after random deletion. The direction of the small random-deletion difference changed between the five- and seven-case prefixes.
+
+### Replay the seven-condition reader comparison
+
+Run from the repository root after installing the package. The first table reproduces the available supplement Table 12 columns. The second gives the correct and total information bits for each condition, pooled across the same videos.
+
+```bash
+python tools/lfg_reader_table.py results/hunyuan_i2v_lfg_ccta_first7.json \
+  --fidelity results/hunyuan_i2v_paired_fidelity_first16.json --all-conditions
+```
