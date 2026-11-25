@@ -8,7 +8,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 ```bash
 python -m last.clean_table --family hunyuan \
   --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary10.json \
-    results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first37.json \
+    results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_last_camera_quality.json \
@@ -71,11 +71,11 @@ python -m last.robustness_table --reports \
   results/wan22_i2v_primary10.json \
   results/wan22_t2v_primary9.json \
   results/hunyuan_i2v_videoshield_first1.json \
-  results/hunyuan_t2v_videomark_first37.json \
+  results/hunyuan_t2v_videomark_first38.json \
   --output paired-table2
 ```
 
-LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 10 Hunyuan T2V, 10 Wan I2V and 9 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 37 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the ten Wan
+LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 10 Hunyuan T2V, 10 Wan I2V and 9 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 38 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the ten Wan
 I2V pairs gives 66.62% for LAST and 67.81% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
@@ -141,10 +141,10 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 | Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first73.json) | 73 | 511 |
 | Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first44.json) | 44 | 308 |
 | Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first23.json) | 23 | 161 |
-| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first37.json) | 37 | 259 |
+| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first38.json) | 38 | 266 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
 
-Run `python tools/paired_videomark_table.py --count 37` from the repository root to compare Hunyuan LAST and VideoMark on paper-000 through paper-036. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition. All 259 VideoMark observations were recounted from the archived decoded bytes. The original extraction receipts lack prediction digests, so the recount verifies agreement with the recorded bit counts but cannot establish historical bit-for-bit identity.
+Run `python tools/paired_videomark_table.py --count 38` from the repository root to compare Hunyuan LAST and VideoMark on paper-000 through paper-037. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition. All 266 VideoMark observations were recounted from the archived decoded bytes. The original extraction receipts lack prediction digests, so the recount verifies agreement with the recorded bit counts but cannot establish historical bit-for-bit identity.
 
 To regenerate either Wan LAST report from your completed runs, use the primary pipeline audit command below. Set MODE to `i2v` or `t2v`. The audit checks the saved MP4 files and records missing samples separately in each condition.
 
@@ -484,7 +484,7 @@ To render Tables 1 and 2 with the available VideoShield I2V and VideoMark T2V ro
 
 ```bash
 reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary10.json
-         results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first37.json)
+         results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
   --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \
     results/camera_motion/hunyuan_t2v_{last,reference}_camera_quality.json \
@@ -492,6 +492,6 @@ python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
 python -m last.robustness_table --reports "${reports[@]}" --output native-tables/table2
 ```
 
-These commands preserve the sample count for each method. VideoShield recovered 512/512 clean bits on its single I2V sample. VideoMark recovered 13,293/18,944 clean bits on 37 T2V samples, with 15 entire messages recovered. Its quality row covers one of 18 dimensions. SIGMark's individual integration runs remain separate from the primary table.
+These commands preserve the sample count for each method. VideoShield recovered 512/512 clean bits on its single I2V sample. VideoMark recovered 13,805/19,456 clean bits on 38 T2V samples, with 16 entire messages recovered. Its quality row covers one of 18 dimensions. SIGMark's individual integration runs remain separate from the primary table.
 
-For a comparison of LAST and VideoMark on **the same 37 T2V videos**, use `python tools/paired_videomark_table.py --count 37`. On random deletion, LAST recovered 15,003 bits and VideoMark 9,712 out of 18,944, with zero and one entire message recovered, respectively. All 259 native predictions in the [37-video report](../results/hunyuan_t2v_videomark_first37.json) were recounted from stored files. The original extraction receipts lack prediction-file digests, which limits verification of those files' history.
+For a comparison of LAST and VideoMark on **the same 38 T2V videos**, use `python tools/paired_videomark_table.py --count 38`. On random deletion, LAST recovered 15,463 bits and VideoMark 9,959 out of 19,456, with zero and one entire message recovered, respectively. All 266 native predictions in the [38-video report](../results/hunyuan_t2v_videomark_first38.json) were recounted from stored files. The original extraction receipts lack prediction-file digests, which limits verification of those files' history.

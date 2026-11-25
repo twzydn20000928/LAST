@@ -34,7 +34,7 @@ def load_counts(filename, field, samples=SAMPLES, *, family="hunyuan", mode="t2v
     return counts
 
 
-def main(count=37, last_report='hunyuan_t2v_last_first73.json', videomark_report='hunyuan_t2v_videomark_first37.json'):
+def main(count=38, last_report='hunyuan_t2v_last_first73.json', videomark_report='hunyuan_t2v_videomark_first38.json'):
     if not 1 <= count <= 400:
         raise ValueError('Expected a primary prefix of 1 to 400 cases')
     samples = tuple(f"paper-{i:03d}" for i in range(count))
@@ -50,8 +50,8 @@ def main(count=37, last_report='hunyuan_t2v_last_first73.json', videomark_report
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--count", type=int, default=37)
+    parser.add_argument("--count", type=int, default=38)
     parser.add_argument("--last-report", default="hunyuan_t2v_last_first73.json")
-    parser.add_argument("--videomark-report", default="hunyuan_t2v_videomark_first37.json")
+    parser.add_argument("--videomark-report", default="hunyuan_t2v_videomark_first38.json")
     args = parser.parse_args()
     main(args.count, args.last_report, args.videomark_report)
