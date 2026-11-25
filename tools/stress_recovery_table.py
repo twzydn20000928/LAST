@@ -1,7 +1,9 @@
 """Recompute the recovery columns of supplementary Table 15 from audited counts."""
 import argparse
 import json
+from collections import defaultdict
 from pathlib import Path
+from statistics import median
 
 from last.cluster_intervals import summarize
 
@@ -72,9 +74,49 @@ def collect(manifest, reports):
     return cells
 
 
+def alignment_counts(reports):
+    """Aggregate audited reader routes after collect has validated the trials."""
+    grouped = defaultdict(list)
+    for report in reports:
+        for row in report.get("rows", [report]):
+            grouped[row["attack"]].append(row)
+    result = {}
+    for attack, rows in grouped.items():
+        lengths = []
+        fallback = no_evidence = intact = correct = 0
+        for row in rows:
+            route = row["route"]
+            if route == "energy_spacing":
+                lengths.append(1)
+                fallback += 1
+            elif route == "no_evidence":
+                no_evidence += 1
+            elif route == "ccta":
+                counts = row["alignment"]
+                chains = row["chain_lengths"]
+                if (not chains or any(type(n) is not int or n < 2 for n in chains)
+                        or sum(chains) != row["groups"] or row["groups"] != counts["selected"]
+                        or not 0 <= counts["correct"] <= counts["intact_selected"] <= counts["selected"]):
+                    raise ValueError("Inconsistent selected group counts")
+                lengths.append(sum(chains))
+                intact += counts["intact_selected"]
+                correct += counts["correct"]
+            else:
+                raise ValueError(f"Unexpected primary reader route: {route}")
+        result[attack] = dict(
+            observed_trials=len(rows), fallback_trials=fallback, no_evidence_trials=no_evidence,
+            fallback_fraction=fallback / len(rows),
+            median_selected_groups=median(lengths) if not no_evidence else None,
+            ccta_intact_selected=intact, ccta_correct_group=correct,
+            group_accuracy=correct / intact if intact and not fallback and not no_evidence else None,
+        )
+    return result
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--manifest", type=Path, default=Path("configs/primary_manifest.json"))
+    p.add_argument("--alignment", action="store_true", help="Include observed alignment columns from exports made with --alignment")
     sources = p.add_mutually_exclusive_group(required=True)
     sources.add_argument("--reports", type=Path, nargs="+")
     sources.add_argument("--index", type=Path, help="Report paths and attack names relative to the index file")
@@ -82,6 +124,10 @@ def main():
     read = lambda path: json.loads(path.read_bytes())
     reports = indexed_reports(a.index) if a.index else [read(f) for f in a.reports]
     cells = collect(read(a.manifest), reports)
+    if a.alignment:
+        counts = alignment_counts(reports)
+        for cell in cells:
+            cell["observed_alignment"] = counts.get(cell["attack"])
     print(json.dumps(cells, indent=2, allow_nan=False))
 
 

@@ -335,5 +335,18 @@ python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps
 
 Random deletion of 10, 20, 30 and 45 frames recovered 11,710, 10,509, 9,121 and 7,174 of 12,800 information bits, respectively. Deleting 30 frames followed by CRF28 compression recovered 7,608 bits. Natural insertion recovered all 25 messages; the other seven conditions recovered zero entire messages in 25 trials each. Each attack currently covers 25 of the planned 2,000 video/map combinations.
 
+Add `--alignment` to the five-video recount command to compute the observed alignment columns of Table 15. The median counts selected candidate groups per trial, summed across segments, so repeated identities in separate segments can increase the count. The supplement encodes fallback as length one. The export identifies fallback by the reader route. Trials with no evidence are counted separately and leave the overall median undefined. Group accuracy divides correctly identified intact windows by all selected intact windows. The aggregate is unavailable when a fallback lacks saved window assignments or the denominator is zero.
+
+| Attack | Median selected groups | Fallback trials | Correct ID / selected intact windows |
+|---|---:|---:|---:|
+| Drop 10 | 11 | 0/25 | 70/82 |
+| Drop 20 | 5 | 0/25 | 26/26 |
+| Drop 30 | 3 | 0/25 | 8/9 |
+| Drop 45 | 2 | 0/25 | 0/0 (undefined) |
+| Duplicate 30 | 4 | 0/25 | 18/18 |
+| Natural insert 30 | 17 | 0/25 | 367/367 |
+| Interpolate 30 | 5 | 0/25 | 15/15 |
+| Drop 30 + CRF28 | 2 | 0/25 | 5/7 |
+
 To distinguish missing frames from missed groups, run `python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json`. The diagnostic reconstructs each deletion map after extraction and counts how many original four-frame groups survived. It compares this count with the windows in the saved CCTA chains. Across 25 drop30 trials, 29 intact groups survived out of 400 original groups. Of 92 selected windows, nine were intact and eight had the correct group ID. With the same deletion followed by CRF28 compression, seven of 77 selected windows were intact and five had the correct group ID. Feature selection and message decoding can also be affected by partial groups.
 When primary generation is still in progress, add `--ready-only` to the stress campaign command. It handles cases whose primary target and assigned unmarked donor both have completed campaign receipts. Missing or running dependencies are listed by sample ID; failed primary jobs raise an error. Rerun the same command as more inputs arrive. This option requires primary campaign receipts and retains the 400-video denominator. The default invocation expects finished inputs.
