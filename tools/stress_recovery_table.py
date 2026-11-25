@@ -7,6 +7,7 @@ from pathlib import Path
 from statistics import median
 
 from last.cluster_intervals import summarize
+from paired_oracle_table import load_blind_report
 
 
 ATTACKS = ("drop10", "drop20", "drop30", "drop45", "duplicate30", "natural30",
@@ -160,7 +161,8 @@ def main():
         for cell in cells:
             cell["observed_alignment"] = counts.get(cell["attack"])
     if a.primary:
-        comparison = compare_primary_deletions(read(a.primary), reports, hashlib.sha256(a.manifest.read_bytes()).hexdigest())
+        primary = load_blind_report(a.primary, a.manifest)
+        comparison = compare_primary_deletions(primary, reports, hashlib.sha256(a.manifest.read_bytes()).hexdigest())
         next(cell for cell in cells if cell["attack"] == "drop30")["primary_seed_zero_comparison"] = comparison
     print(json.dumps(cells, indent=2, allow_nan=False))
 

@@ -36,7 +36,7 @@ def load_blind_report(path, manifest_path=None):
     if len(rows) != len(expected) or {(r["video_id"], r["condition"]) for r in rows} != expected:
         raise ValueError("Single-method report has missing or duplicate primary observations")
     # These records are the completed map-seed-zero observations of the frozen primary plan.
-    return dict(sample_ids=samples, audited_observations=[
+    return dict(manifest_sha256=report["manifest_sha256"], sample_ids=samples, audited_observations=[
         dict(r, family="hunyuan", mode="i2v", method="last", map_seed=0,
              status="completed", total_bits=512) for r in rows])
 
