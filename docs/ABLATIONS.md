@@ -551,6 +551,24 @@ The current real development grid is incomplete, so no successful full controlle
 plan is claimed. Planner tests use synthetic fidelity summaries to check coverage
 and rejection logic, not measured calibration results.
 
+With the frozen plan available, reuse the primary LAST writer cases and add
+their LFG-C counterparts on the Linux evaluation host. Set `RUNS` to the
+existing primary output root and `STATE` to its private key/message state:
+
+```bash
+set -e
+for ((i=0; i<400; i++)); do
+  printf -v id 'paper-%03d' "$i"
+  python tools/controlled_writer_case.py --plan "$PLAN" --manifest configs/primary_manifest.json \
+    --runs "$RUNS" --model "$MODEL" --state "$STATE" --video-id "$id"
+done
+```
+
+Each LFG-C run uses the LAST case's exact prompt, conditioning image, seed,
+key and 512-bit message. The command calls the generation and MP4 attack
+evaluation entry points using the strength and step count selected by the
+development grid. It writes to the separate `lfg-c` directory under `RUNS`.
+
 After generating the two writer blocks with the selected settings and
 completing their clean, drop and compression evaluations, render the
 800 per-case extraction commands on the execution host. Use the pipeline's
@@ -558,7 +576,7 @@ own VAE and its audited 80-video energy calibration:
 
 ```bash
 python tools/controlled_batch_commands.py --plan /private/frozen-controlled-plan.json \
-  --manifest configs/primary_manifest.json --runs /private/controlled-writers \
+  --manifest configs/primary_manifest.json --runs "$RUNS" \
   --model /path/to/hunyuan-i2v --calibration /private/full80-frozen-calibration.json \
   --output /private/new-controlled-reads > controlled-reads.sh
 bash controlled-reads.sh
