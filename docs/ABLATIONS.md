@@ -599,6 +599,17 @@ The export preserves the reader set used and checks its coverage of clean,
 drop and compression. Keep the source directory layout intact during this
 step because the evaluation receipt records absolute paths for its inputs.
 
+Render the shared-fusion measurements from the public counts on CPU:
+
+```bash
+python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper005.json
+```
+
+For a larger run, pass all per-case exports as positional arguments. Use the
+same sample IDs for both writers when comparing them, and keep each model,
+reader set and source revision in a separate table. The heading reports the
+number of distinct measured videos per supplied writer out of 400.
+
 The default requires the audited full80 development calibration. For a clearly
 partial interface check, `--readers received ccta oracle` omits calibrated energy
 and records `complete_reader_set: false`; this is not a completed crossed table.
