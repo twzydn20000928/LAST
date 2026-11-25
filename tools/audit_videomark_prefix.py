@@ -19,13 +19,15 @@ def read(path):
     return json.loads(path.read_bytes())
 
 
-def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v", family="hunyuan"):
+def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v", family="hunyuan",
+          allow_incomplete=False):
     manifest, plan = read(manifest_path), read(plan_path)
     validate(manifest)
     if plan["manifest_sha256"] != sha(manifest_path) or not 1 <= count <= len(manifest["samples"]):
         raise ValueError("Unexpected primary manifest or prefix")
     items = []
     legacy = 0
+    recounted = {}
     for sample in manifest["samples"][:count]:
         video = sample["id"]
         relative = f"{family}/{mode}/{method}/{video}"
@@ -52,8 +54,14 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v",
         for condition in CONDITIONS:
             temporal = condition in ("drop", "insert", "clip")
             path = folder / "attacks"
-            row = read(path / (condition + ".json"))
+            score = path / (condition + ".json")
+            if allow_incomplete and not score.exists():
+                continue
+            score_bytes = score.read_bytes()
+            row = json.loads(score_bytes)
             if row["status"] != "completed":
+                if allow_incomplete:
+                    continue
                 raise ValueError(f"Native observation {video}/{condition} has status {row['status']}")
             reader = path / (condition + "-extract")
             receipt = read(reader / "receipt.json")
@@ -72,14 +80,18 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v",
             legacy += "decoded_sha256" not in row and "decoded_sha256" not in receipt
             if len(prediction) != 64 or sum((a ^ b).bit_count() for a, b in zip(truth, prediction)) != 512 - row["correct_bits"]:
                 raise ValueError(f"Native prediction recount mismatch: {video}/{condition}")
+            recounted[video, condition] = hashlib.sha256(score_bytes).hexdigest()
         items.append(item)
     family_label = {"hunyuan": "Hunyuan", "wan22": "Wan-2.2"}[family]
     report = aggregate(dict(scope=f"Matched {family_label} {mode} {method} primary prefix", runs=items), root, verify_artifacts=True)
-    if not report["complete"]:
+    if not allow_incomplete and not report["complete"]:
         raise ValueError("Missing native measurements")
+    aggregated = {(r["video_id"], r["condition"]): r["receipt_sha256"] for r in report["audited_observations"]}
+    if not recounted or recounted != aggregated:
+        raise ValueError("No verified measurements or receipts changed during the recount")
     return dict(report, sample_ids=[i["video_id"] for i in items], planned_videos_per_method=len(manifest["samples"]),
                 manifest_sha256=sha(manifest_path), plan_sha256=sha(plan_path),
-                recounted_predictions=count*len(CONDITIONS), predictions_without_historical_digest=legacy)
+                recounted_predictions=len(recounted), predictions_without_historical_digest=legacy)
 
 
 if __name__ == "__main__":
@@ -90,7 +102,10 @@ if __name__ == "__main__":
     parser.add_argument("--method", choices=("videomark", "videoshield", "sigmark"), default="videomark")
     parser.add_argument("--mode", choices=("t2v", "i2v"), default="t2v")
     parser.add_argument("--family", choices=("hunyuan", "wan22"), default="hunyuan")
+    parser.add_argument("--allow-incomplete", action="store_true",
+                        help="Retain missing and failed conditions while verifying each completed prediction")
     args = parser.parse_args()
-    result = audit(args.root, args.manifest, args.plan, args.count, args.method, args.mode, args.family)
+    result = audit(args.root, args.manifest, args.plan, args.count, args.method, args.mode, args.family,
+                   args.allow_incomplete)
     with args.output.open("x", encoding="utf-8") as stream:
         stream.write(json.dumps(result, indent=2) + "\n")

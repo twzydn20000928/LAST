@@ -9,6 +9,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 python -m last.clean_table --family hunyuan \
   --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary11.json \
     results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json \
+    results/hunyuan_i2v_sigmark_first1_partial.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_last_camera_quality.json \
@@ -71,6 +72,7 @@ python -m last.robustness_table --reports \
   results/wan22_i2v_primary11.json \
   results/wan22_t2v_primary10.json \
   results/hunyuan_i2v_videoshield_first1.json \
+  results/hunyuan_i2v_sigmark_first1_partial.json \
   results/hunyuan_t2v_videomark_first38.json \
   --output paired-table2
 ```
@@ -480,16 +482,30 @@ Both rows currently show five of 18 dimensions. Each dimension retains the numbe
 
 ### Include the native baseline results in the Hunyuan tables
 
-To render Tables 1 and 2 with the available VideoShield I2V and VideoMark T2V rows, run in Bash from the repository root:
+To render Tables 1 and 2 with the available VideoShield I2V, SIGMark I2V and VideoMark T2V observations, run in Bash from the repository root:
 
 ```bash
 reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary11.json
-         results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json)
+         results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json
+         results/hunyuan_i2v_sigmark_first1_partial.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
   --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \
     results/camera_motion/hunyuan_t2v_{last,reference}_camera_quality.json \
     results/hunyuan_t2v_videomark_quality.json --output native-tables/table1.md
 python -m last.robustness_table --reports "${reports[@]}" --output native-tables/table2
+```
+
+On Hunyuan I2V `paper-000`, SIGMark recovered 483, 256, 257 and 345 of 512 bits
+on clean, noise, compression and blur respectively. Deletion failed during
+extraction; insertion and clip have no completed observations in this snapshot.
+All four scored predictions were recounted against the same information bits as
+LAST. Their extraction receipts identify the MP4s but lack prediction-file
+digests. To repeat this partial audit on the original run tree:
+
+```bash
+python tools/audit_videomark_prefix.py --method sigmark --mode i2v --count 1 \
+  --manifest configs/primary_manifest.json --plan /private/native-plan.json \
+  --root /private/primary --allow-incomplete --output sigmark-partial.json
 ```
 
 These commands preserve the sample count for each method. VideoShield recovered 512/512 clean bits on its single I2V sample. VideoMark recovered 13,805/19,456 clean bits on 38 T2V samples, with 16 entire messages recovered. Its quality row covers one of 18 dimensions. SIGMark's individual integration runs remain separate from the primary table.
