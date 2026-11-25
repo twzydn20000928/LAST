@@ -232,10 +232,19 @@ group and two retained two. This case demonstrates that partial groups can
 supply enough evidence to decode a full message. The accuracy differences
 between rows describe an association on the observed videos.
 
+Of the 116 deletion cases in the first row, 33 had no intact group left in
+the received video. In the other 83, at least one intact group survived but
+the reader selected none with the correct identity. This includes
+`paper-023`, where one intact group was available. For contiguous removal
+on the same videos, all 170 had at least one correctly identified intact
+group in the selected chain. These counts can be reproduced by joining each
+video's window classifications to its frozen edit map:
+
 ```python
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 from pathlib import Path
+from last.temporal import attack_map
 
 rows = json.loads(Path("results/primary170_drop_windows.json").read_bytes())["videos"]
 by_count = defaultdict(list)
@@ -244,4 +253,20 @@ for row in rows:
     by_count[min(intact, 2)].append(row["correct_bits"])
 for count, bits in sorted(by_count.items()):
     print(count, len(bits), sum(bits), 512 * len(bits), bits.count(512))
+
+for edit in ("drop", "clip"):
+    report = json.loads(Path(f"results/primary170_{edit}_windows.json").read_bytes())
+    cases = Counter()
+    for row in report["videos"]:
+        received = set(attack_map(row["video_id"], edit))
+        intact = sum(received.issuperset(range(i, i + 4)) for i in range(1, 65, 4))
+        hits = row["window_types"].get("intact_correct_identity", 0)
+        assert 0 <= hits <= intact
+        if hits:
+            cases["selected at least one"] += 1
+        elif intact:
+            cases["survived but none selected correctly"] += 1
+        else:
+            cases["none survived"] += 1
+    print(edit, cases)
 ```
