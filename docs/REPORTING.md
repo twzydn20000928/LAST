@@ -140,7 +140,7 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 | --- | --- | ---: | ---: |
 | Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first73.json) | 73 | 511 |
 | Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first44.json) | 44 | 308 |
-| Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first23.json) | 23 | 161 |
+| Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first24.json) | 24 | 168 |
 | Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first38.json) | 38 | 266 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
 
@@ -156,7 +156,7 @@ python tools/primary_pipeline_report.py --plan /private/primary-wan-clean-plan.j
 ```
 
 The [Wan T2V LAST fidelity report](../results/wan22_t2v_last_fidelity23.json)
-covers the same 23 videos as the attack report above. Each marked MP4 is
+covers the first 23 videos in the attack report above. Each marked MP4 is
 compared with its own unmarked reference. Mean PSNR is 31.317 dB and mean
 SSIM is 0.94136. Resampling the six prompts gives 95% intervals of
 [30.153, 32.464] dB and [0.92851, 0.95156]. Recompute these statistics
@@ -164,17 +164,17 @@ with `python tools/fidelity_intervals.py results/wan22_t2v_last_fidelity23.json`
 
 ## LAST across backbones on matched text-to-video samples
 
-Both columns use paper-000 through paper-022 from the same manifest. Each backbone generated its own videos. Each condition has 11,776 information bits and 23 entire messages per backbone. Run `python tools/paired_backbone_table.py` to regenerate the comparison or add `--count 10` for the earlier prefix.
+Both columns use paper-000 through paper-023 from the same manifest. Each backbone generated its own videos. Each condition has 12,288 information bits and 24 entire messages per backbone. Run `python tools/paired_backbone_table.py` to regenerate the comparison or add `--count 10` for the earlier prefix.
 
 | Condition | Hunyuan correct bits | Wan2.2 correct bits | Hunyuan exact | Wan2.2 exact |
 | --- | ---: | ---: | ---: | ---: |
-| clean | 11776 | 11776 | 23 | 23 |
-| noise | 11666 | 11642 | 17 | 17 |
-| compression | 11502 | 11445 | 10 | 14 |
-| blur | 11746 | 11696 | 20 | 18 |
-| drop | 9295 | 8322 | 0 | 0 |
-| insert | 10437 | 9813 | 1 | 1 |
-| clip | 11555 | 11476 | 13 | 17 |
+| clean | 12288 | 12288 | 24 | 24 |
+| noise | 12178 | 12154 | 18 | 18 |
+| compression | 12005 | 11957 | 10 | 15 |
+| blur | 12258 | 12208 | 21 | 19 |
+| drop | 9665 | 8749 | 0 | 0 |
+| insert | 10949 | 10281 | 2 | 1 |
+| clip | 12067 | 11988 | 14 | 18 |
 
 Run `python tools/paired_lfg_table.py --samples 7` to regenerate the seven-sample, two-prompt Hunyuan image-to-video comparison from the [matched LAST and LFG observations](../results/hunyuan_i2v_last_lfg_first_seven_paired.json).
 For image-to-video, run `python tools/paired_backbone_table.py --mode i2v`. Each column uses the first 44 manifest entries, with 22,528 information bits per condition and 44 messages. Both backbones share the manifest entries and each generates its own MP4. Use `--count 43` or `--count 30` to reproduce earlier prefixes.

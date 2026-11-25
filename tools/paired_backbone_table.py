@@ -14,9 +14,9 @@ def main():
         left_file, left_field = "hunyuan_i2v_last_first100_robustness.json", "observations"
         right_file = "wan22_i2v_last_first44.json"
     else:
-        available = 23
+        available = 24
         left_file, left_field = "hunyuan_t2v_last_first73.json", "audited_observations"
-        right_file = "wan22_t2v_last_first23.json"
+        right_file = "wan22_t2v_last_first24.json"
     count = available if args.count is None else args.count
     if not 1 <= count <= available:
         parser.error(f"Expected 1 to {available} verified shared samples for {mode}")
