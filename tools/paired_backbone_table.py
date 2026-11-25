@@ -10,9 +10,9 @@ def main():
     args = parser.parse_args()
     mode = args.mode
     if mode == "i2v":
-        available = 43
+        available = 44
         left_file, left_field = "hunyuan_i2v_last_first100_robustness.json", "observations"
-        right_file = "wan22_i2v_last_first43.json"
+        right_file = "wan22_i2v_last_first44.json"
     else:
         available = 23
         left_file, left_field = "hunyuan_t2v_last_first73.json", "audited_observations"

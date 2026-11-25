@@ -139,7 +139,7 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 | Generator and task | Method | Videos | Observations across seven conditions |
 | --- | --- | ---: | ---: |
 | Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first73.json) | 73 | 511 |
-| Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first43.json) | 43 | 301 |
+| Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first44.json) | 44 | 308 |
 | Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first23.json) | 23 | 161 |
 | Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first37.json) | 37 | 259 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
