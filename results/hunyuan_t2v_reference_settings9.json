@@ -1,0 +1,500 @@
+{
+  "scope": "Recorded settings of paired unmarked reference generations",
+  "observations": [
+    {
+      "video_id": "paper-000",
+      "arms": {
+        "last": {
+          "seed": 2025,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "42e53248c96444b31efb6851de2c5fd91bb07abe01fef360fd959c6a453487ab",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "40f3c6c2f84bc72b51540a32fc61b1ed29167e49054967805d765bd8249b45c8",
+          "generation_receipt_sha256": "f45443e7afa354123bd7ddc760a1fba2f1f7fb3c3b617b916875b5284653d189"
+        },
+        "lfg": {
+          "seed": 2025,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "42e53248c96444b31efb6851de2c5fd91bb07abe01fef360fd959c6a453487ab",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "93ca5e3ea46a1e2a4eb9f5a81224ce000740b8779c9029ce8b6bfb67f4a5fb81",
+          "generation_receipt_sha256": "b8125b9e50ae5e3e3b7b96829ef00f4540df1f56d5d7c0ba114f44ca12e3b4b6"
+        }
+      }
+    },
+    {
+      "video_id": "paper-001",
+      "arms": {
+        "last": {
+          "seed": 2026,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "53c80a80cfda49978349d4b2eec1d8dd87cf8127775ed27db71ecdc4a50a0b85",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "1575401252ddf58d892c75f8298faca0180d47c8ba4f7b1b246789590a98ca7d",
+          "generation_receipt_sha256": "ad6cd3ef6961846fcf45f407aea61305d6ff7ff47b8d62a1b217a00fe179de42"
+        },
+        "lfg": {
+          "seed": 2026,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "53c80a80cfda49978349d4b2eec1d8dd87cf8127775ed27db71ecdc4a50a0b85",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "5c52ef6ac9e8167790aa80dd969b364db57cd7aa68ff4b8e2701ae0bcf6d8bf4",
+          "generation_receipt_sha256": "21e84fdc333a8353f0e05a683f1a5d783fea215fb95cc8e42a91bbddf77c9d9d"
+        }
+      }
+    },
+    {
+      "video_id": "paper-002",
+      "arms": {
+        "last": {
+          "seed": 2027,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "4ee09bf46ab52ac3c22ca77c649ddefd10ee8921871595367373b69d690d39e0",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "527e9487df34222a23a59864b54997a88b13f5478bbc4df5641bb562809d08e7",
+          "generation_receipt_sha256": "c61111a845afd6f032138f59cbdbb4ef7b3305f88bbeb99c53934289d01a07ab"
+        },
+        "lfg": {
+          "seed": 2027,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "4ee09bf46ab52ac3c22ca77c649ddefd10ee8921871595367373b69d690d39e0",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "70141091ec417a4f9682cfd0baa6d52928546ef4cb0abb0e7ee7abd00e78f811",
+          "generation_receipt_sha256": "1800bd249072ccf3059705ea103a5854acd6e51027668a79adc00f9883b91f57"
+        }
+      }
+    },
+    {
+      "video_id": "paper-003",
+      "arms": {
+        "last": {
+          "seed": 2028,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "1767749ca19b349952fce10c8d29e0daba062c253b9e981867c3ce3425bacf0f",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "3e216a73505a5ba29862afb1f164f6caf87b50ca38e218c291c3c9878052b2df",
+          "generation_receipt_sha256": "287c8796ea3776791f8e62f82830c6f05dc9248bf84693ecfc187bf77b24b591"
+        },
+        "lfg": {
+          "seed": 2028,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "1767749ca19b349952fce10c8d29e0daba062c253b9e981867c3ce3425bacf0f",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "02e217f9a014d5e1c8de9fdcc835b888538e1d5a26db1c946c1a5a9e91fd6d0a",
+          "generation_receipt_sha256": "c17bfa3b62512ff91a62f31a80d16917e9978908ac1421013c77a49f7b86a99d"
+        }
+      }
+    },
+    {
+      "video_id": "paper-004",
+      "arms": {
+        "last": {
+          "seed": 2029,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "f368146974741d095c619b5ee4241d1e1e105f2f844f843d53115d62d18bc3e2",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "ba5650df712dd1d417a9aa00c078bc8382aa01008c6c60159f4db459b705c147",
+          "generation_receipt_sha256": "e4a087b0068b72c8905742022d6aa8aaa811edbe345c595db2946d09ad0cd192"
+        },
+        "lfg": {
+          "seed": 2029,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "f368146974741d095c619b5ee4241d1e1e105f2f844f843d53115d62d18bc3e2",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "668d848607bfa3f45e9e4c716c0c6ff92a4d2787c7a9f531dd98bb3fd3ffea93",
+          "generation_receipt_sha256": "78d124b1490a80b3faf1c423407e99f39d9939bf6878ea20ee4beb7cc788a122"
+        }
+      }
+    },
+    {
+      "video_id": "paper-005",
+      "arms": {
+        "last": {
+          "seed": 2030,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "38a73ee2de4609868a9e2f38c45ec6570369d7075a4687ccf95c058b609181d4",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "708909940df3b2f215dab95245c42477117300d89ae546b75d41728a579b1465",
+          "generation_receipt_sha256": "4d7bc5b6a422adf17a0fd02545e4b447d113011387b772470544eddf8c404e0e"
+        },
+        "lfg": {
+          "seed": 2030,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "38a73ee2de4609868a9e2f38c45ec6570369d7075a4687ccf95c058b609181d4",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "cd3bb88ba5a32783a737f2564e51fd4e1444d775eb1423405e801a1857e9cd10",
+          "generation_receipt_sha256": "1f055e57a582328f491a5f1b4e3cc8778145be1c5dcd7ff3d4d09ad6fcec52f2"
+        }
+      }
+    },
+    {
+      "video_id": "paper-006",
+      "arms": {
+        "last": {
+          "seed": 2031,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "22140b3416bc5bc7c459a28073a8ff3a8d073d30df6ae3ad160bf6c2d7a12778",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "cb5e98ce175f61444dfd11a30947935cff8d6dcba3c07957d691ec5767d798fa",
+          "generation_receipt_sha256": "d46143bd6457ed5dfec64c3826a7807fd7a4d6d4ffbb2ea33efc384cf906a25f"
+        },
+        "lfg": {
+          "seed": 2031,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "22140b3416bc5bc7c459a28073a8ff3a8d073d30df6ae3ad160bf6c2d7a12778",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "50bafa3be1ae19d6b7a040229f54753e9c5588ad6aae75a1fbdece58755227f7",
+          "generation_receipt_sha256": "32cbe92d2408d53758bb688cdd4220d24a3175ac832c871c0c94b8f1b048d2f1"
+        }
+      }
+    },
+    {
+      "video_id": "paper-007",
+      "arms": {
+        "last": {
+          "seed": 2032,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "061a7444ba6ea655448b0851c27f17e88b987dd5b4d210f967abbb0fc6ba6f87",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "7c2edf210adb1538a15e91e89cce0923187b08b78a33e52cc1e4f971d3fb9250",
+          "generation_receipt_sha256": "fbd60240901567e800cf31ef3cafe48932ccc0e0e7802377d368778ebc3b5bf8"
+        },
+        "lfg": {
+          "seed": 2032,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "061a7444ba6ea655448b0851c27f17e88b987dd5b4d210f967abbb0fc6ba6f87",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "551a1d6e169ca33369805a9740b7214f74409752c2adc835c2b8e24a249c6dd6",
+          "generation_receipt_sha256": "87c2a5e18a11296e0ee92046c36872584103b4157d858d6383a173e9bd48272a"
+        }
+      }
+    },
+    {
+      "video_id": "paper-008",
+      "arms": {
+        "last": {
+          "seed": 2033,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 8.0,
+          "case_sha256": "d0c06771f06fa5a280d7eeb53fa919e5094b31c13be3c96b1e8f8d0b45540e55",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "f6fafe5441fd3735a76a44306e7f738b4e0ec8e74b15fd90c23e93177526dace",
+          "generation_receipt_sha256": "8cf34c38898c890ac95455949e0a66d362848fb5d9db5a3bacb996647fc35b6f"
+        },
+        "lfg": {
+          "seed": 2033,
+          "source_sha256": "dc97943954e1fe196b741e18a5b60e174f2fe3eab25c13f490b4ab6e6e0d35f1",
+          "settings": {
+            "steps": 50,
+            "cfg": 6,
+            "shift": 7,
+            "frames": 65,
+            "size": [
+              512,
+              512
+            ],
+            "clean_crf": 18,
+            "fps": 8,
+            "vae": "float32",
+            "generator": "bfloat16"
+          },
+          "hardware": "L40 (authorized A800 substitution)",
+          "offload": "sequential",
+          "memory_limit_gib": 12.0,
+          "case_sha256": "d0c06771f06fa5a280d7eeb53fa919e5094b31c13be3c96b1e8f8d0b45540e55",
+          "model_directory_name": "hunyuan_t2v_sigmark_e8c2aaa",
+          "reference_sha256": "2514b403b73d135752b1c06d681cc63a50fa52536f5a4877e12636ddc1a6081b",
+          "generation_receipt_sha256": "71ca8e2fb0851c2d18fe90a5aed996e142aecf94829817ec3f4bf0ba6058ea7e"
+        }
+      }
+    }
+  ]
+}

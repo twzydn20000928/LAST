@@ -442,6 +442,14 @@ Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos.
 - [Hunyuan i2v](../results/hunyuan_i2v_pixels17.json): 15/17 pairs had different decoded values. RMSE among differing pairs ranged from 1.660 to 2.556.
 - [Hunyuan t2v](../results/hunyuan_t2v_reference_differences_first9.json): 9/9 pairs had different decoded values. RMSE among differing pairs ranged from 1.612 to 2.824.
 
+Add `--settings-only` to the reference comparison command to audit the
+generation configuration for each pair. On the [nine T2V pairs](../results/hunyuan_t2v_reference_settings9.json),
+the case file, seed, recorded generation source, sampler settings, model
+directory name, hardware label and offload mode matched within each pair.
+All nine pairs used process limits of 8 GiB for LAST and 12 GiB for LFG.
+Each fidelity score uses its own recorded reference. These records establish
+the configuration difference; they do not identify the cause of the pixel differences.
+
 To rebuild the Hunyuan I2V quality columns of Table 1 from individual public scores, run these commands from the repository root in a Linux shell:
 
 ```bash
