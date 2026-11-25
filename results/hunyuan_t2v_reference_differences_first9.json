@@ -1,0 +1,115 @@
+{
+  "family": "hunyuan",
+  "mode": "t2v",
+  "scope": "Between-method unmarked reference differences",
+  "observations": [
+    {
+      "video_id": "paper-000",
+      "last_reference_sha256": "40f3c6c2f84bc72b51540a32fc61b1ed29167e49054967805d765bd8249b45c8",
+      "lfg_reference_sha256": "93ca5e3ea46a1e2a4eb9f5a81224ce000740b8779c9029ce8b6bfb67f4a5fb81",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 34569564,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 37,
+      "rmse_8bit": 2.429567481860354
+    },
+    {
+      "video_id": "paper-001",
+      "last_reference_sha256": "1575401252ddf58d892c75f8298faca0180d47c8ba4f7b1b246789590a98ca7d",
+      "lfg_reference_sha256": "5c52ef6ac9e8167790aa80dd969b364db57cd7aa68ff4b8e2701ae0bcf6d8bf4",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 37750074,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 48,
+      "rmse_8bit": 2.824191389354824
+    },
+    {
+      "video_id": "paper-002",
+      "last_reference_sha256": "527e9487df34222a23a59864b54997a88b13f5478bbc4df5641bb562809d08e7",
+      "lfg_reference_sha256": "70141091ec417a4f9682cfd0baa6d52928546ef4cb0abb0e7ee7abd00e78f811",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 35597628,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 35,
+      "rmse_8bit": 2.438950788438284
+    },
+    {
+      "video_id": "paper-003",
+      "last_reference_sha256": "3e216a73505a5ba29862afb1f164f6caf87b50ca38e218c291c3c9878052b2df",
+      "lfg_reference_sha256": "02e217f9a014d5e1c8de9fdcc835b888538e1d5a26db1c946c1a5a9e91fd6d0a",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 34370388,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 38,
+      "rmse_8bit": 2.281195734448534
+    },
+    {
+      "video_id": "paper-004",
+      "last_reference_sha256": "ba5650df712dd1d417a9aa00c078bc8382aa01008c6c60159f4db459b705c147",
+      "lfg_reference_sha256": "668d848607bfa3f45e9e4c716c0c6ff92a4d2787c7a9f531dd98bb3fd3ffea93",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 21371971,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 30,
+      "rmse_8bit": 1.8373717461073111
+    },
+    {
+      "video_id": "paper-005",
+      "last_reference_sha256": "708909940df3b2f215dab95245c42477117300d89ae546b75d41728a579b1465",
+      "lfg_reference_sha256": "cd3bb88ba5a32783a737f2564e51fd4e1444d775eb1423405e801a1857e9cd10",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 27804244,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 34,
+      "rmse_8bit": 2.0089986005104548
+    },
+    {
+      "video_id": "paper-006",
+      "last_reference_sha256": "cb5e98ce175f61444dfd11a30947935cff8d6dcba3c07957d691ec5767d798fa",
+      "lfg_reference_sha256": "50bafa3be1ae19d6b7a040229f54753e9c5588ad6aae75a1fbdece58755227f7",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 29288943,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 25,
+      "rmse_8bit": 1.7819590308401168
+    },
+    {
+      "video_id": "paper-007",
+      "last_reference_sha256": "7c2edf210adb1538a15e91e89cce0923187b08b78a33e52cc1e4f971d3fb9250",
+      "lfg_reference_sha256": "551a1d6e169ca33369805a9740b7214f74409752c2adc835c2b8e24a249c6dd6",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 27481036,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 21,
+      "rmse_8bit": 1.611732478887968
+    },
+    {
+      "video_id": "paper-008",
+      "last_reference_sha256": "f6fafe5441fd3735a76a44306e7f738b4e0ec8e74b15fd90c23e93177526dace",
+      "lfg_reference_sha256": "2514b403b73d135752b1c06d681cc63a50fa52536f5a4877e12636ddc1a6081b",
+      "opencv_version": "3.4.18",
+      "frames": 65,
+      "identical": false,
+      "changed_channel_values": 29938314,
+      "total_channel_values": 51118080,
+      "max_abs_difference_8bit": 32,
+      "rmse_8bit": 1.700472483848407
+    }
+  ]
+}

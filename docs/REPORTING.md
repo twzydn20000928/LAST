@@ -355,3 +355,50 @@ verified and missing observations retain their planned denominator.
 python tools/primary_pipeline_report.py --plan /private/primary-plan.json --root /private/primary --family hunyuan --mode t2v --method last --output hunyuan-t2v-last.json
 ```
 For the same 72 Hunyuan T2V LAST cases, run `python tools/fidelity_intervals.py results/hunyuan_t2v_last_fidelity72.json`. The mean per-video PSNR is 32.574 dB and SSIM is 0.92694; 95% prompt-cluster intervals across 18 prompts are [31.346, 33.941] and [0.91403, 0.93902].
+
+To recount frame deletion directly from the released per-video records (CPU,
+standard-library Python), run the following from the repository root:
+
+```python
+import json
+from pathlib import Path
+
+report = json.loads(Path("results/hunyuan_t2v_last_first72.json").read_bytes())
+rows = [r for r in report["audited_observations"] if r["condition"] == "drop"]
+assert len({r["video_id"] for r in rows}) == len(rows)
+correct = sum(r["correct_bits"] for r in rows)
+total = sum(r["total_bits"] for r in rows)
+exact = sum(r["correct_bits"] == r["total_bits"] for r in rows)
+print(f"Correct bits: {correct}/{total} ({correct/total:.2%})")
+print(f"Entire messages recovered: {exact}/{len(rows)} ({exact/len(rows):.2%})")
+```
+
+This yields 28,447/36,864 correct bits (77.17%) and 1/72 entire messages
+recovered (1.39%). Each video contributes 512 information bits. The 328
+pending videos are excluded from both observed rates.
+The 72-video Hunyuan T2V report was replayed against the archived acquisition plan (SHA-256 50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447). After checking case IDs, prompts, seeds, key slots and the generation receipts against the case files, the output SHA-256 was 8600dfc7143a05d98bc41d016d6e0fbf06d370d019777d8d99db2250c80de876, identical to the released report.
+
+### Matched temporal attacks by backbone and input mode
+
+All entries are observed information-bit accuracy on the same frozen sample prefix for LAST and LFG. The pairs in each cell are LAST / LFG. Each sample contributes 512 bits per condition. The primary experiment plans 400 samples per pipeline.
+
+| Backbone and mode | Paired videos | Deletion | Insertion | Clip |
+|---|---:|---:|---:|---:|
+| [hunyuan i2v](../results/hunyuan_i2v_paired_primary_first16.json) | 16 | 75.51% / 65.26% | 88.60% / 58.22% | 98.43% / 75.16% |
+| [hunyuan t2v](../results/hunyuan_t2v_paired_primary_first9.json) | 9 | 76.39% / 67.25% | 92.43% / 60.00% | 97.48% / 77.34% |
+| [wan22 i2v](../results/wan22_i2v_paired_primary_first8.json) | 8 | 68.97% / 68.14% | 89.09% / 57.23% | 97.95% / 79.08% |
+| [wan22 t2v](../results/wan22_t2v_paired_primary_first8.json) | 8 | 75.34% / 66.85% | 87.38% / 54.49% | 98.66% / 78.08% |
+
+The fidelity scores below use the same samples as the temporal-attack rows above. Each PSNR value averages per-video PSNR in dB. Reference matches count byte-identical unmarked MP4s between methods, verified by SHA-256.
+
+| Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
+|---|---:|---:|---:|---:|
+| [hunyuan_i2v](../results/hunyuan_i2v_paired_fidelity_first16.json) | 16 | 2/16 | 31.49 / 22.77 | 0.9420 / 0.7575 |
+| [hunyuan_t2v](../results/hunyuan_t2v_paired_fidelity_first9.json) | 9 | 0/9 | 30.26 / 21.57 | 0.9166 / 0.6855 |
+| [wan22_i2v](../results/wan22_i2v_paired_fidelity_first8.json) | 8 | 8/8 | 29.35 / 22.75 | 0.9253 / 0.7792 |
+| [wan22_t2v](../results/wan22_t2v_paired_fidelity_first8.json) | 8 | 8/8 | 30.62 / 24.58 | 0.9425 / 0.8257 |
+
+Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
+
+- [Hunyuan i2v](../results/hunyuan_i2v_reference_differences_first16.json): 14/16 pairs had different decoded values. RMSE among differing pairs ranged from 1.660 to 2.556.
+- [Hunyuan t2v](../results/hunyuan_t2v_reference_differences_first9.json): 9/9 pairs had different decoded values. RMSE among differing pairs ranged from 1.612 to 2.824.

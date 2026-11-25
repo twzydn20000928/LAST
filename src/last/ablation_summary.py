@@ -1,8 +1,10 @@
 """Complete-coverage reader ablation tables from the frozen sample subset."""
 import argparse,csv,hashlib,json
 from pathlib import Path
-from .reader_ablation import VARIANTS
 from .report import CONDITIONS
+
+# Labels in the frozen four-reader table, in manuscript order.
+VARIANTS = ("full", "without_cgc", "without_sws", "without_ccta")
 
 
 def summarize(rows, expected):

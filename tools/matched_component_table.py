@@ -1,4 +1,5 @@
 """Compare writer and reader ablations on a common verified full-LAST baseline."""
+import argparse
 import json
 from pathlib import Path
 from statistics import mean
@@ -60,12 +61,44 @@ def compare(reader, writers, plan):
     return accepted, excluded, totals
 
 
+def use_archived_reread(reader, reread, writers):
+    """Replace complete cases only when the original full-reader input differed."""
+    plan = reader["ordered_subset"]
+    if reread["ordered_subset"] != plan:
+        raise ValueError("Reader rerun uses a different plan")
+    rows = reread["observations"]
+    ids = {r["video_id"] for r in rows}
+    pairs = [w for w in writers if w["video_id"] in ids]
+    if not ids or {w["video_id"] for w in pairs} != ids:
+        raise ValueError("Every rerun requires its paired writer")
+    original = {(r["video_id"], r["condition"]): r["received_sha256"]
+                for r in reader["observations"] if r["variant"] == "full"}
+    for w in pairs:
+        video = w["video_id"]
+        baseline = w["variants"]["minimum-margin"]["conditions"]
+        hashes = [original[video, r["condition"]] for r in baseline]
+        if hashes == [r["received_sha256"] for r in baseline]:
+            raise ValueError(f"Original reader already used the archived inputs: {video}")
+    matched, excluded, _ = compare(reread, pairs, plan)
+    if set(matched) != ids or excluded:
+        raise ValueError("Archived reader rerun is incomplete or uses different inputs")
+    retained = [r for r in reader["observations"] if r["video_id"] not in ids]
+    return dict(reader, observations=retained + rows)
+
+
 if __name__ == "__main__":
     root = Path(__file__).resolve().parents[1]
     results = root / "results"
     read = lambda path: json.loads(path.read_bytes())
     writers = [read(p) for p in sorted(results.glob("paired_writer_*.json"))]
-    ids, skipped, counts = compare(read(results / "hunyuan_i2v_reader_ablation_first12.json"), writers,
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--archived-reread", type=Path,
+                        help="Paired reader report measured on archived writer MP4s")
+    args = parser.parse_args()
+    reader = read(results / "hunyuan_i2v_reader_ablation_first12.json")
+    if args.archived_reread:
+        reader = use_archived_reread(reader, read(args.archived_reread), writers)
+    ids, skipped, counts = compare(reader, writers,
                                    read(root / "configs/paper_subsets.json")["ablation_i2v_30"])
     print(f"Matched {len(ids)}/30 videos. Included: {', '.join(ids)}")
     print("Unmatched full baseline by condition:", json.dumps(skipped))
