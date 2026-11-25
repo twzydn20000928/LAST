@@ -13,6 +13,25 @@ FROZEN_ORACLE_HASHES = {
 }
 
 
+def load_blind_report(path):
+    report = json.loads(path.read_bytes())
+    if "audited_observations" in report:
+        return report
+    if (report.get("scope") != "First 100 frozen Hunyuan I2V LAST samples"
+            or report.get("plan_sha256") != "510122dc3c5f460f99a71bc4a823dea950e550dbc57b5bd636bc8394d9dcd8fb"
+            or report.get("information_bits") != 512):
+        raise ValueError("Unrecognized single-method report")
+    samples = [f"paper-{i:03d}" for i in range(100)]
+    rows = report["observations"]
+    expected = {(s, c) for s in samples for c in CONDITIONS}
+    if len(rows) != len(expected) or {(r["video_id"], r["condition"]) for r in rows} != expected:
+        raise ValueError("Single-method report has missing or duplicate primary observations")
+    # These records are the completed map-seed-zero observations of the frozen primary plan.
+    return dict(sample_ids=samples, audited_observations=[
+        dict(r, family="hunyuan", mode="i2v", method="last", map_seed=0,
+             status="completed", total_bits=512) for r in rows])
+
+
 def compare(report, oracle, video_id):
     if oracle.get("source_sha256") not in FROZEN_ORACLE_HASHES:
         raise ValueError(f"{video_id}: unrecognized oracle reader source")
@@ -47,14 +66,19 @@ if __name__ == "__main__":
     source.add_argument("--oracle", type=Path)
     source.add_argument("--oracle-dir", type=Path, help="Directory containing a receipt for every sample ID in the report")
     parser.add_argument("--video-id")
+    parser.add_argument("--count", type=int, help="Compare the first N declared samples with --oracle-dir")
     args = parser.parse_args()
-    report = json.loads(args.report.read_bytes())
+    report = load_blind_report(args.report)
     if args.oracle_dir:
         if args.video_id:
             parser.error("--video-id applies to a single --oracle")
         ids = report["sample_ids"]
         if not ids or len(set(ids)) != len(ids) or any(not re.fullmatch(r"paper-[0-9]{3}", s) for s in ids):
             raise ValueError("Expected unique primary sample IDs")
+        if args.count is not None:
+            if not 1 <= args.count <= len(ids):
+                parser.error("--count exceeds the available prefix or is below one")
+            ids = ids[:args.count]
         results = {c: [] for c in CONDITIONS}
         for s in ids:
             path = args.oracle_dir / ("hunyuan_i2v_oracle_" + s.replace("-", "") + ".json")
@@ -69,6 +93,8 @@ if __name__ == "__main__":
             values = [sum(b for b, _ in pairs), sum(o for _, o in pairs), *counts]
             print("| " + " | ".join([c, *map(str, values)]) + " |")
         raise SystemExit(0)
+    if args.count is not None:
+        parser.error("--count requires --oracle-dir")
     if not args.video_id:
         parser.error("--oracle requires --video-id")
     pairs = compare(report, json.loads(args.oracle.read_bytes()), args.video_id)
