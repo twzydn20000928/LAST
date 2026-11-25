@@ -90,12 +90,14 @@ if __name__ == "__main__":
     root = Path(__file__).resolve().parents[1]
     results = root / "results"
     read = lambda path: json.loads(path.read_bytes())
-    writers = [read(p) for p in sorted(results.glob("paired_writer_*.json"))]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archived-reread", type=Path,
                         help="Paired reader report measured on archived writer MP4s")
+    parser.add_argument("--reader", type=Path, default=results / "hunyuan_i2v_reader_ablation_first12.json")
+    parser.add_argument("--writers", type=Path, nargs="+", help="Paired writer JSON reports, one per video")
     args = parser.parse_args()
-    reader = read(results / "hunyuan_i2v_reader_ablation_first12.json")
+    writers = [read(p) for p in (args.writers or sorted(results.glob("paired_writer_*.json")))]
+    reader = read(args.reader)
     if args.archived_reread:
         reader = use_archived_reread(reader, read(args.archived_reread), writers)
     ids, skipped, counts = compare(reader, writers,

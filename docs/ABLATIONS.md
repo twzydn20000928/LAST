@@ -803,3 +803,18 @@ IDs and conditions and covers 10 of the 30 planned samples.
 The same command computes fidelity on those exact matched IDs: mean PSNR/SSIM 33.999 dB/0.95207 for minimum margin and 33.297 dB/0.94969 for fixed target.
 To include the completed archived-input reruns for paper-003 and paper-174, run `python tools/matched_component_table.py --archived-reread results/hunyuan_i2v_archived_reader_pair.json`. This yields 12/30 matched videos and 6,144 information bits per condition. The 56 rerun receipts cover both cases, seven conditions and four readers. The original reader data are retained separately. On these 12 videos the full reader scored 73.99%, 80.24% and 96.14% on drop, insert and clip. With received-order grouping the scores were 52.52%, 53.94% and 65.98%.
 The raw reader-receipt aggregation command (`python -m last.ablation_summary`) uses only the Python standard library. With a source checkout, set PYTHONPATH to src. On the archived pair it reproduced all 28 aggregate cells and all 56 receipt fingerprints with third-party site packages disabled.
+
+For your own runs, create an index JSON mapping each sample ID to its generation and reader output directories. Paths may be absolute or relative to the index. For example:
+
+```json
+{"paper-003": {"run": "paper-003/minimum-margin", "readers": "paper-003/reader-outputs"}}
+```
+
+Use the same frozen subset for the writer and reader runs. Export per-video counts and compare them with the paired writer report for each sample:
+
+```bash
+python tools/export_archived_readers.py --index /private/index.json --output reader-counts.json
+python tools/matched_component_table.py --reader reader-counts.json --writers /private/paper-003-writer.json
+```
+
+Use `--archived-reread` only to replace a complete reader case whose original baseline used different MP4s. The exporter checks all four readers against the seven received videos and the generation codebook before emitting counts.

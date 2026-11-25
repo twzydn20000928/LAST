@@ -162,19 +162,23 @@ python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
   --output /private/received.decoded.json
 ```
 
-This entry point reconstructs the codebook from the key. It does not load the
-original message, unmarked video, generation seed, prompt, source positions or
-attack map. Its private JSON output contains512decoded information bits as a
-128-character hexadecimal string plus decoder/alignment diagnostics. BCH success
-does not prove video authenticity; wrong messages can also decode successfully.
-The current frozen spatial input size is512Ã—512. Keep decoded messages private.
+The reader rebuilds its codebook from a 32-byte key and encodes the received
+512 ¡Á 512 RGB video with the frozen VAE. The private output's `message_hex`
+field contains 64 decoded bytes (512 information bits, most significant bit
+first). The command also records the frame count, alignment route and BCH
+decoding status. Assessing accuracy requires a separate comparison to the
+original message after extraction.
 
-A two-condition standalone-process check is recorded in
-[blind CLI integration](results/blind_cli_integration.json): one Hunyuan I2V
-video gives512/512clean and371/512after deleting30frames, matching the evaluator's
-correct-bit counts. The child receives no truth-message or attack-map arguments;
-the parent compares truth only after it exits. This is an interface check, not
-an OS access sandbox, bitwise prediction comparison or completed benchmark.
+The [standalone integration check](results/blind_cli_integration.json) used
+one Hunyuan I2V video. The clean 65-frame input recovered 512/512 true bits.
+After deleting 30 frames, the 35-frame input recovered 371/512. On both
+inputs a separately executed extraction returned the same 512 predicted bits,
+including the same 141 incorrect bits on the deletion case. To check agreement
+between two private outputs on your own MP4 without printing either message:
+
+```bash
+python tools/compare_blind_predictions.py --video received.mp4 --first first.decoded.json --second second.decoded.json
+```
 
 ## Receipts, tables and paired fidelity
 

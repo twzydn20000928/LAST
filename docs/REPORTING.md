@@ -402,3 +402,14 @@ Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos.
 
 - [Hunyuan i2v](../results/hunyuan_i2v_reference_differences_first16.json): 14/16 pairs had different decoded values. RMSE among differing pairs ranged from 1.660 to 2.556.
 - [Hunyuan t2v](../results/hunyuan_t2v_reference_differences_first9.json): 9/9 pairs had different decoded values. RMSE among differing pairs ranged from 1.612 to 2.824.
+
+To rebuild the Hunyuan I2V quality columns of Table 1 from individual public scores, run these commands from the repository root in a Linux shell:
+
+```bash
+python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_last.json > quality-last.json
+python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_reference.json > quality-reference.json
+python -m last.clean_table --family hunyuan --quality quality-last.json quality-reference.json --output table1-quality.md
+```
+
+Both rows currently show five of 18 dimensions. Each dimension retains the number of valid and inapplicable scoring units. Creativity is complete for this subset of dimensions; the overall V-score is pending.
+Run `python tools/paired_videomark_table.py --count 36` for the [36-video VideoMark prefix](../results/hunyuan_t2v_videomark_first36.json) and the same LAST IDs. All 252 VideoMark predictions were recounted. The archived native receipts lack historical prediction digests for all 252. All 245 observations from the preceding prefix agree. On deletion LAST recovered 14,623 bits and VideoMark 9,451 out of 18,432, with zero versus one entire message recovered.

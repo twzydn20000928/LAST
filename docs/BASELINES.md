@@ -567,41 +567,18 @@ The decoded 512-bit value matched a different registered message exactly. Both t
 
 After extraction, you can independently recount a VideoMark, VideoShield or
 SIGMark score from the private 64-byte message and the 64-byte prediction.
-Set `RUN` to one sample directory and `CONDITION` to the attack name. For
-example, use `CONDITION=clean` for the unedited export. If you reused a clean
-extraction from a different directory, also set `EXTRACTION` to that directory.
-For a nondefault attack-map seed, set `ATTACKS` to the matching attack directory.
-The following command uses only the Python standard library:
+Run this command with Python 3.10 or newer:
 
 ```bash
-python - "${RUN:?}" "${CONDITION:?}" "${ATTACKS:-$RUN/attacks}" "${EXTRACTION:-}" <<'PY'
-import hashlib
-import json
-import sys
-from pathlib import Path
-
-run, condition, attacks, override = sys.argv[1:]
-attacks = Path(attacks)
-folder = Path(override) if override else attacks / (condition + "-extract")
-receipt = json.loads((attacks / (condition + ".json")).read_bytes())
-if receipt["condition"] != condition or receipt["status"] != "completed":
-    raise ValueError("Expected a completed score for the selected condition")
-truth = (Path(run) / "message.bin").read_bytes()
-decoded = (folder / "decoded.bin").read_bytes()
-if len(truth) != 64 or len(decoded) != 64:
-    raise ValueError("Expected 512 bits per input")
-errors = sum(bin(a ^ b).count("1") for a, b in zip(truth, decoded))
-if (receipt["total_bits"], receipt["correct_bits"], receipt["exact_message"]) != (512, 512-errors, errors == 0):
-    raise ValueError("Recount differs from recorded score")
-for field, content in (("extraction_receipt_sha256", (folder / "receipt.json").read_bytes()),
-                       ("message_sha256", truth), ("decoded_sha256", decoded)):
-    if field not in receipt:
-        print(f"{field}: absent from historical score record")
-    elif hashlib.sha256(content).hexdigest() != receipt[field]:
-        raise ValueError(f"Digest mismatch: {field}")
-print(f"{512-errors}/512 correct; bit accuracy {(512-errors)/512:.2%}; exact message {errors == 0}")
-PY
+python tools/recount_native_predictions.py --run /private/sample
 ```
+
+For an independently extracted clean video, add `--clean-extraction /private/clean-reader-output`.
+For a single completed condition use `--condition clean` (or its attack name).
+For another attack-map seed, select its directory with `--attacks`. The command
+checks the received MP4 against both receipts, verifies available prediction
+digests and outputs only counts and provenance. The JSON field
+`prediction_digest_present` shows whether a historical digest was available.
 
 ### Hunyuan text-to-video VideoMark, first primary sample
 
@@ -675,3 +652,6 @@ original versus 319/512 with CCTA; across both cases the totals were
 recovered an entire message in either arm. All seven first-case records
 match the earlier one-case snapshot.
 The three-case snapshot is `results/hunyuan_i2v_lfg_ccta_first3.json`. Across three Hunyuan I2V videos the original/CCTA correct bit counts were 1077/1061 after random deletion, 889/1246 after insertion and 1168/1394 after contiguous removal, out of 1536 per condition. Both readers recovered one of three clean messages.
+
+For five paired samples, pass [the five-case reader report](../results/hunyuan_i2v_lfg_ccta_first5.json) to the same command. Both readers recovered 2/5 clean messages and 0/5 after random deletion. Original and CCTA deletion recovery was 1,783/2,560 and 1,753/2,560 bits, respectively, on identical received MP4s. Both writer fidelity rows are 22.26 dB. All 21 overlapping observations agree with the earlier prefix.
+For native primary campaigns the recount accepts `--family hunyuan` or `--family wan22` along with the generation mode and method. It checks the family recorded by the extraction process and the plan assignment for each sample. The explicit Hunyuan command reproduced the 36-case VideoMark report byte for byte. The Wan branch requires native primary generation and seven completed attack receipts on each requested sample.

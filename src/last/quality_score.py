@@ -171,12 +171,16 @@ def main():
                                       for f in sorted((bundled/'llava').rglob('*.py'))},
                 scope='Explicit weight location and attention backend; official questions, frames and scoring unchanged')
             save()
+        device = torch.device(a.device)
         previous = Path.cwd()
         try:
             os.chdir(upstream)
-            result = getattr(module, 'compute_'+module_name)(str(metadata), torch.device(a.device), submodules)
+            result = getattr(module, 'compute_'+module_name)(str(metadata), device, submodules)
         finally:
             os.chdir(previous)
+            if device.type == 'cuda' and torch.cuda.is_initialized():
+                record['torch_cuda_peak_allocated_bytes'] = torch.cuda.max_memory_allocated(device)
+                record['torch_cuda_peak_reserved_bytes'] = torch.cuda.max_memory_reserved(device)
         def plain(value):
             if isinstance(value, dict): return {k: plain(v) for k,v in value.items()}
             if isinstance(value, (list, tuple)): return [plain(v) for v in value]

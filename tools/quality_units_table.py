@@ -44,9 +44,15 @@ def recount(manifest_path, paths):
                 or (value is None) != (record["mean"] is None)
                 or (value is not None and not math.isclose(value, record["mean"], abs_tol=1e-12))):
             raise ValueError(f"Unit recount disagrees with exported summary: {name}")
-        dimensions[name] = dict(status="completed", mean=value, valid_units=len(valid), full_dimension_inputs=True)
+        dimensions[name] = dict(status="completed", mean=value, valid_units=len(valid),
+                                expected_units=len(values), not_applicable_units=values.count(-1),
+                                full_dimension_inputs=True)
     complete = set(dimensions) == {name for names in CATEGORIES.values() for name in names}
-    return dict(pipeline=pipeline, **aggregate(dimensions, complete))
+    if pipeline is None:
+        raise ValueError("At least one dimension report is required")
+    family, mode, method = pipeline
+    return dict(pipeline=pipeline, family=family, mode=mode, method=method,
+                **aggregate(dimensions, complete))
 
 
 if __name__ == "__main__":

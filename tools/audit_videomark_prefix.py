@@ -1,4 +1,4 @@
-"""Recount native Hunyuan readouts and verify pairing with primary LAST cases."""
+"""Recount native baseline readouts and verify pairing with primary LAST cases."""
 import argparse
 import hashlib
 import json
@@ -19,7 +19,7 @@ def read(path):
     return json.loads(path.read_bytes())
 
 
-def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v"):
+def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v", family="hunyuan"):
     manifest, plan = read(manifest_path), read(plan_path)
     validate(manifest)
     if plan["manifest_sha256"] != sha(manifest_path) or not 1 <= count <= len(manifest["samples"]):
@@ -28,10 +28,13 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v")
     legacy = 0
     for sample in manifest["samples"][:count]:
         video = sample["id"]
-        relative = f"hunyuan/{mode}/{method}/{video}"
+        relative = f"{family}/{mode}/{method}/{video}"
         item, = [i for i in plan["runs"] if i["run"] == relative]
+        if (item["family"], item["mode"], item["method"], item["video_id"], item["index"], item["key_slot"]) != (
+                family, mode, method, video, sample["index"], sample["key_slot"]):
+            raise ValueError(f"Native plan differs from frozen sample: {video}")
         folder = root / relative
-        last = root / "hunyuan" / mode / "last" / video
+        last = root / family / mode / "last" / video
         case_path = root / ".native-jobs" / (relative.replace("/", "__") + ".case.json")
         generation = read(folder / "receipt.json")
         if generation["case_sha256"] != sha(case_path) or generation["seed"] != sample["seed"]:
@@ -58,7 +61,7 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v")
             if (row["attack_map"] != mapping or read(last / "attacks" / (condition + ".json"))["attack_map"] != mapping
                     or row["frames"] != (len(mapping) if temporal else 65)):
                 raise ValueError(f"Unmatched edit: {video}/{condition}")
-            check_extraction(receipt, method, mode, row["received_sha256"], state, temporal)
+            check_extraction(receipt, method, mode, row["received_sha256"], state, temporal, family)
             if row["extraction_receipt_sha256"] != sha(reader / "receipt.json") or row["state_sha256"] != state:
                 raise ValueError(f"Changed extraction evidence: {video}/{condition}")
             prediction = (reader / "decoded.bin").read_bytes()
@@ -70,7 +73,8 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v")
             if len(prediction) != 64 or sum((a ^ b).bit_count() for a, b in zip(truth, prediction)) != 512 - row["correct_bits"]:
                 raise ValueError(f"Native prediction recount mismatch: {video}/{condition}")
         items.append(item)
-    report = aggregate(dict(scope=f"Matched Hunyuan {mode} {method} primary prefix", runs=items), root, verify_artifacts=True)
+    family_label = {"hunyuan": "Hunyuan", "wan22": "Wan-2.2"}[family]
+    report = aggregate(dict(scope=f"Matched {family_label} {mode} {method} primary prefix", runs=items), root, verify_artifacts=True)
     if not report["complete"]:
         raise ValueError("Missing native measurements")
     return dict(report, sample_ids=[i["video_id"] for i in items], planned_videos_per_method=len(manifest["samples"]),
@@ -85,7 +89,8 @@ if __name__ == "__main__":
     parser.add_argument("--count", type=int, required=True)
     parser.add_argument("--method", choices=("videomark", "videoshield", "sigmark"), default="videomark")
     parser.add_argument("--mode", choices=("t2v", "i2v"), default="t2v")
+    parser.add_argument("--family", choices=("hunyuan", "wan22"), default="hunyuan")
     args = parser.parse_args()
-    result = audit(args.root, args.manifest, args.plan, args.count, args.method, args.mode)
+    result = audit(args.root, args.manifest, args.plan, args.count, args.method, args.mode, args.family)
     with args.output.open("x", encoding="utf-8") as stream:
         stream.write(json.dumps(result, indent=2) + "\n")
