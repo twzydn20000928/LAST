@@ -21,10 +21,16 @@ def summarize(manifest, reports):
             mapping = attack_map(report["video_id"], "drop", r["seed"], 65, REMOVED[name])
             if len(mapping) != r["received_frames"]:
                 raise ValueError("Unexpected deletion map length")
-            available, _ = geometry(mapping)
-            cell = cells.setdefault(name, dict(trials=0, ccta_trials=0, available_on_ccta=0,
+            available, adjacent = geometry(mapping)
+            cell = cells.setdefault(name, dict(trials=0, total_original_groups=0, available_all_trials=0,
+                                              trials_without_intact_group=0, trials_with_adjacent_intact_groups=0,
+                                              ccta_trials=0, available_on_ccta=0,
                                               selected=0, intact_selected=0, correct=0))
             cell["trials"] += 1
+            cell["total_original_groups"] += 16
+            cell["available_all_trials"] += available
+            cell["trials_without_intact_group"] += available == 0
+            cell["trials_with_adjacent_intact_groups"] += adjacent
             if r["route"] != "ccta":
                 continue
             a = r["alignment"]
