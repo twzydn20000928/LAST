@@ -53,10 +53,13 @@ def audit(plan_path, manifest_path, root, family, mode, count, first_index=0, lf
             case = read(folder / "case.json")
             generation = read(folder / "receipt.json")
             if (generation["status"] != "completed" or generation["case_sha256"] != sha(folder / "case.json")
-                    or generation["method"] != method or case["video_id"] != identity
+                    or (generation["family"], generation["mode"], generation["method"], generation["seed"])
+                    != (family, mode, method, sample["seed"]) or case["video_id"] != identity
                     or case["seed"] != sample["seed"] or case["prompt"] != sample["prompt"]
                     or case["key_slot"] != sample["key_slot"]):
                 raise ValueError(f"Generation or case differs from frozen manifest: {relative}")
+            if mode == "i2v" and sha(Path(case["image"])) != sample["image_sha256"]:
+                raise ValueError(f"Conditioning image differs from frozen manifest: {relative}")
             for condition in CONDITIONS:
                 row = read(folder / "attacks" / (condition + ".json"))
                 mapping = attack_map(identity, condition) if condition in ("drop", "insert", "clip") else None
@@ -65,9 +68,12 @@ def audit(plan_path, manifest_path, root, family, mode, count, first_index=0, lf
             folders.append(folder)
             selected.append(item)
         a, b = folders
+        message = np.load(a / "message.npy", allow_pickle=False)
+        if message.shape != (512,) or not np.isin(message, (0, 1)).all():
+            raise ValueError(f"Expected 512 binary information bits for {identity}")
         if (read(a / "case.json") != read(b / "case.json")
                 or (a / "secret.key").read_bytes() != (b / "secret.key").read_bytes()
-                or not np.array_equal(np.load(a / "message.npy"), np.load(b / "message.npy"))):
+                or not np.array_equal(message, np.load(b / "message.npy", allow_pickle=False))):
             raise ValueError(f"Unpaired case, key or message for {identity}")
     scope = "Matched primary manifest slice" if first_index else "Matched primary prefix only"
     replacements = {}

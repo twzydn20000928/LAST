@@ -289,7 +289,7 @@ python -m last.robustness_table --reports results/hunyuan_i2v_paired_primary_fir
 To repeat the private artifact audit with resumed acquisitions, supply the
 original LAST plan via `--plan`, its continuation via `--additional-last-plan`,
 and the LFG plan via `--lfg-plan` to `tools/paired_primary_subset.py`.
-The completed job receipt selects the exact plan for each video and arm.
+The completed job receipt selects the exact plan for each video and arm. The audit checks the generation family, mode, method and seed, the 512-bit binary message, and for image-to-video the bytes of the conditioning image against its manifest digest. Keep the original conditioning images available at the case paths for this audit.
 Pass the historical `--reextraction-index` when incorporating independently
 repeated extractions; only entries for this slice are used. The thirteen-case
 report includes the twelve previously published cases, with matching counts
