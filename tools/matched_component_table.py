@@ -125,6 +125,13 @@ if __name__ == "__main__":
     for v in variants:
         cells = [format(counts[v][c] / denominator, precision) for c in CONDITIONS]
         print("| " + (labels[v] if args.table4 else v) + " | " + " | ".join(cells) + " |")
+    if args.table4:
+        print(f"\nCorrect information bits out of {denominator:,} per cell.\n")
+        print("| Variant | " + " | ".join(CONDITIONS) + " |")
+        print("|---" + "|---:" * len(CONDITIONS) + "|")
+        for variant, label in labels.items():
+            cells = [str(counts[variant][condition]) for condition in CONDITIONS]
+            print("| " + " | ".join([label, *cells]) + " |")
     print("\n| Writer | Mean PSNR (dB) | Mean SSIM |\n|---|---:|---:|")
     for variant in ("minimum-margin", "fixed-target"):
         measurements = [w["variants"][variant] for w in writers if w["video_id"] in ids]
