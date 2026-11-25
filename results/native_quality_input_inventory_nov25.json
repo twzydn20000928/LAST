@@ -1,0 +1,965 @@
+{
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "pipelines": [
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "videoshield",
+      "available_videos": 1,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 1,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "videomark",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "sigmark",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videoshield",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "hunyuan",
+      "mode": "t2v",
+      "method": "videomark",
+      "available_videos": 38,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 20,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 18,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "sigmark",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "videoshield",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "wan22",
+      "mode": "i2v",
+      "method": "videomark",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "wan22",
+      "mode": "t2v",
+      "method": "sigmark",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "wan22",
+      "mode": "t2v",
+      "method": "videoshield",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    },
+    {
+      "family": "wan22",
+      "mode": "t2v",
+      "method": "videomark",
+      "available_videos": 0,
+      "dimensions": {
+        "Camera_Motion": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Landscape": {
+          "available": 0,
+          "expected": 20
+        },
+        "Complex_Plot": {
+          "available": 0,
+          "expected": 20
+        },
+        "Composition": {
+          "available": 0,
+          "expected": 20
+        },
+        "Diversity": {
+          "available": 0,
+          "expected": 60
+        },
+        "Dynamic_Attribute": {
+          "available": 0,
+          "expected": 20
+        },
+        "Dynamic_Spatial_Relationship": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Anatomy": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Clothes": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Identity": {
+          "available": 0,
+          "expected": 20
+        },
+        "Human_Interaction": {
+          "available": 0,
+          "expected": 20
+        },
+        "Instance_Preservation": {
+          "available": 0,
+          "expected": 20
+        },
+        "Material": {
+          "available": 0,
+          "expected": 20
+        },
+        "Mechanics": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Order_Understanding": {
+          "available": 0,
+          "expected": 20
+        },
+        "Motion_Rationality": {
+          "available": 0,
+          "expected": 20
+        },
+        "Multi-View_Consistency": {
+          "available": 0,
+          "expected": 20
+        },
+        "Thermotics": {
+          "available": 0,
+          "expected": 20
+        }
+      }
+    }
+  ]
+}

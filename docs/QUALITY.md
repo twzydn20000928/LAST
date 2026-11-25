@@ -523,3 +523,14 @@ availability measures a different stage from the number of official scores.
 During acquisition an older generation may finish before its paired fidelity
 receipt binds the reference MP4. The preparer lists that reference as missing
 while the campaign is running and checks it on the next pass.
+
+The [native baseline input inventory](../results/native_quality_input_inventory_nov25.json) covers the same 400 assigned samples and 18 dimensions in each pipeline. Hunyuan T2V VideoMark has all 20 Camera Motion inputs and 18/20 Complex Landscape inputs. The Camera Motion MP4 hashes match the published 20 scoring units, so the existing 4/20 score can be reused. Hunyuan I2V VideoShield has one Camera Motion input. The remaining ten native pipelines have no verified inputs under the formal acquisition root.
+
+To rebuild this inventory, set the two paths to the official metadata checkout and primary generation root:
+
+```bash
+python tools/quality_input_inventory.py --metadata-root "$QUALITY_METADATA" --run-root "$PRIMARY_RUNS" \
+  --methods sigmark videoshield videomark > native-quality-inputs.json
+```
+
+Omit `--methods` to include LAST, its unmarked reference and LFG in the same inventory. Counts describe inputs at the time of the scan.
