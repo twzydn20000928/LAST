@@ -1,0 +1,78 @@
+[
+  {
+    "video_id": "paper-000",
+    "method": "sigmark",
+    "family": "hunyuan",
+    "mode": "i2v",
+    "condition": "clean",
+    "correct_bits": 483,
+    "total_bits": 512,
+    "exact_message": false,
+    "source_sha256": "a761cd458d5fb138caff4894cb0100430e4c43cd4fc4d4e7867815572a1696ca",
+    "received_sha256": "a761cd458d5fb138caff4894cb0100430e4c43cd4fc4d4e7867815572a1696ca",
+    "attack_receipt_sha256": "709cab389b16ddb55db2c2548090b3df1eb727e529b6e5c0be43687e426449e3",
+    "extraction_receipt_sha256": "44ba989c8bbce956b9247bf58645285d28ee41e4da3072108157a432f44a31cb",
+    "missing_historical_digests": [
+      "attack.message_sha256",
+      "attack.decoded_sha256",
+      "extraction.decoded_sha256"
+    ]
+  },
+  {
+    "video_id": "paper-000",
+    "method": "sigmark",
+    "family": "hunyuan",
+    "mode": "i2v",
+    "condition": "noise",
+    "correct_bits": 256,
+    "total_bits": 512,
+    "exact_message": false,
+    "source_sha256": "a761cd458d5fb138caff4894cb0100430e4c43cd4fc4d4e7867815572a1696ca",
+    "received_sha256": "66be98a02f36367f3a061c1c42b1744b9126a83a9534d4dea68adbe16f4e6f89",
+    "attack_receipt_sha256": "3c84cad1c41906035fb25c92349657308d95068202da87f828f6b5a2e6ff452b",
+    "extraction_receipt_sha256": "db78797bcbf3ba51db1c6663b644b1049906541b4d334e457828d7a22e34e7e8",
+    "missing_historical_digests": [
+      "attack.message_sha256",
+      "attack.decoded_sha256",
+      "extraction.decoded_sha256"
+    ]
+  },
+  {
+    "video_id": "paper-000",
+    "method": "sigmark",
+    "family": "hunyuan",
+    "mode": "i2v",
+    "condition": "compression",
+    "correct_bits": 257,
+    "total_bits": 512,
+    "exact_message": false,
+    "source_sha256": "a761cd458d5fb138caff4894cb0100430e4c43cd4fc4d4e7867815572a1696ca",
+    "received_sha256": "93227eea00dbff54b9466d41ed7b862f248609bb425212fbf5371579578d51d3",
+    "attack_receipt_sha256": "494784d092f5fec6c8614471c7574370472882b782300a6512f08383cf72d0b7",
+    "extraction_receipt_sha256": "a08b332a5e4b1bd37866be04e8c3d21a54b08ed219162cdcd850ea03c7310f0d",
+    "missing_historical_digests": [
+      "attack.message_sha256",
+      "attack.decoded_sha256",
+      "extraction.decoded_sha256"
+    ]
+  },
+  {
+    "video_id": "paper-000",
+    "method": "sigmark",
+    "family": "hunyuan",
+    "mode": "i2v",
+    "condition": "blur",
+    "correct_bits": 345,
+    "total_bits": 512,
+    "exact_message": false,
+    "source_sha256": "a761cd458d5fb138caff4894cb0100430e4c43cd4fc4d4e7867815572a1696ca",
+    "received_sha256": "b5e77c61dbd9c5634366d342b966e0d0f457e7247e9291d491392b59991c5a96",
+    "attack_receipt_sha256": "c460a2f0b64e8bb78627eb5b8767915a2eee8598175087a1ded162493c8cb3e0",
+    "extraction_receipt_sha256": "34f11386c6a0617776d92d2b5ce76c68d783031f4212d1e539f2e1b241ada8c0",
+    "missing_historical_digests": [
+      "attack.message_sha256",
+      "attack.decoded_sha256",
+      "extraction.decoded_sha256"
+    ]
+  }
+]

@@ -762,3 +762,9 @@ The [13-case report](../results/hunyuan_i2v_lfg_ccta_first13.json) adds the firs
 The [16-case report](../results/hunyuan_i2v_lfg_ccta_first16.json) covers four prompts with four seeds each. All 91 paired observations from the 13-case report agree. On identical edited videos, CCTA increased insertion bit accuracy from 58.22% to 80.57%, clipping from 75.16% to 87.41%, and random deletion from 65.26% to 67.46%. Neither reader recovered a complete message after deletion. Clean, noise, compression and blur each lost 1 to 11 correct bits out of 8,192. The sample covers 16 of the planned 400 videos.
 
 The [17-case report](../results/hunyuan_i2v_lfg_ccta_first17.json) adds paper-016 and verifies all 112 observations shared with the 16-case report. Random deletion yielded 5,722 versus 5,916 correct bits (original LFG versus CCTA), with zero complete messages for either reader. After compression, the original reader had more correct bits overall (8,186 versus 8,181 of 8,704), while CCTA recovered one entire message versus zero.
+
+### Recounting early native predictions
+
+For a run created before the evaluator recorded the message and prediction digests, add `--legacy` to the single-attack recount command. The tool checks all available digests, verifies the MP4 and extraction receipt, compares the two surviving 64-byte files bit by bit, and lists missing historical digest fields. A matching count cannot establish that the surviving bytes are identical to their values at extraction time. The default command requires all three attack and extraction digest fields.
+
+The [four archived SIGMark counts](../results/sigmark_paper000_four_condition_recount.json) cover Hunyuan I2V paper-000. Clean, noise, compression and blur recovered 483, 256, 257 and 345 of 512 bits. The three temporal conditions are outside this recount.
