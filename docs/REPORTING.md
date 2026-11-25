@@ -17,7 +17,7 @@ python -m last.clean_table --family hunyuan \
   --output paired-table1/hunyuan.md
 
 python -m last.clean_table --family wan22 \
-  --reports results/wan22_i2v_primary10.json results/wan22_t2v_primary9.json \
+  --reports results/wan22_i2v_primary10.json results/wan22_t2v_primary10.json \
   --quality results/camera_motion/wan22_i2v_last_camera_quality.json \
     results/camera_motion/wan22_i2v_reference_camera_quality.json \
     results/camera_motion/wan22_t2v_last_camera_quality.json \
@@ -69,13 +69,13 @@ python -m last.robustness_table --reports \
   results/hunyuan_i2v_primary17.json \
   results/hunyuan_t2v_primary10.json \
   results/wan22_i2v_primary10.json \
-  results/wan22_t2v_primary9.json \
+  results/wan22_t2v_primary10.json \
   results/hunyuan_i2v_videoshield_first1.json \
   results/hunyuan_t2v_videomark_first38.json \
   --output paired-table2
 ```
 
-LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 10 Hunyuan T2V, 10 Wan I2V and 9 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 38 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the ten Wan
+LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 10 Hunyuan T2V, 10 Wan I2V and 10 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 38 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the ten Wan
 I2V pairs gives 66.62% for LAST and 67.81% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.

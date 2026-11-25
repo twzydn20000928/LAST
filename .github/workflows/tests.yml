@@ -17,7 +17,7 @@ jobs:
             results/hunyuan_i2v_primary17.json \
             results/hunyuan_t2v_primary10.json \
             results/wan22_i2v_primary10.json \
-            results/wan22_t2v_primary9.json \
+            results/wan22_t2v_primary10.json \
             results/hunyuan_i2v_videoshield_first1.json \
             results/hunyuan_t2v_videomark_first38.json \
             --output .ci-tables/robustness
@@ -38,7 +38,7 @@ jobs:
               results/camera_motion/hunyuan_t2v_{last,reference}_camera_quality.json \
               results/hunyuan_t2v_videomark_quality.json --output ci-clean-tables/hunyuan.md
           python -m last.clean_table --family wan22 \
-            --reports results/wan22_i2v_primary10.json results/wan22_t2v_primary9.json \
+            --reports results/wan22_i2v_primary10.json results/wan22_t2v_primary10.json \
             --quality results/camera_motion/wan22_{i2v,t2v}_{last,reference}_camera_quality.json \
             --output ci-clean-tables/wan22.md
       - uses: actions/upload-artifact@v4
