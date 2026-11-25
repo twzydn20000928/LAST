@@ -134,6 +134,13 @@ keyed codebook. All 248 energies agreed at relative tolerance 1e-6 and
 absolute tolerance 1e-8. This checks a subset of projections for one video.
 Fit the calibration after collecting all 80 development cases.
 
+The [first ten LAST acquisition records](../results/last_development_null_first10.json)
+cover dev-000 through dev-009. Across 605 candidate windows the private arrays
+contain 619,520 energies. Replaying the four key/group combinations above for
+every window reproduced all 2,420 sampled energies within the stated tolerances.
+Each public record gives the video and response-receipt digests, candidate count,
+total response count and replay count. The 80-video calibration fit is pending.
+
 Reuse the saved wrong-key bank for replay. Existing outputs are not overwritten;
 failures retain their receipt. Each acquisition performs 1024 actual QR carrier
 projections and stores candidate-by-64-by-16 energies. It verifies input/source
