@@ -514,6 +514,8 @@ a set with the expected number of units but incomplete prompt/seed grouping.
 If official results include inapplicable units, the table lists their counts
 below the affected rows. An all-inapplicable dimension has no mean.
 
+The [November 26 inventory](../results/quality_input_inventory_all_nov26.json) covers 18 dimensions for all six methods in all four pipelines. Hunyuan T2V VideoMark has 39 verified videos, including 19 of the 20 required Complex Landscape videos. Hunyuan I2V SIGMark has one input. The inventory counts generated videos whose hashes match their receipts; scoring uses separate evaluator outputs.
+
 The [November 25 input inventory](../results/quality_input_coverage_nov25.json)
 records available and expected videos for each dimension before semantic
 scoring. LAST and its reference had complete inputs for six Hunyuan I2V,
