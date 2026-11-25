@@ -27,18 +27,44 @@ count, rounded down. Selection starts at line zero. For example,
 The output lists the source line and first sample index for every prompt slot,
 after checking the text, dimension and repetition against all 400 manifest rows.
 
-Download the image archive from its `source.image_archive_url` and extract it
-into a reader-selected directory containing `VBench2_aug_img_prompt/`. The URL
-is an upstream mutable location, so the per-image SHA256 checks are mandatory.
+The I2V runs used the upstream image archive identified in the manifest. The
+stored ZIP is 35,030,832 bytes and has 101 file entries. The experiment uses
+88 distinct paths from it. The URL points to a mutable branch; check the ZIP
+and each selected image. From the repository root in Bash on Linux:
 
 ```bash
-python -m last.data --manifest configs/primary_manifest.json --image-root /path/to/images
+set -e
+assets=/path/to/images
+mkdir -p "$assets"
+url=$(python -c 'import json; print(json.load(open("configs/primary_manifest.json"))["source"]["image_archive_url"])')
+curl --fail --location --retry 3 --output "$assets/images.zip" "$url"
+printf '%s  %s\n' 4fb18a28837f59b14d73c4bfeea0b459729c7dd8f7fcb2264fe1c1a948268dd7 "$assets/images.zip" | sha256sum --check -
+python - "$assets" <<'PY'
+import json, sys, zipfile
+from pathlib import Path
+
+root = Path(sys.argv[1])
+manifest = json.loads(Path("configs/primary_manifest.json").read_bytes())
+with zipfile.ZipFile(root / "images.zip") as archive:
+    names = archive.namelist()
+    for name in sorted({row["image"] for row in manifest["samples"]}):
+        if names.count(name) != 1:
+            raise ValueError(f"Missing or duplicated archive entry: {name}")
+        archive.extract(name, root)
+PY
+python -m last.data --manifest configs/primary_manifest.json --image-root "$assets"
+```
+
+On the archived inputs the last command reports 400 samples, 18 dimensions,
+88 prompt slots, 84 distinct prompt texts and 88 verified images. Each I2V
+replicate uses the image that its row names. To export a local generation case:
+
+```bash
 python -m last.data --manifest configs/primary_manifest.json --image-root /path/to/images \
   --case-index 0 --case-output /private/cases/paper-000.json
 ```
 
-The first command checks the complete sample allocation and all88image hashes.
-It fails on missing or modified images. The second emits a local case file for
+The case command checks the sample allocation and all 88 image hashes, then emits a local case file for
 the generation interface without embedding server-specific paths in this repository.
 Use the same sample ID, seed and conditioning image across methods/backbones.
 Sample IDs, not worker order or completion order, determine attack RNG streams.
