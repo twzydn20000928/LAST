@@ -132,3 +132,15 @@ prompt identity and first-seed provenance. For T2V, use `--mode t2v` without
 key/message to `last.smoke`; keep these fixed across strengths, writers and
 backbones. The public commands are available; the full development experiment
 has not yet completed.
+
+The [conditioning audit](../results/development_conditioning_20.json) covers
+all 20 generated conditioning videos. Each decodes to 65 frames at 512×512.
+The registered PNG for each prompt matches the first decoded frame pixel for
+pixel. All four development cases for the prompt resolve to the same PNG.
+For example, dev-000 through dev-003 share the image generated with the
+dev-000 seed. These 20 images supply the inputs for the 80 development cases.
+Recompute the audit on your own generated files with:
+
+```bash
+python tools/audit_development_conditioning.py --root /private/development-conditioning
+```

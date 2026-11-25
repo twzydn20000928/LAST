@@ -1,0 +1,247 @@
+{
+  "manifest_sha256": "8a3d1ec0397456faaff7a9cd98d7e7e1a05a15fc5e9a917745d0ce44affa76f7",
+  "verified_images": 20,
+  "assigned_samples": 80,
+  "groups": [
+    {
+      "prompt_index": 0,
+      "video_ids": [
+        "dev-000",
+        "dev-001",
+        "dev-002",
+        "dev-003"
+      ],
+      "generation_seed": 2026111800,
+      "reference_sha256": "f6c9572d18ddc66156975df2241bbd71f0bc9d4afffba20dc3730a44ee34eea5",
+      "image_sha256": "75326e2bce24183d36bf5d1190cbae48551fd223e14f7da3a8b5b5eb2355d3e6"
+    },
+    {
+      "prompt_index": 1,
+      "video_ids": [
+        "dev-004",
+        "dev-005",
+        "dev-006",
+        "dev-007"
+      ],
+      "generation_seed": 2026111804,
+      "reference_sha256": "0a48ec3f09117e78f49a1de7156dcee6ea1dbf4d413056e19f470d20fdaa27b2",
+      "image_sha256": "6d36a8ad702e20d8ff2bb3efa2d716145012b6cfe7076de09912cef4c345649c"
+    },
+    {
+      "prompt_index": 2,
+      "video_ids": [
+        "dev-008",
+        "dev-009",
+        "dev-010",
+        "dev-011"
+      ],
+      "generation_seed": 2026111808,
+      "reference_sha256": "306fdb45669fb5583c7639afffa721fa036c96543dbbc44011a5358360837826",
+      "image_sha256": "d20c8589be580b467535c6c51eb602aec008e09181b77cd66a75fbc0eeff73d8"
+    },
+    {
+      "prompt_index": 3,
+      "video_ids": [
+        "dev-012",
+        "dev-013",
+        "dev-014",
+        "dev-015"
+      ],
+      "generation_seed": 2026111812,
+      "reference_sha256": "da332b405f34dde38598280b617023eacf1d1a809c03174519693162c467cb9e",
+      "image_sha256": "59e529bf0390dc02c09c7dd44d9226b3b1ee10291d9c92688908f4a497c6e0a7"
+    },
+    {
+      "prompt_index": 4,
+      "video_ids": [
+        "dev-016",
+        "dev-017",
+        "dev-018",
+        "dev-019"
+      ],
+      "generation_seed": 2026111816,
+      "reference_sha256": "6b0821214eb902d373202f5c405359ef580eb4f4676b86d03ac28eda5cf34569",
+      "image_sha256": "da5d5415104873a38ed1ce5d2ca7a831a2f347ad0ac89ebde4f5595a6385fc71"
+    },
+    {
+      "prompt_index": 5,
+      "video_ids": [
+        "dev-020",
+        "dev-021",
+        "dev-022",
+        "dev-023"
+      ],
+      "generation_seed": 2026111820,
+      "reference_sha256": "1bfc6859bac9d1f73d00af6f9763a4588eeecb7b4482f4e3ccf8063fb0595b1e",
+      "image_sha256": "97f24b1c20835e51b5eb364e6ff37fb01df4b9b43c4885dab329f487b03b73f1"
+    },
+    {
+      "prompt_index": 6,
+      "video_ids": [
+        "dev-024",
+        "dev-025",
+        "dev-026",
+        "dev-027"
+      ],
+      "generation_seed": 2026111824,
+      "reference_sha256": "be39989af545a4e7567a7d40d255eeafad7c4d7269f903536375b0fa9314fb27",
+      "image_sha256": "d2d628b189fb1a8f8ad093b0b005cfc4d9f2ee6fb8a7cad762dac1874722473d"
+    },
+    {
+      "prompt_index": 7,
+      "video_ids": [
+        "dev-028",
+        "dev-029",
+        "dev-030",
+        "dev-031"
+      ],
+      "generation_seed": 2026111828,
+      "reference_sha256": "afcf3c2fcf11c5b6c0c28498ce94cc02aa6796ca520bf62c9962c6f896cbd3f3",
+      "image_sha256": "5722eca2e958b72dfe8e2f3137b7e5c9fcc8d16fb186147872c3c4404eb9a6dc"
+    },
+    {
+      "prompt_index": 8,
+      "video_ids": [
+        "dev-032",
+        "dev-033",
+        "dev-034",
+        "dev-035"
+      ],
+      "generation_seed": 2026111832,
+      "reference_sha256": "5474ebc7c1fc6f397d513f3e1c834841bcef9637d97439196827192bda989152",
+      "image_sha256": "2bfeb3949b67b2dcc8f522555a3cda17992f5a7bb816ab2635376f2e596ced8b"
+    },
+    {
+      "prompt_index": 9,
+      "video_ids": [
+        "dev-036",
+        "dev-037",
+        "dev-038",
+        "dev-039"
+      ],
+      "generation_seed": 2026111836,
+      "reference_sha256": "0cad3cdff0d5502db3323775edd376de54fc522fd6006ff377cbec960642d843",
+      "image_sha256": "29798617ee2c41f8839f4206b6d787babd253571ac63cbc2ca0ad84081988842"
+    },
+    {
+      "prompt_index": 10,
+      "video_ids": [
+        "dev-040",
+        "dev-041",
+        "dev-042",
+        "dev-043"
+      ],
+      "generation_seed": 2026111840,
+      "reference_sha256": "c7b2df7fb2705367513bbb4ab7784597c699c049471f0d1cf9ad90e2495ed851",
+      "image_sha256": "b8a0c5bc82d9cc22f775d53799557ba333c6b596ce88373824f7c9eee3e981d2"
+    },
+    {
+      "prompt_index": 11,
+      "video_ids": [
+        "dev-044",
+        "dev-045",
+        "dev-046",
+        "dev-047"
+      ],
+      "generation_seed": 2026111844,
+      "reference_sha256": "5224d5d8ecb8d1b724d13f64f0e4c8e30c4ccc779f6229daf317fb325b812bc8",
+      "image_sha256": "8a11151ff0c297656d2cf853117132a028003481fe99d497b26cc29dfe29926c"
+    },
+    {
+      "prompt_index": 12,
+      "video_ids": [
+        "dev-048",
+        "dev-049",
+        "dev-050",
+        "dev-051"
+      ],
+      "generation_seed": 2026111848,
+      "reference_sha256": "4d8440d07f6b2a35f88ce9cb6c1f27286546e07d7ad67f7cc1d3face98546c78",
+      "image_sha256": "aa58651154202b36657e2dbfc28ccd28dbfddf5c15e150e8309cbd19e5720c48"
+    },
+    {
+      "prompt_index": 13,
+      "video_ids": [
+        "dev-052",
+        "dev-053",
+        "dev-054",
+        "dev-055"
+      ],
+      "generation_seed": 2026111852,
+      "reference_sha256": "9b416f6c53fff655a870eac00696f3c522099c00d88ab3cbd699ef04948c4ae1",
+      "image_sha256": "c44209a1dcb1424729c17b473bbe3557df6b2d19eb67d9fefbbdc5c808c7b984"
+    },
+    {
+      "prompt_index": 14,
+      "video_ids": [
+        "dev-056",
+        "dev-057",
+        "dev-058",
+        "dev-059"
+      ],
+      "generation_seed": 2026111856,
+      "reference_sha256": "8612d695a6baa863203d78db51ec1ca10e8284684426cf77693eb1c73cd2183f",
+      "image_sha256": "cb57d1e703416f6a8c54aee041b518bda846b34ca7a71adf16f32f79653e0a5f"
+    },
+    {
+      "prompt_index": 15,
+      "video_ids": [
+        "dev-060",
+        "dev-061",
+        "dev-062",
+        "dev-063"
+      ],
+      "generation_seed": 2026111860,
+      "reference_sha256": "6fda1e966fb69cc326f594643e341e8f304471da016c29a9e5fe173bd6012bff",
+      "image_sha256": "050224811fac39e342a026a68abf8c8747d8d7ad59a3366466f6ea810f16d45b"
+    },
+    {
+      "prompt_index": 16,
+      "video_ids": [
+        "dev-064",
+        "dev-065",
+        "dev-066",
+        "dev-067"
+      ],
+      "generation_seed": 2026111864,
+      "reference_sha256": "c172b19766b65fb81610b0e55618cd56591070be307ec7445dc4d4d8d7053403",
+      "image_sha256": "2526a2674a8008a1b44c33f917ed15abfbc3eb4911910ff8e1bb3fdd879b4479"
+    },
+    {
+      "prompt_index": 17,
+      "video_ids": [
+        "dev-068",
+        "dev-069",
+        "dev-070",
+        "dev-071"
+      ],
+      "generation_seed": 2026111868,
+      "reference_sha256": "48ca54d09873fe40fa9afd293ec8aa9cd9a297c3c0f340a6309590fad4417efd",
+      "image_sha256": "7ed42116b9cd5fe8ba8501081212d2f067307f81f7f6e7e155ae6e1e85a0789e"
+    },
+    {
+      "prompt_index": 18,
+      "video_ids": [
+        "dev-072",
+        "dev-073",
+        "dev-074",
+        "dev-075"
+      ],
+      "generation_seed": 2026111872,
+      "reference_sha256": "4319eb5a5f6f2c4ae5d0ea7d7d54db6e1f1f7b44ae7912bff6bf4cb90e06859b",
+      "image_sha256": "60f0f03129160e9808cb4a53ec6daaf713184d1b71b8e24515cd71765cf0ebdf"
+    },
+    {
+      "prompt_index": 19,
+      "video_ids": [
+        "dev-076",
+        "dev-077",
+        "dev-078",
+        "dev-079"
+      ],
+      "generation_seed": 2026111876,
+      "reference_sha256": "411893ba1eb1b5c99cd0d40ed460558930f104d4132c2511dfd0f7c2404e26e5",
+      "image_sha256": "0f83fa3ab477aa1a7014a481c7b888dbef09a73f401cce063a3d1601be755cb3"
+    }
+  ]
+}

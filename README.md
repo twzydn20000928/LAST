@@ -208,7 +208,7 @@ available command is not evidence that the full prescribed sample set has run.
 
 | Experiment or prerequisite | Reader entry point | Current scope |
 | --- | --- | --- |
-| Primary and disjoint development data | [Data preparation](docs/DATA.md) | Frozen manifests; development conditioning generation in progress |
+| Primary and disjoint development data | [Data preparation](docs/DATA.md) | All 20 development conditioning images match decoded source frame zero and cover the 80 prescribed sample assignments. |
 | Primary LAST/LFG generation and seven attacks | [Campaign](docs/CAMPAIGN.md), `last.smoke`, `last.evaluate` | Paired primary prefixes for both modes of both backbones; measured coverage appears above |
 | SIGMark, VideoShield, VideoMark and LFG | [Baselines](docs/BASELINES.md) | Native interfaces and Hunyuan integrations; full baseline matrix pending |
 | Paired PSNR/SSIM and official V-score | [Quality](docs/QUALITY.md), `last.quality`, `last.quality_report` | Hunyuan I2V LAST/reference have five of 18 dimensions, including both Creativity dimensions; overall V-score pending |
