@@ -43,6 +43,21 @@ jobs:
           name: audited-partial-clean-tables
           path: ci-clean-tables/*.md
           if-no-files-found: error
+      - name: Rebuild supplementary temporal diagnostics
+        run: |
+          mkdir ci-temporal-diagnostics
+          receipts=(results/hunyuan_i2v_oracle_paper*.json)
+          python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
+            --oracle-dir results --count "${#receipts[@]}" > ci-temporal-diagnostics/table12-oracle.md
+          python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json \
+            --primary results/hunyuan_i2v_primary17.json --alignment > ci-temporal-diagnostics/table15.json
+          python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json \
+            > ci-temporal-diagnostics/table15-deletion.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audited-partial-temporal-diagnostics
+          path: ci-temporal-diagnostics/
+          if-no-files-found: error
   video-cpu:
     runs-on: ubuntu-latest
     steps:
