@@ -98,12 +98,22 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 
 | Generator and task | Method | Videos | Observations across seven conditions |
 | --- | --- | ---: | ---: |
-| Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first50.json) | 50 | 350 |
-| Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first30.json) | 30 | 210 |
-| Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first10.json) | 10 | 70 |
-| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first20.json) | 20 | 140 |
+| Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first72.json) | 72 | 504 |
+| Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first43.json) | 43 | 301 |
+| Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first23.json) | 23 | 161 |
+| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first36.json) | 36 | 252 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
-Run `python tools/paired_videomark_table.py` from the repository root to compare the same twenty sample IDs across five prompts (paper-000 through paper-019) for Hunyuan text-to-video. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition.
+
+Run `python tools/paired_videomark_table.py --count 36` from the repository root to compare Hunyuan LAST and VideoMark on paper-000 through paper-035. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition.
+
+To regenerate either Wan LAST report from your completed runs, use the primary pipeline audit command below. Set MODE to `i2v` or `t2v`. The audit checks the saved MP4 files and records missing samples separately in each condition.
+
+```bash
+MODE=t2v
+python tools/primary_pipeline_report.py --plan /private/primary-wan-clean-plan.json \
+  --root /private/primary --family wan22 --mode "$MODE" --method last \
+  --output "wan22-${MODE}-last.json"
+```
 
 ## Text-to-video comparison on ten shared samples across three prompts
 

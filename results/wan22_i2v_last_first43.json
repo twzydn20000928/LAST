@@ -1,5 +1,5 @@
 {
-  "scope": "Wan2.2 I2V LAST primary protocol; 43 verified videos of 400, seven conditions",
+  "scope": "wan22 i2v last: measured primary attacks with archived MP4 verification",
   "complete": false,
   "cells": [
     {
@@ -24634,5 +24634,7 @@
       "receipt_sha256": "e22128dc7b02c0a9664dd74d989c81d83ae8d4b1495c2564a8a017cf6c19c346"
     }
   ],
-  "plan_sha256": "50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447"
+  "plan_sha256": "50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447",
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "planned_videos_per_method": 400
 }
