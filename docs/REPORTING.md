@@ -461,10 +461,10 @@ Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos.
 - [Hunyuan t2v](../results/hunyuan_t2v_reference_differences_first11.json): all 11 pairs had different decoded values. RMSE ranged from 1.612 to 2.824. The first nine pairs yielded the same pixel statistics in the earlier OpenCV 3.4.18 run and this OpenCV 4.10.0 run.
 
 Add `--settings-only` to the reference comparison command to audit the
-generation configuration for each pair. On the [nine T2V pairs](../results/hunyuan_t2v_reference_settings9.json),
+generation configuration for each pair. On the [eleven T2V pairs](../results/hunyuan_t2v_reference_settings11.json),
 the case file, seed, recorded generation source, sampler settings, model
 directory name, hardware label and offload mode matched within each pair.
-All nine pairs used process limits of 8 GiB for LAST and 12 GiB for LFG.
+All eleven pairs used process limits of 8 GiB for LAST and 12 GiB for LFG.
 Each fidelity score uses its own recorded reference. These records establish
 the configuration difference; they do not identify the cause of the pixel differences.
 
