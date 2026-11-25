@@ -81,6 +81,15 @@ def render(family, reports, quality):
         lines.append('| ' + ' | '.join(values) + ' |')
     lines.extend(['', 'Bit accuracy is pooled over 512 information bits per completed video. '
                   'Counts below 400 indicate interim observations. V-score requires the full quality report.'])
+    if clean:
+        lines.extend(['', '### Counts behind the clean bit accuracies', '',
+                      '| Mode | Method | Correct information bits | Entire messages recovered |',
+                      '|---|---|---:|---:|'])
+        for (mode, method), row in sorted(clean.items()):
+            if row['completed']:
+                lines.append(f"| {mode.upper()} | {METHODS[method][0]} | "
+                             f"{row['correct_bits']}/{row['total_bits']} | "
+                             f"{row['exact_messages']}/{row['completed']} |")
     if exclusions:
         lines.extend(['', 'Official scoring units marked inapplicable (excluded from dimension means):',
                       '', *['- ' + label for label in sorted(exclusions)]])

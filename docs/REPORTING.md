@@ -25,9 +25,7 @@ python -m last.clean_table --family wan22 \
 The `core-tests` workflow also renders both model families with the available native baseline rows. Its `audited-partial-clean-tables` artifact contains `hunyuan.md` and `wan22.md`.
 
 The clean accuracy column pools 512 information bits per completed video;
-the parenthesis gives completed videos out of 400. For the number of entirely
-correct messages, read the `exact_messages` column of Table 2's `counts.csv`
-for condition `clean`. Quality coverage uses a separate denominator of 18
+the parenthesis gives completed videos out of 400. Each Table 1 report includes the integer bit counts and whole-message recovery counts beneath the rounded table. Table 2 also exports these counts in `counts.csv` for condition `clean`. Quality coverage uses a separate denominator of 18
 dimensions. The formatter prints the number evaluated while the V-score is pending.
 
 For the qualitative comparison, run `python -m last.qualitative_figure --index
