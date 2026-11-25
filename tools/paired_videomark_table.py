@@ -22,7 +22,7 @@ def load_counts(filename, field, samples=SAMPLES):
     return counts
 
 
-def main(count=20, last_report='hunyuan_t2v_last_first72.json'):
+def main(count=37, last_report='hunyuan_t2v_last_first73.json'):
     if not 1 <= count <= 400:
         raise ValueError('Expected a primary prefix of 1 to 400 cases')
     samples = tuple(f"paper-{i:03d}" for i in range(count))
@@ -38,7 +38,7 @@ def main(count=20, last_report='hunyuan_t2v_last_first72.json'):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--count", type=int, default=20)
-    parser.add_argument("--last-report", default="hunyuan_t2v_last_first72.json")
+    parser.add_argument("--count", type=int, default=37)
+    parser.add_argument("--last-report", default="hunyuan_t2v_last_first73.json")
     args = parser.parse_args()
     main(args.count, args.last_report)

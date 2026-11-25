@@ -144,22 +144,22 @@ SSIM is 0.94136. Resampling the six prompts gives 95% intervals of
 [30.153, 32.464] dB and [0.92851, 0.95156]. Recompute these statistics
 with `python tools/fidelity_intervals.py results/wan22_t2v_last_fidelity23.json`.
 
-## Text-to-video comparison on ten shared samples across three prompts
+## LAST across backbones on matched text-to-video samples
 
-Both columns use paper-000 through paper-009 and 512 information bits per video. Each backbone generated its own videos. Entries show correct bits out of 5,120 and exact messages out of ten.
+Both columns use paper-000 through paper-022 from the same manifest. Each backbone generated its own videos. Each condition has 11,776 information bits and 23 entire messages per backbone. Run `python tools/paired_backbone_table.py` to regenerate the comparison or add `--count 10` for the earlier prefix.
 
 | Condition | Hunyuan correct bits | Wan2.2 correct bits | Hunyuan exact | Wan2.2 exact |
 | --- | ---: | ---: | ---: | ---: |
-| clean | 5120 | 5120 | 10 | 10 |
-| noise | 5058 | 5044 | 7 | 7 |
-| compression | 4946 | 4954 | 3 | 6 |
-| blur | 5100 | 5074 | 8 | 7 |
-| drop | 3862 | 3736 | 0 | 0 |
-| insert | 4702 | 4323 | 1 | 1 |
-| clip | 4973 | 4943 | 4 | 6 |
-`python tools/paired_backbone_table.py` regenerates this table from the two published observation files.
+| clean | 11776 | 11776 | 23 | 23 |
+| noise | 11666 | 11642 | 17 | 17 |
+| compression | 11502 | 11445 | 10 | 14 |
+| blur | 11746 | 11696 | 20 | 18 |
+| drop | 9295 | 8322 | 0 | 0 |
+| insert | 10437 | 9813 | 1 | 1 |
+| clip | 11555 | 11476 | 13 | 17 |
+
 Run `python tools/paired_lfg_table.py --samples 7` to regenerate the seven-sample, two-prompt Hunyuan image-to-video comparison from the [matched LAST and LFG observations](../results/hunyuan_i2v_last_lfg_first_seven_paired.json).
-For image-to-video, run `python tools/paired_backbone_table.py --mode i2v`. Each column uses the first 30 manifest entries, with 15,360 information bits per condition and 30 opportunities to recover an entire message.
+For image-to-video, run `python tools/paired_backbone_table.py --mode i2v`. Each column uses the first 43 manifest entries, with 22,016 information bits per condition and 43 entire messages. Add `--count 30` for the earlier prefix.
 The [paired fidelity records](../results/hunyuan_i2v_last_first100_fidelity.json) cover the first 100 Hunyuan image-to-video LAST cases. Each row compares the 65-frame marked MP4 with its reference MP4. Summary fields give the arithmetic mean of the per-video PSNR (dB) and SSIM values.
 
 ### Comparing unmarked controls across methods

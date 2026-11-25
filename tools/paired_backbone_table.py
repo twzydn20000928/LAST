@@ -6,15 +6,20 @@ from paired_videomark_table import CONDITIONS, load_counts
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", choices=("t2v", "i2v"), default="t2v")
-    mode = parser.parse_args().mode
+    parser.add_argument("--count", type=int, help="Number of consecutive shared samples, starting at paper-000")
+    args = parser.parse_args()
+    mode = args.mode
     if mode == "i2v":
-        count = 30
+        available = 43
         left_file, left_field = "hunyuan_i2v_last_first100_robustness.json", "observations"
-        right_file = "wan22_i2v_last_first30.json"
+        right_file = "wan22_i2v_last_first43.json"
     else:
-        count = 10
-        left_file, left_field = "hunyuan_t2v_last_first50.json", "audited_observations"
-        right_file = "wan22_t2v_last_first10.json"
+        available = 23
+        left_file, left_field = "hunyuan_t2v_last_first73.json", "audited_observations"
+        right_file = "wan22_t2v_last_first23.json"
+    count = available if args.count is None else args.count
+    if not 1 <= count <= available:
+        parser.error(f"Expected 1 to {available} verified shared samples for {mode}")
     samples = tuple(f"paper-{i:03d}" for i in range(count))
     hunyuan = load_counts(left_file, left_field, samples)
     wan = load_counts(right_file, "audited_observations", samples)
