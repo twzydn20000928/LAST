@@ -663,7 +663,7 @@ The [seven-case paired report](../results/hunyuan_i2v_lfg_ccta_first7.json) cont
 Run from the repository root after installing the package. The first table reproduces the available supplement Table 12 columns. The second gives the correct and total information bits for each condition, pooled across the same videos.
 
 ```bash
-python tools/lfg_reader_table.py results/hunyuan_i2v_lfg_ccta_first8.json \
+python tools/lfg_reader_table.py results/hunyuan_i2v_lfg_ccta_first11.json \
   --fidelity results/hunyuan_i2v_paired_fidelity_first16.json --all-conditions
 ```
 
@@ -672,3 +672,9 @@ CCTA readers recovered 2,465 and 3,494 of 4,096 information bits, respectively.
 Under random deletion they recovered 2,795 and 2,814 bits, with zero complete
 messages for both readers. All 49 observations shared with the seven-case
 snapshot match, including the received-video and extraction-receipt hashes.
+
+The [11-case report](../results/hunyuan_i2v_lfg_ccta_first11.json) adds three
+seeds of a third prompt. Original LFG and LFG+CCTA read 3,341 and 4,691 correct
+bits after insertion, 4,237 and 5,008 after contiguous removal, and 3,741 and
+3,839 after random deletion. Each condition has 5,632 information bits. Both
+readers recovered 3/11 entire messages clean and 0/11 after random deletion.
