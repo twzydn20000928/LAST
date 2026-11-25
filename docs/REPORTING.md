@@ -14,7 +14,7 @@ python -m last.clean_table --family hunyuan \
   --output paired-table1/hunyuan.md
 
 python -m last.clean_table --family wan22 \
-  --reports results/wan22_i2v_primary9.json results/wan22_t2v_primary8.json \
+  --reports results/wan22_i2v_primary9.json results/wan22_t2v_primary9.json \
   --quality results/camera_motion/wan22_i2v_last_camera_quality.json \
     results/camera_motion/wan22_i2v_reference_camera_quality.json \
     results/camera_motion/wan22_t2v_last_camera_quality.json \
@@ -50,12 +50,12 @@ python -m last.robustness_table --reports \
   results/hunyuan_i2v_paired_primary_first16.json \
   results/hunyuan_t2v_primary9.json \
   results/wan22_i2v_primary9.json \
-  results/wan22_t2v_primary8.json \
+  results/wan22_t2v_primary9.json \
   --output paired-table2
 ```
 
 Each method uses the same sample IDs as its counterpart within each pipeline.
-The four reports cover 16 Hunyuan I2V, 9 Hunyuan T2V, 9 Wan I2V and 8 Wan T2V
+The four reports cover 16 Hunyuan I2V, 9 Hunyuan T2V, 9 Wan I2V and 9 Wan T2V
 sample pairs. The command produces eight rows and 56 condition counts. Each row
 shows its own coverage out of 400. For example, random deletion on the nine Wan
 I2V pairs gives 66.30% for LAST and 68.06% for LFG. The paired subsets can be
@@ -426,7 +426,7 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 | [hunyuan i2v](../results/hunyuan_i2v_paired_primary_first16.json) | 16 | 75.51% / 65.26% | 88.60% / 58.22% | 98.43% / 75.16% |
 | [hunyuan t2v](../results/hunyuan_t2v_primary9.json) | 9 | 76.39% / 67.25% | 92.43% / 60.00% | 97.48% / 77.34% |
 | [wan22 i2v](../results/wan22_i2v_primary9.json) | 9 | 66.30% / 68.06% | 87.00% / 57.73% | 96.72% / 80.38% |
-| [wan22 t2v](../results/wan22_t2v_primary8.json) | 8 | 75.34% / 66.85% | 87.38% / 54.49% | 98.66% / 78.08% |
+| [wan22 t2v](../results/wan22_t2v_primary9.json) | 9 | 73.52% / 66.32% | 84.96% / 54.88% | 97.59% / 78.88% |
 
 The fidelity scores below use the same samples as the temporal-attack rows above. Each PSNR value averages per-video PSNR in dB. Reference matches count byte-identical unmarked MP4s between methods, verified by SHA-256.
 
@@ -435,7 +435,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 | [hunyuan_i2v](../results/hunyuan_i2v_paired_fidelity_first16.json) | 16 | 2/16 | 31.49 / 22.77 | 0.9420 / 0.7575 |
 | [hunyuan_t2v](../results/hunyuan_t2v_fidelity9.json) | 9 | 0/9 | 30.26 / 21.57 | 0.9166 / 0.6855 |
 | [wan22_i2v](../results/wan22_i2v_fidelity9.json) | 9 | 9/9 | 29.24 / 22.66 | 0.9274 / 0.7850 |
-| [wan22_t2v](../results/wan22_t2v_fidelity8.json) | 8 | 8/8 | 30.62 / 24.58 | 0.9425 / 0.8257 |
+| [wan22_t2v](../results/wan22_t2v_fidelity9.json) | 9 | 9/9 | 30.84 / 24.77 | 0.9449 / 0.8344 |
 
 Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
 
