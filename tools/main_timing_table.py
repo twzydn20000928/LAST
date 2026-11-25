@@ -7,6 +7,7 @@ from pathlib import Path
 from statistics import mean
 
 from last.timing_summary import check_drop_frames, check_timed_frames
+from last.paired_timing import checked_measured_pairs
 
 
 METHODS = ("sigmark", "videoshield", "videomark", "lfg", "last")
@@ -54,10 +55,7 @@ def render(index):
             common_case = identity
         require(common_case == identity and g["gpu"] in ("L40", "NVIDIA L40"), "Different case, pipeline or GPU")
         require((g["status"], g["protocol"], g["method"]) == ("completed", "main", method), "Generation mismatch")
-        m = g["measurement"]
-        pairs = m["pairs"]
-        require(m["warmup_pairs"] == m["measured_pairs"] == len(pairs) == 2 and
-                all(p["warmup"] is False for p in pairs), "Expected two measured generation pairs")
+        pairs = checked_measured_pairs(g, 2)
         require(g.get("decoded_frame_counts") == [65] * 8,
                 "Each reference and marked generation must decode 65 frames in both warmup and measured pairs")
         marked = [seconds(p["marked_seconds"]) for p in pairs]

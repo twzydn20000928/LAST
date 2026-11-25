@@ -9,6 +9,19 @@ import statistics
 import time
 
 
+def checked_measured_pairs(receipt, repeats):
+    measurement = receipt['measurement']
+    pairs = measurement['pairs']
+    if measurement['warmup_pairs'] != 2 or measurement['measured_pairs'] != repeats or len(pairs) != repeats:
+        raise ValueError(f'Require two warmup pairs and {repeats} measured pairs')
+    order = receipt['order']
+    if (order not in ('AB', 'BA') or measurement['order'] != order
+            or any(p['warmup'] is not False or p['order'] != order for p in pairs)
+            or [p['pair_index'] for p in pairs] != list(range(2, 2 + repeats))):
+        raise ValueError('Invalid measured generation pair order')
+    return pairs
+
+
 def measure_pairs(reference, marked, synchronize, guard, *, order,
                   warmup_pairs=2, measured_pairs=5, clock=time.perf_counter,
                   on_pair=None):

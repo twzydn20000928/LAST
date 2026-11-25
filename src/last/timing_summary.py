@@ -3,6 +3,7 @@ import argparse, hashlib, json
 from pathlib import Path
 import numpy as np
 from .temporal import attack_map
+from .paired_timing import checked_measured_pairs
 
 
 def check_timed_frames(timing, expected):
@@ -44,13 +45,7 @@ def generation_summary(index, expected_ids, base):
             raise ValueError('Supplement generation requires an L40 and fourteen 65-frame outputs per video')
         settings.add((row['family'],row['mode'],row['method'],row['gpu']))
         m=row['measurement']
-        pairs=m['pairs']
-        if m['warmup_pairs']!=2 or m['measured_pairs']!=5 or len(pairs)!=5:
-            raise ValueError('Require two warmup pairs and five measured pairs')
-        if (row['order'] not in ('AB','BA') or row['order']!=m['order'] or
-            any(p['warmup'] is not False or p['order']!=m['order'] for p in pairs) or
-            [p['pair_index'] for p in pairs]!=list(range(2,7))):
-            raise ValueError('Invalid measured generation pair order')
+        pairs=checked_measured_pairs(row, 5)
         times=np.asarray([[p['marked_seconds'],p['reference_seconds']] for p in pairs],dtype=float)
         if not np.isfinite(times).all() or (times<=0).any():
             raise ValueError('Invalid paired generation durations')

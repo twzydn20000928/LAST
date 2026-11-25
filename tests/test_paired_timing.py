@@ -1,5 +1,20 @@
 import pytest
-from last.paired_timing import measure_pairs
+from last.paired_timing import checked_measured_pairs, measure_pairs
+
+
+def test_main_table_rejects_duplicate_pair_and_wrong_branch_order():
+    clock = iter(range(16))
+    noop = lambda: None
+    measurement = measure_pairs(noop, noop, noop, noop, order='BA', measured_pairs=2,
+                                clock=lambda: next(clock))
+    receipt = dict(order='BA', measurement=measurement)
+    first, second = checked_measured_pairs(receipt, 2)
+    second['pair_index'] = first['pair_index']
+    with pytest.raises(ValueError, match='pair order'):
+        checked_measured_pairs(receipt, 2)
+    second.update(pair_index=3, order='AB')
+    with pytest.raises(ValueError, match='pair order'):
+        checked_measured_pairs(receipt, 2)
 
 
 def test_pair_order_warmup_exclusion_and_negative_overhead():
