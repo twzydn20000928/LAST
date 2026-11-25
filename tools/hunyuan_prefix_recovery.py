@@ -1,6 +1,8 @@
 """Combine original measurements and independent re-extractions on disjoint primary IDs."""
+import argparse
 import json
 import re
+from pathlib import Path
 
 from paired_lfg_table import CONDITIONS, RESULTS, count_bits
 
@@ -10,12 +12,28 @@ def read(name):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--additional-original", type=Path, nargs="+", default=[],
+                        help="Additional disjoint original message reports extending the primary prefix")
+    args = parser.parse_args()
     primary = read("hunyuan_i2v_primary_message_170.json")
     replay = read("primary_pre_post_bch_eight_replays.json")
     first100 = read("hunyuan_i2v_last_first100_robustness.json")
     deletion = read("hunyuan_i2v_primary_deletion_errors.json")
     primary_ids = set(primary["sample_ids"])
     replay_ids = set(replay["replay_receipt_sha256"])
+    for path in args.additional_original:
+        extra = json.loads(path.read_bytes())
+        ids = set(extra["sample_ids"])
+        if (not ids or len(ids) != len(extra["sample_ids"]) or ids & (primary_ids | replay_ids) or
+                extra["manifest_sha256"] != primary["manifest_sha256"]):
+            raise ValueError("Additional original cohort overlaps or belongs to another manifest")
+        for c in CONDITIONS:
+            group = extra["observations"][c]
+            if len(group) != len(ids) or {r["video_id"] for r in group} != ids:
+                raise ValueError(f"Incomplete added cohort: {c}")
+            primary["observations"][c].extend(group)
+        primary_ids.update(ids)
     if not (primary["manifest_sha256"] == first100["manifest_sha256"] == deletion["manifest_sha256"]):
         raise ValueError("Reports use different manifests")
     if replay_ids != set(deletion["excluded_missing_received_hash"]) or replay_ids & primary_ids:

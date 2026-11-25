@@ -30,24 +30,34 @@ if __name__ == "__main__":
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--root", type=Path)
     mode.add_argument("--report", type=Path)
-    parser.add_argument("--cohort", type=Path, help="Frozen audited deletion report for acquisition")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--cohort", type=Path, help="Frozen audited deletion report for acquisition")
+    selection.add_argument("--range", dest="index_range", type=int, nargs=2, metavar=("FIRST", "STOP"),
+                           help="Audit every sample in this manifest slice (exclusive upper index)")
     parser.add_argument("--export", type=Path, help="New public JSON file for acquisition")
     parser.add_argument("--aggregate", type=Path, help="New aggregate JSON for last.clean_table and last.robustness_table")
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_bytes())
     validate(manifest)
     if args.root:
-        if not args.cohort or not args.export:
-            parser.error("Acquisition requires --cohort and --export")
-        prior = json.loads(args.cohort.read_bytes())
-        if prior["manifest_sha256"] != digest(args.manifest):
-            raise ValueError("Cohort manifest mismatch")
-        ids = [r["video_id"] for r in prior["observations"]]
-        evidence = dict(manifest_sha256=digest(args.manifest), cohort_sha256=digest(args.cohort),
-                        sample_ids=ids, observations={})
+        if not (args.cohort or args.index_range) or not args.export:
+            parser.error("Acquisition requires --cohort or --range, plus --export")
+        if args.cohort:
+            prior = json.loads(args.cohort.read_bytes())
+            if prior["manifest_sha256"] != digest(args.manifest):
+                raise ValueError("Cohort manifest mismatch")
+            ids = [r["video_id"] for r in prior["observations"]]
+            selection_fields = dict(cohort_sha256=digest(args.cohort))
+        else:
+            first, stop = args.index_range
+            if not 0 <= first < stop <= len(manifest["samples"]):
+                parser.error("Requested range falls outside the primary manifest")
+            ids = [s["id"] for s in manifest["samples"][first:stop]]
+            selection_fields = dict(manifest_index_range=[first, stop])
+        evidence = dict(manifest_sha256=digest(args.manifest), **selection_fields, sample_ids=ids, observations={})
         for c in CONDITIONS:
             evidence["observations"][c] = collect(args.root, manifest, c, set(ids))["observations"]
-        if evidence["observations"]["drop"] != prior["observations"]:
+        if args.cohort and evidence["observations"]["drop"] != prior["observations"]:
             raise ValueError("Deletion receipts changed since the cohort was frozen")
     else:
         evidence = json.loads(args.report.read_bytes())

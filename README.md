@@ -53,13 +53,13 @@ python tools/matched_component_table.py --archived-reread results/hunyuan_i2v_ar
 ```
 
 **Primary random frame deletion remains a substantial reproduction discrepancy.**
-The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun recovered **66,132/91,136 bits (72.56%) and 1/178 exact messages** across the first 178 videos. For 170 videos the original receipts identify the received MP4. The other eight use independent extractions from the archived videos because their original receipts lack that fingerprint. The two sets of video IDs are disjoint. Recount both contributions on CPU:
+The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun recovered **66,486/91,648 bits (72.54%) and 1/179 exact messages** across the first 179 videos. For 171 videos the original receipts identify the received MP4. The other eight use independent extractions from the archived videos because their original receipts lack that fingerprint. The two sets of video IDs are disjoint. Recount both contributions on CPU:
 
 ```bash
-python tools/hunyuan_prefix_recovery.py
+python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json
 ```
 
-For deletion, the command reports 63,178/87,040 bits from original receipts and 2,954/4,096 bits from re-extraction. On a separate 13-video diagnostic subset, supplying the original frame positions raised exact recovery from 0/13 to 12/13. The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
+For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On a separate 13-video diagnostic subset, supplying the original frame positions raised exact recovery from 0/13 to 12/13. The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
 
 ```bash
 python tools/primary_deletion_errors.py --report results/hunyuan_i2v_primary_deletion_errors.json

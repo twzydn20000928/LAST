@@ -273,6 +273,16 @@ for edit in ("drop", "clip"):
 
 ### Where intact deletion windows leave the reader
 
+To acquire an additional contiguous slice for the primary message tables,
+run `python tools/primary_message_tables.py --root /private/primary --range 178 179 --export new-original.json`.
+The indices are zero-based with an exclusive upper bound. The command verifies
+all seven original attack receipts and both MP4 fingerprints per observation.
+Use `python tools/hunyuan_prefix_recovery.py --additional-original new-original.json`
+to add the slice to the original 178-video prefix. The recount rejects overlap
+with either original or independently replayed cases and rejects gaps in the
+combined prefix. The [paper-178 observations](../results/hunyuan_i2v_message_178_179.json)
+give 354/512 bits for random deletion and 380/512 for insertion.
+
 Replay optical-flow segmentation and the four-frame sliding windows on the
 170 archived received MP4s. The script verifies the MP4 and evaluation receipt
 hashes and checks that every window in the saved CCTA chains occurs in the
