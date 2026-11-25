@@ -7,7 +7,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 
 ```bash
 python -m last.clean_table --family hunyuan \
-  --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary10.json \
+  --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary11.json \
     results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
@@ -67,7 +67,7 @@ To rebuild the measured LAST, LFG and native baseline rows of Table 2 with attac
 ```bash
 python -m last.robustness_table --reports \
   results/hunyuan_i2v_primary17.json \
-  results/hunyuan_t2v_primary10.json \
+  results/hunyuan_t2v_primary11.json \
   results/wan22_i2v_primary10.json \
   results/wan22_t2v_primary10.json \
   results/hunyuan_i2v_videoshield_first1.json \
@@ -75,7 +75,7 @@ python -m last.robustness_table --reports \
   --output paired-table2
 ```
 
-LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 10 Hunyuan T2V, 10 Wan I2V and 10 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 38 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the ten Wan
+LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 11 Hunyuan T2V, 10 Wan I2V and 10 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 38 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the ten Wan
 I2V pairs gives 66.62% for LAST and 67.81% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
@@ -442,7 +442,7 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 | Backbone and mode | Paired videos | Deletion | Insertion | Clip |
 |---|---:|---:|---:|---:|
 | [hunyuan i2v](../results/hunyuan_i2v_primary17.json) | 17 | 74.59% / 65.74% | 88.19% / 58.69% | 98.52% / 76.22% |
-| [hunyuan t2v](../results/hunyuan_t2v_primary10.json) | 10 | 75.43% / 66.37% | 91.84% / 59.51% | 97.13% / 76.97% |
+| [hunyuan t2v](../results/hunyuan_t2v_primary11.json) | 11 | 74.45% / 66.07% | 90.75% / 58.77% | 97.12% / 75.09% |
 | [wan22 i2v](../results/wan22_i2v_primary10.json) | 10 | 66.62% / 67.81% | 86.56% / 57.36% | 95.92% / 80.59% |
 | [wan22 t2v](../results/wan22_t2v_primary10.json) | 10 | 72.97% / 66.15% | 84.43% / 54.73% | 96.54% / 78.61% |
 
@@ -451,7 +451,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 | Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
 |---|---:|---:|---:|---:|
 | [hunyuan_i2v](../results/hunyuan_i2v_fidelity17.json) | 17 | 2/17 | 31.44 / 22.67 | 0.9406 / 0.7515 |
-| [hunyuan_t2v](../results/hunyuan_t2v_fidelity10.json) | 10 | 0/10 | 30.66 / 21.76 | 0.9204 / 0.6928 |
+| [hunyuan_t2v](../results/hunyuan_t2v_fidelity11.json) | 11 | 0/11 | 31.06 / 21.86 | 0.9247 / 0.7002 |
 | [wan22_i2v](../results/wan22_i2v_fidelity10.json) | 10 | 10/10 | 29.16 / 22.58 | 0.9293 / 0.7891 |
 | [wan22_t2v](../results/wan22_t2v_fidelity10.json) | 10 | 10/10 | 30.86 / 24.80 | 0.9459 / 0.8382 |
 
@@ -483,7 +483,7 @@ Both rows currently show five of 18 dimensions. Each dimension retains the numbe
 To render Tables 1 and 2 with the available VideoShield I2V and VideoMark T2V rows, run in Bash from the repository root:
 
 ```bash
-reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary10.json
+reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary11.json
          results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
   --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \

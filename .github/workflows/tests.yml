@@ -15,13 +15,13 @@ jobs:
         run: |
           python -m last.robustness_table --reports \
             results/hunyuan_i2v_primary17.json \
-            results/hunyuan_t2v_primary10.json \
+            results/hunyuan_t2v_primary11.json \
             results/wan22_i2v_primary10.json \
             results/wan22_t2v_primary10.json \
             results/hunyuan_i2v_videoshield_first1.json \
             results/hunyuan_t2v_videomark_first38.json \
             --output .ci-tables/robustness
-          for report in hunyuan_i2v_primary17 hunyuan_t2v_primary10 wan22_i2v_primary10 wan22_t2v_primary10; do
+          for report in hunyuan_i2v_primary17 hunyuan_t2v_primary11 wan22_i2v_primary10 wan22_t2v_primary10; do
             python tools/paired_primary_intervals.py --report "results/${report}.json" \
               --output ".ci-tables/robustness/${report}-intervals.json"
           done
@@ -36,7 +36,7 @@ jobs:
       - name: Rebuild Table 1 with available quality dimensions
         run: |
           python -m last.clean_table --family hunyuan \
-            --reports results/hunyuan_{i2v_primary17,t2v_primary10}.json \
+            --reports results/hunyuan_{i2v_primary17,t2v_primary11}.json \
               results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json \
             --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \
               results/camera_motion/hunyuan_t2v_{last,reference}_camera_quality.json \

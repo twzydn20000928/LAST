@@ -138,7 +138,7 @@ random-deletion differences. Values are percentage points of bit accuracy
 | Report in `results/` | Videos | Distinct prompts | Difference | 95% interval |
 |---|---:|---:|---:|---:|
 | `hunyuan_i2v_primary17.json` | 17 | 5 | +8.85 | [+0.67, +14.57] |
-| `hunyuan_t2v_primary10.json` | 10 | 3 | +9.06 | [-1.27, +12.94] |
+| `hunyuan_t2v_primary11.json` | 11 | 3 | +8.38 | [-0.33, +12.94] |
 | `wan22_i2v_primary10.json` | 10 | 3 | -1.19 | [-10.94, +12.60] |
 | `wan22_t2v_primary10.json` | 10 | 3 | +6.82 | [+0.10, +12.84] |
 
