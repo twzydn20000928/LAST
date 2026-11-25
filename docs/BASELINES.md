@@ -342,6 +342,20 @@ python tools/lfg_reader_table.py "$READ_ROOT/paired-counts.json"
 Each reader output needs a fresh per-case directory. The comparator checks
 the manifest case, edit map, original and received MP4 hashes, and recounts
 the CCTA predictions against the private 512-bit messages. The table can
+also be acquired incrementally on Linux. Use the following instead of the
+generation loop above while the primary experiment is still producing videos:
+
+```bash
+python tools/run_lfg_reader_campaign.py --root "$PRIMARY_ROOT" --outputs "$READ_ROOT" \
+  --model-dir "$HUNYUAN_MODEL" --first 0 --stop 400 --follow
+```
+
+The worker waits for the next primary case in manifest order, runs the reader
+on its seven received MP4s and audits the saved predictions. Restarting the
+command verifies completed cases before advancing. A failed or incomplete
+reader directory is preserved for inspection. Once the requested cases are
+complete, export paired counts with `tools/lfg_reader_pairs.py` as above.
+The table can
 subsequently be rendered on CPU from the exported JSON alone. When auditing
 the original archived videos, add `--report` with their earlier paired primary
 report to also check its baseline counts and file fingerprints. Independent
