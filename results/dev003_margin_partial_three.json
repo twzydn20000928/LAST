@@ -1,0 +1,50 @@
+[
+  {
+    "video_id": "dev-003",
+    "mu": 0.1,
+    "correct_bits": {
+      "clean": 491,
+      "noise": 391,
+      "compression": 367,
+      "blur": 428,
+      "drop": 233,
+      "insert": 294,
+      "clip": 327
+    },
+    "bits_per_condition": 512,
+    "psnr_db": 41.12040408072886,
+    "ssim": 0.9675709530276696
+  },
+  {
+    "video_id": "dev-003",
+    "mu": 0.25,
+    "correct_bits": {
+      "clean": 512,
+      "noise": 440,
+      "compression": 410,
+      "blur": 487,
+      "drop": 328,
+      "insert": 324,
+      "clip": 397
+    },
+    "bits_per_condition": 512,
+    "psnr_db": 40.064157985488535,
+    "ssim": 0.9642446242042718
+  },
+  {
+    "video_id": "dev-003",
+    "mu": 0.5,
+    "correct_bits": {
+      "clean": 512,
+      "noise": 497,
+      "compression": 492,
+      "blur": 512,
+      "drop": 405,
+      "insert": 387,
+      "clip": 489
+    },
+    "bits_per_condition": 512,
+    "psnr_db": 38.31428235580699,
+    "ssim": 0.9581819328542875
+  }
+]
