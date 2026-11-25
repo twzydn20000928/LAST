@@ -75,6 +75,12 @@ revision, print the length table from the repository root:
 python tools/length_timing_table.py timing/65.json timing/129.json timing/257.json
 ```
 
+For the constructed inputs, append `--inputs /private/length-study-inputs/inputs.json`
+to check that each timed read used the corresponding encoded MP4.
+On the Hunyuan I2V `paper-000` reconstruction each input produced one optical-flow
+segment. The reader proposed 62, 126 and 254 four-frame windows, respectively,
+with no boundary padding. These are CPU-verified workload counts.
+
 The above entry point covers only LAST/LFG extraction. Native extraction,
 paired generation, direct CUDA-event embedding and a randomized 30-video schedule
 have entry points described below, but real timing and parity validation remain

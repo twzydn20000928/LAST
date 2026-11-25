@@ -9,7 +9,14 @@ from statistics import median
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("receipts", nargs=3, type=Path)
+    parser.add_argument("--inputs", type=Path, help="Verify received MP4 hashes against a prepared length-study manifest")
     args = parser.parse_args()
+    expected = {}
+    if args.inputs:
+        clips = json.loads(args.inputs.read_bytes())["clips"]
+        expected = {clip["frames"]: clip["sha256"] for clip in clips}
+        if len(clips) != 3 or set(expected) != {65, 129, 257}:
+            parser.error("Expected one source clip per study length")
     results = {}
     settings = []
     for path in args.receipts:
@@ -22,6 +29,8 @@ def main():
             parser.error(f"{path}: expected a distinct completed LAST length measurement")
         if row["gpu"] not in ("L40", "NVIDIA L40"):
             parser.error(f"{path}: the supplementary length study requires an L40")
+        if args.inputs and row["received_sha256"] != expected[frames]:
+            parser.error(f"{path}: measured MP4 differs from the input manifest")
         if (row["warmups"] != 2 or row["repeats"] != 5 or len(times) != 5
                 or any(not math.isfinite(t) or t <= 0 for t in times)
                 or type(row["peak_allocated_bytes"]) is not int or row["peak_allocated_bytes"] <= 0):
