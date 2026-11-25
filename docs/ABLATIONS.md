@@ -997,15 +997,14 @@ The extended sweep uses all 80 manifest entries and their eight key slots. Run t
 
 During acquisition, run `python tools/development_margin_recovery.py --completed-root "$SWEEP" --export-cells partial-cells.json` to recount all videos whose five margins have finished. This reads the existing videos and receipts without changing the acquisition directory. Use the same frozen configuration directory as the acquisition via `--configs`. The result reports both observed and planned video counts. An invalid receipt in a selected case fails the audit.
 
-An [interim export](../results/development_margin_four_videos.json) includes
-the first four videos with all five margins available: dev-000, dev-001,
-dev-004 and dev-008. Run
-`python tools/development_margin_recovery.py --cells results/development_margin_four_videos.json`.
-Exact recovery across the six edited conditions was 0, 0, 6, 12 and 13 of
-24 video–attack pairs at margins 0.1, 0.25, 0.5, 0.75 and 1.0. The four
-videos use three prompts. The original Figure 4 and Table 5 retain their
-prescribed three videos; their 15 cells agree exactly with the overlapping
-entries here. The full Section I experiment requires 80 videos.
+The [interim development export](../results/development_margin_five_videos.json)
+covers dev-000, dev-001, dev-002, dev-004 and dev-008 at all five margins.
+Run `python tools/development_margin_recovery.py --cells results/development_margin_five_videos.json`.
+At margins 0.1, 0.25, 0.5, 0.75 and 1.0, complete messages were recovered
+in 0, 0, 8, 16 and 17 of 30 video–attack pairs, respectively. Each margin
+uses the same five videos and six edits. Figure 4 and Table 5 use dev-000,
+dev-004 and dev-008. Their 15 cells agree exactly with the corresponding
+observations in this export. The full Section I experiment requires 80 videos.
 
 ```bash
 python tools/development_margin_recovery.py --index "$SWEEP/development80-index.json"
