@@ -90,6 +90,8 @@ def main():
             save()
         torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
         with torch.inference_mode():
+            r.update(generation_branch='reference', status='generating', step=None)
+            save()
             z=pipe(**kwargs)[0].float();assert z.shape==(1,16,17,64,64)
             if a.method in ('lfg','lfg-c'):
                 from .lfg import watermark
@@ -104,7 +106,8 @@ def main():
                     r['controlled_adaptation']='Shared DCT carrier; per-group coefficient standard deviation; no margin projection'
                 else:pipe.scheduler.spread=watermark(keyfile.read_bytes(),signs).cuda()
                 torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
-                r['generation_branch']=a.method;save()
+                r.update(generation_branch=a.method, step=None)
+                save()
                 marked=pipe(**kwargs)[0].float()
                 pipe.scheduler.spread=None
             pipe.remove_all_hooks()
