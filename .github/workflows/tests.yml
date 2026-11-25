@@ -55,18 +55,18 @@ jobs:
           OPENBLAS_NUM_THREADS: '2'
         run: |
           for method in videoshield videomark sigmark; do
-            python -m last.baseline_probe --method "$method" --upstream .ci-upstream --output ".ci-probes/$method"
+            python -m last.baseline_probe --method "$method" --upstream .ci-upstream --output "ci-native-probes/$method"
           done
           python - <<'PY'
           import json
           from pathlib import Path
           for method in ('videoshield', 'videomark', 'sigmark'):
-              result = json.loads((Path('.ci-probes') / method / 'receipt.json').read_text())
+              result = json.loads((Path('ci-native-probes') / method / 'receipt.json').read_text())
               assert result['status'] == 'completed' and result['correct_bits'] == 512, result
           PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: native-interface-receipts
-          path: .ci-probes/*/receipt.json
-          if-no-files-found: ignore
+          path: ci-native-probes/*/receipt.json
+          if-no-files-found: error
