@@ -26,3 +26,43 @@ def test_conditioning_is_shared_across_seeds_and_hash_checked(tmp_path):
     assert case['seed']==103 and case['image']==str(folder/'input.png')
     (folder/'input.png').write_bytes(b'changed')
     with pytest.raises(ValueError):conditioning_case(rows[3],dev,tmp_path)
+
+@pytest.mark.parametrize("status,quality_exists", [("failed", True), ("running", False), ("completed", False)])
+def test_restart_preserves_interrupted_run(tmp_path, monkeypatch, status, quality_exists):
+    import sys
+    from last.calibration_run import main
+
+    # Exercise the Linux locking path without launching a writer or requiring a GPU.
+    pytest.importorskip("fcntl")
+    repo = Path(__file__).resolve().parents[1]
+    dev_path = repo / "configs/development_manifest.json"
+    primary_path = repo / "configs/primary_manifest.json"
+    dev = json.loads(dev_path.read_bytes())
+    plan = make_plan(dev, json.loads(primary_path.read_bytes()), "lfg-c", "hunyuan")
+    plan["manifest_sha256"] = {"development": sha(dev_path), "primary": sha(primary_path)}
+    plan_path = tmp_path / "plan.json"
+    plan_path.write_text(json.dumps(plan))
+    (tmp_path / "state.json").write_text(json.dumps({"manifest_sha256": sha(dev_path)}))
+    prompt = tmp_path / "prompt-00"
+    prompt.mkdir()
+    (prompt / "input.png").write_bytes(b"conditioning")
+    sample = dev["samples"][0]
+    (prompt / "receipt.json").write_text(json.dumps(dict(
+        status="completed", prompt=sample["prompt"], seed=sample["seed"],
+        image_sha256=sha(prompt / "input.png"))))
+    item = plan["runs"][0]
+    folder = tmp_path / item["run"]
+    folder.mkdir(parents=True)
+    receipt = folder / "calibration.json"
+    receipt.write_text(json.dumps(dict(status=status, item=item)))
+    before = receipt.read_bytes()
+    if quality_exists:
+        (folder / "quality.json").write_text("{}")
+    monkeypatch.setattr(sys, "argv", ["calibration_run", "--plan", str(plan_path),
+        "--development", str(dev_path), "--primary", str(primary_path), "--root", str(tmp_path),
+        "--state", str(tmp_path), "--conditioning", str(tmp_path), "--model-dir", str(tmp_path),
+        "--writer-root", str(repo)])
+    monkeypatch.setattr("os.umask", lambda mask: 0)
+    with pytest.raises(ValueError, match="calibration run"):
+        main()
+    assert receipt.read_bytes() == before

@@ -68,6 +68,13 @@ def main():
             try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
             except BlockingIOError:continue
             quality=folder/'quality.json';generation=folder/'receipt.json'
+            target = folder / 'calibration.json'
+            if target.exists():
+                prior = read(target)
+                if prior.get('status') != 'completed' or prior.get('item') != item:
+                    raise ValueError(f'Unfinished or mismatched calibration run: {folder}')
+                if not quality.is_file():
+                    raise ValueError(f'Completed calibration run is missing its quality result: {folder}')
             if quality.exists():
                 g=read(generation);q=read(quality)
                 if g.get('status')!='completed' or g.get('source_sha256')!=writer_hash:
@@ -98,7 +105,6 @@ def main():
                              '--marked',str(folder/'marked.mp4'),'--output',str(quality)]
             receipt=dict(status='running',item=item,plan_sha256=sha(a.plan),writer_source_sha256=writer_hash,
                          runner_sha256=sha(__file__),commands=[],started=time.time())
-            target=folder/'calibration.json'
             def save():
                 tmp=target.with_suffix('.tmp');tmp.write_text(json.dumps(receipt,indent=2));tmp.replace(target)
             save()
