@@ -337,3 +337,20 @@ The manuscript protocol plans 400, so the corresponding clean cell is
 ```bash
 python -m last.clean_table --family hunyuan --reports results/hunyuan_t2v_last_first50.json --output clean-first50.md
 ```
+
+The Hunyuan T2V LAST snapshot contains 72/400 videos and 504 verified
+condition receipts. All 350 overlapping observations agree with the earlier
+50-case snapshot. Render the Table 2 row on CPU:
+
+```bash
+python -m last.robustness_table --reports results/hunyuan_t2v_last_first72.json --output hunyuan72-table
+```
+
+To generate the same report format from your own campaign, use the actual
+generation plan for those runs. The method, model and mode select one of its
+400-case pipelines. Existing MP4s and their original attack receipts are
+verified and missing observations retain their planned denominator.
+
+```bash
+python tools/primary_pipeline_report.py --plan /private/primary-plan.json --root /private/primary --family hunyuan --mode t2v --method last --output hunyuan-t2v-last.json
+```
