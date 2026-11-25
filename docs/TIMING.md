@@ -47,6 +47,15 @@ is included. Keep the MP4 generation provenance with the timing receipt.
 The manuscript leaves construction of the longer inputs unspecified; only
 the 65-frame generation configuration is defined in the standard campaign.
 
+Section I of the supplement reports 18.9, 38.4 and 78.2 seconds at 65,
+129 and 257 frames, with peak allocated memory of 5.2, 5.3 and 5.4 GiB
+under sequential window batching. These are manuscript reference values.
+The supplied manuscript gives neither input file fingerprints nor a recipe
+for producing the 129- and 257-frame inputs. When reporting a reconstruction,
+identify the source and construction of each MP4 alongside its measured
+window count so a timing difference can be interpreted against the actual
+amount of extraction work.
+
 After collecting all three receipts with the same model, GPU, runtime and source
 revision, print the length table from the repository root:
 
