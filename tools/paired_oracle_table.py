@@ -6,8 +6,16 @@ from pathlib import Path
 
 from last.report import CONDITIONS
 
+# The frozen oracle_reader.py has two byte fingerprints across Git line endings.
+FROZEN_ORACLE_HASHES = {
+    "807f5a63030a286083504fd26a7f4267abd160014d81e151740a99a24bf1f73e",
+    "409645be7cb9209cdc8217242bf1ef2858a40538a83a9755eb21b064fd9e5df0",
+}
+
 
 def compare(report, oracle, video_id):
+    if oracle.get("source_sha256") not in FROZEN_ORACLE_HASHES:
+        raise ValueError(f"{video_id}: unrecognized oracle reader source")
     blind = [row for row in report["audited_observations"] if row["video_id"] == video_id
              and (row["family"], row["mode"], row["method"], row["map_seed"]) == ("hunyuan", "i2v", "last", 0)]
     if oracle["status"] != "completed" or video_id not in report["sample_ids"]:
