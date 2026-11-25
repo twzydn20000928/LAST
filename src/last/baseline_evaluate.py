@@ -2,6 +2,7 @@
 import argparse, hashlib, json, os, subprocess, sys, time, traceback
 from pathlib import Path
 import numpy as np
+import shutil
 from .evaluate import attacked, evaluation_directory, check_cached, verify_received
 from .video import load_mp4, export_mp4
 
@@ -21,7 +22,11 @@ def main():
     p.add_argument('--map-seed',type=int,choices=range(5),default=0)
     p.add_argument('--memory-gib',type=float,default=8)
     p.add_argument('--clean-extraction',type=Path)
+    p.add_argument('--retry-condition', choices=('clean','noise','compression','blur','drop','insert','clip'))
+    p.add_argument('--retry-output', type=Path, help='New private directory for a single failed extraction')
     a=p.parse_args();os.umask(0o077)
+    if bool(a.retry_condition) != bool(a.retry_output):
+        p.error('--retry-condition and --retry-output must be supplied together')
     run=a.run.resolve();generation=json.loads((run/'receipt.json').read_text())
     method=generation['method'];mode=generation['mode'];family=generation.get('family')
     if generation.get('status')!='completed_generation_only' or family not in ('hunyuan','wan22'):
@@ -39,7 +44,18 @@ def main():
             raise ValueError(f'Generation {field} differs from evaluation inputs')
     truth = np.unpackbits(np.frombuffer(truth_bytes, dtype=np.uint8))
     frames=load_mp4(video);directory=evaluation_directory(run,a.map_seed);directory.mkdir(exist_ok=True)
-    for name in ('clean','noise','compression','blur','drop','insert','clip'):
+    original_directory = directory
+    if a.retry_condition:
+        original = json.loads((directory / (a.retry_condition + '.json')).read_bytes())
+        check_cached(original, a.video_id, method, source_sha, a.map_seed)
+        if (original['status'] != 'failed' or original['condition'] != a.retry_condition
+                or original.get('family', 'hunyuan') != family or original['state_sha256'] != state_sha):
+            raise ValueError('Retry requires a matching failed attack receipt')
+        original_video = video if a.retry_condition == 'clean' else directory / (a.retry_condition + '.mp4')
+        verify_received(original, original_video)
+        directory = a.retry_output.resolve()
+        directory.mkdir(parents=True, exist_ok=False, mode=0o700)
+    for name in ((a.retry_condition,) if a.retry_condition else ('clean','noise','compression','blur','drop','insert','clip')):
         receipt=directory/(name+'.json')
         if receipt.exists():
             cached=json.loads(receipt.read_text());check_cached(cached,a.video_id,method,source_sha,a.map_seed)
@@ -61,9 +77,17 @@ def main():
         save()
         try:
             temporal=name in ('drop','insert','clip')
-            edited,mapping=attacked(frames,name,a.video_id,seed=a.map_seed if temporal else 0)
             received=video if name=='clean' else directory/(name+'.mp4')
-            if name!='clean':row['codec_command']=export_mp4(edited,received,crf=28 if name=='compression' else 18)
+            if a.retry_condition:
+                mapping = original['attack_map']
+                row['retry_of_sha256'] = hashlib.sha256((original_directory / (name+'.json')).read_bytes()).hexdigest()
+                if name != 'clean':
+                    shutil.copyfile(original_video, received)
+                    verify_received(original, received)
+                    row['codec_command'] = original['codec_command']
+            else:
+                edited,mapping=attacked(frames,name,a.video_id,seed=a.map_seed if temporal else 0)
+                if name!='clean':row['codec_command']=export_mp4(edited,received,crf=28 if name=='compression' else 18)
             received_sha=hashlib.sha256(received.read_bytes()).hexdigest()
             row.update(attack_map=mapping,received_sha256=received_sha,frames=len(load_mp4(received)))
             extraction=a.clean_extraction.resolve() if name=='clean' and a.clean_extraction else directory/(name+'-extract')

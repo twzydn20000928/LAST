@@ -571,6 +571,14 @@ seven-condition campaign, a method ranking or an exclusive timing measurement.
 The standard `last.baseline_evaluate` command above runs the attacks on a new
 user-generated case; the private recovery paths are not required to run it.
 
+If native extraction failed after an attack MP4 was saved, repeat the same
+`last.baseline_evaluate` command with `--retry-condition drop --retry-output
+/private/new-drop-retry` (replace `drop` with the failed condition). The
+runner verifies the original source, state, condition and received MP4. It
+reads the saved attack bytes and writes a separate attempt with the original
+failed receipt's SHA-256. A successful single-condition retry covers that
+condition only.
+
 ### SIGMark compression integration
 
 `results/sigmark_compression_verified.json` records the subsequent CRF28
