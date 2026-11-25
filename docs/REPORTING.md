@@ -24,21 +24,24 @@ actual run directory. If historical reader results were independently replayed,
 supply the audited `--reextraction-index` described in `REEXTRACTION.md`.
 That audit produces `summary.json`, raw-count CSV and a long-form Markdown table.
 
-To format audited reports into a Table2-style layout with attacks as columns:
+To rebuild the measured LAST and LFG rows of Table 2 with attacks as columns, run:
 
 ```bash
 python -m last.robustness_table --reports \
-  results/last_hunyuan_i2v_audited_partial.json \
-  results/last_hunyuan_t2v_audited_partial.json \
-  results/last_wan_i2v_audited_partial.json \
-  --output /path/to/new-table-output
+  results/hunyuan_i2v_paired_primary_first16.json \
+  results/hunyuan_t2v_primary9.json \
+  results/wan22_i2v_primary9.json \
+  results/wan22_t2v_primary8.json \
+  --output paired-table2
 ```
 
-This example uses checked-in partial snapshots, not live server state. It has
-rendered 25 Hunyuan I2V, 6 Hunyuan T2V and 4 Wan I2V cases from their existing
-audits. It does not compare those different pipelines as paired methods. For the
-final paper table, supply newly audited complete reports covering every required
-method and pipeline; the present example does not satisfy that requirement.
+Each method uses the same sample IDs as its counterpart within each pipeline.
+The four reports cover 16 Hunyuan I2V, 9 Hunyuan T2V, 9 Wan I2V and 8 Wan T2V
+sample pairs. The command produces eight rows and 56 condition counts. Each row
+shows its own coverage out of 400. For example, random deletion on the nine Wan
+I2V pairs gives 66.30% for LAST and 68.06% for LFG. The paired subsets can be
+smaller than the single-method runs because both methods must finish all attacks.
+Choose a fresh output directory on each invocation.
 
 `table.md` shows correct-information-bit percentages and completed/planned video
 counts. `counts.csv` retains correct bits, total bits, exact-message counts and
