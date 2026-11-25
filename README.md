@@ -60,10 +60,10 @@ python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2
   --verify-original-slice results/hunyuan_i2v_last_primary100_178.json
 ```
 
-For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On the first 88 videos, blind extraction after deletion recovered 34,071/45,056 information bits (75.62%) and 1/88 complete messages. Supplying the true frame map to the diagnostic reader gave 44,726/45,056 bits (99.27%) and 66/88 complete messages on the same attacked files. The assisted reader also fills missing slots and fuses surviving groups, so this comparison measures their combined effect. Even with this assistance, 22 messages still contained errors. To reproduce this snapshot across all seven conditions:
+For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On the first 100 videos, blind extraction after deletion recovered 37,704/51,200 information bits (73.64%) and 1/100 complete messages. Supplying the true frame map to the diagnostic reader gave 50,701/51,200 bits (99.03%) and 68/100 complete messages on the same attacked files. The assisted reader also fills missing slots and fuses surviving groups, so this comparison measures their combined effect. Even with this assistance, 32 messages still contained errors. To reproduce this snapshot across all seven conditions:
 
 ```bash
-python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json --oracle-dir results --count 88
+python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json --oracle-dir results --count 100
 ```
 
 The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
