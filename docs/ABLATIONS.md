@@ -568,6 +568,10 @@ Each LFG-C run uses the LAST case's exact prompt, conditioning image, seed,
 key and 512-bit message. The command calls the generation and MP4 attack
 evaluation entry points using the strength and step count selected by the
 development grid. It writes to the separate `lfg-c` directory under `RUNS`.
+For new cases the runner copies the original LAST carrier tensor inside the
+private run directory before generation. For existing cases it checks each
+archive against its own generation receipt and accepts a different archive
+encoding only when the tensor values and dtype agree.
 
 After generating the two writer blocks with the selected settings and
 completing their clean, drop and compression evaluations, render the
