@@ -1,0 +1,87 @@
+"""Audit matched Hunyuan T2V VideoMark readouts against the primary LAST cases."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+
+import numpy as np
+from last.baseline_evaluate import check_extraction
+from last.data import validate
+from last.report import CONDITIONS, aggregate
+from last.temporal import attack_map
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def read(path):
+    return json.loads(path.read_bytes())
+
+
+def audit(root, manifest_path, plan_path, count):
+    manifest, plan = read(manifest_path), read(plan_path)
+    validate(manifest)
+    if plan["manifest_sha256"] != sha(manifest_path) or not 1 <= count <= len(manifest["samples"]):
+        raise ValueError("Unexpected primary manifest or prefix")
+    items = []
+    legacy = 0
+    for sample in manifest["samples"][:count]:
+        video = sample["id"]
+        relative = f"hunyuan/t2v/videomark/{video}"
+        item, = [i for i in plan["runs"] if i["run"] == relative]
+        folder = root / relative
+        last = root / "hunyuan/t2v/last" / video
+        case_path = root / ".native-jobs" / (relative.replace("/", "__") + ".case.json")
+        generation = read(folder / "receipt.json")
+        if generation["case_sha256"] != sha(case_path) or generation["seed"] != sample["seed"]:
+            raise ValueError(f"Native generation input mismatch: {video}")
+        for case in (read(case_path), read(last / "case.json")):
+            if (case["prompt"], case["seed"], case["video_id"]) != (sample["prompt"], sample["seed"], video):
+                raise ValueError(f"Unmatched primary sample: {video}")
+        truth = (folder / "message.bin").read_bytes()
+        bits = np.unpackbits(np.frombuffer(truth, dtype=np.uint8))
+        if len(truth) != 64 or not np.array_equal(bits, np.load(last / "message.npy", allow_pickle=False)):
+            raise ValueError(f"Unmatched message: {video}")
+        state = sha(folder / "maintained_private.pkl")
+        for condition in CONDITIONS:
+            temporal = condition in ("drop", "insert", "clip")
+            path = folder / "attacks"
+            row = read(path / (condition + ".json"))
+            if row["status"] != "completed":
+                raise ValueError(f"Native observation {video}/{condition} has status {row['status']}")
+            reader = path / (condition + "-extract")
+            receipt = read(reader / "receipt.json")
+            mapping = attack_map(video, condition) if temporal else None
+            if (row["attack_map"] != mapping or read(last / "attacks" / (condition + ".json"))["attack_map"] != mapping
+                    or row["frames"] != (len(mapping) if temporal else 65)):
+                raise ValueError(f"Unmatched edit: {video}/{condition}")
+            check_extraction(receipt, "videomark", "t2v", row["received_sha256"], state, temporal)
+            if row["extraction_receipt_sha256"] != sha(reader / "receipt.json") or row["state_sha256"] != state:
+                raise ValueError(f"Changed extraction evidence: {video}/{condition}")
+            prediction = (reader / "decoded.bin").read_bytes()
+            decoded_sha = hashlib.sha256(prediction).hexdigest()
+            for record in (row, receipt):
+                if "decoded_sha256" in record and record["decoded_sha256"] != decoded_sha:
+                    raise ValueError("Changed prediction")
+            legacy += "decoded_sha256" not in row and "decoded_sha256" not in receipt
+            if len(prediction) != 64 or sum((a ^ b).bit_count() for a, b in zip(truth, prediction)) != 512 - row["correct_bits"]:
+                raise ValueError(f"Native prediction recount mismatch: {video}/{condition}")
+        items.append(item)
+    report = aggregate(dict(scope="Matched Hunyuan T2V VideoMark primary prefix", runs=items), root, verify_artifacts=True)
+    if not report["complete"]:
+        raise ValueError("Missing native measurements")
+    return dict(report, sample_ids=[i["video_id"] for i in items], planned_videos_per_method=len(manifest["samples"]),
+                manifest_sha256=sha(manifest_path), plan_sha256=sha(plan_path),
+                recounted_predictions=count*len(CONDITIONS), predictions_without_historical_digest=legacy)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    for option in ("root", "manifest", "plan", "output"):
+        parser.add_argument("--" + option, type=Path, required=True)
+    parser.add_argument("--count", type=int, required=True)
+    args = parser.parse_args()
+    result = audit(args.root, args.manifest, args.plan, args.count)
+    with args.output.open("x", encoding="utf-8") as stream:
+        stream.write(json.dumps(result, indent=2) + "\n")

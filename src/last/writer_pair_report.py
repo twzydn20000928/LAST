@@ -16,14 +16,20 @@ def read(path):
     return json.loads(Path(path).read_text(encoding='utf-8-sig'))
 
 
-def report(minimum, fixed):
+def report(minimum, fixed, *, uniform_profile=False):
     minimum, fixed = Path(minimum), Path(fixed)
     left, right = read(minimum/'receipt.json'), read(fixed/'receipt.json')
     if any(r.get('status') != 'completed' or r.get('method') != 'last' for r in (left, right)):
         raise ValueError('Both generations must be completed LAST runs')
-    if left.get('fixed_target') is not False or right.get('fixed_target') is not True:
-        raise ValueError('Require minimum-margin and fixed-target interventions')
-    for field in ('family', 'mode', 'settings', 'seed', 'case_sha256', 'mu', 'uniform_profile'):
+    expected_fixed_target = not uniform_profile
+    if left.get('fixed_target') is not False or right.get('fixed_target') is not expected_fixed_target:
+        raise ValueError('Writer rule differs from the requested intervention')
+    if uniform_profile:
+        if left.get('uniform_profile') is not False or right.get('uniform_profile') is not True:
+            raise ValueError('Require nonuniform and uniform minimum-margin writers')
+    elif 'uniform_profile' not in left or left['uniform_profile'] != right.get('uniform_profile'):
+        raise ValueError('Paired generation settings differ: uniform_profile')
+    for field in ('family', 'mode', 'settings', 'seed', 'case_sha256', 'mu'):
         if field not in left or left[field] != right.get(field):
             raise ValueError('Paired generation settings differ: '+field)
     for name in ('receipt.json', 'endpoint.pt', 'codes.pt', 'secret.key', 'message.npy', 'reference.mp4'):
@@ -38,7 +44,10 @@ def report(minimum, fixed):
                   family=left['family'], mode=left['mode'], seed=left['seed'], margin=left['mu'],
                   settings=left['settings'], variants={})
     identity = None; quality_definition = None
-    for name, folder, generation in [('minimum-margin', minimum, left), ('fixed-target', fixed, right)]:
+    labels = ('nonuniform-profile', 'uniform-profile') if uniform_profile else ('minimum-margin', 'fixed-target')
+    if uniform_profile:
+        result['scope'] = 'Paired temporal margin profiles on one real endpoint; same minimum-margin writer and base margin'
+    for name, folder, generation in [(labels[0], minimum, left), (labels[1], fixed, right)]:
         marked = digest(folder/'marked.mp4')
         if generation.get('marked_sha256') != marked:
             raise ValueError('Marked MP4 mismatch')
@@ -79,10 +88,13 @@ def report(minimum, fixed):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    for name in ('minimum', 'fixed', 'output'): p.add_argument('--'+name, type=Path, required=True)
+    for name in ('minimum', 'output'): p.add_argument('--'+name, type=Path, required=True)
+    variants = p.add_mutually_exclusive_group(required=True)
+    variants.add_argument('--fixed', type=Path)
+    variants.add_argument('--uniform', type=Path, help='Compare temporal profiles with minimum-margin writing in both arms')
     a = p.parse_args()
     if a.output.exists(): p.error('Output exists; preserve previous audit')
-    value = report(a.minimum, a.fixed)
+    value = report(a.minimum, a.uniform or a.fixed, uniform_profile=a.uniform is not None)
     a.output.parent.mkdir(parents=True, exist_ok=True)
     a.output.write_text(json.dumps(value, indent=2), encoding='utf-8')
 

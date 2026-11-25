@@ -1,0 +1,96 @@
+{
+  "complete": false,
+  "v_score": null,
+  "categories": {
+    "Creativity": null,
+    "Commonsense": null,
+    "Controllability": null,
+    "Human Fidelity": null,
+    "Physics": null
+  },
+  "missing_or_invalid_dimensions": [
+    "Diversity",
+    "Instance_Preservation",
+    "Motion_Rationality",
+    "Dynamic_Attribute",
+    "Dynamic_Spatial_Relationship",
+    "Human_Interaction",
+    "Motion_Order_Understanding",
+    "Human_Anatomy",
+    "Human_Clothes",
+    "Human_Identity",
+    "Material",
+    "Mechanics",
+    "Multi-View_Consistency",
+    "Thermotics"
+  ],
+  "dimensions": {
+    "Composition": {
+      "status": "completed",
+      "full_dimension_inputs": true,
+      "expected_units": 20,
+      "valid_units": 20,
+      "not_applicable_units": 0,
+      "unit": "video",
+      "mean": 0.55,
+      "all_applicable": true
+    },
+    "Camera_Motion": {
+      "status": "completed",
+      "full_dimension_inputs": true,
+      "expected_units": 20,
+      "valid_units": 20,
+      "not_applicable_units": 0,
+      "unit": "video",
+      "mean": 0.35,
+      "all_applicable": true
+    },
+    "Complex_Landscape": {
+      "status": "completed",
+      "full_dimension_inputs": true,
+      "expected_units": 20,
+      "valid_units": 20,
+      "not_applicable_units": 0,
+      "unit": "video",
+      "mean": 0.13,
+      "all_applicable": true
+    },
+    "Complex_Plot": {
+      "status": "completed",
+      "full_dimension_inputs": true,
+      "expected_units": 20,
+      "valid_units": 20,
+      "not_applicable_units": 0,
+      "unit": "video",
+      "mean": 0.06999999999999999,
+      "all_applicable": true
+    }
+  },
+  "scope": "Incomplete; no full V-score",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "reference",
+  "source_hashes": {
+    "Composition": {
+      "receipt_sha256": "3789742b6c17f910f664806e8cf651fc83c5ee22998cc6f381920f7f1cbc3458",
+      "original_coverage_sha256": "f457702231558998105a4c80efb1c7544fc0491cb1a043810971af99aac3a6a8",
+      "raw_sha256": "1404b7327ac0ea303db1d491edf5a5da41f31b20afdb400463dc57850bddfd48"
+    },
+    "Camera_Motion": {
+      "receipt_sha256": "0e37558eb504163f62a693b77582ce83faf384d0e1f65ee8fda9927dfdf86f7a",
+      "original_coverage_sha256": "0c487c0afa091f6a09eef874673b76c1217bc1cfb85d23809f3912593b0a0dc6",
+      "raw_sha256": "8da6152c9cbdf181e60474cdb551912e11c12fb99dab6642ad6ebfbd75fcf95e"
+    },
+    "Complex_Landscape": {
+      "receipt_sha256": "377b42400b5d9a14c712598e0ade79762f3682946609d92aa51b1f4b2cc45ce2",
+      "original_coverage_sha256": "2b16c13b76d923f4a1efe759f4ee0ce6801fdc3ca2b9ac18856b1e8e8d4f6629",
+      "raw_sha256": "d7005a2ef0fa27e8ee676dc85a716c09b3cb102ffe3478a37d53e943eb6f5d66"
+    },
+    "Complex_Plot": {
+      "receipt_sha256": "cda5bd9b39d4fde11afb78f6a141d0a3f8859be3e77c69f9d907f7cf8dcd94f3",
+      "original_coverage_sha256": "1a4b38c34ca3b99c0540fae4072aaf910b422867e18bc299240a0215bf6752a0",
+      "raw_sha256": "3cd94a8fd07206a2ccf0490e6ce3f1022c6c668cd2eda09515bb7aac051cc3d9"
+    }
+  },
+  "coverage_sha256": "f457702231558998105a4c80efb1c7544fc0491cb1a043810971af99aac3a6a8"
+}

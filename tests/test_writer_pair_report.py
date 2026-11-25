@@ -44,6 +44,17 @@ def test_complete_pair_and_private_state_excluded(pair):
     assert 'secret.key' not in json.dumps(result)
 
 
+def test_profile_comparison_keeps_writer_rule_fixed(pair):
+    left, right = pair
+    with pytest.raises(ValueError):
+        report(left, right, uniform_profile=True)
+    path = right/'receipt.json'
+    write(path, dict(json.loads(path.read_text()), fixed_target=False, uniform_profile=True))
+    assert set(report(left, right, uniform_profile=True)['variants']) == {'nonuniform-profile', 'uniform-profile'}
+    with pytest.raises(ValueError):
+        report(left, right)
+
+
 @pytest.mark.parametrize('change', ['map', 'video', 'key', 'missing'])
 def test_reject_unpaired_or_incomplete_evidence(pair, change):
     left, right = pair

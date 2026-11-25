@@ -3,6 +3,18 @@ import argparse,hashlib,json
 from pathlib import Path
 import numpy as np
 
+def cluster_mean_interval(sums, counts, draws=10000, seed=0):
+    """Bootstrap whole clusters, weighting each retained video or trial equally."""
+    sums = np.asarray(sums)
+    counts = np.asarray(counts)
+    estimate = sums.sum(axis=0) / counts.sum()
+    if len(counts) < 2:
+        return estimate, None
+    rng = np.random.Generator(np.random.PCG64(seed))
+    sampled = rng.integers(0, len(counts), (draws, len(counts)))
+    means = sums[sampled].sum(axis=1) / counts[sampled].sum(axis=1)[:, None]
+    return estimate, np.quantile(means, [0.025, 0.975], axis=0).T.tolist()
+
 def observations(rows,cluster_by_id,map_seeds):
     expected={(video,seed) for video in cluster_by_id for seed in map_seeds};found={}
     for row in rows:
@@ -28,12 +40,7 @@ def summarize(rows,cluster_by_id,map_seeds=(0,),paired_rows=None,draws=10000,see
     for cluster in clusters:
         ids=[identity for identity in sorted(first) if cluster_by_id[identity[0]]==cluster]
         sums.append(sum((first[i]-(second[i] if second is not None else 0) for i in ids),np.zeros(2)));counts.append(len(ids))
-    sums=np.asarray(sums);counts=np.asarray(counts);estimate=sums.sum(0)/counts.sum()
-    intervals=None
-    if len(clusters)>=2:
-        rng=np.random.Generator(np.random.PCG64(seed));sampled=rng.integers(0,len(clusters),(draws,len(clusters)))
-        ratios=sums[sampled].sum(1)/counts[sampled].sum(1)[:,None]
-        intervals=np.quantile(ratios,[.025,.975],axis=0).T.tolist()
+    estimate,intervals=cluster_mean_interval(sums,counts,draws,seed)
     return dict(metric='paired_difference_first_minus_second' if second is not None else 'rate',bit_accuracy=float(estimate[0]),message_recovery=float(estimate[1]),bit_accuracy_ci95=intervals[0] if intervals else None,message_recovery_ci95=intervals[1] if intervals else None,prompt_clusters=len(clusters),videos=len(cluster_by_id),video_map_trials=len(first),map_seeds=list(map_seeds),bootstrap_draws=draws,bootstrap_seed=seed,methodology='Percentile95% prompt-cluster bootstrap; whole clusters resampled with replacement; all their videos/maps retained; paired comparisons share the resampled clusters',limitation='One cluster cannot support an interval; few clusters yield unstable intervals. No independence assumption across bits or maps.')
 
 def main():

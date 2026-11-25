@@ -692,3 +692,91 @@ The [interim dev-000 sweep](../results/margin_sweep_dev000_interim.json) contain
 ### Completed development margin sweep
 
 [Figure 4](../results/margin_sweep_figure4.pdf), [Supplement Table 5](../results/margin_sweep_table5.md), and the [pooled counts](../results/margin_sweep_aggregate.csv) cover three frozen Hunyuan image-to-video development samples at five embedding margins. Each condition contributes 1,536 bits per margin. The figure pools the six edited conditions (9,216 bits per margin). The table also reports clean recovery. PSNR and SSIM are averaged over the three paired videos.
+
+To regenerate the figure and table from the [15 audited per-video measurements](../results/margin_sweep_cells.json), run the following from the repository root:
+
+```bash
+python -m pip install -e '.[figures]'
+python tools/plot_margin_sweep.py --cells results/margin_sweep_cells.json --output figure4-from-cells
+```
+
+For acquisition on a GPU host without Matplotlib, pass `--tables-only` to the
+private-index command. It verifies the private run records and exports
+`cells.json`, the aggregate CSV and Table 5. The cells include all seven
+per-condition bit counts, PSNR and SSIM for each video and margin.
+
+### Equal base margin: matched writer results
+
+The public writer reports cover 12 of the 30 planned component videos,
+including [paper-174](../results/paired_writer_paper174.json). At the same
+base margin of 0.5, minimum-margin writing gave 73.99% after deletion,
+compared with 70.93% for fixed-target writing; neither recovered a complete
+message on these 12 deletions. After insertion the rates were 80.24% and
+80.53%. Mean per-video PSNR was 33.408 and 32.753 dB respectively.
+Run `python tools/writer_ablation_table.py` for all seven conditions,
+exact-message counts, and SSIM.
+
+### Paired temporal profile on a saved endpoint
+
+To change the temporal margin profile while retaining the minimum-margin
+writer, reuse the same saved endpoint, codebook, message and reference video:
+
+```bash
+python -m last.writer_replay --run /private/minimum-margin --model-dir /models/hunyuan-i2v \
+  --uniform-profile --output /private/uniform-profile
+python -m last.quality --marked /private/uniform-profile/marked.mp4 --reference /private/uniform-profile/reference.mp4 --output /private/uniform-profile/quality.json
+python -m last.evaluate --run /private/uniform-profile --family hunyuan --video-id paper-071 --model-dir /models/hunyuan-i2v
+python -m last.writer_pair_report --minimum /private/minimum-margin --uniform /private/uniform-profile --output profile-pair.json
+```
+
+Use the source video's manifest ID in the evaluation command. In this
+comparison the decoder and base margin stay fixed. The uniform variant sets
+all 16 message groups to 0.5. The default profile uses 0 for the first group,
+1 for the fourth and 0.5 for the other fourteen groups.
+
+In the twelve equal-margin pairs, minimum-margin writing yielded higher
+PSNR and SSIM on every video. The per-video PSNR gains ranged from
+0.201 to 1.119 dB. Deletion recovery varied by sample: minimum-margin
+writing recovered more bits on seven videos and fewer on five. These
+equal-margin comparisons address the writer rule at a common strength.
+
+For Table 16, run `python tools/uniform_profile_table.py profile-pair.json`
+with one or more distinct paired profile reports. Its denominator is the
+400 primary test videos. It reports deletion bit accuracy, exact-message
+recovery, mean per-video PSNR and SSIM. With the full population the paired
+interval uses the difference in message recovery (uniform minus primary)
+and resamples whole prompt clusters. The fixed-target row at matched PSNR
+requires its separate development calibration.
+
+The [first verified profile pair](../results/temporal_profile_pair_paper071.json)
+uses paper-071. Under deletion the default profile recovered 423/512 bits
+and the uniform profile recovered 424/512, with zero exact messages in
+both arms. PSNR was 32.695 and 32.837 dB, respectively. One video leaves
+the full-test paired interval pending.
+
+### Supplementary development-set margin sensitivity
+
+The extended sweep uses all 80 manifest entries and their eight key slots. Run the same generation command as Figure 4 with the additional flag `--all-development`. Reuse the same private state, conditioning directory and output root. The driver validates the earlier 15 cells before reuse and writes a separate `development80-index.json` after validating all 400 video/margin pairs.
+
+```bash
+python tools/development_margin_recovery.py --index "$SWEEP/development80-index.json"
+python tools/development_margin_recovery.py --cells results/margin_sweep_cells.json
+```
+
+The second command illustrates the calculation on the three included Figure 4 videos. Each strength has six edited conditions per video. Exact recovery counts one success only when all 512 decoded information bits match. The full denominator is 480 video/attack trials per strength. The clean condition is excluded. Mean PSNR averages one paired measurement per video per strength. The three shared videos are part of the reconstructed 80-entry manifest.
+
+To release the 80-video measurements after acquisition, run:
+
+```bash
+python tools/development_margin_recovery.py --index "$SWEEP/development80-index.json" --export-cells development80-cells.json
+python tools/development_margin_recovery.py --cells development80-cells.json
+```
+
+The export contains video identifiers, margins, correct-bit counts, PSNR and SSIM. Each included video must have all five margins. The supplementary paper reports six-attack exact recovery of 0.550, 0.750, 0.913, 0.938 and 0.946 and mean PSNR of 35.02, 34.11, 33.08, 31.69 and 30.32 dB, respectively. These are reference values. Compare them with the rerun once its output reports `complete: true`. The 80 cases also serve as the matched-writer tuning population; the primary test split uses separate videos.
+
+### Matched Hunyuan deletion example
+
+On primary Hunyuan I2V `paper-000`, blind LAST recovered 371/512 information bits. With the original identities of the surviving frames supplied to `last.oracle_reader`, 504/512 information bits were correct before BCH and all 512 after BCH. The MP4 SHA-256 was `8562a0f6e475a3a671a5747f77dad6b3ddb358245911ec240a5df58d363bbcf1` in both reads; the deletion receipt SHA-256 was `522d3e7d2bf39ce8518b5951d99cc751910cd9fce1a941b4d2c92e0275d5fe5d`. All 16 source groups retained at least one frame, none retained all four. The diagnostic filled 30 missing slots with surviving frames from the corresponding groups. Its advantage on this case combines correct group identities, within-group filling and fusion across all surviving groups. It cannot be assigned to the boundary detector alone. Reproduce by running the oracle command on the same generation folder as the blind reader and comparing the drop row in both receipts.
+Run `python tools/paired_oracle_table.py --report results/hunyuan_i2v_paired_primary_first13.json --oracle results/hunyuan_i2v_oracle_paper000.json --video-id paper-000` to compare all seven conditions with matching attack receipt and MP4 fingerprints. The oracle changes group construction and evidence fusion and can score below blind extraction, as the blur, compression and clip rows demonstrate on this example.
+The second frozen prefix case is available in `results/hunyuan_i2v_oracle_paper001.json`. Run the same command with that file and `--video-id paper-001`. Deletion improved from 368/512 to 512/512 (511 before BCH), insertion from 436/512 to 512/512; the other five conditions had equal correct-bit counts. For deletion, one entire source group was missing, two were intact and the oracle filled 25 slots across the fifteen retained groups.
+The next two matched inputs are `results/hunyuan_i2v_oracle_paper002.json` and `results/hunyuan_i2v_oracle_paper003.json`. Across the first four samples, blind/oracle exact recovery was 0/4 versus 4/4 for both random deletion and insertion, and 2/4 versus 2/4 for clipping. These are four matched cases of each edit.

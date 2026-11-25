@@ -608,3 +608,11 @@ not predict the available memory during decoding. For this configuration,
 reserve capacity through VAE decoding. Keep failed receipts and private state
 together when retrying with the original sample, seed, checkpoint and payload.
 Only a completed generation with an exported MP4 is eligible for attack scoring.
+
+On a shared GPU the native worker can exit successfully after printing
+`waiting_resources`, before starting a sample. For a single worker that
+rechecks admission after 60 seconds, substitute
+`python tools/wait_native_campaign.py` for `python -m last.native_campaign run`
+in the command above. Use the native environment and the same arguments.
+A nonzero child exit is propagated for inspection; completed or bounded
+worker invocations return normally.

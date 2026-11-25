@@ -22,10 +22,10 @@ def require(condition, message):
         raise ValueError(message)
 
 
-def audit_cells(entries, root, config):
+def audit_cells(entries, root, config, *, all_development=False):
     manifest_path = config / "development_manifest.json"
     manifest = read(manifest_path)
-    ids = manifest["margin_sweep_ids"]
+    ids = [s["id"] for s in manifest["samples"]] if all_development else manifest["margin_sweep_ids"]
     samples = {s["id"]: s for s in manifest["samples"]}
     protocol = read(config / "paper_v1.json")
     strengths = protocol["margin_sweep"]["mu"]
@@ -83,6 +83,10 @@ def audit_cells(entries, root, config):
 
 def collect(index, config):
     rows, ids, strengths, attacks = audit_cells(read(index), index.parent, config)
+    return summarize(rows, ids, strengths, attacks)
+
+
+def summarize(rows, ids, strengths, attacks):
     require(len(rows) == len(ids) * len(strengths), "Incomplete sweep")
     summary = []
     for mu in strengths:
@@ -92,6 +96,26 @@ def collect(index, config):
                             **counts, psnr_db=mean(rows[n, mu][1] for n in ids),
                             ssim=mean(rows[n, mu][2] for n in ids)))
     return summary
+
+
+def load_public_cells(path, config, *, all_development=False):
+    dev = read(config / "development_manifest.json")
+    ids = [s["id"] for s in dev["samples"]] if all_development else dev["margin_sweep_ids"]
+    strengths = read(config / "paper_v1.json")["margin_sweep"]["mu"]
+    attacks = ("noise", "compression", "blur", "drop", "insert", "clip")
+    rows = {}
+    for cell in read(path):
+        key = (cell["video_id"], cell["mu"])
+        counts = cell["correct_bits"]
+        require(key[0] in ids and key[1] in strengths and key not in rows,
+                "Unexpected or duplicate public sweep cell")
+        require(set(counts) == {"clean", *attacks} and cell["bits_per_condition"] == 512
+                and all(type(v) is int and 0 <= v <= 512 for v in counts.values()),
+                "Invalid public sweep counts")
+        require(math.isfinite(cell["psnr_db"]) and -1 <= cell["ssim"] <= 1,
+                "Invalid public sweep quality")
+        rows[key] = (counts, cell["psnr_db"], cell["ssim"])
+    return rows, ids, strengths, attacks
 
 
 def table5(rows):
@@ -105,27 +129,46 @@ def table5(rows):
     return "\n".join(lines) + "\n"
 
 
+def export_public_cells(path, cells):
+    public = [dict(video_id=name, mu=mu, correct_bits=counts, bits_per_condition=512,
+                   psnr_db=psnr, ssim=ssim)
+              for (name, mu), (counts, psnr, ssim) in sorted(cells.items())]
+    with path.open("x", encoding="utf-8") as stream:
+        json.dump(public, stream, indent=2, allow_nan=False)
+        stream.write("\n")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--index", type=Path, required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--index", type=Path, help="Index of private acquisition directories")
+    source.add_argument("--cells", type=Path, help="Public audited per-video, per-margin measurements")
     parser.add_argument("--configs", type=Path, default=Path("configs"))
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--tables-only", action="store_true", help="Export measurements and tables without Matplotlib")
     args = parser.parse_args()
-    rows = collect(args.index, args.configs)
-    import matplotlib.pyplot as plt
-    fig, axes = plt.subplots(1, 3, figsize=(9, 3), constrained_layout=True)
-    for field, label, axis in zip(("accuracy", "psnr_db", "ssim"), ("Bit accuracy (%)", "PSNR (dB)", "SSIM"), axes):
-        values = [100*r["correct_bits"]/r["total_bits"] if field == "accuracy" else r[field] for r in rows]
-        axis.plot([r["mu"] for r in rows], values, marker="o")
-        axis.set(xlabel="Embedding margin μ", ylabel=label)
+    if args.index:
+        cells = audit_cells(read(args.index), args.index.parent, args.configs)
+    else:
+        cells = load_public_cells(args.cells, args.configs)
+    rows = summarize(*cells)
+    if not args.tables_only:
+        import matplotlib.pyplot as plt
     args.output.mkdir(parents=True, exist_ok=False)
-    fig.savefig(args.output / "margin-sweep.pdf")
-    plt.close(fig)
+    export_public_cells(args.output / "cells.json", cells[0])
     (args.output / "table5.md").write_text(table5(rows), encoding="utf-8")
     with (args.output / "margin-sweep.csv").open("w", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
+    if not args.tables_only:
+        fig, axes = plt.subplots(1, 3, figsize=(9, 3), constrained_layout=True)
+        for field, label, axis in zip(("accuracy", "psnr_db", "ssim"), ("Bit accuracy (%)", "PSNR (dB)", "SSIM"), axes):
+            values = [100*r["correct_bits"]/r["total_bits"] if field == "accuracy" else r[field] for r in rows]
+            axis.plot([r["mu"] for r in rows], values, marker="o")
+            axis.set(xlabel="Embedding margin μ", ylabel=label)
+        fig.savefig(args.output / "margin-sweep.pdf")
+        plt.close(fig)
 
 
 if __name__ == "__main__":

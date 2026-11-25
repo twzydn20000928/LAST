@@ -12,7 +12,7 @@ import time
 from last.campaign import source_digest
 from last.development import validate_development
 from last.development_case import build
-from plot_margin_sweep import collect, digest, read
+from plot_margin_sweep import audit_cells, digest, read, summarize
 
 
 def bind(path, data):
@@ -68,6 +68,7 @@ def import_default(source, target, case, family, model, memory, key, message):
 
 def run(args):
     import fcntl
+    import numpy as np
 
     dev_path = args.configs / "development_manifest.json"
     dev = read(dev_path)
@@ -90,7 +91,13 @@ def run(args):
              family=args.family, paper_sha256=digest(args.configs / "paper_v1.json"),
              memory_gib=args.memory_gib, source_sha256=source_digest()))
         entries = []
-        for name in dev["margin_sweep_ids"]:
+        all_development = getattr(args, "all_development", False)
+        audited = set()
+        if all_development and (root / "index.json").exists():
+            earlier = read(root / "index.json")
+            summarize(*audit_cells(earlier, root, args.configs))
+            audited = {(entry["video_id"], (root / entry["run"]).resolve()) for entry in earlier}
+        for name in (list(samples) if all_development else dev["margin_sweep_ids"]):
             sample = samples[name]
             conditioning = args.conditioning / f"prompt-{sample['index']//4:02}"
             case = build(dev, name, "i2v", dev_hash, conditioning)
@@ -107,6 +114,14 @@ def run(args):
                                    args.model_dir, args.memory_gib, key, message)
                 directory.mkdir(parents=True, exist_ok=True)
                 bind(directory / "case.json", case)
+                if (name, directory) in audited:
+                    if (key.read_bytes() != (directory / "secret.key").read_bytes()
+                            or read(directory / "receipt.json")["mu"] != mu
+                            or not np.array_equal(np.load(directory / "message.npy", allow_pickle=False),
+                                                  np.unpackbits(np.frombuffer(message.read_bytes(), dtype=np.uint8)))):
+                        raise ValueError(f"Prior sweep cell differs from requested case: {directory}")
+                    entries.append(dict(video_id=name, run=directory.relative_to(root).as_posix()))
+                    continue
                 receipt = directory / "receipt.json"
                 if receipt.exists() and read(receipt)["status"] != "completed":
                     raise ValueError(f"Inspect unfinished generation at {directory} before retrying")
@@ -127,10 +142,11 @@ def run(args):
                                     "--reference", directory / "reference.mp4", "--output", pending], check=True)
                     pending.replace(quality)
                 entries.append(dict(video_id=name, run=directory.relative_to(root).as_posix()))
-        candidate = root / "candidate-index.json"
+        index_name = "development80-index.json" if all_development else "index.json"
+        candidate = root / ("candidate-" + index_name)
         bind(candidate, entries)
-        collect(candidate, args.configs)
-        candidate.replace(root / "index.json")
+        summarize(*audit_cells(entries, root, args.configs, all_development=all_development))
+        candidate.replace(root / index_name)
 
 
 if __name__ == "__main__":
@@ -138,7 +154,8 @@ if __name__ == "__main__":
     for name in ("state", "conditioning", "model-dir", "output"):
         parser.add_argument("--" + name, required=True, type=Path)
     parser.add_argument("--configs", type=Path, default=Path("configs"))
-    parser.add_argument("--reuse-development", type=Path, help="Import the three default-margin runs from this development output root")
+    parser.add_argument("--reuse-development", type=Path, help="Import matching default-margin runs from this development output root")
+    parser.add_argument("--all-development", action="store_true", help="Acquire all 80 development videos for the supplementary sensitivity analysis")
     parser.add_argument("--family", choices=("hunyuan", "wan22"), default="hunyuan")
     parser.add_argument("--memory-gib", type=float, default=8)
     parser.add_argument("--min-free-mib", type=int, default=0, help="On a shared single GPU, wait for this much free memory before each GPU job")

@@ -223,3 +223,54 @@ python -m last.robustness_table --reports results/wan22_t2v_paired_primary_first
 ```
 
 The coverage label 5/400 counts completed videos in the supplied subset against the planned benchmark. Bit accuracy uses the 2,560 measured information bits per cell. The attack table also exports integer bit counts and exact-message counts to CSV. Missing official quality scores remain pending. The [five text-to-video fidelity pairs](../results/wan22_t2v_paired_fidelity_5.json) use byte-identical reference files across methods for all five cases.
+
+### Hunyuan primary tables from the thirteen paired image-to-video cases
+
+```bash
+python -m last.clean_table --family hunyuan --reports results/hunyuan_i2v_paired_primary_first13.json results/hunyuan_t2v_paired_primary_first_five.json --output tables/hunyuan-clean.md
+python -m last.robustness_table --reports results/hunyuan_i2v_paired_primary_first13.json results/hunyuan_t2v_paired_primary_first_five.json --output tables/hunyuan-attacks
+```
+
+To repeat the private artifact audit with resumed acquisitions, supply the
+original LAST plan via `--plan`, its continuation via `--additional-last-plan`,
+and the LFG plan via `--lfg-plan` to `tools/paired_primary_subset.py`.
+The completed job receipt selects the exact plan for each video and arm.
+Pass the historical `--reextraction-index` when incorporating independently
+repeated extractions; only entries for this slice are used. The thirteen-case
+report includes the twelve previously published cases, with matching counts
+and received-video digests on all 168 overlapping observations. Use this
+report alone for this image-to-video subset.
+
+### Four-pipeline paired snapshot
+
+The latest audited primary prefixes contain 13 Hunyuan I2V pairs and eight
+pairs in each other pipeline. Across the four pipelines this yields 518
+method-by-video-by-condition records. The eight-case prefixes each cover two
+prompts and four seeds per prompt. All three preserve the earlier five cases.
+
+```bash
+python -m last.robustness_table --reports results/hunyuan_i2v_paired_primary_first13.json results/hunyuan_t2v_primary8.json results/wan22_i2v_primary8.json results/wan22_t2v_primary8.json --output tables/four-pipeline-attacks
+python -m last.clean_table --family hunyuan --reports results/hunyuan_i2v_paired_primary_first13.json results/hunyuan_t2v_primary8.json --output tables/hunyuan-prefix-clean.md
+python -m last.clean_table --family wan22 --reports results/wan22_i2v_primary8.json results/wan22_t2v_primary8.json --output tables/wan22-prefix-clean.md
+```
+
+Both eight-case Wan pipelines use byte-identical reference videos across the
+two methods on every pair. In Hunyuan T2V the two unmarked reference MP4s
+differ on all eight pairs. Each fidelity measurement uses the reference from
+that method's own paired generation.
+
+### VideoMark and LAST on 35 matched Hunyuan text-to-video cases
+
+Run `python tools/paired_videomark_table.py --count 35` to compare the
+[first 35 VideoMark cases](../results/hunyuan_t2v_videomark_first35.json)
+against the same IDs in the LAST 50-case report. Each condition contributes
+17,920 bits per method. The 245 native predictions were recounted on the
+evaluation host from retained decoded bytes against the message used for
+the corresponding LAST case. The audit also matches prompt, seed and edit
+map. The native historical receipts lack decoded-byte hashes on all 245
+reads. Current byte recounts agree with the saved scores; the original
+decoded byte sequence cannot be independently authenticated from those
+receipts alone.
+
+To rebuild the counts on the evaluation host, use
+`python tools/audit_videomark_prefix.py --root /private/primary --manifest configs/primary_manifest.json --plan /private/native-plan.json --count 35 --output videomark35.json`.

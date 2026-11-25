@@ -15,6 +15,7 @@ def render(paths):
     plan = json.loads((ROOT / "configs/paper_subsets.json").read_bytes())["ablation_i2v_30"]
     seen = set()
     totals = Counter()
+    exact = Counter()
     quality = {v: [] for v in VARIANTS}
     protocol = None
     for path in paths:
@@ -39,6 +40,9 @@ def render(paths):
                 if type(k) is not int or not 0 <= k <= 512 or row["total_bits"] != 512:
                     raise ValueError(f"Invalid information-bit counts in {path}")
                 totals[variant, row["condition"]] += k
+                if row["exact_message"] is not (k == 512):
+                    raise ValueError(f"Exact-message count disagrees with bit count in {path}")
+                exact[variant, row["condition"]] += k == 512
             psnr, ssim = result["psnr_db"], result["ssim"]
             if psnr is None or not math.isfinite(psnr) or not -1 <= ssim <= 1:
                 raise ValueError(f"Expected finite per-video fidelity measurements in {path}")
@@ -47,11 +51,12 @@ def render(paths):
         raise ValueError("Supply at least one audited writer pair")
     bits = 512 * len(seen)
     print(f"{len(seen)}/{len(plan)} matched videos; {bits} information bits per condition.")
-    print("\n| Condition | Minimum margin (%) | Fixed target (%) | Difference (pp) |")
-    print("|---|---:|---:|---:|")
+    print("\n| Condition | Minimum margin (%) | Fixed target (%) | Difference (pp) | Minimum margin exact | Fixed target exact |")
+    print("|---|---:|---:|---:|---:|---:|")
     for condition in CONDITIONS:
         a, b = (100 * totals[v, condition] / bits for v in VARIANTS)
-        print(f"| {condition} | {a:.2f} | {b:.2f} | {a - b:+.2f} |")
+        first, second = (exact[v, condition] for v in VARIANTS)
+        print(f"| {condition} | {a:.2f} | {b:.2f} | {a - b:+.2f} | {first}/{len(seen)} | {second}/{len(seen)} |")
     print("\n| Writer | Mean per-video PSNR (dB) | Mean SSIM |\n|---|---:|---:|")
     for variant, rows in quality.items():
         print(f"| {variant} | {mean(x for x, _ in rows):.3f} | {mean(y for _, y in rows):.5f} |")

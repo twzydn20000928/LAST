@@ -434,3 +434,48 @@ outputs and scoring receipts.
 
 For Dynamic Attribute, the official scorer samples 64 frames uniformly and asks the auxiliary questions for that prompt. A video scores 1 if every answer contains “yes” (case-insensitive), and 0 otherwise. Average the 20 video scores per arm. The coverage and scoring receipts identify the inputs used for each mean.
 Wan-2.2 T2V Camera Motion has [20 paired official scores](../results/wan22_t2v_camera_motion_20_pairs.json). The scorer marked 12/20 LAST and 11/20 unmarked references correct; all 40 clips were applicable. This is one quality dimension.
+
+### Reuse a completed official dimension after coverage grows
+
+Add `--prior-dimension NAME ORIGINAL_INPUT_DIRECTORY SCORE_DIRECTORY` to
+`last.quality_report` for each previously scored dimension. Supply the
+current input directory through `--inputs` and the regular dimension-score
+root through `--scores`. A dimension can have only one supplied score source.
+The report checks family, generation mode, method, manifest digest, exact
+dimension metadata, video hashes and scoring receipt against the original
+and current snapshots. It recomputes the mean from the official raw result.
+
+The [LAST](../results/hunyuan_i2v_quality_four_dimensions_last.json) and
+[reference](../results/hunyuan_i2v_quality_four_dimensions_reference.json)
+reports cover Composition, Camera Motion, Complex Landscape and Complex Plot
+for Hunyuan I2V. Add both files via `--quality` to the Hunyuan
+`last.clean_table` command to display measured coverage of 4/18 dimensions.
+Each dimension has 20 valid video scores per arm. A full V-score remains
+pending until the remaining dimensions and primary input coverage are complete.
+
+Hunyuan I2V also has 60 Diversity videos per arm (three scoring units).
+The [five-dimension LAST report](../results/hunyuan_i2v_quality_five_dimensions_last.json)
+and [matching reference report](../results/hunyuan_i2v_quality_five_dimensions_reference.json)
+combine that evidence with the preceding four dimensions. Creativity is the
+mean of Composition and Diversity: 0.397738 for LAST and 0.402432 for the
+reference. Both are category scores. The Table 1 command accepts these
+two files in place of the four-dimension snapshots.
+
+To reproduce a public per-unit evidence file from a completed official run:
+
+```bash
+python tools/export_quality_dimension.py --manifest configs/primary_manifest.json \
+  --inputs /private/scoring-inputs --scores /private/completed-dimension \
+  --output quality-units.json
+```
+
+The command checks the prompt and seed assignment, rehashes every MP4,
+and recomputes the mean and applicable unit count from official results.
+For Diversity, each of the three scores is attached to all 20 of its
+corresponding video IDs. Ordinary dimensions attach one score to each video.
+
+Hunyuan T2V [native VideoMark camera scores](../results/hunyuan_t2v_videomark_camera_units.json)
+were evaluated on paper-000 through paper-019. The official metric awarded
+4/20, compared with 4/20 for LAST and 3/20 for the unmarked LAST reference
+on the same manifest IDs. The [VideoMark dimension report](../results/hunyuan_t2v_videomark_quality.json)
+can be passed to Table 1 via `--quality`. Its coverage is one of 18 dimensions.

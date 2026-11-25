@@ -5,6 +5,34 @@ import hashlib
 import json
 
 
+def test_merge_prior_dimension_requires_identical_scored_subset(tmp_path):
+    name = 'Composition'
+    original, current, scores = (tmp_path / s for s in ('original', 'current', 'scores'))
+    for path in (original, current, scores):
+        path.mkdir()
+    video = '/videos/sample.mp4'
+    coverage = dict(complete=False, family='hunyuan', mode='i2v', method='last',
+                    manifest_sha256='a'*64, videos=[dict(path=video, sha256='b'*64)])
+    metadata = json.dumps([dict(video_list=[video])])
+    for folder in (original, current):
+        (folder / (name+'.json')).write_text(metadata)
+    old = original/'coverage.json'
+    old.write_text(json.dumps(coverage))
+    coverage['videos'].append(dict(path='/videos/later.mp4', sha256='c'*64))
+    (current/'coverage.json').write_text(json.dumps(coverage))
+    receipt = dict(status='completed', dimension=name, mean=0.5,
+                   videos_sha256={video:'b'*64}, coverage_sha256=hashlib.sha256(old.read_bytes()).hexdigest(),
+                   metadata_sha256=hashlib.sha256(metadata.encode()).hexdigest())
+    (scores/'receipt.json').write_text(json.dumps(receipt))
+    (scores/'official_result.json').write_text(json.dumps([0.5,[dict(video_path=video,video_results=0.5)]]))
+    previous = [(name, original, scores)]
+    assert build(current, tmp_path, previous)['dimensions'][name]['mean'] == 0.5
+    coverage['videos'][0]['sha256'] = 'd'*64
+    (current/'coverage.json').write_text(json.dumps(coverage))
+    with pytest.raises(ValueError, match='Prior dimension videos differ'):
+        build(current, tmp_path, previous)
+
+
 def test_five_categories_are_equally_weighted_not_eighteen_dimensions():
     rows={d:dict(status='completed',mean=0) for ds in CATEGORIES.values() for d in ds}
     for d in CATEGORIES['Creativity']: rows[d]['mean']=1

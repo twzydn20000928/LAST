@@ -25,6 +25,8 @@ def audit(report, root):
         generation = json.loads((folder / "receipt.json").read_bytes())
         plan = report["plan_sha256"]
         expected_plan = plan[r["method"]] if isinstance(plan, dict) else plan
+        if "plan_sha256_by_run" in report:
+            expected_plan = report["plan_sha256_by_run"][r["run"]]
         if (campaign["status"] != "completed" or campaign["plan_sha256"] != expected_plan
                 or any(campaign["item"][k] != r[k] for k in ("video_id", "family", "mode", "method"))
                 or generation["status"] != "completed" or generation["method"] != r["method"]):

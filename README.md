@@ -41,19 +41,30 @@ flowchart LR
 
 ## Measured results
 
+**Primary random frame deletion remains a substantial reproduction discrepancy.**
+The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun obtained 72.59% bit accuracy and 1/170 exact messages on the 170 videos with verified original deletion receipts in this snapshot. A further eight historical receipts lack the received-video fingerprint required for this comparison. The median video had 130 wrong information bits out of 512. On the first four videos in the separately audited blind/oracle comparison, supplying original frame positions enabled exact recovery after deletion. The remaining causes of the discrepancy are under investigation.
+
+Recompute the snapshot statistics from [per-video observations](results/hunyuan_i2v_primary_deletion_errors.json) on CPU:
+
+```bash
+python tools/primary_deletion_errors.py --report results/hunyuan_i2v_primary_deletion_errors.json
+```
+
+The [statistical protocol](docs/STATISTICS.md) also explains how to repeat the checks against the generated MP4 files. For supplementary margin sensitivity, the three-video Figure 4 measurements and replay commands are in the [ablation guide](docs/ABLATIONS.md). The 80-video sensitivity study and full quality scores are pending.
+
 The following paired subsets use the frozen primary manifest and 512 information bits per video. Each method has seven observations per video, covering clean extraction and six attacks. The paper protocol calls for 400 videos per generation pipeline. The counts below describe the paired records available in this release.
 
 | Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
 |---|---:|---|---|
-| HunyuanVideo, image-to-video | 12 | [Cases 000–007](results/hunyuan_i2v_last_lfg_first_eight_paired.json) and [008–011](results/hunyuan_i2v_paired_primary_008_011.json) | [12 pairs](results/hunyuan_i2v_first12_paired_fidelity.json) |
-| HunyuanVideo, text-to-video | 5 | [5 pairs](results/hunyuan_t2v_paired_primary_first_five.json) | [5 pairs](results/hunyuan_t2v_paired_fidelity_5.json) |
-| Wan-2.2, image-to-video | 5 | [5 pairs](results/wan22_i2v_paired_primary_first_five.json) | [5 pairs](results/wan22_i2v_paired_fidelity_5.json) |
-| Wan-2.2, text-to-video | 5 | [5 pairs](results/wan22_t2v_paired_primary_first_five.json) | [5 pairs](results/wan22_t2v_paired_fidelity_5.json) |
+| HunyuanVideo, image-to-video | 13 | [13 pairs](results/hunyuan_i2v_paired_primary_first13.json) | [13 pairs](results/hunyuan_i2v_paired_fidelity_first13.json) |
+| HunyuanVideo, text-to-video | 8 | [8 pairs](results/hunyuan_t2v_primary8.json) | [8 pairs](results/hunyuan_t2v_fidelity8.json) |
+| Wan-2.2, image-to-video | 8 | [8 pairs](results/wan22_i2v_primary8.json) | [8 pairs](results/wan22_i2v_fidelity8.json) |
+| Wan-2.2, text-to-video | 8 | [8 pairs](results/wan22_t2v_primary8.json) | [8 pairs](results/wan22_t2v_fidelity8.json) |
 
 To compute bit accuracy and the number of fully recovered messages from these records, run the command below for HunyuanVideo image-to-video. For any other row, supply its single bit-count file after `--report`. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
 
 ```bash
-python tools/paired_lfg_table.py --report results/hunyuan_i2v_last_lfg_first_eight_paired.json results/hunyuan_i2v_paired_primary_008_011.json
+python tools/paired_lfg_table.py --report results/hunyuan_i2v_paired_primary_first13.json
 ```
 
 Earlier evidence includes the [four LAST integration checks](results/last_backbone_integrations.json), the [LFG adaptation check](results/lfg_integration.json), and the first formal cases for [LFG Hunyuan I2V](results/lfg_primary_first_case.json), [LAST Hunyuan T2V](results/last_t2v_primary_first_case.json), and [LAST Wan I2V](results/last_wan_i2v_primary_first_case.json).
@@ -179,16 +190,16 @@ available command is not evidence that the full prescribed sample set has run.
 | Experiment or prerequisite | Reader entry point | Current scope |
 | --- | --- | --- |
 | Primary and disjoint development data | [Data preparation](docs/DATA.md) | Frozen manifests; development conditioning generation in progress |
-| Primary LAST/LFG generation and seven attacks | [Campaign](docs/CAMPAIGN.md), `last.smoke`, `last.evaluate` | Formal Hunyuan I2V and first Wan I2V runs in progress; four LAST backbone/mode integrations completed |
+| Primary LAST/LFG generation and seven attacks | [Campaign](docs/CAMPAIGN.md), `last.smoke`, `last.evaluate` | Paired primary prefixes for both modes of both backbones; measured coverage appears above |
 | SIGMark, VideoShield, VideoMark and LFG | [Baselines](docs/BASELINES.md) | Native interfaces and Hunyuan integrations; full baseline matrix pending |
-| Paired PSNR/SSIM and official V-score | [Quality](docs/QUALITY.md), `last.quality`, `last.fidelity_summary`, `last.quality_score`, `last.quality_report` | Basic metrics and complete-coverage aggregation available; official camera and one paired semantic diagnostic completed; full V-score pending |
-| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `last.ablation_summary` | One earlier diagnostic and one frozen 30-subset reader case completed; full reader and writer studies incomplete |
-| Margin sweep and uniform-profile control | [Ablations](docs/ABLATIONS.md), `last.smoke --mu`, `--uniform-profile` | Public controls available; prescribed development/test runs pending |
+| Paired PSNR/SSIM and official V-score | [Quality](docs/QUALITY.md), `last.quality`, `last.quality_report` | Hunyuan I2V LAST/reference have five of 18 dimensions, including both Creativity dimensions; overall V-score pending |
+| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `tools/writer_ablation_table.py` | 12 of 30 paired equal-margin writer cases; [interim reader counts](results/hunyuan_i2v_reader_ablation_interim.json) give coverage per condition |
+| Margin sweep and uniform-profile control | [Figure 4 and Supplement Table 5](docs/ABLATIONS.md#completed-development-margin-sweep), `last.writer_replay --uniform-profile` | Development sweep complete on three videos at five margins; the temporal profile comparison has separate test coverage |
 | Matched-writer LFG-C, native LFG+CCTA and oracle grouping | [Baselines](docs/BASELINES.md), [oracle diagnostic](docs/ABLATIONS.md) | Native LFG+CCTA and oracle single-case diagnostics completed; matched-fidelity calibration pending |
 | Additional temporal stress and repeated attack maps | [Stress protocol](docs/STRESS.md) | Single-case stress integration completed; full sample/map matrix pending |
 | Bit errors, whole-message recovery and uncertainty | [Statistics](docs/STATISTICS.md), `last.message_outcomes`, `last.cluster_intervals` | Implemented; final summaries require complete planned observations |
 | Exclusive-GPU main and repeated timing | [Timing](docs/TIMING.md), `last.reader_timing`, `last.embedding_timing`, `last.timing_summary` | LAST/LFG readout and ELMC kernel entry points available; formal measurements, native-baseline timing and paired generation overhead pending |
-| Fresh environment and independent re-extraction | [Environment reconstruction](environments/README.md), [audit protocol](docs/STATISTICS.md), `last.reextract` | Installation and two-condition clean-environment extraction passed; seven-condition separate re-extraction passed; fresh public-checkout generation underway |
+| Fresh environment and independent re-extraction | [Environment reconstruction](environments/README.md), [audit protocol](docs/STATISTICS.md), `last.reextract` | Separate seven-condition re-extraction checked; the reader's end-to-end clean-checkout verification is scheduled after repository construction |
 
 Diagnostic JSON files under [results](results/) retain their sample scope and
 provenance. They must not be pasted into full-benchmark table cells. The detailed

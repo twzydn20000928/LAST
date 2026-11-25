@@ -1,4 +1,5 @@
-"""Compare the first twenty published Hunyuan T2V cases under each attack."""
+"""Compare matched published Hunyuan T2V cases under each primary attack."""
+import argparse
 import json
 from paired_lfg_table import CONDITIONS, RESULTS, count_bits
 
@@ -21,16 +22,19 @@ def load_counts(filename, field, samples=SAMPLES):
     return counts
 
 
-def main():
-    last = load_counts("hunyuan_t2v_last_first50.json", "audited_observations")
-    videomark = load_counts("hunyuan_t2v_videomark_first20.json", "audited_observations")
+def main(count=20):
+    samples = tuple(f"paper-{i:03d}" for i in range(count))
+    last = load_counts("hunyuan_t2v_last_first50.json", "audited_observations", samples)
+    videomark = load_counts(f"hunyuan_t2v_videomark_first{count}.json", "audited_observations", samples)
     print("| Condition | LAST correct bits | VideoMark correct bits | LAST exact | VideoMark exact |")
     print("|---|---:|---:|---:|---:|")
     for condition in CONDITIONS:
-        a = [last[sample, condition] for sample in SAMPLES]
-        b = [videomark[sample, condition] for sample in SAMPLES]
-        print(f"| {condition} | {sum(a)}/{512 * len(SAMPLES)} | {sum(b)}/{512 * len(SAMPLES)} | {a.count(512)}/{len(SAMPLES)} | {b.count(512)}/{len(SAMPLES)} |")
+        a = [last[sample, condition] for sample in samples]
+        b = [videomark[sample, condition] for sample in samples]
+        print(f"| {condition} | {sum(a)}/{512 * count} | {sum(b)}/{512 * count} | {a.count(512)}/{count} | {b.count(512)}/{count} |")
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--count", type=int, choices=(20, 35), default=20)
+    main(parser.parse_args().count)

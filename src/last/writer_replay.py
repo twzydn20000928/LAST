@@ -32,6 +32,8 @@ def main():
     p.add_argument('--model-dir', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
     p.add_argument('--fixed-target', action='store_true')
+    p.add_argument('--uniform-profile', action='store_true',
+                   help='Use the same margin in all message groups (supplementary Table 16)')
     p.add_argument('--memory-gib', type=float, default=8)
     a = p.parse_args()
     source = validate_source(a.run)
@@ -43,6 +45,7 @@ def main():
     os.umask(0o077)
     a.output.mkdir(parents=True, exist_ok=False)
     r = {k: source[k] for k in ('family', 'mode', 'settings', 'seed', 'case_sha256', 'method', 'mu', 'uniform_profile')}
+    r['uniform_profile'] = a.uniform_profile or source['uniform_profile']
     r.update(status='starting', rows=[], fixed_target=a.fixed_target,
              model_directory=str(a.model_dir), source_sha256=digest(__file__),
              source_artifact_sha256=hashes, scope='Paired endpoint replay; no new diffusion sampling; not generation timing')
@@ -76,7 +79,7 @@ def main():
         vae.enable_tiling()
         with torch.inference_mode():
             marked = embed(z.cuda().float(), codes, signs, mu=source['mu'],
-                           fixed_target=a.fixed_target, uniform=source['uniform_profile'])
+                           fixed_target=a.fixed_target, uniform=r['uniform_profile'])
             if source['family'] == 'hunyuan':
                 latent = marked / vae.config.scaling_factor
             else:

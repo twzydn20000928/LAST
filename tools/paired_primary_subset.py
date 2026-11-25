@@ -17,7 +17,8 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def audit(plan_path, manifest_path, root, family, mode, count, first_index=0, lfg_plan=None):
+def audit(plan_path, manifest_path, root, family, mode, count, first_index=0, lfg_plan=None,
+          additional_last_plans=(), reextraction_index=None):
     paths = {"last": plan_path, "lfg": lfg_plan or plan_path}
     plans = {m: read(p) for m, p in paths.items()}
     manifest = read(manifest_path)
@@ -26,6 +27,13 @@ def audit(plan_path, manifest_path, root, family, mode, count, first_index=0, lf
         raise ValueError("Frozen manifest or requested prefix differs")
     selected = []
     hashes = {m: sha(p) for m, p in paths.items()}
+    approved = {m: {hashes[m]: plans[m]} for m in paths}
+    for path in additional_last_plans:
+        plan = read(path)
+        if plan["manifest_sha256"] != sha(manifest_path):
+            raise ValueError("Additional LAST plan uses another sample manifest")
+        approved["last"][sha(path)] = plan
+    run_plans = {}
     sample_ids = []
     for sample in manifest["samples"][first_index:first_index + count]:
         identity = sample["id"]
@@ -33,11 +41,15 @@ def audit(plan_path, manifest_path, root, family, mode, count, first_index=0, lf
         folders = []
         for method in ("last", "lfg"):
             relative = f"{family}/{mode}/{method}/{identity}"
-            item, = [row for row in plans[method]["runs"] if row["run"] == relative]
             folder = root / relative
             campaign = read(folder / "campaign.json")
-            if campaign["status"] != "completed" or campaign["plan_sha256"] != hashes[method]:
+            plan_hash = campaign["plan_sha256"]
+            if campaign["status"] != "completed" or plan_hash not in approved[method]:
                 raise ValueError(f"Missing completed job under the supplied plan: {relative}")
+            item, = [row for row in approved[method][plan_hash]["runs"] if row["run"] == relative]
+            if campaign["item"] != item:
+                raise ValueError(f"Campaign job differs from the frozen plan: {relative}")
+            run_plans[relative] = plan_hash
             case = read(folder / "case.json")
             generation = read(folder / "receipt.json")
             if (generation["status"] != "completed" or generation["case_sha256"] != sha(folder / "case.json")
@@ -58,11 +70,21 @@ def audit(plan_path, manifest_path, root, family, mode, count, first_index=0, lf
                 or not np.array_equal(np.load(a / "message.npy"), np.load(b / "message.npy"))):
             raise ValueError(f"Unpaired case, key or message for {identity}")
     scope = "Matched primary manifest slice" if first_index else "Matched primary prefix only"
-    result = aggregate(dict(scope=scope, runs=selected), root, verify_artifacts=True)
+    replacements = {}
+    if reextraction_index:
+        indexed = read(reextraction_index)
+        if len({row["run"] for row in indexed}) != len(indexed):
+            raise ValueError("Duplicate run in re-extraction index")
+        replacements = {row["run"]: row for row in indexed if row["run"] in run_plans}
+    result = aggregate(dict(scope=scope, runs=selected), root, verify_artifacts=True, reextractions=replacements)
     if not result["complete"]:
         raise ValueError("Requested prefix contains incomplete attacks")
     result.update(plan_sha256=hashes if lfg_plan else hashes["last"], manifest_sha256=sha(manifest_path), sample_ids=sample_ids,
                   planned_videos_per_method=len(manifest["samples"]))
+    if additional_last_plans:
+        result["plan_sha256_by_run"] = run_plans
+    if reextraction_index:
+        result["reextraction_index_sha256"] = sha(reextraction_index)
     return result
 
 
@@ -75,6 +97,9 @@ if __name__ == "__main__":
     parser.add_argument("--count", type=int, required=True)
     parser.add_argument("--first-index", type=int, default=0)
     parser.add_argument("--lfg-plan", type=Path, help="Separate frozen plan used by the LFG jobs")
+    parser.add_argument("--additional-last-plan", type=Path, action="append", default=[])
+    parser.add_argument("--reextraction-index", type=Path)
     args = parser.parse_args()
-    print(json.dumps(audit(args.plan, args.manifest, args.root, args.family, args.mode, args.count, args.first_index, args.lfg_plan),
+    print(json.dumps(audit(args.plan, args.manifest, args.root, args.family, args.mode, args.count, args.first_index, args.lfg_plan,
+                           args.additional_last_plan, args.reextraction_index),
                      indent=2, allow_nan=False))
