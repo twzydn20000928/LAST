@@ -1,0 +1,33 @@
+{
+  "video_id": "paper-000",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "sigmark",
+  "integration_generation_sha256": "2cd50dfe803fa0172ea7faf890d6d180ca245ffe873d1282c710c74c7b1fd6a0",
+  "last_case_sha256": "42e53248c96444b31efb6851de2c5fd91bb07abe01fef360fd959c6a453487ab",
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "settings": {
+    "frames": 65,
+    "size": [
+      512,
+      512
+    ],
+    "steps": 50,
+    "cfg": 6,
+    "shift": 7,
+    "fps": 8,
+    "crf": 18,
+    "vae": "float32",
+    "generator": "bfloat16"
+  },
+  "checks": {
+    "case_receipt": true,
+    "prompt": true,
+    "generation_seed": true,
+    "conditioning_image": true,
+    "key_slot_in_case": true,
+    "payload_length": true,
+    "message_bits": true,
+    "edit_maps": true
+  }
+}

@@ -574,6 +574,16 @@ All seven rows refer to the same 65-frame Hunyuan image-to-video integration cas
 
 The [temporal recount](../results/sigmark_temporal_verified.json) checks the original edit maps, native temporal extraction receipts, received videos and current prediction bytes. The archived receipts have no prediction-file digest. This case is reported separately from the 400-video primary acquisition.
 
+The [input pairing audit](../results/sigmark_integration_pairing.json) identifies this case as paper-000. The generation receipt matches the exact LAST case file. The prompt, generation seed, conditioning image, 512 message bits and all seven edit maps match. Both methods used their own generated video. On this one matched case the temporal bit counts were:
+
+| Condition | LAST correct bits | SIGMark correct bits |
+|---|---:|---:|
+| drop | 371/512 | 295/512 |
+| insert | 424/512 | 289/512 |
+| clip | 502/512 | 398/512 |
+
+LAST counts come from paper-000 in the [Hunyuan I2V sample records](../results/hunyuan_i2v_last_first100_robustness.json). The integration run predates the frozen native acquisition worker and has no corresponding completed worker receipt. Its results are kept as a matched historical comparison.
+
 ### Wan 2.2 VideoMark clean extraction
 
 On one 65-frame I2V video, the native reader used a registry of 400 messages and
