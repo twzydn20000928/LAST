@@ -605,7 +605,21 @@ inspection rather than silently reused. This per-case wrapper does not generate
 the matched LFG-C videos, certify their fidelity match, schedule all400 cases,
 or supply the native LFG-N+CCTA rows. Those remain separate unfinished tasks.
 Command-contract tests cover map/secret separation, common extraction dispatch
-and missing-calibration rejection; a full real-video wrapper run is pending.
+and missing-calibration rejection. A real Hunyuan I2V LAST case completed the
+three-reader path using the original attacked MP4s. Each cell below counts
+correct information bits out of 512 after the shared fusion and BCH decoder.
+
+| Input for `paper-005` | Received order (blind) | CCTA (blind) | True edit map (assisted) |
+|---|---:|---:|---:|
+| Clean | 512 | 512 | 512 |
+| Delete 30 frames | 268 | 420 | 512 |
+| Compression | 501 | 502 | 501 |
+
+On this deletion, CCTA recovered 152 additional bits over received order.
+The assisted reader used true group identities and filled missing within-group
+frames before fusion. All nine predictions were recounted against the same
+message and matched to the received MP4s. The calibrated-energy reader
+awaits the full development fit. [Per-case measurements](../results/hunyuan_i2v_last_controlled_paper005.json)
 
 The controlled comparison can acquire true-map-assisted features separately
 and pass them through the **same** `controlled_fusion.readout` used by the other
