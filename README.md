@@ -59,7 +59,7 @@ The manuscript reports 96.0% bit accuracy and 368/400 exact messages for Hunyuan
 python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json
 ```
 
-For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On a separate 13-video diagnostic subset, supplying the original frame positions raised exact recovery from 0/13 to 12/13. The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
+For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On the first 35 videos of the same primary cohort, blind reading recovered 1/35 complete messages after random deletion. The diagnostic reader supplied with the true edit map recovered 34/35 on the identical attacked MP4s. This subset covers nine prompts (20 Camera Motion videos and 15 Complex Landscape videos). The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
 
 ```bash
 python tools/primary_deletion_errors.py --report results/hunyuan_i2v_primary_deletion_errors.json
@@ -212,7 +212,7 @@ available command is not evidence that the full prescribed sample set has run.
 | Primary LAST/LFG generation and seven attacks | [Campaign](docs/CAMPAIGN.md), `last.smoke`, `last.evaluate` | Paired primary prefixes for both modes of both backbones; measured coverage appears above |
 | SIGMark, VideoShield, VideoMark and LFG | [Baselines](docs/BASELINES.md) | Native interfaces and Hunyuan integrations; full baseline matrix pending |
 | Paired PSNR/SSIM and official V-score | [Quality](docs/QUALITY.md), `last.quality`, `last.quality_report` | Hunyuan I2V LAST/reference have five of 18 dimensions, including both Creativity dimensions; overall V-score pending |
-| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `tools/writer_ablation_table.py` | 12 of 30 paired equal-margin writer cases; [interim reader counts](results/hunyuan_i2v_reader_ablation_interim.json) give coverage per condition |
+| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `tools/writer_ablation_table.py` | 12 of 30 paired equal-margin writer cases; [12 paired reader cases](results/hunyuan_i2v_reader_ablation_first12.json) cover all seven conditions |
 | Margin sweep and uniform-profile control | [Figure 4 and Supplement Table 5](docs/ABLATIONS.md#completed-development-margin-sweep), `last.writer_replay --uniform-profile` | Development sweep complete on three videos at five margins; the temporal profile comparison has separate test coverage |
 | Matched-writer LFG-C, native LFG+CCTA and oracle grouping | [Paired reader command](docs/BASELINES.md#replay-the-seven-condition-reader-comparison), [oracle diagnostic](docs/ABLATIONS.md) | [17 Hunyuan I2V videos](results/hunyuan_i2v_lfg_ccta_first17.json) with seven paired reader comparisons each. Matched-fidelity calibration pending. |
 | Additional temporal stress and repeated attack maps | [Table 15 counts and alignment](docs/STRESS.md#recount-the-eight-edits-on-primary-videos) | Eight Hunyuan I2V videos with eight edits and five map seeds each. Every edit covers 40 of 2,000 planned trials. |
