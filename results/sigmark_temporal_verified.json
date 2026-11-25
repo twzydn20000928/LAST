@@ -1,0 +1,45 @@
+{
+  "scope": "Single Hunyuan I2V SIGMark integration, temporal attacks, recounted from retained predictions",
+  "source_sha256": "571d0b86a706fabdea30ed0e07fb287c8cefbf23bba3bd9798f2cc743465d306",
+  "observations": [
+    {
+      "condition": "drop",
+      "correct_bits": 295,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "510865b3a978fb6fa1602bf4e003a44492478ed20fcc67e44374d3dd01503cee",
+      "extraction_receipt_verified": true,
+      "prediction_digest_present": false,
+      "frames": 35,
+      "video_id": "paper-000",
+      "attack_receipt_sha256": "c0a2fa8de786159cb3452a6f7652da27c854b69dbb94ab00d20bda4cb4a31587",
+      "extraction_receipt_sha256": "d6ec76159705cfc119cca90bbdcef51dd0bfa5a3b21ef70422ba22e31b23d73c"
+    },
+    {
+      "condition": "insert",
+      "correct_bits": 289,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "3d6b1e1d583852b4acb6c26a202ea329b569a013872b3263862cb2794d849878",
+      "extraction_receipt_verified": true,
+      "prediction_digest_present": false,
+      "frames": 95,
+      "video_id": "paper-000",
+      "attack_receipt_sha256": "5a5fc51222d1a9284bb81c73b0cd189c9007c0b754ed7412fc72719476c47264",
+      "extraction_receipt_sha256": "db16b07776141a486fd389239b47ebc2a1c3ee7b9894094d6dd2184fe29e3223"
+    },
+    {
+      "condition": "clip",
+      "correct_bits": 398,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "5eed199ae2cc6ccd3d51c456d91b2dbf407a1f3700b39a1c1cdb3a13b63ddc82",
+      "extraction_receipt_verified": true,
+      "prediction_digest_present": false,
+      "frames": 35,
+      "video_id": "paper-000",
+      "attack_receipt_sha256": "62135e5ccf1642481dfbbd043aee5716dfa591f30a4bc1ba9d2c573d7af84acf",
+      "extraction_receipt_sha256": "447faadd0063a5d6d0f4c2811098209b340368582db126526cc99916423ee169"
+    }
+  ]
+}

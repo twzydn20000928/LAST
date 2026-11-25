@@ -560,13 +560,19 @@ efficiency measurement; private messages and native state are not published.
 
 ### SIGMark single-video attack results
 
-All three rows refer to the same 65-frame Hunyuan image-to-video case. The JSON records in `results/` include the bit counts and provenance for each extraction.
+All seven rows refer to the same 65-frame Hunyuan image-to-video integration case. The JSON records in `results/` include the bit counts and provenance for each extraction.
 
 | Attack | Correct information bits | Bit accuracy | Exact message |
 |---|---:|---:|---|
+| Clean | 512/512 | 100.00% | Yes |
 | Noise | 398/512 | 77.73% | No |
 | Compression (CRF28) | 483/512 | 94.34% | No |
 | Blur | 512/512 | 100.00% | Yes |
+| Deletion (35 received frames) | 295/512 | 57.62% | No |
+| Insertion (95 received frames) | 289/512 | 56.45% | No |
+| Clipping (35 received frames) | 398/512 | 77.73% | No |
+
+The [temporal recount](../results/sigmark_temporal_verified.json) checks the original edit maps, native temporal extraction receipts, received videos and current prediction bytes. The archived receipts have no prediction-file digest. This case is reported separately from the 400-video primary acquisition.
 
 ### Wan 2.2 VideoMark clean extraction
 
