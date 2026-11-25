@@ -5,10 +5,10 @@ import json
 from pathlib import Path
 
 from last.temporal import attack_map, segments, windows
-from last.video import load_mp4
 
 
 def audit(root, report_bytes):
+    from last.video import load_mp4
     report = json.loads(report_bytes)
     rows = report["observations"]["drop"]
     ids = [r["video_id"] for r in rows]
@@ -46,9 +46,54 @@ def audit(root, report_bytes):
     return dict(report_sha256=hashlib.sha256(report_bytes).hexdigest(), observations=observations)
 
 
+def recovery_by_stage(candidates, report_bytes):
+    """Join archived candidate counts to post-decoding outcomes for the same videos."""
+    # Git's Windows archive and the published blob can differ only in line endings.
+    lf = report_bytes.replace(b"\r\n", b"\n")
+    digests = {hashlib.sha256(data).hexdigest() for data in (lf, lf.replace(b"\n", b"\r\n"), report_bytes)}
+    if candidates["report_sha256"] not in digests:
+        raise ValueError("Candidate replay used a different message report")
+    report = json.loads(report_bytes)
+    messages = {row["video_id"]: row for row in report["observations"]["drop"]}
+    ids = report["sample_ids"]
+    if len(messages) != len(report["observations"]["drop"]) or set(messages) != set(ids) or len(ids) != len(messages):
+        raise ValueError("Incomplete or duplicated deletion outcomes")
+    cells = {}
+    for row in candidates["observations"]:
+        vid = row["video_id"]
+        if vid not in messages:
+            raise ValueError(f"Unexpected or duplicated candidate replay: {vid}")
+        message = messages.pop(vid)
+        hits, proposed, survived = (row[k] for k in ("selected_correct", "proposed", "surviving"))
+        bits = message["correct_bits"]
+        if (not 0 <= hits <= proposed <= survived <= 16 or type(bits) is not int or not 0 <= bits <= 512):
+            raise ValueError(f"Inconsistent candidate or recovery counts: {vid}")
+        if hits:
+            stage = "selected_correct_intact"
+        elif proposed:
+            stage = "intact_candidate_missed"
+        elif survived:
+            stage = "intact_group_never_proposed"
+        else:
+            stage = "no_intact_group_survived"
+        cell = cells.setdefault(stage, dict(videos=0, correct_bits=0, total_bits=0, exact_messages=0))
+        cell["videos"] += 1
+        cell["correct_bits"] += bits
+        cell["total_bits"] += 512
+        cell["exact_messages"] += int(bits == 512)
+    if messages:
+        raise ValueError("Missing candidate replays")
+    return cells
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", type=Path, required=True)
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--root", type=Path)
+    mode.add_argument("--saved-candidates", type=Path, help="Join the public candidate replay to decoded outcomes on CPU")
     parser.add_argument("--report", type=Path, required=True)
     args = parser.parse_args()
-    print(json.dumps(audit(args.root, args.report.read_bytes()), indent=2))
+    report_bytes = args.report.read_bytes()
+    result = (recovery_by_stage(json.loads(args.saved_candidates.read_bytes()), report_bytes)
+              if args.saved_candidates else audit(args.root, report_bytes))
+    print(json.dumps(result, indent=2))

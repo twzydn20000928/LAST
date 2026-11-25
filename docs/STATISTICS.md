@@ -294,3 +294,19 @@ window, two lost every intact candidate at segmentation. The other 81 still
 had an intact candidate entering the reader. The [per-video counts](../results/primary170_drop_candidates.json)
 locate that loss after window generation; they do not distinguish identity
 scoring from subsequent chain selection.
+
+To join these stages to the measured decoded messages using only public files:
+
+```bash
+python tools/deletion_candidate_audit.py --saved-candidates results/primary170_drop_candidates.json \
+  --report results/hunyuan_i2v_primary_message_170.json
+```
+
+| Outcome on each 35-frame received clip | Videos | Correct information bits | Exact messages |
+|---|---:|---:|---:|
+| No intact original group survived | 33 | 11,828/16,896 | 0/33 |
+| An intact group survived, but none entered the candidate set | 2 | 885/1,024 | 0/2 |
+| An intact candidate existed, but none was selected with its correct group ID | 81 | 28,680/41,472 | 1/81 |
+| At least one intact candidate was selected with its correct group ID | 54 | 21,785/27,648 | 0/54 |
+
+These are disjoint outcomes of the same reader on different clips. The single exact recovery occurred without a correctly identified intact window. Selecting one such window was insufficient for whole-message recovery in all 54 observed cases. The comparison binds the candidate replay to its source report digest, accepting the LF or CRLF serialization produced by Git on different platforms.
