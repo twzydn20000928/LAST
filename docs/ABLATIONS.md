@@ -157,8 +157,21 @@ the disclosed reconstruction with a private JSON index. Each entry contains
 and `responses` (null acquisition directory). Include each `dev-000` through
 `dev-079` exactly once. A single LFG-C integration input is not accepted here.
 
+On Linux, use this command to collect the responses and create the index.
+The runs directory contains the 80 generated LAST development directories.
+Use the same private key files on each invocation. A rerun verifies completed
+artifacts and resumes at the next missing stage. If a stage failed, preserve
+its output by moving that stage directory aside before retrying. The index
+is written after all 80 entries pass the collection checks.
+
 ```bash
-python -m last.null_fit --index /private/development-response-index.json \
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 python tools/collect_development_calibration.py \
+  --development configs/development_manifest.json --primary configs/primary_manifest.json \
+  --runs /private/last-development/hunyuan/i2v --model-dir /models/hunyuan \
+  --wrong-keys /private/wrong64.json --real-keys /private/all-real-keys.json \
+  --output /private/development-calibration
+
+python -m last.null_fit --index /private/development-calibration/index.json \
   --development configs/development_manifest.json --primary configs/primary_manifest.json \
   --development-state /private/development-state --primary-state /private/primary-state \
   --output /private/frozen-energy-calibration.json
