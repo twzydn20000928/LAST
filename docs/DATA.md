@@ -10,6 +10,23 @@ There are88dimension/prompt slots but84distinct prompt texts: some texts recur
 across dimensions. Keep those slots for the official allocation and use text
 deduplication when checking development/test separation.
 
+To trace each primary sample to its upstream prompt text, fetch the pinned
+metadata and replay the selection from the repository root:
+
+```bash
+python -m last.upstream --manifest configs/quality_metadata_manifest.json \
+  --directory /path/to/sigmark-metadata --download
+python tools/check_primary_prompts.py \
+  --prompt-dir /path/to/sigmark-metadata/prompt_set/VBench2_aug_prompt
+```
+
+The checker verifies the Git blob ID of each of the 18 upstream prompt files.
+Within each file the stride is the line count divided by the required prompt
+count, rounded down. Selection starts at line zero. For example,
+`Camera_Motion` uses lines 0, 21, 42, 63 and 84, with four seeds per prompt.
+The output lists the source line and first sample index for every prompt slot,
+after checking the text, dimension and repetition against all 400 manifest rows.
+
 Download the image archive from its `source.image_archive_url` and extract it
 into a reader-selected directory containing `VBench2_aug_img_prompt/`. The URL
 is an upstream mutable location, so the per-image SHA256 checks are mandatory.
