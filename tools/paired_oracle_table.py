@@ -17,14 +17,16 @@ FROZEN_ORACLE_HASHES = {
 def load_blind_report(path, manifest_path=None):
     report = json.loads(path.read_bytes())
     if "audited_observations" in report:
-        if "sample_ids" not in report:
-            if manifest_path is None:
-                raise ValueError("Supply --manifest for a full primary pipeline report")
+        if report.get("artifact_verification") is not True:
+            raise ValueError("Primary report requires verified artifacts")
+        if manifest_path is not None:
             manifest = manifest_path.read_bytes()
-            if (report.get("artifact_verification") is not True or
-                    hashlib.sha256(manifest).hexdigest() != report.get("manifest_sha256")):
+            if hashlib.sha256(manifest).hexdigest() != report.get("manifest_sha256"):
                 raise ValueError("Primary report and supplied manifest differ")
-            report["sample_ids"] = [sample["id"] for sample in json.loads(manifest)["samples"]]
+            if "sample_ids" not in report:
+                report["sample_ids"] = [sample["id"] for sample in json.loads(manifest)["samples"]]
+        elif "sample_ids" not in report:
+            raise ValueError("Supply --manifest for a full primary pipeline report")
         return report
     if (report.get("scope") != "First 100 frozen Hunyuan I2V LAST samples"
             or report.get("plan_sha256") != "510122dc3c5f460f99a71bc4a823dea950e550dbc57b5bd636bc8394d9dcd8fb"
