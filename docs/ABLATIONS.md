@@ -717,6 +717,24 @@ python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_r
   --oracle-dir results --count "${#receipts[@]}"
 ```
 
+Among the first 80 videos, the map-assisted reader recovered 40,943 of
+40,960 information bits after insertion. The 17 bit errors occurred in two
+videos. For `paper-076`, blind extraction recovered 474/512 bits and the
+assisted reader recovered 504/512. For `paper-078`, the counts were 369/512
+and 503/512. In both assisted reads, all 16 four-frame groups were complete,
+zero slots required filling, and BCH decoding reported failure. The recovered
+information-bit counts equaled the corresponding pre-correction counts.
+These records establish that correct frame grouping alone was insufficient
+on these two videos. They do not isolate the source of the remaining bit errors.
+To reproduce the per-video comparisons, run:
+
+```bash
+for id in 076 078; do
+  python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
+    --oracle "results/hunyuan_i2v_oracle_paper${id}.json" --video-id "paper-${id}"
+done
+```
+
 For a new Hunyuan I2V LAST reproduction, set `PLAN` to the plan used to
 generate the videos, `RUNS` to its primary output root, `MODEL` to the
 Hunyuan I2V model directory and `OUT` to a new results directory. The
