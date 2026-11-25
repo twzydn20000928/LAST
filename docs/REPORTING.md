@@ -1,13 +1,32 @@
 # Rebuild measured robustness tables
 
-For main Table 1, run `python -m last.clean_table --family hunyuan --reports
-results/last_hunyuan_t2v_audited_partial.json results/last_hunyuan_i2v_audited_partial.json
---output table1.md` as a single command. Add `--quality` followed by the
-corresponding `last.quality_report` JSON paths as scores become available.
-The command displays both generation modes and coverage for clean recovery.
-Use `--family wan22` with Wan reports for the separate backbone comparison.
-Only official quality reports containing all applicable dimension means produce
-a numeric V-score.
+For main Table 1, both commands below use the same paired extraction records
+as the Table 2 example. Each includes the available official quality reports
+for LAST and its unmarked reference. Run from the repository root.
+
+```bash
+python -m last.clean_table --family hunyuan \
+  --reports results/hunyuan_i2v_paired_primary_first16.json results/hunyuan_t2v_primary9.json \
+  --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
+    results/hunyuan_i2v_quality_five_dimensions_reference.json \
+    results/camera_motion/hunyuan_t2v_last_camera_quality.json \
+    results/camera_motion/hunyuan_t2v_reference_camera_quality.json \
+  --output paired-table1/hunyuan.md
+
+python -m last.clean_table --family wan22 \
+  --reports results/wan22_i2v_primary9.json results/wan22_t2v_primary8.json \
+  --quality results/camera_motion/wan22_i2v_last_camera_quality.json \
+    results/camera_motion/wan22_i2v_reference_camera_quality.json \
+    results/camera_motion/wan22_t2v_last_camera_quality.json \
+    results/camera_motion/wan22_t2v_reference_camera_quality.json \
+  --output paired-table1/wan22.md
+```
+
+The clean accuracy column pools 512 information bits per completed video;
+the parenthesis gives completed videos out of 400. For the number of entirely
+correct messages, read the `exact_messages` column of Table 2's `counts.csv`
+for condition `clean`. Quality coverage uses a separate denominator of 18
+dimensions. The formatter prints the number evaluated while the V-score is pending.
 
 For the qualitative comparison, run `python -m last.qualitative_figure --index
 /private/figure3-cases.json --output figure3` as a single command. The index is
