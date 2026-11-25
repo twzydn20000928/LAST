@@ -14,9 +14,12 @@ jobs:
       - name: Rebuild audited partial robustness tables
         run: |
           python -m last.robustness_table --reports \
-            results/last_hunyuan_i2v_audited_partial.json \
-            results/last_hunyuan_t2v_audited_partial.json \
-            results/last_wan_i2v_audited_partial.json \
+            results/hunyuan_i2v_primary17.json \
+            results/hunyuan_t2v_primary10.json \
+            results/wan22_i2v_primary9.json \
+            results/wan22_t2v_primary9.json \
+            results/hunyuan_i2v_videoshield_first1.json \
+            results/hunyuan_t2v_videomark_first37.json \
             --output .ci-tables/robustness
       - uses: actions/upload-artifact@v4
         with:

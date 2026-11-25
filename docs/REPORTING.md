@@ -59,7 +59,7 @@ python -c "from last.temporal import attack_map; print(attack_map('paper-000', '
 
 The function returns zero-based source indices. In an insertion map, `-1` marks a generated noise frame. These maps are available to the evaluator for scoring and auditing. The blind reader receives the edited video.
 
-To rebuild the measured LAST and LFG rows of Table 2 with attacks as columns, run:
+To rebuild the measured LAST, LFG and native baseline rows of Table 2 with attacks as columns, run:
 
 ```bash
 python -m last.robustness_table --reports \
@@ -67,13 +67,12 @@ python -m last.robustness_table --reports \
   results/hunyuan_t2v_primary10.json \
   results/wan22_i2v_primary9.json \
   results/wan22_t2v_primary9.json \
+  results/hunyuan_i2v_videoshield_first1.json \
+  results/hunyuan_t2v_videomark_first37.json \
   --output paired-table2
 ```
 
-Each method uses the same sample IDs as its counterpart within each pipeline.
-The four reports cover 17 Hunyuan I2V, 9 Hunyuan T2V, 9 Wan I2V and 9 Wan T2V
-sample pairs. The command produces eight rows and 56 condition counts. Each row
-shows its own coverage out of 400. For example, random deletion on the nine Wan
+LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 10 Hunyuan T2V, 9 Wan I2V and 9 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 37 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the nine Wan
 I2V pairs gives 66.30% for LAST and 68.06% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
