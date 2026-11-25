@@ -57,7 +57,11 @@ python -m last.data --manifest configs/primary_manifest.json --image-root "$asse
 
 On the archived inputs the last command reports 400 samples, 18 dimensions,
 88 prompt slots, 84 distinct prompt texts and 88 verified images. Each I2V
-replicate uses the image that its row names. To export a local generation case:
+replicate uses the image that its row names. Use a Linux filesystem for the
+extraction commands. In a Windows temporary directory the ZIP digest matched
+the archive on the experiment server, but extraction failed on a prompt-based
+filename. The original filenames are part of the manifest paths. To export a
+local generation case:
 
 ```bash
 python -m last.data --manifest configs/primary_manifest.json --image-root /path/to/images \
