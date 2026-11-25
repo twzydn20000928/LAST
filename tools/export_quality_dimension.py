@@ -78,8 +78,24 @@ if __name__ == "__main__":
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--scores", type=Path)
     mode.add_argument("--check-inputs", metavar="DIMENSION")
+    mode.add_argument("--match-units", type=Path, help="Match prepared videos to an existing public scoring-unit report")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+    if args.match_units:
+        if args.output:
+            parser.error("--output is only used when exporting completed scores")
+        from quality_units_table import recount
+        units = read(args.match_units)
+        summary = recount(args.manifest, [args.match_units])
+        dimension = units["dimension"]
+        coverage, _, videos, hashes = verify_dimension(args.manifest, args.inputs, dimension)
+        current = {videos[path]: sha for path, sha in hashes.items()}
+        scored = {v["video_id"]: v["mp4_sha256"] for unit in units["units"] for v in unit["videos"]}
+        if current != scored or any(summary[k] != coverage[k] for k in ("family", "mode", "method")):
+            raise ValueError("Prepared videos or pipeline differ from the published scoring units")
+        print(json.dumps(dict(dimension=dimension, method=coverage["method"], matched_videos=len(current),
+                              valid_units=units["valid_units"], mean=units["mean"])))
+        raise SystemExit(0)
     if args.check_inputs:
         if args.output:
             parser.error("--output is only used when exporting completed scores")

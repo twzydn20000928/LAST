@@ -534,3 +534,12 @@ python tools/quality_input_inventory.py --metadata-root "$QUALITY_METADATA" --ru
 ```
 
 Omit `--methods` to include LAST, its unmarked reference and LFG in the same inventory. Counts describe inputs at the time of the scan.
+
+For a dimension with a published unit report, check the current prepared MP4s before scheduling inference:
+
+```bash
+python tools/export_quality_dimension.py --manifest configs/primary_manifest.json \
+  --inputs "$VIDEOMARK_T2V_INPUTS" --match-units results/hunyuan_t2v_videomark_camera_units.json
+```
+
+This command verifies the pipeline, manifest, sample IDs, seed grouping and video bytes, then recounts applicability and the mean from the existing scores. For the published VideoMark camera run it returns 20 matched videos, 20 valid units and a mean of 0.20. Scorer and question provenance remain attached to the original scoring receipt.
