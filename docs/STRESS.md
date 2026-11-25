@@ -356,3 +356,13 @@ The median counts selected candidate groups per trial, summed across segments, s
 
 To distinguish missing frames from missed groups, run `python tools/stress_deletion_alignment.py --reports results/stress_paper00[0-8]_forty_maps.json` for this nine-video snapshot. The diagnostic reconstructs each deletion map after extraction and counts how many original four-frame groups survived. It compares this count with the windows in the saved CCTA chains. Across 45 drop30 trials on nine videos, 53 of 720 original four-frame groups survived intact. Nine trials had no intact group and two retained an adjacent pair. Of 156 selected windows, 15 were intact and 14 had the correct group ID. The same deletion maps followed by CRF28 compression left the same 53 intact groups; 11 of 169 selected windows were intact and nine had the correct ID. With 45 frames deleted, 40 of 45 trials retained no intact group. Survival totals include every trial; selection counts describe only the CCTA route. Feature selection and message decoding can also be affected by partial groups.
 When primary generation is still in progress, add `--ready-only` to the stress campaign command. It handles cases whose primary target and assigned unmarked donor both have completed campaign receipts. Missing or running dependencies are listed by sample ID; failed primary jobs raise an error. Rerun the same command as more inputs arrive. This option requires primary campaign receipts and retains the 400-video denominator. The default invocation expects finished inputs.
+
+### Effect of compression after deletion on the first ten videos
+
+Each of the ten videos (IDs 000–009) uses the same five deletion maps for both comparisons. Across the 50 trials, 62 of 800 original four-frame groups survived deletion intact. With deletion alone, 18 of the 180 windows selected by CCTA were intact and 17 of these had the correct group ID. After CRF28 compression of the same edits, 13 of 191 selected windows were intact and 11 had the correct ID. The number of correct information bits fell from 19,326 to 16,424 out of 25,600. Both conditions recovered zero complete messages. Compression changes the reader's evidence even when exactly the same original frames survive. These totals do not isolate its effects on window selection and bit decoding.
+
+```bash
+files=(results/stress_paper00[0-9]_forty_maps.json)
+python tools/stress_recovery_table.py --reports "${files[@]}" --alignment
+python tools/stress_deletion_alignment.py --reports "${files[@]}"
+```
