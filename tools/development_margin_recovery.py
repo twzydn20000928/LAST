@@ -23,16 +23,41 @@ def summarize_exact(cells, ids, strengths, attacks):
                 complete=set(observed) == set(ids), rows=rows)
 
 
+def completed_entries(root, configs):
+    """Select only fully paired cases; audit_cells verifies all selected files."""
+    samples = read(configs / "development_manifest.json")["samples"]
+    strengths = read(configs / "paper_v1.json")["margin_sweep"]["mu"]
+    entries = []
+    for sample in samples:
+        name = sample["id"]
+        folders = [Path(name) / f"mu-{mu:g}" for mu in strengths]
+        # Imported default-strength cases may have quality before their attacks.
+        def finished(folder):
+            quality = root / folder / "quality.json"
+            last_attack = root / folder / "attacks" / "clip.json"
+            if not quality.is_file() or not last_attack.is_file():
+                return False
+            return read(last_attack)["status"] != "running"
+
+        if all(finished(folder) for folder in folders):
+            entries.extend(dict(video_id=name, run=folder.as_posix()) for folder in folders)
+    return entries
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--index", type=Path)
     source.add_argument("--cells", type=Path)
+    source.add_argument("--completed-root", type=Path, help="Audit fully paired cases from an ongoing sweep")
     parser.add_argument("--configs", type=Path, default=Path("configs"))
     parser.add_argument("--export-cells", type=Path, help="Write release-ready per-video counts and quality measurements to a new JSON file")
     args = parser.parse_args()
     validate_development(read(args.configs/"development_manifest.json"), read(args.configs/"primary_manifest.json"))
-    if args.index:
+    if args.completed_root:
+        entries = completed_entries(args.completed_root, args.configs)
+        data = audit_cells(entries, args.completed_root, args.configs, all_development=True)
+    elif args.index:
         data = audit_cells(read(args.index), args.index.parent, args.configs, all_development=True)
     else:
         data = load_public_cells(args.cells, args.configs, all_development=True)

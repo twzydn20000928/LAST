@@ -810,6 +810,8 @@ the full-test paired interval pending.
 
 The extended sweep uses all 80 manifest entries and their eight key slots. Run the same generation command as Figure 4 with the additional flag `--all-development`. Reuse the same private state, conditioning directory and output root. The driver validates the earlier 15 cells before reuse and writes a separate `development80-index.json` after validating all 400 video/margin pairs.
 
+During acquisition, run `python tools/development_margin_recovery.py --completed-root "$SWEEP" --export-cells partial-cells.json` to recount all videos whose five margins have finished. This reads the existing videos and receipts without changing the acquisition directory. Use the same frozen configuration directory as the acquisition via `--configs`. The result reports both observed and planned video counts. An invalid receipt in a selected case fails the audit.
+
 An [interim export](../results/development_margin_four_videos.json) includes
 the first four videos with all five margins available: dev-000, dev-001,
 dev-004 and dev-008. Run
