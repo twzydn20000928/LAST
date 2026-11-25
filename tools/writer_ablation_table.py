@@ -11,6 +11,15 @@ VARIANTS = ("minimum-margin", "fixed-target")
 CONDITIONS = ("clean", "noise", "compression", "blur", "drop", "insert", "clip")
 
 
+def validated_bits(row):
+    correct = row["correct_bits"]
+    if type(correct) is not int or not 0 <= correct <= 512 or row["total_bits"] != 512:
+        raise ValueError("Expected a completed 512-information-bit writer observation")
+    if row["exact_message"] is not (correct == 512):
+        raise ValueError("Whole-message flag disagrees with writer bit count")
+    return correct
+
+
 def render(paths):
     plan = json.loads((ROOT / "configs/paper_subsets.json").read_bytes())["ablation_i2v_30"]
     seen = set()
@@ -36,12 +45,8 @@ def render(paths):
             if sorted(r["condition"] for r in rows) != sorted(CONDITIONS):
                 raise ValueError(f"Incomplete or duplicated conditions in {path}")
             for row in rows:
-                k = row["correct_bits"]
-                if type(k) is not int or not 0 <= k <= 512 or row["total_bits"] != 512:
-                    raise ValueError(f"Invalid information-bit counts in {path}")
+                k = validated_bits(row)
                 totals[variant, row["condition"]] += k
-                if row["exact_message"] is not (k == 512):
-                    raise ValueError(f"Exact-message count disagrees with bit count in {path}")
                 exact[variant, row["condition"]] += k == 512
             psnr, ssim = result["psnr_db"], result["ssim"]
             if psnr is None or not math.isfinite(psnr) or not -1 <= ssim <= 1:

@@ -5,6 +5,7 @@ from pathlib import Path
 from statistics import mean
 
 from reader_ablation_table import CONDITIONS, VARIANTS
+from writer_ablation_table import validated_bits
 
 
 def compare(reader, writers, plan):
@@ -19,10 +20,15 @@ def compare(reader, writers, plan):
     accepted, excluded = [], {}
     totals = {v: dict.fromkeys(CONDITIONS, 0) for v in (*VARIANTS, "fixed-target")}
     seen = set()
+    protocol = None
     for writer in writers:
         video = writer["video_id"]
         if video not in plan or video in seen or (writer["family"], writer["mode"], writer["margin"]) != ("hunyuan", "i2v", 0.5):
             raise ValueError("Unexpected writer pair")
+        signature = writer["settings"], writer["quality_definition"]
+        if protocol is not None and signature != protocol:
+            raise ValueError("Generation settings or quality definitions differ across writer pairs")
+        protocol = signature
         seen.add(video)
         conditions = {}
         for variant in ("minimum-margin", "fixed-target"):
@@ -30,6 +36,9 @@ def compare(reader, writers, plan):
             if sorted(r["condition"] for r in rows) != sorted(CONDITIONS):
                 raise ValueError("Missing or repeated writer observation")
             for r in rows:
+                validated_bits(r)
+                if r["condition"] == "clean" and r["received_sha256"] != writer["variants"][variant]["marked_sha256"]:
+                    raise ValueError(f"Clean writer observation differs from marked MP4: {video}/{variant}")
                 conditions[variant, r["condition"]] = r
         mismatch = []
         for c in CONDITIONS:
