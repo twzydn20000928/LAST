@@ -44,7 +44,7 @@ def reader_identity(repo):
     return commit, checksum.hexdigest()
 
 
-def export(run, attacks, evaluation, repo):
+def export(run, attacks, evaluation, repo, *, alignment=False):
     commit, reader_sha = reader_identity(repo)
     generation = json.loads((run / "receipt.json").read_bytes())
     source_sha = digest(run / "marked.mp4")
@@ -78,6 +78,17 @@ def export(run, attacks, evaluation, repo):
         row = {key: attack[key] for key in ("attack", "seed", "received_sha256")}
         row.update(recount(prediction, truth, attack["received_sha256"], family),
                    received_frames=attack["frames"])
+        if alignment:
+            from stress_chain_table import score
+
+            route = prediction["route"]
+            groups = prediction["groups"]
+            if (route, groups) != (record["route"], record["groups"]):
+                raise ValueError("Saved alignment differs from evaluation receipt")
+            row.update(route=route, groups=groups, chain_lengths=None, alignment=None)
+            if route == "ccta":
+                row["alignment"] = score(prediction, attack)
+                row["chain_lengths"] = [chain["length"] for chain in prediction["chains"]]
         for key in ("donor_sha256", "donor_video_id", "donor_plan_sha256"):
             if key in attack:
                 row[key] = attack[key]
@@ -92,7 +103,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for option in ("run", "attacks", "evaluation", "reader-repo", "output"):
         parser.add_argument("--" + option, type=Path, required=True)
+    parser.add_argument("--alignment", action="store_true", help="Score saved CCTA chains after extraction")
     args = parser.parse_args()
-    report = export(args.run, args.attacks, args.evaluation, args.reader_repo)
+    report = export(args.run, args.attacks, args.evaluation, args.reader_repo, alignment=args.alignment)
     with args.output.open("x", encoding="utf-8") as output:
         output.write(json.dumps(report, indent=2) + "\n")

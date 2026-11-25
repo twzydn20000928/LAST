@@ -1,0 +1,55 @@
+{
+  "video_id": "paper-004",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "last",
+  "reader_commit": "5b26f7b6d47ac7593adf7e28d98ca69f66f746d3",
+  "source_sha256": "561e21ee234426dd5c8a285ee5250d7280b15517a5053bbd8c1021b44ed58042",
+  "rows": [
+    {
+      "attack": "drop30",
+      "seed": 0,
+      "received_sha256": "c91ead1e9adfcfdeaa2035bed7b4a14ee9c4537a425c55e58bbf1451c2cfbfcd",
+      "correct_bits": 411,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_frames": 35
+    },
+    {
+      "attack": "drop30",
+      "seed": 1,
+      "received_sha256": "9085ed51003a9bb169dd7867f3a155c4ac7034089bec7dfb9166c27097f76601",
+      "correct_bits": 446,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_frames": 35
+    },
+    {
+      "attack": "drop30",
+      "seed": 2,
+      "received_sha256": "367926421c2aab3787b0b66611ee14d993808fe142c6001f15a3d51c69d6e229",
+      "correct_bits": 398,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_frames": 35
+    },
+    {
+      "attack": "drop30",
+      "seed": 3,
+      "received_sha256": "79cb7a72df9b0d25e6b9b8f64cc7b693c3db58045d7f37b27a06374003267059",
+      "correct_bits": 398,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_frames": 35
+    },
+    {
+      "attack": "drop30",
+      "seed": 4,
+      "received_sha256": "8cdcbb310aa251512419fc5ffeeedf4e0463900a9da62d83cc0e8d0df2a672ed",
+      "correct_bits": 455,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_frames": 35
+    }
+  ]
+}

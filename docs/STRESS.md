@@ -154,8 +154,9 @@ for a custom collection of nonoverlapping reports.
 The JSON output gives per-edit coverage, bit counts, and exact-message counts.
 For example, natural insertion recovered 512/512 bits on paper-000 at seed 0,
 contributing one exact message. Duplicate insertion recovered 451/512 bits on
-the same case, contributing zero. Drop 20 and Drop 30 each cover five of 2,000
-planned video–map pairs. The other six edits each cover one. Once all 400
+the same case, contributing zero. Drop 20 covers five of 2,000 planned
+video–map pairs. Drop 30 covers ten, including [five maps of paper-004](../results/stress_drop30_paper004_five_maps.json).
+The other six edits each cover one. Once all 400
 videos at each of the five seeds are present,
 the script computes mean message recovery, its 95% prompt-cluster bootstrap
 interval, and the lowest and highest recovery rates among the five seeds.
@@ -280,3 +281,48 @@ Python sources using the evaluator's ordering. This path was checked against
 the registered natural-insertion recording for paper-000/map0. Inserting
 30 frames from paper-020 yielded 95 received frames and 512/512 correct bits.
 This recount refers to the existing trial.
+
+### Run the primary manifest as a Linux batch
+
+After primary generation and paired quality evaluation, point `--runs` to one
+family/mode/LAST directory containing the 400 sample directories. Install the
+reader from the same Git revision passed via `--reader-repo`. Keep the output
+on private storage with space for 40 received MP4s per sample.
+
+```bash
+python tools/run_stress_campaign.py --family hunyuan --mode i2v \
+  --runs /private/primary/hunyuan/i2v/last --model-dir /models/Hunyuan-I2V \
+  --reader-repo . --output /private/stress/hunyuan/i2v
+python tools/stress_recovery_table.py --reports /private/stress/hunyuan/i2v/paper-*/counts.json
+```
+
+The worker generates eight edits at five seeds per sample. It verifies the
+registered unmarked donor for natural insertion, extracts from each received
+MP4 and writes per-video public counts. Rerun the same command after an
+interruption. Completed attack directories are reused and evaluation receipts
+are checked before cached counts are accepted. For parallel workers, pass a
+common `--shards N` and a different `--shard` from 0 to N−1 on each worker.
+The manifest order determines shard membership. Use separate output roots for
+different pipelines and revisions.
+
+The batch also records the route taken by the blind reader. For CCTA, the
+exporter compares its selected windows with the actual frame map after
+extraction and records chain lengths, intact selected windows, and correct
+group identities. For other routes, the JSON records the route and group
+count with null chain diagnostics. To add these fields to an existing run,
+use `tools/export_stress_counts.py --alignment` with the same inputs and a new
+output file. For example, on paper-008/drop10/map0 the reader recovered
+481/512 bits; the selected chain contained nine windows, of which two
+contained an intact original group and both had the correct group ID.
+
+The [paper-008 per-map results](../results/stress_paper008_forty_maps.json)
+cover one Hunyuan I2V video, all eight edits and seeds 0–4 on reader
+`1df83c5`. Recompute its eight rows separately from the earlier reader:
+
+```bash
+python tools/stress_recovery_table.py --reports results/stress_paper008_forty_maps.json
+```
+
+All five natural-insertion trials recovered the entire message. Across the
+other seven edits, none of the 35 trials recovered all 512 bits. These
+observations share a single generated video.
