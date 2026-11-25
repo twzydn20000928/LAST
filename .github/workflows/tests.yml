@@ -34,6 +34,19 @@ jobs:
             > .ci-tables/robustness/hunyuan-i2v-last-first179.md
           python tools/fidelity_intervals.py results/hunyuan_i2v_primary_fidelity_179.json \
             > .ci-tables/robustness/hunyuan-i2v-last-first179-fidelity.json
+          python tools/plot_margin_sweep.py --cells results/margin_sweep_cells.json \
+            --output .ci-tables/robustness/margin-sweep --tables-only
+          python - <<'PY'
+          import csv
+          from pathlib import Path
+          rebuilt = Path(".ci-tables/robustness/margin-sweep")
+          archived = Path("results")
+          assert (rebuilt / "table5.md").read_text() == (archived / "margin_sweep_table5.md").read_text()
+          def counts(path):
+              with path.open(newline="") as stream:
+                  return list(csv.DictReader(stream))
+          assert counts(rebuilt / "margin-sweep.csv") == counts(archived / "margin_sweep_aggregate.csv")
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: audited-partial-robustness-tables
