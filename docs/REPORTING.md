@@ -451,4 +451,21 @@ python -m last.clean_table --family hunyuan --quality quality-last.json quality-
 ```
 
 Both rows currently show five of 18 dimensions. Each dimension retains the number of valid and inapplicable scoring units. Creativity is complete for this subset of dimensions; the overall V-score is pending.
-Run `python tools/paired_videomark_table.py --count 36` for the [36-video VideoMark prefix](../results/hunyuan_t2v_videomark_first36.json) and the same LAST IDs. All 252 VideoMark predictions were recounted. The archived native receipts lack historical prediction digests for all 252. All 245 observations from the preceding prefix agree. On deletion LAST recovered 14,623 bits and VideoMark 9,451 out of 18,432, with zero versus one entire message recovered.
+
+### Include the native baseline results in the Hunyuan tables
+
+To render Tables 1 and 2 with the available VideoShield I2V and VideoMark T2V rows, run in Bash from the repository root:
+
+```bash
+reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary9.json
+         results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first37.json)
+python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
+  --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \
+    results/camera_motion/hunyuan_t2v_{last,reference}_camera_quality.json \
+    results/hunyuan_t2v_videomark_quality.json --output native-tables/table1.md
+python -m last.robustness_table --reports "${reports[@]}" --output native-tables/table2
+```
+
+These commands preserve the sample count for each method. VideoShield recovered 512/512 clean bits on its single I2V sample. VideoMark recovered 13,293/18,944 clean bits on 37 T2V samples, with 15 entire messages recovered. Its quality row covers one of 18 dimensions. SIGMark's individual integration runs remain separate from the primary table.
+
+For a comparison of LAST and VideoMark on **the same 37 T2V videos**, use `python tools/paired_videomark_table.py --count 37`. On random deletion, LAST recovered 15,003 bits and VideoMark 9,712 out of 18,944, with zero and one entire message recovered, respectively. All 259 native predictions in the [37-video report](../results/hunyuan_t2v_videomark_first37.json) were recounted from stored files. The original extraction receipts lack prediction-file digests, which limits verification of those files' history.
