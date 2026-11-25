@@ -622,6 +622,17 @@ python -m last.oracle_reader --family hunyuan --model-dir /path/to/hunyuan-i2v \
   --run /private/completed-marked-run --output /private/oracle-read
 ```
 
+To rebuild the paired diagnostic from the included records on CPU, run the
+following commands in Bash at the repository root. Each bit accuracy uses
+512 information bits per video. For whole-message recovery, add the
+method's exclusive exact count to the `Both exact` column.
+
+```bash
+receipts=(results/hunyuan_i2v_oracle_paper*.json)
+python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
+  --oracle-dir results --count "${#receipts[@]}"
+```
+
 For a new Hunyuan I2V LAST reproduction, set `PLAN` to the plan used to
 generate the videos, `RUNS` to its primary output root, `MODEL` to the
 Hunyuan I2V model directory and `OUT` to a new results directory. The

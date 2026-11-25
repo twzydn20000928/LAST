@@ -95,12 +95,16 @@ if __name__ == "__main__":
             for c, b, o in compare(report, json.loads(path.read_bytes()), s):
                 results[c].append((b, o))
         print(f"{len(ids)} paired Hunyuan I2V videos; {512*len(ids)} information bits per condition.")
-        print("| Condition | Blind bits | Oracle bits | Both exact | Blind only | Oracle only | Neither exact |")
-        print("|---|---:|---:|---:|---:|---:|---:|")
+        print("| Condition | Blind bits | Oracle bits | Both exact | Blind only | Oracle only | Neither exact | Blind bit accuracy | Oracle bit accuracy |")
+        print("|---|---:|---:|---:|---:|---:|---:|---:|---:|")
         for c, pairs in results.items():
             counts = [sum((b == 512, o == 512) == outcome for b, o in pairs)
                       for outcome in ((True, True), (True, False), (False, True), (False, False))]
-            values = [sum(b for b, _ in pairs), sum(o for _, o in pairs), *counts]
+            blind_bits = sum(b for b, _ in pairs)
+            oracle_bits = sum(o for _, o in pairs)
+            total_bits = 512 * len(pairs)
+            values = [blind_bits, oracle_bits, *counts,
+                      f"{blind_bits / total_bits:.2%}", f"{oracle_bits / total_bits:.2%}"]
             print("| " + " | ".join([c, *map(str, values)]) + " |")
         raise SystemExit(0)
     if args.count is not None:
