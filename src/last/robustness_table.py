@@ -4,10 +4,32 @@ from pathlib import Path
 from .report import CONDITIONS
 
 
+def verify_observations(report):
+    by_cell = {}
+    fields = ('family', 'mode', 'method', 'condition')
+    for row in report['audited_observations']:
+        videos = by_cell.setdefault(tuple(row[k] for k in fields), {})
+        bits = row['correct_bits']
+        if (row['video_id'] in videos or row['status'] != 'completed' or row['map_seed'] != 0
+                or type(bits) is not int or not 0 <= bits <= 512 or row['total_bits'] != 512
+                or row['exact_message'] is not (bits == 512)):
+            raise ValueError('Invalid or duplicated primary observation')
+        videos[row['video_id']] = bits
+    for cell in report['cells']:
+        bits = by_cell.pop(tuple(cell[k] for k in fields), {}).values()
+        counts = (len(bits), sum(bits), 512 * len(bits), sum(n == 512 for n in bits))
+        if counts != tuple(cell[k] for k in ('completed', 'correct_bits', 'total_bits', 'exact_messages')):
+            raise ValueError('Cell counts differ from individual observations')
+    if by_cell:
+        raise ValueError('Observed condition missing from report cells')
+
+
 def collect(reports):
     groups={}
     for report in reports:
         if report.get('artifact_verification') is not True:raise ValueError('Require artifact-audited aggregate reports')
+        if 'audited_observations' in report:
+            verify_observations(report)
         for row in report['cells']:
             key=tuple(row[k] for k in ('family','mode','method'))
             condition=row['condition']
