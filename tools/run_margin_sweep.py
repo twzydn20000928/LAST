@@ -132,15 +132,15 @@ def run(args):
                                 "--method", "last", "--case", directory / "case.json", "--output", directory,
                                 "--key", key, "--message", message, "--offload", "sequential",
                                 "--memory-gib", str(args.memory_gib), "--mu", str(mu)], check=True)
-                wait_for_gpu()
-                subprocess.run([sys.executable, "-m", "last.evaluate", *common, "--run", directory,
-                                "--video-id", name], check=True)
                 quality = directory / "quality.json"
                 if not quality.exists():
                     pending = quality.with_suffix(".tmp")
                     subprocess.run([sys.executable, "-m", "last.quality", "--marked", directory / "marked.mp4",
                                     "--reference", directory / "reference.mp4", "--output", pending], check=True)
                     pending.replace(quality)
+                wait_for_gpu()
+                subprocess.run([sys.executable, "-m", "last.evaluate", *common, "--run", directory,
+                                "--video-id", name], check=True)
                 entries.append(dict(video_id=name, run=directory.relative_to(root).as_posix()))
         index_name = "development80-index.json" if all_development else "index.json"
         candidate = root / ("candidate-" + index_name)
