@@ -4,6 +4,19 @@ import torch
 from last import oracle_feature_cache as cache
 
 
+def test_legacy_source_digest_only_for_original_clean_video(tmp_path):
+    video = tmp_path / 'paper-003' / 'marked.mp4'
+    clean = dict(video_id='paper-003', condition='clean', frames=65,
+                 attack_map=None, source_sha256='source')
+    assert cache.received_digest(clean, video) == 'source'
+    assert cache.received_digest(dict(clean, received_sha256='other'), video) == 'other'
+    assert cache.received_digest(dict(clean, condition='compression'), video) is None
+    assert cache.received_digest(dict(clean, attack_map=[0]), video) is None
+    assert cache.received_digest(dict(clean, frames=35), video) is None
+    assert cache.received_digest(dict(clean, video_id='paper-004'), video) is None
+    assert cache.received_digest(clean, video.with_name('reference.mp4')) is None
+
+
 class Processor:
     def __init__(self):self.inputs=[]
     def preprocess_video(self,batch):
