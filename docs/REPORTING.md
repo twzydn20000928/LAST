@@ -508,6 +508,24 @@ python tools/audit_videomark_prefix.py --method sigmark --mode i2v --count 1 \
   --root /private/primary --allow-incomplete --output sigmark-partial.json
 ```
 
+For a comparison on the same input, the following rows use only Hunyuan I2V
+`paper-000` and primary map seed 0. Each entry counts correct information bits
+out of 512. Every method generates its own marked video. LAST uses the verified
+re-extraction from its archived MP4s for this historical sample.
+
+| Method | Clean | Noise | Compression | Blur | Drop | Insert | Clip |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| LAST | 512 | 512 | 486 | 512 | 371 | 424 | 502 |
+| LFG | 500 | 483 | 488 | 488 | 349 | 276 | 358 |
+| SIGMark | 483 | 256 | 257 | 345 | Failed | Pending | Pending |
+| VideoShield | 512 | 512 | 512 | 512 | 512 | 509 | 512 |
+
+Read the `audited_observations` arrays in the paired primary and two native
+I2V reports listed above. Select `video_id == "paper-000"` and `map_seed == 0`,
+then take `correct_bits` for each method and condition. SIGMark's three
+remaining statuses are recorded in `incomplete_observations`. The larger
+tables above include different numbers of samples for each method.
+
 These commands preserve the sample count for each method. VideoShield recovered 512/512 clean bits on its single I2V sample. VideoMark recovered 13,805/19,456 clean bits on 38 T2V samples, with 16 entire messages recovered. Its quality row covers one of 18 dimensions. SIGMark's individual integration runs remain separate from the primary table.
 
 For a comparison of LAST and VideoMark on **the same 38 T2V videos**, use `python tools/paired_videomark_table.py --count 38`. On random deletion, LAST recovered 15,463 bits and VideoMark 9,959 out of 19,456, with zero and one entire message recovered, respectively. All 266 native predictions in the [38-video report](../results/hunyuan_t2v_videomark_first38.json) were recounted from stored files. The original extraction receipts lack prediction-file digests, which limits verification of those files' history.
