@@ -42,6 +42,15 @@ def report(plan, development, primary, root):
         quality = folder / 'quality.json'
         if not quality.exists():
             continue
+        # The runner writes quality.json before its final input integrity check.
+        # Earlier standalone calibration runs have no orchestration receipt.
+        run_receipt = folder / 'calibration.json'
+        if run_receipt.exists():
+            run = json.loads(run_receipt.read_text())
+            if run.get('status') == 'running':
+                continue
+            if run.get('status') != 'completed' or run.get('item') != item:
+                raise ValueError(f'Calibration run did not complete as planned: {item["run"]}')
         receipt = folder / 'receipt.json'
         generation = json.loads(receipt.read_text())
         if generation.get('status') != 'completed' or any(generation.get(k) != item[k] for k in
