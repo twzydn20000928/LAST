@@ -59,7 +59,7 @@ The manuscript reports 96.0% bit accuracy and 368/400 exact messages for Hunyuan
 python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json
 ```
 
-For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On the first 35 videos of the same primary cohort, blind reading recovered 1/35 complete messages after random deletion. The diagnostic reader supplied with the true edit map recovered 34/35 on the identical attacked MP4s. This subset covers nine prompts (20 Camera Motion videos and 15 Complex Landscape videos). The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
+For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On the first 40 videos of the same primary cohort, blind reading recovered 1/40 complete messages after random deletion (16,161/20,480 bits). The diagnostic reader supplied with the true edit map recovered 39/40 (20,472/20,480 bits) on the identical attacked MP4s. This subset covers ten prompts at four seeds each, split evenly between Camera Motion and Complex Landscape. The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
 
 ```bash
 python tools/primary_deletion_errors.py --report results/hunyuan_i2v_primary_deletion_errors.json
