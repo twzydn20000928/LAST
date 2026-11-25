@@ -339,6 +339,8 @@ For Drop 30, seed zero repeats the primary deletion experiment. Both evaluations
 
 Random deletion of 10, 20, 30 and 45 frames recovered 21,589, 19,617, 17,456 and 14,071 of 23,040 information bits, respectively. Drop 30 followed by CRF28 compression recovered 14,784 bits. Natural insertion recovered 45/45 entire messages, Drop 10 recovered 2/45 and the other six attacks recovered 0/45 each. The full design has 400 videos and five map seeds, giving 2,000 planned observations per attack.
 
+For later stress samples through primary ID 099, use `--primary results/hunyuan_i2v_last_first100_robustness.json`. This report contains all seven blind reads per video. The comparison selects Drop 30 at map seed zero and verifies the received MP4 fingerprint for each available stress sample.
+
 The median counts selected candidate groups per trial, summed across segments, so repeated identities in separate segments can increase the count. The supplement encodes fallback as length one. The export identifies fallback by the reader route. Trials with no evidence are counted separately and leave the overall median undefined. Group accuracy divides correctly identified intact windows by all selected intact windows. The aggregate is unavailable when a fallback lacks saved window assignments or the denominator is zero.
 
 | Attack | Median selected groups | Fallback trials | Correct ID / selected intact windows |
