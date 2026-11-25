@@ -354,3 +354,4 @@ verified and missing observations retain their planned denominator.
 ```bash
 python tools/primary_pipeline_report.py --plan /private/primary-plan.json --root /private/primary --family hunyuan --mode t2v --method last --output hunyuan-t2v-last.json
 ```
+For the same 72 Hunyuan T2V LAST cases, run `python tools/fidelity_intervals.py results/hunyuan_t2v_last_fidelity72.json`. The mean per-video PSNR is 32.574 dB and SSIM is 0.92694; 95% prompt-cluster intervals across 18 prompts are [31.346, 33.941] and [0.91403, 0.93902].

@@ -674,3 +674,4 @@ original versus 319/512 with CCTA; across both cases the totals were
 853/1024 and for clipping 818/1024 versus 932/1024. No temporal condition
 recovered an entire message in either arm. All seven first-case records
 match the earlier one-case snapshot.
+The three-case snapshot is `results/hunyuan_i2v_lfg_ccta_first3.json`. Across three Hunyuan I2V videos the original/CCTA correct bit counts were 1077/1061 after random deletion, 889/1246 after insertion and 1168/1394 after contiguous removal, out of 1536 per condition. Both readers recovered one of three clean messages.
