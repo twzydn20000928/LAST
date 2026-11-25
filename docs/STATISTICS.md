@@ -129,6 +129,22 @@ percentage points. Across the two prompts the individual differences are
 interval reaches exactly these two endpoints; it describes the observed
 prefix and gives little information about variability across new prompts.
 
+Using the four paired reports in the main Table 2 replay gives the following
+random-deletion differences. Values are percentage points of bit accuracy
+(LAST minus LFG). Intervals use 10,000 paired draws of whole prompts, seed 0.
+
+| Report in `results/` | Videos | Distinct prompts | Difference | 95% interval |
+|---|---:|---:|---:|---:|
+| `hunyuan_i2v_paired_primary_first16.json` | 16 | 4 | +10.25 | [+4.32, +16.16] |
+| `hunyuan_t2v_primary9.json` | 9 | 3 | +9.14 | [−10.94, +12.94] |
+| `wan22_i2v_primary9.json` | 9 | 3 | −1.76 | [−22.46, +12.60] |
+| `wan22_t2v_primary8.json` | 8 | 2 | +8.50 | [+4.15, +12.84] |
+
+The ninth Wan I2V video introduces a third prompt and changes the sign of
+the pooled difference. These intervals reflect the limited observed prompts.
+To replay any row, pass its report to the command above and multiply
+`bit_accuracy` and `bit_accuracy_ci95` for condition `drop` by 100.
+
 ### Supplement I: deletion recovery by key
 
 Run `python tools/deletion_by_key.py results/hunyuan_i2v_paired_primary_first13.json` to group the audited primary LAST deletion trials by manifest key slot. All 512 information bits must match for one recovery. The thirteen available prefix cases cover eight slots with counts of 2, 2, 2, 2, 2, 1, 1 and 1 videos. None recovered the entire message. The published paper reports 368/400 on its full run. Use a full 400-video report to compute the minimum and maximum of the eight block recovery rates, each based on 50 videos.
