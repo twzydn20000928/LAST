@@ -137,6 +137,13 @@ python tools/primary_pipeline_report.py --plan /private/primary-wan-clean-plan.j
   --output "wan22-${MODE}-last.json"
 ```
 
+The [Wan T2V LAST fidelity report](../results/wan22_t2v_last_fidelity23.json)
+covers the same 23 videos as the attack report above. Each marked MP4 is
+compared with its own unmarked reference. Mean PSNR is 31.317 dB and mean
+SSIM is 0.94136. Resampling the six prompts gives 95% intervals of
+[30.153, 32.464] dB and [0.92851, 0.95156]. Recompute these statistics
+with `python tools/fidelity_intervals.py results/wan22_t2v_last_fidelity23.json`.
+
 ## Text-to-video comparison on ten shared samples across three prompts
 
 Both columns use paper-000 through paper-009 and 512 information bits per video. Each backbone generated its own videos. Entries show correct bits out of 5,120 and exact messages out of ten.
