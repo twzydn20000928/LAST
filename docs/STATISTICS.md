@@ -216,3 +216,32 @@ For contiguous removal the counts were 68, 1097, zero and four. Under
 insertion, 781/1227 windows contained at least one inserted frame. Categories
 are exclusive: inserted frames take precedence, then the initial frame, then
 group boundaries and identity. These are window counts pooled across videos.
+
+For random deletion, group the same 170 videos by the number of selected
+windows with all four frames from the correctly identified original group:
+
+| Intact, correctly identified windows per video | Videos | Correct bits / evaluated bits | Entire messages recovered |
+|---|---:|---:|---:|
+| 0 | 116 | 41,393 / 59,392 (69.69%) | 1 |
+| 1 | 45 | 18,013 / 23,040 (78.18%) | 0 |
+| 2 or more | 9 | 3,772 / 4,608 (81.86%) | 0 |
+
+The sole exact message came from `paper-023`. Each of its five selected
+windows crossed a boundary: three retained three frames of the predicted
+group and two retained two. This case demonstrates that partial groups can
+supply enough evidence to decode a full message. The accuracy differences
+between rows describe an association on the observed videos.
+
+```python
+import json
+from collections import defaultdict
+from pathlib import Path
+
+rows = json.loads(Path("results/primary170_drop_windows.json").read_bytes())["videos"]
+by_count = defaultdict(list)
+for row in rows:
+    intact = row["window_types"].get("intact_correct_identity", 0)
+    by_count[min(intact, 2)].append(row["correct_bits"])
+for count, bits in sorted(by_count.items()):
+    print(count, len(bits), sum(bits), 512 * len(bits), bits.count(512))
+```
