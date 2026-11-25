@@ -30,6 +30,11 @@ def audit_cells(entries, root, config, *, all_development=False):
     protocol = read(config / "paper_v1.json")
     strengths = protocol["margin_sweep"]["mu"]
     frames = protocol["video"]["frames"]
+    video = protocol["video"]
+    model = protocol["hunyuan"]
+    required_settings = dict(steps=model["steps"], cfg=model["guidance"], shift=model["shift"],
+                             frames=frames, size=[video["height"], video["width"]],
+                             clean_crf=video["clean_crf"], fps=video["fps"], **protocol["precision"])
     seed = protocol["attacks"]["primary_map_seed"]
     attacks = ("noise", "compression", "blur", "drop", "insert", "clip")
     rows = {}
@@ -44,6 +49,8 @@ def audit_cells(entries, root, config, *, all_development=False):
         require(name in ids and mu in strengths and (name, mu) not in rows, "Unexpected or duplicate sweep cell")
         require(g["status"] == "completed" and g["method"] == "last" and g["mode"] == "i2v" and not g["fixed_target"]
                 and not g["uniform_profile"], f"{folder}: incorrect writer")
+        require(g["family"] == "hunyuan" and all(g["settings"].get(k) == v for k, v in required_settings.items()),
+                f"{folder}: generation differs from the frozen Hunyuan I2V sweep protocol")
         case = read(folder / "case.json")
         require(g["case_sha256"] == digest(folder / "case.json") and case["video_id"] == name
                 and case["development_manifest_sha256"] == digest(manifest_path)

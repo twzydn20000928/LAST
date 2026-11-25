@@ -746,6 +746,17 @@ private-index command. It verifies the private run records and exports
 `cells.json`, the aggregate CSV and Table 5. The cells include all seven
 per-condition bit counts, PSNR and SSIM for each video and margin.
 
+The acquisition audit checks Hunyuan I2V, 50 steps, guidance 6, shift 7,
+65 frames at 512×512 and 8 fps, clean CRF18, bfloat16 generation and float32
+VAE against the frozen configuration. All 105 condition counts and 30 quality
+measurements in the released 15 cells matched the archived counts and quality
+receipts. At the default margin of 0.5, the L40 run gave 0.729 drop bit
+accuracy versus 0.971 in supplement Table 5. SSIM rounded to 0.942 in both;
+paired PSNR was 34.95 dB in the rerun versus 31.84 dB in the manuscript.
+The sample-level rerun and the manuscript both use three development videos;
+the original images, messages and keys are unavailable for an exact paired
+comparison to the manuscript values.
+
 ### Equal base margin: matched writer results
 
 The public writer reports cover 12 of the 30 planned component videos,
