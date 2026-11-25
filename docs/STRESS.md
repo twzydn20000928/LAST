@@ -329,28 +329,28 @@ observations share a single generated video.
 
 ### Recount the eight edits on primary videos
 
-Seven Hunyuan I2V LAST samples have all 40 observations each on reader revision `1df83c5`. These are primary IDs 000, 001, 002, 003, 004, 005 and 008. These seven videos cover three prompts. The first four share a prompt, and the five maps reuse each generated video. Recount them together:
+Eight Hunyuan I2V LAST samples have all 40 observations each on reader revision `1df83c5`. These are primary IDs 000, 001, 002, 003, 004, 005, 006 and 008. These eight videos cover three prompts. The first four share a prompt, and the five maps reuse each generated video. Recount them together:
 
 ```bash
 python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json
 ```
 
-The supplement specifies that Drop 30 at seed zero repeats the primary deletion experiment. Check this across tables by adding `--primary results/hunyuan_i2v_primary17.json` to the command. The seven received MP4 hashes match the primary observations. Both evaluations recovered 371, 368, 382, 327, 411, 420 and 330 bits out of 512, respectively, in the sample order above. These repeated observations count once within each experiment. The comparison checks aggregate bit counts per clip; two equal counts alone cannot identify the individual error positions.
+The supplement specifies that Drop 30 at seed zero repeats the primary deletion experiment. Check this across tables by adding `--primary results/hunyuan_i2v_primary17.json` to the command. The eight received MP4 hashes match the primary observations. Both evaluations recovered 371, 368, 382, 327, 411, 420, 406 and 330 bits out of 512, respectively, in the sample order above. These repeated observations count once within each experiment. The comparison checks aggregate bit counts per clip; two equal counts alone cannot identify the individual error positions.
 
-Random deletion of 10, 20, 30 and 45 frames recovered 16,630, 15,010, 13,246 and 10,723 of 17,920 information bits, respectively. Deleting 30 frames followed by CRF28 compression recovered 11,255 bits. Natural insertion recovered 35/35 entire messages. Drop 10 recovered 1/35, and the six remaining edits recovered 0/35 each. Each attack currently covers 35 of the planned 2,000 video/map combinations.
+Random deletion of 10, 20, 30 and 45 frames recovered 19,094, 17,310, 15,330 and 12,549 of 20,480 information bits, respectively. Deleting 30 frames followed by CRF28 compression recovered 13,107 bits. Natural insertion recovered 40/40 entire messages. Drop 10 recovered 1/40, and the six remaining edits recovered 0/40 each. Each attack currently covers 40 of the planned 2,000 video/map combinations.
 
-Add `--alignment` to the seven-video recount command to compute the observed alignment columns of Table 15. The median counts selected candidate groups per trial, summed across segments, so repeated identities in separate segments can increase the count. The supplement encodes fallback as length one. The export identifies fallback by the reader route. Trials with no evidence are counted separately and leave the overall median undefined. Group accuracy divides correctly identified intact windows by all selected intact windows. The aggregate is unavailable when a fallback lacks saved window assignments or the denominator is zero.
+Add `--alignment` to the eight-video recount command to compute the observed alignment columns of Table 15. The median counts selected candidate groups per trial, summed across segments, so repeated identities in separate segments can increase the count. The supplement encodes fallback as length one. The export identifies fallback by the reader route. Trials with no evidence are counted separately and leave the overall median undefined. Group accuracy divides correctly identified intact windows by all selected intact windows. The aggregate is unavailable when a fallback lacks saved window assignments or the denominator is zero.
 
 | Attack | Median selected groups | Fallback trials | Correct ID / selected intact windows |
 |---|---:|---:|---:|
-| Drop 10 | 11 | 0/35 | 94/106 |
-| Drop 20 | 4 | 0/35 | 33/35 |
-| Drop 30 | 3 | 0/35 | 11/12 |
-| Drop 45 | 2 | 0/35 | 0/0 (undefined) |
-| Duplicate 30 | 4 | 0/35 | 26/26 |
-| Natural insert 30 | 17 | 0/35 | 508/508 |
-| Interpolate 30 | 5 | 0/35 | 20/20 |
-| Drop 30 + CRF28 | 3 | 0/35 | 6/8 |
+| Drop 10 | 11 | 0/40 | 102/115 |
+| Drop 20 | 4.5 | 0/40 | 40/43 |
+| Drop 30 | 3 | 0/40 | 13/14 |
+| Drop 45 | 2 | 0/40 | 1/1 |
+| Duplicate 30 | 4 | 0/40 | 28/28 |
+| Natural insert 30 | 17 | 0/40 | 580/580 |
+| Interpolate 30 | 5 | 0/40 | 23/23 |
+| Drop 30 + CRF28 | 3 | 0/40 | 8/10 |
 
-To distinguish missing frames from missed groups, run `python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json`. The diagnostic reconstructs each deletion map after extraction and counts how many original four-frame groups survived. It compares this count with the windows in the saved CCTA chains. Across 35 drop30 trials, 40 intact groups survived out of 560 original groups. Of 120 selected windows, 12 were intact and 11 had the correct group ID. After the same deletion followed by CRF28 compression, eight of 125 selected windows were intact and six had the correct group ID. Feature selection and message decoding can also be affected by partial groups.
+To distinguish missing frames from missed groups, run `python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json`. The diagnostic reconstructs each deletion map after extraction and counts how many original four-frame groups survived. It compares this count with the windows in the saved CCTA chains. Across 40 drop30 trials, 46 intact groups survived out of 640 original groups. Of 138 selected windows, 14 were intact and 13 had the correct group ID. After the same deletion followed by CRF28 compression, ten of 151 selected windows were intact and eight had the correct group ID. Feature selection and message decoding can also be affected by partial groups.
 When primary generation is still in progress, add `--ready-only` to the stress campaign command. It handles cases whose primary target and assigned unmarked donor both have completed campaign receipts. Missing or running dependencies are listed by sample ID; failed primary jobs raise an error. Rerun the same command as more inputs arrive. This option requires primary campaign receipts and retains the 400-video denominator. The default invocation expects finished inputs.
