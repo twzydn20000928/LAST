@@ -22,6 +22,8 @@ python -m last.clean_table --family wan22 \
   --output paired-table1/wan22.md
 ```
 
+The `core-tests` workflow also renders both model families with the available native baseline rows. Its `audited-partial-clean-tables` artifact contains `hunyuan.md` and `wan22.md`.
+
 The clean accuracy column pools 512 information bits per completed video;
 the parenthesis gives completed videos out of 400. For the number of entirely
 correct messages, read the `exact_messages` column of Table 2's `counts.csv`
