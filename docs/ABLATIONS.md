@@ -567,6 +567,18 @@ read only after each extraction subprocess returns. Raw correct-bit counts,
 exact-message flags and extraction/feature receipt hashes are recorded per row.
 The oracle rows remain explicitly non-blind.
 
+On the evaluation host, recount the 512 predicted information bits for each
+completed row and export the public counts and evidence hashes:
+
+```bash
+python tools/export_controlled_case.py --run /private/completed-writer-case \
+  --evaluation /private/new-controlled-comparison --output controlled-case.json
+```
+
+The export preserves the reader set used and checks its coverage of clean,
+drop and compression. Keep the source directory layout intact during this
+step because the evaluation receipt records absolute paths for its inputs.
+
 The default requires the audited full80 development calibration. For a clearly
 partial interface check, `--readers received ccta oracle` omits calibrated energy
 and records `complete_reader_set: false`; this is not a completed crossed table.
