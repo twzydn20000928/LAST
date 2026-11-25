@@ -327,11 +327,15 @@ All five natural-insertion trials recovered the entire message. Across the
 other seven edits, none of the 35 trials recovered all 512 bits. These
 observations share a single generated video.
 
+### Recount the eight edits on primary videos
+
 Five Hunyuan I2V LAST samples have all 40 observations each on reader revision `1df83c5`. These are primary IDs 000, 001, 002, 003 and 008. The first four share a prompt, and the five maps reuse each generated video. Recount them together:
 
 ```bash
 python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json
 ```
+
+The supplement specifies that Drop 30 at seed zero repeats the primary deletion experiment. Check this across tables by adding `--primary results/hunyuan_i2v_primary17.json` to the command. The five received MP4 hashes match the primary observations. Both evaluations recovered 371, 368, 382, 327 and 330 bits out of 512, respectively, in the sample order above. These repeated observations count once within each experiment. The comparison checks aggregate bit counts per clip; two equal counts alone cannot identify the individual error positions.
 
 Random deletion of 10, 20, 30 and 45 frames recovered 11,710, 10,509, 9,121 and 7,174 of 12,800 information bits, respectively. Deleting 30 frames followed by CRF28 compression recovered 7,608 bits. Natural insertion recovered all 25 messages; the other seven conditions recovered zero entire messages in 25 trials each. Each attack currently covers 25 of the planned 2,000 video/map combinations.
 

@@ -1,5 +1,6 @@
 """Recompute the recovery columns of supplementary Table 15 from audited counts."""
 import argparse
+import hashlib
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -113,10 +114,40 @@ def alignment_counts(reports):
     return result
 
 
+def compare_primary_deletions(primary, reports, manifest_digest):
+    if primary["manifest_sha256"] != manifest_digest:
+        raise ValueError("Primary and stress manifests differ")
+    family, mode, method = (reports[0][k] for k in ("family", "mode", "method"))
+    indexed = {}
+    for row in primary["audited_observations"]:
+        if (row["family"], row["mode"], row["method"], row["condition"], row["map_seed"]) != (
+                family, mode, method, "drop", 0):
+            continue
+        video = row["video_id"]
+        if video in indexed or row["status"] != "completed" or row["total_bits"] != 512:
+            raise ValueError(f"Invalid primary deletion observation for {video}")
+        indexed[video] = row
+    comparison = []
+    for report in reports:
+        for edit in report.get("rows", [report]):
+            if edit["attack"] != "drop30" or edit["seed"] != 0:
+                continue
+            video = report["video_id"]
+            if video not in indexed or indexed[video]["video_sha256"] != edit["received_sha256"]:
+                raise ValueError(f"No matching primary received MP4 for {video}")
+            comparison.append(dict(video_id=video, received_sha256=edit["received_sha256"],
+                                   primary_correct_bits=indexed[video]["correct_bits"],
+                                   stress_correct_bits=edit["correct_bits"]))
+    if not comparison:
+        raise ValueError("No drop30 seed-zero observations to compare")
+    return comparison
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--manifest", type=Path, default=Path("configs/primary_manifest.json"))
     p.add_argument("--alignment", action="store_true", help="Include observed alignment columns from exports made with --alignment")
+    p.add_argument("--primary", type=Path, help="Match drop30 seed zero against an audited primary report by received MP4")
     sources = p.add_mutually_exclusive_group(required=True)
     sources.add_argument("--reports", type=Path, nargs="+")
     sources.add_argument("--index", type=Path, help="Report paths and attack names relative to the index file")
@@ -128,6 +159,9 @@ def main():
         counts = alignment_counts(reports)
         for cell in cells:
             cell["observed_alignment"] = counts.get(cell["attack"])
+    if a.primary:
+        comparison = compare_primary_deletions(read(a.primary), reports, hashlib.sha256(a.manifest.read_bytes()).hexdigest())
+        next(cell for cell in cells if cell["attack"] == "drop30")["primary_seed_zero_comparison"] = comparison
     print(json.dumps(cells, indent=2, allow_nan=False))
 
 
