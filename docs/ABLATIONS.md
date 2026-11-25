@@ -116,6 +116,34 @@ cache, actual MP4, key files and implementation hashes. Prepare a private JSON
 list containing **every** real development/test key as a 64-character hexadecimal
 string; do not put that list, the wrong-key bank, or the output in the repository.
 
+To create the list from the two state directories used for generation, run the
+following command on the experiment server. It checks both state receipts
+against the manifests before collecting the eight key slots from each.
+
+```bash
+python - /private/development-state /private/primary-state /private/all-real-keys.json <<'PY'
+import hashlib
+import json
+import os
+import sys
+from pathlib import Path
+
+development, primary, output = map(Path, sys.argv[1:])
+keys = []
+for split, state in (("development", development), ("primary", primary)):
+    manifest = Path("configs") / f"{split}_manifest.json"
+    receipt = json.loads((state / "state.json").read_bytes())
+    if receipt["manifest_sha256"] != hashlib.sha256(manifest.read_bytes()).hexdigest():
+        raise ValueError(f"{split} state belongs to a different manifest")
+    keys.extend((state / "keys" / f"{slot:02}.key").read_bytes() for slot in range(8))
+if any(len(key) != 32 for key in keys) or len(set(keys)) != 16:
+    raise ValueError("Expected 16 distinct 32-byte keys")
+os.umask(0o077)
+with output.open("x", encoding="utf-8") as stream:
+    json.dump([key.hex() for key in keys], stream)
+PY
+```
+
 ```bash
 python -m last.null_cache init-keys --real-keys /private/all-real-keys.json \
   --output /private/wrong64.json
