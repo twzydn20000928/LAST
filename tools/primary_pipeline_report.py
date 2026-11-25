@@ -8,7 +8,7 @@ from last.data import validate
 from last.report import aggregate
 
 
-def audit(plan_path, manifest_path, root, family, mode, method):
+def audit(plan_path, manifest_path, root, family, mode, method, sample_range=None):
     manifest_bytes = manifest_path.read_bytes()
     manifest = json.loads(manifest_bytes)
     validate(manifest)
@@ -19,8 +19,16 @@ def audit(plan_path, manifest_path, root, family, mode, method):
     if manifest_digest != plan["manifest_sha256"]:
         raise ValueError("Primary manifest differs from the generation plan")
     runs = [r for r in plan["runs"] if (r["family"], r["mode"], r["method"]) == (family, mode, method)]
-    if sorted(r["video_id"] for r in runs) != sorted(s["id"] for s in manifest["samples"]):
-        raise ValueError("Plan must cover every primary video exactly once for this pipeline")
+    requested = manifest["samples"]
+    if sample_range is not None:
+        start, stop = sample_range
+        if not 0 <= start < stop <= len(requested):
+            raise ValueError("Invalid manifest index range")
+        requested = requested[start:stop]
+        ids = {s["id"] for s in requested}
+        runs = [r for r in runs if r["video_id"] in ids]
+    if sorted(r["video_id"] for r in runs) != sorted(s["id"] for s in requested):
+        raise ValueError("Plan must cover every requested primary video exactly once for this pipeline")
     samples = {s["id"]: s for s in manifest["samples"]}
     for item in runs:
         video = item["video_id"]
@@ -57,6 +65,10 @@ def audit(plan_path, manifest_path, root, family, mode, method):
     result.update(plan_sha256=plan_digest,
                   manifest_sha256=manifest_digest,
                   planned_videos_per_method=len(runs))
+    if sample_range is not None:
+        result["scope"] += f", manifest indices [{start}, {stop})"
+        result["sample_ids"] = [s["id"] for s in requested]
+        result["planned_videos_per_method"] = len(manifest["samples"])
     return result
 
 
@@ -69,8 +81,10 @@ if __name__ == "__main__":
     parser.add_argument("--mode", choices=("t2v", "i2v"), required=True)
     parser.add_argument("--method", choices=("last", "lfg"), required=True)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--sample-range", type=int, nargs=2, metavar=("START", "STOP"),
+                        help="Audit a manifest slice; START is inclusive and STOP is exclusive")
     args = parser.parse_args()
-    result = audit(args.plan, args.manifest, args.root, args.family, args.mode, args.method)
+    result = audit(args.plan, args.manifest, args.root, args.family, args.mode, args.method, args.sample_range)
     with args.output.open("x", encoding="utf-8") as stream:
         json.dump(result, stream, indent=2, allow_nan=False)
         stream.write("\n")
