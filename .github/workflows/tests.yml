@@ -57,6 +57,8 @@ jobs:
             --oracle-dir results --count "${#receipts[@]}" > ci-temporal-diagnostics/table12-oracle.md
           python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json \
             --primary results/hunyuan_i2v_last_first100_robustness.json --alignment > ci-temporal-diagnostics/table15.json
+          python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json \
+            --format markdown > ci-temporal-diagnostics/table15-recovery.md
           python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json \
             > ci-temporal-diagnostics/table15-deletion.json
       - uses: actions/upload-artifact@v4

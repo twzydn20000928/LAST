@@ -139,6 +139,12 @@ The [20-frame deletion record](../results/stress_drop20_verified.json) completes
 
 ### Recompute the Table 15 recovery columns
 
+To generate a Markdown table from all archived forty-map reports, run
+`python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json --format markdown`
+in Bash. Each row gives the observed trial count over the planned count. Exact
+messages count only trials with all 512 information bits correct. Full-cohort
+recovery, intervals and map-seed ranges appear when the required data are available.
+
 ```bash
 python tools/stress_recovery_table.py --manifest configs/primary_manifest.json \
   --index results/stress_recovery_index.json

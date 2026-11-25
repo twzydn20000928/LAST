@@ -144,9 +144,29 @@ def compare_primary_deletions(primary, reports, manifest_digest):
     return comparison
 
 
+def recovery_markdown(cells):
+    lines = [
+        "| Attack | Trials (observed/planned) | Observed bit accuracy | Exact messages (observed) | Full-cohort message recovery | 95% interval | Map-seed range |",
+        "|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for c in cells:
+        n = c["completed"]
+        accuracy = f'{c["correct_bits"] / c["total_bits"]:.2%}' if n else "—"
+        exact = f'{c["exact_messages"]}/{n}' if n else "—"
+        rate = c["mean_mrr"]
+        fields = [c["attack"], f'{n}/{c["planned"]}', accuracy, exact,
+                  f"{rate:.2%}" if rate is not None else "—"]
+        for interval in (c["ci95"], c["map_range"]):
+            fields.append("—" if interval is None else f"{interval[0]:.2%}–{interval[1]:.2%}")
+        lines.append("| " + " | ".join(fields) + " |")
+    return "\n".join(lines)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--manifest", type=Path, default=Path("configs/primary_manifest.json"))
+    p.add_argument("--format", choices=("json", "markdown"), default="json",
+                   help="Markdown displays recovery columns; JSON also includes requested alignment diagnostics")
     p.add_argument("--alignment", action="store_true", help="Include observed alignment columns from exports made with --alignment")
     p.add_argument("--primary", type=Path, help="Match drop30 seed zero against an audited primary report by received MP4")
     sources = p.add_mutually_exclusive_group(required=True)
@@ -164,7 +184,7 @@ def main():
         primary = load_blind_report(a.primary, a.manifest)
         comparison = compare_primary_deletions(primary, reports, hashlib.sha256(a.manifest.read_bytes()).hexdigest())
         next(cell for cell in cells if cell["attack"] == "drop30")["primary_seed_zero_comparison"] = comparison
-    print(json.dumps(cells, indent=2, allow_nan=False))
+    print(recovery_markdown(cells) if a.format == "markdown" else json.dumps(cells, indent=2, allow_nan=False))
 
 
 if __name__ == "__main__":
