@@ -15,6 +15,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--additional-original", type=Path, nargs="+", default=[],
                         help="Additional disjoint original message reports extending the primary prefix")
+    parser.add_argument("--verify-original-slice", type=Path,
+                        help="Cross-check an audited Hunyuan I2V LAST report against original observations")
     args = parser.parse_args()
     primary = read("hunyuan_i2v_primary_message_170.json")
     replay = read("primary_pre_post_bch_eight_replays.json")
@@ -41,6 +43,25 @@ def main():
     n = len(primary_ids) + len(replay_ids)
     if primary_ids | replay_ids != {f"paper-{i:03d}" for i in range(n)}:
         raise ValueError("Combined IDs do not cover the primary prefix")
+    if args.verify_original_slice:
+        audited = json.loads(args.verify_original_slice.read_bytes())
+        ids = set(audited["sample_ids"])
+        if (audited["manifest_sha256"] != primary["manifest_sha256"] or not audited["artifact_verification"]
+                or not ids or len(ids) != len(audited["sample_ids"]) or not ids <= primary_ids):
+            raise ValueError("Audit slice must contain distinct original samples on the same manifest")
+        expected = {(r["video_id"], c): (r["receipt_sha256"], r["received_sha256"], r["correct_bits"])
+                    for c in CONDITIONS for r in primary["observations"][c] if r["video_id"] in ids}
+        observed = {}
+        for row in audited["audited_observations"]:
+            if (row["family"], row["mode"], row["method"], row["map_seed"], row["status"]) != (
+                    "hunyuan", "i2v", "last", 0, "completed"):
+                raise ValueError("Unexpected pipeline or status in original cross-check")
+            key = (row["video_id"], row["condition"])
+            if key in observed:
+                raise ValueError(f"Duplicate audit observation: {key}")
+            observed[key] = (row["receipt_sha256"], row["video_sha256"], row["correct_bits"])
+        if len(expected) != len(ids) * len(CONDITIONS) or expected != observed:
+            raise ValueError("Original and slice receipt, received video or information-bit count differs")
     print("| Condition | Original correct bits | Replay correct bits | Combined accuracy | Exact messages |")
     print("|---|---:|---:|---:|---:|---:|")
     for c in CONDITIONS:

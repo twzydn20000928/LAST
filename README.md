@@ -56,7 +56,8 @@ python tools/matched_component_table.py --archived-reread results/hunyuan_i2v_ar
 The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun recovered **66,486/91,648 bits (72.54%) and 1/179 exact messages** across the first 179 videos. For 171 videos the original receipts identify the received MP4. The other eight use independent extractions from the archived videos because their original receipts lack that fingerprint. The two sets of video IDs are disjoint. Recount both contributions on CPU:
 
 ```bash
-python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json
+python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json \
+  --verify-original-slice results/hunyuan_i2v_last_primary100_178.json
 ```
 
 For deletion, the command reports 63,532/87,552 bits from original receipts and 2,954/4,096 bits from re-extraction. On the first 58 videos, blind extraction after deletion recovered 23,252/29,696 information bits (78.30%) and 1/58 complete messages. Supplying the true frame map to the diagnostic reader gave 29,623/29,696 bits (99.75%) and 52/58 complete messages on the same attacked files. The assisted reader also fills missing slots and fuses surviving groups, so this comparison measures their combined effect. These 15 prompts cover Camera Motion (20 videos), Complex Landscape (20) and Complex Plot (18). To reproduce this snapshot across all seven conditions:
