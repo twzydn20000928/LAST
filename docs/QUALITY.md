@@ -513,3 +513,13 @@ official scoring unit. A partial input set stays outside this count, including
 a set with the expected number of units but incomplete prompt/seed grouping.
 If official results include inapplicable units, the table lists their counts
 below the affected rows. An all-inapplicable dimension has no mean.
+
+The [November 25 input inventory](../results/quality_input_coverage_nov25.json)
+records available and expected videos for each dimension before semantic
+scoring. LAST and its reference had complete inputs for six Hunyuan I2V,
+three Hunyuan T2V, two Wan I2V and one Wan T2V dimensions. LFG had partial
+videos in all four pipelines and no complete dimension input set. Input
+availability measures a different stage from the number of official scores.
+During acquisition an older generation may finish before its paired fidelity
+receipt binds the reference MP4. The preparer lists that reference as missing
+while the campaign is running and checks it on the next pass.

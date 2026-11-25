@@ -45,6 +45,12 @@ def build(manifest,metadata_root,run_root,family,mode,method):
             valid=record.get('status') in ('completed','completed_generation_only') and record.get('family')==family and record.get('mode')==mode and record.get('method')==source_method
             if not video.is_file() or not valid:
                 coverage[dimension]['missing'].append(row['id']);continue
+            if method == 'reference' and not record.get('reference_sha256') and not (folder/'quality.json').exists():
+                campaign = folder/'campaign.json'
+                if campaign.is_file() and json.loads(campaign.read_bytes()).get('status') == 'running':
+                    # Older generation receipts bind the reference only in the subsequent fidelity step.
+                    coverage[dimension]['missing'].append(row['id'])
+                    continue
             case_file = folder / 'case.json'
             if source_method in ('sigmark', 'videoshield', 'videomark'):
                 job_name = '__'.join((family, mode, source_method, row['id']))
