@@ -123,10 +123,10 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 | Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first72.json) | 72 | 504 |
 | Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first43.json) | 43 | 301 |
 | Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first23.json) | 23 | 161 |
-| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first36.json) | 36 | 252 |
+| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first37.json) | 37 | 259 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
 
-Run `python tools/paired_videomark_table.py --count 36` from the repository root to compare Hunyuan LAST and VideoMark on paper-000 through paper-035. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition.
+Run `python tools/paired_videomark_table.py --count 37` from the repository root to compare Hunyuan LAST and VideoMark on paper-000 through paper-036. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition. All 259 VideoMark observations were recounted from the archived decoded bytes. The original extraction receipts lack prediction digests, so the recount verifies agreement with the recorded bit counts but cannot establish historical bit-for-bit identity.
 
 To regenerate either Wan LAST report from your completed runs, use the primary pipeline audit command below. Set MODE to `i2v` or `t2v`. The audit checks the saved MP4 files and records missing samples separately in each condition.
 
