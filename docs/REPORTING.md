@@ -2,15 +2,18 @@
 
 For main Table 1, both commands below use the same paired extraction records
 as the Table 2 example. Each includes the available official quality reports
-for LAST and its unmarked reference. Run from the repository root.
+for LAST and its unmarked reference. The Hunyuan command also includes the
+available VideoShield and VideoMark measurements. Run from the repository root.
 
 ```bash
 python -m last.clean_table --family hunyuan \
   --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary10.json \
+    results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first37.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_last_camera_quality.json \
     results/camera_motion/hunyuan_t2v_reference_camera_quality.json \
+    results/hunyuan_t2v_videomark_quality.json \
   --output paired-table1/hunyuan.md
 
 python -m last.clean_table --family wan22 \
