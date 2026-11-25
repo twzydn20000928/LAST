@@ -56,6 +56,18 @@ identify the source and construction of each MP4 alongside its measured
 window count so a timing difference can be interpreted against the actual
 amount of extraction work.
 
+For a controlled duration diagnostic, the following command uses a completed
+65-frame LAST clip. It traverses its frames forward and backward without
+duplicating the turnaround frame and encodes all three lengths at CRF18,
+8 fps. The manifest records source indices and MP4 fingerprints. This
+reconstruction measures the reader's work on repeated content. Native
+long-video generation and temporal robustness require separate experiments.
+
+```bash
+python tools/prepare_length_inputs.py --run /private/primary/hunyuan/i2v/last/paper-000 \
+  --output /private/length-study-inputs
+```
+
 After collecting all three receipts with the same model, GPU, runtime and source
 revision, print the length table from the repository root:
 
