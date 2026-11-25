@@ -4,4 +4,4 @@ configs/*.json text eol=lf
 configs/models.json -text
 configs/primary_manifest.json -text
 # Published reports cite exact blob hashes. Preserve bytes on checkout and archive.
-results/*.json -text
+results/**/*.json -text
