@@ -672,8 +672,6 @@ For native primary campaigns the recount accepts `--family hunyuan` or `--family
 
 The [seven-case paired report](../results/hunyuan_i2v_lfg_ccta_first7.json) contains 49 observations, including all 35 observations from the five-case report. With identical received MP4s, original LFG and LFG + CCTA recovered 2,174 and 3,070 bits after insertion, 2,737 and 3,247 after contiguous removal, and 2,470 and 2,477 after random deletion (3,584 bits per condition). Both recovered 3/7 whole messages clean and 0/7 after random deletion. The direction of the small random-deletion difference changed between the five- and seven-case prefixes.
 
-### Replay the seven-condition reader comparison
-
 ### Wan VideoMark single-condition recount
 
 On the archived Wan I2V VideoMark sample paper-000, the original clean read
@@ -683,7 +681,7 @@ recovered. For attack receipts that store message and prediction hashes,
 recompute an individual observation with
 `python tools/recount_native_attack.py --run /private/native-generation --video-id paper-000 --condition noise`.
 The command verifies the generated and received MP4s, native registration and
-extraction receipt before recounting the private message. This one-clip
+extraction receipt before recounting the private message. When the generation receipt records message and registration hashes, both must also match the scored inputs. This one-clip
 integration has separate provenance from the full primary campaign.
 
 ### Replay the seven-condition reader comparison

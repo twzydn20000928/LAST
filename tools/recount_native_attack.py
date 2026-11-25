@@ -41,8 +41,12 @@ def recount(run, condition, video_id, reader=None):
     message = (run / "message.bin").read_bytes()
     prediction = (reader / "decoded.bin").read_bytes()
     pred_digest = hashlib.sha256(prediction).hexdigest()
+    message_digest = hashlib.sha256(message).hexdigest()
+    for field, actual in (("state_sha256", state), ("message_sha256", message_digest)):
+        if field in generation and generation[field] != actual:
+            raise ValueError(f"Native generation {field} differs from the scored input")
     if (len(message) != 64 or len(prediction) != 64 or
-            attack["message_sha256"] != hashlib.sha256(message).hexdigest() or
+            attack["message_sha256"] != message_digest or
             attack["decoded_sha256"] != pred_digest or extraction["decoded_sha256"] != pred_digest):
         raise ValueError("Changed native message or prediction")
     correct = 512 - sum((a ^ b).bit_count() for a, b in zip(message, prediction))
