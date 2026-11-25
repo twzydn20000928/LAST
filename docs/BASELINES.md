@@ -496,6 +496,19 @@ same four keys as the LAST/LFG campaign. Run from the pinned repository root
 in the native dependency environment. Any scientific source change requires an
 explicitly audited new plan. Filters do not shrink the planned denominator.
 
+To reproduce one named video, keep the full plan and all three pipeline filters. For example, run from the pinned checkout:
+
+```bash
+python -m last.native_campaign run --plan /private/native-primary-plan.json \
+  --manifest configs/primary_manifest.json --root /private/native-primary \
+  --state /private/primary-state --image-root /path/to/images \
+  --models /private/model-paths.json --upstream /path/to/pinned-SIGMark \
+  --family hunyuan --mode i2v --method sigmark --shards 400 --shard 0 \
+  --max-jobs 1 --memory-gib 8 --min-free-mib 32000
+```
+
+These arguments select only `hunyuan/i2v/sigmark/paper-000` in the frozen plan. For `paper-037`, use `--shard 37`. Each pipeline contains the same 400 manifest entries in index order. In contrast, `--max-jobs 1` alone can advance to the next eligible video if an earlier one is locked or already complete. A `waiting_resources` message means the worker returned before generation. Verify completion through the sample's job receipt and all seven attack receipts.
+
 The runner uses the original native carrier/key setup and the full frozen
 400-message VideoMark registry. It invokes public generation and attack CLIs;
 it does not add BCH or replace native reference access. The shared manifest key
