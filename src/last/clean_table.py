@@ -22,7 +22,7 @@ def scored_dimensions(dimensions):
     for names in CATEGORIES.values():
         for name in names:
             entry = dimensions.get(name, {})
-            if entry.get('status') != 'completed' or entry.get('mean') is None:
+            if entry.get('status') != 'completed' or entry.get('full_dimension_inputs') is False:
                 continue
             expected = 3 if name == 'Diversity' else 20
             if entry['expected_units'] != expected:
@@ -30,6 +30,8 @@ def scored_dimensions(dimensions):
             valid, excluded = entry['valid_units'], entry['not_applicable_units']
             if type(valid) is not int or type(excluded) is not int or min(valid, excluded) < 0 or valid + excluded != expected:
                 raise ValueError(f'Inconsistent scoring-unit counts for {name}')
+            if (entry.get('mean') is None) != (valid == 0):
+                raise ValueError(f'Mean and applicable unit count disagree for {name}')
             if valid:
                 count += 1
     return count
@@ -44,6 +46,7 @@ def render(family, reports, quality):
                 raise ValueError('Unexpected recovery protocol for the clean table')
             clean[mode, method] = row
     scores = {}
+    exclusions = []
     for q in quality:
         if q['family'] != family:
             continue
@@ -58,6 +61,10 @@ def render(family, reports, quality):
         if v is not None and count != total:
             raise ValueError('Incomplete official scoring units')
         scores[key] = f'pending ({count}/{total} dimensions)' if v is None else f'{v:.3f}'
+        for name, entry in q['dimensions'].items():
+            if entry.get('status') == 'completed' and entry.get('not_applicable_units', 0):
+                exclusions.append(f"{q['mode'].upper()} {METHODS[q['method']][0]}, {name}: "
+                                  f"{entry['not_applicable_units']}/{entry['expected_units']}")
     lines = [f'# Clean recovery and video quality — {family}', '',
              '| Method | Inversion-free | Extraction | T2V bit accuracy | T2V V-score | I2V bit accuracy | I2V V-score |',
              '|---|---|---|---:|---:|---:|---:|']
@@ -74,6 +81,9 @@ def render(family, reports, quality):
         lines.append('| ' + ' | '.join(values) + ' |')
     lines.extend(['', 'Bit accuracy is pooled over 512 information bits per completed video. '
                   'Counts below 400 indicate interim observations. V-score requires the full quality report.'])
+    if exclusions:
+        lines.extend(['', 'Official scoring units marked inapplicable (excluded from dimension means):',
+                      '', *['- ' + label for label in sorted(exclusions)]])
     return '\n'.join(lines) + '\n'
 
 

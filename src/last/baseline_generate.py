@@ -46,6 +46,7 @@ def main():
         receipt['seconds']=time.monotonic()-start
         temp=a.output/'receipt.tmp';temp.write_text(json.dumps(receipt,indent=2));temp.replace(a.output/'receipt.json')
     try:
+        receipt['hardware'] = torch.cuda.get_device_name(0)
         torch.set_num_threads(4)
         case_bytes = a.case.read_bytes()
         case=json.loads(case_bytes);seed=int(case['seed'])

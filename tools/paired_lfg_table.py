@@ -12,6 +12,8 @@ def count_bits(row):
     correct = row["correct_bits"]
     if type(correct) is not int or row["total_bits"] != 512 or not 0 <= correct <= 512:
         raise ValueError("Expected a completed 512-information-bit measurement")
+    if "exact_message" in row and row["exact_message"] is not (correct == 512):
+        raise ValueError("Exact-message flag disagrees with the information-bit count")
     return correct
 
 
@@ -74,8 +76,19 @@ if __name__ == "__main__":
     inputs = parser.add_mutually_exclusive_group()
     inputs.add_argument("--samples", type=int, choices=(3, 7, 8))
     inputs.add_argument("--report", type=Path, nargs="+", help="One or more disjoint matched reports")
+    parser.add_argument("--first", type=int, help="Use paper-000 onward from one report for a matched prefix comparison")
     args = parser.parse_args()
-    if args.report:
+    if args.first is not None:
+        if not args.report or len(args.report) != 1 or args.first < 1:
+            parser.error("--first requires one --report and a positive sample count")
+        declared = json.loads(args.report[0].read_bytes())["sample_ids"]
+        if args.first > len(declared):
+            parser.error("Requested prefix exceeds the report sample count")
+        samples = [f"paper-{i:03d}" for i in range(args.first)]
+        if declared[:args.first] != samples:
+            parser.error("Report does not declare this manifest prefix")
+        main(samples, args.report[0])
+    elif args.report:
         main(None, args.report[0], args.report[1:])
     else:
         main(tuple(f"paper-{i:03d}" for i in range(args.samples or 3)))

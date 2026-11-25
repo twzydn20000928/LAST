@@ -5,7 +5,7 @@ from pathlib import Path
 
 CONDITIONS = ("clean", "noise", "compression", "blur", "drop", "insert", "clip")
 VARIANTS = ("full", "without_cgc", "without_sws", "without_ccta")
-DEFAULT = Path(__file__).resolve().parents[1] / "results/hunyuan_i2v_reader_ablation_interim.json"
+DEFAULT = Path(__file__).resolve().parents[1] / "results/hunyuan_i2v_reader_ablation_first12.json"
 
 
 def render(report):

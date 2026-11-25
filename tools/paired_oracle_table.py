@@ -35,10 +35,35 @@ def compare(report, oracle, video_id):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--report", type=Path, required=True)
-    parser.add_argument("--oracle", type=Path, required=True)
-    parser.add_argument("--video-id", required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--oracle", type=Path)
+    source.add_argument("--oracle-dir", type=Path, help="Directory containing a receipt for every sample ID in the report")
+    parser.add_argument("--video-id")
     args = parser.parse_args()
-    pairs = compare(json.loads(args.report.read_bytes()), json.loads(args.oracle.read_bytes()), args.video_id)
+    report = json.loads(args.report.read_bytes())
+    if args.oracle_dir:
+        if args.video_id:
+            parser.error("--video-id applies to a single --oracle")
+        ids = report["sample_ids"]
+        if not ids or len(set(ids)) != len(ids) or any(not re.fullmatch(r"paper-[0-9]{3}", s) for s in ids):
+            raise ValueError("Expected unique primary sample IDs")
+        results = {c: [] for c in CONDITIONS}
+        for s in ids:
+            path = args.oracle_dir / ("hunyuan_i2v_oracle_" + s.replace("-", "") + ".json")
+            for c, b, o in compare(report, json.loads(path.read_bytes()), s):
+                results[c].append((b, o))
+        print(f"{len(ids)} paired Hunyuan I2V videos; {512*len(ids)} information bits per condition.")
+        print("| Condition | Blind bits | Oracle bits | Both exact | Blind only | Oracle only | Neither exact |")
+        print("|---|---:|---:|---:|---:|---:|---:|")
+        for c, pairs in results.items():
+            counts = [sum((b == 512, o == 512) == outcome for b, o in pairs)
+                      for outcome in ((True, True), (True, False), (False, True), (False, False))]
+            values = [sum(b for b, _ in pairs), sum(o for _, o in pairs), *counts]
+            print("| " + " | ".join([c, *map(str, values)]) + " |")
+        raise SystemExit(0)
+    if not args.video_id:
+        parser.error("--oracle requires --video-id")
+    pairs = compare(report, json.loads(args.oracle.read_bytes()), args.video_id)
     print("| Condition | Blind correct / 512 | Oracle correct / 512 | Difference in correct bits |")
     print("|---|---:|---:|---:|")
     for condition, blind, oracle in pairs:

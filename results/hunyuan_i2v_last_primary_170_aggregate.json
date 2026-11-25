@@ -1,0 +1,99 @@
+{
+  "artifact_verification": true,
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "message_report_sha256": "09b72c0fc9eae2f105f65e620fd056613967f30839bbef20cf02354262a0e222",
+  "scope": "Counts from acquisition-verified original MP4 receipts; public replay recomputes counts",
+  "cells": [
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "clean",
+      "expected": 400,
+      "completed": 170,
+      "total_bits": 87040,
+      "correct_bits": 87040,
+      "exact_messages": 170,
+      "complete": false,
+      "final_bit_accuracy": null
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "noise",
+      "expected": 400,
+      "completed": 170,
+      "total_bits": 87040,
+      "correct_bits": 84750,
+      "exact_messages": 58,
+      "complete": false,
+      "final_bit_accuracy": null
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "compression",
+      "expected": 400,
+      "completed": 170,
+      "total_bits": 87040,
+      "correct_bits": 83468,
+      "exact_messages": 34,
+      "complete": false,
+      "final_bit_accuracy": null
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "blur",
+      "expected": 400,
+      "completed": 170,
+      "total_bits": 87040,
+      "correct_bits": 86599,
+      "exact_messages": 132,
+      "complete": false,
+      "final_bit_accuracy": null
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "drop",
+      "expected": 400,
+      "completed": 170,
+      "total_bits": 87040,
+      "correct_bits": 63178,
+      "exact_messages": 1,
+      "complete": false,
+      "final_bit_accuracy": null
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "insert",
+      "expected": 400,
+      "completed": 170,
+      "total_bits": 87040,
+      "correct_bits": 70182,
+      "exact_messages": 8,
+      "complete": false,
+      "final_bit_accuracy": null
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "last",
+      "condition": "clip",
+      "expected": 400,
+      "completed": 170,
+      "total_bits": 87040,
+      "correct_bits": 84539,
+      "exact_messages": 76,
+      "complete": false,
+      "final_bit_accuracy": null
+    }
+  ]
+}

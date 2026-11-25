@@ -5,6 +5,17 @@ import numpy as np
 from .temporal import attack_map
 
 
+def check_timed_frames(timing, expected):
+    if timing["method"] in ("last", "lfg"):
+        if timing.get("frames") != expected:
+            raise ValueError("Timed reader decoded an unexpected frame count")
+    else:
+        reads = timing["diagnostics_including_warmups"]
+        if len(reads) != timing["warmups"] + timing["repeats"] or any(
+                read.get("received_frames") != expected for read in reads):
+            raise ValueError("Native timing diagnostics differ from the expected input length")
+
+
 def check_drop_frames(attack, video_id):
     expected = attack_map(video_id, "drop", seed=0, frames=65, count=30)
     if attack.get("frames") != len(expected) or attack.get("attack_map") != expected:
@@ -29,6 +40,8 @@ def generation_summary(index, expected_ids, base):
             raise ValueError('Generation receipt case mismatch')
         if row['status']!='completed' or row['protocol']!='supplement':
             raise ValueError('Require completed supplement generation timing')
+        if row['gpu'] not in ('L40', 'NVIDIA L40') or row.get('decoded_frame_counts') != [65] * 14:
+            raise ValueError('Supplement generation requires an L40 and fourteen 65-frame outputs per video')
         settings.add((row['family'],row['mode'],row['method'],row['gpu']))
         m=row['measurement']
         pairs=m['pairs']
@@ -157,6 +170,11 @@ def main():
                 raise ValueError('Attack receipt does not match timed video, method or condition')
             if item['condition'] == 'drop':
                 check_drop_frames(attack, item['video_id'])
+            elif item['condition'] != 'clean' or attack.get('frames') != 65 or attack.get('attack_map') is not None:
+                raise ValueError('Expected a full 65-frame clean input or primary deletion')
+            if row['gpu'] not in ('L40', 'NVIDIA L40'):
+                raise ValueError('Paper extraction timing requires an L40')
+            check_timed_frames(row, attack['frames'])
             record.update(received_sha256=received,attack_receipt_sha256=hashlib.sha256(attack_data).hexdigest())
         evidence.append(record)
     result=summarize(rows,json.loads(a.subsets.read_text())['supplement_timing_30'])

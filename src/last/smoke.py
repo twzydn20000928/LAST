@@ -1,5 +1,6 @@
 """Fresh end-to-end LAST integration check. Never substitutes for the400-video benchmark."""
 import argparse,json,time,os,hashlib,secrets,traceback
+from io import BytesIO
 from pathlib import Path
 import numpy as np
 import torch
@@ -33,13 +34,18 @@ def main():
         if prior.get('method','last')!=a.method:raise ValueError('Completed output belongs to a different method')
         if prior.get('lfg_alpha',.15)!=a.lfg_alpha or prior.get('lfg_final_steps',10)!=a.lfg_final_steps:raise ValueError('Completed output has another LFG configuration')
         if prior['family']!=a.family or prior['mode']!=a.mode or prior['case_sha256']!=hashlib.sha256(a.case.read_bytes()).hexdigest():raise ValueError('Completed output belongs to a different case/configuration')
+        if a.mode == "i2v" and prior.get("conditioning_image_sha256"):
+            image_path = Path(json.loads(a.case.read_bytes())["image"])
+            if hashlib.sha256(image_path.read_bytes()).hexdigest() != prior["conditioning_image_sha256"]:
+                raise ValueError("Conditioning image differs from the completed run")
         if a.key and (a.output/'secret.key').read_bytes()!=a.key.read_bytes():raise ValueError('Completed output belongs to a different key')
         if a.message and not np.array_equal(np.load(a.output/'message.npy'),np.unpackbits(np.frombuffer(a.message.read_bytes(),dtype=np.uint8))):raise ValueError('Completed output belongs to a different message')
         return
-    start=time.time();r={'status':'starting','scope':'fresh end-to-end smoke, not benchmark','family':a.family,'mode':a.mode,'rows':[],'settings':{'steps':50,'cfg':6 if a.family=='hunyuan' else 5,'shift':7 if a.family=='hunyuan' else 5,'frames':65,'size':[512,512],'clean_crf':18,'fps':8,'vae':'float32','generator':'bfloat16'},'hardware':'L40 (authorized A800 substitution)','source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
+    start=time.time();r={'status':'starting','scope':'fresh end-to-end smoke, not benchmark','family':a.family,'mode':a.mode,'rows':[],'settings':{'steps':50,'cfg':6 if a.family=='hunyuan' else 5,'shift':7 if a.family=='hunyuan' else 5,'frames':65,'size':[512,512],'clean_crf':18,'fps':8,'vae':'float32','generator':'bfloat16'},'source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
     def save():
         r['seconds']=time.time()-start;r['peak_allocated_gib']=torch.cuda.max_memory_allocated()/1024**3;temp=out.with_suffix('.tmp');temp.write_text(json.dumps(r,indent=2));temp.replace(out)
     try:
+        r["hardware"] = torch.cuda.get_device_name(0)
         r['offload']=a.offload;r['memory_limit_gib']=a.memory_gib;r['model_directory']=str(a.model_dir);r['method']=a.method;r['mu']=a.mu;r['fixed_target']=a.fixed_target
         r['lfg_alpha']=a.lfg_alpha;r['lfg_final_steps']=a.lfg_final_steps
         r['uniform_profile']=a.uniform_profile
@@ -76,7 +82,12 @@ def main():
         else:pipe.enable_model_cpu_offload()
         def callback(pipeline,step,timestep,kw):r.update(status='generating',step=int(step));save();return kw
         kwargs=dict(prompt=[case['prompt']],height=512,width=512,num_frames=65,num_inference_steps=50,guidance_scale=r['settings']['cfg'],latents=torch.randn(1,16,17,64,64,generator=torch.Generator().manual_seed(seed),dtype=torch.bfloat16).cuda(),output_type='latent',return_dict=False,callback_on_step_end=callback)
-        if a.mode=='i2v':kwargs['image']=Image.open(case['image']).convert('RGB').resize((512,512))
+        if a.mode == "i2v":
+            image_bytes = Path(case["image"]).read_bytes()
+            r["conditioning_image_sha256"] = hashlib.sha256(image_bytes).hexdigest()
+            with Image.open(BytesIO(image_bytes)) as image:
+                kwargs["image"] = image.convert("RGB").resize((512, 512))
+            save()
         torch.manual_seed(seed);torch.cuda.manual_seed_all(seed)
         with torch.inference_mode():
             z=pipe(**kwargs)[0].float();assert z.shape==(1,16,17,64,64)

@@ -16,25 +16,21 @@ def read(path):
     return json.loads(path.read_bytes())
 
 
-def export(manifest_path, inputs, scores):
+def verify_dimension(manifest_path, inputs, dimension):
     manifest = read(manifest_path)
     validate(manifest)
-    receipt_path, raw_path = scores / "receipt.json", scores / "official_result.json"
-    receipt = read(receipt_path)
-    dimension = receipt["dimension"]
     expected = {}
     for sample in manifest["samples"]:
         if sample["dimension"] == dimension:
             expected.setdefault(sample["prompt"], []).append(sample)
-    if not expected or receipt["status"] != "completed":
-        raise ValueError("Unknown dimension or incomplete official score")
+    if not expected:
+        raise ValueError("Unknown dimension")
     coverage_file = inputs / "coverage.json"
     coverage = read(coverage_file)
     meta = inputs / (dimension + ".json")
     rows = read(meta)
-    if (digest(manifest_path) != coverage["manifest_sha256"] or digest(meta) != receipt["metadata_sha256"]
-            or digest(coverage_file) != receipt["coverage_sha256"]):
-        raise ValueError("Inputs differ from the scored manifest or questions")
+    if digest(manifest_path) != coverage["manifest_sha256"]:
+        raise ValueError("Inputs differ from the primary manifest")
     if len(rows) != len(expected) or {r["prompt_en"] for r in rows} != set(expected):
         raise ValueError("Scoring inputs do not cover the assigned prompts")
     videos = {v["path"]: v["video_id"] for v in coverage["videos"]}
@@ -43,6 +39,19 @@ def export(manifest_path, inputs, scores):
         if [videos[p] for p in row["video_list"]] != [s["id"] for s in planned]:
             raise ValueError("Scoring videos differ from the assigned seeds")
     hashes = verify_inputs(rows, coverage)
+    return coverage, rows, videos, hashes
+
+
+def export(manifest_path, inputs, scores):
+    receipt_path, raw_path = scores / "receipt.json", scores / "official_result.json"
+    receipt = read(receipt_path)
+    if receipt["status"] != "completed":
+        raise ValueError("Incomplete official score")
+    dimension = receipt["dimension"]
+    coverage, rows, videos, hashes = verify_dimension(manifest_path, inputs, dimension)
+    if (digest(inputs/(dimension+".json")) != receipt["metadata_sha256"]
+            or digest(inputs/"coverage.json") != receipt["coverage_sha256"]):
+        raise ValueError("Inputs differ from the scored questions or coverage")
     if hashes != receipt["videos_sha256"]:
         raise ValueError("Current videos differ from extraction-time video hashes")
     raw = read(raw_path)
@@ -64,9 +73,22 @@ def export(manifest_path, inputs, scores):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    for name in ("manifest", "inputs", "scores", "output"):
+    for name in ("manifest", "inputs"):
         parser.add_argument("--" + name, type=Path, required=True)
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--scores", type=Path)
+    mode.add_argument("--check-inputs", metavar="DIMENSION")
+    parser.add_argument("--output", type=Path)
     args = parser.parse_args()
+    if args.check_inputs:
+        if args.output:
+            parser.error("--output is only used when exporting completed scores")
+        coverage, rows, _, hashes = verify_dimension(args.manifest, args.inputs, args.check_inputs)
+        print(json.dumps(dict(dimension=args.check_inputs, method=coverage["method"], prompts=len(rows),
+                              verified_videos=len(hashes))))
+        raise SystemExit(0)
+    if not args.output:
+        parser.error("--scores requires --output")
     result = export(args.manifest, args.inputs, args.scores)
     with args.output.open("x", encoding="utf-8") as stream:
         stream.write(json.dumps(result, indent=2, allow_nan=False) + "\n")

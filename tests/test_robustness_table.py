@@ -33,14 +33,15 @@ def test_impossible_exact_counts_and_unaudited_input_rejected():
     with pytest.raises(ValueError):collect([bad])
 
 
-def test_complete_prefix_remains_partial_in_full_benchmark_table():
+@pytest.mark.parametrize("plan_field", ["planned_videos_per_method", "planned_videos"])
+def test_complete_prefix_remains_partial_in_full_benchmark_table(plan_field):
     report = sample()
-    report['planned_videos_per_method'] = 400
+    report[plan_field] = 400
     for row in report['cells']:
         row.update(expected=2, complete=True, final_bit_accuracy=862/1024)
     text, counts = render(collect([report]))
     assert text.count('84.18% [partial]; 2/400') == 7
     assert all(r['final_bit_accuracy'] is None for r in counts)
-    report['planned_videos_per_method'] = 1
+    report[plan_field] = 1
     with pytest.raises(ValueError, match='smaller'):
         collect([report])

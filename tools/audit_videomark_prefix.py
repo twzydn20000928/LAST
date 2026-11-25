@@ -1,4 +1,4 @@
-"""Audit matched Hunyuan T2V VideoMark readouts against the primary LAST cases."""
+"""Recount native Hunyuan readouts and verify pairing with primary LAST cases."""
 import argparse
 import hashlib
 import json
@@ -19,7 +19,7 @@ def read(path):
     return json.loads(path.read_bytes())
 
 
-def audit(root, manifest_path, plan_path, count):
+def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v"):
     manifest, plan = read(manifest_path), read(plan_path)
     validate(manifest)
     if plan["manifest_sha256"] != sha(manifest_path) or not 1 <= count <= len(manifest["samples"]):
@@ -28,10 +28,10 @@ def audit(root, manifest_path, plan_path, count):
     legacy = 0
     for sample in manifest["samples"][:count]:
         video = sample["id"]
-        relative = f"hunyuan/t2v/videomark/{video}"
+        relative = f"hunyuan/{mode}/{method}/{video}"
         item, = [i for i in plan["runs"] if i["run"] == relative]
         folder = root / relative
-        last = root / "hunyuan/t2v/last" / video
+        last = root / "hunyuan" / mode / "last" / video
         case_path = root / ".native-jobs" / (relative.replace("/", "__") + ".case.json")
         generation = read(folder / "receipt.json")
         if generation["case_sha256"] != sha(case_path) or generation["seed"] != sample["seed"]:
@@ -39,6 +39,8 @@ def audit(root, manifest_path, plan_path, count):
         for case in (read(case_path), read(last / "case.json")):
             if (case["prompt"], case["seed"], case["video_id"]) != (sample["prompt"], sample["seed"], video):
                 raise ValueError(f"Unmatched primary sample: {video}")
+            if mode == "i2v" and sha(Path(case["image"])) != sample["image_sha256"]:
+                raise ValueError(f"Conditioning image differs from frozen manifest: {video}")
         truth = (folder / "message.bin").read_bytes()
         bits = np.unpackbits(np.frombuffer(truth, dtype=np.uint8))
         if len(truth) != 64 or not np.array_equal(bits, np.load(last / "message.npy", allow_pickle=False)):
@@ -56,7 +58,7 @@ def audit(root, manifest_path, plan_path, count):
             if (row["attack_map"] != mapping or read(last / "attacks" / (condition + ".json"))["attack_map"] != mapping
                     or row["frames"] != (len(mapping) if temporal else 65)):
                 raise ValueError(f"Unmatched edit: {video}/{condition}")
-            check_extraction(receipt, "videomark", "t2v", row["received_sha256"], state, temporal)
+            check_extraction(receipt, method, mode, row["received_sha256"], state, temporal)
             if row["extraction_receipt_sha256"] != sha(reader / "receipt.json") or row["state_sha256"] != state:
                 raise ValueError(f"Changed extraction evidence: {video}/{condition}")
             prediction = (reader / "decoded.bin").read_bytes()
@@ -68,7 +70,7 @@ def audit(root, manifest_path, plan_path, count):
             if len(prediction) != 64 or sum((a ^ b).bit_count() for a, b in zip(truth, prediction)) != 512 - row["correct_bits"]:
                 raise ValueError(f"Native prediction recount mismatch: {video}/{condition}")
         items.append(item)
-    report = aggregate(dict(scope="Matched Hunyuan T2V VideoMark primary prefix", runs=items), root, verify_artifacts=True)
+    report = aggregate(dict(scope=f"Matched Hunyuan {mode} {method} primary prefix", runs=items), root, verify_artifacts=True)
     if not report["complete"]:
         raise ValueError("Missing native measurements")
     return dict(report, sample_ids=[i["video_id"] for i in items], planned_videos_per_method=len(manifest["samples"]),
@@ -81,7 +83,9 @@ if __name__ == "__main__":
     for option in ("root", "manifest", "plan", "output"):
         parser.add_argument("--" + option, type=Path, required=True)
     parser.add_argument("--count", type=int, required=True)
+    parser.add_argument("--method", choices=("videomark", "videoshield", "sigmark"), default="videomark")
+    parser.add_argument("--mode", choices=("t2v", "i2v"), default="t2v")
     args = parser.parse_args()
-    result = audit(args.root, args.manifest, args.plan, args.count)
+    result = audit(args.root, args.manifest, args.plan, args.count, args.method, args.mode)
     with args.output.open("x", encoding="utf-8") as stream:
         stream.write(json.dumps(result, indent=2) + "\n")

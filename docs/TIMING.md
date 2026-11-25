@@ -241,3 +241,4 @@ loaded the VAE in bfloat16. Main Table 3 uses paired generation measurements,
 and the current LAST/LFG reader uses float32. Keep pilot durations separate
 when rebuilding the main table. The primary timing formatter checks that all
 eight generation calls (reference and marked in four pairs) decoded 65 frames.
+For supplementary Table 17 the verified extraction summary requires the L40 and checks the actual decoded length against the clean or deletion record. Native readers record the received length for each warmup and timed read. A paired generation receipt must record fourteen decoded lengths of 65 frames (two arms for each of seven pairs).

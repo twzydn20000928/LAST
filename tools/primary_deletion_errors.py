@@ -13,13 +13,15 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def collect(root, manifest):
+def collect(root, manifest, condition="drop", selected=None):
     validate(manifest)
     rows, observations, legacy = [], [], []
     for sample in manifest["samples"]:
         video_id = sample["id"]
+        if selected is not None and video_id not in selected:
+            continue
         folder = root / "hunyuan" / "i2v" / "last" / video_id
-        receipt = folder / "attacks" / "drop.json"
+        receipt = folder / "attacks" / (condition + ".json")
         if not receipt.exists():
             continue
         row = json.loads(receipt.read_bytes())
@@ -29,12 +31,14 @@ def collect(root, manifest):
             legacy.append(video_id)
             continue
         case = json.loads((folder/"case.json").read_bytes())
+        mapping = attack_map(video_id, condition) if condition in ("drop", "insert", "clip") else None
+        received = folder/"marked.mp4" if condition == "clean" else folder/"attacks"/(condition + ".mp4")
         if (row["video_id"] != video_id or case["video_id"] != video_id
                 or (case["seed"], case["prompt"], case["key_slot"]) != (sample["seed"], sample["prompt"], sample["key_slot"])
-                or row["method"] != "last" or row["condition"] != "drop" or row.get("map_seed", 0) != 0
-                or row["attack_map"] != attack_map(video_id, "drop") or row["frames"] != 35
+                or row["method"] != "last" or row["condition"] != condition or row.get("map_seed", 0) != 0
+                or row["attack_map"] != mapping or row["frames"] != (len(mapping) if mapping is not None else 65)
                 or row["source_sha256"] != digest(folder/"marked.mp4")
-                or row["received_sha256"] != digest(folder/"attacks"/"drop.mp4")):
+                or row["received_sha256"] != digest(received)):
             raise ValueError(f"Primary case, map or MP4 mismatch: {video_id}")
         rows.append(row)
         observations.append(dict(video_id=video_id, receipt_sha256=digest(receipt), **{

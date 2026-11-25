@@ -27,7 +27,9 @@ def collect(reports):
             if not complete and row.get('final_bit_accuracy') is not None:raise ValueError('Partial observations cannot carry a final score')
             if complete and (row.get('final_bit_accuracy') is None or not math.isclose(row['final_bit_accuracy'],score,abs_tol=1e-12)):
                 raise ValueError('Final accuracy differs from actual counts')
-            planned = report.get('planned_videos_per_method', expected)
+            planned = report.get('planned_videos_per_method', report.get('planned_videos', expected))
+            if 'planned_videos' in report and report['planned_videos'] != planned:
+                raise ValueError('Conflicting planned video counts')
             if type(planned) is not int or planned < expected:
                 raise ValueError('Benchmark plan cannot be smaller than the audited subset')
             cells[condition] = dict(row, expected=planned, complete=done == planned,

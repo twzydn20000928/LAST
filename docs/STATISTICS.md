@@ -139,3 +139,64 @@ Run `python tools/deletion_group_survival.py --report results/hunyuan_i2v_paired
 For the supplementary PSNR and SSIM intervals, run `python tools/fidelity_intervals.py results/hunyuan_i2v_paired_fidelity_first13.json`. Use `--method lfg` for the LFG adaptation. Each video contributes one measurement against its own paired reference. The 10,000 draws sample entire prompt clusters with replacement and retain all videos for each drawn cluster. The current prefix spans only four prompts and cannot establish population-level precision. V-score requires separate dimension-level scoring.
 Primary deletion snapshot: `python tools/primary_deletion_errors.py --root /private/primary` scans original Hunyuan I2V LAST attack receipts and verifies the manifest case, primary frame map, marked MP4 and received MP4. The [observations](../results/hunyuan_i2v_primary_deletion_errors.json) cover 170 videos; eight legacy receipts lacked a recorded received-file hash and were excluded. Of 170, one recovered the whole message, 169 returned a wrong message with BCH failure, and none returned a wrong message with BCH success. Median post-decoding error was 130/512. Results from replayed extractions are tracked separately.
 On the same 170 primary deletion receipts, all 170 used the consistency-chain route. Among 643 selected windows, 154/87/166/172/64 had respectively 0/1/2/3/4 received frames from the predicted source group. Use `python tools/deletion_chain_audit.py --root /private/primary --report results/hunyuan_i2v_primary_deletion_errors.json` to recompute the [window counts](../results/hunyuan_i2v_primary_deletion_chains.json). Ground-truth frame indices are used only after blind extraction. A four-frame window with partial group support may still carry information; this histogram is separate from message recovery.
+For Tables 10–11 on the 170-case deletion cohort, run `python tools/primary_message_tables.py --report results/hunyuan_i2v_primary_message_170.json`. This uses exactly the same sample identifiers for all seven conditions. To acquire the measurements from the original generated files use `--root /private/primary --cohort results/hunyuan_i2v_primary_deletion_errors.json --export new-counts.json`. Every row requires both MP4 hashes, its primary attack map and its original correction status. All 1,190 public observations contain pre- and post-decoding counts.
+For fidelity on exactly the 170 Hunyuan I2V Table 10–11 videos, run `python tools/fidelity_intervals.py results/hunyuan_i2v_primary_fidelity_170.json`. These 32 prompt clusters yield mean per-video PSNR 33.025 dB and mean SSIM 0.94333. The report records the digest of its parent message table. To rebuild it, run `python tools/primary_message_fidelity.py --root /private/primary --report results/hunyuan_i2v_primary_message_170.json` against the original marked and reference MP4s.
+
+### Complete 178-video prefix using two measurement sources
+
+Run `python tools/hunyuan_prefix_recovery.py` to recount Hunyuan I2V LAST
+paper-000 through paper-177. The original-receipt column uses 170 videos.
+For the eight IDs missing historical received-file hashes, the replay column
+uses later blind extractions identified in the 100-video robustness report.
+The eight-video pre/post-BCH report has a different set of replay receipt
+hashes and agrees on the seven aggregate bit and exact-message counts. The
+script checks these totals separately. It also checks all 644 overlapping
+original records across the two larger reports against their MP4 and receipt
+hashes and bit counts. Each video contributes once per condition. Deletion
+gives 66,132/91,136 correct bits (72.56%) and one exact message out of 178.
+The original-only 170-video snapshot remains separately reproducible above.
+
+### Same final length, different temporal edits
+
+Run `python tools/deletion_group_survival.py --matched-edits results/hunyuan_i2v_primary_message_170.json`
+to join the primary attack maps to both measured outputs for each Hunyuan I2V
+LAST video. Both edits remove 30 frames and preserve the order of the other 35.
+An intact source group retains all four of its frames. Random deletion retained
+215 of 2,720 source groups, and ten videos retained an intact adjacent pair.
+Contiguous removal retained 1,325 groups, and all 170 videos retained an intact
+adjacent pair. Contiguous removal yielded more correct bits on 169 paired videos
+and the same count on one. Exact recovery was 76/170 versus 1/170 for random
+deletion. The one exact random-deletion recovery came from the 160 cases without
+an intact adjacent pair. These counts describe which frames survived the edit;
+they do not establish which windows the blind reader actually selected.
+
+### Which windows the blind reader actually selected
+
+For the same 170 Hunyuan I2V LAST videos, recount the stored CCTA selections
+against each edit map **after** extraction:
+
+```bash
+for edit in drop clip insert; do
+  python tools/deletion_chain_audit.py --root /private/primary \
+    --report results/hunyuan_i2v_primary_message_170.json --condition "$edit"
+done
+```
+
+The exported files are `results/primary170_{drop,clip,insert}_windows.json`.
+A support count of four means that all four received frames in a selected
+window belong to its predicted original group. For random deletion 64/643
+selected windows met this criterion. For contiguous removal it was 1097/1169.
+For insertion it was 237/1227, covering 169 CCTA outputs. The remaining
+insertion case used the energy-spacing fallback and has no recorded CCTA
+chain. Denominators count selected windows; multiple windows can come from
+one video. This audit measures alignment on existing bits and videos without
+changing the blind decoder.
+
+The same files also distinguish crossing a group boundary from assigning a
+wrong identity to an intact group. Under random deletion, 570/643 selected
+windows spanned source groups, 64 were intact and correctly identified, three
+were intact with the wrong identity, and six contained the initial frame.
+For contiguous removal the counts were 68, 1097, zero and four. Under
+insertion, 781/1227 windows contained at least one inserted frame. Categories
+are exclusive: inserted frames take precedence, then the initial frame, then
+group boundaries and identity. These are window counts pooled across videos.

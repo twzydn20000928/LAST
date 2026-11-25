@@ -781,3 +781,23 @@ Run `python tools/paired_oracle_table.py --report results/hunyuan_i2v_paired_pri
 The second frozen prefix case is available in `results/hunyuan_i2v_oracle_paper001.json`. Run the same command with that file and `--video-id paper-001`. Deletion improved from 368/512 to 512/512 (511 before BCH), insertion from 436/512 to 512/512; the other five conditions had equal correct-bit counts. For deletion, one entire source group was missing, two were intact and the oracle filled 25 slots across the fifteen retained groups.
 The next two matched inputs are `results/hunyuan_i2v_oracle_paper002.json` and `results/hunyuan_i2v_oracle_paper003.json`. Across the first four samples, blind/oracle exact recovery was 0/4 versus 4/4 for both random deletion and insertion, and 2/4 versus 2/4 for clipping. These are four matched cases of each edit.
 The fifth matching receipt is `results/hunyuan_i2v_oracle_paper004.json`: blind/oracle correct information bits were 411/512 versus 512/512 for deletion, 503/512 versus 512/512 for insertion, and 512/512 for both on clipping.
+For all 13 matched diagnostic cases, run `python tools/paired_oracle_table.py --report results/hunyuan_i2v_paired_primary_first13.json --oracle-dir results`. The command verifies every attack MP4 and receipt fingerprint across the two reader records. Exact messages (blind/oracle): clean 13/13 vs 13/13; noise 9 vs 9; compression 4 vs 4; blur 10 vs 9; deletion 0 vs 12; insertion 2 vs 13; clip 5 vs 10. Each count uses 13 videos. The remaining deletion failure, paper-011, recovered 504 information bits with failed BCH decoding even with group assistance. Supplement Table 12 specifies 400 clips; these results describe a partial cohort.
+
+The default `python tools/reader_ablation_table.py` now recounts 12/30 frozen
+Hunyuan I2V samples, 6,144 information bits per cell, from
+`results/hunyuan_i2v_reader_ablation_first12.json`. All four readers used
+the same seven input MP4s per case. The 308 observations from the earlier
+11-case report agree on every shared field. Random deletion gave 73.91%
+for the full reader, 49.56% using energy and spacing in place of cross-group
+consistency, 65.89% with fixed-stride windows, and 52.60% with received-order
+grouping. These paired scores describe this subset and the implemented variants.
+
+To compare both sides of the component ablation on identical full-LAST
+baseline inputs, run `python tools/matched_component_table.py`. It matches
+all seven received MP4 hashes and full-reader bit counts before including
+a video. Ten of twelve currently measured IDs meet this condition.
+For paper-003 and paper-174 the baseline MP4 fingerprints differ between
+the separate writer and reader runs for every condition. Each remains in
+its original within-experiment table. The combined table names all excluded
+IDs and conditions and covers 10 of the 30 planned samples.
+The same command computes fidelity on those exact matched IDs: mean PSNR/SSIM 33.999 dB/0.95207 for minimum margin and 33.297 dB/0.94969 for fixed target.

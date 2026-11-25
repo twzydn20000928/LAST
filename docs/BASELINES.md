@@ -319,6 +319,34 @@ This is one sample, not a population estimate or evidence of correct grouping.
 This control is distinct from `--method lfg-c`, which changes the
 writer's carrier parameterization.
 
+To compare both readers on your own primary Hunyuan I2V generations, set
+`PRIMARY_ROOT` to the directory containing `hunyuan/i2v/lfg/paper-000`,
+`HUNYUAN_MODEL` to the model directory, and `READ_ROOT` to a private output
+directory. Start with completed original-reader runs in manifest order. Set
+`COUNT` to the number of completed cases (400 for the paper protocol).
+Run from the repository root using Bash and the installed project environment.
+
+```bash
+set -e
+mkdir -p -m 700 "$READ_ROOT"
+for ((i=0; i<COUNT; i++)); do
+  id=$(printf 'paper-%03d' "$i")
+  python -m last.lfg_native_reader --family hunyuan --model-dir "$HUNYUAN_MODEL" \
+    --run "$PRIMARY_ROOT/hunyuan/i2v/lfg/$id" --output "$READ_ROOT/$id"
+done
+python tools/lfg_reader_pairs.py --root "$PRIMARY_ROOT" --outputs "$READ_ROOT" \
+  --count "$COUNT" > "$READ_ROOT/paired-counts.json"
+python tools/lfg_reader_table.py "$READ_ROOT/paired-counts.json"
+```
+
+Each reader output needs a fresh per-case directory. The comparator checks
+the manifest case, edit map, original and received MP4 hashes, and recounts
+the CCTA predictions against the private 512-bit messages. The table can
+subsequently be rendered on CPU from the exported JSON alone. When auditing
+the original archived videos, add `--report` with their earlier paired primary
+report to also check its baseline counts and file fingerprints. Independent
+generations can produce different MP4 fingerprints.
+
 ### Wan-2.2 native-carrier integration (real-video validation pending)
 
 `last.baseline_generate` now accepts `--family wan22` for the three native
@@ -616,3 +644,33 @@ rechecks admission after 60 seconds, substitute
 in the command above. Use the native environment and the same arguments.
 A nonzero child exit is propagated for inspection; completed or bounded
 worker invocations return normally.
+The Hunyuan I2V VideoShield first primary case can be exported for Tables 1 and 2 with `python tools/audit_videomark_prefix.py --method videoshield --mode i2v --count 1 --manifest configs/primary_manifest.json --plan /private/native-plan.json --root /private/primary --output videoshield-audit.json`. The [recount](../results/hunyuan_i2v_videoshield_first1.json) matches all seven earlier counts and verifies both methods used the frozen conditioning image and message. The seven archived predictions have no extraction-time prediction digest; the audit recounts their current bytes and compares with the archived scores.
+
+To include the supplementary PSNR column for the archived LFG prefix, pass
+`--fidelity results/hunyuan_i2v_paired_fidelity_first16.json` to
+`tools/lfg_reader_table.py`. For new generations use the fidelity report
+measured on those generations. The command selects the completed reader IDs
+and matches each clean MP4 fingerprint. It averages per-video PSNR in dB.
+Both reader rows share the same writer and the same videos, hence also the
+same PSNR. The archived LFG value is 22.40 dB for paper-000 alone and 22.77 dB
+for the 16-video prefix. Reader accuracy requires its own extraction receipts.
+
+The first formal Hunyuan I2V case can be recounted on CPU:
+
+```bash
+python tools/lfg_reader_table.py results/hunyuan_i2v_lfg_ccta_first1.json \
+  --fidelity results/hunyuan_i2v_paired_fidelity_first16.json
+```
+
+On paper-000, original/CCTA correct bits out of 512 were 349/365 after
+deletion, 276/403 after insertion and 358/465 after clipping. Neither reader
+recovered the entire message in any of the seven conditions. These results
+describe one paired video from the primary 400-case protocol.
+
+The first two formal cases are in `results/hunyuan_i2v_lfg_ccta_first2.json`.
+Supply that file to the same command. The second deletion yielded 368/512
+original versus 319/512 with CCTA; across both cases the totals were
+717/1024 versus 684/1024. For insertion the totals were 557/1024 versus
+853/1024 and for clipping 818/1024 versus 932/1024. No temporal condition
+recovered an entire message in either arm. All seven first-case records
+match the earlier one-case snapshot.

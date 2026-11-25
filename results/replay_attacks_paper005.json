@@ -1,0 +1,62 @@
+{
+  "video_id": "paper-005",
+  "source_sha256": "2bcf6751486b34d3cd8d6dbe2b4d479466e83e558d2f5ba78c70d234291440ed",
+  "conditions": {
+    "clean": {
+      "recorded_sha256": "2bcf6751486b34d3cd8d6dbe2b4d479466e83e558d2f5ba78c70d234291440ed",
+      "replay_sha256": "2bcf6751486b34d3cd8d6dbe2b4d479466e83e558d2f5ba78c70d234291440ed",
+      "same_bytes": true,
+      "same_map": true,
+      "frames": 65,
+      "same_length": true
+    },
+    "noise": {
+      "recorded_sha256": "3f3a4dd3f6cca7fb2a23d29b7de9477974c403b87586c8aa7acbdc8b1f285b48",
+      "replay_sha256": "3f3a4dd3f6cca7fb2a23d29b7de9477974c403b87586c8aa7acbdc8b1f285b48",
+      "same_bytes": true,
+      "same_map": true,
+      "frames": 65,
+      "same_length": true
+    },
+    "compression": {
+      "recorded_sha256": "e47232453c9fc51f7a3de6f76e6d403e0324649deea7523b0a3965e86b4c330f",
+      "replay_sha256": "e47232453c9fc51f7a3de6f76e6d403e0324649deea7523b0a3965e86b4c330f",
+      "same_bytes": true,
+      "same_map": true,
+      "frames": 65,
+      "same_length": true
+    },
+    "blur": {
+      "recorded_sha256": "be9a1a174fed053255b4a4a39432b87b7ec27b4c8b527f55c858d386dddf5860",
+      "replay_sha256": "be9a1a174fed053255b4a4a39432b87b7ec27b4c8b527f55c858d386dddf5860",
+      "same_bytes": true,
+      "same_map": true,
+      "frames": 65,
+      "same_length": true
+    },
+    "drop": {
+      "recorded_sha256": "1f16d0fef536159360c2bc01632785dd797d12aeaaf0cf29a0514ecb8ffaf17b",
+      "replay_sha256": "1f16d0fef536159360c2bc01632785dd797d12aeaaf0cf29a0514ecb8ffaf17b",
+      "same_bytes": true,
+      "same_map": true,
+      "frames": 35,
+      "same_length": true
+    },
+    "insert": {
+      "recorded_sha256": "7856f05720a004c3fdd4fa67c05c1241851bb5bbf7b60cc2a042d0a334f134a1",
+      "replay_sha256": "7856f05720a004c3fdd4fa67c05c1241851bb5bbf7b60cc2a042d0a334f134a1",
+      "same_bytes": true,
+      "same_map": true,
+      "frames": 95,
+      "same_length": true
+    },
+    "clip": {
+      "recorded_sha256": "fa45ca15d19e4b06ed3c7079d74839d53354471780571d4bafa48588bd82d2e8",
+      "replay_sha256": "fa45ca15d19e4b06ed3c7079d74839d53354471780571d4bafa48588bd82d2e8",
+      "same_bytes": true,
+      "same_map": true,
+      "frames": 35,
+      "same_length": true
+    }
+  }
+}

@@ -1,0 +1,2346 @@
+{
+  "routes": {
+    "ccta": {
+      "videos": 169,
+      "exact": 8
+    },
+    "energy_spacing": {
+      "videos": 1,
+      "exact": 0
+    }
+  },
+  "selected_windows": 1227,
+  "support_histogram": {
+    "3": 297,
+    "4": 237,
+    "2": 209,
+    "0": 313,
+    "1": 171
+  },
+  "window_types": {
+    "spans_source_groups": 201,
+    "intact_correct_identity": 237,
+    "contains_inserted_frame": 781,
+    "contains_initial_frame": 1,
+    "intact_wrong_identity": 7
+  },
+  "videos": [
+    {
+      "video_id": "paper-005",
+      "correct_bits": 512,
+      "support_histogram": {
+        "3": 2,
+        "4": 4
+      },
+      "window_types": {
+        "spans_source_groups": 2,
+        "intact_correct_identity": 4
+      }
+    },
+    {
+      "video_id": "paper-006",
+      "correct_bits": 512,
+      "support_histogram": {
+        "4": 4,
+        "3": 3,
+        "2": 2,
+        "0": 4
+      },
+      "window_types": {
+        "intact_correct_identity": 4,
+        "contains_inserted_frame": 7,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-007",
+      "correct_bits": 486,
+      "support_histogram": {
+        "1": 1,
+        "2": 3,
+        "4": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 3
+      }
+    },
+    {
+      "video_id": "paper-008",
+      "correct_bits": 373,
+      "support_histogram": {
+        "0": 1,
+        "1": 2,
+        "2": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 6
+      }
+    },
+    {
+      "video_id": "paper-009",
+      "correct_bits": 411,
+      "support_histogram": {
+        "2": 2,
+        "4": 2,
+        "3": 2,
+        "1": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-010",
+      "correct_bits": 434,
+      "support_histogram": {
+        "1": 3,
+        "2": 3,
+        "3": 1,
+        "4": 2,
+        "0": 1
+      },
+      "window_types": {
+        "spans_source_groups": 2,
+        "contains_inserted_frame": 6,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-011",
+      "correct_bits": 380,
+      "support_histogram": {
+        "0": 6,
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 10,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-012",
+      "correct_bits": 455,
+      "support_histogram": {
+        "1": 4,
+        "2": 4,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "spans_source_groups": 4
+      }
+    },
+    {
+      "video_id": "paper-013",
+      "correct_bits": 488,
+      "support_histogram": {
+        "4": 4
+      },
+      "window_types": {
+        "intact_correct_identity": 4
+      }
+    },
+    {
+      "video_id": "paper-014",
+      "correct_bits": 442,
+      "support_histogram": {
+        "2": 2,
+        "3": 3,
+        "4": 1,
+        "0": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-015",
+      "correct_bits": 495,
+      "support_histogram": {
+        "3": 5,
+        "4": 1,
+        "2": 1,
+        "0": 2
+      },
+      "window_types": {
+        "spans_source_groups": 4,
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-016",
+      "correct_bits": 418,
+      "support_histogram": {
+        "0": 1,
+        "1": 2,
+        "2": 2,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-017",
+      "correct_bits": 402,
+      "support_histogram": {
+        "2": 2,
+        "3": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 2
+      }
+    },
+    {
+      "video_id": "paper-018",
+      "correct_bits": 407,
+      "support_histogram": {
+        "1": 4,
+        "2": 2,
+        "4": 1,
+        "0": 1
+      },
+      "window_types": {
+        "spans_source_groups": 2,
+        "contains_inserted_frame": 5,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-019",
+      "correct_bits": 441,
+      "support_histogram": {
+        "0": 1,
+        "1": 2,
+        "2": 2,
+        "4": 1,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-021",
+      "correct_bits": 479,
+      "support_histogram": {
+        "2": 3,
+        "3": 3,
+        "4": 1,
+        "0": 1,
+        "1": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 7,
+        "intact_correct_identity": 1,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-022",
+      "correct_bits": 389,
+      "support_histogram": {
+        "0": 2,
+        "1": 1,
+        "2": 2,
+        "4": 1,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-023",
+      "correct_bits": 512,
+      "support_histogram": {
+        "2": 4,
+        "3": 3,
+        "0": 1,
+        "4": 1
+      },
+      "window_types": {
+        "spans_source_groups": 3,
+        "contains_inserted_frame": 5,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-024",
+      "correct_bits": 496,
+      "support_histogram": {
+        "4": 3,
+        "3": 2
+      },
+      "window_types": {
+        "intact_correct_identity": 3,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-025",
+      "correct_bits": 452,
+      "support_histogram": {
+        "1": 2,
+        "3": 5,
+        "2": 3,
+        "0": 5
+      },
+      "window_types": {
+        "spans_source_groups": 7,
+        "contains_inserted_frame": 8
+      }
+    },
+    {
+      "video_id": "paper-026",
+      "correct_bits": 503,
+      "support_histogram": {
+        "4": 2,
+        "3": 1
+      },
+      "window_types": {
+        "intact_correct_identity": 2,
+        "contains_inserted_frame": 1
+      }
+    },
+    {
+      "video_id": "paper-027",
+      "correct_bits": 432,
+      "support_histogram": {
+        "1": 1,
+        "2": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 4
+      }
+    },
+    {
+      "video_id": "paper-028",
+      "correct_bits": 512,
+      "support_histogram": {
+        "4": 4,
+        "2": 2
+      },
+      "window_types": {
+        "intact_correct_identity": 4,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-029",
+      "correct_bits": 408,
+      "support_histogram": {
+        "1": 2,
+        "3": 1,
+        "4": 2,
+        "2": 1,
+        "0": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-030",
+      "correct_bits": 425,
+      "support_histogram": {
+        "1": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 3
+      }
+    },
+    {
+      "video_id": "paper-031",
+      "correct_bits": 408,
+      "support_histogram": {
+        "1": 1,
+        "2": 2,
+        "4": 2,
+        "3": 1,
+        "0": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-032",
+      "correct_bits": 512,
+      "support_histogram": {
+        "4": 4
+      },
+      "window_types": {
+        "intact_correct_identity": 4
+      }
+    },
+    {
+      "video_id": "paper-033",
+      "correct_bits": 416,
+      "support_histogram": {
+        "0": 1,
+        "2": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-034",
+      "correct_bits": 387,
+      "support_histogram": {
+        "1": 3,
+        "3": 1,
+        "4": 2,
+        "2": 1,
+        "0": 6
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 10,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-035",
+      "correct_bits": 463,
+      "support_histogram": {
+        "1": 2,
+        "3": 4,
+        "4": 1,
+        "2": 1,
+        "0": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 8,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-036",
+      "correct_bits": 457,
+      "support_histogram": {
+        "1": 1,
+        "3": 1,
+        "4": 1,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-037",
+      "correct_bits": 444,
+      "support_histogram": {
+        "0": 1,
+        "1": 2,
+        "3": 2,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-038",
+      "correct_bits": 442,
+      "support_histogram": {
+        "0": 6,
+        "1": 1,
+        "2": 1,
+        "3": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 10,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-039",
+      "correct_bits": 479,
+      "support_histogram": {
+        "1": 1,
+        "3": 2,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-041",
+      "correct_bits": 395,
+      "support_histogram": {
+        "2": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-042",
+      "correct_bits": 406,
+      "support_histogram": {
+        "2": 1,
+        "4": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-043",
+      "correct_bits": 338,
+      "support_histogram": {
+        "1": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 3
+      }
+    },
+    {
+      "video_id": "paper-044",
+      "correct_bits": 468,
+      "support_histogram": {
+        "2": 2,
+        "3": 4,
+        "0": 2,
+        "4": 1,
+        "1": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 7,
+        "intact_correct_identity": 1,
+        "spans_source_groups": 3
+      }
+    },
+    {
+      "video_id": "paper-045",
+      "correct_bits": 495,
+      "support_histogram": {
+        "1": 4,
+        "4": 4,
+        "2": 3,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "intact_correct_identity": 4,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-047",
+      "correct_bits": 492,
+      "support_histogram": {
+        "0": 3,
+        "1": 2,
+        "2": 2,
+        "3": 3,
+        "4": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 9,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-048",
+      "correct_bits": 375,
+      "support_histogram": {
+        "4": 1,
+        "3": 1
+      },
+      "window_types": {
+        "intact_correct_identity": 1,
+        "contains_inserted_frame": 1
+      }
+    },
+    {
+      "video_id": "paper-049",
+      "correct_bits": 380,
+      "support_histogram": {
+        "2": 2,
+        "4": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-050",
+      "correct_bits": 375,
+      "support_histogram": {
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-051",
+      "correct_bits": 371,
+      "support_histogram": {
+        "1": 1,
+        "2": 4,
+        "3": 1,
+        "0": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-052",
+      "correct_bits": 512,
+      "support_histogram": {
+        "0": 2,
+        "1": 2,
+        "3": 1,
+        "2": 1,
+        "4": 5
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "intact_correct_identity": 5
+      }
+    },
+    {
+      "video_id": "paper-053",
+      "correct_bits": 473,
+      "support_histogram": {
+        "0": 2,
+        "1": 4,
+        "3": 1,
+        "4": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 4
+      }
+    },
+    {
+      "video_id": "paper-054",
+      "correct_bits": 512,
+      "support_histogram": {
+        "4": 6,
+        "2": 1,
+        "1": 2,
+        "3": 2,
+        "0": 3
+      },
+      "window_types": {
+        "intact_correct_identity": 6,
+        "contains_inserted_frame": 6,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-055",
+      "correct_bits": 437,
+      "support_histogram": {
+        "0": 1,
+        "2": 3,
+        "4": 1,
+        "3": 1,
+        "1": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-056",
+      "correct_bits": 440,
+      "support_histogram": {
+        "1": 3,
+        "3": 1,
+        "2": 2
+      },
+      "window_types": {
+        "spans_source_groups": 3,
+        "contains_inserted_frame": 3
+      }
+    },
+    {
+      "video_id": "paper-057",
+      "correct_bits": 482,
+      "support_histogram": {
+        "1": 2,
+        "2": 1,
+        "3": 5,
+        "4": 1,
+        "0": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 9,
+        "spans_source_groups": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-058",
+      "correct_bits": 442,
+      "support_histogram": {
+        "1": 2,
+        "3": 3,
+        "4": 1,
+        "2": 1,
+        "0": 6
+      },
+      "window_types": {
+        "spans_source_groups": 3,
+        "contains_inserted_frame": 9,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-059",
+      "correct_bits": 438,
+      "support_histogram": {
+        "0": 6,
+        "1": 2,
+        "2": 2,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 10,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-061",
+      "correct_bits": 395,
+      "support_histogram": {
+        "4": 1,
+        "3": 1
+      },
+      "window_types": {
+        "intact_correct_identity": 1,
+        "contains_inserted_frame": 1
+      }
+    },
+    {
+      "video_id": "paper-062",
+      "correct_bits": 410,
+      "support_histogram": {
+        "0": 9,
+        "2": 1,
+        "3": 2,
+        "4": 3,
+        "1": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 13,
+        "intact_correct_identity": 3
+      }
+    },
+    {
+      "video_id": "paper-063",
+      "correct_bits": 459,
+      "support_histogram": {
+        "4": 3,
+        "3": 2
+      },
+      "window_types": {
+        "intact_correct_identity": 3,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-064",
+      "correct_bits": 408,
+      "support_histogram": {
+        "0": 2,
+        "2": 1,
+        "4": 2,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-065",
+      "correct_bits": 454,
+      "support_histogram": {
+        "1": 1,
+        "3": 2,
+        "4": 2,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-066",
+      "correct_bits": 396,
+      "support_histogram": {
+        "0": 1,
+        "2": 2,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-067",
+      "correct_bits": 397,
+      "support_histogram": {
+        "0": 8,
+        "1": 3,
+        "2": 2,
+        "3": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 13,
+        "spans_source_groups": 3
+      }
+    },
+    {
+      "video_id": "paper-068",
+      "correct_bits": 442,
+      "support_histogram": {
+        "2": 1,
+        "3": 1,
+        "4": 4,
+        "1": 1,
+        "0": 9
+      },
+      "window_types": {
+        "contains_inserted_frame": 11,
+        "intact_correct_identity": 4,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-069",
+      "correct_bits": 441,
+      "support_histogram": {
+        "0": 1,
+        "1": 3,
+        "3": 3,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 3
+      }
+    },
+    {
+      "video_id": "paper-070",
+      "correct_bits": 245,
+      "support_histogram": {
+        "0": 2
+      },
+      "window_types": {
+        "contains_initial_frame": 1,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-071",
+      "correct_bits": 489,
+      "support_histogram": {
+        "2": 2,
+        "3": 4
+      },
+      "window_types": {
+        "spans_source_groups": 3,
+        "contains_inserted_frame": 3
+      }
+    },
+    {
+      "video_id": "paper-072",
+      "correct_bits": 422,
+      "support_histogram": {
+        "4": 2
+      },
+      "window_types": {
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-073",
+      "correct_bits": 362,
+      "support_histogram": {
+        "2": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-074",
+      "correct_bits": 394,
+      "support_histogram": {
+        "1": 1,
+        "2": 1,
+        "4": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-075",
+      "correct_bits": 429,
+      "support_histogram": {
+        "1": 1,
+        "3": 3,
+        "4": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-076",
+      "correct_bits": 474,
+      "support_histogram": {
+        "4": 7
+      },
+      "window_types": {
+        "intact_correct_identity": 7
+      }
+    },
+    {
+      "video_id": "paper-077",
+      "correct_bits": 424,
+      "support_histogram": {
+        "3": 3,
+        "4": 2
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-078",
+      "correct_bits": 369,
+      "support_histogram": {
+        "1": 2,
+        "2": 3,
+        "3": 3,
+        "4": 1,
+        "0": 7
+      },
+      "window_types": {
+        "contains_inserted_frame": 12,
+        "spans_source_groups": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-079",
+      "correct_bits": 410,
+      "support_histogram": {
+        "4": 2
+      },
+      "window_types": {
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-080",
+      "correct_bits": 410,
+      "support_histogram": {
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-081",
+      "correct_bits": 305,
+      "support_histogram": {
+        "0": 2,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-082",
+      "correct_bits": 363,
+      "support_histogram": {
+        "0": 10,
+        "1": 2,
+        "3": 1,
+        "4": 2,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 13,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-083",
+      "correct_bits": 378,
+      "support_histogram": {
+        "0": 4,
+        "1": 2,
+        "2": 1,
+        "4": 2,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 8,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-084",
+      "correct_bits": 258,
+      "support_histogram": {
+        "0": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 2
+      }
+    },
+    {
+      "video_id": "paper-085",
+      "correct_bits": 391,
+      "support_histogram": {
+        "3": 2,
+        "4": 1,
+        "2": 1,
+        "0": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-086",
+      "correct_bits": 359,
+      "support_histogram": {
+        "1": 1,
+        "2": 1,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-087",
+      "correct_bits": 494,
+      "support_histogram": {
+        "4": 7,
+        "3": 1
+      },
+      "window_types": {
+        "intact_correct_identity": 7,
+        "contains_inserted_frame": 1
+      }
+    },
+    {
+      "video_id": "paper-088",
+      "correct_bits": 344,
+      "support_histogram": {
+        "0": 1,
+        "1": 3,
+        "2": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-089",
+      "correct_bits": 380,
+      "support_histogram": {
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-090",
+      "correct_bits": 382,
+      "support_histogram": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 1,
+        "0": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 8,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-091",
+      "correct_bits": 386,
+      "support_histogram": {
+        "1": 2,
+        "2": 3,
+        "4": 3,
+        "0": 5
+      },
+      "window_types": {
+        "contains_inserted_frame": 9,
+        "intact_correct_identity": 3,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-092",
+      "correct_bits": 386,
+      "support_histogram": {
+        "1": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-093",
+      "correct_bits": 377,
+      "support_histogram": {
+        "1": 3,
+        "2": 2,
+        "4": 1,
+        "3": 2,
+        "0": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "spans_source_groups": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-094",
+      "correct_bits": 410,
+      "support_histogram": {
+        "1": 1,
+        "2": 3,
+        "4": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 3,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-095",
+      "correct_bits": 370,
+      "support_histogram": {
+        "2": 2,
+        "4": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-096",
+      "correct_bits": 465,
+      "support_histogram": {
+        "2": 1,
+        "4": 2,
+        "1": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-097",
+      "correct_bits": 439,
+      "support_histogram": {
+        "4": 2
+      },
+      "window_types": {
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-098",
+      "correct_bits": 372,
+      "support_histogram": {
+        "2": 1,
+        "3": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-099",
+      "correct_bits": 357,
+      "support_histogram": {
+        "2": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-100",
+      "correct_bits": 407,
+      "support_histogram": {
+        "1": 2,
+        "2": 1,
+        "3": 2,
+        "4": 1,
+        "0": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 5,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-101",
+      "correct_bits": 398,
+      "support_histogram": {
+        "1": 1,
+        "2": 3,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-102",
+      "correct_bits": 391,
+      "support_histogram": {
+        "0": 9,
+        "2": 1,
+        "3": 3,
+        "4": 1,
+        "1": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 13,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-103",
+      "correct_bits": 406,
+      "support_histogram": {
+        "1": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 3
+      }
+    },
+    {
+      "video_id": "paper-104",
+      "correct_bits": 448,
+      "support_histogram": {
+        "1": 1,
+        "3": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-105",
+      "correct_bits": 434,
+      "support_histogram": {
+        "1": 1,
+        "3": 4,
+        "4": 1,
+        "0": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 1,
+        "intact_wrong_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-106",
+      "correct_bits": 407,
+      "support_histogram": {
+        "1": 1,
+        "2": 2,
+        "3": 2,
+        "4": 2,
+        "0": 8
+      },
+      "window_types": {
+        "contains_inserted_frame": 11,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-107",
+      "correct_bits": 464,
+      "support_histogram": {
+        "2": 3,
+        "4": 4,
+        "3": 1,
+        "1": 1,
+        "0": 2
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 6,
+        "intact_correct_identity": 4
+      }
+    },
+    {
+      "video_id": "paper-108",
+      "correct_bits": 353,
+      "support_histogram": {
+        "0": 1,
+        "1": 1,
+        "3": 1,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 4
+      }
+    },
+    {
+      "video_id": "paper-109",
+      "correct_bits": 377,
+      "support_histogram": {
+        "0": 4,
+        "2": 4,
+        "3": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "spans_source_groups": 5
+      }
+    },
+    {
+      "video_id": "paper-110",
+      "correct_bits": 382,
+      "support_histogram": {
+        "0": 1,
+        "1": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 4
+      }
+    },
+    {
+      "video_id": "paper-111",
+      "correct_bits": 418,
+      "support_histogram": {
+        "1": 1,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-112",
+      "correct_bits": 413,
+      "support_histogram": {
+        "1": 1,
+        "2": 3,
+        "3": 2,
+        "4": 1,
+        "0": 6
+      },
+      "window_types": {
+        "contains_inserted_frame": 8,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 1,
+        "intact_wrong_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-113",
+      "correct_bits": 417,
+      "support_histogram": {
+        "0": 1,
+        "1": 1,
+        "2": 2,
+        "3": 2,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-114",
+      "correct_bits": 420,
+      "support_histogram": {
+        "1": 2,
+        "2": 2,
+        "4": 1,
+        "3": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-115",
+      "correct_bits": 497,
+      "support_histogram": {
+        "3": 6,
+        "4": 3,
+        "0": 2
+      },
+      "window_types": {
+        "spans_source_groups": 4,
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 3
+      }
+    },
+    {
+      "video_id": "paper-116",
+      "correct_bits": 512,
+      "support_histogram": {
+        "3": 3,
+        "4": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 4,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-117",
+      "correct_bits": 418,
+      "support_histogram": {
+        "0": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-118",
+      "correct_bits": 390,
+      "support_histogram": {
+        "0": 3,
+        "1": 2,
+        "3": 3,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 7,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-119",
+      "correct_bits": 438,
+      "support_histogram": {
+        "1": 2,
+        "2": 2,
+        "4": 1,
+        "3": 4,
+        "0": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 8,
+        "spans_source_groups": 4,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-120",
+      "correct_bits": 375,
+      "support_histogram": {
+        "1": 2,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "0": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-121",
+      "correct_bits": 404,
+      "support_histogram": {
+        "2": 1,
+        "3": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-122",
+      "correct_bits": 361,
+      "support_histogram": {
+        "1": 2,
+        "3": 4,
+        "4": 1,
+        "0": 9
+      },
+      "window_types": {
+        "contains_inserted_frame": 12,
+        "spans_source_groups": 2,
+        "intact_correct_identity": 1,
+        "intact_wrong_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-123",
+      "correct_bits": 377,
+      "support_histogram": {
+        "2": 1,
+        "4": 1,
+        "1": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-124",
+      "correct_bits": 368,
+      "support_histogram": {
+        "0": 7,
+        "1": 2,
+        "2": 2,
+        "4": 2,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 11,
+        "intact_correct_identity": 2,
+        "intact_wrong_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-125",
+      "correct_bits": 397,
+      "support_histogram": {
+        "0": 1,
+        "3": 2,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-126",
+      "correct_bits": 413,
+      "support_histogram": {
+        "3": 1,
+        "4": 1,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-127",
+      "correct_bits": 415,
+      "support_histogram": {
+        "4": 2
+      },
+      "window_types": {
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-128",
+      "correct_bits": 424,
+      "support_histogram": {
+        "1": 2,
+        "3": 2,
+        "4": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-129",
+      "correct_bits": 400,
+      "support_histogram": {
+        "1": 1,
+        "2": 2,
+        "4": 1,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-130",
+      "correct_bits": 366,
+      "support_histogram": {
+        "3": 2
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 1
+      }
+    },
+    {
+      "video_id": "paper-131",
+      "correct_bits": 342,
+      "support_histogram": {
+        "0": 1,
+        "2": 1,
+        "3": 2,
+        "1": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-132",
+      "correct_bits": 375,
+      "support_histogram": {
+        "2": 2,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 3
+      }
+    },
+    {
+      "video_id": "paper-133",
+      "correct_bits": 396,
+      "support_histogram": {
+        "0": 4,
+        "2": 3,
+        "4": 2,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 7,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-134",
+      "correct_bits": 394,
+      "support_histogram": {
+        "3": 4
+      },
+      "window_types": {
+        "spans_source_groups": 2,
+        "contains_inserted_frame": 2
+      }
+    },
+    {
+      "video_id": "paper-135",
+      "correct_bits": 432,
+      "support_histogram": {
+        "1": 1,
+        "3": 5,
+        "4": 1,
+        "2": 1,
+        "0": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 3,
+        "intact_correct_identity": 1,
+        "intact_wrong_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-136",
+      "correct_bits": 379,
+      "support_histogram": {
+        "0": 1,
+        "2": 1,
+        "3": 4,
+        "1": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-137",
+      "correct_bits": 384,
+      "support_histogram": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-138",
+      "correct_bits": 353,
+      "support_histogram": {
+        "1": 1,
+        "2": 2,
+        "3": 2,
+        "4": 1,
+        "0": 10
+      },
+      "window_types": {
+        "contains_inserted_frame": 14,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-139",
+      "correct_bits": 410,
+      "support_histogram": {
+        "3": 2,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-140",
+      "correct_bits": 380,
+      "support_histogram": {
+        "0": 8,
+        "3": 5,
+        "2": 1,
+        "1": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 11,
+        "spans_source_groups": 4
+      }
+    },
+    {
+      "video_id": "paper-141",
+      "correct_bits": 384,
+      "support_histogram": {
+        "0": 4,
+        "1": 2,
+        "2": 2,
+        "3": 3,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 8,
+        "spans_source_groups": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-142",
+      "correct_bits": 407,
+      "support_histogram": {
+        "2": 1,
+        "3": 3,
+        "4": 1,
+        "1": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "spans_source_groups": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-143",
+      "correct_bits": 449,
+      "support_histogram": {
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-144",
+      "correct_bits": 382,
+      "support_histogram": {
+        "3": 3
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 2
+      }
+    },
+    {
+      "video_id": "paper-145",
+      "correct_bits": 452,
+      "support_histogram": {
+        "3": 2,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-146",
+      "correct_bits": 382,
+      "support_histogram": {
+        "1": 2,
+        "4": 1,
+        "2": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-147",
+      "correct_bits": 449,
+      "support_histogram": {
+        "1": 1,
+        "2": 2,
+        "4": 3,
+        "3": 1,
+        "0": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "intact_correct_identity": 3
+      }
+    },
+    {
+      "video_id": "paper-148",
+      "correct_bits": 396,
+      "support_histogram": {
+        "0": 7,
+        "1": 2,
+        "2": 1,
+        "4": 1,
+        "3": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 10,
+        "intact_correct_identity": 1,
+        "spans_source_groups": 3
+      }
+    },
+    {
+      "video_id": "paper-149",
+      "correct_bits": 403,
+      "support_histogram": {
+        "0": 6,
+        "1": 1,
+        "2": 4,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 8,
+        "spans_source_groups": 5
+      }
+    },
+    {
+      "video_id": "paper-150",
+      "correct_bits": 492,
+      "support_histogram": {
+        "4": 5
+      },
+      "window_types": {
+        "intact_correct_identity": 5
+      }
+    },
+    {
+      "video_id": "paper-151",
+      "correct_bits": 480,
+      "support_histogram": {
+        "3": 5,
+        "4": 3
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 3
+      }
+    },
+    {
+      "video_id": "paper-152",
+      "correct_bits": 408,
+      "support_histogram": {
+        "2": 2,
+        "3": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 2
+      }
+    },
+    {
+      "video_id": "paper-153",
+      "correct_bits": 483,
+      "support_histogram": {
+        "1": 1,
+        "2": 1,
+        "4": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-154",
+      "correct_bits": 419,
+      "support_histogram": {
+        "2": 3,
+        "3": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 3
+      }
+    },
+    {
+      "video_id": "paper-155",
+      "correct_bits": 387,
+      "support_histogram": {
+        "1": 3,
+        "2": 2,
+        "3": 1,
+        "0": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 6
+      }
+    },
+    {
+      "video_id": "paper-156",
+      "correct_bits": 393,
+      "support_histogram": {
+        "1": 1,
+        "2": 2,
+        "4": 3,
+        "0": 7
+      },
+      "window_types": {
+        "contains_inserted_frame": 9,
+        "intact_correct_identity": 3,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-157",
+      "correct_bits": 393,
+      "support_histogram": {
+        "2": 2,
+        "3": 1,
+        "4": 2,
+        "1": 2,
+        "0": 6
+      },
+      "window_types": {
+        "spans_source_groups": 2,
+        "contains_inserted_frame": 9,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-158",
+      "correct_bits": 388,
+      "support_histogram": {
+        "1": 2,
+        "2": 1,
+        "3": 2,
+        "4": 2,
+        "0": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 7,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 1
+      }
+    },
+    {
+      "video_id": "paper-159",
+      "correct_bits": 391,
+      "support_histogram": {
+        "2": 2,
+        "3": 2,
+        "4": 1,
+        "1": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-160",
+      "correct_bits": 259,
+      "support_histogram": {
+        "0": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 2
+      }
+    },
+    {
+      "video_id": "paper-161",
+      "correct_bits": 359,
+      "support_histogram": {
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-162",
+      "correct_bits": 410,
+      "support_histogram": {
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 3,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-163",
+      "correct_bits": 366,
+      "support_histogram": {
+        "1": 1,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-164",
+      "correct_bits": 358,
+      "support_histogram": {
+        "3": 4,
+        "4": 1,
+        "1": 1,
+        "0": 10
+      },
+      "window_types": {
+        "spans_source_groups": 2,
+        "contains_inserted_frame": 13,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-165",
+      "correct_bits": 377,
+      "support_histogram": {
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-166",
+      "correct_bits": 439,
+      "support_histogram": {
+        "1": 1,
+        "3": 1,
+        "4": 4,
+        "2": 1,
+        "0": 4
+      },
+      "window_types": {
+        "contains_inserted_frame": 7,
+        "intact_correct_identity": 4
+      }
+    },
+    {
+      "video_id": "paper-167",
+      "correct_bits": 361,
+      "support_histogram": {
+        "1": 1,
+        "2": 1,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 2,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-168",
+      "correct_bits": 387,
+      "support_histogram": {
+        "1": 2,
+        "4": 3,
+        "3": 1,
+        "2": 1,
+        "0": 5
+      },
+      "window_types": {
+        "contains_inserted_frame": 9,
+        "intact_correct_identity": 3
+      }
+    },
+    {
+      "video_id": "paper-169",
+      "correct_bits": 401,
+      "support_histogram": {
+        "0": 2,
+        "2": 3,
+        "3": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 5,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-170",
+      "correct_bits": 424,
+      "support_histogram": {
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 2
+      }
+    },
+    {
+      "video_id": "paper-171",
+      "correct_bits": 256,
+      "support_histogram": {
+        "0": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 3
+      }
+    },
+    {
+      "video_id": "paper-172",
+      "correct_bits": 504,
+      "support_histogram": {
+        "3": 4,
+        "4": 3,
+        "2": 3
+      },
+      "window_types": {
+        "spans_source_groups": 3,
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 3
+      }
+    },
+    {
+      "video_id": "paper-173",
+      "correct_bits": 411,
+      "support_histogram": {
+        "3": 1,
+        "4": 3,
+        "2": 1,
+        "0": 2
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 3
+      }
+    },
+    {
+      "video_id": "paper-174",
+      "correct_bits": 383,
+      "support_histogram": {
+        "3": 2,
+        "4": 1
+      },
+      "window_types": {
+        "spans_source_groups": 1,
+        "contains_inserted_frame": 1,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-175",
+      "correct_bits": 377,
+      "support_histogram": {
+        "0": 7,
+        "1": 3,
+        "2": 3,
+        "3": 2,
+        "4": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 12,
+        "spans_source_groups": 3,
+        "intact_correct_identity": 1
+      }
+    },
+    {
+      "video_id": "paper-176",
+      "correct_bits": 451,
+      "support_histogram": {
+        "3": 4,
+        "4": 2,
+        "0": 1,
+        "1": 3
+      },
+      "window_types": {
+        "contains_inserted_frame": 6,
+        "intact_correct_identity": 2,
+        "spans_source_groups": 2
+      }
+    },
+    {
+      "video_id": "paper-177",
+      "correct_bits": 386,
+      "support_histogram": {
+        "1": 2,
+        "2": 1,
+        "4": 1,
+        "3": 1
+      },
+      "window_types": {
+        "contains_inserted_frame": 4,
+        "intact_correct_identity": 1
+      }
+    }
+  ],
+  "condition": "insert",
+  "report_sha256": "09b72c0fc9eae2f105f65e620fd056613967f30839bbef20cf02354262a0e222"
+}

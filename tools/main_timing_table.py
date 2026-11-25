@@ -6,6 +6,8 @@ import math
 from pathlib import Path
 from statistics import mean
 
+from last.timing_summary import check_drop_frames, check_timed_frames
+
 
 METHODS = ("sigmark", "videoshield", "videomark", "lfg", "last")
 
@@ -25,18 +27,7 @@ def check_received_frames(attack, video_id, condition):
         require(attack.get("frames") == 65 and attack.get("attack_map") is None,
                 "Expected the full 65-frame clean input")
     else:
-        from last.timing_summary import check_drop_frames
         check_drop_frames(attack, video_id)
-
-
-def check_timed_frames(timing, expected):
-    if timing["method"] in ("last", "lfg"):
-        require(timing.get("frames") == expected, "Timed reader decoded an unexpected frame count")
-    else:
-        reads = timing["diagnostics_including_warmups"]
-        require(len(reads) == timing["warmups"] + timing["repeats"] and
-                all(read.get("received_frames") == expected for read in reads),
-                "Native timing diagnostics differ from the expected input length")
 
 
 def render(index):

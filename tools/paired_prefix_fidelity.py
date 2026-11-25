@@ -11,6 +11,19 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def measurement(folder, generation, video_id, video_sha):
+    path = folder / "quality.json"
+    quality = json.loads(path.read_bytes())
+    for name in ("marked", "reference"):
+        if digest(folder / (name + ".mp4")) != quality[name + "_sha256"]:
+            raise ValueError("Fidelity input differs from scored MP4")
+    if generation["marked_sha256"] != quality["marked_sha256"] or video_sha != quality["marked_sha256"]:
+        raise ValueError("Robustness and fidelity refer to different watermarked videos")
+    keys = ("definition", "frames", "rgb_mse", "ssim", "psnr_db", "identical", "marked_sha256", "reference_sha256")
+    return dict(video_id=video_id, quality_receipt_sha256=digest(path),
+                                          **{k: quality[k] for k in keys})
+
+
 def audit(report, root):
     samples = report["sample_ids"]
     rows = [r for r in report["audited_observations"] if r["condition"] == "clean"]
@@ -31,16 +44,7 @@ def audit(report, root):
                 or any(campaign["item"][k] != r[k] for k in ("video_id", "family", "mode", "method"))
                 or generation["status"] != "completed" or generation["method"] != r["method"]):
             raise ValueError("Generation or campaign differs from paired measurement")
-        path = folder / "quality.json"
-        quality = json.loads(path.read_bytes())
-        for name in ("marked", "reference"):
-            if digest(folder / (name + ".mp4")) != quality[name + "_sha256"]:
-                raise ValueError("Fidelity input differs from scored MP4")
-        if generation["marked_sha256"] != quality["marked_sha256"] or r["video_sha256"] != quality["marked_sha256"]:
-            raise ValueError("Robustness and fidelity refer to different watermarked videos")
-        keys = ("definition", "frames", "rgb_mse", "ssim", "psnr_db", "identical", "marked_sha256", "reference_sha256")
-        observations[r["method"]].append(dict(video_id=r["video_id"], quality_receipt_sha256=digest(path),
-                                              **{k: quality[k] for k in keys}))
+        observations[r["method"]].append(measurement(folder, generation, r["video_id"], r["video_sha256"]))
     cells = {m: summarize(items, samples) for m, items in observations.items()}
     if not all(cell["complete"] for cell in cells.values()):
         raise ValueError("Missing quality pair")

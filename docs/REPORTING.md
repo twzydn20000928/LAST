@@ -274,3 +274,66 @@ receipts alone.
 
 To rebuild the counts on the evaluation host, use
 `python tools/audit_videomark_prefix.py --root /private/primary --manifest configs/primary_manifest.json --plan /private/native-plan.json --count 35 --output videomark35.json`.
+
+### Rebuild the primary LAST row from the message-level measurements
+
+Run these commands from the repository root. The same 170 measured videos contribute to each I2V attack cell. The aggregate carries the hash of the source measurements and the planned denominator of 400 videos.
+
+```bash
+python tools/primary_message_tables.py --report results/hunyuan_i2v_primary_message_170.json --aggregate primary-counts.json
+python -m last.clean_table --family hunyuan --reports primary-counts.json --quality results/hunyuan_i2v_quality_five_dimensions_last.json results/hunyuan_i2v_quality_five_dimensions_reference.json --output table1-last.md
+python -m last.robustness_table --reports primary-counts.json --output table2-last
+```
+
+The clean bit accuracy covers 170 videos. V-score uses its own 18-dimension protocol. The current five completed dimensions leave V-score pending. For a LAST/LFG comparison on identical samples, use the 16 paired cases linked from the README.
+To check deterministic attack acquisition on an existing generated MP4, run `python tools/replay_primary_attacks.py --run /private/primary/hunyuan/i2v/last/paper-005`. It regenerates the six edits in a temporary directory, rereads their MP4s and matches hashes, frame counts and temporal maps against the original evaluation receipts. The [paper-005 replay](../results/replay_attacks_paper005.json) matched all six archived edits in the reproduction environment; the clean row checks the original marked file.
+
+### Compare all four pipelines on the same eight primary IDs
+
+From the repository root, run the following Bash loop to render all seven
+conditions for each pipeline on paper-000 through paper-007. Each accuracy
+uses 4,096 information bits. Each exact-message rate uses eight videos.
+The same IDs specify matched prompts and seeds across pipelines. Each model
+and generation mode produces its own videos.
+
+```bash
+for report in hunyuan_i2v_paired_primary_first16 hunyuan_t2v_primary9 wan22_i2v_primary8 wan22_t2v_primary8; do
+  echo "$report"
+  python tools/paired_lfg_table.py --report "results/$report.json" --first 8
+done
+```
+
+For deletion, the LAST/LFG correct-bit counts are 3129/2795 (Hunyuan I2V),
+3263/2786 (Hunyuan T2V), 2825/2791 (Wan2.2 I2V), and 3086/2738 (Wan2.2 T2V).
+Neither method recovered a complete deleted-video message in these four slices.
+For clipping, the LAST exact counts are 4, 4, 4 and 6 of eight respectively;
+LFG recovered zero complete messages in each slice. These prefixes supply
+partial reproduction results for the 400-case protocol.
+
+The Wan2.2 I2V LAST snapshot covers the first 43 specified primary cases and
+all seven conditions. Recreate its Table 2 row in a new output directory:
+
+```bash
+python -m last.robustness_table --reports results/wan22_i2v_last_first43.json --output wan43-table
+```
+
+All 210 observations in the earlier 30-case release matched the expanded
+report on their shared fields. The 43-case snapshot includes 301 verified
+observations. The 357 remaining cases have no score in each condition.
+
+For the same 43 Wan2.2 I2V LAST videos as the robustness row, run
+`python tools/fidelity_intervals.py results/wan22_i2v_last_fidelity43.json`.
+Mean PSNR is 30.626 dB (95% prompt-cluster interval 29.371 to 32.187) and
+mean SSIM is 0.9260 (0.9114 to 0.9410). These intervals use 11 prompts and
+10,000 resamples with seed 0. To audit the MP4 pairs in a corresponding
+private run, use `python tools/primary_message_fidelity.py --root /private/primary --report results/wan22_i2v_last_first43.json`.
+
+Both main table commands read the benchmark denominator from current
+(`planned_videos_per_method`) and earlier (`planned_videos`) audited reports.
+For example, Hunyuan T2V LAST recovered every clean bit in its first 50 cases.
+The manuscript protocol plans 400, so the corresponding clean cell is
+`1.000 (50/400)`. To reproduce it:
+
+```bash
+python -m last.clean_table --family hunyuan --reports results/hunyuan_t2v_last_first50.json --output clean-first50.md
+```

@@ -1,0 +1,54 @@
+{
+  "complete": false,
+  "v_score": null,
+  "categories": {
+    "Creativity": null,
+    "Commonsense": null,
+    "Controllability": null,
+    "Human Fidelity": null,
+    "Physics": null
+  },
+  "missing_or_invalid_dimensions": [
+    "Composition",
+    "Diversity",
+    "Instance_Preservation",
+    "Motion_Rationality",
+    "Complex_Landscape",
+    "Complex_Plot",
+    "Dynamic_Attribute",
+    "Dynamic_Spatial_Relationship",
+    "Human_Interaction",
+    "Motion_Order_Understanding",
+    "Human_Anatomy",
+    "Human_Clothes",
+    "Human_Identity",
+    "Material",
+    "Mechanics",
+    "Multi-View_Consistency",
+    "Thermotics"
+  ],
+  "dimensions": {
+    "Camera_Motion": {
+      "status": "completed",
+      "full_dimension_inputs": true,
+      "expected_units": 20,
+      "valid_units": 20,
+      "not_applicable_units": 0,
+      "unit": "video",
+      "mean": 0.6,
+      "all_applicable": true
+    }
+  },
+  "scope": "Incomplete; no full V-score",
+  "family": "wan22",
+  "mode": "t2v",
+  "method": "last",
+  "source_hashes": {
+    "Camera_Motion": {
+      "receipt_sha256": "06d343eab1d5de7276d8f48fafbb1f5fbb53a7ad2b3fbac98a9da46e97826924",
+      "original_coverage_sha256": "e6f3f539cd558ee2d8dc29ebed0a32a7d354392d711d11df6c559c2f32b13871",
+      "raw_sha256": "c7ff031702f21c8c52c7482079b5b8ff2bcf614f66a774740d2083a1bb733c93"
+    }
+  },
+  "coverage_sha256": "e6f3f539cd558ee2d8dc29ebed0a32a7d354392d711d11df6c559c2f32b13871"
+}

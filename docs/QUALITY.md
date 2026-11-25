@@ -479,3 +479,37 @@ were evaluated on paper-000 through paper-019. The official metric awarded
 4/20, compared with 4/20 for LAST and 3/20 for the unmarked LAST reference
 on the same manifest IDs. The [VideoMark dimension report](../results/hunyuan_t2v_videomark_quality.json)
 can be passed to Table 1 via `--quality`. Its coverage is one of 18 dimensions.
+Six Table 1 inputs for the completed Camera Motion dimension on Hunyuan T2V, Wan-2.2 I2V and Wan-2.2 T2V are in [results/camera_motion](../results/camera_motion/). For each pipeline and method, the camera_units file contains the 20 individual official scores and MP4 fingerprints; the camera_quality file is accepted by `python -m last.clean_table --quality`. LAST/reference means are 0.20/0.15, 0.80/0.75 and 0.60/0.55 respectively. Every difference is one video out of 20. These six results reuse the existing official model evaluations.
+
+Before launching an expensive scorer on an available dimension of a partial
+primary run, verify the full set of assigned prompts, seed order and MP4
+fingerprints. Repeat for both input directories for a paired comparison:
+
+```bash
+python tools/export_quality_dimension.py --manifest configs/primary_manifest.json \
+  --inputs /private/scoring-inputs --check-inputs Complex_Landscape
+```
+
+This command reports input coverage only. A completed official scorer receipt
+and its individual scores are required for a dimension mean.
+
+For a CPU recount using the exported official scoring units in this repository,
+run each command from the repository root in Bash:
+
+```bash
+python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_last.json
+python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_reference.json
+```
+
+The five Hunyuan I2V dimensions cover 140 distinct videos per arm. Diversity
+contributes three prompt-level scores from 60 videos. Each other dimension
+contributes 20 video scores. The tool checks all video IDs and prompt groupings
+against the primary manifest before averaging applicable units within each
+dimension and dimensions within each complete category.
+
+In Table 1 a quality coverage label such as `pending (5/18 dimensions)`
+counts dimensions with complete dimension inputs and at least one applicable
+official scoring unit. A partial input set stays outside this count, including
+a set with the expected number of units but incomplete prompt/seed grouping.
+If official results include inapplicable units, the table lists their counts
+below the affected rows. An all-inapplicable dimension has no mean.
