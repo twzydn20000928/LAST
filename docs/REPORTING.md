@@ -43,6 +43,22 @@ actual run directory. If historical reader results were independently replayed,
 supply the audited `--reextraction-index` described in `REEXTRACTION.md`.
 That audit produces `summary.json`, raw-count CSV and a long-form Markdown table.
 
+Table 2 starts with 65 frames. The primary temporal edits use map seed 0. Frame numbers in this example start at 1.
+
+| Condition in the results | How the evaluation constructs the received video | Received frames |
+|---|---|---:|
+| `drop` | Remove 30 distinct frames sampled across the timeline. Keep the remaining frames in order. | 35 |
+| `clip` | Remove one consecutive interval of 30 frames and join the surviving portions. For paper-000 the received video contains frames 1–8 followed by 39–65. | 35 |
+| `insert` | Keep every source frame in order and fill 30 new positions with uniform random RGB8 noise frames. | 95 |
+
+The evaluator writes each edit to an MP4 at CRF 18 and reads it back for extraction. To print the exact source indices for a given sample, run:
+
+```bash
+python -c "from last.temporal import attack_map; print(attack_map('paper-000', 'clip'))"
+```
+
+The function returns zero-based source indices. In an insertion map, `-1` marks a generated noise frame. These maps are available to the evaluator for scoring and auditing. The blind reader receives the edited video.
+
 To rebuild the measured LAST and LFG rows of Table 2 with attacks as columns, run:
 
 ```bash

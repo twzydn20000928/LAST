@@ -570,7 +570,7 @@ All seven rows refer to the same 65-frame Hunyuan image-to-video integration cas
 | Blur | 512/512 | 100.00% | Yes |
 | Deletion (35 received frames) | 295/512 | 57.62% | No |
 | Insertion (95 received frames) | 289/512 | 56.45% | No |
-| Clipping (35 received frames) | 398/512 | 77.73% | No |
+| Remove 30 consecutive frames (35 received frames) | 398/512 | 77.73% | No |
 
 The [temporal recount](../results/sigmark_temporal_verified.json) checks the original edit maps, native temporal extraction receipts, received videos and current prediction bytes. The archived receipts have no prediction-file digest. This case is reported separately from the 400-video primary acquisition.
 
