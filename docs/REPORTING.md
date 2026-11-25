@@ -444,7 +444,7 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 | [hunyuan i2v](../results/hunyuan_i2v_primary17.json) | 17 | 74.59% / 65.74% | 88.19% / 58.69% | 98.52% / 76.22% |
 | [hunyuan t2v](../results/hunyuan_t2v_primary10.json) | 10 | 75.43% / 66.37% | 91.84% / 59.51% | 97.13% / 76.97% |
 | [wan22 i2v](../results/wan22_i2v_primary10.json) | 10 | 66.62% / 67.81% | 86.56% / 57.36% | 95.92% / 80.59% |
-| [wan22 t2v](../results/wan22_t2v_primary9.json) | 9 | 73.52% / 66.32% | 84.96% / 54.88% | 97.59% / 78.88% |
+| [wan22 t2v](../results/wan22_t2v_primary10.json) | 10 | 72.97% / 66.15% | 84.43% / 54.73% | 96.54% / 78.61% |
 
 The fidelity scores below use the same samples as the temporal-attack rows above. Each PSNR value averages per-video PSNR in dB. Reference matches count byte-identical unmarked MP4s between methods, verified by SHA-256.
 
@@ -453,7 +453,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 | [hunyuan_i2v](../results/hunyuan_i2v_fidelity17.json) | 17 | 2/17 | 31.44 / 22.67 | 0.9406 / 0.7515 |
 | [hunyuan_t2v](../results/hunyuan_t2v_fidelity10.json) | 10 | 0/10 | 30.66 / 21.76 | 0.9204 / 0.6928 |
 | [wan22_i2v](../results/wan22_i2v_fidelity10.json) | 10 | 10/10 | 29.16 / 22.58 | 0.9293 / 0.7891 |
-| [wan22_t2v](../results/wan22_t2v_fidelity9.json) | 9 | 9/9 | 30.84 / 24.77 | 0.9449 / 0.8344 |
+| [wan22_t2v](../results/wan22_t2v_fidelity10.json) | 10 | 10/10 | 30.86 / 24.80 | 0.9459 / 0.8382 |
 
 Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
 
