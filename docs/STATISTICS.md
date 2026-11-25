@@ -121,7 +121,7 @@ bit accuracy and exact-message recovery, for each of the seven conditions.
 The JSON reports measured videos, planned videos and distinct prompts. Use
 the other primary prefix reports in the README to repeat the calculation.
 
-The current ten-video Wan I2V prefix contains three Camera Motion prompts with four, four and two seeds. Use `--report results/wan22_i2v_primary10.json` and a fresh output file to reproduce its estimates. On random deletion the LAST minus LFG difference was -1.19 percentage points (prompt-cluster interval -10.94 to +12.60). On insertion it was +29.20 (+18.55 to +36.62), and on contiguous removal +15.33 (+1.17 to +21.00). Ten thousand draws resample only these three distinct prompts. These intervals describe sensitivity to the prompts in this prefix and are unstable estimates for the planned cohort.
+The earlier ten-video Wan I2V prefix contains three Camera Motion prompts with four, four and two seeds. Use `--report results/wan22_i2v_primary10.json` and a fresh output file to reproduce its estimates. On random deletion the LAST minus LFG difference was -1.19 percentage points (prompt-cluster interval -10.94 to +12.60). On insertion it was +29.20 (+18.55 to +36.62), and on contiguous removal +15.33 (+1.17 to +21.00). Ten thousand draws resample only these three distinct prompts. These intervals describe sensitivity to the prompts in this prefix and are unstable estimates for the planned cohort.
 
 For Wan I2V after deletion, LAST recovered 1,230 bits and LFG 1,454 on
 paper-000 through paper-003. For paper-004 through paper-007 the counts were
@@ -139,7 +139,7 @@ random-deletion differences. Values are percentage points of bit accuracy
 |---|---:|---:|---:|---:|
 | `hunyuan_i2v_primary17.json` | 17 | 5 | +8.85 | [+0.67, +14.57] |
 | `hunyuan_t2v_primary11.json` | 11 | 3 | +8.38 | [-0.33, +12.94] |
-| `wan22_i2v_primary10.json` | 10 | 3 | -1.19 | [-10.94, +12.60] |
+| `wan22_i2v_primary11.json` | 11 | 3 | -1.60 | [-10.94, +12.60] |
 | `wan22_t2v_primary10.json` | 10 | 3 | +6.82 | [+0.10, +12.84] |
 
 The ninth Wan I2V video introduces a third prompt and changes the sign of
