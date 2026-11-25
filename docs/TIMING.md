@@ -210,6 +210,12 @@ both receipt fingerprints. This catches a deletion timing accidentally indexed
 as clean even when the timing JSON itself has no condition label. Older index
 files remain usable for summaries with unverified sample and condition labels.
 
+For SIGMark, VideoShield and VideoMark, the main-table formatter and verified
+supplement summary also require the timing and attack receipts to identify
+the same native state file by SHA256. This checks which registered state was
+loaded when reading the clip. Both commands perform the comparison from the
+two receipts; the state file stays in the private run directory.
+
 ## Direct embedding operation
 
 Add `--save-endpoint` to a new `last.smoke --method last` run to retain the

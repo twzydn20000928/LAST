@@ -6,6 +6,14 @@ from .temporal import attack_map
 from .paired_timing import checked_measured_pairs
 
 
+def check_native_state(timing, attack):
+    if timing["method"] in ("sigmark", "videoshield", "videomark"):
+        state = timing.get("input_sha256", {}).get("state")
+        if (not isinstance(state, str) or len(state) != 64 or
+                any(c not in "0123456789abcdef" for c in state) or state != attack.get("state_sha256")):
+            raise ValueError("Native timing and attack evaluation require the same registered state")
+
+
 def check_timed_frames(timing, expected):
     if timing["method"] in ("last", "lfg"):
         if timing.get("frames") != expected:
@@ -170,6 +178,7 @@ def main():
             if row['gpu'] not in ('L40', 'NVIDIA L40'):
                 raise ValueError('Paper extraction timing requires an L40')
             check_timed_frames(row, attack['frames'])
+            check_native_state(row, attack)
             record.update(received_sha256=received,attack_receipt_sha256=hashlib.sha256(attack_data).hexdigest())
         evidence.append(record)
     result=summarize(rows,json.loads(a.subsets.read_text())['supplement_timing_30'])

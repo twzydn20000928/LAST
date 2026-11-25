@@ -6,7 +6,7 @@ import math
 from pathlib import Path
 from statistics import mean
 
-from last.timing_summary import check_drop_frames, check_timed_frames
+from last.timing_summary import check_drop_frames, check_native_state, check_timed_frames
 from last.paired_timing import checked_measured_pairs
 
 
@@ -70,6 +70,7 @@ def render(index):
                     ("completed", spec["video_id"], method, condition, 0), "Attack identity mismatch")
             check_received_frames(attack, spec["video_id"], condition)
             check_timed_frames(r, attack["frames"])
+            check_native_state(r, attack)
             require(r["received_sha256"] == attack["received_sha256"] and len(r["received_sha256"]) == 64,
                     "Timed video differs from evaluation")
             if condition == "clean":
