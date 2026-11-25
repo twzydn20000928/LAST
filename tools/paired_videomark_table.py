@@ -6,17 +6,24 @@ from paired_lfg_table import CONDITIONS, RESULTS, count_bits
 SAMPLES = tuple(f"paper-{i:03d}" for i in range(20))
 
 
-def load_counts(filename, field, samples=SAMPLES, *, method=None):
+def load_counts(filename, field, samples=SAMPLES, *, family="hunyuan", mode="t2v", method="last"):
     report = json.loads((RESULTS / filename).read_bytes())
-    if method and report.get("artifact_verification") is not True:
+    if report.get("manifest_sha256") != "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58":
+        raise ValueError(f"Unexpected primary sample manifest in {filename}")
+    if field == "observations":
+        if ((family, mode, method) != ("hunyuan", "i2v", "last")
+                or report.get("scope") != "First 100 frozen Hunyuan I2V LAST samples"
+                or report.get("plan_sha256") != "510122dc3c5f460f99a71bc4a823dea950e550dbc57b5bd636bc8394d9dcd8fb"):
+            raise ValueError(f"Unrecognized single-method measurements in {filename}")
+    elif field != "audited_observations" or report.get("artifact_verification") is not True:
         raise ValueError(f"Expected an audited primary report in {filename}")
     counts = {}
     for row in report[field]:
         sample = row["video_id"]
         if sample not in samples:
             continue
-        if method and (row["family"], row["mode"], row["method"], row["status"], row["map_seed"]) != (
-                "hunyuan", "t2v", method, "completed", 0):
+        if field == "audited_observations" and (row["family"], row["mode"], row["method"], row["status"], row["map_seed"]) != (
+                family, mode, method, "completed", 0):
             raise ValueError(f"Unexpected primary comparison arm in {filename}: {sample}")
         key = sample, row["condition"]
         if key in counts or key[1] not in CONDITIONS:

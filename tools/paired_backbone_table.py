@@ -21,8 +21,8 @@ def main():
     if not 1 <= count <= available:
         parser.error(f"Expected 1 to {available} verified shared samples for {mode}")
     samples = tuple(f"paper-{i:03d}" for i in range(count))
-    hunyuan = load_counts(left_file, left_field, samples)
-    wan = load_counts(right_file, "audited_observations", samples)
+    hunyuan = load_counts(left_file, left_field, samples, family="hunyuan", mode=mode)
+    wan = load_counts(right_file, "audited_observations", samples, family="wan22", mode=mode)
     print("| Condition | Hunyuan correct bits | Wan2.2 correct bits | Hunyuan exact | Wan2.2 exact |")
     print("| --- | ---: | ---: | ---: | ---: |")
     for condition in CONDITIONS:
