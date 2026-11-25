@@ -2,9 +2,11 @@
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import tarfile
+import tempfile
 from pathlib import Path
 
 import numpy as np
@@ -99,6 +101,14 @@ def export(run, attacks, evaluation, repo, *, alignment=False):
                 reader_commit=commit, source_sha256=source_sha, rows=rows)
 
 
+def write_report(path, report):
+    # Publish only a complete JSON file. A second exporter must not overwrite the first.
+    with tempfile.TemporaryDirectory(dir=path.parent) as staging:
+        pending = Path(staging) / "counts.json"
+        pending.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+        os.link(pending, path)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for option in ("run", "attacks", "evaluation", "reader-repo", "output"):
@@ -106,5 +116,4 @@ if __name__ == "__main__":
     parser.add_argument("--alignment", action="store_true", help="Score saved CCTA chains after extraction")
     args = parser.parse_args()
     report = export(args.run, args.attacks, args.evaluation, args.reader_repo, alignment=args.alignment)
-    with args.output.open("x", encoding="utf-8") as output:
-        output.write(json.dumps(report, indent=2) + "\n")
+    write_report(args.output, report)
