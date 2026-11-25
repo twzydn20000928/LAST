@@ -1,5 +1,6 @@
 """Compare a completed oracle run with the same video's audited blind reads."""
 import argparse
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -13,9 +14,17 @@ FROZEN_ORACLE_HASHES = {
 }
 
 
-def load_blind_report(path):
+def load_blind_report(path, manifest_path=None):
     report = json.loads(path.read_bytes())
     if "audited_observations" in report:
+        if "sample_ids" not in report:
+            if manifest_path is None:
+                raise ValueError("Supply --manifest for a full primary pipeline report")
+            manifest = manifest_path.read_bytes()
+            if (report.get("artifact_verification") is not True or
+                    hashlib.sha256(manifest).hexdigest() != report.get("manifest_sha256")):
+                raise ValueError("Primary report and supplied manifest differ")
+            report["sample_ids"] = [sample["id"] for sample in json.loads(manifest)["samples"]]
         return report
     if (report.get("scope") != "First 100 frozen Hunyuan I2V LAST samples"
             or report.get("plan_sha256") != "510122dc3c5f460f99a71bc4a823dea950e550dbc57b5bd636bc8394d9dcd8fb"
@@ -62,13 +71,14 @@ def compare(report, oracle, video_id):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--report", type=Path, required=True)
+    parser.add_argument("--manifest", type=Path, help="Original sample manifest for a full primary pipeline report")
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--oracle", type=Path)
     source.add_argument("--oracle-dir", type=Path, help="Directory containing a receipt for every sample ID in the report")
     parser.add_argument("--video-id")
     parser.add_argument("--count", type=int, help="Compare the first N declared samples with --oracle-dir")
     args = parser.parse_args()
-    report = load_blind_report(args.report)
+    report = load_blind_report(args.report, args.manifest)
     if args.oracle_dir:
         if args.video_id:
             parser.error("--video-id applies to a single --oracle")

@@ -594,6 +594,28 @@ python -m last.oracle_reader --family hunyuan --model-dir /path/to/hunyuan-i2v \
   --run /private/completed-marked-run --output /private/oracle-read
 ```
 
+For a new Hunyuan I2V LAST reproduction, set `PLAN` to the plan used to
+generate the videos, `RUNS` to its primary output root, `MODEL` to the
+Hunyuan I2V model directory and `OUT` to a new results directory. The
+following Bash commands score the first `N` manifest entries in order. Set
+`N=400` for the full experiment once the seven primary reads exist per video.
+
+```bash
+set -e
+N=400
+mkdir -p "$OUT/receipts"
+python tools/primary_pipeline_report.py --plan "$PLAN" --manifest configs/primary_manifest.json \
+  --root "$RUNS" --family hunyuan --mode i2v --method last --output "$OUT/blind.json"
+for ((i=0; i<N; i++)); do
+  printf -v id 'paper-%03d' "$i"
+  python -m last.oracle_reader --family hunyuan --model-dir "$MODEL" \
+    --run "$RUNS/hunyuan/i2v/last/$id" --output "$OUT/$id"
+  cp "$OUT/$id/receipt.json" "$OUT/receipts/hunyuan_i2v_oracle_${id/-/}.json"
+done
+python tools/paired_oracle_table.py --report "$OUT/blind.json" --manifest configs/primary_manifest.json \
+  --oracle-dir "$OUT/receipts" --count "$N"
+```
+
 Original frame zero is the causal prefix; frames 1--4 belong to group zero,
 5--8 to group one, and so on. Inserted foreign frames are excluded and duplicate
 original identities count once. A missing slot uses the nearest surviving frame
