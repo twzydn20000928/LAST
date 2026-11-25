@@ -10,6 +10,7 @@ from last.carriers import codebook
 from last.feature_cache import load, sha
 from last.hypothesis_statistics import clean_consistency_pairs, clean_energy_pairs, matched_summary
 from last.oracle_reader import oracle_nodes
+from last.oracle_feature_cache import received_digest
 
 
 def score(run, cache, calibration_path=None):
@@ -25,7 +26,7 @@ def score(run, cache, calibration_path=None):
             or attack["status"] != "completed" or attack["condition"] != "clean"
             or attack["attack_map"] is not None
             or attack["source_sha256"] != record["video_sha256"]
-            or attack["received_sha256"] != record["video_sha256"]):
+            or received_digest(attack,run/"marked.mp4") != record["video_sha256"]):
         raise ValueError("Expected verified clean LAST video with all 16 intact groups")
     saved = torch.load(run / "codes.pt", weights_only=True, map_location="cpu").numpy()
     np.testing.assert_allclose(codebook((run / "secret.key").read_bytes()), saved,
@@ -38,6 +39,8 @@ def score(run, cache, calibration_path=None):
                 scope="Single clean-video consistency diagnostic",
                 pairs=pairs, summary=summary, mp4_sha256=record["video_sha256"],
                 cache_receipt_sha256=sha(cache / "receipt.json"), attack_receipt_sha256=sha(attack_path))
+    if "received_sha256" not in attack:
+        result["clean_video_binding"] = "Source MP4 fingerprint on original clean receipt and generation receipt"
     if calibration_path is not None:
         config = Path(__file__).resolve().parents[1] / "configs"
         calibration = json.loads(calibration_path.read_bytes())

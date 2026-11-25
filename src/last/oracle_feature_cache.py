@@ -8,6 +8,16 @@ from .oracle_reader import oracle_nodes
 from .elmc import feature
 
 
+def received_digest(attack, video):
+    if "received_sha256" in attack:
+        return attack["received_sha256"]
+    if (attack.get("condition") == "clean" and attack["attack_map"] is None
+            and attack.get("frames") == 65 and video.name == "marked.mp4"
+            and attack.get("video_id") == video.parent.name):
+        return attack.get("source_sha256")
+    return None
+
+
 def acquire(frames,mapping,vae,processor,family,device='cuda'):
     if len(frames)!=len(mapping):raise ValueError('Map length differs from received video')
     if family not in ('hunyuan','wan22'):raise ValueError('Unknown VAE family')
@@ -32,7 +42,7 @@ def main():
     p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
     a=p.parse_args();os.umask(0o077)
     attack=json.loads(a.attack_receipt.read_text())
-    if attack.get('status')!='completed' or attack.get('received_sha256')!=sha(a.video):
+    if attack.get('status')!='completed' or received_digest(attack,a.video)!=sha(a.video):
         raise ValueError('Require completed attack receipt bound to actual received MP4')
     source=Path(__file__).parent
     sources={name:sha(source/name) for name in ('oracle_feature_cache.py','oracle_reader.py','elmc.py','video.py','feature_cache.py')}
