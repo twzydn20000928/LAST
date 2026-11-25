@@ -1057,6 +1057,8 @@ python tools/matched_component_table.py --table4 \
   --archived-reread results/hunyuan_i2v_archived_reader_pair.json
 ```
 
+The GitHub Actions artifact `audited-partial-robustness-tables` includes the generated `table4-component-ablation.md`. Its first two lines identify the matched samples and any excluded baselines.
+
 This prints the manuscript's five variants and seven columns on the 0–1
 bit-accuracy scale. All 35 cells currently cover the same 12 Hunyuan I2V
 videos, or 6,144 information bits each. Under random deletion the measured

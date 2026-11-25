@@ -25,6 +25,9 @@ jobs:
             python tools/paired_primary_intervals.py --report "results/${report}.json" \
               --output ".ci-tables/robustness/${report}-intervals.json"
           done
+          python tools/matched_component_table.py --table4 \
+            --archived-reread results/hunyuan_i2v_archived_reader_pair.json \
+            > .ci-tables/robustness/table4-component-ablation.md
           python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json \
             --verify-original-slice results/hunyuan_i2v_last_primary100_178.json \
             > .ci-tables/robustness/hunyuan-i2v-last-first179.md
