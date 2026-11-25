@@ -21,6 +21,9 @@ jobs:
             results/hunyuan_i2v_videoshield_first1.json \
             results/hunyuan_t2v_videomark_first38.json \
             --output .ci-tables/robustness
+          python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_179.json \
+            --verify-original-slice results/hunyuan_i2v_last_primary100_178.json \
+            > .ci-tables/robustness/hunyuan-i2v-last-first179.md
       - uses: actions/upload-artifact@v4
         with:
           name: audited-partial-robustness-tables
