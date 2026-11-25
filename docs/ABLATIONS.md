@@ -810,6 +810,16 @@ the full-test paired interval pending.
 
 The extended sweep uses all 80 manifest entries and their eight key slots. Run the same generation command as Figure 4 with the additional flag `--all-development`. Reuse the same private state, conditioning directory and output root. The driver validates the earlier 15 cells before reuse and writes a separate `development80-index.json` after validating all 400 video/margin pairs.
 
+An [interim export](../results/development_margin_four_videos.json) includes
+the first four videos with all five margins available: dev-000, dev-001,
+dev-004 and dev-008. Run
+`python tools/development_margin_recovery.py --cells results/development_margin_four_videos.json`.
+Exact recovery across the six edited conditions was 0, 0, 6, 12 and 13 of
+24 video–attack pairs at margins 0.1, 0.25, 0.5, 0.75 and 1.0. The four
+videos use three prompts. The original Figure 4 and Table 5 retain their
+prescribed three videos; their 15 cells agree exactly with the overlapping
+entries here. The full Section I experiment requires 80 videos.
+
 ```bash
 python tools/development_margin_recovery.py --index "$SWEEP/development80-index.json"
 python tools/development_margin_recovery.py --cells results/margin_sweep_cells.json
