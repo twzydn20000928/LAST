@@ -120,7 +120,7 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 
 | Generator and task | Method | Videos | Observations across seven conditions |
 | --- | --- | ---: | ---: |
-| Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first72.json) | 72 | 504 |
+| Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first73.json) | 73 | 511 |
 | Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first43.json) | 43 | 301 |
 | Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first23.json) | 23 | 161 |
 | Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first37.json) | 37 | 259 |
@@ -377,12 +377,12 @@ The manuscript protocol plans 400, so the corresponding clean cell is
 python -m last.clean_table --family hunyuan --reports results/hunyuan_t2v_last_first50.json --output clean-first50.md
 ```
 
-The Hunyuan T2V LAST snapshot contains 72/400 videos and 504 verified
-condition receipts. All 350 overlapping observations agree with the earlier
-50-case snapshot. Render the Table 2 row on CPU:
+The Hunyuan T2V LAST snapshot contains 73/400 videos and 511 verified
+condition receipts. All 504 overlapping observations agree with the earlier
+72-case snapshot. Render the Table 2 row on CPU:
 
 ```bash
-python -m last.robustness_table --reports results/hunyuan_t2v_last_first72.json --output hunyuan72-table
+python -m last.robustness_table --reports results/hunyuan_t2v_last_first73.json --output hunyuan73-table
 ```
 
 To generate the same report format from your own campaign, use the actual
@@ -393,7 +393,7 @@ verified and missing observations retain their planned denominator.
 ```bash
 python tools/primary_pipeline_report.py --plan /private/primary-plan.json --root /private/primary --family hunyuan --mode t2v --method last --output hunyuan-t2v-last.json
 ```
-For the same 72 Hunyuan T2V LAST cases, run `python tools/fidelity_intervals.py results/hunyuan_t2v_last_fidelity72.json`. The mean per-video PSNR is 32.574 dB and SSIM is 0.92694; 95% prompt-cluster intervals across 18 prompts are [31.346, 33.941] and [0.91403, 0.93902].
+For the same 73 Hunyuan T2V LAST cases, run `python tools/fidelity_intervals.py results/hunyuan_t2v_last_fidelity73.json`. The mean per-video PSNR is 32.582 dB and SSIM is 0.92723. The 95% prompt-cluster intervals across 19 prompts are [31.399, 33.953] and [0.91447, 0.93883].
 
 To recount frame deletion directly from the released per-video records (CPU,
 standard-library Python), run the following from the repository root:
@@ -402,7 +402,7 @@ standard-library Python), run the following from the repository root:
 import json
 from pathlib import Path
 
-report = json.loads(Path("results/hunyuan_t2v_last_first72.json").read_bytes())
+report = json.loads(Path("results/hunyuan_t2v_last_first73.json").read_bytes())
 rows = [r for r in report["audited_observations"] if r["condition"] == "drop"]
 assert len({r["video_id"] for r in rows}) == len(rows)
 correct = sum(r["correct_bits"] for r in rows)
@@ -412,8 +412,8 @@ print(f"Correct bits: {correct}/{total} ({correct/total:.2%})")
 print(f"Entire messages recovered: {exact}/{len(rows)} ({exact/len(rows):.2%})")
 ```
 
-This yields 28,447/36,864 correct bits (77.17%) and 1/72 entire messages
-recovered (1.39%). Each video contributes 512 information bits. The 328
+This yields 28,712/37,376 correct bits (76.82%) and 1/73 entire messages
+recovered (1.37%). Each video contributes 512 information bits. The 327
 pending videos are excluded from both observed rates.
 The 72-video Hunyuan T2V report was replayed against the archived acquisition plan (SHA-256 50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447). After checking case IDs, prompts, seeds, key slots and the generation receipts against the case files, the output SHA-256 was 8600dfc7143a05d98bc41d016d6e0fbf06d370d019777d8d99db2250c80de876, identical to the released report.
 
