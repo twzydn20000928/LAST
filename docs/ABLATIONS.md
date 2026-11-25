@@ -2,25 +2,27 @@
 
 ## Supplement energy calibration: reconstruction boundary
 
-Supplement Section G specifies64 wrong-key responses per development candidate,
+Supplement Section G specifies 64 wrong-key responses per development candidate,
 but does not state the calibration transform. `last.energy_calibration` explicitly
 implements a reconstruction, not a verified original implementation: energy is
 mean absolute correlation over592 coded bits; for each of16 group positions,
-pool development candidate/key energies and fit the median and1.4826 times MAD
-(median absolute deviation), with a1e-8 scale floor. A received energy is scored
+pool development candidate/key energies and fit the median and 1.4826 times MAD
+(median absolute deviation), with a 1e-8 scale floor. A received energy is scored
 as `(energy - development_median) / development_scale`. Candidates have equal
 weight. The statistics remain frozen at test time; no messages or source-frame
 maps enter this calculation.
 
-The fitting function requires the complete80-video disjoint development manifest
-and64 responses per candidate. It records degenerate groups rather than concealing
-zero dispersion. Acquisition still must verify that these are64 distinct wrong
+The fitting function requires the complete 80-video disjoint development manifest
+and 64 wrong keys per candidate, each evaluated at all 16 group positions. It
+records groups with zero dispersion. Acquisition must verify 64 distinct wrong
 keys, bind energies to actual candidate features and their video/source hashes,
 and preserve private keys. These requirements are **not** proved by array shape
 or the algebra tests. Real development acquisition, video-CLI integration,
-shared normalization across all crossed readers and the supplement AUROC experiment remain
-pending. The current primary CCTA/raw-energy fallback is unchanged. No calibrated
-energy benchmark or Table13/14 reproduction is claimed by this implementation.
+shared normalization across all crossed readers and the calibrated energy rows
+remain pending. The measured clean-chain consistency row of Table 13 is documented
+below. Its AUROC compares correct and incorrect group assignments on marked clips.
+A video-level false-acceptance rate requires a separate decision threshold and
+counts of accepted and tested negative videos.
 
 `last.null_energy.responses` supplies the response-computation primitive. It
 requires64 distinct32-byte wrong keys and a nonempty real-key exclusion registry,
