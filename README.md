@@ -82,7 +82,7 @@ The following paired subsets use the frozen primary manifest and 512 information
 | Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
 |---|---:|---|---|
 | HunyuanVideo, image-to-video | 18 | [18 pairs](results/hunyuan_i2v_primary18.json) | [18 pairs](results/hunyuan_i2v_fidelity18.json) |
-| HunyuanVideo, text-to-video | 12 | [12 pairs](results/hunyuan_t2v_primary12.json) | [12 pairs](results/hunyuan_t2v_fidelity12.json) |
+| HunyuanVideo, text-to-video | 13 | [13 pairs](results/hunyuan_t2v_primary13.json) | [13 pairs](results/hunyuan_t2v_fidelity13.json) |
 | Wan-2.2, image-to-video | 12 | [12 pairs](results/wan22_i2v_primary12.json) | [12 pairs](results/wan22_i2v_fidelity12.json) |
 | Wan-2.2, text-to-video | 12 | [12 pairs](results/wan22_t2v_primary12.json) | [12 pairs](results/wan22_t2v_fidelity12.json) |
 
