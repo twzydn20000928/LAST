@@ -572,3 +572,5 @@ python tools/export_quality_dimension.py --manifest configs/primary_manifest.jso
 ```
 
 This command verifies the pipeline, manifest, sample IDs, seed grouping and video bytes, then recounts applicability and the mean from the existing scores. For the published VideoMark camera run it returns 20 matched videos, 20 valid units and a mean of 0.20. Scorer and question provenance remain attached to the original scoring receipt.
+
+For Hunyuan I2V LAST, the [official Dynamic Spatial Relationship score](../results/hunyuan_i2v_quality_units/spatial_relationship_all20_last.json) is 0.25 over all 20 assigned clips. The MP4 hashes match the primary fidelity records. The [updated LAST summary](../results/hunyuan_i2v_quality_six_dimensions_last.json) covers six of 18 dimensions; the paired reference score for this dimension is pending.

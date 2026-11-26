@@ -10,7 +10,7 @@ python -m last.clean_table --family hunyuan \
   --reports results/hunyuan_i2v_primary20.json results/hunyuan_t2v_primary13.json \
     results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json \
     results/hunyuan_i2v_sigmark_first1_partial.json \
-  --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
+  --quality results/hunyuan_i2v_quality_six_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_last_camera_quality.json \
     results/camera_motion/hunyuan_t2v_reference_camera_quality.json \
@@ -389,7 +389,7 @@ Run these commands from the repository root. The same 170 measured videos contri
 
 ```bash
 python tools/primary_message_tables.py --report results/hunyuan_i2v_primary_message_170.json --aggregate primary-counts.json
-python -m last.clean_table --family hunyuan --reports primary-counts.json --quality results/hunyuan_i2v_quality_five_dimensions_last.json results/hunyuan_i2v_quality_five_dimensions_reference.json --output table1-last.md
+python -m last.clean_table --family hunyuan --reports primary-counts.json --quality results/hunyuan_i2v_quality_six_dimensions_last.json results/hunyuan_i2v_quality_five_dimensions_reference.json --output table1-last.md
 python -m last.robustness_table --reports primary-counts.json --output table2-last
 ```
 
@@ -563,7 +563,7 @@ reports=(results/hunyuan_i2v_primary20.json results/hunyuan_t2v_primary13.json
          results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json
          results/hunyuan_i2v_sigmark_first1_partial.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
-  --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \
+  --quality results/hunyuan_i2v_quality_six_dimensions_last.json results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_{last,reference}_camera_quality.json \
     results/hunyuan_t2v_videomark_quality.json --output native-tables/table1.md
 python -m last.robustness_table --reports "${reports[@]}" --output native-tables/table2
