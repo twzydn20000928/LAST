@@ -169,6 +169,20 @@ every window reproduced all 2,420 sampled energies within the stated tolerances.
 Each public record gives the video and response-receipt digests, candidate count,
 total response count and replay count. The 80-video calibration fit is pending.
 
+The [eleventh acquisition](../results/last_development_null_dev010.json)
+adds 62 windows and 63,488 responses. To repeat the four sampled projections
+for every window, run the following at the original acquisition paths (the
+private receipt records absolute input paths and file digests).
+
+```bash
+python tools/replay_null_responses.py --video /private/received.mp4 \
+  --cache /private/new-candidate-cache --responses /private/new-null-responses \
+  --wrong-keys /private/wrong64.json --real-keys /private/all-real-keys.json
+```
+
+For dev-010 all 248 sampled projections matched. Across the eleven videos,
+2,668 sampled projections have been checked out of 683,008 stored responses.
+
 Reuse the saved wrong-key bank for replay. Existing outputs are not overwritten;
 failures retain their receipt. Each acquisition performs 1024 actual QR carrier
 projections and stores candidate-by-64-by-16 energies. It verifies input/source

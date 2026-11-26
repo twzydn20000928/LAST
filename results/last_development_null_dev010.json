@@ -1,0 +1,8 @@
+{
+  "video_id": "dev-010",
+  "candidates": 62,
+  "responses": 63488,
+  "recomputed": 248,
+  "mp4_sha256": "a334d9c5bedb3f1a6d633209aecdf33ae3512967d13840ff18a41952b89633e0",
+  "response_receipt_sha256": "627d4655fe9a905976d0a7e1825a0018d8ade0c633096bd017cbb969df367188"
+}
