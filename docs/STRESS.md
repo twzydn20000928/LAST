@@ -396,3 +396,5 @@ files=(results/stress_paper00[0-9]_forty_maps.json)
 python tools/stress_recovery_table.py --reports "${files[@]}" --alignment
 python tools/stress_deletion_alignment.py --reports "${files[@]}"
 ```
+
+The first 28 Hunyuan I2V videos cover 140 trials per edit (five maps per video). Random deletion of 10, 20, 30 and 45 frames yielded 95.13%, 87.62%, 78.86% and 63.64% bit accuracy, with 30, 8, 2 and 0 complete messages out of 140. Deletion of 30 frames followed by CRF 28 yielded 67.52% and 0/140 complete messages. The five maps share one generated video within each sample.
