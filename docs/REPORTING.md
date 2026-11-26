@@ -511,7 +511,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 
 Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
 
-- [Hunyuan i2v](../results/hunyuan_i2v_pixels20.json): 18/20 pairs had different decoded values. RMSE among differing pairs ranged from 1.660 to 2.556. See the [paired generation settings](../results/hunyuan_i2v_settings20.json) for the corresponding run parameters. On paper-019, the two decoded references differed by 2.256 RMSE over all 65 frames.
+- [Hunyuan I2V](../results/hunyuan_i2v_pixels21.json): 19/21 paired unmarked references differed after decoding. RMSE across the differing pairs ranged from 1.660 to 2.556 out of 255. On paper-020 the RMSE was 2.205 over 65 frames. The [generation settings](../results/hunyuan_i2v_settings21.json) cover the same 21 pairs. PSNR and SSIM in the table use each method's own reference.
 - [Hunyuan t2v](../results/hunyuan_t2v_reference_pixels13.json): all 13 pairs had different decoded values. RMSE ranged from 1.612 to 2.824. The first nine pairs yielded the same pixel statistics in the earlier OpenCV 3.4.18 run and this OpenCV 4.10.0 run.
 
 For the 19 Hunyuan I2V pairs, the generation receipt hashes the bytes of
