@@ -1215,6 +1215,8 @@ for intact, values in sorted(groups.items()):
 PY
 ```
 
+The [55-video recount](../results/assisted_group_equal_counts_first55.json) contains 45 videos eligible for matching the number of intact and partially retained groups. Using the true edit map for both reads, intact groups recovered 87.16% of bits and equal-sized partial-group subsets recovered 80.26% (2,545 subsets, averaged within each video before averaging videos). Intact groups scored higher on 38/45 videos. These conditional results concern the evidence available after alignment. Run `python tools/summarize_assisted_subsets.py results/assisted_group_equal_counts_first55.json` to rebuild them.
+
 The [43-video extension](../results/assisted_group_equal_counts_first43.json)
 adds the next six manifest IDs, paper-037 through paper-042. On the same
 random-deletion MP4s, received-order grouping scored 11,541/22,016 bits,
