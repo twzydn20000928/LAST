@@ -18,7 +18,7 @@ python -m last.clean_table --family hunyuan \
   --output paired-table1/hunyuan.md
 
 python -m last.clean_table --family wan22 \
-  --reports results/wan22_i2v_primary13.json results/wan22_t2v_primary12.json results/wan22_i2v_videoshield_paper000_four_conditions.json \
+  --reports results/wan22_i2v_primary13.json results/wan22_t2v_primary12.json results/wan22_i2v_videoshield_paper000_five_conditions.json \
   --quality results/camera_motion/wan22_i2v_last_camera_quality.json \
     results/camera_motion/wan22_i2v_reference_camera_quality.json \
     results/camera_motion/wan22_t2v_last_camera_quality.json \
@@ -71,7 +71,7 @@ python -m last.robustness_table --reports \
   results/hunyuan_t2v_primary13.json \
   results/wan22_i2v_primary13.json \
   results/wan22_t2v_primary12.json \
-  results/wan22_i2v_videoshield_paper000_four_conditions.json \
+  results/wan22_i2v_videoshield_paper000_five_conditions.json \
   results/hunyuan_i2v_videoshield_first2_complete.json \
   results/hunyuan_i2v_sigmark_first1_partial.json \
   results/hunyuan_t2v_videomark_first40.json \
