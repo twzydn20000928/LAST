@@ -74,6 +74,8 @@ jobs:
           done
           python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json results/hunyuan_t2v_videomark_landscape_units.json \
             --primary results/hunyuan_t2v_videomark_first40.json > ci-clean-tables/quality/hunyuan_t2v_videomark.json
+          python tools/quality_units_table.py results/hunyuan_i2v_lfg_camera_units.json \
+            --primary results/hunyuan_i2v_primary20.json > ci-clean-tables/quality/hunyuan_i2v_lfg.json
           python - <<'PY'
           import json
           from pathlib import Path
