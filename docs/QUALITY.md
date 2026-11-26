@@ -398,18 +398,8 @@ planned sample IDs before either arm is scored.
     python -m last.quality_inputs --manifest configs/primary_manifest.json \
       --metadata-root "${QUALITY_METADATA:?}" --run-root "${PRIMARY_RUNS:?}" \
       --family hunyuan --mode i2v --method "$state" --allow-partial-diagnostic --output "$inputs"
-    python - "$inputs/$dimension.json" configs/primary_manifest.json "$dimension" <<'PY'
-import json
-import sys
-from pathlib import Path
-
-questions, manifest = (json.loads(Path(p).read_text()) for p in sys.argv[1:3])
-planned = {s["id"]: s["prompt"] for s in manifest["samples"] if s["dimension"] == sys.argv[3]}
-observed = [(Path(v).parent.name, q["prompt_en"]) for q in questions for v in q["video_list"]]
-if (len(questions) != 5 or any(len(q["video_list"]) != 4 for q in questions)
-        or len(planned) != 20 or dict(observed) != planned):
-    raise SystemExit(f"Incomplete or mismatched {sys.argv[3]} subset")
-PY
+    python tools/export_quality_dimension.py --manifest configs/primary_manifest.json \
+      --inputs "$inputs" --check-inputs "$dimension"
   done
   for state in last reference; do
     HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python -m last.quality_score \
