@@ -147,6 +147,8 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 | Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first39.json) | 39 | 273 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
 
+The 40-video VideoMark report was also rebuilt with the primary-prefix audit's `--retry paper-038 noise` option and the verified retry directory. Its 280 observations include that case once. All seven cell totals agree with the earlier recount. The new receipt binds the old failed receipt and the saved prediction; the original extraction lacked a prediction digest.
+
 The [39-video recount](../results/hunyuan_t2v_videomark_first39.json) includes all seven conditions per video. For `paper-038`, the failed noise extraction was rerun on the identical noisy MP4 and registered state. It recovered 253/512 bits. The original failed receipt fingerprint is `43fb8e28215754ce9297d883c903dfd47611bf06e681d22e484c1d11ac773e2d`; the completed receipt is recorded in the new report. The earlier [267 observations](../results/hunyuan_t2v_videomark_first39_partial.json) agree individually with the recount. Run `python tools/paired_videomark_table.py` for the 39-video paired comparison.
 
 #### Replay the archived VideoMark retry

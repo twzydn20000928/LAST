@@ -83,7 +83,8 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v",
             for record in (row, receipt):
                 if "decoded_sha256" in record and record["decoded_sha256"] != decoded_sha:
                     raise ValueError("Changed prediction")
-            legacy += "decoded_sha256" not in row and "decoded_sha256" not in receipt
+            # A later recount can hash a reused prediction but cannot establish its earlier history.
+            legacy += "decoded_sha256" not in receipt and ("decoded_sha256" not in row or row.get("reused_extraction", False))
             if len(prediction) != 64 or sum((a ^ b).bit_count() for a, b in zip(truth, prediction)) != 512 - row["correct_bits"]:
                 raise ValueError(f"Native prediction recount mismatch: {video}/{condition}")
             recounted[video, condition] = hashlib.sha256(score_bytes).hexdigest()

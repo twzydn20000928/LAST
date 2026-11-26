@@ -4143,7 +4143,8 @@
       "total_bits": 512,
       "exact_message": false,
       "video_sha256": "451edf8be4db8f2f2e8c7baacce156f46e71aa6c4f2352afc82b09c3122ea172",
-      "receipt_sha256": "e4f7b3b2e3aaa081086e5db8e365177995087ef766a041f89f0a20837b366e56"
+      "receipt_sha256": "673a3bc5c28c6a2b78c4453cccd0e9b7eab2853478c9e12a1f32ce064181b8c4",
+      "retry_of_sha256": "43fb8e28215754ce9297d883c903dfd47611bf06e681d22e484c1d11ac773e2d"
     },
     {
       "family": "hunyuan",
