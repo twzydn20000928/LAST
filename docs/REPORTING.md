@@ -7,7 +7,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 
 ```bash
 python -m last.clean_table --family hunyuan \
-  --reports results/hunyuan_i2v_primary18.json results/hunyuan_t2v_primary13.json \
+  --reports results/hunyuan_i2v_primary19.json results/hunyuan_t2v_primary13.json \
     results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39.json \
     results/hunyuan_i2v_sigmark_first1_partial.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
@@ -18,7 +18,7 @@ python -m last.clean_table --family hunyuan \
   --output paired-table1/hunyuan.md
 
 python -m last.clean_table --family wan22 \
-  --reports results/wan22_i2v_primary12.json results/wan22_t2v_primary12.json \
+  --reports results/wan22_i2v_primary13.json results/wan22_t2v_primary12.json \
   --quality results/camera_motion/wan22_i2v_last_camera_quality.json \
     results/camera_motion/wan22_i2v_reference_camera_quality.json \
     results/camera_motion/wan22_t2v_last_camera_quality.json \
@@ -67,9 +67,9 @@ To rebuild the measured LAST, LFG and native baseline rows of Table 2 with attac
 
 ```bash
 python -m last.robustness_table --reports \
-  results/hunyuan_i2v_primary18.json \
+  results/hunyuan_i2v_primary19.json \
   results/hunyuan_t2v_primary13.json \
-  results/wan22_i2v_primary12.json \
+  results/wan22_i2v_primary13.json \
   results/wan22_t2v_primary12.json \
   results/hunyuan_i2v_videoshield_first2_partial.json \
   results/hunyuan_i2v_sigmark_first1_partial.json \
@@ -77,8 +77,8 @@ python -m last.robustness_table --reports \
   --output paired-table2
 ```
 
-LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 18 Hunyuan I2V pairs, 13 Hunyuan T2V pairs, 12 Wan I2V pairs and 12 Wan T2V pairs. VideoShield has two Hunyuan I2V observations for clean, noise, compression and blur, and one for each temporal attack, and VideoMark has 39 Hunyuan T2V clean observations and 38 for each attack. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. On the same random-deletion MP4, a retry completed four 9-frame, 50-step window inversions. The upstream ordering stage returned only missing frames, and interpolation raised an error before decoding. The deletion observation therefore contributes zero scored bits. Insertion and contiguous removal are pending. See the [retry receipt summary](../results/sigmark_paper000_drop_retry_failure.json). Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the twelve Wan
-I2V pairs gives 66.50% for LAST and 68.03% for LFG. The paired subsets can be
+LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 19 Hunyuan I2V pairs, 13 Hunyuan T2V pairs, 13 Wan I2V pairs and 12 Wan T2V pairs. VideoShield has two Hunyuan I2V observations for clean, noise, compression and blur, and one for each temporal attack, and VideoMark has 39 Hunyuan T2V clean observations and 38 for each attack. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. On the same random-deletion MP4, a retry completed four 9-frame, 50-step window inversions. The upstream ordering stage returned only missing frames, and interpolation raised an error before decoding. The deletion observation therefore contributes zero scored bits. Insertion and contiguous removal are pending. See the [retry receipt summary](../results/sigmark_paper000_drop_retry_failure.json). Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the thirteen Wan
+I2V pairs gives 64.92% for LAST and 66.89% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
 
@@ -448,19 +448,19 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 
 | Backbone and mode | Paired videos | Deletion | Insertion | Clip |
 |---|---:|---:|---:|---:|
-| [hunyuan i2v](../results/hunyuan_i2v_primary18.json) | 18 | 74.24% / 65.99% | 87.65% / 59.47% | 98.26% / 76.90% |
+| [hunyuan i2v](../results/hunyuan_i2v_primary19.json) | 19 | 74.69% / 66.24% | 87.22% / 59.63% | 98.36% / 76.35% |
 | [hunyuan t2v](../results/hunyuan_t2v_primary13.json) | 13 | 75.33% / 65.23% | 90.16% / 57.84% | 97.57% / 73.83% |
-| [wan22 i2v](../results/wan22_i2v_primary12.json) | 12 | 66.50% / 68.03% | 83.61% / 57.26% | 94.48% / 79.87% |
+| [wan22 i2v](../results/wan22_i2v_primary13.json) | 13 | 64.92% / 66.89% | 83.61% / 56.99% | 94.77% / 77.69% |
 | [wan22 t2v](../results/wan22_t2v_primary12.json) | 12 | 72.33% / 66.39% | 82.68% / 54.90% | 95.12% / 77.29% |
 
 The fidelity scores below use the same samples as the temporal-attack rows above. Each PSNR value averages per-video PSNR in dB. Reference matches count byte-identical unmarked MP4s between methods, verified by SHA-256.
 
 | Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
 |---|---:|---:|---:|---:|
-| [hunyuan_i2v](../results/hunyuan_i2v_fidelity18.json) | 18 | 2/18 | 31.48 / 22.65 | 0.9398 / 0.7475 |
+| [hunyuan_i2v](../results/hunyuan_i2v_fidelity19.json) | 19 | 2/19 | 31.45 / 22.60 | 0.9387 / 0.7432 |
 | [hunyuan_t2v](../results/hunyuan_t2v_fidelity13.json) | 13 | 0/13 | 31.63 / 22.35 | 0.9311 / 0.7202 |
-| [wan22_i2v](../results/wan22_i2v_fidelity12.json) | 12 | 12/12 | 29.12 / 22.56 | 0.9320 / 0.7962 |
-| [wan22_t2v](../results/wan22_t2v_fidelity12.json) | 11 | 11/11 | 31.06 / 25.07 | 0.9468 / 0.8432 |
+| [wan22_i2v](../results/wan22_i2v_fidelity13.json) | 13 | 13/13 | 29.73 / 23.05 | 0.9354 / 0.8069 |
+| [wan22_t2v](../results/wan22_t2v_fidelity12.json) | 12 | 12/12 | 31.26 / 25.28 | 0.9477 / 0.8474 |
 
 Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
 
@@ -490,7 +490,7 @@ Both rows currently show five of 18 dimensions. Each dimension retains the numbe
 To render Tables 1 and 2 with the available VideoShield I2V, SIGMark I2V and VideoMark T2V observations, run in Bash from the repository root:
 
 ```bash
-reports=(results/hunyuan_i2v_primary18.json results/hunyuan_t2v_primary13.json
+reports=(results/hunyuan_i2v_primary19.json results/hunyuan_t2v_primary13.json
          results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39.json
          results/hunyuan_i2v_sigmark_first1_partial.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
