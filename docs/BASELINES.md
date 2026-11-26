@@ -739,11 +739,13 @@ integration has separate provenance from the full primary campaign.
 Run from the repository root after installing the package. The first table reproduces the available supplement Table 12 columns. The second gives the correct and total information bits for each condition, pooled across the same videos.
 
 ```bash
-python tools/lfg_reader_table.py results/hunyuan_i2v_lfg_ccta_first17.json \
-  --fidelity results/hunyuan_i2v_fidelity17.json --all-conditions
+python tools/lfg_reader_table.py results/hunyuan_i2v_lfg_ccta_first18.json \
+  --fidelity results/hunyuan_i2v_fidelity18.json --all-conditions
 ```
 
-The eight paired clips cover two prompts. Under insertion, the original and
+The current 18-video comparison reuses the same LFG MP4 for both readers in each condition. With CCTA, insertion accuracy rises from 59.47% to 80.85% and deletion accuracy from 65.99% to 68.10%. Neither reader recovers a complete message after deletion. Under compression, the original reader recovers 8,681 bits and CCTA recovers 8,679 out of 9,216.
+
+In the earlier eight-video snapshot, the paired clips cover two prompts. Under insertion, the original and
 CCTA readers recovered 2,465 and 3,494 of 4,096 information bits, respectively.
 Under random deletion they recovered 2,795 and 2,814 bits, with zero complete
 messages for both readers. All 49 observations shared with the seven-case
