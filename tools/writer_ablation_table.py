@@ -25,6 +25,7 @@ def render(paths):
     seen = set()
     totals = Counter()
     exact = Counter()
+    outcomes = Counter()
     quality = {v: [] for v in VARIANTS}
     protocol = None
     for path in paths:
@@ -39,6 +40,7 @@ def render(paths):
         if protocol is not None and protocol != signature:
             raise ValueError("Generation settings or quality definitions differ across pairs")
         protocol = signature
+        paired_counts = {}
         for variant in VARIANTS:
             result = report["variants"][variant]
             rows = result["conditions"]
@@ -46,12 +48,22 @@ def render(paths):
                 raise ValueError(f"Incomplete or duplicated conditions in {path}")
             for row in rows:
                 k = validated_bits(row)
+                paired_counts[variant, row["condition"]] = k
                 totals[variant, row["condition"]] += k
                 exact[variant, row["condition"]] += k == 512
             psnr, ssim = result["psnr_db"], result["ssim"]
             if psnr is None or not math.isfinite(psnr) or not -1 <= ssim <= 1:
                 raise ValueError(f"Expected finite per-video fidelity measurements in {path}")
             quality[variant].append((psnr, ssim))
+        for condition in CONDITIONS:
+            minimum, fixed = (paired_counts[v, condition] for v in VARIANTS)
+            if minimum > fixed:
+                winner = "minimum-margin"
+            elif fixed > minimum:
+                winner = "fixed-target"
+            else:
+                winner = "tie"
+            outcomes[condition, winner] += 1
     if not seen:
         raise ValueError("Supply at least one audited writer pair")
     bits = 512 * len(seen)
@@ -62,6 +74,11 @@ def render(paths):
         a, b = (100 * totals[v, condition] / bits for v in VARIANTS)
         first, second = (exact[v, condition] for v in VARIANTS)
         print(f"| {condition} | {a:.2f} | {b:.2f} | {a - b:+.2f} | {first}/{len(seen)} | {second}/{len(seen)} |")
+    print("\n| Condition | Minimum margin wins | Ties | Fixed target wins |")
+    print("|---|---:|---:|---:|")
+    for condition in CONDITIONS:
+        wins, ties, losses = (outcomes[condition, name] for name in ("minimum-margin", "tie", "fixed-target"))
+        print(f"| {condition} | {wins} | {ties} | {losses} |")
     print("\n| Writer | Mean per-video PSNR (dB) | Mean SSIM |\n|---|---:|---:|")
     for variant, rows in quality.items():
         print(f"| {variant} | {mean(x for x, _ in rows):.3f} | {mean(y for _, y in rows):.5f} |")

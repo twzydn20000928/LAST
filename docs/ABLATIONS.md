@@ -976,7 +976,7 @@ same diffusion endpoint, reference MP4, key, message and seven seed-0 attack
 conditions. Minimum-margin and fixed-target achieved 32.695 and 31.966 dB PSNR
 respectively. On deletion they recovered 423 and 425 of 512 information bits;
 on insertion they recovered 489 and 487. These are single-video counts.
-Run `python tools/writer_ablation_table.py` to pool all published matched pairs. Supply explicit writer_pair_report JSON paths to summarize your own pairs. The difference column subtracts fixed-target accuracy from minimum-margin accuracy in percentage points; quality columns average the per-video PSNR and SSIM values.
+Run `python tools/writer_ablation_table.py` to pool all published matched pairs. Supply explicit writer_pair_report JSON paths to summarize your own pairs. The difference column subtracts fixed-target accuracy from minimum-margin accuracy in percentage points; quality columns average the per-video PSNR and SSIM values. The wins and ties count videos separately for each condition, using the two decoded information-bit counts on the same endpoint.
 
 Across the published 11-video subset, the two baseline columns agree in 73 of 77 video/condition bit counts. All four differences occur on paper-003, whose writer replay and reader experiment used different marked MP4s as documented above. In compression, deletion, insertion and clipping order, the writer replay gives 499, 332, 501 and 504 correct bits, while the reader experiment gives 502, 327, 499 and 506. Use the baseline measured within each experiment when calculating its ablation effect. Matching counts on the other conditions establish numerical agreement only.
 
