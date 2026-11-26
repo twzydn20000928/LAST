@@ -1312,7 +1312,13 @@ To recount, use receipts `results/hunyuan_i2v_oracle_paper000.json` through `pap
 
 The [70-video deletion diagnostic](../results/assisted_group_equal_counts_first70.json) extends the same manifest prefix through paper-069. Of these, 58 videos had enough partially retained groups to match the number of intact groups. With the true edit map supplied, intact groups recovered 86.82% of bits, compared with 80.03% for equal-sized partial-group subsets. The analysis averages all eligible subsets within each video before averaging over videos (3,412 subsets). Intact groups scored higher on 50 of 58 videos. Both reads use known group assignments, so this difference measures retained message evidence after alignment. Rebuild with `python tools/summarize_assisted_subsets.py results/assisted_group_equal_counts_first70.json`.
 
-### Shared-fusion deletion diagnostic on 75 videos
+### Shared-fusion deletion diagnostic on 80 videos
+
+Across the first 80 frozen Hunyuan I2V videos, the same 30-frame deletion
+inputs gave 21,493/40,960 correct bits in received order, 31,339/40,960
+with blind CCTA, and 40,753/40,960 with the true edit map. Whole messages
+recovered were 0/80, 0/80 and 66/80. All three recovered all 80 clean
+messages. The true-map reader has access to privileged frame positions.
 
 The first 75 frozen Hunyuan I2V samples supply the same received MP4 to three readers with the same fusion rule. After 30 random frame deletions, received-order grouping recovered 20,165/38,400 bits (52.51%), blind CCTA recovered 29,655 (77.23%), and grouping with the true edit map recovered 38,290 (99.71%). Whole-message recovery was 0/75, 0/75 and 66/75, respectively. All three readers recovered all 75 clean messages. The known-map result measures how much information remains accessible when the alignment is supplied to the reader. The equal-group-count analysis above uses its own 70-video prefix.
 
