@@ -575,6 +575,25 @@ This command verifies the pipeline, manifest, sample IDs, seed grouping and vide
 
 For Hunyuan I2V LAST, the [official Dynamic Spatial Relationship score](../results/hunyuan_i2v_quality_units/spatial_relationship_all20_last.json) is 0.25 over all 20 assigned clips. The MP4 hashes match the primary fidelity records. The [updated LAST summary](../results/hunyuan_i2v_quality_six_dimensions_last.json) covers six of 18 dimensions; the paired reference score for this dimension is pending.
 
+### Per-unit LAST and reference comparisons
+
+For Hunyuan I2V Complex Landscape the two means agree. Among the 20
+matched videos, LAST scored higher on three, lower on three and equally
+on fourteen. Composition gave equal scores on all 20 videos. Diversity
+uses one scoring unit per prompt. LAST scored lower on each of three
+prompts, with a mean paired difference of −0.00939 across those prompts.
+The following command checks both MP4 fingerprints against the paired
+fidelity records before comparing the official scores. It excludes a
+pair from the difference if the scorer marked either unit inapplicable.
+
+```bash
+units=results/hunyuan_i2v_quality_units
+for dim in camera_all20 composition_all20 plot_all20 landscape_all20 diversity_all60; do
+  python tools/paired_quality_units.py --fidelity results/hunyuan_i2v_primary_fidelity_180.json \
+    "$units/${dim}_last.json" "$units/${dim}_reference.json"
+done
+```
+
 ### Matched Hunyuan I2V camera motion
 
 The official camera-motion evaluator scored all 20 assigned videos for LFG,
