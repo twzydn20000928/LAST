@@ -390,3 +390,12 @@ python tools/deletion_candidate_audit.py --saved-candidates results/primary170_d
 | At least one intact candidate was selected with its correct group ID | 54 | 21,785/27,648 | 0/54 |
 
 These are disjoint outcomes of the same reader on different clips. The single exact recovery occurred without a correctly identified intact window. Selecting one such window was insufficient for whole-message recovery in all 54 observed cases. The comparison binds the candidate replay to its source report digest, accepting the LF or CRLF serialization produced by Git on different platforms.
+
+For the first 21 matched Hunyuan I2V samples, run the chain audit with the paired report and either deletion condition:
+
+```bash
+python tools/deletion_chain_audit.py --root /private/primary --report results/hunyuan_i2v_primary21.json --condition drop
+python tools/deletion_chain_audit.py --root /private/primary --report results/hunyuan_i2v_primary21.json --condition clip
+```
+
+Both attacks retain 35 of the 65 frames. For random deletion, 6 of the 74 selected windows contained all four frames of their predicted group. For contiguous deletion, 136 of 147 did. The corresponding correct-bit counts sum to 8,122 and 10,592 out of 10,752. Each command checks the archived receipt digests and the frozen attack maps before classifying windows.

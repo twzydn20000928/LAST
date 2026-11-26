@@ -13,7 +13,13 @@ def collect(root, report, condition="drop"):
     support = Counter()
     window_types = Counter()
     videos = []
-    samples = report["observations"]
+    if "audited_observations" in report:
+        matched = [s for s in report["audited_observations"]
+                   if (s["family"], s["mode"], s["method"], s["condition"])
+                   == ("hunyuan", "i2v", "last", condition)]
+        samples = {condition: matched}
+    else:
+        samples = report["observations"]
     if isinstance(samples, dict):
         samples = samples[condition]
         ids = [s["video_id"] for s in samples]
