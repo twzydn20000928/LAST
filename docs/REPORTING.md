@@ -77,7 +77,7 @@ python -m last.robustness_table --reports \
   --output paired-table2
 ```
 
-LAST and LFG share sample IDs within each pipeline: 17 Hunyuan I2V, 11 Hunyuan T2V, 11 Wan I2V and 10 Wan T2V pairs. The native VideoShield and VideoMark rows use their available 1 and 38 samples, respectively. The command produces ten rows and 70 condition counts. Each row shows its own coverage out of 400. For example, random deletion on the eleven Wan
+LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 17 Hunyuan I2V pairs and 11 pairs each for Hunyuan T2V, Wan I2V and Wan T2V. VideoShield has one Hunyuan I2V sample, and VideoMark has 38 Hunyuan T2V samples. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. Its three temporal conditions are pending. Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the eleven Wan
 I2V pairs gives 66.30% for LAST and 67.90% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
