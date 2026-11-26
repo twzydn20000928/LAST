@@ -577,6 +577,22 @@ For Hunyuan I2V LAST, the [official Dynamic Spatial Relationship score](../resul
 
 ### Per-unit LAST and reference comparisons
 
+For the Hunyuan I2V primary run `paper-291`, LAST and LFG used identical
+reference MP4 bytes. LAST measured 35.49 dB PSNR and 0.9585 SSIM. LFG
+measured 25.03 dB and 0.8137 SSIM. Recompute the two measurements from
+their generation and fidelity receipts with:
+
+```bash
+python tools/paired_prefix_fidelity.py --report results/hunyuan_i2v_primary_slice291.json \
+  --root "$PRIMARY_RUNS" > fidelity-paper291.json
+```
+
+The archived output is [the paper-291 paired fidelity report](../results/hunyuan_i2v_paired_fidelity_slice291.json).
+Across this case and the preceding [21-case prefix](../results/hunyuan_i2v_fidelity21.json),
+the per-video means are 31.66 dB / 0.9382 for LAST and 22.68 dB / 0.7405
+for LFG. Each method is compared with its own reference. Three of the
+22 pairs have identical reference MP4 fingerprints across methods.
+
 For Hunyuan I2V Complex Landscape the two means agree. Among the 20
 matched videos, LAST scored higher on three, lower on three and equally
 on fourteen. Composition gave equal scores on all 20 videos. Diversity
