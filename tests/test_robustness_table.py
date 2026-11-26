@@ -45,3 +45,16 @@ def test_complete_prefix_remains_partial_in_full_benchmark_table(plan_field):
     report[plan_field] = 1
     with pytest.raises(ValueError, match='smaller'):
         collect([report])
+
+def test_unscored_failure_is_visible_without_imputing_bits():
+    report = sample()
+    drop = next(row for row in report["cells"] if row["condition"] == "drop")
+    drop.update(completed=0, correct_bits=0, total_bits=0, failed=1)
+    text, rows = render(collect([report]))
+    assert "unscored [partial]; 0/400 (1 failed)" in text
+    cell = next(row for row in rows if row["condition"] == "drop")
+    assert cell["failed"] == 1 and cell["observed_bit_accuracy"] is None
+    assert cell["total_bits"] == 0
+    drop["failed"] = 401
+    with pytest.raises(ValueError, match="failed video count"):
+        collect([report])

@@ -39,6 +39,8 @@ def collect(reports):
             expected,done,correct,total,exact=[row[k] for k in ('expected','completed','correct_bits','total_bits','exact_messages')]
             if any(type(v) is not int for v in (expected,done,correct,total,exact)) or not 0<=done<=expected or expected<=0:
                 raise ValueError('Invalid coverage counts')
+            if 'failed' in row and (type(row['failed']) is not int or not 0 <= row['failed'] <= expected - done):
+                raise ValueError('Invalid failed video count')
             if total!=done*512 or not 0<=correct<=total or not 0<=exact<=done or exact*512>correct:
                 raise ValueError('Invalid recovery counts')
             if total - correct < done - exact:
@@ -72,10 +74,15 @@ def render(groups):
         for condition in CONDITIONS:
             r=cells[condition];score=r['observed_bit_accuracy']
             value='pending' if score is None else f'{100*r["correct_bits"]/r["total_bits"]:.2f}%'
+            failed = r.get('failed')
+            if failed and score is None:
+                value = 'unscored'
             if not r['complete']:value+=' [partial]'
             values.append(f'{value}; {r["completed"]}/{r["expected"]}')
+            if failed:
+                values[-1] += f" ({failed} failed)"
             coverage.append(dict(family=key[0],mode=key[1],method=key[2],condition=condition,
-                completed=r['completed'],expected=r['expected'],correct_bits=r['correct_bits'],total_bits=r['total_bits'],
+                completed=r['completed'],expected=r['expected'],failed=failed,correct_bits=r['correct_bits'],total_bits=r['total_bits'],
                 exact_messages=r['exact_messages'],observed_bit_accuracy=score,final_bit_accuracy=r.get('final_bit_accuracy')))
         rows.append((*key,*values))
     text=['# Measured robustness: bit accuracy and coverage','',
