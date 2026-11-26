@@ -511,10 +511,10 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 
 Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
 
-- [Hunyuan I2V](../results/hunyuan_i2v_pixels21.json): 19/21 paired unmarked references differed after decoding. RMSE across the differing pairs ranged from 1.660 to 2.556 out of 255. On paper-020 the RMSE was 2.205 over 65 frames. The [generation settings](../results/hunyuan_i2v_settings21.json) cover the same 21 pairs. PSNR and SSIM in the table use each method's own reference.
-- [Hunyuan t2v](../results/hunyuan_t2v_reference_pixels13.json): all 13 pairs had different decoded values. RMSE ranged from 1.612 to 2.824. The first nine pairs yielded the same pixel statistics in the earlier OpenCV 3.4.18 run and this OpenCV 4.10.0 run.
+- [Hunyuan I2V](../results/hunyuan_i2v_pixels22.json): 20/22 paired unmarked references differed after decoding. RMSE across the differing pairs ranged from 1.660 to 2.556 out of 255. On paper-021 the RMSE was 2.476 over 65 frames. The [generation settings](../results/hunyuan_i2v_settings22.json) cover the same 22 pairs. PSNR and SSIM in the table use each method's own reference.
+- [Hunyuan t2v](../results/hunyuan_t2v_reference_pixels14.json): all 14 pairs had different decoded values. RMSE ranged from 1.612 to 2.824. The first nine pairs yielded the same pixel statistics in the earlier OpenCV 3.4.18 run and this OpenCV 4.10.0 run.
 
-For the 21 Hunyuan I2V pairs, the generation receipt hashes the bytes of
+For the 22 Hunyuan I2V pairs, the generation receipt hashes the bytes of
 `src/last/smoke.py`. The archived copies matching those hashes came from
 LAST revision `c1f2f694cfb777053795e7bbf186b5776c9fecd0` and LFG revision
 `b4f9eeadb912b2850eef7d381b14b341c669dd89`. The latter script exposes the
@@ -526,7 +526,7 @@ latent in both branches is the output of the unmarked pass.
 
 | LAST process limit (GiB) | LFG process limit (GiB) | Pairs | Pixel-identical unmarked references |
 |---:|---:|---:|---:|
-| 8 | 12 | 15 | 0 |
+| 8 | 12 | 16 | 0 |
 | 12 | 8 | 4 | 0 |
 | 12 | 12 | 2 | 2 |
 
@@ -537,10 +537,10 @@ establish causality. Join the linked settings and decoded-pixel reports on
 `video_id` to reproduce the counts.
 
 Add `--settings-only` to the reference comparison command to audit the
-generation configuration for each pair. On the [thirteen T2V pairs](../results/hunyuan_t2v_reference_settings13.json),
+generation configuration for each pair. On the [fourteen T2V pairs](../results/hunyuan_t2v_reference_settings14.json),
 the case file, seed, recorded generation source, sampler settings, model
 directory name, hardware label and offload mode matched within each pair.
-All thirteen pairs used process limits of 8 GiB for LAST and 12 GiB for LFG.
+All fourteen pairs used process limits of 8 GiB for LAST and 12 GiB for LFG.
 Each fidelity score uses its own recorded reference. These records establish
 the configuration difference; they do not identify the cause of the pixel differences.
 
