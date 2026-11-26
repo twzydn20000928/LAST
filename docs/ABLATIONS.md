@@ -361,10 +361,19 @@ To regenerate the subset file at a new destination:
 python -m last.subsets --manifest configs/primary_manifest.json --output /private/paper-subsets.json
 ```
 
-For each completed LAST run with all seven attack MP4s:
+The first 12 Table 4 cases use the reader at commit `1d331462fff777cd825e23f630b8ce3aa18b23fa`. For all 336 original observations (12 videos, seven conditions, four readers), the archived receipt and the six recorded reader-source fingerprints match that revision. To reproduce this cohort, prepare a separate source directory once from the repository root. The fetch also works in a shallow clone.
 
 ```bash
-python -m last.reader_ablation --run /private/last-run \
+reader_rev=1d331462fff777cd825e23f630b8ce3aa18b23fa
+git fetch --depth=1 --no-tags origin "$reader_rev"
+git -c core.autocrlf=false worktree add --detach ../LAST-table4-reader "$reader_rev"
+table4_src="$(cd ../LAST-table4-reader/src && pwd)"
+```
+
+For each completed LAST run with all seven verified attack MP4s, run the pinned reader in the configured environment:
+
+```bash
+PYTHONPATH="$table4_src" python -m last.reader_ablation --run /private/last-run \
   --family hunyuan --model-dir /path/to/Hunyuan-I2V \
   --output /private/ablations/sample-id
 ```
@@ -1302,9 +1311,9 @@ python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_pape
 
 For these same 75 deletion MP4s, the primary LAST reader recovered 29,725/38,400 bits (77.41%) and one full message. The shared-fusion CCTA row recovered 29,655/38,400 (77.23%) and zero full messages. Six videos differed in their individual correct-bit counts. Use the primary reader for Table 2 and the shared-fusion reader for the Table 12 mechanism comparison. On this prefix, the separate assisted exports and the shared-fusion oracle gave identical per-video correct-bit counts across all 225 clean, deletion and compression observations. This comparison matches sample ID, condition and received MP4 fingerprint; it checks counts, not the identity of individual incorrect bits.
 
-For historical LAST runs whose completed attack receipts lack the received MP4 digest, the following commands prepare private inputs and run the seven-condition reader ablation. The replay checks the original clean source and regenerates every edited MP4 with the frozen map and codec settings. All seven files, maps and frame counts must agree before the new directory is published. Its receipts retain the hash of each original evaluation receipt. Keep both the original run and the new private directory available because the latter links to the original videos and codebook.
+Use the `table4_src` directory prepared above. For historical LAST runs whose completed attack receipts lack the received MP4 digest, the following commands prepare private inputs and run the seven-condition reader ablation. The replay checks the original clean source and regenerates every edited MP4 with the frozen map and codec settings. All seven files, maps and frame counts must agree before the new directory is published. Its receipts retain the hash of each original evaluation receipt. Keep both the original run and the new private directory available because the latter links to the original videos and codebook.
 
 ```bash
 python tools/replay_primary_attacks.py --run /private/primary/hunyuan/i2v/last/paper-291 --ablation-view /private/verified-inputs/paper-291
-python -m last.reader_ablation --run /private/verified-inputs/paper-291 --family hunyuan --model-dir /models/hunyuan-i2v --output /private/ablations/paper-291
+PYTHONPATH="$table4_src" python -m last.reader_ablation --run /private/verified-inputs/paper-291 --family hunyuan --model-dir /models/hunyuan-i2v --output /private/ablations/paper-291
 ```
