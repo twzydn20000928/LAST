@@ -74,6 +74,17 @@ jobs:
           done
           python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json results/hunyuan_t2v_videomark_landscape_units.json \
             --primary results/hunyuan_t2v_videomark_first40.json > ci-clean-tables/quality/hunyuan_t2v_videomark.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for name, archived in [
+              ("hunyuan_i2v_last", "hunyuan_i2v_quality_six_dimensions_last"),
+              ("hunyuan_t2v_videomark", "hunyuan_t2v_videomark_quality"),
+          ]:
+              built = json.loads(Path(f"ci-clean-tables/quality/{name}.json").read_bytes())
+              expected = json.loads(Path(f"results/{archived}.json").read_bytes())
+              assert built == expected, f"Released Table 1 quality input differs from the scoring-unit recount: {name}"
+          PY
           python -m last.clean_table --family hunyuan \
             --reports results/hunyuan_{i2v_primary20,t2v_primary13}.json \
               results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json \
