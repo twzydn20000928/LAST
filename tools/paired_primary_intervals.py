@@ -39,7 +39,15 @@ def compare(report, manifest, manifest_sha):
                       sum(r["correct_bits"] == 512 for r in rows))
             if actual != (cell["completed"], cell["correct_bits"], cell["exact_messages"]):
                 raise ValueError("Aggregate disagrees with its per-video observations")
-        results.append(dict(condition=condition, **stats))
+        lfg_bits = {row["video_id"]: row["correct_bits"] for row in second}
+        pairs = [(row["correct_bits"], lfg_bits[row["video_id"]]) for row in first]
+        bit_wins = dict(last=sum(a > b for a, b in pairs), tied=sum(a == b for a, b in pairs),
+                        lfg=sum(a < b for a, b in pairs))
+        exact = dict(both=sum(a == b == 512 for a, b in pairs),
+                     last_only=sum(a == 512 and b < 512 for a, b in pairs),
+                     lfg_only=sum(a < 512 and b == 512 for a, b in pairs),
+                     neither=sum(max(a, b) < 512 for a, b in pairs))
+        results.append(dict(condition=condition, **stats, paired_bit_wins=bit_wins, paired_exact_messages=exact))
     return dict(family=family, mode=mode, videos=len(ids), planned_videos=len(planned),
                 full_benchmark=len(ids) == len(planned), manifest_sha256=manifest_sha,
                 difference="LAST minus LFG, in units of proportion", conditions=results)

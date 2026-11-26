@@ -127,6 +127,12 @@ observation in the cell. Keep private predictions on the experiment server.
 python tools/paired_primary_intervals.py --report results/wan22_i2v_primary8.json --output tables/wan-i2v-prefix8-differences.json
 ```
 
+For each attack, `paired_bit_wins` counts the videos on which LAST or LFG
+recovered more correct bits and the number of ties. `paired_exact_messages`
+counts videos where both methods, only LAST, only LFG, or neither recovered
+all 512 bits. The comparison matches manifest IDs within each backbone and
+generation mode. Both sets of counts sum to the number of paired videos.
+
 The command reads one paired report, checks its observations against its
 aggregate counts, and uses the frozen manifest to group all seeds of a prompt
 in the same bootstrap draw. It gives LAST minus LFG in proportion units for
