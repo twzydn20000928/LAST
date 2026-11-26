@@ -44,3 +44,23 @@ def test_artifact_audit_rejects_stale_source_and_missing_attack(tmp_path):
 def test_plan_cannot_escape_root(tmp_path):
     item=dict(family='hunyuan',mode='i2v',method='last',video_id='x',run='../outside')
     with pytest.raises(ValueError,match='escapes'):aggregate(dict(scope='test',runs=[item]),tmp_path)
+
+
+@pytest.mark.parametrize(('method', 'status', 'field'), [
+    ('last', 'completed', 'marked_sha256'),
+    ('sigmark', 'completed_generation_only', 'video_sha256'),
+])
+def test_attack_recount_requires_original_generated_video(tmp_path, method, status, field):
+    item = dict(family='hunyuan', mode='i2v', method=method, video_id='paper-000', run='run')
+    folder = tmp_path / 'run'
+    (folder / 'attacks').mkdir(parents=True)
+    (folder / 'marked.mp4').write_bytes(b'replacement')
+    received = hashlib.sha256(b'replacement').hexdigest()
+    generation = dict(item, status=status, **{field: hashlib.sha256(b'original').hexdigest()})
+    (folder / 'receipt.json').write_text(json.dumps(generation))
+    attack = dict(video_id=item['video_id'], condition='clean', status='completed',
+                  correct_bits=250, total_bits=512, exact_message=False,
+                  source_sha256=received, received_sha256=received)
+    (folder / 'attacks/clean.json').write_text(json.dumps(attack))
+    with pytest.raises(ValueError, match='generation receipt'):
+        aggregate(dict(scope='test', runs=[item]), tmp_path, verify_artifacts=True)

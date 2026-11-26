@@ -42,6 +42,9 @@ def aggregate(plan,root,verify_artifacts=False,reextractions=None):
                             marked_sha=hashlib.sha256((folder/'marked.mp4').read_bytes()).hexdigest()
                             generation=json.loads((folder/'receipt.json').read_text())
                             if generation.get('status') not in ('completed','completed_generation_only'):raise ValueError('Source generation incomplete')
+                            for field in ('marked_sha256', 'video_sha256'):
+                                if field in generation and generation[field] != marked_sha:
+                                    raise ValueError(f'Generated MP4 differs from generation receipt: {folder}')
                             for field in ('family','mode','method'):
                                 if generation.get(field)!=item[field]:raise ValueError(f'Generation {field} mismatch')
                         if row.get('source_sha256')!=marked_sha:raise ValueError('Attack receipt refers to a different source video')
