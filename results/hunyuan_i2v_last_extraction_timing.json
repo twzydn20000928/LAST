@@ -1,0 +1,105 @@
+{
+  "sample": "paper-000",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "last",
+  "protocol": "main",
+  "measurements": {
+    "clean": {
+      "received_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+      "frames": 65,
+      "seconds": [
+        29.606636747717857,
+        29.710265040397644
+      ],
+      "reported_seconds": 29.65845089405775,
+      "bch_success": true,
+      "candidate_windows": 62,
+      "warmups": 2,
+      "repeats": 2,
+      "gpu": "NVIDIA L40",
+      "torch_version": "2.5.1+cu124",
+      "cuda_version": "12.4",
+      "route": "ccta",
+      "includes": [
+        "MP4 decoding",
+        "complete reader",
+        "BCH decoding"
+      ],
+      "excludes": [
+        "model loading",
+        "one-time key/codebook setup",
+        "export"
+      ],
+      "reader_sha256": "503c8fb2e61bffabe6729caa6d2c0d65ba0ca14b1d01e8edf955b61ad0c8725c",
+      "map_seed": 0,
+      "attack_map": null
+    },
+    "drop": {
+      "received_sha256": "8562a0f6e475a3a671a5747f77dad6b3ddb358245911ec240a5df58d363bbcf1",
+      "frames": 35,
+      "seconds": [
+        14.783480565994978,
+        14.791710931807756
+      ],
+      "reported_seconds": 14.787595748901367,
+      "bch_success": false,
+      "candidate_windows": 32,
+      "warmups": 2,
+      "repeats": 2,
+      "gpu": "NVIDIA L40",
+      "torch_version": "2.5.1+cu124",
+      "cuda_version": "12.4",
+      "route": "ccta",
+      "includes": [
+        "MP4 decoding",
+        "complete reader",
+        "BCH decoding"
+      ],
+      "excludes": [
+        "model loading",
+        "one-time key/codebook setup",
+        "export"
+      ],
+      "reader_sha256": "503c8fb2e61bffabe6729caa6d2c0d65ba0ca14b1d01e8edf955b61ad0c8725c",
+      "map_seed": 0,
+      "attack_map": [
+        0,
+        2,
+        4,
+        7,
+        9,
+        10,
+        11,
+        16,
+        17,
+        18,
+        19,
+        21,
+        22,
+        23,
+        26,
+        27,
+        29,
+        30,
+        31,
+        35,
+        36,
+        39,
+        40,
+        41,
+        45,
+        49,
+        50,
+        52,
+        54,
+        56,
+        58,
+        59,
+        61,
+        62,
+        63
+      ]
+    }
+  }
+}

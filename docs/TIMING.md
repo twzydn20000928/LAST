@@ -303,3 +303,9 @@ and the current LAST/LFG reader uses float32. Keep pilot durations separate
 when rebuilding the main table. The primary timing formatter checks that all
 eight generation calls (reference and marked in four pairs) decoded 65 frames.
 For supplementary Table 17 the verified extraction summary requires the L40 and checks the actual decoded length against the clean or deletion record. Native readers record the received length for each warmup and timed read. A paired generation receipt must record fourteen decoded lengths of 65 frames (two arms for each of seven pairs).
+
+### Main Table 3, measured LAST extraction
+
+On Hunyuan I2V paper-000, the warmed LAST reader took 29.658 s on the 65-frame MP4 and 14.788 s after deletion of 30 frames. Each value averages two measured reads after two warmups on an NVIDIA L40. The deletion input produced 32 candidate windows versus 62 for the original. BCH decoding succeeded on the original and failed on the shortened input. The deletion time measures the completed extraction attempt. These two measurements cover extraction on one sample. Generation overhead and comparisons with other methods require their own measurements.
+
+[Raw repetitions, input fingerprints and retained frames](../results/hunyuan_i2v_last_extraction_timing.json)
