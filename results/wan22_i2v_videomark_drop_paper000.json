@@ -1,0 +1,14 @@
+{
+  "video_id": "paper-000",
+  "method": "videomark",
+  "family": "wan22",
+  "mode": "i2v",
+  "condition": "drop",
+  "correct_bits": 243,
+  "total_bits": 512,
+  "exact_message": false,
+  "source_sha256": "ebbf97dd51d7b5164fe8880b8acf4270566862fc7d8079dcce0670177cbca6a1",
+  "received_sha256": "30dbf538a4e7651ef654384e9b18390c4869c54955d661a144541fbcac09ae53",
+  "attack_receipt_sha256": "d7797d7746f17b87a1f25ff73dc18f41231af3208f0dd87bb82fdeb8c81cfc38",
+  "extraction_receipt_sha256": "209c7dae0adf9209d440cbadb9d067b3ff0c01aeea45f2cfefd235fba5cdcf1f"
+}
