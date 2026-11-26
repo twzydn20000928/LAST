@@ -704,6 +704,19 @@ frames before fusion. All nine predictions were recounted against the same
 message and matched to the received MP4s. The calibrated-energy reader
 awaits the full development fit. [Per-case measurements](../results/hunyuan_i2v_last_controlled_paper005.json)
 
+Across Hunyuan I2V cases `paper-000` through `paper-022`, all three readers
+recovered every clean message. After deleting 30 frames, the received-order
+reader recovered 6,237 of 11,776 bits (52.96%), CCTA recovered 8,945 (75.96%),
+and the reader given the true edit map recovered 11,768 (99.93%). Whole-message
+recovery was 0/23, 0/23 and 22/23, respectively. Under compression the three
+readers each recovered 10/23 complete messages. These samples cover the first
+23 manifest entries of the planned 400. To pool the counts over all currently
+published cases, run from the repository root:
+
+```bash
+python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper*.json
+```
+
 The controlled comparison can acquire true-map-assisted features separately
 and pass them through the **same** `controlled_fusion.readout` used by the other
 controlled readers:
