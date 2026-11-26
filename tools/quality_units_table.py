@@ -10,10 +10,19 @@ from last.data import validate
 from last.quality_report import aggregate, CATEGORIES
 
 
-def recount(manifest_path, paths):
+def recount(manifest_path, paths, primary=None):
     manifest = json.loads(manifest_path.read_bytes())
     validate(manifest)
     manifest_digest = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+    clean = {}
+    if primary is not None:
+        from last.robustness_table import verify_observations
+        report = json.loads(primary.read_bytes())
+        if report.get("artifact_verification") is not True or report.get("manifest_sha256") != manifest_digest:
+            raise ValueError("Primary report must be audited against the same manifest")
+        verify_observations(report)
+        clean = {(r["family"], r["mode"], r["method"], r["video_id"]): r["video_sha256"]
+                 for r in report["audited_observations"] if r["condition"] == "clean"}
     dimensions = {}
     pipeline = None
     for path in paths:
@@ -34,6 +43,12 @@ def recount(manifest_path, paths):
         observed = [tuple(v["video_id"] for v in unit["videos"]) for unit in record["units"]]
         if sorted(observed) != sorted(tuple(ids) for ids in expected.values()):
             raise ValueError(f"Missing or incorrectly grouped observations: {name}")
+        if primary is not None:
+            for unit in record["units"]:
+                for video in unit["videos"]:
+                    key = (*identity, video["video_id"])
+                    if key not in clean or clean[key] != video["mp4_sha256"]:
+                        raise ValueError(f"Quality video differs from the clean primary input: {key}")
         values = [u["score"] for u in record["units"]]
         valid = [x for x in values if 0 <= x <= 1]
         if len(valid) + values.count(-1) != len(values):
@@ -58,6 +73,7 @@ def recount(manifest_path, paths):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=Path("configs/primary_manifest.json"))
+    parser.add_argument("--primary", type=Path, help="Verify each scored MP4 against an audited clean primary observation")
     parser.add_argument("units", type=Path, nargs="+")
     args = parser.parse_args()
-    print(json.dumps(recount(args.manifest, args.units), indent=2, allow_nan=False))
+    print(json.dumps(recount(args.manifest, args.units, args.primary), indent=2, allow_nan=False))

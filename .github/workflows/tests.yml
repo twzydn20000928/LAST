@@ -63,10 +63,12 @@ jobs:
             python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_"${arm}".json \
               > "ci-clean-tables/quality/hunyuan_i2v_${arm}.json"
           done
-          for units in results/camera_motion/*_camera_units.json results/hunyuan_t2v_videomark_camera_units.json; do
+          for units in results/camera_motion/*_camera_units.json; do
             sample=$(basename "$units" _camera_units.json)
             python tools/quality_units_table.py "$units" > "ci-clean-tables/quality/${sample}.json"
           done
+          python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json \
+            --primary results/hunyuan_t2v_videomark_first40.json > ci-clean-tables/quality/hunyuan_t2v_videomark.json
           python -m last.clean_table --family hunyuan \
             --reports results/hunyuan_{i2v_primary20,t2v_primary13}.json \
               results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json \
