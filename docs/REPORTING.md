@@ -7,7 +7,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 
 ```bash
 python -m last.clean_table --family hunyuan \
-  --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary11.json \
+  --reports results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary12.json \
     results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json \
     results/hunyuan_i2v_sigmark_first1_partial.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
@@ -68,7 +68,7 @@ To rebuild the measured LAST, LFG and native baseline rows of Table 2 with attac
 ```bash
 python -m last.robustness_table --reports \
   results/hunyuan_i2v_primary17.json \
-  results/hunyuan_t2v_primary11.json \
+  results/hunyuan_t2v_primary12.json \
   results/wan22_i2v_primary11.json \
   results/wan22_t2v_primary11.json \
   results/hunyuan_i2v_videoshield_first1.json \
@@ -77,7 +77,7 @@ python -m last.robustness_table --reports \
   --output paired-table2
 ```
 
-LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 17 Hunyuan I2V pairs and 11 pairs each for Hunyuan T2V, Wan I2V and Wan T2V. VideoShield has one Hunyuan I2V sample, and VideoMark has 38 Hunyuan T2V samples. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. Its three temporal conditions are pending. Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the eleven Wan
+LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 17 Hunyuan I2V pairs and 12 Hunyuan T2V pairs, and 11 pairs each for Wan I2V and Wan T2V. VideoShield has one Hunyuan I2V sample, and VideoMark has 38 Hunyuan T2V samples. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. Its three temporal conditions are pending. Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the eleven Wan
 I2V pairs gives 66.30% for LAST and 67.90% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
@@ -447,7 +447,7 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 | Backbone and mode | Paired videos | Deletion | Insertion | Clip |
 |---|---:|---:|---:|---:|
 | [hunyuan i2v](../results/hunyuan_i2v_primary17.json) | 17 | 74.59% / 65.74% | 88.19% / 58.69% | 98.52% / 76.22% |
-| [hunyuan t2v](../results/hunyuan_t2v_primary11.json) | 11 | 74.45% / 66.07% | 90.75% / 58.77% | 97.12% / 75.09% |
+| [hunyuan t2v](../results/hunyuan_t2v_primary12.json) | 12 | 75.03% / 65.90% | 89.93% / 58.24% | 97.36% / 75.41% |
 | [wan22 i2v](../results/wan22_i2v_primary11.json) | 11 | 66.30% / 67.90% | 85.37% / 57.32% | 95.65% / 79.26% |
 | [wan22 t2v](../results/wan22_t2v_primary11.json) | 11 | 72.43% / 66.25% | 83.81% / 54.78% | 96.24% / 77.13% |
 
@@ -456,20 +456,20 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 | Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
 |---|---:|---:|---:|---:|
 | [hunyuan_i2v](../results/hunyuan_i2v_fidelity17.json) | 17 | 2/17 | 31.44 / 22.67 | 0.9406 / 0.7515 |
-| [hunyuan_t2v](../results/hunyuan_t2v_fidelity11.json) | 11 | 0/11 | 31.06 / 21.86 | 0.9247 / 0.7002 |
+| [hunyuan_t2v](../results/hunyuan_t2v_fidelity12.json) | 12 | 0/12 | 31.41 / 22.15 | 0.9283 / 0.7115 |
 | [wan22_i2v](../results/wan22_i2v_fidelity11.json) | 11 | 11/11 | 29.13 / 22.57 | 0.9307 / 0.7932 |
 | [wan22_t2v](../results/wan22_t2v_fidelity11.json) | 11 | 11/11 | 31.06 / 25.07 | 0.9468 / 0.8432 |
 
 Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
 
 - [Hunyuan i2v](../results/hunyuan_i2v_pixels17.json): 15/17 pairs had different decoded values. RMSE among differing pairs ranged from 1.660 to 2.556.
-- [Hunyuan t2v](../results/hunyuan_t2v_reference_differences_first11.json): all 11 pairs had different decoded values. RMSE ranged from 1.612 to 2.824. The first nine pairs yielded the same pixel statistics in the earlier OpenCV 3.4.18 run and this OpenCV 4.10.0 run.
+- [Hunyuan t2v](../results/hunyuan_t2v_reference_pixels12.json): all 12 pairs had different decoded values. RMSE ranged from 1.612 to 2.824. The first nine pairs yielded the same pixel statistics in the earlier OpenCV 3.4.18 run and this OpenCV 4.10.0 run.
 
 Add `--settings-only` to the reference comparison command to audit the
-generation configuration for each pair. On the [eleven T2V pairs](../results/hunyuan_t2v_reference_settings11.json),
+generation configuration for each pair. On the [twelve T2V pairs](../results/hunyuan_t2v_reference_settings12.json),
 the case file, seed, recorded generation source, sampler settings, model
 directory name, hardware label and offload mode matched within each pair.
-All eleven pairs used process limits of 8 GiB for LAST and 12 GiB for LFG.
+All twelve pairs used process limits of 8 GiB for LAST and 12 GiB for LFG.
 Each fidelity score uses its own recorded reference. These records establish
 the configuration difference; they do not identify the cause of the pixel differences.
 
@@ -488,7 +488,7 @@ Both rows currently show five of 18 dimensions. Each dimension retains the numbe
 To render Tables 1 and 2 with the available VideoShield I2V, SIGMark I2V and VideoMark T2V observations, run in Bash from the repository root:
 
 ```bash
-reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary11.json
+reports=(results/hunyuan_i2v_primary17.json results/hunyuan_t2v_primary12.json
          results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first38.json
          results/hunyuan_i2v_sigmark_first1_partial.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
