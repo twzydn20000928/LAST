@@ -413,3 +413,5 @@ also matched its audited extraction fingerprint. The reader recovered
 To verify the pairing on regenerated inputs, compare the matching
 `edits/drop30/mapN/attack.json` and `edits/drop30_crf28/mapN/attack.json`
 for each source video before comparing the extraction counts.
+
+For paper-028, all five natural-insertion MP4s were regenerated from the marked source and the assigned paper-048 unmarked reference using the recorded H.264 encoder. Each contained 95 frames and matched the file fingerprint in the corresponding recovery observation. For seed 0 the first seven marked frames are followed by donor frames 32 through 61 (one-based), then the remaining 58 marked frames. The [five rebuilt input fingerprints](../results/stress_natural028_rebuilt5.json) can be matched by seed to the [forty recovery observations](../results/stress_paper028_forty_maps.json).
