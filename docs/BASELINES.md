@@ -571,6 +571,11 @@ seven-condition campaign, a method ranking or an exclusive timing measurement.
 The standard `last.baseline_evaluate` command above runs the attacks on a new
 user-generated case; the private recovery paths are not required to run it.
 
+To evaluate a remaining primary condition on the same generated case, add
+`--condition insert` or `--condition clip` to the normal evaluation command.
+Each condition uses its original edit map, encoding, registration state and
+extraction settings. This also works when an earlier condition failed.
+
 If native extraction failed after an attack MP4 was saved, repeat the same
 `last.baseline_evaluate` command with `--retry-condition drop --retry-output
 /private/new-drop-retry` (replace `drop` with the failed condition). The

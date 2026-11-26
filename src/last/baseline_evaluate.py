@@ -5,6 +5,7 @@ import numpy as np
 import shutil
 from .evaluate import attacked, evaluation_directory, check_cached, verify_received
 from .video import load_mp4, export_mp4
+from .report import CONDITIONS
 
 
 def check_extraction(record, method, mode, video_sha, state_sha, temporal, family='hunyuan'):
@@ -22,7 +23,9 @@ def main():
     p.add_argument('--map-seed',type=int,choices=range(5),default=0)
     p.add_argument('--memory-gib',type=float,default=8)
     p.add_argument('--clean-extraction',type=Path)
-    p.add_argument('--retry-condition', choices=('clean','noise','compression','blur','drop','insert','clip'))
+    which = p.add_mutually_exclusive_group()
+    which.add_argument('--condition', choices=CONDITIONS, help='Evaluate only this primary condition')
+    which.add_argument('--retry-condition', choices=CONDITIONS)
     p.add_argument('--retry-output', type=Path, help='New private directory for a single failed extraction')
     p.add_argument('--retry-extraction', type=Path, help='Reuse a completed extraction of the exact failed input')
     a=p.parse_args();os.umask(0o077)
@@ -58,7 +61,8 @@ def main():
         verify_received(original, original_video)
         directory = a.retry_output.resolve()
         directory.mkdir(parents=True, exist_ok=False, mode=0o700)
-    for name in ((a.retry_condition,) if a.retry_condition else ('clean','noise','compression','blur','drop','insert','clip')):
+    condition = a.retry_condition or a.condition
+    for name in ((condition,) if condition else CONDITIONS):
         receipt=directory/(name+'.json')
         if receipt.exists():
             cached=json.loads(receipt.read_text());check_cached(cached,a.video_id,method,source_sha,a.map_seed)
