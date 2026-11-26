@@ -31,3 +31,15 @@ def test_calibrated_table_requires_common_fit(tmp_path):
     paths[-1].write_text(json.dumps(case))
     with pytest.raises(ValueError, match="Missing calibration fingerprint"):
         render(paths, manifest)
+
+
+def test_readers_agree_but_use_different_mp4_from_primary(tmp_path):
+    case = json.loads((ROOT / "results/hunyuan_i2v_last_controlled_paper005.json").read_bytes())
+    for row in case["rows"]:
+        if row["condition"] == "drop":
+            row["received_sha256"] = "a" * 64
+    path = tmp_path / "case.json"
+    path.write_text(json.dumps(case))
+    with pytest.raises(ValueError, match="primary input.*paper-005/drop"):
+        render([path], ROOT / "configs/primary_manifest.json",
+               [ROOT / "results/hunyuan_i2v_last_first100_robustness.json"])

@@ -660,9 +660,14 @@ step because the evaluation receipt records absolute paths for its inputs.
 Render the shared-fusion measurements from the public counts on CPU:
 
 ```bash
-python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper*.json
+python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper*.json \
+  --primary results/hunyuan_i2v_last_first100_robustness.json \
+  --primary results/hunyuan_i2v_last_primary100_179.json
 ```
 
+The two primary reports let the command check each clean, deletion and compressed
+MP4 against the main experiment for the same sample and writer. Reader variants
+may return different bit counts on those identical inputs.
 The GitHub Actions artifact `audited-partial-temporal-diagnostics` includes
 this output as `table12-shared-fusion.md`. Its companion `table12-oracle.md`
 compares the primary blind reader with the direct true-map reader on a larger

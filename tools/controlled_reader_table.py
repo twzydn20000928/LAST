@@ -1,5 +1,6 @@
 """Render Table 12 shared-fusion counts from separately audited case exports."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -9,11 +10,25 @@ READERS = ("received", "calibrated_energy", "ccta", "oracle")
 CONDITIONS = ("clean", "drop", "compression")
 
 
-def render(paths, manifest):
-    samples = {s["id"] for s in json.loads(manifest.read_bytes())["samples"]}
+def render(paths, manifest, primary_paths=None):
+    manifest_bytes = manifest.read_bytes()
+    samples = {s["id"] for s in json.loads(manifest_bytes)["samples"]}
     if len(samples) != 400:
         raise ValueError("Expected the 400-video primary manifest")
     cells, cohorts = {}, {}
+    primary_inputs = {}
+    if primary_paths:
+        from paired_oracle_table import load_blind_slices
+
+        primary = load_blind_slices(primary_paths, manifest)
+        if primary["manifest_sha256"] != hashlib.sha256(manifest_bytes).hexdigest():
+            raise ValueError("Primary and controlled manifests differ")
+        for row in primary["audited_observations"]:
+            if row["mode"] == "i2v" and row["status"] == "completed" and row["map_seed"] == 0:
+                key = row["family"], row["method"], row["video_id"], row["condition"]
+                if key in primary_inputs:
+                    raise ValueError(f"Duplicate primary observation: {key}")
+                primary_inputs[key] = row["video_sha256"]
     protocol = None
     for path in paths:
         case = json.loads(path.read_bytes())
@@ -48,6 +63,8 @@ def render(paths, manifest):
             sha = row["received_sha256"]
             if not re.fullmatch("[0-9a-f]{64}", sha) or received.setdefault(c, sha) != sha:
                 raise ValueError(f"Readers used different videos for {video}/{c}")
+            if primary_paths and primary_inputs.get((case["family"], writer, video, c)) != sha:
+                raise ValueError(f"Controlled MP4 differs from the primary input or is missing: {video}/{c}")
             cells.setdefault((writer, r, c), []).append(n)
         if remaining:
             raise ValueError(f"Missing controlled measurements: {path}")
@@ -70,6 +87,8 @@ def render(paths, manifest):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("cases", nargs="+", type=Path)
+    parser.add_argument("--primary", type=Path, action="append",
+                        help="Verify every received MP4 against the primary results for the same writer")
     parser.add_argument("--manifest", type=Path, default=Path("configs/primary_manifest.json"))
     args = parser.parse_args()
-    print(render(args.cases, args.manifest))
+    print(render(args.cases, args.manifest, args.primary))
