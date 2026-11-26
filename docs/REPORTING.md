@@ -8,7 +8,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 ```bash
 python -m last.clean_table --family hunyuan \
   --reports results/hunyuan_i2v_primary19.json results/hunyuan_t2v_primary13.json \
-    results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first39.json \
+    results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40_partial.json \
     results/hunyuan_i2v_sigmark_first1_partial.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
@@ -74,11 +74,11 @@ python -m last.robustness_table --reports \
   results/wan22_i2v_videoshield_first1_partial.json \
   results/hunyuan_i2v_videoshield_first2_complete.json \
   results/hunyuan_i2v_sigmark_first1_partial.json \
-  results/hunyuan_t2v_videomark_first39.json \
+  results/hunyuan_t2v_videomark_first40_partial.json \
   --output paired-table2
 ```
 
-LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 19 Hunyuan I2V pairs, 13 Hunyuan T2V pairs, 13 Wan I2V pairs and 12 Wan T2V pairs. VideoShield has two Hunyuan I2V observations per condition and one Wan I2V observation each for clean and noise, and VideoMark has 39 Hunyuan T2V clean observations and 38 for each attack. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. On the same random-deletion MP4, a retry completed four 9-frame, 50-step window inversions. The upstream ordering stage returned only missing frames, and interpolation raised an error before decoding. The deletion observation therefore contributes zero scored bits. Insertion and contiguous removal are pending. See the [retry receipt summary](../results/sigmark_paper000_drop_retry_failure.json). Across all methods the command produces 12 rows and 84 condition cells, each with its own coverage out of 400. For example, random deletion on the thirteen Wan
+LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 19 Hunyuan I2V pairs, 13 Hunyuan T2V pairs, 13 Wan I2V pairs and 12 Wan T2V pairs. VideoShield has two Hunyuan I2V observations per condition and one Wan I2V observation each for clean and noise, and VideoMark has 40 Hunyuan T2V observations each for clean, noise, compression, blur and random deletion, and 39 each for insertion and contiguous removal. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. On the same random-deletion MP4, a retry completed four 9-frame, 50-step window inversions. The upstream ordering stage returned only missing frames, and interpolation raised an error before decoding. The deletion observation therefore contributes zero scored bits. Insertion and contiguous removal are pending. See the [retry receipt summary](../results/sigmark_paper000_drop_retry_failure.json). Across all methods the command produces 12 rows and 84 condition cells, each with its own coverage out of 400. For example, random deletion on the thirteen Wan
 I2V pairs gives 64.92% for LAST and 66.89% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
@@ -492,7 +492,7 @@ To render Tables 1 and 2 with the available VideoShield I2V, SIGMark I2V and Vid
 
 ```bash
 reports=(results/hunyuan_i2v_primary19.json results/hunyuan_t2v_primary13.json
-         results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first39.json
+         results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40_partial.json
          results/hunyuan_i2v_sigmark_first1_partial.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
   --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \
