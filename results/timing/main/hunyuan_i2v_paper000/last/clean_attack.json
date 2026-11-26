@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "method": "last",
+  "condition": "clean",
+  "video_id": "paper-000",
+  "map_seed": 0,
+  "attack_map": null,
+  "frames": 65,
+  "source_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+  "received_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+  "prior_receipt_sha256": "d47427c9e1a7c7459ac82ed54bfe760aa3fb3fc22652bdb6dd26d0a8dec46d20",
+  "reextraction_receipt_sha256": "6a6ffc43044269e3e4dfd3e56cdcaf57b69d3c2e3ea3f8e477783c0487c512bd",
+  "scope": "Timing input verified from independent re-extraction"
+}
