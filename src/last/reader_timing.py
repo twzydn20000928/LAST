@@ -39,6 +39,15 @@ def measure(operation, synchronize, guard, warmups, repeats, clock=time.perf_cou
     return durations
 
 
+def verify_prediction(path, video_sha, family, bits):
+    import numpy as np
+    expected = json.loads(path.read_bytes())
+    if (expected.get('video_sha256') != video_sha or expected.get('family') != family
+            or expected.get('information_bits') != 512
+            or bytes.fromhex(expected['message_hex']) != np.packbits(bits, bitorder='big').tobytes()):
+        raise ValueError('Final timed prediction differs from the supplied ordinary extraction')
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--video', type=Path, required=True)
@@ -51,6 +60,8 @@ def main():
     p.add_argument('--length-study-frames', type=int, choices=(65,129,257),
                    help='Supplement LAST clean extraction length, checked against the decoded MP4')
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--expected-extraction', type=Path,
+                   help='Compare the final timed prediction with a private last.extract JSON after timing')
     a = p.parse_args()
     if a.length_study_frames is not None and (a.protocol != 'supplement' or a.method != 'last'):
         p.error('--length-study-frames requires LAST and the supplement timing protocol')
@@ -83,10 +94,12 @@ def main():
     sha = hashlib.sha256(a.video.read_bytes()).hexdigest()
     source = {f.name: hashlib.sha256(f.read_bytes()).hexdigest() for f in Path(__file__).parent.glob('*.py')}
     last_read = {}
+    final_bits = None
     if a.length_study_frames is not None and len(load_mp4(a.video)) != a.length_study_frames:
         raise ValueError('Input MP4 frame count differs from requested length study')
 
     def operation():
+        nonlocal final_bits
         frames = load_mp4(a.video)  # MP4 decoding belongs inside the timed region.
         if not frames or any(np.asarray(f).shape != (512, 512, 3) for f in frames):
             raise ValueError('Expected nonempty 512-square RGB video')
@@ -95,7 +108,7 @@ def main():
                 soft, alignment = extract(frames, vae, processor, a.family, codes)
             else:
                 soft, alignment = extract_lfg(frames, vae, processor, a.family, key, prepared)
-            _, decoder = codec.decode(soft.cpu().numpy())
+            final_bits, decoder = codec.decode(soft.cpu().numpy())
         last_read.update(frames=len(frames), route=alignment['route'], bch_success=decoder['bch_success'])
         if a.method == 'last':
             last_read['candidate_windows'] = alignment['candidate_windows']
@@ -108,6 +121,9 @@ def main():
         raise ValueError('Video changed during timing')
     if source != {f.name: hashlib.sha256(f.read_bytes()).hexdigest() for f in Path(__file__).parent.glob('*.py')}:
         raise ValueError('Source changed during timing')
+    if a.expected_extraction:
+        verify_prediction(a.expected_extraction, sha, a.family, final_bits)
+        last_read['final_prediction_matches_ordinary_extraction'] = True
     result = dict(status='completed', method=a.method, family=a.family, mode=a.mode, protocol=a.protocol,
                   scope='One-video warm-model extraction only; not generation overhead or the full timing table',
                   received_sha256=sha, source_sha256=source, warmups=2, repeats=repeats,

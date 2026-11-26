@@ -21,6 +21,23 @@ def test_contention_invalidates_measurement():
     assert compute_pids('123\n456\n123\n')=={123,456}
 
 
+def test_prediction_parity_checks_bit_positions_and_video(tmp_path):
+    import json
+    import numpy as np
+    from last.reader_timing import verify_prediction
+
+    bits = np.zeros(512, dtype=np.uint8)
+    bits[0] = 1
+    path = tmp_path / 'ordinary.json'
+    path.write_text(json.dumps(dict(family='wan22', video_sha256='video', information_bits=512,
+                                    message_hex=np.packbits(bits).tobytes().hex())))
+    verify_prediction(path, 'video', 'wan22', bits)
+    with pytest.raises(ValueError):
+        verify_prediction(path, 'different-video', 'wan22', bits)
+    with pytest.raises(ValueError):
+        verify_prediction(path, 'video', 'wan22', np.roll(bits, 1))
+
+
 def test_prepared_lfg_carriers_preserve_scores(monkeypatch):
     import torch
     import last.lfg as lfg

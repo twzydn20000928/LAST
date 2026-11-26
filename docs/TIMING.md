@@ -22,7 +22,12 @@ python -m last.reader_timing --method last --family hunyuan --mode i2v \
 ```
 
 Run the same command on the shared 30-frame deletion condition. Use
-`--protocol supplement` for five repetitions. Both modes use two warmups;
+`--expected-extraction /private/ordinary-read.json` when a saved ordinary
+extraction in the `last.extract` JSON format is available for the same video,
+method and key. After the final timed repetition, the runner checks the
+video fingerprint, backbone and all 512 predicted bits before saving a timing
+receipt. The receipt records the comparison outcome without storing the message.
+For five repetitions use `--protocol supplement`. Both modes use two warmups;
 this makes the unspecified main-paper warmup count explicit. VAE is float32
 on GPU with tiling in both methods. Model loading and codebook preparation
 are outside timing, while MP4 decoding, alignment and BCH are inside it.
