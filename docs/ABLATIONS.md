@@ -361,7 +361,7 @@ To regenerate the subset file at a new destination:
 python -m last.subsets --manifest configs/primary_manifest.json --output /private/paper-subsets.json
 ```
 
-The first 12 Table 4 cases use the reader at commit `1d331462fff777cd825e23f630b8ce3aa18b23fa`. For all 336 original observations (12 videos, seven conditions, four readers), the archived receipt and the six recorded reader-source fingerprints match that revision. To reproduce this cohort, prepare a separate source directory once from the repository root. The fetch also works in a shallow clone.
+The 13-case reader snapshot uses commit `1d331462fff777cd825e23f630b8ce3aa18b23fa`. All 364 receipts (13 videos, seven conditions, four readers) record matching fingerprints for the six reader source files. To reproduce this cohort, prepare a separate source directory once from the repository root. The fetch also works in a shallow clone.
 
 ```bash
 reader_rev=1d331462fff777cd825e23f630b8ce3aa18b23fa
@@ -1261,6 +1261,13 @@ exceeded the partial-subset mean in 30/35 videos. Rebuild these figures with
 The temporal-diagnostics workflow includes the output as `table12-equal-group-counts.json`.
 
 ### Render main Table 4
+
+The reader-only command `python tools/reader_ablation_table.py` covers 13 videos.
+The main table below covers 12 because it also compares two writing rules.
+For the additional reader case, paper-291, regenerating the minimum-margin
+video for the writer experiment produced a different MP4. Including it in
+the main table requires all four readers to process the writer experiment's
+seven received MP4s. The table command checks these fingerprints before pooling results.
 
 ```bash
 python tools/matched_component_table.py --table4 \
