@@ -1,0 +1,25 @@
+{
+  "video_id": "paper-270",
+  "reference_sha256": "a0b47a9f1c9aa3a45bf8210708bdf784dc9f6d06d26f70501de6a810eb694642",
+  "endpoint_sha256": "e778e4a9ad37c39204f0e993d976a06122147c60554cd46577ed662a25d881f0",
+  "arms": {
+    "minimum-margin": {
+      "marked_sha256": "e7277fedb527194aa4b5302d899e457cf97f4a856c8145838afd6622ce28c0fa",
+      "frames": 65,
+      "rgb_mse": 0.00021057833037714242,
+      "psnr_db": 36.76586322048139,
+      "identical": false,
+      "ssim": 0.9706961776741597,
+      "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true"
+    },
+    "fixed-target": {
+      "marked_sha256": "c677d280944a92b8b31474f0587ca7503e49b6c56831d3a3dd90e8f0c0c07df1",
+      "frames": 65,
+      "rgb_mse": 0.0002447836767826985,
+      "psnr_db": 36.11217546165206,
+      "identical": false,
+      "ssim": 0.9695695257000958,
+      "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true"
+    }
+  }
+}

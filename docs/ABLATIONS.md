@@ -1418,3 +1418,13 @@ divided by the fixed-target squared distance. All 14 reductions were
 positive, with a median of 12.75% and a range of 5.07% to 15.67%.
 This measures the latent change before VAE decoding. The fidelity and
 recovery tables evaluate the resulting videos separately.
+
+On these same 14 videos the minimum-margin writer also produced higher
+PSNR and SSIM against the shared unmarked reference in every pair.
+The mean paired differences were +0.680 dB and +0.00252 SSIM. For the
+[paper-270 fidelity pair](../results/hunyuan_i2v_paper270_writer_fidelity.json),
+the two writers used the same endpoint and reference MP4. Minimum-margin
+writing gave 36.766 dB and 0.97070 SSIM, compared with 36.112 dB and
+0.96957 for fixed-target writing. To repeat either measurement, run
+`python -m last.quality --reference reference.mp4 --marked marked.mp4
+--output quality-rebuilt.json` inside the corresponding writer directory.
