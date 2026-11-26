@@ -822,8 +822,26 @@ After inserting 30 frames, the initial extraction ran out of GPU memory. A
 [completed retry](../results/wan22_i2v_videomark_insert_retry_paper000.json)
 used the identical 95-frame MP4 and recovered 264/512 bits. The recount
 checks the preserved failure, both MP4 copies, registration state and the
-successful prediction. Six conditions now have measured counts; none recovered
-the complete message. Contiguous removal still has no completed read.
+successful prediction. Contiguous removal recovered 264/512 bits. The
+[seven-condition recount](../results/wan22_i2v_videomark_seven_recounts_paper000.json)
+contains one row per received input, including the retry linkage for insertion
+and the historical digest fields unavailable for the clean prediction.
+All seven counts were recomputed from saved predictions. The VideoMark
+generation case fingerprint and 512 information bits matched the primary
+Wan I2V LAST case. On this one case the correct information bits were:
+
+| Condition | LAST | LFG | VideoMark (historical integration) |
+|---|---:|---:|---:|
+| Clean | 512 | 512 | 254 |
+| Noise | 512 | 488 | 264 |
+| Compression | 493 | 512 | 240 |
+| Blur | 512 | 512 | 248 |
+| Random deletion | 255 | 334 | 243 |
+| Insertion | 377 | 255 | 264 |
+| Contiguous removal | 487 | 353 | 264 |
+
+For the two primary columns select `video_id == "paper-000"` in the
+[matched Wan I2V report](../results/wan22_i2v_primary13.json).
 For attack receipts that store message and prediction hashes,
 recompute an individual observation with
 `python tools/recount_native_attack.py --run /private/native-generation --video-id paper-000 --condition noise`.
