@@ -102,6 +102,10 @@ jobs:
       - name: Rebuild supplementary temporal diagnostics
         run: |
           mkdir ci-temporal-diagnostics
+          python tools/matched_primary_methods.py --family hunyuan --mode i2v \
+            --methods last lfg sigmark videoshield --reports results/hunyuan_i2v_primary20.json \
+            results/hunyuan_i2v_sigmark_first1_partial.json results/hunyuan_i2v_videoshield_first2_complete.json \
+            > ci-temporal-diagnostics/four-method-i2v.md
           python tools/matched_primary_methods.py --family hunyuan --mode t2v \
             --methods last lfg videomark --reports results/hunyuan_t2v_primary13.json \
             results/hunyuan_t2v_videomark_first40.json > ci-temporal-diagnostics/three-method-t2v.md
