@@ -7,7 +7,7 @@ from pathlib import Path
 from statistics import median
 
 from last.cluster_intervals import summarize
-from paired_oracle_table import load_blind_report
+from paired_oracle_table import load_blind_slices
 
 
 ATTACKS = ("drop10", "drop20", "drop30", "drop45", "duplicate30", "natural30",
@@ -168,7 +168,7 @@ def main():
     p.add_argument("--format", choices=("json", "markdown"), default="json",
                    help="Markdown displays recovery columns; JSON also includes requested alignment diagnostics")
     p.add_argument("--alignment", action="store_true", help="Include observed alignment columns from exports made with --alignment")
-    p.add_argument("--primary", type=Path, help="Match drop30 seed zero against an audited primary report by received MP4")
+    p.add_argument("--primary", type=Path, action="append", help="Match drop30 seed zero by received MP4; repeat for adjacent primary manifest slices")
     sources = p.add_mutually_exclusive_group(required=True)
     sources.add_argument("--reports", type=Path, nargs="+")
     sources.add_argument("--index", type=Path, help="Report paths and attack names relative to the index file")
@@ -181,7 +181,7 @@ def main():
         for cell in cells:
             cell["observed_alignment"] = counts.get(cell["attack"])
     if a.primary:
-        primary = load_blind_report(a.primary, a.manifest)
+        primary = load_blind_slices(a.primary, a.manifest)
         comparison = compare_primary_deletions(primary, reports, hashlib.sha256(a.manifest.read_bytes()).hexdigest())
         next(cell for cell in cells if cell["attack"] == "drop30")["primary_seed_zero_comparison"] = comparison
     print(recovery_markdown(cells) if a.format == "markdown" else json.dumps(cells, indent=2, allow_nan=False))

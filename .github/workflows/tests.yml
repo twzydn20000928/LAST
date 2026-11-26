@@ -85,7 +85,8 @@ jobs:
           python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174}.json \
             > ci-temporal-diagnostics/table13-clean-consistency.json
           python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json \
-            --primary results/hunyuan_i2v_last_first100_robustness.json --alignment > ci-temporal-diagnostics/table15.json
+            --primary results/hunyuan_i2v_last_first100_robustness.json \
+            --primary results/hunyuan_i2v_last_primary100_178.json --alignment > ci-temporal-diagnostics/table15.json
           python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json \
             --format markdown > ci-temporal-diagnostics/table15-recovery.md
           python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json \
