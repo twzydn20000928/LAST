@@ -304,6 +304,12 @@ The remaining 13 settings have zero measured videos in this snapshot. The
 two reported means cover different sample sets. Selection remains pending
 until all 15 settings have 80 paired measurements each.
 
+On the seven shared cases (dev-000 through dev-006), holding the five guided
+steps fixed, strength 0.025 gave 43.5870 dB and 0.974945 mean SSIM. Strength
+0.050 gave 43.5606 dB and 0.974914. For every pair, the prompt, seed,
+conditioning image, key and message matched, as did the RGB frames decoded
+from the two unmarked references. Each score uses its own marked video.
+
 ### Native LFG writer with CCTA reading only
 
 `last.lfg_native_reader` reuses already-exported native-LFG attack MP4s; it does
