@@ -8,6 +8,35 @@ from pathlib import Path
 from last.temporal import attack_map
 
 
+def window_support(name, mapping, chains, selected_groups):
+    histogram = Counter()
+    classified = Counter()
+    for c in chains:
+        start, group, length = c["start"], c["first_group"], c["length"]
+        if length < 2 or start < 0 or start+4*length > len(mapping) or group < 0 or group+length > 16:
+            raise ValueError(f"Invalid chain coordinates for {name}")
+        for i in range(length):
+            original = mapping[start+4*i:start+4*i+4]
+            first = 1+4*(group+i)
+            histogram[sum(first <= frame < first+4 for frame in original)] += 1
+            if -1 in original:
+                kind = "contains_inserted_frame"
+            elif 0 in original:
+                kind = "contains_initial_frame"
+            else:
+                groups = {(frame-1)//4 for frame in original}
+                if len(groups) > 1:
+                    kind = "spans_source_groups"
+                elif group+i in groups:
+                    kind = "intact_correct_identity"
+                else:
+                    kind = "intact_wrong_identity"
+            classified[kind] += 1
+    if sum(histogram.values()) != selected_groups:
+        raise ValueError(f"Selected length disagrees for {name}")
+    return histogram, classified
+
+
 def collect(root, report, condition="drop"):
     routes = {}
     support = Counter()
@@ -43,31 +72,7 @@ def collect(root, report, condition="drop"):
         arm["exact"] += int(row["correct_bits"] == 512)
         if route != "ccta":
             continue
-        histogram = Counter()
-        classified = Counter()
-        for c in row["chains"]:
-            start, group, length = c["start"], c["first_group"], c["length"]
-            if length < 2 or start < 0 or start+4*length > len(mapping) or group < 0 or group+length > 16:
-                raise ValueError(f"Invalid chain coordinates for {name}")
-            for i in range(length):
-                original = mapping[start+4*i:start+4*i+4]
-                first = 1+4*(group+i)
-                histogram[sum(first <= frame < first+4 for frame in original)] += 1
-                if -1 in original:
-                    kind = "contains_inserted_frame"
-                elif 0 in original:
-                    kind = "contains_initial_frame"
-                else:
-                    groups = {(frame-1)//4 for frame in original}
-                    if len(groups) > 1:
-                        kind = "spans_source_groups"
-                    elif group+i in groups:
-                        kind = "intact_correct_identity"
-                    else:
-                        kind = "intact_wrong_identity"
-                classified[kind] += 1
-        if sum(histogram.values()) != row["groups"]:
-            raise ValueError(f"Selected length disagrees for {name}")
+        histogram, classified = window_support(name, mapping, row["chains"], row["groups"])
         support.update(histogram)
         if classified["intact_correct_identity"] != histogram[4]:
             raise ValueError(f"Window classification disagrees with frame support for {name}")

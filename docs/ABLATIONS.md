@@ -1169,7 +1169,17 @@ For offset `k` in a chain, take the four received positions starting at
 `start + 4*k`. Map them to original frame indices and count how many fall
 between `1 + 4*(first_group + k)` and that index plus three, inclusive.
 The five entries of `support` count windows with zero through four supporting frames.
-An inserted frame has source index -1.
+An inserted frame has source index -1. To replay the complete export, create
+a JSON object mapping each sample ID to the directory containing its
+`drop-full.json`, `drop-without_ccta.json` and corresponding insertion and
+contiguous-deletion receipts. Relative paths resolve from the index file.
+
+```bash
+python tools/reader_chain_geometry.py --report results/hunyuan_i2v_reader_ablation_14.json \
+  --index /private/reader-directories.json --output reader-geometry.json
+```
+
+Use the reader report generated from your own run when replaying new videos.
 
 On paper-160 insertion and paper-291 random deletion, both selected windows
 had zero frames from their predicted groups. Both insertion windows contained
