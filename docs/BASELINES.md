@@ -620,6 +620,8 @@ bytes, registration state and retry extraction receipt. For older extractions
 without a prediction digest, `--legacy` lists the missing historical fields
 after recounting the saved bits.
 
+For the native primary prefix report, append `--retry paper-000 blur /private/new-blur-retry` to the existing `tools/audit_videomark_prefix.py` command for that pipeline. Supply a completed retry of the same frozen attack. The report verifies both receipts, recounts the prediction, and uses the recovered score once for this sample and condition. Its observation records both the completed receipt fingerprint and the original failure fingerprint.
+
 ### SIGMark compression integration
 
 `results/sigmark_compression_verified.json` records the subsequent CRF28

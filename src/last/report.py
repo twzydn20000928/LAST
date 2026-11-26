@@ -4,12 +4,15 @@ from collections import defaultdict
 from pathlib import Path
 CONDITIONS=('clean','noise','compression','blur','drop','insert','clip')
 
-def aggregate(plan,root,verify_artifacts=False,reextractions=None):
+def aggregate(plan,root,verify_artifacts=False,reextractions=None,*,native_retry_dirs=None):
     cells=defaultdict(list);seen=set();diagnostics=[]
     root=Path(root).resolve();audited=[]
     reextractions=reextractions or {}
     if reextractions and not verify_artifacts:raise ValueError('Re-extraction reuse requires artifact verification')
     if set(reextractions)-{i['run'] for i in plan['runs']}:raise ValueError('Re-extraction index contains unplanned runs')
+    retries = dict(native_retry_dirs or {})
+    if retries and (not verify_artifacts or reextractions):
+        raise ValueError("Native retries require verification in a separate report from re-extractions")
     for item in plan['runs']:
         identity=(item['family'],item['mode'],item['method'],item['video_id'])
         if identity in seen:raise ValueError('Duplicate planned observation')
@@ -24,9 +27,25 @@ def aggregate(plan,root,verify_artifacts=False,reextractions=None):
             replacement=verified_rows(folder,entry['output'],entry['source'])
         for condition in CONDITIONS:
             path=folder/'attacks'/(condition+'.json');state='missing';row=None
+            original_hash = None
+            retry = retries.pop((item['run'], condition), None)
+            if retry is not None:
+                original_bytes = path.read_bytes()
+                original_hash = hashlib.sha256(original_bytes).hexdigest()
+                original = json.loads(original_bytes)
+                path = Path(retry) / (condition + '.json')
+                if not path.is_file():
+                    raise ValueError('Native retry receipt missing')
             if path.exists():
                 receipt_bytes = path.read_bytes()
                 row=json.loads(receipt_bytes);state=row['status']
+                if retry is not None:
+                    fields = ('condition', 'video_id', 'method', 'map_seed', 'source_sha256',
+                              'state_sha256', 'received_sha256', 'attack_map')
+                    if (original['status'] != 'failed' or state != 'completed'
+                            or row.get('retry_of_sha256') != original_hash
+                            or any(original[k] != row[k] for k in fields)):
+                        raise ValueError('Native retry differs from original failed input')
                 if row.get('map_seed', 0) != 0:
                     raise ValueError(f'Expected map seed 0 in the primary attacks directory: {path}')
                 if row.get('video_id')!=item['video_id'] or row.get('condition')!=condition:raise ValueError(f'Receipt identity mismatch:{path}')
@@ -58,12 +77,16 @@ def aggregate(plan,root,verify_artifacts=False,reextractions=None):
                                         map_seed=0, status=state, correct_bits=correct, total_bits=total,
                                         exact_message=(correct == total), video_sha256=received_sha,
                                         receipt_sha256=hashlib.sha256(receipt_bytes).hexdigest())
+                        if original_hash is not None:
+                            evidence['retry_of_sha256'] = original_hash
                         if condition in replacement:
                             evidence.update({k:v for k,v in replacement[condition].items() if k.startswith('reextraction_')})
                             evidence.update(prior_correct_bits=row['prior_correct_bits'],same_correct_bit_count=row['same_correct_bit_count'])
                         audited.append(evidence)
             cells[identity[:3]+(condition,)].append((state,row))
             if state!='completed':diagnostics.append(dict(family=identity[0],mode=identity[1],method=identity[2],video_id=identity[3],condition=condition,status=state))
+    if retries:
+        raise ValueError('Native retry references a condition outside the plan')
     output=[]
     for (family,mode,method,condition),observations in sorted(cells.items()):
         valid=[r for status,r in observations if status=='completed'];count=len(valid);complete=count==len(observations)

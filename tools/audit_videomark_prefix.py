@@ -20,12 +20,13 @@ def read(path):
 
 
 def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v", family="hunyuan",
-          allow_incomplete=False):
+          allow_incomplete=False, retry_dirs=None):
     manifest, plan = read(manifest_path), read(plan_path)
     validate(manifest)
     if plan["manifest_sha256"] != sha(manifest_path) or not 1 <= count <= len(manifest["samples"]):
         raise ValueError("Unexpected primary manifest or prefix")
     items = []
+    retry_dirs = retry_dirs or {}
     legacy = 0
     recounted = {}
     for sample in manifest["samples"][:count]:
@@ -54,6 +55,11 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v",
         for condition in CONDITIONS:
             temporal = condition in ("drop", "insert", "clip")
             path = folder / "attacks"
+            retry = retry_dirs.get((relative, condition))
+            if retry is not None:
+                from recount_native_attack import recount
+                recount(folder, condition, video, legacy=True, retry_directory=retry)
+                path = retry
             score = path / (condition + ".json")
             if allow_incomplete and not score.exists():
                 continue
@@ -83,7 +89,8 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v",
             recounted[video, condition] = hashlib.sha256(score_bytes).hexdigest()
         items.append(item)
     family_label = {"hunyuan": "Hunyuan", "wan22": "Wan-2.2"}[family]
-    report = aggregate(dict(scope=f"Matched {family_label} {mode} {method} primary prefix", runs=items), root, verify_artifacts=True)
+    report = aggregate(dict(scope=f"Matched {family_label} {mode} {method} primary prefix", runs=items), root,
+                       verify_artifacts=True, native_retry_dirs=retry_dirs)
     if not allow_incomplete and not report["complete"]:
         raise ValueError("Missing native measurements")
     aggregated = {(r["video_id"], r["condition"]): r["receipt_sha256"] for r in report["audited_observations"]}
@@ -104,8 +111,16 @@ if __name__ == "__main__":
     parser.add_argument("--family", choices=("hunyuan", "wan22"), default="hunyuan")
     parser.add_argument("--allow-incomplete", action="store_true",
                         help="Retain missing and failed conditions while verifying each completed prediction")
+    parser.add_argument("--retry", nargs=3, action="append", default=[], metavar=("VIDEO_ID", "CONDITION", "DIRECTORY"),
+                        help="Recount a completed retry of the original failed attack")
     args = parser.parse_args()
+    retry_dirs = {}
+    for video, condition, directory in args.retry:
+        key = (f"{args.family}/{args.mode}/{args.method}/{video}", condition)
+        if key in retry_dirs:
+            parser.error("Duplicate retry for one video and condition")
+        retry_dirs[key] = Path(directory)
     result = audit(args.root, args.manifest, args.plan, args.count, args.method, args.mode, args.family,
-                   args.allow_incomplete)
+                   args.allow_incomplete, retry_dirs)
     with args.output.open("x", encoding="utf-8") as stream:
         stream.write(json.dumps(result, indent=2) + "\n")
