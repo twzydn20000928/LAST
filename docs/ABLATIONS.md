@@ -1146,7 +1146,15 @@ The next two matched inputs are `results/hunyuan_i2v_oracle_paper002.json` and `
 The fifth matching receipt is `results/hunyuan_i2v_oracle_paper004.json`: blind/oracle correct information bits were 411/512 versus 512/512 for deletion, 503/512 versus 512/512 for insertion, and 512/512 for both on clipping.
 For the first 20 matched diagnostic cases, run `python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json --oracle-dir results --count 20`. This uses the frozen LAST observations directly and verifies 140 attack receipt and received MP4 fingerprint pairs. Each condition covers 10,240 information bits. The prefix contains the five Camera Motion prompts at four seeds each. Blind and assisted whole-message counts were 20 and 20 on clean input, 14 and 14 on noise, 7 and 7 on compression, and 16 and 15 on blur. Random deletion gave 0 and 19 exact messages, insertion 2 and 20, and contiguous removal 10 and 17. The assisted reader still lost eight information bits on paper-011 after random deletion. The planned Table 12 cohort spans 400 clips.
 
-The default `python tools/reader_ablation_table.py` recounts 13/30 frozen
+The default `python tools/reader_ablation_table.py` recounts 14/30 frozen
+Hunyuan I2V videos from `results/hunyuan_i2v_reader_ablation_14.json`.
+Each cell contains 7,168 information bits. The full reader recovered
+72.29% after random deletion, 79.53% after insertion and 94.80% after
+contiguous deletion. Received-order extraction recovered 52.82%, 53.99%
+and 67.19%, respectively. All four readers used the same received videos.
+The matched writer comparison uses its own verified input pairs.
+
+The prior report recounts 13/30 frozen
 Hunyuan I2V samples (6,656 information bits per cell) from
 `results/hunyuan_i2v_reader_ablation_13.json`. The 28 observations for
 paper-291 use the same six reader implementation hashes as the previous
