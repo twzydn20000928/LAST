@@ -1126,6 +1126,42 @@ its original within-experiment table. The combined table names all excluded
 IDs and conditions and covers 10 of the 30 planned samples.
 The same command computes fidelity on those exact matched IDs: mean PSNR/SSIM 33.999 dB/0.95207 for minimum margin and 33.297 dB/0.94969 for fixed target.
 
+### Intact groups and assisted recovery in the Table 12 deletion control
+
+In the first 37 controlled Hunyuan I2V videos, six deletion maps left zero
+intact four-frame groups. The assisted reader still recovered all six messages.
+It uses the known frame mapping to fill missing positions with the nearest
+surviving frame from the same original group and omits groups with no frames.
+CCTA recovered zero whole messages on these 37 inputs. The assisted reader
+missed eight bits on paper-011, whose map preserved two intact groups.
+These outcomes measure the combined effect of knowing the mapping and using
+partially surviving groups. They do not isolate the effect of a single alignment rule.
+
+To reproduce the frozen-prefix calculation, run this from the repository root
+after installing LAST. The shared-fusion table command above checks the input
+video fingerprints against the primary reports.
+
+```bash
+PYTHONPATH=tools python - <<'PY'
+from collections import Counter
+from pathlib import Path
+import json
+from deletion_group_survival import geometry
+from last.temporal import attack_map
+
+counts = Counter()
+for index in range(37):
+    case = json.loads(Path(f"results/hunyuan_i2v_last_controlled_paper{index:03}.json").read_bytes())
+    video = case["video_id"]
+    intact, _ = geometry(attack_map(video, "drop", seed=0))
+    bits = {r["reader"]: r["correct_bits"] for r in case["rows"] if r["condition"] == "drop"}
+    counts[intact, bits["ccta"] == 512, bits["oracle"] == 512] += 1
+    if bits["oracle"] < 512:
+        print(video, intact, 512 - bits["oracle"])
+print(sorted(counts.items()))
+PY
+```
+
 ### Render main Table 4
 
 ```bash
