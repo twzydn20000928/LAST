@@ -624,13 +624,20 @@ step because the evaluation receipt records absolute paths for its inputs.
 Render the shared-fusion measurements from the public counts on CPU:
 
 ```bash
-python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper005.json
+python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper*.json
 ```
 
 The GitHub Actions artifact `audited-partial-temporal-diagnostics` includes
 this output as `table12-shared-fusion.md`. Its companion `table12-oracle.md`
 compares the primary blind reader with the direct true-map reader on a larger
 cohort. The two files use different fusion rules and sample counts.
+
+On the same 30-frame deletions for `paper-005` and `paper-006`, received-order
+grouping recovered 559/1,024 bits, CCTA recovered 826/1,024, and the reader
+given the true edit map recovered 1,024/1,024. Only the assisted reader
+recovered either message exactly. All three readers recovered both clean
+messages. These 18 measurements use the same frozen source and LAST writer;
+the calibrated-energy and matched LFG-C comparisons still require calibration.
 
 For a larger run, pass all per-case exports as positional arguments. Use the
 same sample IDs for both writers when comparing them, and keep each model,
