@@ -1299,3 +1299,5 @@ python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_pape
   --primary results/hunyuan_i2v_last_first100_robustness.json \
   --primary results/hunyuan_i2v_last_primary100_179.json
 ```
+
+For these same 75 deletion MP4s, the primary LAST reader recovered 29,725/38,400 bits (77.41%) and one full message. The shared-fusion CCTA row recovered 29,655/38,400 (77.23%) and zero full messages. Six videos differed in their individual correct-bit counts. Use the primary reader for Table 2 and the shared-fusion reader for the Table 12 mechanism comparison. On this prefix, the separate assisted exports and the shared-fusion oracle gave identical per-video correct-bit counts across all 225 clean, deletion and compression observations. This comparison matches sample ID, condition and received MP4 fingerprint; it checks counts, not the identity of individual incorrect bits.
