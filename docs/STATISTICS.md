@@ -135,12 +135,20 @@ Using the four paired reports in the main Table 2 replay gives the following
 random-deletion differences. Values are percentage points of bit accuracy
 (LAST minus LFG). Intervals use 10,000 paired draws of whole prompts, seed 0.
 
-| Report in `results/` | Videos | Distinct prompts | Difference | 95% interval |
-|---|---:|---:|---:|---:|
-| `hunyuan_i2v_primary18.json` | 18 | 5 | +8.25 | [+0.34, +14.43] |
-| `hunyuan_t2v_primary12.json` | 12 | 3 | +9.13 | [+4.10, +12.94] |
-| `wan22_i2v_primary12.json` | 12 | 3 | -1.53 | [-10.94, +12.60] |
-| `wan22_t2v_primary11.json` | 11 | 3 | +6.18 | [0.00, +12.84] |
+| Report in `results/` | Videos | Distinct prompts | Correct bits, LAST / LFG | Bits per method | Difference | 95% interval |
+|---|---:|---:|---:|---:|---:|---:|
+| `hunyuan_i2v_primary18.json` | 18 | 5 | 6,842 / 6,082 | 9,216 | +8.25 | [+0.34, +14.43] |
+| `hunyuan_t2v_primary12.json` | 12 | 3 | 4,610 / 4,049 | 6,144 | +9.13 | [+4.10, +12.94] |
+| `wan22_i2v_primary12.json` | 12 | 3 | 4,086 / 4,180 | 6,144 | -1.53 | [-10.94, +12.60] |
+| `wan22_t2v_primary11.json` | 11 | 3 | 4,079 / 3,731 | 5,632 | +6.18 | [0.00, +12.84] |
+
+After random deletion, both methods recovered zero entire 512-bit messages in
+each of these four paired prefixes. For example, on Hunyuan I2V the 760 extra
+correct bits across 18 videos give a difference of 100 × 760 / 9,216 = 8.25
+percentage points, while whole-message recovery is 0/18 for both methods.
+To verify the counts, filter the Table 2 `counts.csv` to `condition=drop` and
+methods `last` and `lfg`. Its `exact_messages` column counts videos for which
+all 512 decoded bits match.
 
 The ninth Wan I2V video introduces a third prompt and changes the sign of
 the pooled difference. These intervals reflect the limited observed prompts.
