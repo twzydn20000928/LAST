@@ -500,6 +500,12 @@ python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_referenc
 ```
 
 The five Hunyuan I2V dimensions cover 140 distinct videos per arm. Diversity
+is scored per prompt. The GitHub Actions artifact `audited-partial-clean-tables`
+includes the Hunyuan and Wan Table 1 files and the per-pipeline dimension
+means used to build them in `quality/`. Each workflow run recomputes those
+means from the published scoring units.
+
+Diversity
 contributes three prompt-level scores from 60 videos. Each other dimension
 contributes 20 video scores. The tool checks all video IDs and prompt groupings
 against the primary manifest before averaging applicable units within each
