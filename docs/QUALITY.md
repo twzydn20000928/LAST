@@ -524,7 +524,7 @@ After generation of `paper-039`, the Hunyuan T2V VideoMark run reached
 [20 verified Complex Landscape inputs](../results/hunyuan_t2v_videomark_landscape_verified_inputs.json).
 They cover five prompts with four assigned seeds each. The [official per-video scores](../results/hunyuan_t2v_videomark_landscape_units.json) average 0.17 across 20 valid videos. The evaluator's attention-mask warning is retained in the run log.
 
-For Hunyuan I2V Camera Motion, the [paired scoring input list](../results/hunyuan_i2v_last_lfg_camera_inputs20.json) identifies the 20 assigned videos for both LAST and LFG. All 40 video hashes match the marked outputs in the [paired fidelity report](../results/hunyuan_i2v_fidelity20.json). The [official LAST scoring units](../results/hunyuan_i2v_quality_units/camera_all20_last.json) give 5/20 (0.25); the LFG inputs are ready for scoring.
+For Hunyuan I2V Camera Motion, the [paired scoring input list](../results/hunyuan_i2v_last_lfg_camera_inputs20.json) identifies the 20 assigned videos for both LAST and LFG. All 40 video hashes match the marked outputs in the [paired fidelity report](../results/hunyuan_i2v_fidelity20.json). The [official LAST scoring units](../results/hunyuan_i2v_quality_units/camera_all20_last.json) give 5/20 (0.25); the [official LFG units](../results/hunyuan_i2v_lfg_camera_units.json) give 8/20 (0.40).
 
 The [November 25 input inventory](../results/quality_input_coverage_nov25.json)
 records available and expected videos for each dimension before semantic

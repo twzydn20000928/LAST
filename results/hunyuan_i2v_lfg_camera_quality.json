@@ -1,0 +1,49 @@
+{
+  "pipeline": [
+    "hunyuan",
+    "i2v",
+    "lfg"
+  ],
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "lfg",
+  "complete": false,
+  "v_score": null,
+  "categories": {
+    "Creativity": null,
+    "Commonsense": null,
+    "Controllability": null,
+    "Human Fidelity": null,
+    "Physics": null
+  },
+  "missing_or_invalid_dimensions": [
+    "Composition",
+    "Diversity",
+    "Instance_Preservation",
+    "Motion_Rationality",
+    "Complex_Landscape",
+    "Complex_Plot",
+    "Dynamic_Attribute",
+    "Dynamic_Spatial_Relationship",
+    "Human_Interaction",
+    "Motion_Order_Understanding",
+    "Human_Anatomy",
+    "Human_Clothes",
+    "Human_Identity",
+    "Material",
+    "Mechanics",
+    "Multi-View_Consistency",
+    "Thermotics"
+  ],
+  "dimensions": {
+    "Camera_Motion": {
+      "status": "completed",
+      "mean": 0.4,
+      "valid_units": 20,
+      "expected_units": 20,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
+    }
+  },
+  "scope": "Incomplete; no full V-score"
+}

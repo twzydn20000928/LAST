@@ -14,7 +14,7 @@ python -m last.clean_table --family hunyuan \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_last_camera_quality.json \
     results/camera_motion/hunyuan_t2v_reference_camera_quality.json \
-    results/hunyuan_t2v_videomark_quality.json \
+    results/hunyuan_i2v_lfg_camera_quality.json results/hunyuan_t2v_videomark_quality.json \
   --output paired-table1/hunyuan.md
 
 python -m last.clean_table --family wan22 \
@@ -565,7 +565,7 @@ reports=(results/hunyuan_i2v_primary21.json results/hunyuan_t2v_primary13.json
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
   --quality results/hunyuan_i2v_quality_six_dimensions_last.json results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_{last,reference}_camera_quality.json \
-    results/hunyuan_t2v_videomark_quality.json --output native-tables/table1.md
+    results/hunyuan_i2v_lfg_camera_quality.json results/hunyuan_t2v_videomark_quality.json --output native-tables/table1.md
 python -m last.robustness_table --reports "${reports[@]}" --output native-tables/table2
 ```
 
