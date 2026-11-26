@@ -26,7 +26,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def report(plan, development, primary, root, conditioning=None):
+def report(plan, development, primary, root, conditioning=None, state=None):
     first = plan['runs'][0]
     expected = make_plan(development, primary, first['method'], first['family'])
     for field in ('runs', 'fidelity_target', 'selection', 'samples_per_candidate', 'candidates'):
@@ -76,6 +76,16 @@ def report(plan, development, primary, root, conditioning=None):
             if image != sha(Path(expected_case['image'])):
                 raise ValueError(f'Conditioning image differs from the assigned prompt: {item["run"]}')
             image_evidence['conditioning_image_sha256'] = image
+        if state is not None:
+            import numpy as np
+
+            key = state / 'keys' / f"{item['key_slot']:02d}.key"
+            message = (state / 'messages' / (item['video_id'] + '.bin')).read_bytes()
+            bits = np.load(folder / 'message.npy', allow_pickle=False)
+            if (folder / 'secret.key').read_bytes() != key.read_bytes():
+                raise ValueError(f"Development key differs from assigned slot: {item['run']}")
+            if len(message) != 64 or not np.array_equal(bits, np.unpackbits(np.frombuffer(message, dtype=np.uint8))):
+                raise ValueError(f"Development payload differs from assigned message: {item['run']}")
         row = json.loads(quality.read_text())
         for name in ('reference', 'marked'):
             if sha(folder / (name + '.mp4')) != row[name + '_sha256']:
@@ -104,13 +114,15 @@ def main():
     parser.add_argument('--primary', type=Path, default=Path('configs/primary_manifest.json'))
     parser.add_argument('--conditioning', type=Path,
                         help='Verify the generation case image against its frozen development conditioning receipt')
+    parser.add_argument('--state', type=Path,
+                        help='Check each saved key and 512 information bits against private development state')
     args = parser.parse_args()
     plan = json.loads(args.plan.read_text())
     for name, path in [('development', args.development), ('primary', args.primary)]:
         if sha(path) != plan['manifest_sha256'][name]:
             raise ValueError('Manifest checksum mismatch')
     result = report(plan, json.loads(args.development.read_text()), json.loads(args.primary.read_text()), args.root,
-                    args.conditioning)
+                    args.conditioning, args.state)
     result['plan_sha256'] = sha(args.plan)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open('x') as stream:

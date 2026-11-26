@@ -268,7 +268,7 @@ After computing paired quality for the grid, run:
 
 ```bash
 python -m last.lfg_calibration_report --plan /private/new-lfg-c-development-plan.json \
-  --root /private/lfg-c-grid --conditioning /private/development-conditioning \
+  --root /private/lfg-c-grid --conditioning /private/development-conditioning --state /private/development-state \
   --output /private/new-calibration-report.json
 ```
 
