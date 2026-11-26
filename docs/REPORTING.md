@@ -380,12 +380,15 @@ All 210 observations in the earlier 30-case release matched the expanded
 report on their shared fields. The 43-case snapshot includes 301 verified
 observations. The 357 remaining cases have no score in each condition.
 
-For the same 43 Wan2.2 I2V LAST videos as the robustness row, run
-`python tools/fidelity_intervals.py results/wan22_i2v_last_fidelity43.json`.
-Mean PSNR is 30.626 dB (95% prompt-cluster interval 29.371 to 32.187) and
-mean SSIM is 0.9260 (0.9114 to 0.9410). These intervals use 11 prompts and
-10,000 resamples with seed 0. To audit the MP4 pairs in a corresponding
-private run, use `python tools/primary_message_fidelity.py --root /private/primary --report results/wan22_i2v_last_first43.json`.
+The [44-video Wan2.2 I2V LAST fidelity report](../results/wan22_i2v_last_fidelity44.json)
+covers the same IDs as the [44-video attack report](../results/wan22_i2v_last_first44.json).
+Mean PSNR is 30.616 dB (95% prompt-cluster interval 29.391 to 32.153) and
+mean SSIM is 0.9263 (0.9118 to 0.9410). The intervals use 11 prompts,
+10,000 resamples and seed 0. Run
+`python tools/fidelity_intervals.py results/wan22_i2v_last_fidelity44.json`
+to regenerate these values, or
+`python tools/primary_message_fidelity.py --root /private/primary --report results/wan22_i2v_last_first44.json`
+to verify them against the received video hashes and paired reference files.
 
 Both main table commands read the benchmark denominator from current
 (`planned_videos_per_method`) and earlier (`planned_videos`) audited reports.
