@@ -139,7 +139,7 @@ random-deletion differences. Values are percentage points of bit accuracy
 |---|---:|---:|---:|---:|
 | `hunyuan_i2v_primary18.json` | 18 | 5 | +8.25 | [+0.34, +14.43] |
 | `hunyuan_t2v_primary12.json` | 12 | 3 | +9.13 | [+4.10, +12.94] |
-| `wan22_i2v_primary11.json` | 11 | 3 | -1.60 | [-10.94, +12.60] |
+| `wan22_i2v_primary12.json` | 12 | 3 | -1.53 | [-10.94, +12.60] |
 | `wan22_t2v_primary11.json` | 11 | 3 | +6.18 | [0.00, +12.84] |
 
 The ninth Wan I2V video introduces a third prompt and changes the sign of
