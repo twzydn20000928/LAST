@@ -1096,7 +1096,14 @@ The extended sweep uses all 80 manifest entries and their eight key slots. Run t
 
 During acquisition, run `python tools/development_margin_recovery.py --completed-root "$SWEEP" --export-cells partial-cells.json` to recount all videos whose five margins have finished. This reads the existing videos and receipts without changing the acquisition directory. Use the same frozen configuration directory as the acquisition via `--configs`. The result reports both observed and planned video counts. An invalid receipt in a selected case fails the audit.
 
-The [interim development export](../results/development_margin_seven_videos.json)
+The [eight-video export](../results/development_margin_eight_videos.json)
+adds dev-006 and preserves the earlier 35 cells. Rebuild it with
+`python tools/development_margin_recovery.py --cells results/development_margin_eight_videos.json`.
+Across 48 video/attack trials per margin, exact recoveries were 0, 1, 15,
+27 and 30. The corresponding mean PSNR values were 39.87, 38.83, 37.00,
+35.26 and 33.64 dB. The frozen development set contains 80 videos.
+
+The [seven-video development export](../results/development_margin_seven_videos.json)
 covers dev-000 through dev-005 and dev-008 at all five margins.
 Run `python tools/development_margin_recovery.py --cells results/development_margin_seven_videos.json`.
 At margins 0.1, 0.25, 0.5, 0.75 and 1.0, complete messages were recovered
