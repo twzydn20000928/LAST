@@ -626,3 +626,11 @@ On paper-039, insertion yielded 251/512 bits and contiguous removal yielded
 messages. Their historical receipts lack extraction-time prediction digests.
 
 To check that every VideoMark camera-motion score used the same marked MP4 as the primary clean reader, run `python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json --primary results/hunyuan_t2v_videomark_first40.json`. All 20 video fingerprints match. The official mean is 0.20 over 20 applicable units. This covers one of 18 dimensions.
+
+For LAST and the unmarked reference, pass the matching single-method fidelity
+report to `tools/quality_units_table.py --fidelity`. The method selects
+`marked_sha256` for LAST and `reference_sha256` for the unmarked video.
+The Table 1 workflow verifies 400 MP4 entries across 16 dimension reports
+for these two arms. The separate VideoMark check covers 20 more entries.
+These are counts of matched input files across methods and dimensions.
+Diversity scores are computed per prompt, with several input videos per score.

@@ -60,12 +60,17 @@ jobs:
         run: |
           mkdir -p ci-clean-tables/quality
           for arm in last reference; do
-            python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_"${arm}".json \
+            python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_"${arm}".json --fidelity results/hunyuan_i2v_primary_fidelity_180.json \
               > "ci-clean-tables/quality/hunyuan_i2v_${arm}.json"
           done
+          declare -A fidelity=(
+            [hunyuan_t2v]=results/hunyuan_t2v_last_fidelity74.json
+            [wan22_i2v]=results/wan22_i2v_last_fidelity44.json
+            [wan22_t2v]=results/wan22_t2v_last_fidelity24.json
+          )
           for units in results/camera_motion/*_camera_units.json; do
             sample=$(basename "$units" _camera_units.json)
-            python tools/quality_units_table.py "$units" > "ci-clean-tables/quality/${sample}.json"
+            python tools/quality_units_table.py "$units" --fidelity "${fidelity[${sample%_*}]}" > "ci-clean-tables/quality/${sample}.json"
           done
           python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json \
             --primary results/hunyuan_t2v_videomark_first40.json > ci-clean-tables/quality/hunyuan_t2v_videomark.json

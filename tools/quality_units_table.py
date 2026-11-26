@@ -10,7 +10,7 @@ from last.data import validate
 from last.quality_report import aggregate, CATEGORIES
 
 
-def recount(manifest_path, paths, primary=None):
+def recount(manifest_path, paths, primary=None, fidelity=None):
     manifest = json.loads(manifest_path.read_bytes())
     validate(manifest)
     manifest_digest = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
@@ -23,6 +23,18 @@ def recount(manifest_path, paths, primary=None):
         verify_observations(report)
         clean = {(r["family"], r["mode"], r["method"], r["video_id"]): r["video_sha256"]
                  for r in report["audited_observations"] if r["condition"] == "clean"}
+    if fidelity is not None:
+        if primary is not None:
+            raise ValueError("Choose one source of MP4 fingerprints")
+        report = json.loads(fidelity.read_bytes())
+        if report["manifest_sha256"] != manifest_digest or report["method"] != "last":
+            raise ValueError("Expected a LAST fidelity report from the same manifest")
+        for row in report["observations"]["last"]:
+            for method, field in (("last", "marked_sha256"), ("reference", "reference_sha256")):
+                key = (report["family"], report["mode"], method, row["video_id"])
+                if key in clean:
+                    raise ValueError(f"Duplicate fidelity observation: {key}")
+                clean[key] = row[field]
     dimensions = {}
     pipeline = None
     for path in paths:
@@ -43,12 +55,12 @@ def recount(manifest_path, paths, primary=None):
         observed = [tuple(v["video_id"] for v in unit["videos"]) for unit in record["units"]]
         if sorted(observed) != sorted(tuple(ids) for ids in expected.values()):
             raise ValueError(f"Missing or incorrectly grouped observations: {name}")
-        if primary is not None:
+        if primary is not None or fidelity is not None:
             for unit in record["units"]:
                 for video in unit["videos"]:
                     key = (*identity, video["video_id"])
                     if key not in clean or clean[key] != video["mp4_sha256"]:
-                        raise ValueError(f"Quality video differs from the clean primary input: {key}")
+                        raise ValueError(f"Quality video differs from the recorded MP4: {key}")
         values = [u["score"] for u in record["units"]]
         valid = [x for x in values if 0 <= x <= 1]
         if len(valid) + values.count(-1) != len(values):
@@ -73,7 +85,9 @@ def recount(manifest_path, paths, primary=None):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--manifest", type=Path, default=Path("configs/primary_manifest.json"))
-    parser.add_argument("--primary", type=Path, help="Verify each scored MP4 against an audited clean primary observation")
+    source = parser.add_mutually_exclusive_group()
+    source.add_argument("--fidelity", type=Path, help="Verify marked and unmarked videos against LAST fidelity records")
+    source.add_argument("--primary", type=Path, help="Verify each scored MP4 against an audited clean primary observation")
     parser.add_argument("units", type=Path, nargs="+")
     args = parser.parse_args()
-    print(json.dumps(recount(args.manifest, args.units, args.primary), indent=2, allow_nan=False))
+    print(json.dumps(recount(args.manifest, args.units, args.primary, args.fidelity), indent=2, allow_nan=False))
