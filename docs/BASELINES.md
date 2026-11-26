@@ -761,6 +761,30 @@ The [seven-case paired report](../results/hunyuan_i2v_lfg_ccta_first7.json) cont
 
 ### Matched historical VideoMark inputs
 
+For the Hunyuan T2V `paper-038` noise condition, the original extraction
+failed. A separate evaluation of the same noisy MP4 completed. To reproduce
+the published recount from the two retained run directories, set `ORIGINAL`
+and `REPLAY` to those directories and run this block from the repository root:
+
+```bash
+(
+  set -eu
+  for item in receipt.json marked.mp4 maintained_private.pkl message.bin attacks/noise.mp4; do
+    cmp "$ORIGINAL/$item" "$REPLAY/$item"
+  done
+  printf '%s  %s\n' 43fb8e28215754ce9297d883c903dfd47611bf06e681d22e484c1d11ac773e2d \
+    "$ORIGINAL/attacks/noise.json" | sha256sum --check
+  python tools/recount_native_attack.py --run "$REPLAY" --condition noise \
+    --video-id paper-038 --legacy > noise-recount.json
+  python -c 'import json,sys; a,b=(json.load(open(p)) for p in sys.argv[1:]); sys.exit(a != b)' \
+    noise-recount.json results/hunyuan_t2v_videomark_noise_replay_paper038.json
+)
+```
+
+The [public recount](../results/hunyuan_t2v_videomark_noise_replay_paper038.json) records 253/512 matching
+bits and lists the three digests absent from the historical receipts. For new
+runs the evaluator records these digests and the default recount checks them.
+
 For the separate Hunyuan I2V [VideoMark integration](../results/videomark_native_integration.json),
 the recorded generation case fingerprint matches the primary LAST `paper-000`
 case. The conditioning image matches its manifest entry, the saved 512-bit

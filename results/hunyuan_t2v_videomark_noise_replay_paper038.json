@@ -1,0 +1,19 @@
+{
+  "video_id": "paper-038",
+  "method": "videomark",
+  "family": "hunyuan",
+  "mode": "t2v",
+  "condition": "noise",
+  "correct_bits": 253,
+  "total_bits": 512,
+  "exact_message": false,
+  "source_sha256": "066119ef8ba263fb170b605dfb3908219dc7c2677dc78163892e2d9a8297b553",
+  "received_sha256": "451edf8be4db8f2f2e8c7baacce156f46e71aa6c4f2352afc82b09c3122ea172",
+  "attack_receipt_sha256": "e4f7b3b2e3aaa081086e5db8e365177995087ef766a041f89f0a20837b366e56",
+  "extraction_receipt_sha256": "11d5014d814f5e59713ddb6023e96af9b6a57b18c86b764a0c04433981c890d5",
+  "missing_historical_digests": [
+    "attack.message_sha256",
+    "attack.decoded_sha256",
+    "extraction.decoded_sha256"
+  ]
+}
