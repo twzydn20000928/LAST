@@ -616,6 +616,20 @@ correct bits, LFG 717/1,024 and VideoShield 1,024/1,024. Whole-message
 recovery was 0/2, 0/2 and 2/2, respectively. With only two samples from
 the same prompt this comparison is descriptive.
 
+For a three-method Hunyuan T2V comparison on identical manifest IDs, run:
+
+```bash
+python tools/matched_primary_methods.py --family hunyuan --mode t2v \
+  --methods last lfg videomark --reports results/hunyuan_t2v_primary13.json \
+  results/hunyuan_t2v_videomark_first40.json
+```
+
+All seven conditions have 13 shared videos (6,656 information bits per
+method and condition). On deletion, LAST, LFG and VideoMark recovered
+5,014, 4,342 and 3,352 bits, respectively. Each recovered zero entire
+messages. The CPU workflow exports the seven-condition table, including
+the common video IDs, in `three-method-t2v.md`.
+
 These commands preserve the sample count for each method. VideoShield recovered 1,024/1,024 clean bits across its two I2V samples. VideoMark recovered 14,317/19,968 clean bits on 39 T2V samples, with 17 entire messages recovered. Its quality row covers one of 18 dimensions. SIGMark's individual integration runs remain separate from the primary table.
 
 For a comparison of LAST and VideoMark on **the same 38 T2V videos**, use `python tools/paired_videomark_table.py --count 38`. On random deletion, LAST recovered 15,463 bits and VideoMark 9,959 out of 19,456, with zero and one entire message recovered, respectively. All 266 native predictions in the [38-video report](../results/hunyuan_t2v_videomark_first38.json) were recounted from stored files. The original extraction receipts lack prediction-file digests, which limits verification of those files' history.

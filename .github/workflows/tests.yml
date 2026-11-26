@@ -102,6 +102,9 @@ jobs:
       - name: Rebuild supplementary temporal diagnostics
         run: |
           mkdir ci-temporal-diagnostics
+          python tools/matched_primary_methods.py --family hunyuan --mode t2v \
+            --methods last lfg videomark --reports results/hunyuan_t2v_primary13.json \
+            results/hunyuan_t2v_videomark_first40.json > ci-temporal-diagnostics/three-method-t2v.md
           python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper*.json \
             --primary results/hunyuan_i2v_last_first100_robustness.json \
             --primary results/hunyuan_i2v_last_primary100_179.json \
