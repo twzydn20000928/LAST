@@ -310,6 +310,31 @@ steps fixed, strength 0.025 gave 43.5870 dB and 0.974945 mean SSIM. Strength
 conditioning image, key and message matched, as did the RGB frames decoded
 from the two unmarked references. Each score uses its own marked video.
 
+The [14 paired fidelity receipts](../results/lfgc_paired_quality_receipts7.json)
+retain the individual measurements. Rebuild the two means from the repository root:
+
+```bash
+python - <<'PY'
+import hashlib
+import json
+from pathlib import Path
+from statistics import mean
+
+results = Path("results")
+grid = json.loads((results / "lfgc_grid_first55_observations.json").read_bytes())
+digests = {row["run"]: row["quality_sha256"] for row in grid["evidence"]}
+paired = json.loads((results / "lfgc_paired_quality_receipts7.json").read_bytes())
+for alpha in ("0.025", "0.050"):
+    scores = []
+    for index in range(7):
+        run = f"hunyuan/i2v/lfg-c/alpha-{alpha}-steps-05/dev-{index:03d}"
+        receipt = paired[run]
+        assert hashlib.sha256(json.dumps(receipt, indent=2).encode()).hexdigest() == digests[run]
+        scores.append(receipt)
+    print(alpha, mean(row["psnr_db"] for row in scores), mean(row["ssim"] for row in scores))
+PY
+```
+
 ### Native LFG writer with CCTA reading only
 
 `last.lfg_native_reader` reuses already-exported native-LFG attack MP4s; it does
