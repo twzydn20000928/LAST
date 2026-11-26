@@ -8,7 +8,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 ```bash
 python -m last.clean_table --family hunyuan \
   --reports results/hunyuan_i2v_primary18.json results/hunyuan_t2v_primary12.json \
-    results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first39_partial.json \
+    results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39_partial.json \
     results/hunyuan_i2v_sigmark_first1_partial.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
@@ -71,13 +71,13 @@ python -m last.robustness_table --reports \
   results/hunyuan_t2v_primary12.json \
   results/wan22_i2v_primary12.json \
   results/wan22_t2v_primary11.json \
-  results/hunyuan_i2v_videoshield_first1.json \
+  results/hunyuan_i2v_videoshield_first2_partial.json \
   results/hunyuan_i2v_sigmark_first1_partial.json \
   results/hunyuan_t2v_videomark_first39_partial.json \
   --output paired-table2
 ```
 
-LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 18 Hunyuan I2V pairs, 12 Hunyuan T2V pairs, 12 Wan I2V pairs and 11 Wan T2V pairs. VideoShield has one Hunyuan I2V sample, and VideoMark has 39 Hunyuan T2V clean observations and 38 for each attack. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. Its three temporal conditions are pending. Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the twelve Wan
+LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 18 Hunyuan I2V pairs, 12 Hunyuan T2V pairs, 12 Wan I2V pairs and 11 Wan T2V pairs. VideoShield has two Hunyuan I2V clean observations and one per attack, and VideoMark has 39 Hunyuan T2V clean observations and 38 for each attack. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. Its three temporal conditions are pending. Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the twelve Wan
 I2V pairs gives 66.50% for LAST and 68.03% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
@@ -489,7 +489,7 @@ To render Tables 1 and 2 with the available VideoShield I2V, SIGMark I2V and Vid
 
 ```bash
 reports=(results/hunyuan_i2v_primary18.json results/hunyuan_t2v_primary12.json
-         results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first39_partial.json
+         results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39_partial.json
          results/hunyuan_i2v_sigmark_first1_partial.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
   --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \

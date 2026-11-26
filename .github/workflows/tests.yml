@@ -18,7 +18,7 @@ jobs:
             results/hunyuan_t2v_primary12.json \
             results/wan22_i2v_primary12.json \
             results/wan22_t2v_primary11.json \
-            results/hunyuan_i2v_videoshield_first1.json \
+            results/hunyuan_i2v_videoshield_first2_partial.json \
             results/hunyuan_i2v_sigmark_first1_partial.json \
             results/hunyuan_t2v_videomark_first39_partial.json \
             --output .ci-tables/robustness
@@ -59,7 +59,7 @@ jobs:
         run: |
           python -m last.clean_table --family hunyuan \
             --reports results/hunyuan_{i2v_primary18,t2v_primary12}.json \
-              results/hunyuan_i2v_videoshield_first1.json results/hunyuan_t2v_videomark_first39_partial.json \
+              results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39_partial.json \
               results/hunyuan_i2v_sigmark_first1_partial.json \
             --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \
               results/camera_motion/hunyuan_t2v_{last,reference}_camera_quality.json \
