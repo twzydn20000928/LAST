@@ -13,6 +13,7 @@ import numpy as np
 
 from last.campaign import digest
 from last.stress_evaluate import recount, verify_attack, verify_counts
+from last.alignment_metrics import stress_source_indices
 
 
 def reader_identity(repo):
@@ -60,6 +61,7 @@ def export(run, attacks, evaluation, repo, *, alignment=False):
     for receipt in sorted(attacks.rglob("attack.json")):
         folder = receipt.parent
         attack, video = verify_attack(folder, source_sha)
+        stress_source_indices(attack)
         target = evaluation / folder.relative_to(attacks)
         record = json.loads((target / "evaluation.json").read_bytes())
         decoded = target / "decoded_private.json"
