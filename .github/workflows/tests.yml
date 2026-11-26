@@ -21,7 +21,7 @@ jobs:
             results/wan22_i2v_videoshield_first1_partial.json \
             results/hunyuan_i2v_videoshield_first2_complete.json \
             results/hunyuan_i2v_sigmark_first1_partial.json \
-            results/hunyuan_t2v_videomark_first40_partial.json \
+            results/hunyuan_t2v_videomark_first40.json \
             --output .ci-tables/robustness
           for report in hunyuan_i2v_primary20 hunyuan_t2v_primary13 wan22_i2v_primary13 wan22_t2v_primary12; do
             python tools/paired_primary_intervals.py --report "results/${report}.json" \
@@ -69,7 +69,7 @@ jobs:
           done
           python -m last.clean_table --family hunyuan \
             --reports results/hunyuan_{i2v_primary20,t2v_primary13}.json \
-              results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40_partial.json \
+              results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json \
               results/hunyuan_i2v_sigmark_first1_partial.json \
             --quality ci-clean-tables/quality/hunyuan_*.json --output ci-clean-tables/hunyuan.md
           python -m last.clean_table --family wan22 \
