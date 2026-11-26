@@ -102,7 +102,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archived-reread", type=Path,
                         help="Paired reader report measured on archived writer MP4s")
-    parser.add_argument("--reader", type=Path, default=results / "hunyuan_i2v_reader_ablation_first12.json")
+    parser.add_argument("--reader", type=Path, default=results / "hunyuan_i2v_reader_ablation_13.json")
     parser.add_argument("--writers", type=Path, nargs="+", help="Paired writer JSON reports, one per video")
     parser.add_argument("--table4", action="store_true",
                         help="Render the manuscript's row order and 0–1 bit accuracies to three decimal places")
