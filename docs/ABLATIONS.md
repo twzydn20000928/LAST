@@ -1345,3 +1345,5 @@ Use the `table4_src` directory prepared above. For historical LAST runs whose co
 python tools/replay_primary_attacks.py --run /private/primary/hunyuan/i2v/last/paper-291 --ablation-view /private/verified-inputs/paper-291
 PYTHONPATH="$table4_src" python -m last.reader_ablation --run /private/verified-inputs/paper-291 --family hunyuan --model-dir /models/hunyuan-i2v --output /private/ablations/paper-291
 ```
+
+The current Table 4 rebuild covers 13 of the 30 frozen cases (6,656 bits per condition). Use `python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_three.json`. This export adds 28 reads on the regenerated minimum-margin inputs for paper-291 to the 56 archived reads for paper-003 and paper-174. On paper-291, deletion recovered 248/512 bits with the minimum-margin writer and 266/512 with the fixed-target writer. Both results enter the pooled table.
