@@ -1374,3 +1374,5 @@ for label, values in gains.items():
     print(label, "improved", sum(n > 0 for n in values), "tied", values.count(0),
           "worse", sum(n < 0 for n in values), "median gain in bits", median(values))
 ```
+
+Across the 13 matched Table 4 writer pairs ending with paper-291, the minimum-margin writer increased both PSNR and SSIM on every video relative to the fixed-target writer. Within each pair both arms share an unmarked reference. The mean paired gains were 0.682 dB and 0.00263 SSIM. The PSNR gains ranged from 0.201 to 1.119 dB. For deletion, insertion and clipping the respective counts of videos with more / equal / fewer correct bits were 7/0/6, 7/1/5 and 7/3/3. These comparisons use the paired writer exports and the same full reader on each arm.
