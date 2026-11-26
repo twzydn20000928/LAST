@@ -25,6 +25,12 @@ def summarize(rows,expected_ids):
         if row.get('exact_message')!=(n==512):raise ValueError('Invalid exact-message flag')
         if type(row.get('bch_success'))!=bool:raise ValueError('This report requires explicit BCH decoder status')
         if pre is not None and (type(pre)!=int or not 0<=pre<=512):raise ValueError('Invalid pre-BCH bit count')
+        if 'coded_correct' in row or 'coded_total' in row:
+            coded = row.get('coded_correct')
+            if row.get('coded_total') != 592 or type(coded) is not int or not 0 <= coded <= 592:
+                raise ValueError('Invalid 592-bit codeword count')
+            if pre is not None and not 0 <= coded - pre <= 80:
+                raise ValueError('Codeword and systematic information counts disagree')
         valid.append(row)
     incomplete+=sorted(set(expected_ids)-seen)
     errors=sorted(512-r['correct_bits'] for r in valid);count=len(valid)
@@ -37,7 +43,12 @@ def summarize(rows,expected_ids):
     pre_errors=sum(512-r['raw_information_correct'] for r in valid) if pre_available==count and count else None
     accuracy=1-sum(errors)/(512*count) if count else None
     recovery=exact/count if count else None
+    coded_rows = [r for r in valid if 'coded_correct' in r]
+    coded_bits = 592 * len(coded_rows)
+    coded_errors = sum(592 - r['coded_correct'] for r in coded_rows)
     return dict(expected=len(expected_ids),completed=count,complete=complete,incomplete_ids=incomplete,
+                coded_observations=len(coded_rows), coded_total_bits=coded_bits, coded_error_bits=coded_errors,
+                observed_coded_ber=coded_errors / coded_bits if coded_bits else None,
                 post_bch_error_bits=sum(errors),pre_bch_error_bits=pre_errors,pre_bch_observations=pre_available,
                 observed_bit_accuracy=accuracy,final_bit_accuracy=accuracy if complete else None,
                 exact_messages=exact,wrong_decoder_failure=wrong_rejected,wrong_decoder_success=wrong_accepted,
@@ -124,6 +135,8 @@ def main():
                 if condition in replays.get(identity, {}):
                     # Historical pre-decoding decisions belong to the original pass.
                     row.pop('raw_information_correct', None)
+                    row.pop('coded_correct', None)
+                    row.pop('coded_total', None)
                     row.update(replays[identity][condition])
                 rows.append(row);result['receipt_sha256'][str(path.relative_to(root))]=hashlib.sha256(path.read_bytes()).hexdigest()
         result['conditions'][condition]=summarize(rows,ids)

@@ -21,3 +21,14 @@ def test_perfect_recovery_wilson_bound_is_not_degenerate():
     low,high=wilson(400,400)
     assert .99<low<1 and high==pytest.approx(1)
     assert wilson(0,400)[1]>0
+
+
+def test_codeword_ber_uses_only_observed_parity_decisions():
+    measured = dict(row(0, 510, False), coded_correct=588, coded_total=592)
+    historical = row(1, 512, True)
+    result = summarize([measured, historical], ['0', '1'])
+    assert result['coded_observations'] == 1 and result['coded_total_bits'] == 592
+    assert result['coded_error_bits'] == 4 and result['observed_coded_ber'] == 4 / 592
+    assert summarize([historical], ['1'])['observed_coded_ber'] is None
+    with pytest.raises(ValueError, match='systematic'):
+        summarize([dict(measured, coded_correct=591)], ['0'])

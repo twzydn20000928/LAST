@@ -93,6 +93,19 @@ pre-BCH errors where available, exact-message recovery and nearest-rank BER
 median/p95/p99/maximum. Missing videos remain missing: final rates stay null
 until every manifest case has completed. Observed partial rates are separate.
 
+The JSON also reports `coded_error_bits`, `coded_total_bits` and
+`observed_coded_ber` over the received 592-bit codewords (512 information
+bits and 80 parity bits) before BCH decoding. `coded_observations` counts
+only reads with recorded codeword decisions. Reads with only 512 systematic
+decisions can still contribute to the information-bit statistics.
+
+The [74-video Hunyuan T2V report](../results/hunyuan_t2v_message_outcomes74.json)
+uses the same 518 attack receipts as the [verified primary results](../results/hunyuan_t2v_last_first74.json).
+Across the clean inputs, 25 of 43,808 codeword decisions were wrong. Of
+these, 22 were information bits; all 22 were corrected. After random frame
+deletion, 10,122 of 43,808 codeword decisions were wrong. The 512-bit
+message error count was 8,756 before decoding and 8,756 afterwards.
+
 Decoder success is not proof of message recovery. The report distinguishes
 wrong messages with decoder failure, wrong messages despite decoder success,
 and exact messages. It separately counts decoder failures that nonetheless
