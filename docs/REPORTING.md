@@ -569,11 +569,10 @@ python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
 python -m last.robustness_table --reports "${reports[@]}" --output native-tables/table2
 ```
 
-On Hunyuan I2V `paper-000`, SIGMark recovered 483, 256, 257 and 345 of 512 bits
-on clean, noise, compression and blur respectively. Deletion failed during
-extraction; insertion and clip have no completed observations in this snapshot.
-All four scored predictions were recounted against the same information bits as
-LAST. Their extraction receipts identify the MP4s but lack prediction-file
+On Hunyuan I2V `paper-000`, SIGMark recovered 483, 256, 257, 345 and 272
+of 512 bits on clean, noise, compression, blur and contiguous removal.
+Random deletion and insertion failed during extraction. All five scored
+predictions were recounted. Four historical receipts lack prediction-file
 digests. To repeat this partial audit on the original run tree:
 
 ```bash
@@ -591,13 +590,13 @@ re-extraction from its archived MP4s for this historical sample.
 |---|---:|---:|---:|---:|---:|---:|---:|
 | LAST | 512 | 512 | 486 | 512 | 371 | 424 | 502 |
 | LFG | 500 | 483 | 488 | 488 | 349 | 276 | 358 |
-| SIGMark | 483 | 256 | 257 | 345 | Failed | Pending | Pending |
+| SIGMark | 483 | 256 | 257 | 345 | Failed | Failed | 272 |
 | VideoShield | 512 | 512 | 512 | 512 | 512 | 509 | 512 |
 
 Read the `audited_observations` arrays in the paired primary and two native
 I2V reports listed above. Select `video_id == "paper-000"` and `map_seed == 0`,
-then take `correct_bits` for each method and condition. SIGMark's three
-remaining statuses are recorded in `incomplete_observations`. The larger
+then take `correct_bits` for each method and condition. SIGMark's two
+failed extractions are recorded in `incomplete_observations`. The larger
 tables above include different numbers of samples for each method.
 
 To compare methods with different coverage, take the intersection of their
