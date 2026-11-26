@@ -343,6 +343,22 @@ trials; deleting 10 frames recovered it in 7/100, and deleting 30 frames in
 To reproduce this snapshot in Bash, run
 `python tools/stress_recovery_table.py --reports results/stress_paper0[01][0-9]_forty_maps.json --format markdown`.
 
+For these same 20 videos, compare each Drop 30 trial against its CRF28
+re-encode using the same sample ID and edit seed. Correct bits fell from
+39,075/51,200 to 33,119/51,200. The re-encode gave fewer correct bits in
+99 of the 100 pairs and more in one. Both conditions recovered zero entire
+messages. The 100 pairs come from 20 generated videos, with five edits each.
+
+| Condition | Source groups surviving intact | Selected windows | Intact windows selected | Correct group IDs among intact selections |
+|---|---:|---:|---:|---:|
+| Drop 30 | 128/1,600 | 376 | 40 | 39/40 |
+| Drop 30 then CRF28 | 128/1,600 | 412 | 32 | 23/32 |
+
+To rebuild the window counts, pass the same 20 report files to
+`tools/stress_deletion_alignment.py --reports`. The true edit map is used
+here to score the blind reader’s window choices. The two rows share all 100
+deletion maps, so the differences arise after the deletion step.
+
 The first nine Hunyuan I2V LAST videos (primary IDs 000 through 008) each have 40 observations on reader revision `1df83c5`. They cover three prompts. Each attack uses five edit maps per video, giving 45 observations per attack and 360 across the eight attacks. To reproduce this nine-video snapshot in Bash:
 
 ```bash
