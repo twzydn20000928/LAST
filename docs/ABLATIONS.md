@@ -614,7 +614,7 @@ the clean, compressed and deletion MP4 hashes match the corresponding LAST
 rows in the [primary evaluation](../results/hunyuan_i2v_primary17.json).
 With 30 frames deleted, reading in received order recovered 289/512 bits,
 blind CCTA recovered 371/512, and the reader given the true frame map recovered
-512/512. The primary blind reader also recovered 371/512 on this file.
+512/512. The controlled CCTA and independently replayed primary reader agreed on all 512 bit decisions for each of the three MP4s. On deletion both missed the same 141 positions.
 All three controlled readers recovered the clean message. On compression they
 recovered 484, 486 and 484 bits respectively.
 
