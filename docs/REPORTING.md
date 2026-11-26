@@ -149,6 +149,50 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 
 The [39-video recount](../results/hunyuan_t2v_videomark_first39.json) includes all seven conditions per video. For `paper-038`, the failed noise extraction was rerun on the identical noisy MP4 and registered state. It recovered 253/512 bits. The original failed receipt fingerprint is `43fb8e28215754ce9297d883c903dfd47611bf06e681d22e484c1d11ac773e2d`; the completed receipt is recorded in the new report. The earlier [267 observations](../results/hunyuan_t2v_videomark_first39_partial.json) agree individually with the recount. Run `python tools/paired_videomark_table.py` for the 39-video paired comparison.
 
+#### Replay the archived VideoMark retry
+
+The original run directory for paper-038 retains the failed noise receipt.
+The completed retry has SHA-256
+`e4f7b3b2e3aaa081086e5db8e365177995087ef766a041f89f0a20837b366e56`
+for `attacks/noise.json`. In both directories the generated MP4, noisy MP4,
+generation receipt, clean receipt, payload and private registration state
+were byte-identical. To reproduce the 39-video count with this two-directory
+layout, run from the repository root after the first 39 jobs and retry have
+finished. Use the temporary tree for reading only, because hard links share
+their underlying data with the originals. Ordinary runs with all successful
+outputs in the main tree can use that tree directly.
+
+```bash
+# Run on Linux. PRIMARY, RETRY, MANIFEST and PLAN point to your own files.
+# PRIMARY contains the native and LAST run trees. RETRY is the separate
+# verified paper-038 VideoMark run. AUDIT_PARENT is private local storage
+# on the same filesystem as both runs (used for hard links).
+set -eu
+umask 077
+view=$(mktemp -d "$AUDIT_PARENT/videomark-recount.XXXXXXXX")
+mkdir -p "$view/hunyuan/t2v/videomark"
+ln -s "$(realpath "$PRIMARY/.native-jobs")" "$view/.native-jobs"
+ln -s "$(realpath "$PRIMARY/hunyuan/t2v/last")" "$view/hunyuan/t2v/last"
+for index in $(seq 0 38); do
+  id=$(printf 'paper-%03d' "$index")
+  source_dir="$PRIMARY/hunyuan/t2v/videomark/$id"
+  if [ "$index" -eq 38 ]; then
+    for item in receipt.json message.bin marked.mp4 maintained_private.pkl attacks/noise.mp4 attacks/clean.json; do
+      cmp "$source_dir/$item" "$RETRY/$item"
+    done
+    source_dir="$RETRY"
+  fi
+  cp -al "$source_dir" "$view/hunyuan/t2v/videomark/$id"
+done
+python tools/audit_videomark_prefix.py --family hunyuan --mode t2v --method videomark \
+  --count 39 --manifest "$MANIFEST" --plan "$PLAN" --root "$view" --output "$view/recount.json"
+```
+
+The complete recount contains 273 observations. For the 40-sample snapshot,
+the five completed observations from paper-039 were also audited; insertion
+and contiguous removal had no scores at that checkpoint.
+
+
 Run `python tools/paired_videomark_table.py --count 38` from the repository root to compare Hunyuan LAST and VideoMark on paper-000 through paper-037. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition. All 266 VideoMark observations were recounted from the archived decoded bytes. The original extraction receipts lack prediction digests, so the recount verifies agreement with the recorded bit counts but cannot establish historical bit-for-bit identity.
 
 To regenerate either Wan LAST report from your completed runs, use the primary pipeline audit command below. Set MODE to `i2v` or `t2v`. The audit checks the saved MP4 files and records missing samples separately in each condition.
