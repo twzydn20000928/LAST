@@ -1392,3 +1392,13 @@ for label, values in gains.items():
 ```
 
 Across the 13 matched Table 4 writer pairs ending with paper-291, the minimum-margin writer increased both PSNR and SSIM on every video relative to the fixed-target writer. Within each pair both arms share an unmarked reference. The mean paired gains were 0.682 dB and 0.00263 SSIM. The PSNR gains ranged from 0.201 to 1.119 dB. For deletion, insertion and clipping the respective counts of videos with more / equal / fewer correct bits were 7/0/6, 7/1/5 and 7/3/3. These comparisons use the paired writer exports and the same full reader on each arm.
+
+For paper-270, the [same-seed generation comparison](../results/hunyuan_i2v_paper270_repeat_rgb.json)
+records the original and regenerated MP4 fingerprints for both the unmarked
+reference and the minimum-margin output. All 65 frames differ in both pairs.
+On the 0–255 RGB scale the root mean squared difference across runs is 1.596
+for the reference and 1.880 for the marked video. Compute it as
+`sqrt(squared_error_sum / total_rgb_values)` for each row. Since the
+unmarked videos also differ, these comparisons cannot isolate a watermark
+effect. Use each writer run's own MP4 and saved codebook for its reader
+ablation.

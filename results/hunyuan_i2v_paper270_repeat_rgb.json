@@ -1,0 +1,24 @@
+{
+  "reference": {
+    "source_file_sha256": "98d7b0c85a1dfa4b8f10e83df694815d44b9b9420e7d6bf413f44287b37f0829",
+    "regenerated_file_sha256": "a0b47a9f1c9aa3a45bf8210708bdf784dc9f6d06d26f70501de6a810eb694642",
+    "identical_files": false,
+    "frames": 65,
+    "changed_frames": 65,
+    "changed_rgb_values": 31983091,
+    "total_rgb_values": 51118080,
+    "squared_error_sum": 130251024,
+    "max_absolute_rgb_difference": 36
+  },
+  "marked": {
+    "source_file_sha256": "a573391afb09988b30944ecb10344220270e67e5ae6d47567e2df13b7574c4c6",
+    "regenerated_file_sha256": "e7277fedb527194aa4b5302d899e457cf97f4a856c8145838afd6622ce28c0fa",
+    "identical_files": false,
+    "frames": 65,
+    "changed_frames": 65,
+    "changed_rgb_values": 36268106,
+    "total_rgb_values": 51118080,
+    "squared_error_sum": 180729861,
+    "max_absolute_rgb_difference": 33
+  }
+}
