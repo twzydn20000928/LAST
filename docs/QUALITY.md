@@ -535,6 +535,23 @@ python tools/quality_input_inventory.py --metadata-root "$QUALITY_METADATA" --ru
 
 Omit `--methods` to include LAST, its unmarked reference and LFG in the same inventory. Counts describe inputs at the time of the scan.
 
+The [November 26 scan after the 17:00 Beijing release](../results/quality_input_inventory_nov26_after1700.json)
+checked each MP4 against its recorded fingerprint and its prompt and seed against the
+manifest. For LAST, the number of dimensions with all assigned input videos was:
+
+| Pipeline | Verified LAST clips | Dimensions with all inputs | Dimensions with reported scores in the 17:00 Table 1 |
+|---|---:|---:|---:|
+| Hunyuan I2V | 180 | 7/18 | 5/18 |
+| Hunyuan T2V | 74 | 3/18 | 1/18 |
+| Wan I2V | 44 | 2/18 | 1/18 |
+| Wan T2V | 24 | 1/18 | 1/18 |
+
+Hunyuan I2V still needs official scores for Dynamic Attribute and Dynamic
+Spatial Relationship on its available inputs. On Hunyuan T2V the two
+ready dimensions awaiting scores are Complex Landscape and Complex Plot.
+Wan I2V has all 20 Complex Landscape inputs. The inventory includes the
+per-dimension denominators, including 60 assigned clips for Diversity.
+
 For a dimension with a published unit report, check the current prepared MP4s before scheduling inference:
 
 ```bash
