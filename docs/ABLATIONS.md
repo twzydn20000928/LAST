@@ -609,6 +609,15 @@ read only after each extraction subprocess returns. Raw correct-bit counts,
 exact-message flags and extraction/feature receipt hashes are recorded per row.
 The oracle rows remain explicitly non-blind.
 
+For [Hunyuan I2V paper-000](../results/hunyuan_i2v_last_controlled_paper000.json),
+the clean, compressed and deletion MP4 hashes match the corresponding LAST
+rows in the [primary evaluation](../results/hunyuan_i2v_primary17.json).
+With 30 frames deleted, reading in received order recovered 289/512 bits,
+blind CCTA recovered 371/512, and the reader given the true frame map recovered
+512/512. The primary blind reader also recovered 371/512 on this file.
+All three controlled readers recovered the clean message. On compression they
+recovered 484, 486 and 484 bits respectively.
+
 For legacy runs whose attack receipts predate received-MP4 fingerprints, use the
 independent [re-extraction audit](REEXTRACTION.md) and its frozen source checkout.
 Prepare an input directory from those verified files on the experiment host:
