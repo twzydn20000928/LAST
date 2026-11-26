@@ -1,5 +1,6 @@
 """Re-read intact and partial original groups separately on a Table 12 deletion input."""
 import argparse
+from itertools import combinations
 import json
 from pathlib import Path
 
@@ -12,7 +13,7 @@ from last.oracle_reader import oracle_nodes
 from last.temporal import attack_map
 
 
-def compare(run, evaluation, case):
+def compare(run, evaluation, case, equal_count=False):
     public = json.loads(case.read_bytes())
     row, = [r for r in public["rows"] if r["condition"] == "drop" and r["reader"] == "oracle"]
     cache, read = evaluation / "drop-oracle-features", evaluation / "drop-oracle-read"
@@ -46,12 +47,27 @@ def compare(run, evaluation, case):
                     bits.tolist() != json.loads(prediction.read_bytes())["information_bits"]):
                 raise ValueError("All-group prediction differs from the archived controlled read")
         output[subset] = dict(groups=len(chosen), correct_bits=correct)
-    return dict(video_id=run.name, case_sha256=sha(case), subsets=output)
+    result = dict(video_id=run.name, case_sha256=sha(case), subsets=output)
+    if equal_count:
+        size = output["intact"]["groups"]
+        partial = [(i, n["group"]) for i, n in enumerate(nodes) if n["filled"] > 0]
+        scores = []
+        if 0 < size <= len(partial):
+            for group_set in combinations(partial, size):
+                evidence = torch.stack([corr[i, g] for i, g in group_set])
+                bits, _, _ = decode_oracle(evidence, [g for _, g in group_set])
+                scores.append(int((np.asarray(bits) == truth).sum()))
+        result["partial_at_intact_count"] = dict(
+            group_count=size, subsets=len(scores), sum_correct_bits=sum(scores),
+            exact_messages=scores.count(512))
+    return result
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ("run", "evaluation", "case"):
         parser.add_argument("--" + name, required=True, type=Path)
+    parser.add_argument("--equal-count", action="store_true",
+                        help="Also score every partial-group subset matching the intact group count")
     torch.set_num_threads(2)
     print(json.dumps(compare(**vars(parser.parse_args()))))

@@ -1152,6 +1152,16 @@ Partial groups alone gave 32/37 exact messages. All groups gave 36/37.
 Group counts differ between these reads. This diagnostic measures the available
 evidence from each subset under true-map assistance, without equalizing group counts.
 
+Add `--equal-count` to enumerate every subset of partial groups with exactly
+as many groups as the intact read on that video. The [per-video counts](../results/assisted_group_equal_counts_first37.json)
+cover 31 videos with at least one intact group and 1,657 eligible subsets.
+Average the subset bit accuracies within each video, then weight each of the
+31 videos equally. Intact groups yielded 87.13% and equally many partial groups
+yielded 80.69%. The intact read exceeded the video's partial-subset mean on
+26/31 clips. The remaining six clips had zero intact groups and supply no paired
+comparison. Original group positions and the number of encoded frames per
+group still differ. Subsets from one video share evidence.
+
 To reproduce the frozen-prefix calculation, run this from the repository root
 after installing LAST. The shared-fusion table command above checks the input
 video fingerprints against the primary reports.
