@@ -426,8 +426,8 @@ For Dynamic Attribute, the official scorer samples 64 frames uniformly and asks 
 The [verified Dynamic Spatial Relationship inputs](../results/hunyuan_i2v_dynamic_spatial_verified_inputs.json)
 cover manifest IDs `paper-160` through `paper-179` for LAST and its unmarked
 reference. Each arm has four seeds for each of five prompts. The upstream
-scorer samples 64 frames uniformly. It asks the first question on the sampled
-video and the second on its final frame. Both responses must contain “yes”
+scorer samples 64 frames uniformly. It asks the first question on the first 32 sampled
+frames and the second on the final sampled frame. Both responses must contain “yes”
 for a video to score one. The dimension mean uses 20 video scores per arm.
 The input record contains sample identifiers and MP4 hashes only.
 
