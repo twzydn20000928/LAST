@@ -1010,12 +1010,12 @@ Across 1,872 matched comparisons the correct and incorrect median scores are
 python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174}.json
 ```
 
-The Table 13 clean consistency export now covers 13 component videos, including paper-291. Across 2,028 paired assignments the correct and wrong medians are 0.429980 and 0.000501. The pooled AUROC is 1.0. The sampling unit is the video; the 156 overlapping comparisons on each video share windows. Calibrated energy still requires the full development fit.
+The Table 13 clean consistency export covers 14 component videos, including paper-270 and paper-291. Across 2,184 paired assignments the correct and wrong medians are 0.427139 and 0.000710. The pooled AUROC is 1.0. Each video contributes 156 overlapping comparisons that share windows. For historical files, pass the original private run to `clean_consistency_table.py` so it can verify the codebook with the original key. A verified replay view can supply the MP4 and attack receipt for feature acquisition. Calibrated energy still requires the full development fit.
 
 Run the current 13-video snapshot from the repository root in Bash:
 
 ```bash
-python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174,291}.json
+python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174,270,291}.json
 ```
 
 To include both Table 13 energy rows, pass `--calibration /private/calibration.json` to `tools/clean_consistency_table.py`. Generate this file with `last.null_fit` from all 80 development videos. For the reconstructed raw scale, pool the development wrong-key responses over candidates, 64 keys and 16 groups and take one median. Earlier saved fits with only per-group medians require rerunning the fit on the original responses. The calibrated statistic uses each hypothesized group's frozen median and MAD scale. Average the four assigned group energies per chain; all three rows compare the same windows and assignments. Measured energy rows require the audited calibration file.
