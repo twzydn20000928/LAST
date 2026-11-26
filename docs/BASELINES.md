@@ -778,6 +778,13 @@ The original extraction receipt
 lacks a decoded-output fingerprint. This is a matched historical input for
 the timing experiment. The extraction latency still requires a timed run.
 
+For the same generated video, the frozen seed-zero edit discarded 30 of the
+65 frames. The native reader processed the 35-frame MP4 and recovered
+[260/512 information bits (50.78%)](../results/hunyuan_i2v_videomark_matched_drop_paper000.json).
+Recount the deletion with `python tools/recount_native_attack.py --run "$GENERATION" --condition drop --video-id paper-000`.
+This single-case comparison reuses the historical generation. Both the
+original and edited MP4s are available privately as inputs for exclusive-GPU timing.
+
 On the archived Wan I2V VideoMark sample paper-000, the original clean read
 recovered 254/512 bits. The [noise read](../results/wan22_i2v_videomark_noise_paper000.json)
 on the same marked source recovered 264/512. [CRF28 compression](../results/wan22_i2v_videomark_compression_paper000.json)
