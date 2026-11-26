@@ -93,16 +93,16 @@ The following paired subsets use the frozen primary manifest and 512 information
 
 | Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
 |---|---:|---|---|
-| HunyuanVideo, image-to-video | 22 | [First 21](results/hunyuan_i2v_primary21.json) and [paper-291](results/hunyuan_i2v_primary_slice291.json) | [First 21](results/hunyuan_i2v_fidelity21.json) and [paper-291](results/hunyuan_i2v_paired_fidelity_slice291.json) |
-| HunyuanVideo, text-to-video | 13 | [13 pairs](results/hunyuan_t2v_primary13.json) | [13 pairs](results/hunyuan_t2v_fidelity13.json) |
+| HunyuanVideo, image-to-video | 23 | [First 22](results/hunyuan_i2v_primary22.json) and [paper-291](results/hunyuan_i2v_primary_slice291.json) | [First 22](results/hunyuan_i2v_fidelity22.json) and [paper-291](results/hunyuan_i2v_paired_fidelity_slice291.json) |
+| HunyuanVideo, text-to-video | 14 | [14 pairs](results/hunyuan_t2v_primary14.json) | [14 pairs](results/hunyuan_t2v_fidelity14.json) |
 | Wan-2.2, image-to-video | 13 | [13 pairs](results/wan22_i2v_primary13.json) | [13 pairs](results/wan22_i2v_fidelity13.json) |
 | Wan-2.2, text-to-video | 13 | [13 pairs](results/wan22_t2v_primary13.json) | [13 pairs](results/wan22_t2v_fidelity13.json) |
 
-To sum the correct bits and count fully recovered messages for the 22 HunyuanVideo image-to-video pairs, run the command below. For another row, change the family, mode and input report. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
+To sum the correct bits and count fully recovered messages for the 23 HunyuanVideo image-to-video pairs, run the command below. For another row, change the family, mode and input report. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
 
 ```bash
 python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg \
-  --reports results/hunyuan_i2v_primary21.json results/hunyuan_i2v_primary_slice291.json
+  --reports results/hunyuan_i2v_primary22.json results/hunyuan_i2v_primary_slice291.json
 ```
 
 Earlier evidence includes the [four LAST integration checks](results/last_backbone_integrations.json), the [LFG adaptation check](results/lfg_integration.json), and the first formal cases for [LFG Hunyuan I2V](results/lfg_primary_first_case.json), [LAST Hunyuan T2V](results/last_t2v_primary_first_case.json), and [LAST Wan I2V](results/last_wan_i2v_primary_first_case.json).

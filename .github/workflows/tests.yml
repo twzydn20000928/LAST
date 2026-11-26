@@ -14,8 +14,8 @@ jobs:
       - name: Rebuild audited partial robustness tables
         run: |
           python -m last.robustness_table --reports \
-            results/hunyuan_i2v_primary21.json \
-            results/hunyuan_t2v_primary13.json \
+            results/hunyuan_i2v_primary22.json \
+            results/hunyuan_t2v_primary14.json \
             results/wan22_i2v_primary13.json \
             results/wan22_t2v_primary13.json \
             results/wan22_i2v_videoshield_paper000_six_conditions.json \
@@ -23,7 +23,7 @@ jobs:
             results/hunyuan_i2v_sigmark_first1_partial.json \
             results/hunyuan_t2v_videomark_first40.json \
             --output .ci-tables/robustness
-          for report in hunyuan_i2v_primary21 hunyuan_t2v_primary13 wan22_i2v_primary13 wan22_t2v_primary13; do
+          for report in hunyuan_i2v_primary22 hunyuan_t2v_primary14 wan22_i2v_primary13 wan22_t2v_primary13; do
             python tools/paired_primary_intervals.py --report "results/${report}.json" \
               --output ".ci-tables/robustness/${report}-intervals.json"
           done
@@ -89,7 +89,7 @@ jobs:
               assert built == expected, f"Released Table 1 quality input differs from the scoring-unit recount: {name}"
           PY
           python -m last.clean_table --family hunyuan \
-            --reports results/hunyuan_{i2v_primary20,t2v_primary13}.json \
+            --reports results/hunyuan_{i2v_primary22,t2v_primary14}.json \
               results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json \
               results/hunyuan_i2v_sigmark_first1_partial.json \
             --quality ci-clean-tables/quality/hunyuan_*.json --output ci-clean-tables/hunyuan.md
@@ -106,15 +106,15 @@ jobs:
         run: |
           mkdir ci-temporal-diagnostics
           python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg \
-            --reports results/hunyuan_i2v_primary21.json results/hunyuan_i2v_primary_slice291.json \
+            --reports results/hunyuan_i2v_primary22.json results/hunyuan_i2v_primary_slice291.json \
             > ci-temporal-diagnostics/hunyuan-i2v-matched-including-paper291.md
           python tools/matched_primary_methods.py --family hunyuan --mode i2v \
-            --methods last lfg sigmark videoshield --reports results/hunyuan_i2v_primary21.json \
+            --methods last lfg sigmark videoshield --reports results/hunyuan_i2v_primary22.json \
             results/hunyuan_i2v_sigmark_first1_partial.json results/hunyuan_i2v_videoshield_first2_complete.json \
             > ci-temporal-diagnostics/four-method-i2v.md
           python tools/matched_primary_methods.py --family wan22 --mode i2v --methods last lfg videoshield --reports results/wan22_i2v_primary13.json results/wan22_i2v_videoshield_paper000_six_conditions.json > ci-temporal-diagnostics/three-method-wan-i2v.md
           python tools/matched_primary_methods.py --family hunyuan --mode t2v \
-            --methods last lfg videomark --reports results/hunyuan_t2v_primary13.json \
+            --methods last lfg videomark --reports results/hunyuan_t2v_primary14.json \
             results/hunyuan_t2v_videomark_first40.json > ci-temporal-diagnostics/three-method-t2v.md
           python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper*.json \
             --primary results/hunyuan_i2v_last_first100_robustness.json \
