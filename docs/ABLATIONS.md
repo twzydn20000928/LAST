@@ -1010,6 +1010,14 @@ Across 1,872 matched comparisons the correct and incorrect median scores are
 python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174}.json
 ```
 
+The Table 13 clean consistency export now covers 13 component videos, including paper-291. Across 2,028 paired assignments the correct and wrong medians are 0.429980 and 0.000501. The pooled AUROC is 1.0. The sampling unit is the video; the 156 overlapping comparisons on each video share windows. Calibrated energy still requires the full development fit.
+
+Run the current 13-video snapshot from the repository root in Bash:
+
+```bash
+python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174,291}.json
+```
+
 To include both Table 13 energy rows, pass `--calibration /private/calibration.json` to `tools/clean_consistency_table.py`. Generate this file with `last.null_fit` from all 80 development videos. For the reconstructed raw scale, pool the development wrong-key responses over candidates, 64 keys and 16 groups and take one median. Earlier saved fits with only per-group medians require rerunning the fit on the original responses. The calibrated statistic uses each hypothesized group's frozen median and MAD scale. Average the four assigned group energies per chain; all three rows compare the same windows and assignments. Measured energy rows require the audited calibration file.
 Run the same pooling command on the calibrated per-video reports to obtain energy_summary for the raw and calibrated rows alongside summary for consistency. The program matches each energy score by video, window start and candidate group start, and requires one shared development calibration digest across all videos. It pools candidate scores before computing quantiles and AUROC.
 The [interim dev-000 sweep](../results/margin_sweep_dev000_interim.json) contains four paired margins, 0.1 through 0.75. Reference MP4 bytes matched across all four. Per-margin attacked-bit counts are pooled over six edits (3,072 bits per case). Complete figure generation still requires all fifteen cells.
@@ -1376,5 +1384,3 @@ for label, values in gains.items():
 ```
 
 Across the 13 matched Table 4 writer pairs ending with paper-291, the minimum-margin writer increased both PSNR and SSIM on every video relative to the fixed-target writer. Within each pair both arms share an unmarked reference. The mean paired gains were 0.682 dB and 0.00263 SSIM. The PSNR gains ranged from 0.201 to 1.119 dB. For deletion, insertion and clipping the respective counts of videos with more / equal / fewer correct bits were 7/0/6, 7/1/5 and 7/3/3. These comparisons use the paired writer exports and the same full reader on each arm.
-
-The Table 13 clean consistency export now covers 13 component videos, including paper-291. Across 2,028 paired assignments the correct and wrong medians are 0.429980 and 0.000501. The pooled AUROC is 1.0. The sampling unit is the video; the 156 overlapping comparisons on each video share windows. Rebuild with the Table 13 command in the CI workflow. Calibrated energy still requires the full development fit.
