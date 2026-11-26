@@ -335,6 +335,14 @@ observations share a single generated video.
 
 ### Recount the eight edits on primary videos
 
+The 20-video snapshot (IDs 000–019) covers the five Camera Motion prompts,
+each with four generation seeds. The five edit maps on each video give 100
+trials per attack. Natural insertion recovered the complete message in 100/100
+trials; deleting 10 frames recovered it in 7/100, and deleting 30 frames in
+0/100. These observations describe one content dimension of the manifest.
+To reproduce this snapshot in Bash, run
+`python tools/stress_recovery_table.py --reports results/stress_paper0[01][0-9]_forty_maps.json --format markdown`.
+
 The first nine Hunyuan I2V LAST videos (primary IDs 000 through 008) each have 40 observations on reader revision `1df83c5`. They cover three prompts. Each attack uses five edit maps per video, giving 45 observations per attack and 360 across the eight attacks. To reproduce this nine-video snapshot in Bash:
 
 ```bash
