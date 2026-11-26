@@ -1156,7 +1156,10 @@ For each temporal attack, the full reader recovered more bits on 13/14 videos.
 The median per-video gains over received order were 107.5, 131.5 and 137 of 512
 bits for random deletion, insertion and contiguous deletion. The respective
 exceptions were paper-291 (250 vs. 274), paper-160 (259 vs. 273) and
-paper-270 (420 vs. 429). The command verifies the shared received-MP4
+paper-270 (420 vs. 429). All six [decoder receipts](../results/hunyuan_i2v_reader_ablation14_ccta_losses.json)
+record a BCH failure. In this case the frozen decoder returns the first
+512 hard decisions unchanged, so the paired differences were already
+present before error correction. The command verifies the shared received-MP4
 fingerprint for every comparison.
 The matched writer comparison uses its own verified input pairs.
 

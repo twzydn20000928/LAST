@@ -1,0 +1,62 @@
+[
+  {
+    "video_id": "paper-160",
+    "condition": "insert",
+    "readers": {
+      "full": {
+        "correct_bits": 259,
+        "bch_success": false,
+        "corrected_bits": null,
+        "route": "ccta",
+        "receipt_sha256": "4c685da01056215f758a7c8a1e3ded805a5546b68443826577165668c86c7814"
+      },
+      "without_ccta": {
+        "correct_bits": 273,
+        "bch_success": false,
+        "corrected_bits": null,
+        "route": "received_order",
+        "receipt_sha256": "1109f475d5e655391e4071e32d95add873a3ba8c3d2a520bef3469b763d79f1f"
+      }
+    }
+  },
+  {
+    "video_id": "paper-270",
+    "condition": "clip",
+    "readers": {
+      "full": {
+        "correct_bits": 420,
+        "bch_success": false,
+        "corrected_bits": null,
+        "route": "ccta",
+        "receipt_sha256": "55a73375405bfef15c1ee8ae41ee9a92227198e82160e1e69f574ea4c0fea514"
+      },
+      "without_ccta": {
+        "correct_bits": 429,
+        "bch_success": false,
+        "corrected_bits": null,
+        "route": "received_order",
+        "receipt_sha256": "f9a16c0c8267a6f7bffa2a1796fe969226b49f84777bc9abc2c8489b30c9a023"
+      }
+    }
+  },
+  {
+    "video_id": "paper-291",
+    "condition": "drop",
+    "readers": {
+      "full": {
+        "correct_bits": 250,
+        "bch_success": false,
+        "corrected_bits": null,
+        "route": "ccta",
+        "receipt_sha256": "a23bfb5cf3aa960c0ce9174fb95eccab1df03b4a88021e2d2eb26f0718d7074f"
+      },
+      "without_ccta": {
+        "correct_bits": 274,
+        "bch_success": false,
+        "corrected_bits": null,
+        "route": "received_order",
+        "receipt_sha256": "d3eb0bdc288f2b4bb1b866f40a9942a62ad2aaf328960f159fb574598929bb60"
+      }
+    }
+  }
+]
