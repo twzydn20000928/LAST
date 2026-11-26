@@ -1347,3 +1347,30 @@ PYTHONPATH="$table4_src" python -m last.reader_ablation --run /private/verified-
 ```
 
 The current Table 4 rebuild covers 13 of the 30 frozen cases (6,656 bits per condition). Use `python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_three.json`. This export adds 28 reads on the regenerated minimum-margin inputs for paper-291 to the 56 archived reads for paper-003 and paper-174. On paper-291, deletion recovered 248/512 bits with the minimum-margin writer and 266/512 with the fixed-target writer. Both results enter the pooled table.
+
+### Paired deletion differences across videos
+
+On the first 83 verified Hunyuan I2V videos, blind CCTA recovered more information bits than received-order grouping on 79 videos, tied on one and recovered fewer on three. The median paired gain was 128 of 512 bits. Providing the true edit map improved over blind CCTA on all 83, with a median gain of 113 bits. The assisted reader receives privileged frame positions. Each difference below compares readers on one identical deletion MP4.
+
+Run the shared-fusion table command above to cross-check the primary input fingerprints. From the repository root, reproduce the per-video counts for this snapshot with Python:
+
+```python
+import json
+from pathlib import Path
+from statistics import median
+
+gains = {"CCTA minus received order": [], "True map minus CCTA": []}
+for index in range(83):
+    path = Path("results") / f"hunyuan_i2v_last_controlled_paper{index:03d}.json"
+    case = json.loads(path.read_bytes())
+    assert case["video_id"] == f"paper-{index:03d}"
+    deletion = [row for row in case["rows"] if row["condition"] == "drop"]
+    assert len({row["received_sha256"] for row in deletion}) == 1
+    bits = {row["reader"]: row["correct_bits"] for row in deletion}
+    gains["CCTA minus received order"].append(bits["ccta"] - bits["received"])
+    gains["True map minus CCTA"].append(bits["oracle"] - bits["ccta"])
+
+for label, values in gains.items():
+    print(label, "improved", sum(n > 0 for n in values), "tied", values.count(0),
+          "worse", sum(n < 0 for n in values), "median gain in bits", median(values))
+```
