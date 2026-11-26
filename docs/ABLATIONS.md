@@ -1402,3 +1402,19 @@ for the reference and 1.880 for the marked video. Compute it as
 unmarked videos also differ, these comparisons cannot isolate a watermark
 effect. Use each writer run's own MP4 and saved codebook for its reader
 ablation.
+
+### Size of the latent update on paired endpoints
+
+The [14 paired writer measurements](../results/hunyuan_i2v_writer_displacement14.json)
+compare the squared Euclidean distance from the saved diffusion endpoint
+to each marked latent. Both interventions use the same endpoint, codebook,
+message and margin profile. Run `python tools/writer_displacement.py --run
+/private/paired-writer-270-v1/minimum-margin` with the completed replay in
+the sibling `fixed-target` directory. The tool checks the paired inputs
+before recomputing both interventions on CPU.
+
+For each video, compute one minus the minimum-margin squared distance
+divided by the fixed-target squared distance. All 14 reductions were
+positive, with a median of 12.75% and a range of 5.07% to 15.67%.
+This measures the latent change before VAE decoding. The fidelity and
+recovery tables evaluate the resulting videos separately.
