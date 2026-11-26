@@ -37,7 +37,18 @@ made and this single-case evidence does not close the full acceptance checklist.
 - [x] Explicit authorized L40-for-A800 hardware deviation.
 - [ ] Clean-environment installation tested on documented supported hardware.
 - [ ] Public data manifest, acquisition instructions, licenses and integrity checks.
-- [ ] Reader-owned secret generation and persistent private run state.
+- [x] Reader-owned secret generation and persistent private run state on Linux.
+  The two preparation commands in [DATA.md](DATA.md) produced 400 primary and
+  80 development messages of 512 bits each, with eight distinct 256-bit keys
+  per split and no key shared across splits. All created files and directories
+  excluded group and other access. A second invocation targeting the existing
+  primary directory failed and preserved every original file.
+  On the experiment server, all 376 completed generation receipts present in
+  the November 26 audit had the assigned key and exact 512 message bits in
+  the saved run. Hunyuan I2V, Hunyuan T2V, Wan I2V and Wan T2V contributed
+  180/18, 74/12, 44/12 and 24/12 LAST/LFG generations, respectively.
+  These counts measure generation-state consistency. Attack completion and
+  bit accuracy are reported separately.
 - [ ] Public CLI for generation, embedding, blind extraction and attacks.
 - [x] LAST on both HunyuanVideo and Wan2.2, both T2V and I2V, verified end to end on one integration case each (28 completed attack conditions; `results/last_backbone_integrations.json`). Full benchmarks and other methods remain incomplete.
 - [ ] Reproducible SIGMark, VideoShield, VideoMark and LFG baseline integrations.
