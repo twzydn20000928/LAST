@@ -398,3 +398,5 @@ python tools/stress_deletion_alignment.py --reports "${files[@]}"
 ```
 
 The first 28 Hunyuan I2V videos cover 140 trials per edit (five maps per video). Random deletion of 10, 20, 30 and 45 frames yielded 95.13%, 87.62%, 78.86% and 63.64% bit accuracy, with 30, 8, 2 and 0 complete messages out of 140. Deletion of 30 frames followed by CRF 28 yielded 67.52% and 0/140 complete messages. The five maps share one generated video within each sample.
+
+For the 28 seed-zero deletion trials shared with the main benchmark, all received MP4 hashes and individual correct-bit counts matched. Both reads recovered 11,243/14,336 bits. These trials are already included in the primary results. Across all 140 deletion maps, 167 of 2,240 original groups remained intact, with 29 trials retaining none. Before CRF 28 the blind reader selected 559 windows, including 52 intact windows and 51 correct group identities among them. On the same maps after compression, it selected 599 windows, including 45 intact windows and 35 correct identities. These counts are rebuilt in the Table 15 CI artifacts from the per-map records.
