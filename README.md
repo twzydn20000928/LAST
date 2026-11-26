@@ -8,7 +8,7 @@ This repository is being constructed from a frozen manuscript protocol. Full-pap
 
 The reproduction targets 512 information bits, two video backbones (HunyuanVideo and Wan-2.2 A14B), both T2V and I2V, matched baselines, spatial/temporal attacks, quality evaluation and ablations. Runs record model revisions, software versions, seed schedules, codec settings, raw counts, failures and hardware differences.
 
-Generation is being verified on an NVIDIA L40; the manuscript specifies A800 generation. This hardware difference is recorded. Timing runs use an idle L40.
+Generation uses an NVIDIA L40. The manuscript specifies an A800 for generation and an idle L40 for timing. The formal five-method timing table is awaiting exclusive measurements.
 
 Secret keys, private messages, credentials and model weights are not committed.
 
@@ -46,12 +46,17 @@ clean and attacked table commands. The [paired temporal results](docs/REPORTING.
 use matched LAST and LFG videos. The table below links the observations and
 gives the sample count for each pipeline.
 For the component ablation, run the following command from the repository
-root to compare writer and reader variants on the same 12 of 30 planned
+root to compare writer and reader variants on the same 13 of 30 planned
 videos. It prints all seven conditions and the two writer fidelity scores.
 
 ```bash
 python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_three.json
 ```
+
+The reader-only ablation covers 14 of those 30 videos. Run
+`python tools/reader_ablation_table.py` to rebuild all 28 cells from the
+archived counts. The [quality guide](docs/QUALITY.md#per-unit-last-and-reference-comparisons)
+gives commands for comparing official quality scores by video or prompt.
 
 **Primary random frame deletion remains a substantial reproduction discrepancy.**
 The manuscript reports 96.0% bit accuracy and 368/400 exact messages for HunyuanVideo image-to-video after deleting 30 of 65 frames. The L40 rerun recovered **66,857/92,160 bits (72.54%) and 1/180 exact messages** across the first 180 videos. For 172 videos the original receipts identify the received MP4. The other eight use independent extractions from the archived videos because their original receipts lack that fingerprint. The two sets of video IDs are disjoint. Recount both contributions on CPU:
@@ -70,10 +75,10 @@ python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_r
 ```
 
 A [controlled comparison with shared fusion](docs/ABLATIONS.md#shared-fusion-deletion-comparison)
-holds the message fusion rule fixed on the first 70 Hunyuan I2V videos.
-After deletion, grouping frames in received order recovered 52.46% of bits,
-blind CCTA recovered 77.44%, and supplying the true edit map recovered 99.80%.
-Exact recovery was 0/70, 0/70 and 64/70. The last row uses information available
+holds the message fusion rule fixed on the first 85 Hunyuan I2V videos.
+After deletion, grouping frames in received order recovered 52.39% of bits,
+blind CCTA recovered 75.77%, and supplying the true edit map recovered 99.35%.
+Exact recovery was 0/85, 0/85 and 66/85. The last row uses information available
 to the evaluator. The cause of the full discrepancy remains open.
 
 To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
@@ -88,15 +93,16 @@ The following paired subsets use the frozen primary manifest and 512 information
 
 | Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
 |---|---:|---|---|
-| HunyuanVideo, image-to-video | 21 | [21 pairs](results/hunyuan_i2v_primary21.json) | [21 pairs](results/hunyuan_i2v_fidelity21.json) |
+| HunyuanVideo, image-to-video | 22 | [First 21](results/hunyuan_i2v_primary21.json) and [paper-291](results/hunyuan_i2v_primary_slice291.json) | [First 21](results/hunyuan_i2v_fidelity21.json) and [paper-291](results/hunyuan_i2v_paired_fidelity_slice291.json) |
 | HunyuanVideo, text-to-video | 13 | [13 pairs](results/hunyuan_t2v_primary13.json) | [13 pairs](results/hunyuan_t2v_fidelity13.json) |
 | Wan-2.2, image-to-video | 13 | [13 pairs](results/wan22_i2v_primary13.json) | [13 pairs](results/wan22_i2v_fidelity13.json) |
 | Wan-2.2, text-to-video | 13 | [13 pairs](results/wan22_t2v_primary13.json) | [13 pairs](results/wan22_t2v_fidelity13.json) |
 
-To compute bit accuracy and the number of fully recovered messages from these records, run the command below for HunyuanVideo image-to-video. For any other row, supply its single bit-count file after `--report`. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
+To sum the correct bits and count fully recovered messages for the 22 HunyuanVideo image-to-video pairs, run the command below. For another row, change the family, mode and input report. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
 
 ```bash
-python tools/paired_lfg_table.py --report results/hunyuan_i2v_primary21.json
+python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg \
+  --reports results/hunyuan_i2v_primary21.json results/hunyuan_i2v_primary_slice291.json
 ```
 
 Earlier evidence includes the [four LAST integration checks](results/last_backbone_integrations.json), the [LFG adaptation check](results/lfg_integration.json), and the first formal cases for [LFG Hunyuan I2V](results/lfg_primary_first_case.json), [LAST Hunyuan T2V](results/last_t2v_primary_first_case.json), and [LAST Wan I2V](results/last_wan_i2v_primary_first_case.json).
