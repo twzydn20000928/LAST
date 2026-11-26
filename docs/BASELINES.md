@@ -509,6 +509,16 @@ same four keys as the LAST/LFG campaign. Run from the pinned repository root
 in the native dependency environment. Any scientific source change requires an
 explicitly audited new plan. Filters do not shrink the planned denominator.
 
+For the Wan I2V VideoShield primary run, create the plan at revision
+`d386f13704cb6965483ca84ab768fc79bac5e4ef` with the plan command above.
+Its SHA-256 is `2be4e24e34918105fe9fc84ad0c3798f52756f33969a5b37d5d2c3077b3f6d22`.
+The 4,800 run entries and the manifest hash match the earlier native plan.
+The revised adapter passes the single conditioning image to the Wan I2V
+pipeline as a PIL image when the upstream caller supplies a one-element
+list. To run the first video, use `--family wan22 --mode i2v --method
+videoshield --shards 400 --shard 0` in the run command. Historical Wan
+VideoMark integration counts are documented separately below.
+
 To reproduce one named video, keep the full plan and all three pipeline filters. For example, run from the pinned checkout:
 
 ```bash
