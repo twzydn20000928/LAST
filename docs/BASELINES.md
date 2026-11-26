@@ -582,7 +582,10 @@ completed, also supply `--retry-extraction /private/completed-extraction`.
 The evaluator checks the method, model family, mode, temporal flag, video and
 registration-state hashes, then copies the completed receipt and 64 prediction
 bytes to the new private attempt and scores them against the original message.
-This recovery path adds no inversion time measurement.
+Running this path on the archived SIGMark noise integration case gave the
+published 398/512 bits. A separate bytewise recount verified the same number
+and the fingerprints of the received MP4, prediction, original failure and
+extraction receipt. Reusing the prediction adds no inversion time measurement.
 
 ### SIGMark compression integration
 
