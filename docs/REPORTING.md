@@ -18,7 +18,7 @@ python -m last.clean_table --family hunyuan \
   --output paired-table1/hunyuan.md
 
 python -m last.clean_table --family wan22 \
-  --reports results/wan22_i2v_primary12.json results/wan22_t2v_primary11.json \
+  --reports results/wan22_i2v_primary12.json results/wan22_t2v_primary12.json \
   --quality results/camera_motion/wan22_i2v_last_camera_quality.json \
     results/camera_motion/wan22_i2v_reference_camera_quality.json \
     results/camera_motion/wan22_t2v_last_camera_quality.json \
@@ -70,14 +70,14 @@ python -m last.robustness_table --reports \
   results/hunyuan_i2v_primary18.json \
   results/hunyuan_t2v_primary12.json \
   results/wan22_i2v_primary12.json \
-  results/wan22_t2v_primary11.json \
+  results/wan22_t2v_primary12.json \
   results/hunyuan_i2v_videoshield_first2_partial.json \
   results/hunyuan_i2v_sigmark_first1_partial.json \
   results/hunyuan_t2v_videomark_first39_partial.json \
   --output paired-table2
 ```
 
-LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 18 Hunyuan I2V pairs, 12 Hunyuan T2V pairs, 12 Wan I2V pairs and 11 Wan T2V pairs. VideoShield has two Hunyuan I2V observations for clean and noise, and one for each remaining attack, and VideoMark has 39 Hunyuan T2V clean observations and 38 for each attack. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. On the same random-deletion MP4, a retry completed four 9-frame, 50-step window inversions. The upstream ordering stage returned only missing frames, and interpolation raised an error before decoding. The deletion observation therefore contributes zero scored bits. Insertion and contiguous removal are pending. See the [retry receipt summary](../results/sigmark_paper000_drop_retry_failure.json). Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the twelve Wan
+LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 18 Hunyuan I2V pairs, 12 Hunyuan T2V pairs, 12 Wan I2V pairs and 12 Wan T2V pairs. VideoShield has two Hunyuan I2V observations for clean and noise, and one for each remaining attack, and VideoMark has 39 Hunyuan T2V clean observations and 38 for each attack. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. On the same random-deletion MP4, a retry completed four 9-frame, 50-step window inversions. The upstream ordering stage returned only missing frames, and interpolation raised an error before decoding. The deletion observation therefore contributes zero scored bits. Insertion and contiguous removal are pending. See the [retry receipt summary](../results/sigmark_paper000_drop_retry_failure.json). Across all methods the command produces 11 rows and 77 condition cells, each with its own coverage out of 400. For example, random deletion on the twelve Wan
 I2V pairs gives 66.50% for LAST and 68.03% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
@@ -449,7 +449,7 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 | [hunyuan i2v](../results/hunyuan_i2v_primary18.json) | 18 | 74.24% / 65.99% | 87.65% / 59.47% | 98.26% / 76.90% |
 | [hunyuan t2v](../results/hunyuan_t2v_primary12.json) | 12 | 75.03% / 65.90% | 89.93% / 58.24% | 97.36% / 75.41% |
 | [wan22 i2v](../results/wan22_i2v_primary12.json) | 12 | 66.50% / 68.03% | 83.61% / 57.26% | 94.48% / 79.87% |
-| [wan22 t2v](../results/wan22_t2v_primary11.json) | 11 | 72.43% / 66.25% | 83.81% / 54.78% | 96.24% / 77.13% |
+| [wan22 t2v](../results/wan22_t2v_primary12.json) | 12 | 72.33% / 66.39% | 82.68% / 54.90% | 95.12% / 77.29% |
 
 The fidelity scores below use the same samples as the temporal-attack rows above. Each PSNR value averages per-video PSNR in dB. Reference matches count byte-identical unmarked MP4s between methods, verified by SHA-256.
 
@@ -458,7 +458,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 | [hunyuan_i2v](../results/hunyuan_i2v_fidelity18.json) | 18 | 2/18 | 31.48 / 22.65 | 0.9398 / 0.7475 |
 | [hunyuan_t2v](../results/hunyuan_t2v_fidelity12.json) | 12 | 0/12 | 31.41 / 22.15 | 0.9283 / 0.7115 |
 | [wan22_i2v](../results/wan22_i2v_fidelity12.json) | 12 | 12/12 | 29.12 / 22.56 | 0.9320 / 0.7962 |
-| [wan22_t2v](../results/wan22_t2v_fidelity11.json) | 11 | 11/11 | 31.06 / 25.07 | 0.9468 / 0.8432 |
+| [wan22_t2v](../results/wan22_t2v_fidelity12.json) | 11 | 11/11 | 31.06 / 25.07 | 0.9468 / 0.8432 |
 
 Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos. Reproduce with `python tools/paired_reference_differences.py --report <paired-fidelity.json> --root <primary-runs>`. RMSE below measures channel differences on the 0–255 scale. It does not measure perceived quality.
 
