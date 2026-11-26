@@ -882,6 +882,12 @@ The command verifies the generated and received MP4s, native registration and
 extraction receipt before recounting the private message. When the generation receipt records message and registration hashes, both must also match the scored inputs. This one-clip
 integration has separate provenance from the full primary campaign.
 
+The Wan I2V primary campaign also has four matched VideoShield reads on paper-000. On clean video and blur, all three primary methods recovered 512/512 bits. Under noise the counts for LAST, LFG and VideoShield were 512, 488 and 512; under CRF28 compression they were 493, 512 and 512. To rebuild the common-sample comparison, including the three temporal conditions as their observations become available, run the following command with the corresponding audited report paths:
+
+```bash
+python tools/matched_primary_methods.py --family wan22 --mode i2v --methods last lfg videoshield --reports results/wan22_i2v_primary13.json results/wan22_i2v_videoshield_paper000_four_conditions.json
+```
+
 ### Replay the seven-condition reader comparison
 
 Run from the repository root after installing the package. The first table reproduces the available supplement Table 12 columns. The second gives the correct and total information bits for each condition, pooled across the same videos.
