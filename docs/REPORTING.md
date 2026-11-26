@@ -625,7 +625,7 @@ On paper-039, insertion yielded 251/512 bits and contiguous removal yielded
 254/512. All 280 VideoMark predictions were recounted against the matched
 messages. Their historical receipts lack extraction-time prediction digests.
 
-To check that every VideoMark camera-motion score used the same marked MP4 as the primary clean reader, run `python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json --primary results/hunyuan_t2v_videomark_first40.json`. All 20 video fingerprints match. The official mean is 0.20 over 20 applicable units. This covers one of 18 dimensions.
+To check that every VideoMark camera-motion score used the same marked MP4 as the primary clean reader, run `python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json --primary results/hunyuan_t2v_videomark_first40.json`. All 20 video fingerprints match. The official mean is 0.20 over 20 applicable units. Add results/hunyuan_t2v_videomark_landscape_units.json to the command to reproduce both completed dimensions. The landscape mean is 0.17 over 20 additional videos.
 
 For LAST and the unmarked reference, pass the matching single-method fidelity
 report to `tools/quality_units_table.py --fidelity`. The method selects

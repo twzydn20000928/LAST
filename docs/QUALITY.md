@@ -476,7 +476,7 @@ Hunyuan T2V [native VideoMark camera scores](../results/hunyuan_t2v_videomark_ca
 were evaluated on paper-000 through paper-019. The official metric awarded
 4/20, compared with 4/20 for LAST and 3/20 for the unmarked LAST reference
 on the same manifest IDs. The [VideoMark dimension report](../results/hunyuan_t2v_videomark_quality.json)
-can be passed to Table 1 via `--quality`. Its coverage is one of 18 dimensions.
+can be passed to Table 1 via `--quality`. It covers Camera Motion and Complex Landscape (2/18 dimensions).
 Six Table 1 inputs for the completed Camera Motion dimension on Hunyuan T2V, Wan-2.2 I2V and Wan-2.2 T2V are in [results/camera_motion](../results/camera_motion/). For each pipeline and method, the camera_units file contains the 20 individual official scores and MP4 fingerprints; the camera_quality file is accepted by `python -m last.clean_table --quality`. LAST/reference means are 0.20/0.15, 0.80/0.75 and 0.60/0.55 respectively. Every difference is one video out of 20. These six results reuse the existing official model evaluations.
 
 Before launching an expensive scorer on an available dimension of a partial
@@ -522,7 +522,7 @@ The [November 26 inventory](../results/quality_input_inventory_all_nov26.json) c
 
 After generation of `paper-039`, the Hunyuan T2V VideoMark run reached
 [20 verified Complex Landscape inputs](../results/hunyuan_t2v_videomark_landscape_verified_inputs.json).
-They cover five prompts with four assigned seeds each. The official score is pending.
+They cover five prompts with four assigned seeds each. The [official per-video scores](../results/hunyuan_t2v_videomark_landscape_units.json) average 0.17 across 20 valid videos. The evaluator's attention-mask warning is retained in the run log.
 
 For Hunyuan I2V Camera Motion, the [paired scoring input list](../results/hunyuan_i2v_last_lfg_camera_inputs20.json) identifies the 20 assigned videos for both LAST and LFG. All 40 video hashes match the marked outputs in the [paired fidelity report](../results/hunyuan_i2v_fidelity20.json). The [official LAST scoring units](../results/hunyuan_i2v_quality_units/camera_all20_last.json) give 5/20 (0.25); the LFG inputs are ready for scoring.
 

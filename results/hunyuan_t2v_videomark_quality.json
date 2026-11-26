@@ -1,4 +1,12 @@
 {
+  "pipeline": [
+    "hunyuan",
+    "t2v",
+    "videomark"
+  ],
+  "family": "hunyuan",
+  "mode": "t2v",
+  "method": "videomark",
   "complete": false,
   "v_score": null,
   "categories": {
@@ -13,7 +21,6 @@
     "Diversity",
     "Instance_Preservation",
     "Motion_Rationality",
-    "Complex_Landscape",
     "Complex_Plot",
     "Dynamic_Attribute",
     "Dynamic_Spatial_Relationship",
@@ -30,24 +37,20 @@
   "dimensions": {
     "Camera_Motion": {
       "status": "completed",
-      "full_dimension_inputs": true,
-      "expected_units": 20,
-      "valid_units": 20,
-      "not_applicable_units": 0,
-      "unit": "video",
       "mean": 0.2,
-      "all_applicable": true
+      "valid_units": 20,
+      "expected_units": 20,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
+    },
+    "Complex_Landscape": {
+      "status": "completed",
+      "mean": 0.17,
+      "valid_units": 20,
+      "expected_units": 20,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
     }
   },
-  "scope": "Incomplete; no full V-score",
-  "family": "hunyuan",
-  "mode": "t2v",
-  "method": "videomark",
-  "source_hashes": {
-    "Camera_Motion": {
-      "receipt_sha256": "d7af6a5c61a48f3a0a04be1a60facd0e786cfa1ff0edea6f7eec1f6fb5fbe3e2",
-      "raw_sha256": "5c09e2424630f26e9ce17d70912506ffd1e89369d5c3b875f5fdf1846daba512"
-    }
-  },
-  "coverage_sha256": "6b9b1f431b483432da5ed56635a46b606a0c8f666d048a9ee5284a6d974d9759"
+  "scope": "Incomplete; no full V-score"
 }

@@ -72,7 +72,7 @@ jobs:
             sample=$(basename "$units" _camera_units.json)
             python tools/quality_units_table.py "$units" --fidelity "${fidelity[${sample%_*}]}" > "ci-clean-tables/quality/${sample}.json"
           done
-          python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json \
+          python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json results/hunyuan_t2v_videomark_landscape_units.json \
             --primary results/hunyuan_t2v_videomark_first40.json > ci-clean-tables/quality/hunyuan_t2v_videomark.json
           python -m last.clean_table --family hunyuan \
             --reports results/hunyuan_{i2v_primary20,t2v_primary13}.json \
