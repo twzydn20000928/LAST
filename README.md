@@ -81,7 +81,7 @@ The following paired subsets use the frozen primary manifest and 512 information
 
 | Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
 |---|---:|---|---|
-| HunyuanVideo, image-to-video | 17 | [17 pairs](results/hunyuan_i2v_primary17.json) | [17 pairs](results/hunyuan_i2v_fidelity17.json) |
+| HunyuanVideo, image-to-video | 18 | [18 pairs](results/hunyuan_i2v_primary18.json) | [18 pairs](results/hunyuan_i2v_fidelity18.json) |
 | HunyuanVideo, text-to-video | 12 | [12 pairs](results/hunyuan_t2v_primary12.json) | [12 pairs](results/hunyuan_t2v_fidelity12.json) |
 | Wan-2.2, image-to-video | 11 | [11 pairs](results/wan22_i2v_primary11.json) | [11 pairs](results/wan22_i2v_fidelity11.json) |
 | Wan-2.2, text-to-video | 11 | [11 pairs](results/wan22_t2v_primary11.json) | [11 pairs](results/wan22_t2v_fidelity11.json) |
@@ -89,7 +89,7 @@ The following paired subsets use the frozen primary manifest and 512 information
 To compute bit accuracy and the number of fully recovered messages from these records, run the command below for HunyuanVideo image-to-video. For any other row, supply its single bit-count file after `--report`. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
 
 ```bash
-python tools/paired_lfg_table.py --report results/hunyuan_i2v_primary17.json
+python tools/paired_lfg_table.py --report results/hunyuan_i2v_primary18.json
 ```
 
 Earlier evidence includes the [four LAST integration checks](results/last_backbone_integrations.json), the [LFG adaptation check](results/lfg_integration.json), and the first formal cases for [LFG Hunyuan I2V](results/lfg_primary_first_case.json), [LAST Hunyuan T2V](results/last_t2v_primary_first_case.json), and [LAST Wan I2V](results/last_wan_i2v_primary_first_case.json).
