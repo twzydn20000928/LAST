@@ -98,7 +98,13 @@ if __name__ == "__main__":
     p.add_argument("--index", required=True, type=Path)
     p.add_argument("--output", required=True, type=Path)
     args = p.parse_args()
+    subset_file = Path(__file__).resolve().parents[1] / "configs" / "paper_subsets.json"
+    subset_bytes = subset_file.read_bytes()
+    assigned, = json.loads(subset_bytes)["main_timing_1"]
+    require(json.loads(args.index.read_bytes())["video_id"] == assigned,
+            f"Main Table 3 requires the frozen timing sample {assigned}")
     table, evidence = render(args.index)
+    evidence["configs/paper_subsets.json"] = hashlib.sha256(subset_bytes).hexdigest()
     args.output.mkdir(parents=True, exist_ok=False)
     (args.output / "table3.md").write_text(table, encoding="utf-8")
     (args.output / "inputs.json").write_text(json.dumps(evidence, indent=2), encoding="utf-8")

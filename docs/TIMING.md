@@ -129,7 +129,7 @@ Real exclusive-GPU execution and parity with ordinary extraction remain pending.
 ### Main Table 3
 
 Run `python tools/main_timing_table.py --index /private/timing-index.json --output table3`
-after acquiring all five methods on the same case and L40. The index has a
+after acquiring all five methods on the frozen case `paper-291` and an exclusive L40. The CLI checks the index against `main_timing_1` in `configs/paper_subsets.json`. The index has a
 `video_id` and a `methods` object with keys `sigmark`, `videoshield`, `videomark`,
 `lfg`, and `last`. Each method maps `case`, `generation`, `clean`, `drop`,
 `clean_attack`, and `drop_attack` to JSON paths relative to the index. Supply the
@@ -313,10 +313,10 @@ when rebuilding the main table. The primary timing formatter checks that all
 eight generation calls (reference and marked in four pairs) decoded 65 frames.
 For supplementary Table 17 the verified extraction summary requires the L40 and checks the actual decoded length against the clean or deletion record. Native readers record the received length for each warmup and timed read. A paired generation receipt must record fourteen decoded lengths of 65 frames (two arms for each of seven pairs).
 
-### Main Table 3, measured LAST extraction
+### Additional exclusive LAST extraction on paper-000
 
-On Hunyuan I2V paper-000, the warmed LAST reader took 29.658 s on the 65-frame MP4 and 14.788 s after deletion of 30 frames. Each value averages two measured reads after two warmups on an NVIDIA L40. The deletion input produced 32 candidate windows versus 62 for the original. BCH decoding succeeded on the original and failed on the shortened input. The deletion time measures the completed extraction attempt. These two measurements cover extraction on one sample. Generation overhead and comparisons with other methods require their own measurements.
+On Hunyuan I2V paper-000, the warmed LAST reader took 29.658 s on the 65-frame MP4 and 14.788 s after deletion of 30 frames. Each value averages two measured reads after two warmups on an NVIDIA L40. The deletion input produced 32 candidate windows versus 62 for the original. BCH decoding succeeded on the original and failed on the shortened input. The deletion time measures the completed extraction attempt. These two measurements document the timing procedure on a separate sample. The frozen Table 3 sample is paper-291. Generation overhead and comparisons with other methods require their own measurements.
 
 [Raw repetitions, input fingerprints and retained frames](../results/hunyuan_i2v_last_extraction_timing.json)
 
-[Original LAST extraction and attack receipts for the main table](../results/timing/main/hunyuan_i2v_paper000/last/). Each timing file can be supplied as the corresponding clean or drop entry to the main table builder. The matching attack file records the source video and the received frame map.
+[Original LAST extraction and attack receipts for the additional sample](../results/timing/main/hunyuan_i2v_paper000/last/). Each timing file uses the main protocol's clean or drop receipt format. The matching attack file records the source video and the received frame map.
