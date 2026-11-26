@@ -618,7 +618,7 @@ python tools/export_controlled_case.py --run /private/completed-writer-case \
 ```
 
 The export preserves the reader set used and checks its coverage of clean,
-drop and compression. Keep the source directory layout intact during this
+drop and compression. For the calibrated-energy reader the export records the SHA-256 of the frozen development calibration. The table requires the same calibration across conditions, videos and writers. Keep the source directory layout intact during this
 step because the evaluation receipt records absolute paths for its inputs.
 
 Render the shared-fusion measurements from the public counts on CPU:

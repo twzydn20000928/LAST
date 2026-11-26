@@ -27,11 +27,14 @@ def render(paths, manifest):
         readers = {r["reader"] for r in case["rows"]}
         if not readers or not readers <= set(READERS) or case["complete_reader_set"] is not (readers == set(READERS)):
             raise ValueError(f"Inconsistent reader set: {path}")
-        identity = (case["family"], case["source_sha256"], readers)
+        calibration = case.get("calibration_sha256")
+        if "calibrated_energy" in readers and not re.fullmatch("[0-9a-f]{64}", calibration or ""):
+            raise ValueError(f"Missing calibration fingerprint: {path}")
+        identity = (case["family"], case["source_sha256"], readers, calibration)
         if protocol is None:
             protocol = identity
         if identity != protocol:
-            raise ValueError("Use separate tables for different models, source revisions or reader sets")
+            raise ValueError("Use separate tables for different models, source revisions, reader sets or calibrations")
         remaining = {(r, c) for r in readers for c in CONDITIONS}
         received = {}
         for row in case["rows"]:

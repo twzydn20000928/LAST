@@ -30,6 +30,7 @@ def export(run, evaluation):
     truth = np.load(truth_file, allow_pickle=False)
     expected = {(c, r) for c in conditions for r in readers}
     rows = []
+    calibration_evidence = {}
     for row in report["rows"]:
         c, r = row["condition"], row["reader"]
         if (c, r) not in expected:
@@ -49,6 +50,16 @@ def export(run, evaluation):
                 or read["input_sha256"].get(str(video.resolve())) != row["received_sha256"]
                 or read["input_sha256"].get(str(cache.resolve())) != row["feature_receipt_sha256"]):
             raise ValueError(f"Unmatched controlled read: {c}/{r}")
+        if r == "calibrated_energy":
+            standard = (video, run / "codes.pt", cache, cache.parent / "features.npy", cache.parent / "nodes.json")
+            extra = set(read["input_sha256"]) - {str(item.resolve()) for item in standard}
+            if len(extra) != 1:
+                raise ValueError("Expected one calibration input in the calibrated read receipt")
+            calibration_path = extra.pop()
+            fingerprint = read["input_sha256"][calibration_path]
+            if (report["input_sha256"].get(calibration_path) != fingerprint
+                    or calibration_evidence.setdefault("calibration_sha256", fingerprint) != fingerprint):
+                raise ValueError("Controlled reads used different calibrations")
         bits = np.asarray(json.loads(prediction.read_bytes())["information_bits"])
         if any(a.shape != (512,) or not np.isin(a, (0, 1)).all() for a in (bits, truth)):
             raise ValueError("Expected 512 information bits")
@@ -62,7 +73,7 @@ def export(run, evaluation):
         raise ValueError("Missing controlled reads")
     return dict(video_id=json.loads((run / "attacks/clean.json").read_bytes())["video_id"],
                 family=report["family"], writer=report["writer"], complete_reader_set=report["complete_reader_set"],
-                evaluation_sha256=digest(path), source_sha256=report["source_sha256"], rows=rows)
+                evaluation_sha256=digest(path), source_sha256=report["source_sha256"], rows=rows, **calibration_evidence)
 
 
 if __name__ == "__main__":
