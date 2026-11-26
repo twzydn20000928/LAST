@@ -94,8 +94,8 @@
       "condition": "insert",
       "expected": 1,
       "completed": 0,
-      "missing": 1,
-      "failed": 0,
+      "missing": 0,
+      "failed": 1,
       "correct_bits": 0,
       "total_bits": 0,
       "observed_bit_accuracy": null,
@@ -137,7 +137,7 @@
       "method": "sigmark",
       "video_id": "paper-000",
       "condition": "insert",
-      "status": "missing"
+      "status": "failed"
     },
     {
       "family": "hunyuan",

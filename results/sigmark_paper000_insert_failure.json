@@ -1,0 +1,18 @@
+{
+  "family": "hunyuan",
+  "method": "sigmark",
+  "video_id": "paper-000",
+  "condition": "insert",
+  "received_sha256": "ff6957b37b5bb81f9ccfa15f834299e39d74bad9e0ff0e9665908bd021ec2118",
+  "status": "failed",
+  "mode": "i2v",
+  "received_frames": 95,
+  "marked_video_sha256": "a761cd458d5fb138caff4894cb0100430e4c43cd4fc4d4e7867815572a1696ca",
+  "evaluation_receipt_sha256": "6e0f516b2dfbafc253feb26f353b56da108d4149ef88d3ff4f939eba760a14c8",
+  "extraction_receipt_sha256": "bc0d50fcce2c061577115b2f58dac5860d84ddd63ef3a394025e47c37f3af95e",
+  "reader_source_sha256": "d3164d2720c58a319c9fa3c82689f66ecaae924e076b36daac1fc42841199c09",
+  "upstream_commit": "3713243f2e002cb21bbc3da896094d39b2b528c9",
+  "error_category": "CUDA out of memory",
+  "correct_bits": null,
+  "total_scored_bits": 0
+}
