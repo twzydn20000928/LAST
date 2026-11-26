@@ -39,10 +39,10 @@ def measure(operation, synchronize, guard, warmups, repeats, clock=time.perf_cou
     return durations
 
 
-def verify_prediction(path, video_sha, family, bits):
+def verify_prediction(path, video_sha, family, bits, method='last'):
     import numpy as np
     expected = json.loads(path.read_bytes())
-    if (expected.get('video_sha256') != video_sha or expected.get('family') != family
+    if (expected.get('method', 'last') != method or expected.get('video_sha256') != video_sha or expected.get('family') != family
             or expected.get('information_bits') != 512
             or bytes.fromhex(expected['message_hex']) != np.packbits(bits, bitorder='big').tobytes()):
         raise ValueError('Final timed prediction differs from the supplied ordinary extraction')
@@ -122,7 +122,7 @@ def main():
     if source != {f.name: hashlib.sha256(f.read_bytes()).hexdigest() for f in Path(__file__).parent.glob('*.py')}:
         raise ValueError('Source changed during timing')
     if a.expected_extraction:
-        verify_prediction(a.expected_extraction, sha, a.family, final_bits)
+        verify_prediction(a.expected_extraction, sha, a.family, final_bits, a.method)
         last_read['final_prediction_matches_ordinary_extraction'] = True
     result = dict(status='completed', method=a.method, family=a.family, mode=a.mode, protocol=a.protocol,
                   scope='One-video warm-model extraction only; not generation overhead or the full timing table',

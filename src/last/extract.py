@@ -5,11 +5,12 @@ import numpy as np
 import torch
 from .carriers import codebook
 from .coding import BCH512
-from .evaluate import extract
+from .evaluate import extract, extract_lfg
 from .video import load_mp4
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--method', choices=['last', 'lfg'], default='last')
     p.add_argument('--video',type=Path,required=True)
     p.add_argument('--key',type=Path,required=True)
     p.add_argument('--model-dir',required=True)
@@ -23,14 +24,17 @@ def main():
     from diffusers.video_processor import VideoProcessor
     key=a.key.read_bytes()
     if len(key)!=32:raise ValueError('Expected exactly32secret key bytes')
-    codes=torch.from_numpy(codebook(key))
     cls=AutoencoderKLHunyuanVideo if a.family=='hunyuan' else AutoencoderKLWan
     vae=cls.from_pretrained(a.model_dir,subfolder='vae',torch_dtype=torch.float32,local_files_only=True).to('cuda');vae.enable_tiling()
     frames=load_mp4(a.video)
     if any(np.asarray(f).shape!=(512,512,3) for f in frames):raise ValueError('Frozen protocol expects512-square RGBvideo')
-    soft,alignment=extract(frames,vae,VideoProcessor(vae_scale_factor=8),a.family,codes)
+    processor = VideoProcessor(vae_scale_factor=8)
+    if a.method == 'lfg':
+        soft, alignment = extract_lfg(frames, vae, processor, a.family, key)
+    else:
+        soft, alignment = extract(frames, vae, processor, a.family, torch.from_numpy(codebook(key)))
     bits,decoder=BCH512().decode(soft.numpy())
-    result=dict(schema_version=1,information_bits=512,message_hex=np.packbits(bits,bitorder='big').tobytes().hex(),family=a.family,video_sha256=hashlib.sha256(a.video.read_bytes()).hexdigest(),frames=len(frames),seconds=time.time()-started,**decoder,**alignment)
+    result=dict(schema_version=1,method=a.method,information_bits=512,message_hex=np.packbits(bits,bitorder='big').tobytes().hex(),family=a.family,video_sha256=hashlib.sha256(a.video.read_bytes()).hexdigest(),frames=len(frames),seconds=time.time()-started,**decoder,**alignment)
     if a.include_pre_bch:
         result['pre_bch_information_hex'] = np.packbits(soft.numpy()[:512] > 0, bitorder='big').tobytes().hex()
     a.output.parent.mkdir(parents=True,exist_ok=True)

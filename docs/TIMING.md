@@ -27,6 +27,13 @@ extraction in the `last.extract` JSON format is available for the same video,
 method and key. After the final timed repetition, the runner checks the
 video fingerprint, backbone and all 512 predicted bits before saving a timing
 receipt. The receipt records the comparison outcome without storing the message.
+Create the ordinary prediction for an LFG timing input with the same LFG reader used in primary evaluation:
+
+```bash
+python -m last.extract --method lfg --family hunyuan --video "$VIDEO" --key "$KEY" --model-dir "$MODEL" --output "$PRIVATE_READ"
+python -m last.reader_timing --method lfg --family hunyuan --mode i2v --protocol main --video "$VIDEO" --key "$KEY" --model-dir "$MODEL" --expected-extraction "$PRIVATE_READ" --output "$TIMING_RECEIPT"
+```
+
 For five repetitions use `--protocol supplement`. Both modes use two warmups;
 this makes the unspecified main-paper warmup count explicit. VAE is float32
 on GPU with tiling in both methods. Model loading and codebook preparation
