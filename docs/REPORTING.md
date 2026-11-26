@@ -512,6 +512,28 @@ Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos.
 - [Hunyuan i2v](../results/hunyuan_i2v_pixels19.json): 17/19 pairs had different decoded values. RMSE among differing pairs ranged from 1.660 to 2.556. See the [paired generation settings](../results/hunyuan_i2v_settings19.json) for the corresponding run parameters. On paper-018, the reference videos differed by 1.971 RMSE over all 65 frames.
 - [Hunyuan t2v](../results/hunyuan_t2v_reference_pixels13.json): all 13 pairs had different decoded values. RMSE ranged from 1.612 to 2.824. The first nine pairs yielded the same pixel statistics in the earlier OpenCV 3.4.18 run and this OpenCV 4.10.0 run.
 
+For the 19 Hunyuan I2V pairs, the generation receipt hashes the bytes of
+`src/last/smoke.py`. The archived copies matching those hashes came from
+LAST revision `c1f2f694cfb777053795e7bbf186b5776c9fecd0` and LFG revision
+`b4f9eeadb912b2850eef7d381b14b341c669dd89`. The latter script exposes the
+LAST margin and fixed-target options, validates them on resume, records them
+and passes them to the LAST embedding call. Both scripts construct the
+initial latent and run the unmarked diffusion pass with the same code. LFG
+then runs a separate marked pass before decoding the reference. The reference
+latent in both branches is the output of the unmarked pass.
+
+| LAST process limit (GiB) | LFG process limit (GiB) | Pairs | Pixel-identical unmarked references |
+|---:|---:|---:|---:|
+| 8 | 12 | 13 | 0 |
+| 12 | 8 | 4 | 0 |
+| 12 | 12 | 2 | 2 |
+
+The source fingerprint differs even in the two identical pairs. The memory
+limit coincides with the pixel difference pattern on this prefix. These runs
+did not vary the limit in isolation on each sample, so the pattern does not
+establish causality. Join the linked settings and decoded-pixel reports on
+`video_id` to reproduce the counts.
+
 Add `--settings-only` to the reference comparison command to audit the
 generation configuration for each pair. On the [thirteen T2V pairs](../results/hunyuan_t2v_reference_settings13.json),
 the case file, seed, recorded generation source, sampler settings, model
