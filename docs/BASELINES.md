@@ -268,11 +268,15 @@ After computing paired quality for the grid, run:
 
 ```bash
 python -m last.lfg_calibration_report --plan /private/new-lfg-c-development-plan.json \
-  --root /private/lfg-c-grid --output /private/new-calibration-report.json
+  --root /private/lfg-c-grid --conditioning /private/development-conditioning \
+  --output /private/new-calibration-report.json
 ```
 
 The report verifies manifests, complete grid identity, generation case/parameters,
-video hashes and fidelity definitions. Missing cells leave selection null;
+video hashes and fidelity definitions. With `--conditioning`, each measured
+case must use the image assigned to its prompt in the development conditioning
+receipts. The export includes the image fingerprint for each observation.
+Missing cells leave selection null;
 unmatched fidelity leaves selection null even when the grid is complete. It
 never reads bit-accuracy fields to choose a point. Mixed writer-source versions
 require a separate audit rather than automatic pooling. Real-video completion

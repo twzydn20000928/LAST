@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from .calibration_run import conditioning_case
 from .fidelity_summary import summarize
 from .lfg_calibration import make_plan
 
@@ -25,7 +26,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def report(plan, development, primary, root):
+def report(plan, development, primary, root, conditioning=None):
     first = plan['runs'][0]
     expected = make_plan(development, primary, first['method'], first['family'])
     for field in ('runs', 'fidelity_target', 'selection', 'samples_per_candidate', 'candidates'):
@@ -66,6 +67,15 @@ def report(plan, development, primary, root):
         if sha(case_path) != generation.get('case_sha256') or any(
                 case.get(k) != sample[k] for k in ('prompt', 'seed')):
             raise ValueError('Generation case differs from frozen development sample')
+        image_evidence = {}
+        if conditioning is not None:
+            expected_case = conditioning_case(sample, development, conditioning)
+            if expected_case is None or case.get('video_id') != item['video_id']:
+                raise ValueError(f'Missing or mismatched development case: {item["run"]}')
+            image = sha(Path(case['image']))
+            if image != sha(Path(expected_case['image'])):
+                raise ValueError(f'Conditioning image differs from the assigned prompt: {item["run"]}')
+            image_evidence['conditioning_image_sha256'] = image
         row = json.loads(quality.read_text())
         for name in ('reference', 'marked'):
             if sha(folder / (name + '.mp4')) != row[name + '_sha256']:
@@ -74,7 +84,7 @@ def report(plan, development, primary, root):
             raise ValueError('Generation/quality video mismatch')
         definitions.add(row['definition'])
         group['rows'].append(dict(row, video_id=item['video_id']))
-        evidence.append(dict(run=item['run'], generation_sha256=sha(receipt), quality_sha256=sha(quality)))
+        evidence.append(dict(run=item['run'], generation_sha256=sha(receipt), quality_sha256=sha(quality), **image_evidence))
     if len(sources) > 1 or len(definitions) > 1:
         raise ValueError('Mixed writer versions or fidelity definitions require a separate audit')
     cells = []
@@ -92,12 +102,15 @@ def main():
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--development', type=Path, default=Path('configs/development_manifest.json'))
     parser.add_argument('--primary', type=Path, default=Path('configs/primary_manifest.json'))
+    parser.add_argument('--conditioning', type=Path,
+                        help='Verify the generation case image against its frozen development conditioning receipt')
     args = parser.parse_args()
     plan = json.loads(args.plan.read_text())
     for name, path in [('development', args.development), ('primary', args.primary)]:
         if sha(path) != plan['manifest_sha256'][name]:
             raise ValueError('Manifest checksum mismatch')
-    result = report(plan, json.loads(args.development.read_text()), json.loads(args.primary.read_text()), args.root)
+    result = report(plan, json.loads(args.development.read_text()), json.loads(args.primary.read_text()), args.root,
+                    args.conditioning)
     result['plan_sha256'] = sha(args.plan)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open('x') as stream:
