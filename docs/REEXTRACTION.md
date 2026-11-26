@@ -1,7 +1,7 @@
 # Auditing historical readouts
 
 Some early attack receipts lack a fingerprint of the received MP4. They cannot
-pass `last.report --verify-artifacts` unchanged. Do not insert a current hash
+pass the artifact checks in `python -m last.report`. Do not insert a current hash
 into an old receipt and describe it as contemporaneous evidence. Keep the old
 files and independently extract each actual video with the public reader:
 

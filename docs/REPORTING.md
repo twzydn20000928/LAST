@@ -32,20 +32,20 @@ The clean accuracy column pools 512 information bits per completed video;
 the parenthesis gives completed videos out of 400. Each Table 1 report includes the integer bit counts and whole-message recovery counts beneath the rounded table. Table 2 also exports these counts in `counts.csv` for condition `clean`. Quality coverage uses a separate denominator of 18
 dimensions. The formatter prints the number evaluated while the V-score is pending.
 
-For the qualitative comparison, run `python -m last.qualitative_figure --index
-/private/figure3-cases.json --output figure3` as a single command. The index is
-a list of two animal-video cases. Each entry contains `video_id`, `family`,
-`mode`, the private `case` JSON path and a `runs` mapping from the five method
-names to their generation directories. Paths resolve relative to the index.
-The no-watermark panels use the paired reference from the LAST run. The output
-includes the lossless PNG and source fingerprints for all twelve video panels.
-Frame indices 4 and 16 are zero-based. Record the chosen sample IDs; the
-caption alone does not identify the original examples.
+To rebuild a report from your own generated videos, use the frozen plan that
+created the runs and the same artifact root used for generation. For the
+paths in the [campaign example](CAMPAIGN.md), run
 
-First run `last.report --verify-artifacts` against the frozen experiment plan and
-actual run directory. If historical reader results were independently replayed,
-supply the audited `--reextraction-index` described in `REEXTRACTION.md`.
-That audit produces `summary.json`, raw-count CSV and a long-form Markdown table.
+```bash
+python -m last.report --plan /private/primary-plan.json \
+  --root /private/primary-runs --verify-artifacts --output primary-report
+```
+
+This checks each completed attack receipt against the marked and received
+MP4s. It writes `summary.json`, the per-condition counts and a Markdown
+table. If you independently re-extracted historical videos, include their
+audited [re-extraction index](REEXTRACTION.md). To render the published
+partial results directly, use the public report files in the command below.
 
 Table 2 starts with 65 frames. The primary temporal edits use map seed 0. Frame numbers in this example start at 1.
 

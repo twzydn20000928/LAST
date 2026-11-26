@@ -192,7 +192,7 @@ python tools/compare_blind_predictions.py --video received.mp4 --first first.dec
 
 ## Receipts, tables and paired fidelity
 
-For the planned400sample LAST/LFG comparison, see [campaign commands](docs/CAMPAIGN.md).
+For the planned 400-sample LAST/LFG comparison, see [campaign commands](docs/CAMPAIGN.md).
 The worker verifies the frozen source and sample manifest, supports disjoint shards
 and resumes complete jobs. Other baselines and supplemental experiments remain
 separate release requirements; a successful subset is not full-paper completion.
@@ -206,8 +206,12 @@ python -m last.quality --reference /private/run/reference.mp4 \
 
 Reporting writes JSON, CSV and Markdown from an explicit list of planned runs.
 Missing/failed observations stay visible; incomplete cells have no final score.
-The bundled plan covers integration checks only, not the400sample benchmark.
-Paired fidelity reports global RGB-MSE PSNR and11×11 Gaussian SSIM with the
+The bundled integration plan summarizes 35 observations from five video runs.
+The example above reads stored counts. Three early generation receipts
+(Hunyuan I2V LAST, Hunyuan T2V LAST and Wan I2V LAST) omit the method field,
+so this historical set cannot pass full artifact verification. For new
+benchmark runs, use the [artifact verification command](docs/REPORTING.md).
+Paired fidelity reports global RGB-MSE PSNR and 11×11 Gaussian SSIM with the
 precise metric definition and input hashes. Neither metric is official V-score
 or proof of acceptable motion quality. No metric is filled using manuscript targets.
 
