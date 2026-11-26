@@ -26,6 +26,13 @@ def summarize(manifest, reports):
                                               trials_without_intact_group=0, trials_with_adjacent_intact_groups=0,
                                               ccta_trials=0, available_on_ccta=0,
                                               selected=0, intact_selected=0, correct=0))
+            survival = cell.setdefault("recovery_by_intact_group_availability", {})
+            label = "at_least_one" if available else "none"
+            recovery = survival.setdefault(label, dict(trials=0, correct_bits=0, total_bits=0, exact_messages=0))
+            recovery["trials"] += 1
+            recovery["correct_bits"] += r["correct_bits"]
+            recovery["total_bits"] += 512
+            recovery["exact_messages"] += int(r["correct_bits"] == 512)
             cell["trials"] += 1
             cell["total_original_groups"] += 16
             cell["available_all_trials"] += available
