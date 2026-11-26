@@ -1213,6 +1213,17 @@ for intact, values in sorted(groups.items()):
 PY
 ```
 
+The [43-video extension](../results/assisted_group_equal_counts_first43.json)
+adds the next six manifest IDs, paper-037 through paper-042. On the same
+random-deletion MP4s, received-order grouping scored 11,541/22,016 bits,
+blind CCTA scored 17,178/22,016 and true-map assistance scored 21,983/22,016.
+Exact recovery was 0/43, 0/43 and 40/43. Eight videos contained zero intact
+groups. Assistance recovered seven of these messages exactly and 495/512 bits
+on paper-041. Among 35 videos eligible for the equal-count comparison,
+intact groups averaged 87.43% and equally many partial groups averaged
+80.45% over 1,869 subsets, weighting each video equally. The intact read
+exceeded the partial-subset mean in 30/35 videos.
+
 ### Render main Table 4
 
 ```bash
