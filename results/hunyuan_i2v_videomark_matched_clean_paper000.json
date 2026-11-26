@@ -1,0 +1,17 @@
+{
+  "video_id": "paper-000",
+  "method": "videomark",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "condition": "clean",
+  "correct_bits": 512,
+  "total_bits": 512,
+  "exact_message": true,
+  "source_sha256": "1a4d8e344b17238f24ca235236950f12ff37558b9d054b0b6f9291d1c3b2bc5d",
+  "received_sha256": "1a4d8e344b17238f24ca235236950f12ff37558b9d054b0b6f9291d1c3b2bc5d",
+  "attack_receipt_sha256": "7ad215518ee8568373229a76f8cbe8154815ba327358d1939ea85201d2da23ca",
+  "extraction_receipt_sha256": "24217d799b7a203e71f339710a21a40e9d4ead9ee5420b0ad7c15bc127cc8264",
+  "missing_historical_digests": [
+    "extraction.decoded_sha256"
+  ]
+}

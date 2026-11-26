@@ -767,7 +767,14 @@ case. The conditioning image matches its manifest entry, the saved 512-bit
 message matches the primary assignment, and hashing the 400 registration
 messages in filename order reproduces the recorded registry fingerprint
 after unpacking the bits. Reuse of the archived successful clean extraction
-reproduced 512/512 bits on the same MP4. The original extraction receipt
+reproduced [512/512 bits on the same MP4](../results/hunyuan_i2v_videomark_matched_clean_paper000.json). To recount a privately retained clean extraction stored outside the generation directory, run
+
+```bash
+python tools/recount_native_attack.py --run "$GENERATION" --video-id paper-000 \
+  --condition clean --reader "$CLEAN_EXTRACTION" --legacy
+```
+
+The original extraction receipt
 lacks a decoded-output fingerprint. This is a matched historical input for
 the timing experiment. The extraction latency still requires a timed run.
 
