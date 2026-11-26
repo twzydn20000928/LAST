@@ -8,7 +8,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 ```bash
 python -m last.clean_table --family hunyuan \
   --reports results/hunyuan_i2v_primary18.json results/hunyuan_t2v_primary13.json \
-    results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39_partial.json \
+    results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39.json \
     results/hunyuan_i2v_sigmark_first1_partial.json \
   --quality results/hunyuan_i2v_quality_five_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
@@ -73,7 +73,7 @@ python -m last.robustness_table --reports \
   results/wan22_t2v_primary12.json \
   results/hunyuan_i2v_videoshield_first2_partial.json \
   results/hunyuan_i2v_sigmark_first1_partial.json \
-  results/hunyuan_t2v_videomark_first39_partial.json \
+  results/hunyuan_t2v_videomark_first39.json \
   --output paired-table2
 ```
 
@@ -140,11 +140,13 @@ Each link contains results for the indicated prefix of a 400-video branch. Each 
 
 | Generator and task | Method | Videos | Observations across seven conditions |
 | --- | --- | ---: | ---: |
-| Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first74.json) | 73 | 511 |
+| Hunyuan text-to-video | [LAST](../results/hunyuan_t2v_last_first74.json) | 74 | 518 |
 | Wan2.2 image-to-video | [LAST](../results/wan22_i2v_last_first44.json) | 44 | 308 |
 | Wan2.2 text-to-video | [LAST](../results/wan22_t2v_last_first24.json) | 24 | 168 |
-| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first39_partial.json) | 38 | 266 |
+| Hunyuan text-to-video | [VideoMark](../results/hunyuan_t2v_videomark_first39.json) | 39 | 273 |
 | Hunyuan image-to-video | [VideoShield](../results/hunyuan_i2v_videoshield_first_primary.json) | 1 | 7 |
+
+The [39-video recount](../results/hunyuan_t2v_videomark_first39.json) includes all seven conditions per video. For `paper-038`, the failed noise extraction was rerun on the identical noisy MP4 and registered state. It recovered 253/512 bits. The original failed receipt fingerprint is `43fb8e28215754ce9297d883c903dfd47611bf06e681d22e484c1d11ac773e2d`; the completed receipt is recorded in the new report. The earlier [267 observations](../results/hunyuan_t2v_videomark_first39_partial.json) agree individually with the recount. Run `python tools/paired_videomark_table.py` for the 39-video paired comparison.
 
 Run `python tools/paired_videomark_table.py --count 38` from the repository root to compare Hunyuan LAST and VideoMark on paper-000 through paper-037. The script reports the number of correctly decoded bits and the number of videos with an exact 512-bit message for each condition. All 266 VideoMark observations were recounted from the archived decoded bytes. The original extraction receipts lack prediction digests, so the recount verifies agreement with the recorded bit counts but cannot establish historical bit-for-bit identity.
 
@@ -489,7 +491,7 @@ To render Tables 1 and 2 with the available VideoShield I2V, SIGMark I2V and Vid
 
 ```bash
 reports=(results/hunyuan_i2v_primary18.json results/hunyuan_t2v_primary13.json
-         results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39_partial.json
+         results/hunyuan_i2v_videoshield_first2_partial.json results/hunyuan_t2v_videomark_first39.json
          results/hunyuan_i2v_sigmark_first1_partial.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
   --quality results/hunyuan_i2v_quality_five_dimensions_{last,reference}.json \

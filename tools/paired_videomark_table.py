@@ -50,8 +50,8 @@ def main(count=38, last_report='hunyuan_t2v_last_first73.json', videomark_report
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--count", type=int, default=38)
+    parser.add_argument("--count", type=int, default=39)
     parser.add_argument("--last-report", default="hunyuan_t2v_last_first73.json")
-    parser.add_argument("--videomark-report", default="hunyuan_t2v_videomark_first38.json")
+    parser.add_argument("--videomark-report", default="hunyuan_t2v_videomark_first39.json")
     args = parser.parse_args()
     main(args.count, args.last_report, args.videomark_report)
