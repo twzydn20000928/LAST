@@ -8,16 +8,16 @@
       "method": "videoshield",
       "condition": "blur",
       "expected": 2,
-      "completed": 1,
+      "completed": 2,
       "missing": 0,
       "failed": 0,
-      "correct_bits": 512,
-      "total_bits": 512,
+      "correct_bits": 1024,
+      "total_bits": 1024,
       "observed_bit_accuracy": 1.0,
-      "final_bit_accuracy": null,
-      "exact_messages": 1,
+      "final_bit_accuracy": 1.0,
+      "exact_messages": 2,
       "observed_message_recovery": 1.0,
-      "complete": false
+      "complete": true
     },
     {
       "family": "hunyuan",
@@ -77,7 +77,7 @@
       "condition": "drop",
       "expected": 2,
       "completed": 1,
-      "missing": 1,
+      "missing": 0,
       "failed": 0,
       "correct_bits": 512,
       "total_bits": 512,
@@ -128,16 +128,8 @@
       "mode": "i2v",
       "method": "videoshield",
       "video_id": "paper-001",
-      "condition": "blur",
-      "status": "running"
-    },
-    {
-      "family": "hunyuan",
-      "mode": "i2v",
-      "method": "videoshield",
-      "video_id": "paper-001",
       "condition": "drop",
-      "status": "missing"
+      "status": "running"
     },
     {
       "family": "hunyuan",
@@ -307,6 +299,21 @@
       "exact_message": true,
       "video_sha256": "b0d2abf48c4bc345e245d6d96c25f427ee07001976fe6b98e726661e5a354014",
       "receipt_sha256": "a9296881f65524cbc63d016ccab795dba33db489e3aff17ea61370bc25e64cd1"
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "videoshield",
+      "video_id": "paper-001",
+      "run": "hunyuan/i2v/videoshield/paper-001",
+      "condition": "blur",
+      "map_seed": 0,
+      "status": "completed",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "video_sha256": "d75714cd6d25e8ece27a7de6ad52b56e5f373408e97ef5644f61cfd6440935d4",
+      "receipt_sha256": "32ede0d2e897ec724b12d4846470e7e401de086c580511fb646b564910626abf"
     }
   ],
   "sample_ids": [
@@ -316,6 +323,6 @@
   "planned_videos_per_method": 400,
   "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
   "plan_sha256": "24d2fcdc9646bb95fe7af03d3ffb981e80f0d9fdbf20698b0f7638711037086f",
-  "recounted_predictions": 10,
-  "predictions_without_historical_digest": 10
+  "recounted_predictions": 11,
+  "predictions_without_historical_digest": 11
 }
