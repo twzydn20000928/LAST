@@ -524,6 +524,8 @@ After generation of `paper-039`, the Hunyuan T2V VideoMark run reached
 [20 verified Complex Landscape inputs](../results/hunyuan_t2v_videomark_landscape_verified_inputs.json).
 They cover five prompts with four assigned seeds each. The official score is pending.
 
+For Hunyuan I2V Camera Motion, the [paired scoring input list](../results/hunyuan_i2v_last_lfg_camera_inputs20.json) identifies the 20 assigned videos for both LAST and LFG. All 40 video hashes match the marked outputs in the [paired fidelity report](../results/hunyuan_i2v_fidelity20.json). The [official LAST scoring units](../results/hunyuan_i2v_quality_units/camera_all20_last.json) give 5/20 (0.25); the LFG inputs are ready for scoring.
+
 The [November 25 input inventory](../results/quality_input_coverage_nov25.json)
 records available and expected videos for each dimension before semantic
 scoring. LAST and its reference had complete inputs for six Hunyuan I2V,
