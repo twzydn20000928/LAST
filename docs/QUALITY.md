@@ -520,6 +520,10 @@ below the affected rows. An all-inapplicable dimension has no mean.
 
 The [November 26 inventory](../results/quality_input_inventory_all_nov26.json) covers 18 dimensions for all six methods in all four pipelines. Hunyuan T2V VideoMark has 39 verified videos, including 19 of the 20 required Complex Landscape videos. Hunyuan I2V SIGMark has one input. The inventory counts generated videos whose hashes match their receipts; scoring uses separate evaluator outputs.
 
+After generation of `paper-039`, the Hunyuan T2V VideoMark run reached
+[20 verified Complex Landscape inputs](../results/hunyuan_t2v_videomark_landscape_verified_inputs.json).
+They cover five prompts with four assigned seeds each. The official score is pending.
+
 The [November 25 input inventory](../results/quality_input_coverage_nov25.json)
 records available and expected videos for each dimension before semantic
 scoring. LAST and its reference had complete inputs for six Hunyuan I2V,
