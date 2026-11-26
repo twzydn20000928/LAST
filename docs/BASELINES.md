@@ -776,9 +776,13 @@ recovered 254/512 bits. The [noise read](../results/wan22_i2v_videomark_noise_pa
 on the same marked source recovered 264/512. [CRF28 compression](../results/wan22_i2v_videomark_compression_paper000.json)
 recovered 240/512, [blur](../results/wan22_i2v_videomark_blur_paper000.json) recovered 248/512,
 and [frame deletion](../results/wan22_i2v_videomark_drop_paper000.json) recovered 243/512.
-All five received videos yielded incorrect complete messages. The archived insertion
-attempt has a failed attack receipt. The archive has no completed clip receipt.
-Both conditions are excluded from the bit counts. For attack receipts that store message and prediction hashes,
+After inserting 30 frames, the initial extraction ran out of GPU memory. A
+[completed retry](../results/wan22_i2v_videomark_insert_retry_paper000.json)
+used the identical 95-frame MP4 and recovered 264/512 bits. The recount
+checks the preserved failure, both MP4 copies, registration state and the
+successful prediction. Six conditions now have measured counts; none recovered
+the complete message. Contiguous removal still has no completed read.
+For attack receipts that store message and prediction hashes,
 recompute an individual observation with
 `python tools/recount_native_attack.py --run /private/native-generation --video-id paper-000 --condition noise`.
 The command verifies the generated and received MP4s, native registration and
