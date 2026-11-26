@@ -745,7 +745,17 @@ For native primary campaigns the recount accepts `--family hunyuan` or `--family
 
 The [seven-case paired report](../results/hunyuan_i2v_lfg_ccta_first7.json) contains 49 observations, including all 35 observations from the five-case report. With identical received MP4s, original LFG and LFG + CCTA recovered 2,174 and 3,070 bits after insertion, 2,737 and 3,247 after contiguous removal, and 2,470 and 2,477 after random deletion (3,584 bits per condition). Both recovered 3/7 whole messages clean and 0/7 after random deletion. The direction of the small random-deletion difference changed between the five- and seven-case prefixes.
 
-### Wan VideoMark single-condition recount
+### Matched historical VideoMark inputs
+
+For the separate Hunyuan I2V [VideoMark integration](../results/videomark_native_integration.json),
+the recorded generation case fingerprint matches the primary LAST `paper-000`
+case. The conditioning image matches its manifest entry, the saved 512-bit
+message matches the primary assignment, and hashing the 400 registration
+messages in filename order reproduces the recorded registry fingerprint
+after unpacking the bits. Reuse of the archived successful clean extraction
+reproduced 512/512 bits on the same MP4. The original extraction receipt
+lacks a decoded-output fingerprint. This is a matched historical input for
+the timing experiment. The extraction latency still requires a timed run.
 
 On the archived Wan I2V VideoMark sample paper-000, the original clean read
 recovered 254/512 bits. The [noise read](../results/wan22_i2v_videomark_noise_paper000.json)
