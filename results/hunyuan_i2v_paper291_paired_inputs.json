@@ -1,0 +1,122 @@
+{
+  "sample": "paper-291",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "subset_config_sha256": "df8d0c7a46e44acfe5010033e2da6c07062e8362f397df4f97669e8081f688f0",
+  "reference_mp4_sha256": "3d494ac2ea960a1fd43361451a16b00dc4f556bf3a928954b0629ad3c552b690",
+  "information_bits": 512,
+  "observations": [
+    {
+      "method": "last",
+      "condition": "clean",
+      "frames": 65,
+      "correct_bits": 512,
+      "received_sha256": "c6516a5db765a057f22f0c7eac59aef90f1bfed07bb78b8552840dd8acff2542",
+      "attack_receipt_sha256": "d38417700d748798ba345259a27a5996eef31f898ecff3be58f07d78c08cdf18"
+    },
+    {
+      "method": "lfg",
+      "condition": "clean",
+      "frames": 65,
+      "correct_bits": 512,
+      "received_sha256": "fa6fa5a38f3e0830fc284762d1e3ff6b0894936a7ea12b676a374e4ee840c0d0",
+      "attack_receipt_sha256": "57d69842e921a3abae5cc447faef3baacbdae931a04e2d2312b123e6a52193ac"
+    },
+    {
+      "method": "last",
+      "condition": "noise",
+      "frames": 65,
+      "correct_bits": 480,
+      "received_sha256": "e17ffafcaed585455b93300af11395efc63b983ab2ad7eb55d350299e8c44214",
+      "attack_receipt_sha256": "62c0422c230687f64ca114bd661e072d2d78230070e14d960a0ed1f355c83a4c"
+    },
+    {
+      "method": "lfg",
+      "condition": "noise",
+      "frames": 65,
+      "correct_bits": 466,
+      "received_sha256": "13a616a4e10a3b246e236ae09c38eff72468047028311573343725fb5aaea5a2",
+      "attack_receipt_sha256": "a121dcbd5e30acb4440fa99fe4dd4d16858ae8b5d4996f8a5fd4654ed41b53e3"
+    },
+    {
+      "method": "last",
+      "condition": "compression",
+      "frames": 65,
+      "correct_bits": 474,
+      "received_sha256": "f44134a257618db8de3a2a7cbaa4961f730cabd1628f5c32b62b2763a1f03991",
+      "attack_receipt_sha256": "47147e691ab70a56a1446f8e0442368c8fc55f31834d294c9b64735c5d7d03d0"
+    },
+    {
+      "method": "lfg",
+      "condition": "compression",
+      "frames": 65,
+      "correct_bits": 491,
+      "received_sha256": "dd71623d5a89b510ba8c051e69ad0c52fd2726194b2a0450b7be324c1a5fc507",
+      "attack_receipt_sha256": "5488ae46cf36d98bc46f5a92503121850327635b1f99fc52f174e16f39d8236e"
+    },
+    {
+      "method": "last",
+      "condition": "blur",
+      "frames": 65,
+      "correct_bits": 512,
+      "received_sha256": "6526364683c87bdb7358fa6e88304ec544daa253f5cb9c76603501bd62399770",
+      "attack_receipt_sha256": "2d19258e8ce2ffb3f251dbd5b4e25c1c909bbeb0f710e993e17b450c019e48c4"
+    },
+    {
+      "method": "lfg",
+      "condition": "blur",
+      "frames": 65,
+      "correct_bits": 493,
+      "received_sha256": "81330ded8f65de35ca244a34f6dded587ce1fd40d3fb6532908cb113a14d07d9",
+      "attack_receipt_sha256": "1cc3d2ec179c43f4b4739bb429b0c5074161399b87bf45a156211fe40d0b6757"
+    },
+    {
+      "method": "last",
+      "condition": "drop",
+      "frames": 35,
+      "correct_bits": 250,
+      "received_sha256": "da3b427159111ee792ce810982ccfab45f3c153b4375731a88bd14b152569dd2",
+      "attack_receipt_sha256": "81771b3014bc003842ce8301cb822f5e99dda9a04ad5eb5496091e4e84653f85"
+    },
+    {
+      "method": "lfg",
+      "condition": "drop",
+      "frames": 35,
+      "correct_bits": 320,
+      "received_sha256": "a33c81cb886e7080faa348e7641d299385078fe688b4e84247b7e2128bc15ee4",
+      "attack_receipt_sha256": "13a5b109c6a24a35073bd5be7695d59e543d3ee8f31da82c2e1d7601409f369d"
+    },
+    {
+      "method": "last",
+      "condition": "insert",
+      "frames": 95,
+      "correct_bits": 370,
+      "received_sha256": "e95f85f8b717f9b7aa6a4bbcaa5c57fbc5668ba5e23657bc0c08f28278fd6312",
+      "attack_receipt_sha256": "ef42e2c3c1ed8c2dfd161d068004cec26073f95d13e86c2d679fae470ed76252"
+    },
+    {
+      "method": "lfg",
+      "condition": "insert",
+      "frames": 95,
+      "correct_bits": 286,
+      "received_sha256": "8f7f6febf45ebe6bd22df9cadc41bdcc43b8b269ccaecfa4af951eaa11ac5209",
+      "attack_receipt_sha256": "1ef7d26b03d530dbf9dff126a8c315c4764f062c49155d5f9874357b3c9b37bc"
+    },
+    {
+      "method": "last",
+      "condition": "clip",
+      "frames": 35,
+      "correct_bits": 466,
+      "received_sha256": "657508a70d26c57917b16740d383b4622ecdf060949d4da8096321d183186278",
+      "attack_receipt_sha256": "72e3ca8a329a6b0f947d24eb0358691d850b323dc5c76e39e5e0a3ab3104f7c2"
+    },
+    {
+      "method": "lfg",
+      "condition": "clip",
+      "frames": 35,
+      "correct_bits": 349,
+      "received_sha256": "3af5aa959ceaa42cfd9b45a81984708341eb059bbf5b91972814c64d3260baef",
+      "attack_receipt_sha256": "22eec33a617d95b6ec9357ec15a8e9eccf58991400c6db8775105ba596fed875"
+    }
+  ]
+}

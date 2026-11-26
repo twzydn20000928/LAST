@@ -357,3 +357,9 @@ On Hunyuan I2V paper-000, the warmed LAST reader took 29.658 s on the 65-frame M
 [Raw repetitions, input fingerprints and retained frames](../results/hunyuan_i2v_last_extraction_timing.json)
 
 [Original LAST extraction and attack receipts for the additional sample](../results/timing/main/hunyuan_i2v_paper000/last/). Each timing file uses the main protocol's clean or drop receipt format. The matching attack file records the source video and the received frame map.
+
+### Checking the main timing inputs on paper-291
+
+The frozen Hunyuan I2V case uses a 512-bit payload. Before measuring extraction time, run the ordinary reader on the same received MP4. Check its decoded frame count and compare its prediction to the payload in the evaluation step. On the original 65 frames both LAST and LFG recovered 512 bits correctly. On the same 35 retained frames after random deletion, LAST recovered 250 bits correctly and LFG recovered 320. Each deletion read completed with a BCH decoding failure. A completed attempt is eligible for timing even when some bits are wrong.
+
+The evidence file records the correct-bit count, decoded length, received MP4 digest, and original attack-receipt digest for each of the seven conditions and both methods. Compare file digests when auditing these archived videos. A fresh generation on different hardware may produce a different MP4. Table 3 durations come from the separate exclusive timing receipts. [Paired input and accuracy records](../results/hunyuan_i2v_paper291_paired_inputs.json)
