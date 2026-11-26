@@ -128,6 +128,37 @@ Real exclusive-GPU execution and parity with ordinary extraction remain pending.
 
 ### Main Table 3
 
+Prepare the received videos using the frozen sample `paper-291` in the
+Hunyuan I2V pipeline. The two primary plan commands are documented in
+[Campaign](CAMPAIGN.md) and [Native baselines](BASELINES.md). With both
+plans, conditioning images, model paths and private state ready, run the
+first loop in the LAST/LFG environment and the second in the native
+baseline environment. Set `IMAGE_ROOT` and `SIGMARK_ROOT` to the prepared
+conditioning directory and pinned SIGMark checkout respectively.
+
+```bash
+for method in last lfg; do
+  python -m last.campaign run --plan /private/primary-plan.json \
+    --manifest configs/primary_manifest.json --root /private/primary-runs \
+    --state /private/primary-state --image-root "$IMAGE_ROOT" --models /private/model-paths.json \
+    --family hunyuan --mode i2v --method "$method" --shards 400 --shard 291 \
+    --max-jobs 1 --memory-gib 12 --offload sequential || exit 1
+done
+
+for method in videoshield sigmark videomark; do
+  python -m last.native_campaign run --plan /private/native-primary-plan.json \
+    --manifest configs/primary_manifest.json --root /private/primary-runs \
+    --state /private/primary-state --image-root "$IMAGE_ROOT" --models /private/model-paths.json \
+    --upstream "$SIGMARK_ROOT" --family hunyuan --mode i2v --method "$method" \
+    --shards 400 --shard 291 --max-jobs 1 --memory-gib 8 --min-free-mib 32000 || exit 1
+done
+```
+
+Each method's directory is `/private/primary-runs/hunyuan/i2v/METHOD/paper-291`.
+Use its `marked.mp4` for clean extraction and `attacks/drop.mp4` for deletion
+extraction. Keep the run directory available for the corresponding key or
+native decoder state. Measure generation separately using the paired runner.
+
 Run `python tools/main_timing_table.py --index /private/timing-index.json --output table3`
 after acquiring all five methods on the frozen case `paper-291` and an exclusive L40. The CLI checks the index against `main_timing_1` in `configs/paper_subsets.json`. The index has a
 `video_id` and a `methods` object with keys `sigmark`, `videoshield`, `videomark`,
