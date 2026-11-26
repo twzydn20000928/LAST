@@ -1301,3 +1301,10 @@ python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_pape
 ```
 
 For these same 75 deletion MP4s, the primary LAST reader recovered 29,725/38,400 bits (77.41%) and one full message. The shared-fusion CCTA row recovered 29,655/38,400 (77.23%) and zero full messages. Six videos differed in their individual correct-bit counts. Use the primary reader for Table 2 and the shared-fusion reader for the Table 12 mechanism comparison. On this prefix, the separate assisted exports and the shared-fusion oracle gave identical per-video correct-bit counts across all 225 clean, deletion and compression observations. This comparison matches sample ID, condition and received MP4 fingerprint; it checks counts, not the identity of individual incorrect bits.
+
+For historical LAST runs whose completed attack receipts lack the received MP4 digest, the following commands prepare private inputs and run the seven-condition reader ablation. The replay checks the original clean source and regenerates every edited MP4 with the frozen map and codec settings. All seven files, maps and frame counts must agree before the new directory is published. Its receipts retain the hash of each original evaluation receipt. Keep both the original run and the new private directory available because the latter links to the original videos and codebook.
+
+```bash
+python tools/replay_primary_attacks.py --run /private/primary/hunyuan/i2v/last/paper-291 --ablation-view /private/verified-inputs/paper-291
+python -m last.reader_ablation --run /private/verified-inputs/paper-291 --family hunyuan --model-dir /models/hunyuan-i2v --output /private/ablations/paper-291
+```
