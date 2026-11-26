@@ -156,15 +156,15 @@ random-deletion differences. Values are percentage points of bit accuracy
 
 | Report in `results/` | Videos | Distinct prompts | Correct bits, LAST / LFG | Bits per method | Difference | 95% interval |
 |---|---:|---:|---:|---:|---:|---:|
-| `hunyuan_i2v_primary20.json` | 20 | 5 | 7,671 / 6,787 | 10,240 | +8.63 | [+2.70, +14.43] |
+| `hunyuan_i2v_primary21.json` | 21 | 6 | 8,122 / 7,131 | 10,752 | +9.22 | [+3.61, +15.00] |
 | `hunyuan_t2v_primary13.json` | 13 | 4 | 5,014 / 4,342 | 6,656 | +10.10 | [+5.66, +15.21] |
 | `wan22_i2v_primary13.json` | 13 | 4 | 4,321 / 4,452 | 6,656 | -1.97 | [-10.20, +8.63] |
 | `wan22_t2v_primary12.json` | 12 | 3 | 4,444 / 4,079 | 6,144 | +5.94 | [+0.83, +12.84] |
 
 After random deletion, both methods recovered zero entire 512-bit messages in
-each of these four paired prefixes. For example, on Hunyuan I2V the 884 extra
-correct bits across 20 videos give a difference of 100 × 884 / 10,240 = 8.63
-percentage points, while whole-message recovery is 0/20 for both methods.
+each of these four paired prefixes. For example, on Hunyuan I2V the 991 extra
+correct bits across 21 videos give a difference of 100 × 991 / 10,752 = 9.22
+percentage points, while whole-message recovery is 0/21 for both methods.
 To verify the counts, filter the Table 2 `counts.csv` to `condition=drop` and
 methods `last` and `lfg`. Its `exact_messages` column counts videos for which
 all 512 decoded bits match.
@@ -175,12 +175,12 @@ To replay any row, pass its report to the command above and multiply
 `bit_accuracy` and `bit_accuracy_ci95` for condition `drop` by 100.
 
 For insertion, LAST recovered more bits on every paired pipeline/sample observation
-(20/20, 13/13, 13/13 and 12/12 in the row order above). For contiguous
-removal it won on 56/58, with both losses in Wan I2V. For random deletion
-the counts were 40 LAST wins, one tie and 17 LFG wins. In Wan I2V alone
+(21/21, 13/13, 13/13 and 12/12 in the row order above). For contiguous
+removal it won on 57/59, with both losses in Wan I2V. For random deletion
+the counts were 41 LAST wins, one tie and 17 LFG wins. In Wan I2V alone
 the split was six LAST wins and seven LFG wins. These counts use
 `paired_bit_wins` from the same replay. The four pipelines reuse manifest
-IDs. Each has only three to five distinct prompts, so these observations
+IDs. Each has only three to six distinct prompts, so these observations
 give limited evidence about new prompts.
 
 ### Supplement I: deletion recovery by key

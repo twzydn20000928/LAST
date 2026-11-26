@@ -514,7 +514,7 @@ Decoded Hunyuan reference comparisons use all 65 frames of both unmarked videos.
 - [Hunyuan I2V](../results/hunyuan_i2v_pixels21.json): 19/21 paired unmarked references differed after decoding. RMSE across the differing pairs ranged from 1.660 to 2.556 out of 255. On paper-020 the RMSE was 2.205 over 65 frames. The [generation settings](../results/hunyuan_i2v_settings21.json) cover the same 21 pairs. PSNR and SSIM in the table use each method's own reference.
 - [Hunyuan t2v](../results/hunyuan_t2v_reference_pixels13.json): all 13 pairs had different decoded values. RMSE ranged from 1.612 to 2.824. The first nine pairs yielded the same pixel statistics in the earlier OpenCV 3.4.18 run and this OpenCV 4.10.0 run.
 
-For the 19 Hunyuan I2V pairs, the generation receipt hashes the bytes of
+For the 21 Hunyuan I2V pairs, the generation receipt hashes the bytes of
 `src/last/smoke.py`. The archived copies matching those hashes came from
 LAST revision `c1f2f694cfb777053795e7bbf186b5776c9fecd0` and LFG revision
 `b4f9eeadb912b2850eef7d381b14b341c669dd89`. The latter script exposes the
@@ -526,7 +526,7 @@ latent in both branches is the output of the unmarked pass.
 
 | LAST process limit (GiB) | LFG process limit (GiB) | Pairs | Pixel-identical unmarked references |
 |---:|---:|---:|---:|
-| 8 | 12 | 13 | 0 |
+| 8 | 12 | 15 | 0 |
 | 12 | 8 | 4 | 0 |
 | 12 | 12 | 2 | 2 |
 
