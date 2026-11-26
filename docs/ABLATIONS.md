@@ -1376,3 +1376,5 @@ for label, values in gains.items():
 ```
 
 Across the 13 matched Table 4 writer pairs ending with paper-291, the minimum-margin writer increased both PSNR and SSIM on every video relative to the fixed-target writer. Within each pair both arms share an unmarked reference. The mean paired gains were 0.682 dB and 0.00263 SSIM. The PSNR gains ranged from 0.201 to 1.119 dB. For deletion, insertion and clipping the respective counts of videos with more / equal / fewer correct bits were 7/0/6, 7/1/5 and 7/3/3. These comparisons use the paired writer exports and the same full reader on each arm.
+
+The Table 13 clean consistency export now covers 13 component videos, including paper-291. Across 2,028 paired assignments the correct and wrong medians are 0.429980 and 0.000501. The pooled AUROC is 1.0. The sampling unit is the video; the 156 overlapping comparisons on each video share windows. Rebuild with the Table 13 command in the CI workflow. Calibrated energy still requires the full development fit.

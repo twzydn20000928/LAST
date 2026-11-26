@@ -123,7 +123,7 @@ jobs:
           python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
             --report results/hunyuan_i2v_last_primary100_179.json --manifest configs/primary_manifest.json \
             --oracle-dir results --count "${#receipts[@]}" > ci-temporal-diagnostics/table12-oracle.md
-          python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174}.json \
+          python tools/pool_clean_consistency.py results/hunyuan_i2v_clean_consistency_paper{003,032,033,043,063,071,098,112,146,149,160,174,291}.json \
             > ci-temporal-diagnostics/table13-clean-consistency.json
           python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json \
             --primary results/hunyuan_i2v_last_first100_robustness.json \
