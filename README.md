@@ -91,7 +91,7 @@ The following paired subsets use the frozen primary manifest and 512 information
 | HunyuanVideo, image-to-video | 21 | [21 pairs](results/hunyuan_i2v_primary21.json) | [21 pairs](results/hunyuan_i2v_fidelity21.json) |
 | HunyuanVideo, text-to-video | 13 | [13 pairs](results/hunyuan_t2v_primary13.json) | [13 pairs](results/hunyuan_t2v_fidelity13.json) |
 | Wan-2.2, image-to-video | 13 | [13 pairs](results/wan22_i2v_primary13.json) | [13 pairs](results/wan22_i2v_fidelity13.json) |
-| Wan-2.2, text-to-video | 12 | [12 pairs](results/wan22_t2v_primary12.json) | [12 pairs](results/wan22_t2v_fidelity12.json) |
+| Wan-2.2, text-to-video | 13 | [13 pairs](results/wan22_t2v_primary13.json) | [13 pairs](results/wan22_t2v_fidelity13.json) |
 
 To compute bit accuracy and the number of fully recovered messages from these records, run the command below for HunyuanVideo image-to-video. For any other row, supply its single bit-count file after `--report`. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
 
