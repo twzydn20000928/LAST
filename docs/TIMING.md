@@ -34,6 +34,8 @@ python -m last.extract --method lfg --family hunyuan --video "$VIDEO" --key "$KE
 python -m last.reader_timing --method lfg --family hunyuan --mode i2v --protocol main --video "$VIDEO" --key "$KEY" --model-dir "$MODEL" --expected-extraction "$PRIVATE_READ" --output "$TIMING_RECEIPT"
 ```
 
+The [ordinary LFG read on Hunyuan I2V paper-000](../results/hunyuan_i2v_lfg_ordinary_read_paper000.json) recovered 500/512 bits on the original and 349/512 after deletion. The MP4 fingerprints and counts match the [primary records](../results/hunyuan_i2v_primary20.json). Both reads reported BCH failure. The historical records retain aggregate counts only. For bitwise parity with the timed read, retain the new ordinary prediction privately and pass it to the timing command above.
+
 For five repetitions use `--protocol supplement`. Both modes use two warmups;
 this makes the unspecified main-paper warmup count explicit. VAE is float32
 on GPU with tiling in both methods. Model loading and codebook preparation

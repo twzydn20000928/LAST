@@ -1,0 +1,20 @@
+[
+  {
+    "condition": "clean",
+    "video_sha256": "bd1c34ae0a6fdd9f248ce7922bf14e82ffad0a6ed073f48b891ba5d2e930a770",
+    "frames": 65,
+    "correct_bits": 500,
+    "total_bits": 512,
+    "bch_success": false,
+    "route": "lfg_received_order"
+  },
+  {
+    "condition": "drop",
+    "video_sha256": "6b7c72a93516c7ae73de00fecdd1b514c7b466d01ee2654a608bbbbb8903c925",
+    "frames": 35,
+    "correct_bits": 349,
+    "total_bits": 512,
+    "bch_success": false,
+    "route": "lfg_received_order"
+  }
+]
