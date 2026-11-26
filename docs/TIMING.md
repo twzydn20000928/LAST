@@ -126,6 +126,23 @@ and measured seconds. Generation uses the mean marked duration. Overhead uses
 the mean of the two within-pair differences and retains negative observations.
 Clean and deletion columns each use the mean of two synchronized reads.
 
+For historical LAST inputs with missing received-video fingerprints, use
+the original MP4s and a completed independent extraction to prepare the
+two evaluation records required by the index. Run from the repository root:
+
+```bash
+python tools/prepare_reextracted_timing_inputs.py --run /private/primary/hunyuan/i2v/last/paper-000 \
+  --evidence /private/independent-extraction --source /path/to/its/source-checkout \
+  --output /private/verified-timing-inputs
+```
+
+Use the resulting `clean.json` and `drop.json` for `clean_attack` and
+`drop_attack`. The command verifies the source revision, prediction,
+original receipt and MP4 fingerprints, and checks the deletion map against
+the primary seed-zero map. On the archived Hunyuan I2V LAST sample
+`paper-000`, it verified the 65-frame clean and 35-frame deleted inputs.
+The two timing readings still require separate runs on an idle L40.
+
 Freeze the supplemental acquisition order before collecting any timings:
 
 ```bash
