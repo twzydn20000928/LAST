@@ -602,6 +602,20 @@ published 398/512 bits. A separate bytewise recount verified the same number
 and the fingerprints of the received MP4, prediction, original failure and
 extraction receipt. Reusing the prediction adds no inversion time measurement.
 
+To recount a completed retry from its native prediction, keep the original
+generation directory and pass the separate directory containing the retried
+attack receipt:
+
+```bash
+python tools/recount_native_attack.py --run /private/native-generation \
+  --condition drop --video-id paper-000 --retry-directory /private/new-drop-retry
+```
+
+The recount checks the original failed receipt fingerprint, edit map, video
+bytes, registration state and retry extraction receipt. For older extractions
+without a prediction digest, `--legacy` lists the missing historical fields
+after recounting the saved bits.
+
 ### SIGMark compression integration
 
 `results/sigmark_compression_verified.json` records the subsequent CRF28

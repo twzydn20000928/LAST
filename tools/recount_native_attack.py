@@ -13,8 +13,8 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def recount(run, condition, video_id, reader=None, *, legacy=False):
-    attacks = run / "attacks"
+def recount(run, condition, video_id, reader=None, *, legacy=False, retry_directory=None):
+    attacks = retry_directory if retry_directory is not None else run / "attacks"
     generation = json.loads((run / "receipt.json").read_bytes())
     source = sha(run / "marked.mp4")
     if generation["status"] not in ("completed", "completed_generation_only") or generation["video_sha256"] != source:
@@ -30,6 +30,19 @@ def recount(run, condition, video_id, reader=None, *, legacy=False):
     if attack["attack_map"] != mapping or attack["frames"] != (len(mapping) if temporal else 65):
         raise ValueError("Unexpected edit map or frame count")
     received = sha(run / "marked.mp4" if condition == "clean" else attacks / (condition + ".mp4"))
+    if retry_directory is not None:
+        original = run / "attacks"
+        prior_bytes = (original / (condition + ".json")).read_bytes()
+        prior = json.loads(prior_bytes)
+        prior_hash = hashlib.sha256(prior_bytes).hexdigest()
+        fields = ("condition", "video_id", "method", "map_seed", "source_sha256",
+                  "state_sha256", "received_sha256", "attack_map")
+        if (prior["status"] != "failed" or prior_hash != attack.get("retry_of_sha256")
+                or prior.get("frames", attack["frames"]) != attack["frames"]
+                or prior.get("family", "hunyuan") != family or any(prior[k] != attack[k] for k in fields)):
+            raise ValueError("Retry does not match the original failed observation")
+        if condition != "clean" and sha(original / (condition + ".mp4")) != received:
+            raise ValueError("Original and retried MP4s differ")
     reader = reader or attacks / (condition + "-extract")
     receipt = reader / "receipt.json"
     extraction = json.loads(receipt.read_bytes())
@@ -66,6 +79,8 @@ def recount(run, condition, video_id, reader=None, *, legacy=False):
                 extraction_receipt_sha256=sha(receipt))
     if legacy:
         result["missing_historical_digests"] = missing
+    if retry_directory is not None:
+        result["retry_of_sha256"] = prior_hash
     return result
 
 
@@ -75,6 +90,8 @@ if __name__ == "__main__":
     p.add_argument("--condition", required=True, choices=CONDITIONS)
     p.add_argument("--video-id", required=True)
     p.add_argument("--reader", type=Path, help="Use the archived external native extraction directory")
+    p.add_argument("--retry-directory", type=Path, help="Verify the separately stored retry against the original failed attack")
     p.add_argument("--legacy", action="store_true", help="Recount surviving bytes and list unavailable historical digests")
     a = p.parse_args()
-    print(json.dumps(recount(a.run, a.condition, a.video_id, a.reader, legacy=a.legacy), indent=2))
+    print(json.dumps(recount(a.run, a.condition, a.video_id, a.reader, legacy=a.legacy,
+                             retry_directory=a.retry_directory), indent=2))

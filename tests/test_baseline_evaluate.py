@@ -66,3 +66,15 @@ def test_single_retry_recounts_saved_prediction_without_inversion(tmp_path, monk
     assert score['retry_of_sha256'] == sha(original)
     assert (attacks / 'noise.json').read_bytes() == original
     assert (out / 'noise-extract/receipt.json').read_bytes() == (prior / 'receipt.json').read_bytes()
+    from pathlib import Path
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / 'tools'))
+    from recount_native_attack import recount
+    audit = recount(run, 'noise', 'paper-000', retry_directory=out)
+    assert audit['correct_bits'] == 511 and audit['retry_of_sha256'] == sha(original)
+    (attacks / 'noise.mp4').write_bytes(b'different')
+    with pytest.raises(ValueError, match='Original and retried MP4s differ'):
+        recount(run, 'noise', 'paper-000', retry_directory=out)
+    (attacks / 'noise.mp4').write_bytes(b'noisy')
+    (attacks / 'noise.json').write_bytes(original + b'\n')
+    with pytest.raises(ValueError, match='original failed observation'):
+        recount(run, 'noise', 'paper-000', retry_directory=out)
