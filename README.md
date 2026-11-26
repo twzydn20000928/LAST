@@ -50,7 +50,7 @@ root to compare writer and reader variants on the same 12 of 30 planned
 videos. It prints all seven conditions and the two writer fidelity scores.
 
 ```bash
-python tools/matched_component_table.py --archived-reread results/hunyuan_i2v_archived_reader_pair.json
+python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_pair.json
 ```
 
 **Primary random frame deletion remains a substantial reproduction discrepancy.**
@@ -227,11 +227,12 @@ available command is not evidence that the full prescribed sample set has run.
 | SIGMark, VideoShield, VideoMark and LFG | [Baselines](docs/BASELINES.md) | Native interfaces and Hunyuan integrations; full baseline matrix pending |
 | Paired PSNR/SSIM and official V-score | [Quality](docs/QUALITY.md), `last.quality`, `last.quality_report` | Hunyuan I2V LAST/reference have five of 18 dimensions, including both Creativity dimensions; overall V-score pending |
 | Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `tools/writer_ablation_table.py` | 12 of 30 paired equal-margin writer cases; [12 paired reader cases](results/hunyuan_i2v_reader_ablation_first12.json) cover all seven conditions |
-| Margin sweep and uniform-profile control | [Figure 4 and Supplement Table 5](docs/ABLATIONS.md#completed-development-margin-sweep), `last.writer_replay --uniform-profile` | Development sweep complete on three videos at five margins; the temporal profile comparison has separate test coverage |
+| Margin sweep and uniform-profile control | [Figure 4 and Supplement Table 5](docs/ABLATIONS.md#completed-development-margin-sweep), [development-set sensitivity](docs/ABLATIONS.md#supplementary-development-set-margin-sensitivity) | All five margins for the three figure examples and for [7 of 80 development videos](results/development_margin_seven_videos.json). The three figure examples are included in the seven. Use `last.writer_replay --uniform-profile` for the separate profile control. |
 | Matched-writer LFG-C, native LFG+CCTA and oracle grouping | [Paired reader command](docs/BASELINES.md#replay-the-seven-condition-reader-comparison), [oracle diagnostic](docs/ABLATIONS.md) | [18 Hunyuan I2V videos](results/hunyuan_i2v_lfg_ccta_first18.json) with seven paired reader comparisons each. Matched-fidelity calibration pending. |
-| Additional temporal stress and repeated attack maps | [Table 15 counts and alignment](docs/STRESS.md#recount-the-eight-edits-on-primary-videos) | 20 Hunyuan I2V videos with eight edits and five map seeds each. Every edit covers 100 of 2,000 planned trials. |
+| Supplement Table 12, shared-fusion reader comparison | [Run the readers and rebuild the table](docs/ABLATIONS.md#shared-fusion-per-case-workflow) | 35 Hunyuan I2V LAST videos. Received-order, CCTA and true-map readers share the same clean, deletion and compression inputs; calibrated energy is pending. |
+| Supplement Table 15, temporal stress and repeated attack maps | [Rebuild counts and alignment diagnostics](docs/STRESS.md#recount-the-eight-edits-on-primary-videos) | 23 Hunyuan I2V videos with eight edits and five seeds each. Every edit covers 115 of 2,000 planned trials. |
 | Bit errors, whole-message recovery and uncertainty | [Statistics](docs/STATISTICS.md), `last.message_outcomes`, `last.cluster_intervals` | Implemented; final summaries require complete planned observations |
-| Exclusive-GPU main and repeated timing | [Timing](docs/TIMING.md), `last.reader_timing`, `last.embedding_timing`, `last.timing_summary` | LAST/LFG readout and ELMC kernel entry points available; formal measurements, native-baseline timing and paired generation overhead pending |
+| Main Table 3 and supplementary timing | [Acquire paired timings and build Table 3](docs/TIMING.md#main-table-3), [embedding time](docs/TIMING.md#direct-embedding-operation) | Five-method acquisition and reporting commands are available. Formal timing requires an otherwise idle L40 and successful clean and deletion reads. |
 | Fresh environment and independent re-extraction | [Environment reconstruction](environments/README.md), [audit protocol](docs/STATISTICS.md), `last.reextract` | Separate seven-condition re-extraction checked; the reader's end-to-end clean-checkout verification is scheduled after repository construction |
 
 Diagnostic JSON files under [results](results/) retain their sample scope and
