@@ -1137,6 +1137,21 @@ missed eight bits on paper-011, whose map preserved two intact groups.
 These outcomes measure the combined effect of knowing the mapping and using
 partially surviving groups. They do not isolate the effect of a single alignment rule.
 
+Holding the true group assignments and cached features fixed, repeat fusion
+with all groups, intact groups alone, and partially surviving groups alone:
+
+```bash
+python tools/assisted_group_subsets.py --run /private/primary/hunyuan/i2v/last/paper-011 \
+  --evaluation /private/controlled-paper011 --case results/hunyuan_i2v_last_controlled_paper011.json
+```
+
+The [37-case CPU replay](../results/assisted_group_subsets_first37.json)
+matched every original all-group prediction bit for bit. Intact groups alone
+gave one exact message among 31 videos with evidence; six had no intact group.
+Partial groups alone gave 32/37 exact messages. All groups gave 36/37.
+Group counts differ between these reads. This diagnostic measures the available
+evidence from each subset under true-map assistance, without equalizing group counts.
+
 To reproduce the frozen-prefix calculation, run this from the repository root
 after installing LAST. The shared-fusion table command above checks the input
 video fingerprints against the primary reports.
