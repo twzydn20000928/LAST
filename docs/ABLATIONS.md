@@ -687,7 +687,20 @@ this output as `table12-shared-fusion.md`. Its companion `table12-oracle.md`
 compares the primary blind reader with the direct true-map reader on a larger
 cohort. The two files use different fusion rules and sample counts.
 
-Across the first 55 manifest cases, deleting 30 frames yielded 14,760/28,160 correct bits with received-order grouping, 21,857/28,160 with blind CCTA, and 28,087/28,160 with the true edit map. Exact message recovery was 0/55, 0/55 and 49/55 respectively. The assisted reader has access to the edit map during extraction. All three recovered 55/55 complete messages on the clean inputs.
+### Shared-fusion deletion comparison
+
+The command above includes the first 70 manifest cases. On the same deletion
+inputs, the three readers yielded the following counts.
+
+| Grouping information available to the reader | Correct bits | Bit accuracy | Exact messages |
+|---|---:|---:|---:|
+| Received frame order | 18,801/35,840 | 52.46% | 0/70 |
+| Blind CCTA | 27,756/35,840 | 77.44% | 0/70 |
+| True edit map supplied | 35,767/35,840 | 99.80% | 64/70 |
+
+All three recovered 70/70 complete messages on clean inputs. Supplying the
+true edit map tests the effect of the grouping information available during
+extraction. Table 4 uses its own frozen ablation cohort.
 
 On the same 30-frame deletions for `paper-005` and `paper-006`, received-order
 grouping recovered 559/1,024 bits, CCTA recovered 826/1,024, and the reader

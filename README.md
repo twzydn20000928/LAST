@@ -69,7 +69,14 @@ python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_r
   --oracle-dir results --count 180
 ```
 
-The cause of the full discrepancy remains open. To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
+A [controlled comparison with shared fusion](docs/ABLATIONS.md#shared-fusion-deletion-comparison)
+holds the message fusion rule fixed on the first 70 Hunyuan I2V videos.
+After deletion, grouping frames in received order recovered 52.46% of bits,
+blind CCTA recovered 77.44%, and supplying the true edit map recovered 99.80%.
+Exact recovery was 0/70, 0/70 and 64/70. The last row uses information available
+to the evaluator. The cause of the full discrepancy remains open.
+
+To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
 
 ```bash
 python tools/primary_deletion_errors.py --report results/hunyuan_i2v_primary_deletion_errors.json
