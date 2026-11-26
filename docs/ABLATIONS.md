@@ -618,6 +618,16 @@ blind CCTA recovered 371/512, and the reader given the true frame map recovered
 All three controlled readers recovered the clean message. On compression they
 recovered 484, 486 and 484 bits respectively.
 
+To compare the actual decisions on deletion, run the following on the
+experiment host. The command checks the received MP4 and controlled read
+receipt, then prints only the number of matching bits and public metadata.
+
+```bash
+python tools/compare_blind_predictions.py --video /private/original-case/attacks/drop.mp4 \
+  --first /private/completed-independent-reextraction/drop-private.json \
+  --controlled-read /private/new-controlled-comparison/drop-ccta-read
+```
+
 For legacy runs whose attack receipts predate received-MP4 fingerprints, use the
 independent [re-extraction audit](REEXTRACTION.md) and its frozen source checkout.
 Prepare an input directory from those verified files on the experiment host:
