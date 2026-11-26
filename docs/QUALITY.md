@@ -377,10 +377,10 @@ Each state's `receipt.json` contains the mean and valid-video count.
 allows the other dimensions to be absent while the sample check above requires
 full Camera Motion coverage.
 
-### Hunyuan I2V Complex Landscape and Dynamic Attribute pairs
+### Hunyuan I2V paired LLaVA scoring
 
 Use the same `PRIMARY_RUNS`, `QUALITY_METADATA` and `VBENCH` paths as above.
-For Complex Landscape use `DIMENSION=Complex_Landscape` (default). For Dynamic Attribute use `DIMENSION=Dynamic_Attribute`. Export the selected value and set `LANDSCAPE_OUT` to a new directory for that dimension, `LLAVA` to the local LLaVA checkpoint
+For Complex Landscape use `DIMENSION=Complex_Landscape` (default). For the two temporal dimensions use `DIMENSION=Dynamic_Attribute` or `DIMENSION=Dynamic_Spatial_Relationship`. Export the selected value and set `LANDSCAPE_OUT` to a new directory for that dimension, `LLAVA` to the local LLaVA checkpoint
 directory, `QWEN` to the local Qwen checkpoint and `SIGLIP` to the local SigLIP directory. Run in the quality
 environment from the repository root. Both arms must contain the same 20
 planned sample IDs before either arm is scored.
@@ -389,7 +389,7 @@ planned sample IDs before either arm is scored.
 (
   set -eu
   dimension="${DIMENSION:-Complex_Landscape}"
-  case "$dimension" in Complex_Landscape|Dynamic_Attribute) ;; *) exit 2 ;; esac
+  case "$dimension" in Complex_Landscape|Dynamic_Attribute|Dynamic_Spatial_Relationship) ;; *) exit 2 ;; esac
   mkdir "${LANDSCAPE_OUT:?}"
   python -c 'import json,sys; from pathlib import Path; print(json.dumps({k: str(Path(v).resolve(strict=True)) for k, v in zip(("llava", "qwen"), sys.argv[1:])}))' \
     "${LLAVA:?}" "${QWEN:?}" > "$LANDSCAPE_OUT/submodules.json"
@@ -423,6 +423,14 @@ JSON records the official per-video scores and the hashes of the MP4s, raw
 outputs and scoring receipts.
 
 For Dynamic Attribute, the official scorer samples 64 frames uniformly and asks the auxiliary questions for that prompt. A video scores 1 if every answer contains “yes” (case-insensitive), and 0 otherwise. Average the 20 video scores per arm. The coverage and scoring receipts identify the inputs used for each mean.
+The [verified Dynamic Spatial Relationship inputs](../results/hunyuan_i2v_dynamic_spatial_verified_inputs.json)
+cover manifest IDs `paper-160` through `paper-179` for LAST and its unmarked
+reference. Each arm has four seeds for each of five prompts. The upstream
+scorer samples 64 frames uniformly. It asks the first question on the sampled
+video and the second on its final frame. Both responses must contain “yes”
+for a video to score one. The dimension mean uses 20 video scores per arm.
+The input record contains sample identifiers and MP4 hashes only.
+
 Wan-2.2 T2V Camera Motion has [20 paired official scores](../results/wan22_t2v_camera_motion_20_pairs.json). The scorer marked 12/20 LAST and 11/20 unmarked references correct; all 40 clips were applicable. This is one quality dimension.
 
 ### Reuse a completed official dimension after coverage grows
