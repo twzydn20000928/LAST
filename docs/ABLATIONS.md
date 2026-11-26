@@ -1222,7 +1222,9 @@ groups. Assistance recovered seven of these messages exactly and 495/512 bits
 on paper-041. Among 35 videos eligible for the equal-count comparison,
 intact groups averaged 87.43% and equally many partial groups averaged
 80.45% over 1,869 subsets, weighting each video equally. The intact read
-exceeded the partial-subset mean in 30/35 videos.
+exceeded the partial-subset mean in 30/35 videos. Rebuild these figures with
+`python tools/summarize_assisted_subsets.py results/assisted_group_equal_counts_first43.json`.
+The temporal-diagnostics workflow includes the output as `table12-equal-group-counts.json`.
 
 ### Render main Table 4
 
