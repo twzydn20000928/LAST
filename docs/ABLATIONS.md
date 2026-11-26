@@ -1162,28 +1162,54 @@ yielded 80.69%. The intact read exceeded the video's partial-subset mean on
 comparison. Original group positions and the number of encoded frames per
 group still differ. Subsets from one video share evidence.
 
-To reproduce the frozen-prefix calculation, run this from the repository root
-after installing LAST. The shared-fusion table command above checks the input
-video fingerprints against the primary reports.
+The table below compares reads of the same random-deletion MP4, stratified by
+how many original four-frame groups survived intact. Each cell gives correct
+information bits followed by entire messages recovered in parentheses. Every
+video carries 512 information bits. The two assisted columns use the true
+source groups; the blind CCTA column receives only the edited video and key.
+
+| Intact groups | Videos | Bits per reader | Blind CCTA | Assisted, partial groups only | Assisted, all surviving groups |
+|---:|---:|---:|---:|---:|---:|
+| 0 | 6 | 3,072 | 2,377 (0/6) | 3,072 (6/6) | 3,072 (6/6) |
+| 1 | 16 | 8,192 | 6,405 (0/16) | 8,175 (14/16) | 8,192 (16/16) |
+| 2 | 12 | 6,144 | 4,819 (0/12) | 6,114 (9/12) | 6,136 (11/12) |
+| 3 | 3 | 1,536 | 1,224 (0/3) | 1,536 (3/3) | 1,536 (3/3) |
+
+In all six videos with zero intact groups, partial groups retained enough
+evidence for exact recovery when their source assignments were supplied.
+This establishes recoverability under assistance for those six inputs. The
+gap to blind extraction includes both group identification and the assisted
+reader's treatment of partially surviving groups.
+
+To rebuild these counts from the two public records per video, run from the
+repository root. The comparison checks their case fingerprints, received-video
+identity and all-group bit counts.
 
 ```bash
-PYTHONPATH=tools python - <<'PY'
-from collections import Counter
+python - <<'PY'
+from collections import defaultdict
+from hashlib import sha256
 from pathlib import Path
 import json
-from deletion_group_survival import geometry
-from last.temporal import attack_map
 
-counts = Counter()
-for index in range(37):
-    case = json.loads(Path(f"results/hunyuan_i2v_last_controlled_paper{index:03}.json").read_bytes())
-    video = case["video_id"]
-    intact, _ = geometry(attack_map(video, "drop", seed=0))
-    bits = {r["reader"]: r["correct_bits"] for r in case["rows"] if r["condition"] == "drop"}
-    counts[intact, bits["ccta"] == 512, bits["oracle"] == 512] += 1
-    if bits["oracle"] < 512:
-        print(video, intact, 512 - bits["oracle"])
-print(sorted(counts.items()))
+rows = json.loads(Path("results/assisted_group_subsets_first37.json").read_bytes())
+assert [r["video_id"] for r in rows] == [f"paper-{i:03}" for i in range(37)]
+groups = defaultdict(list)
+for r in rows:
+    video = r["video_id"]
+    case_file = Path(f"results/hunyuan_i2v_last_controlled_paper{video[-3:]}.json")
+    raw = case_file.read_bytes()
+    assert sha256(raw).hexdigest() == r["case_sha256"]
+    drop = [x for x in json.loads(raw)["rows"] if x["condition"] == "drop"]
+    assert len({x["received_sha256"] for x in drop}) == 1
+    bits = {x["reader"]: x["correct_bits"] for x in drop}
+    subsets = r["subsets"]
+    assert bits["oracle"] == subsets["all"]["correct_bits"]
+    groups[subsets["intact"]["groups"]].append(
+        [bits["ccta"], subsets["partial"]["correct_bits"], bits["oracle"]])
+for intact, values in sorted(groups.items()):
+    print(intact, len(values), [sum(col) for col in zip(*values)],
+          [col.count(512) for col in zip(*values)])
 PY
 ```
 
