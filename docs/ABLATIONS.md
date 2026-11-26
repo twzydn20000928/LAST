@@ -1152,6 +1152,12 @@ Each cell contains 7,168 information bits. The full reader recovered
 72.29% after random deletion, 79.53% after insertion and 94.80% after
 contiguous deletion. Received-order extraction recovered 52.82%, 53.99%
 and 67.19%, respectively. All four readers used the same received videos.
+For each temporal attack, the full reader recovered more bits on 13/14 videos.
+The median per-video gains over received order were 107.5, 131.5 and 137 of 512
+bits for random deletion, insertion and contiguous deletion. The respective
+exceptions were paper-291 (250 vs. 274), paper-160 (259 vs. 273) and
+paper-270 (420 vs. 429). The command verifies the shared received-MP4
+fingerprint for every comparison.
 The matched writer comparison uses its own verified input pairs.
 
 The prior report recounts 13/30 frozen
@@ -1285,7 +1291,7 @@ The temporal-diagnostics workflow includes the output as `table12-equal-group-co
 
 ### Render main Table 4
 
-The reader-only command `python tools/reader_ablation_table.py` covers 13 videos.
+The historical reader-only comparison below uses `python tools/reader_ablation_table.py --report results/hunyuan_i2v_reader_ablation_13.json` and covers 13 videos.
 The main table below covers 12 because it also compares two writing rules.
 For the additional reader case, paper-291, regenerating the minimum-margin
 video for the writer experiment produced a different MP4. Including it in

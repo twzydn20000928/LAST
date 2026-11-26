@@ -1,6 +1,7 @@
 """Render paired information-bit accuracy from the published reader ablation."""
 import argparse
 import json
+from statistics import median
 from pathlib import Path
 
 CONDITIONS = ("clean", "noise", "compression", "blur", "drop", "insert", "clip")
@@ -16,11 +17,17 @@ def render(report):
     if len(planned) != report["planned_videos"] or len(planned) != len(report["ordered_subset"]):
         raise ValueError("Inconsistent planned subset")
     cells = {(c, v): {} for c in CONDITIONS for v in VARIANTS}
+    received = {}
     for row in report["observations"]:
         sample, bits = row["video_id"], row["correct_bits"]
         cell = cells[row["condition"], row["variant"]]
         if sample not in planned or sample in cell or type(bits) is not int or not 0 <= bits <= 512:
             raise ValueError("Invalid or duplicate observation")
+        digest = row["received_sha256"]
+        if len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest):
+            raise ValueError("Invalid received MP4 fingerprint")
+        if received.setdefault((sample, row["condition"]), digest) != digest:
+            raise ValueError("Readers used different MP4s on the same sample and condition")
         cell[sample] = bits
     samples = set(cells["clean", "full"])
     if not samples or any(set(cell) != samples for cell in cells.values()):
@@ -35,6 +42,15 @@ def render(report):
     print("|---|" + "---:|" * len(CONDITIONS))
     for v in VARIANTS:
         print("| " + v + " | " + " | ".join(f"{100 * totals[c, v] / denominator:.2f}" for c in CONDITIONS) + " |")
+
+    print("\n| Condition | Comparison reader | Full wins | Ties | Full losses | Median gain (bits) |")
+    print("|---|---|---:|---:|---:|---:|")
+    for condition in ("drop", "insert", "clip"):
+        for variant in VARIANTS[1:]:
+            delta = [cells[condition, "full"][sample] - cells[condition, variant][sample] for sample in samples]
+            wins = sum(x > 0 for x in delta)
+            losses = sum(x < 0 for x in delta)
+            print(f"| {condition} | {variant} | {wins} | {delta.count(0)} | {losses} | {median(delta):g} |")
 
 
 if __name__ == "__main__":
