@@ -140,6 +140,12 @@ and measured seconds. Generation uses the mean marked duration. Overhead uses
 the mean of the two within-pair differences and retains negative observations.
 Clean and deletion columns each use the mean of two synchronized reads.
 
+For this reproduction, the main sample inherits each method's branch order
+from the frozen acquisition plan below. SIGMark, LAST and LFG run reference
+then marked (AB). VideoShield and VideoMark run marked then reference (BA).
+The main experiment uses two warmup pairs followed by two measured pairs.
+The table builder verifies each generation receipt against the assigned order.
+
 For historical LAST inputs with missing received-video fingerprints, use
 the original MP4s and a completed independent extraction to prepare the
 two evaluation records required by the index. Run from the repository root:

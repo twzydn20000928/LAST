@@ -8,6 +8,7 @@ from statistics import mean
 
 from last.timing_summary import check_drop_frames, check_native_state, check_timed_frames
 from last.paired_timing import checked_measured_pairs
+from last.timing_plan import make_plan
 
 
 METHODS = ("sigmark", "videoshield", "videomark", "lfg", "last")
@@ -33,10 +34,17 @@ def check_received_frames(attack, video_id, condition):
 
 def render(index):
     spec = json.loads(index.read_bytes())
+    subset_file = Path(__file__).resolve().parents[1] / "configs" / "paper_subsets.json"
+    subset_bytes = subset_file.read_bytes()
+    subsets = json.loads(subset_bytes)
+    assigned, = subsets["main_timing_1"]
+    require(spec["video_id"] == assigned, f"Main Table 3 requires the frozen timing sample {assigned}")
+    orders = {p["method"]: p["order"] for p in make_plan(subsets["supplement_timing_30"])["generation_pairs"]
+              if p["video_id"] == assigned}
     require(set(spec["methods"]) == set(METHODS), "Expected five timing methods")
     common_case = None
     common_runtime = None
-    evidence = {}
+    evidence = {"configs/paper_subsets.json": hashlib.sha256(subset_bytes).hexdigest()}
 
     def read(path):
         data = (index.parent / path).read_bytes()
@@ -48,6 +56,7 @@ def render(index):
     for method in METHODS:
         files = spec["methods"][method]
         g = read(files["generation"])
+        require(g["order"] == orders[method], f"Unexpected reference/marked order for {method}")
         case = read(files["case"])
         require(case["video_id"] == spec["video_id"] and g["case_sha256"] == evidence[files["case"]]
                 and case["seed"] == g["seed"], "Generation case mismatch")
@@ -98,13 +107,7 @@ if __name__ == "__main__":
     p.add_argument("--index", required=True, type=Path)
     p.add_argument("--output", required=True, type=Path)
     args = p.parse_args()
-    subset_file = Path(__file__).resolve().parents[1] / "configs" / "paper_subsets.json"
-    subset_bytes = subset_file.read_bytes()
-    assigned, = json.loads(subset_bytes)["main_timing_1"]
-    require(json.loads(args.index.read_bytes())["video_id"] == assigned,
-            f"Main Table 3 requires the frozen timing sample {assigned}")
     table, evidence = render(args.index)
-    evidence["configs/paper_subsets.json"] = hashlib.sha256(subset_bytes).hexdigest()
     args.output.mkdir(parents=True, exist_ok=False)
     (args.output / "table3.md").write_text(table, encoding="utf-8")
     (args.output / "inputs.json").write_text(json.dumps(evidence, indent=2), encoding="utf-8")
