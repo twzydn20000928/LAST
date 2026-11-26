@@ -609,6 +609,23 @@ read only after each extraction subprocess returns. Raw correct-bit counts,
 exact-message flags and extraction/feature receipt hashes are recorded per row.
 The oracle rows remain explicitly non-blind.
 
+For legacy runs whose attack receipts predate received-MP4 fingerprints, use the
+independent [re-extraction audit](REEXTRACTION.md) and its frozen source checkout.
+Prepare an input directory from those verified files on the experiment host:
+
+```bash
+python tools/prepare_controlled_replay.py --run /private/original-case \
+  --replay /private/completed-independent-reextraction \
+  --source /private/source-used-for-reextraction --output /private/new-controlled-input
+```
+
+Pass the new directory as `--run` to both evaluation and export. Its three
+attack receipts retain the original measurements and identify the original
+receipt, verified replay receipt and received MP4 by SHA-256. Video, message
+and codebook links resolve to the original private files, which must remain
+available at their recorded locations. Standard runs with fingerprinted attack
+receipts can use the original case directory directly.
+
 On the evaluation host, recount the 512 predicted information bits for each
 completed row and export the public counts and evidence hashes:
 
