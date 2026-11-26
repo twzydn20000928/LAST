@@ -1,0 +1,1682 @@
+[
+  {
+    "video_id": "paper-000",
+    "case_sha256": "0bbfdeaa9dedcc945d60ba013afd1313ac7617e2269fa3e399d1005e29e02750",
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 16,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-001",
+    "case_sha256": "d737fe15e2df4b56aeb82afa5ef2e6c5eff46991dc125995f53acb971bc050a8",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 32656,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 407
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-002",
+    "case_sha256": "f2025f5b844a3a6c9b89345f5cdee3d814bec167f18274e1cbb5941211e60187",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5675,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 407
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-003",
+    "case_sha256": "fb0dcc08946e9a560520f130a15c72942692daba5d365c09712e452178a949a3",
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 16,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-004",
+    "case_sha256": "eab3d1ad412250add750a4b11d41d5d55955116bbb4ce3f10012c7a41a5a95b2",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 14,
+      "sum_correct_bits": 5564,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 427
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-005",
+    "case_sha256": "a02eee4421cad0f1ed2a9047583bd0c1732d3490a201303c5cfc1ea0a30e38bf",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 55,
+      "sum_correct_bits": 24613,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 13,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 466
+      },
+      "partial": {
+        "groups": 11,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-006",
+    "case_sha256": "cf329516edaf7e0792b9e8e6f6aaa6d8b4d8fff4b3bc2685520247f274475c52",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 40197,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 456
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-007",
+    "case_sha256": "54e90ac882da3e504ff5f2fb6c6b428ff3d45563d218707fdf9dd73b324b0201",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 35249,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 482
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-008",
+    "case_sha256": "898ba43a29b8d5313333af98ce7ed272de891ecdef535735cc2b4bcfa6775ee5",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5293,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 392
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 504
+      }
+    }
+  },
+  {
+    "video_id": "paper-009",
+    "case_sha256": "afc8f387bd915e53b70b5cfd992ed1309b506ce9b4d2fecd943a3a6c8e1cee99",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5392,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 391
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-010",
+    "case_sha256": "5754af722e8f2f8712bd3714d00fc642065b8966d7546a04b45d42cdf4abb90a",
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 16,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-011",
+    "case_sha256": "1ea0efb481c97fad571e29663dfbd789ec2c6e5951600a023ce61b38593c71bf",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 31152,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 504
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 378
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 501
+      }
+    }
+  },
+  {
+    "video_id": "paper-012",
+    "case_sha256": "7b023b71d48c97240c4de6d48c783e80e0838159d1e7d3c7eb83916865e02f7e",
+    "partial_at_intact_count": {
+      "group_count": 3,
+      "subsets": 165,
+      "sum_correct_bits": 77958,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 3,
+        "correct_bits": 512
+      },
+      "partial": {
+        "groups": 11,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-013",
+    "case_sha256": "d3c85c2499b23f92a7bf2c6d426be8e1a1564d0ba8315ceef8c14cd02f854ef5",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 14,
+      "sum_correct_bits": 5308,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 413
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 503
+      }
+    }
+  },
+  {
+    "video_id": "paper-014",
+    "case_sha256": "34ed6b1f013b0f6f9063d3bc01a3ccd598ad6ed27d8af79c370818be6267c3c7",
+    "partial_at_intact_count": {
+      "group_count": 3,
+      "subsets": 165,
+      "sum_correct_bits": 75902,
+      "exact_messages": 1
+    },
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 3,
+        "correct_bits": 482
+      },
+      "partial": {
+        "groups": 11,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-015",
+    "case_sha256": "49be518ead37d35fd24bbca90255e52d4e4ee5574b9689077b96518a0f8de757",
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-016",
+    "case_sha256": "7150dd570f000b5e9cbe373ba866c902f39f2fc43768c67a1dea0224bd6175a2",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5464,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 386
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-017",
+    "case_sha256": "4a60a13c45436cbca70c2e8d3199449fd884a3c593139b6cff1173ef92c8356c",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 37137,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 380
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 503
+      }
+    }
+  },
+  {
+    "video_id": "paper-018",
+    "case_sha256": "19dbe9afc9fef14dbdf9dc0c10ed6dbc2892e147036f73e1caa6ba187881f255",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 31979,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 444
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-019",
+    "case_sha256": "f252656f1b05195a294a9f8c2765bb735e0b10fe27cb8ac8f6d538ca32bf7a53",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 38024,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 490
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-020",
+    "case_sha256": "ad4cdb8ce632d7b04a38b796a130ae3827e1f2213344f6f92816245e5d3e732d",
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 16,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-021",
+    "case_sha256": "b52f87957025e113b378c2e7b462c0edd84b940728ef67ac19e4dcb328f6df87",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5905,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 495
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-022",
+    "case_sha256": "3a4ea9119cf109cba61a4683814be9963277718e990d2d958f22707021e2933a",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 13,
+      "sum_correct_bits": 5325,
+      "exact_messages": 1
+    },
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 473
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-023",
+    "case_sha256": "e3e14878d104bc9f434d5f9d17054b7682e60ef4503020fde5a83a1eabb42c7a",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 14,
+      "sum_correct_bits": 6208,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 492
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-024",
+    "case_sha256": "9a60f18dfd5eb7ca24d84a6533996574cbcf6b2578c0e2c8ba38024687cddb89",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 14,
+      "sum_correct_bits": 5290,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 371
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-025",
+    "case_sha256": "bd04ee2455a7a7145d31dbacd1653112bcace395fb3e802781b09dfd5329e843",
+    "partial_at_intact_count": {
+      "group_count": 3,
+      "subsets": 120,
+      "sum_correct_bits": 57053,
+      "exact_messages": 4
+    },
+    "subsets": {
+      "all": {
+        "groups": 13,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 3,
+        "correct_bits": 501
+      },
+      "partial": {
+        "groups": 10,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-026",
+    "case_sha256": "7bc68680d43294aec62c5e6a42354de77b01e08d69ec235b536215ae535bdee9",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 6429,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 490
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-027",
+    "case_sha256": "467eb3232c777a17d1b4070bee43ff960a116a8488d77d21ae9d17b71ed1e87f",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 6010,
+      "exact_messages": 1
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 485
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-028",
+    "case_sha256": "9c30fd22fc3176ab0c77572ae59c4ce9a1b7df43922bb8ee6ae23fcb27b79586",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 13,
+      "sum_correct_bits": 5361,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 452
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-029",
+    "case_sha256": "a300acba63d00c77a60248a5c6b4ccecd3320b86026ba7d03b9f878228651a80",
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 16,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-030",
+    "case_sha256": "5fcd9bfdbaa17e2b412a16373a311e2a13efdde89434c44ee9608600bc8cbb02",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 35341,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 498
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-031",
+    "case_sha256": "aabe1ee567393e4bea61220e03b76a25533119f2266fd49ca90ce9d9445d1590",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 12,
+      "sum_correct_bits": 4942,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 13,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 410
+      },
+      "partial": {
+        "groups": 12,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-032",
+    "case_sha256": "fc3478f797e820b4312e04de0402a2d435e35a1ad58c21e6d0e61c245b5d0e92",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5572,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 423
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-033",
+    "case_sha256": "416da336f583b207189a4d295a4b730b33a1d636f8b0f107f73c585fbe7115cf",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 35312,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 430
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 502
+      }
+    }
+  },
+  {
+    "video_id": "paper-034",
+    "case_sha256": "782e535f1d83a307f2a1ca7bbc21d26cae8939f7a01d7b346868f42e0803cc0e",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 34034,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 494
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-035",
+    "case_sha256": "9d1629dda58cd21dd32643d52b6fe4743a4422f78c1d57b08df91d8befe61b92",
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5659,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 427
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-036",
+    "case_sha256": "5cb4bf2ae1b627ca47cc29d4bf2fc1c355023a411016cb05e7a94f906bcb1525",
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 42588,
+      "exact_messages": 0
+    },
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 476
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    }
+  },
+  {
+    "video_id": "paper-037",
+    "case_sha256": "ed537a33c0f13a2a8623f509c3211a8378d3d59e5cbfbb54713bcffc0a65b9ae",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 490
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 6277,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-038",
+    "case_sha256": "a538d7d82bccad39e77430dc8c2f1fcc2e1bf95fabcd40f3c04b75895ddf5677",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 468
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 6389,
+      "exact_messages": 1
+    }
+  },
+  {
+    "video_id": "paper-039",
+    "case_sha256": "32973eeda9087c80d25892db3fd4f081ed68215cff56759546b29692b84ad18e",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 16,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-040",
+    "case_sha256": "adc314c0975e7ad0e2ce9ebd41587de3d0b96296e9e1407ee52002f1c9028a91",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 504
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 401
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 498
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 35175,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-041",
+    "case_sha256": "9668cad080da4fbe69c3112471d695a310ac3d9b8cd230779a14bb80465b40aa",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 495
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 495
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-042",
+    "case_sha256": "b2d6f85dd88bf7637a67db71ca3c8d87cffd9a0e356dcefc9229bead6bbeeaa9",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 478
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 496
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 34481,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-043",
+    "case_sha256": "a5ac0312c21eda7f0290510b6d7b3cd1fdefb18db9471589dfe5e99bbee06984",
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 497
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 356
+      },
+      "partial": {
+        "groups": 12,
+        "correct_bits": 488
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 66,
+      "sum_correct_bits": 25100,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-044",
+    "case_sha256": "16e2e873f45ba3db9082708f3f0b22b4fa3aaba47784fcc3117a28398437b91a",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 426
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 33499,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-045",
+    "case_sha256": "f7d143c9d432c6dc18e915fb2cc89d98c24b641802efb17f51671196f626fc5d",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 482
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 33136,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-046",
+    "case_sha256": "c29320cc51128de9fd31aaa669c7b2bf17cc6a84b701dcee830f2e79f7f62c5c",
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 454
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 13,
+      "sum_correct_bits": 5398,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-047",
+    "case_sha256": "86b5acf4253688ee63e78ec7351b415e8f783dbfa56534c0059b726414753159",
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 483
+      },
+      "partial": {
+        "groups": 12,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 66,
+      "sum_correct_bits": 30178,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-048",
+    "case_sha256": "a760fff349cf07018b1a473d690c57d28da50d818283d56acef919d4cc0eb62f",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-049",
+    "case_sha256": "c014eb1a4b80f3ad63b1d3919b1733f7e460f10f0d3412408fccb6c3458fd604",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 501
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 429
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 490
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 34130,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-050",
+    "case_sha256": "7371d67e6e55eb67f009f3e49ab7add54d6f92f4bd8cbab0d52fe67ddf199c6a",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 498
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 429
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 489
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 34647,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-051",
+    "case_sha256": "100daa92ffa41e9490de9e1dd28ae20b9ad6bdec0deed5a9a39cd04727789601",
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 3,
+        "correct_bits": 458
+      },
+      "partial": {
+        "groups": 11,
+        "correct_bits": 498
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 3,
+      "subsets": 165,
+      "sum_correct_bits": 70389,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-052",
+    "case_sha256": "4a5795c56f3c50e183cbda6198f46a34d44ff65ba758ae3d5d73602950c533e0",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 16,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-053",
+    "case_sha256": "c8a62f8343fe9633fb6323caae5de84e506e6e77f3c3f1f8cecf5590f3d62726",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 453
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 14,
+      "sum_correct_bits": 5395,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-054",
+    "case_sha256": "3143cbd0d1d9b2df41dd0c3c5e062d9876358e41de45642b110a5f0a7d630cb0",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 445
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 14,
+      "sum_correct_bits": 5598,
+      "exact_messages": 1
+    }
+  },
+  {
+    "video_id": "paper-055",
+    "case_sha256": "ff7e83cb922f84e6dd69ecbbcf958c3c38bb7616610cf34a0cafb69fc317b1e9",
+    "subsets": {
+      "all": {
+        "groups": 14,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 3,
+        "correct_bits": 485
+      },
+      "partial": {
+        "groups": 11,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 3,
+      "subsets": 165,
+      "sum_correct_bits": 78852,
+      "exact_messages": 12
+    }
+  },
+  {
+    "video_id": "paper-056",
+    "case_sha256": "db4dcf6cb095459f6d1f66cdb1f0396a3ff06cc5fdaa83ea0283d8e4e2483e76",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 512
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 14,
+      "sum_correct_bits": 5302,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-057",
+    "case_sha256": "6702414209e98146c88172b9259a246e2b70574441666124db66105fee54b412",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 472
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 6661,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-058",
+    "case_sha256": "69a337c315d8b877b59fd4fcc874666fa1039afa3b0202672af0431dbf6174dc",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-059",
+    "case_sha256": "061556ad3699e6f7486eea826326c88bfc284fcc3b54a4269c67c5c19bf2badb",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 512
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 38795,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-060",
+    "case_sha256": "a08dc2485d102803b8f0ca26fd23531cadc7f70d07495c8ed867fd8420899e6c",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 379
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5313,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-061",
+    "case_sha256": "556531da7aca353641b26b12b49e1e52ae57bc3375d1f154a813572243d61ddc",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 305
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5396,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-062",
+    "case_sha256": "09f989abd1782a04547aa4b3de236917dfad629abe3ab3e88b864c29afc274f7",
+    "subsets": {
+      "all": {
+        "groups": 13,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 450
+      },
+      "partial": {
+        "groups": 11,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 55,
+      "sum_correct_bits": 23638,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-063",
+    "case_sha256": "6ab9eb7b1cfad81a910f7664b3a31b73f098d6f620ca44d1ab24e450f28d830f",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 444
+      },
+      "partial": {
+        "groups": 14,
+        "correct_bits": 503
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 91,
+      "sum_correct_bits": 36324,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-064",
+    "case_sha256": "35da387d017c226de7e6de1e379d566e9649db7c8138bca560da8f21fdd5fc46",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 441
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 33022,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-065",
+    "case_sha256": "d8fd86b9d244263e10ac3df65352d4fe420f6d76864607967e89ed5dfb02603a",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 3,
+        "correct_bits": 456
+      },
+      "partial": {
+        "groups": 12,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 3,
+      "subsets": 220,
+      "sum_correct_bits": 99237,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-066",
+    "case_sha256": "101328500f1d648c1444076671434927323814340f2aea9ac3dc7761f4d645d3",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 396
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5576,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-067",
+    "case_sha256": "28da3f835f83afb455387f9449fdf01d6166f016db6f09482d2626e1f322e5a1",
+    "subsets": {
+      "all": {
+        "groups": 16,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 1,
+        "correct_bits": 373
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 1,
+      "subsets": 15,
+      "sum_correct_bits": 5388,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-068",
+    "case_sha256": "e2efb09d8d9f743015832c0f41b7129191d23e7e5d6c6a027b8a1406c8886846",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 0,
+        "correct_bits": null
+      },
+      "partial": {
+        "groups": 15,
+        "correct_bits": 512
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 0,
+      "subsets": 0,
+      "sum_correct_bits": 0,
+      "exact_messages": 0
+    }
+  },
+  {
+    "video_id": "paper-069",
+    "case_sha256": "75f1e8d1c90e451669066681adde1f65feb71c2bc830ffd50a17d46ac32e717b",
+    "subsets": {
+      "all": {
+        "groups": 15,
+        "correct_bits": 512
+      },
+      "intact": {
+        "groups": 2,
+        "correct_bits": 476
+      },
+      "partial": {
+        "groups": 13,
+        "correct_bits": 503
+      }
+    },
+    "partial_at_intact_count": {
+      "group_count": 2,
+      "subsets": 78,
+      "sum_correct_bits": 31126,
+      "exact_messages": 0
+    }
+  }
+]

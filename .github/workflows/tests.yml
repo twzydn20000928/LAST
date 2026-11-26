@@ -106,7 +106,7 @@ jobs:
             --primary results/hunyuan_i2v_last_first100_robustness.json \
             --primary results/hunyuan_i2v_last_primary100_179.json \
             > ci-temporal-diagnostics/table12-shared-fusion.md
-          python tools/summarize_assisted_subsets.py results/assisted_group_equal_counts_first55.json \
+          python tools/summarize_assisted_subsets.py results/assisted_group_equal_counts_first70.json \
             > ci-temporal-diagnostics/table12-equal-group-counts.json
           receipts=(results/hunyuan_i2v_oracle_paper*.json)
           python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
