@@ -577,7 +577,12 @@ If native extraction failed after an attack MP4 was saved, repeat the same
 runner verifies the original source, state, condition and received MP4. It
 reads the saved attack bytes and writes a separate attempt with the original
 failed receipt's SHA-256. A successful single-condition retry covers that
-condition only.
+condition only. If a separate extraction of the same received MP4 already
+completed, also supply `--retry-extraction /private/completed-extraction`.
+The evaluator checks the method, model family, mode, temporal flag, video and
+registration-state hashes, then copies the completed receipt and 64 prediction
+bytes to the new private attempt and scores them against the original message.
+This recovery path adds no inversion time measurement.
 
 ### SIGMark compression integration
 

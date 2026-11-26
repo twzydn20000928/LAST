@@ -24,7 +24,10 @@ def main():
     p.add_argument('--clean-extraction',type=Path)
     p.add_argument('--retry-condition', choices=('clean','noise','compression','blur','drop','insert','clip'))
     p.add_argument('--retry-output', type=Path, help='New private directory for a single failed extraction')
+    p.add_argument('--retry-extraction', type=Path, help='Reuse a completed extraction of the exact failed input')
     a=p.parse_args();os.umask(0o077)
+    if a.retry_extraction and (not a.retry_condition or a.clean_extraction):
+        p.error('--retry-extraction requires a single retry and cannot be combined with --clean-extraction')
     if bool(a.retry_condition) != bool(a.retry_output):
         p.error('--retry-condition and --retry-output must be supplied together')
     run=a.run.resolve();generation=json.loads((run/'receipt.json').read_text())
@@ -91,7 +94,21 @@ def main():
             received_sha=hashlib.sha256(received.read_bytes()).hexdigest()
             row.update(attack_map=mapping,received_sha256=received_sha,frames=len(load_mp4(received)))
             extraction=a.clean_extraction.resolve() if name=='clean' and a.clean_extraction else directory/(name+'-extract')
-            if not (name=='clean' and a.clean_extraction):
+            if a.retry_extraction:
+                prior = a.retry_extraction.resolve()
+                prior_receipt = (prior / 'receipt.json').read_bytes()
+                prior_record = json.loads(prior_receipt)
+                check_extraction(prior_record, method, mode, received_sha, state_sha, temporal, family)
+                prior_decoded = (prior / 'decoded.bin').read_bytes()
+                if len(prior_decoded) != 64:
+                    raise ValueError('Expected a 512-bit retry prediction')
+                if 'decoded_sha256' in prior_record and hashlib.sha256(prior_decoded).hexdigest() != prior_record['decoded_sha256']:
+                    raise ValueError('Prediction differs from completed retry receipt')
+                extraction.mkdir()
+                (extraction / 'receipt.json').write_bytes(prior_receipt)
+                (extraction / 'decoded.bin').write_bytes(prior_decoded)
+                row['reused_extraction'] = True
+            elif not (name=='clean' and a.clean_extraction):
                 cmd=[sys.executable,'-m','last.baseline_extract','--method',method,'--mode',mode,'--family',family,
                      '--upstream',str(a.upstream.resolve()),'--model-dir',str(a.model_dir.resolve()),
                      '--video',str(received),'--state',str(state),'--output',str(extraction),
