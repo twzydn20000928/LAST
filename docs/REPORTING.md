@@ -7,7 +7,7 @@ available VideoShield and VideoMark measurements. Run from the repository root.
 
 ```bash
 python -m last.clean_table --family hunyuan \
-  --reports results/hunyuan_i2v_primary20.json results/hunyuan_t2v_primary13.json \
+  --reports results/hunyuan_i2v_primary21.json results/hunyuan_t2v_primary13.json \
     results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json \
     results/hunyuan_i2v_sigmark_first1_partial.json \
   --quality results/hunyuan_i2v_quality_six_dimensions_last.json \
@@ -67,7 +67,7 @@ To rebuild the measured LAST, LFG and native baseline rows of Table 2 with attac
 
 ```bash
 python -m last.robustness_table --reports \
-  results/hunyuan_i2v_primary20.json \
+  results/hunyuan_i2v_primary21.json \
   results/hunyuan_t2v_primary13.json \
   results/wan22_i2v_primary13.json \
   results/wan22_t2v_primary12.json \
@@ -78,7 +78,7 @@ python -m last.robustness_table --reports \
   --output paired-table2
 ```
 
-LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 20 Hunyuan I2V pairs, 13 Hunyuan T2V pairs, 13 Wan I2V pairs and 12 Wan T2V pairs. VideoShield has two Hunyuan I2V observations per condition and one Wan I2V observation each for clean, noise, compression and blur. After the [original blur extraction failed](../results/wan22_i2v_videoshield_paper000_blur_attempt.json), a retry on the saved MP4 recovered 512/512 bits. VideoMark has 40 Hunyuan T2V observations for each of the seven conditions. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. On the same random-deletion MP4, a retry completed four 9-frame, 50-step window inversions. The upstream ordering stage returned only missing frames, and interpolation raised an error before decoding. The deletion observation therefore contributes zero scored bits. The rendered cell shows one failed video. In `counts.csv`, the `failed` column counts failed videos in the supplied snapshot; retries of the same video do not increase that count. A blank failure count means the source report did not provide it. The 95-frame insertion input was verified against the native extractor receipt. Extraction ran out of GPU memory and produced zero scored bits ([failure record](../results/sigmark_paper000_insert_failure.json)). Contiguous removal is pending. See the [retry receipt summary](../results/sigmark_paper000_drop_retry_failure.json). Across all methods the command produces 12 rows and 84 condition cells, each with its own coverage out of 400. For example, random deletion on the thirteen Wan
+LAST and LFG use the same sample IDs within each pipeline. The four inputs above cover 21 Hunyuan I2V pairs, 13 Hunyuan T2V pairs, 13 Wan I2V pairs and 12 Wan T2V pairs. VideoShield has two Hunyuan I2V observations per condition and one Wan I2V observation each for clean, noise, compression and blur. After the [original blur extraction failed](../results/wan22_i2v_videoshield_paper000_blur_attempt.json), a retry on the saved MP4 recovered 512/512 bits. VideoMark has 40 Hunyuan T2V observations for each of the seven conditions. SIGMark has one Hunyuan I2V sample with measured clean, noise, compression and blur scores. On the same random-deletion MP4, a retry completed four 9-frame, 50-step window inversions. The upstream ordering stage returned only missing frames, and interpolation raised an error before decoding. The deletion observation therefore contributes zero scored bits. The rendered cell shows one failed video. In `counts.csv`, the `failed` column counts failed videos in the supplied snapshot; retries of the same video do not increase that count. A blank failure count means the source report did not provide it. The 95-frame insertion input was verified against the native extractor receipt. Extraction ran out of GPU memory and produced zero scored bits ([failure record](../results/sigmark_paper000_insert_failure.json)). Contiguous removal is pending. See the [retry receipt summary](../results/sigmark_paper000_drop_retry_failure.json). Across all methods the command produces 12 rows and 84 condition cells, each with its own coverage out of 400. For example, random deletion on the thirteen Wan
 I2V pairs gives 64.92% for LAST and 66.89% for LFG. The paired subsets can be
 smaller than the single-method runs because both methods must finish all attacks.
 Choose a fresh output directory on each invocation.
@@ -495,7 +495,7 @@ All entries are observed information-bit accuracy on the same frozen sample pref
 
 | Backbone and mode | Paired videos | Deletion | Insertion | Clip |
 |---|---:|---:|---:|---:|
-| [hunyuan i2v](../results/hunyuan_i2v_primary20.json) | 20 | 74.91% / 66.28% | 87.17% / 59.51% | 98.44% / 77.00% |
+| [hunyuan i2v](../results/hunyuan_i2v_primary21.json) | 21 | 75.54% / 66.32% | 87.15% / 59.84% | 98.51% / 77.63% |
 | [hunyuan t2v](../results/hunyuan_t2v_primary13.json) | 13 | 75.33% / 65.23% | 90.16% / 57.84% | 97.57% / 73.83% |
 | [wan22 i2v](../results/wan22_i2v_primary13.json) | 13 | 64.92% / 66.89% | 83.61% / 56.99% | 94.77% / 77.69% |
 | [wan22 t2v](../results/wan22_t2v_primary12.json) | 12 | 72.33% / 66.39% | 82.68% / 54.90% | 95.12% / 77.29% |
@@ -504,7 +504,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 
 | Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
 |---|---:|---:|---:|---:|
-| [hunyuan_i2v](../results/hunyuan_i2v_fidelity20.json) | 20 | 2/20 | 31.44 / 22.55 | 0.9379 / 0.7397 |
+| [hunyuan_i2v](../results/hunyuan_i2v_fidelity21.json) | 21 | 2/21 | 31.48 / 22.57 | 0.9372 / 0.7371 |
 | [hunyuan_t2v](../results/hunyuan_t2v_fidelity13.json) | 13 | 0/13 | 31.63 / 22.35 | 0.9311 / 0.7202 |
 | [wan22_i2v](../results/wan22_i2v_fidelity13.json) | 13 | 13/13 | 29.73 / 23.05 | 0.9354 / 0.8069 |
 | [wan22_t2v](../results/wan22_t2v_fidelity12.json) | 12 | 12/12 | 31.26 / 25.28 | 0.9477 / 0.8474 |
@@ -559,7 +559,7 @@ Both rows currently show five of 18 dimensions. Each dimension retains the numbe
 To render Tables 1 and 2 with the available VideoShield I2V, SIGMark I2V and VideoMark T2V observations, run in Bash from the repository root:
 
 ```bash
-reports=(results/hunyuan_i2v_primary20.json results/hunyuan_t2v_primary13.json
+reports=(results/hunyuan_i2v_primary21.json results/hunyuan_t2v_primary13.json
          results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json
          results/hunyuan_i2v_sigmark_first1_partial.json)
 python -m last.clean_table --family hunyuan --reports "${reports[@]}" \
@@ -607,7 +607,7 @@ common scored sample. Failures and pending cases remain in the input reports.
 
 ```bash
 python tools/matched_primary_methods.py --family hunyuan --mode i2v \
-  --methods last lfg videoshield --reports results/hunyuan_i2v_primary20.json \
+  --methods last lfg videoshield --reports results/hunyuan_i2v_primary21.json \
   results/hunyuan_i2v_videoshield_first2_complete.json
 ```
 
