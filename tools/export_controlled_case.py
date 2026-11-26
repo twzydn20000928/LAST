@@ -24,6 +24,15 @@ def export(run, evaluation):
     for name, fingerprint in report["input_sha256"].items():
         if digest(Path(name)) != fingerprint:
             raise ValueError("Controlled evaluation input changed")
+    generation_path = run / "receipt.json"
+    generation = json.loads(generation_path.read_bytes())
+    case_path = run / "case.json"
+    case = json.loads(case_path.read_bytes())
+    if (report["input_sha256"].get(str(generation_path.resolve())) != digest(generation_path)
+            or generation.get("status") != "completed" or generation.get("mode") != "i2v"
+            or generation.get("method") != report["writer"] or generation.get("family") != report["family"]
+            or generation.get("case_sha256") != digest(case_path)):
+        raise ValueError("Table 12 requires the matching completed image-to-video generation")
     truth_file = run / "message.npy"
     if report["input_sha256"].get(str(truth_file.resolve())) != digest(truth_file):
         raise ValueError("Wrong source run")
@@ -42,6 +51,11 @@ def export(run, evaluation):
         receipt = output / "receipt.json"
         prediction = output / "decoded-private.json"
         video = run / "marked.mp4" if c == "clean" else run / "attacks" / f"{c}.mp4"
+        attack_path = run / "attacks" / (c + ".json")
+        attack = json.loads(attack_path.read_bytes())
+        if (report["input_sha256"].get(str(attack_path.resolve())) != digest(attack_path)
+                or attack.get("video_id") != case["video_id"] or attack.get("condition") != c):
+            raise ValueError(f"Controlled read belongs to another case or condition: {c}/{r}")
         read = json.loads(receipt.read_bytes())
         if (digest(cache) != row["feature_receipt_sha256"] or digest(receipt) != row["extraction_receipt_sha256"]
                 or digest(prediction) != read["decoded_sha256"] or digest(video) != row["received_sha256"]
@@ -71,7 +85,7 @@ def export(run, evaluation):
                                               "extraction_receipt_sha256")})
     if expected:
         raise ValueError("Missing controlled reads")
-    return dict(video_id=json.loads((run / "attacks/clean.json").read_bytes())["video_id"],
+    return dict(video_id=case["video_id"],
                 family=report["family"], writer=report["writer"], complete_reader_set=report["complete_reader_set"],
                 evaluation_sha256=digest(path), source_sha256=report["source_sha256"], rows=rows, **calibration_evidence)
 
