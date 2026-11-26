@@ -1,0 +1,1162 @@
+[
+  {
+    "video_id": "paper-003",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 27,
+        "first_group": 13,
+        "length": 2
+      }
+    ],
+    "support": [
+      0,
+      1,
+      1,
+      0,
+      0
+    ],
+    "window_types": {
+      "mixed": 2
+    },
+    "full_bits": 327,
+    "received_order_bits": 270,
+    "full_receipt_sha256": "6a141395318cfd5c8af0d0ffd145dac0103cd5724e02fcba012545c659bad842",
+    "received_sha256": "b8e319e36ad05cb095f12048f5efb6b1cb82c33b2da663c5f31ca1493d093610"
+  },
+  {
+    "video_id": "paper-003",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 19,
+        "first_group": 2,
+        "length": 3
+      },
+      {
+        "start": 43,
+        "first_group": 6,
+        "length": 2
+      },
+      {
+        "start": 58,
+        "first_group": 8,
+        "length": 5
+      },
+      {
+        "start": 83,
+        "first_group": 13,
+        "length": 3
+      }
+    ],
+    "support": [
+      1,
+      2,
+      1,
+      4,
+      5
+    ],
+    "window_types": {
+      "inserted": 7,
+      "mixed": 1,
+      "intact_correct": 5
+    },
+    "full_bits": 499,
+    "received_order_bits": 278,
+    "full_receipt_sha256": "bd7e806d2819bc302946f809d765f99fb1b22267745d3b243e7381beba1a21b0",
+    "received_sha256": "96e86280628f674384c34a11c8500b2a30cf265afcac81c339950b7cbbd1dbb7"
+  },
+  {
+    "video_id": "paper-003",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 7,
+        "first_group": 9,
+        "length": 7
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      7
+    ],
+    "window_types": {
+      "intact_correct": 7
+    },
+    "full_bits": 506,
+    "received_order_bits": 280,
+    "full_receipt_sha256": "95e468cc140c6840fb0b5e8a32b6f6c9a37daa5acb0972c3f643db604241ec11",
+    "received_sha256": "b12af7fe0f0fd4f9e3e3d111ba01ce7a89a87c54b19594a4865121a53ccb3072"
+  },
+  {
+    "video_id": "paper-032",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 16,
+        "first_group": 9,
+        "length": 4
+      }
+    ],
+    "support": [
+      1,
+      0,
+      1,
+      2,
+      0
+    ],
+    "window_types": {
+      "mixed": 4
+    },
+    "full_bits": 399,
+    "received_order_bits": 264,
+    "full_receipt_sha256": "aa3404616c182666a7732d8c3ad26728aaacfc69b994185311bcc7cd544ec31d",
+    "received_sha256": "abf3cbc3e6dc414d98d1fe8c34202122f1cc21c321737e7ea1c8ae5df6490a8e"
+  },
+  {
+    "video_id": "paper-032",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 23,
+        "first_group": 3,
+        "length": 2
+      },
+      {
+        "start": 57,
+        "first_group": 9,
+        "length": 2
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      4
+    ],
+    "window_types": {
+      "intact_correct": 4
+    },
+    "full_bits": 512,
+    "received_order_bits": 293,
+    "full_receipt_sha256": "680f01542b4340f026b0510b9f133152daa21fb93c822b788e230f7f600db40b",
+    "received_sha256": "82e726d699e5bb4c547f3ae7a2fdc0b5d05d888b96c010eb615ad2acf040777c"
+  },
+  {
+    "video_id": "paper-032",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 15,
+        "first_group": 11,
+        "length": 5
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      5
+    ],
+    "window_types": {
+      "intact_correct": 5
+    },
+    "full_bits": 512,
+    "received_order_bits": 397,
+    "full_receipt_sha256": "f62cbf7e93ac284aea3083aee591ee9e3a8b54cd67a2fc6f855e0af7baf3d133",
+    "received_sha256": "4debf67360a601b4fc470746525e8df00676be69bda0dc589a5bdd1b7825119c"
+  },
+  {
+    "video_id": "paper-033",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 22,
+        "first_group": 12,
+        "length": 3
+      }
+    ],
+    "support": [
+      0,
+      1,
+      1,
+      1,
+      0
+    ],
+    "window_types": {
+      "mixed": 3
+    },
+    "full_bits": 386,
+    "received_order_bits": 282,
+    "full_receipt_sha256": "8b19655fd93358c34ba35d063fafc15891793fa84f448a7e6c5a260505e9fcb3",
+    "received_sha256": "a794b59c1040d05168afb187c82a3153bb530cceb810009754786eac781ef5f4"
+  },
+  {
+    "video_id": "paper-033",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 79,
+        "first_group": 12,
+        "length": 4
+      }
+    ],
+    "support": [
+      1,
+      0,
+      1,
+      2,
+      0
+    ],
+    "window_types": {
+      "inserted": 3,
+      "mixed": 1
+    },
+    "full_bits": 416,
+    "received_order_bits": 257,
+    "full_receipt_sha256": "3ce15dc807fe9a5b256f49adb1e57d0cb0c745f7dfeaa8584677d87fa98ce6e8",
+    "received_sha256": "46ad059c5642b1bdc58365a9858bfef0d5badf8c0a0b3082d6bc2ed862abf529"
+  },
+  {
+    "video_id": "paper-033",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 23,
+        "first_group": 13,
+        "length": 3
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      3
+    ],
+    "window_types": {
+      "intact_correct": 3
+    },
+    "full_bits": 444,
+    "received_order_bits": 426,
+    "full_receipt_sha256": "403f4d0ffac948043a59211a71b96dcca935c53e52ffe67b06183c7ada66ce7c",
+    "received_sha256": "e06eff8063534f5bef77bbde1c78180ed0906582937acd5a0e2e259ecd457c36"
+  },
+  {
+    "video_id": "paper-043",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 27,
+        "first_group": 14,
+        "length": 2
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      1,
+      1
+    ],
+    "window_types": {
+      "mixed": 1,
+      "intact_correct": 1
+    },
+    "full_bits": 393,
+    "received_order_bits": 251,
+    "full_receipt_sha256": "28e8c0128608e10de4ad6d91bca378549919ac1e61cd61b24f22cfb0b3eaf8f5",
+    "received_sha256": "586f8d427cba9d8df2bb106ddc32adc9e9468d1259647b3ae416ee1cf5023869"
+  },
+  {
+    "video_id": "paper-043",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 81,
+        "first_group": 13,
+        "length": 3
+      }
+    ],
+    "support": [
+      0,
+      1,
+      0,
+      2,
+      0
+    ],
+    "window_types": {
+      "inserted": 3
+    },
+    "full_bits": 338,
+    "received_order_bits": 266,
+    "full_receipt_sha256": "620c89c98560886fa7bbe4e6131669d01880640dd8ab27eddf6ff4acd120e1aa",
+    "received_sha256": "420afc671a9463c970d785f6dd7722ff217cd1fb04a071e73c341e2259bb3a52"
+  },
+  {
+    "video_id": "paper-043",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 1,
+        "first_group": 0,
+        "length": 3
+      },
+      {
+        "start": 15,
+        "first_group": 11,
+        "length": 5
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      8
+    ],
+    "window_types": {
+      "intact_correct": 8
+    },
+    "full_bits": 488,
+    "received_order_bits": 358,
+    "full_receipt_sha256": "b0589245504c47a7c8186e6b0dd6f248ed6318ed16e6dcf28594cce0a081b1e2",
+    "received_sha256": "059af15dabd6fc98d4309533db500c22b665899070e8d5a3a614cc22a4babe85"
+  },
+  {
+    "video_id": "paper-063",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 14,
+        "first_group": 8,
+        "length": 5
+      }
+    ],
+    "support": [
+      0,
+      1,
+      3,
+      0,
+      1
+    ],
+    "window_types": {
+      "mixed": 4,
+      "intact_correct": 1
+    },
+    "full_bits": 397,
+    "received_order_bits": 277,
+    "full_receipt_sha256": "cf3bc02c2f01db0af3f00c6d47aa6f8a32918a01ed252a4855d28624e2b117c7",
+    "received_sha256": "e909b379030d37859f2f03b65054864f94a803ac7df9c0604feb33a619dfc78e"
+  },
+  {
+    "video_id": "paper-063",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 1,
+        "first_group": 0,
+        "length": 3
+      },
+      {
+        "start": 71,
+        "first_group": 11,
+        "length": 2
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      2,
+      3
+    ],
+    "window_types": {
+      "intact_correct": 3,
+      "mixed": 2
+    },
+    "full_bits": 459,
+    "received_order_bits": 348,
+    "full_receipt_sha256": "e9df3fe561c7e85d3872167c0ac049e69351104713b2af3eb6c7971e7daacb36",
+    "received_sha256": "d0ac432fc308959eff1e067a28fb8ab67ee92d21ff9b7e8438e0dda645bcc4c8"
+  },
+  {
+    "video_id": "paper-063",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 7,
+        "first_group": 9,
+        "length": 7
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      7
+    ],
+    "window_types": {
+      "intact_correct": 7
+    },
+    "full_bits": 512,
+    "received_order_bits": 280,
+    "full_receipt_sha256": "5b7464733161382e19b49a911d389afa7754648c46e7f41227e77a37af49caec",
+    "received_sha256": "466dbfc6dbc8fa965a487f194721f28d5b0925647688547d8cd9c260e3880c11"
+  },
+  {
+    "video_id": "paper-071",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 26,
+        "first_group": 13,
+        "length": 2
+      }
+    ],
+    "support": [
+      0,
+      1,
+      0,
+      1,
+      0
+    ],
+    "window_types": {
+      "mixed": 2
+    },
+    "full_bits": 423,
+    "received_order_bits": 266,
+    "full_receipt_sha256": "3016c5590e35acbfbcccb5429611fa5d4f18e14aad18b63a20a6e56310b1ad0a",
+    "received_sha256": "cfb9c0aaf216e865201ed6abdf057f1b698eca48b604006183e05e3df23b71c6"
+  },
+  {
+    "video_id": "paper-071",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 38,
+        "first_group": 5,
+        "length": 4
+      },
+      {
+        "start": 75,
+        "first_group": 12,
+        "length": 2
+      }
+    ],
+    "support": [
+      0,
+      0,
+      2,
+      4,
+      0
+    ],
+    "window_types": {
+      "mixed": 3,
+      "inserted": 3
+    },
+    "full_bits": 489,
+    "received_order_bits": 271,
+    "full_receipt_sha256": "ca0f81fff4ad48eb676aca8df27da5bbf3e9e3ac4de366aa51a4ca6e7cb43b16",
+    "received_sha256": "476d2d072401f7e27105a559891a8b3eae9efd68e2a674589bcd04453418d19d"
+  },
+  {
+    "video_id": "paper-071",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 1,
+        "first_group": 0,
+        "length": 3
+      },
+      {
+        "start": 15,
+        "first_group": 11,
+        "length": 5
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      8
+    ],
+    "window_types": {
+      "intact_correct": 8
+    },
+    "full_bits": 512,
+    "received_order_bits": 369,
+    "full_receipt_sha256": "1168cfb29259c692833ee0e658944a09f368888153302ebac3c274f16a9d0589",
+    "received_sha256": "28601048d53fc6de5be7300753c8c2fa46d742e561227a8c419ca89ee00795bd"
+  },
+  {
+    "video_id": "paper-098",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 14,
+        "first_group": 7,
+        "length": 5
+      }
+    ],
+    "support": [
+      2,
+      0,
+      1,
+      1,
+      1
+    ],
+    "window_types": {
+      "mixed": 4,
+      "intact_correct": 1
+    },
+    "full_bits": 351,
+    "received_order_bits": 265,
+    "full_receipt_sha256": "a09c16e484ae7a53f5fc34957541bab8e80c35cdb7cc4aa072340935108d0872",
+    "received_sha256": "b5a7aeb379cbd168957b2fa36c8c036b2b11391c54870a10cf835eb205782794"
+  },
+  {
+    "video_id": "paper-098",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 78,
+        "first_group": 12,
+        "length": 4
+      }
+    ],
+    "support": [
+      0,
+      0,
+      1,
+      3,
+      0
+    ],
+    "window_types": {
+      "inserted": 3,
+      "mixed": 1
+    },
+    "full_bits": 372,
+    "received_order_bits": 257,
+    "full_receipt_sha256": "63ce0b8fcad3c601dbfacf8dd0a7340d9f5a9fd9a683fc7b88a4d99cafa91ca0",
+    "received_sha256": "f9bc401335e891ece64e9998d5b7d138fa9d0ea5fa12abf2811c99a8e241acd6"
+  },
+  {
+    "video_id": "paper-098",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 11,
+        "first_group": 10,
+        "length": 6
+      }
+    ],
+    "support": [
+      0,
+      0,
+      1,
+      0,
+      5
+    ],
+    "window_types": {
+      "mixed": 1,
+      "intact_correct": 5
+    },
+    "full_bits": 459,
+    "received_order_bits": 340,
+    "full_receipt_sha256": "f73f9645bc40bd0d9147826fc71897c66dd139b775984f06dd0d681bbed453da",
+    "received_sha256": "bc79efc2493f9b8086517ce9fa2ea5c77ba9da412057b063035c762684f18eca"
+  },
+  {
+    "video_id": "paper-112",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 4,
+        "first_group": 4,
+        "length": 7
+      }
+    ],
+    "support": [
+      3,
+      2,
+      1,
+      1,
+      0
+    ],
+    "window_types": {
+      "mixed": 7
+    },
+    "full_bits": 338,
+    "received_order_bits": 256,
+    "full_receipt_sha256": "a0b17dbe463e0ea6c1488092b1912ad0b5d0e8fcc00ea9a536b923081d2f8c10",
+    "received_sha256": "8fe5577cf2e7082f90d0651e6ed58cf3d4d42b70212fff96d9db14266b70cfab"
+  },
+  {
+    "video_id": "paper-112",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 22,
+        "first_group": 3,
+        "length": 13
+      }
+    ],
+    "support": [
+      6,
+      1,
+      3,
+      2,
+      1
+    ],
+    "window_types": {
+      "inserted": 8,
+      "mixed": 2,
+      "intact_correct": 1,
+      "intact_wrong": 2
+    },
+    "full_bits": 413,
+    "received_order_bits": 268,
+    "full_receipt_sha256": "74f2cd53bf77eb4bc139c80da72add9568537d6831b86eb037e1a10e98b745b3",
+    "received_sha256": "793c2037cbd168865d42ed22441c8c9f2277b5006f2a40a5f0f3f300b4a32d46"
+  },
+  {
+    "video_id": "paper-112",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 11,
+        "first_group": 10,
+        "length": 6
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      6
+    ],
+    "window_types": {
+      "intact_correct": 6
+    },
+    "full_bits": 493,
+    "received_order_bits": 321,
+    "full_receipt_sha256": "b826da6975b6c93efbebb0cab236e55af32c2572687ca6fdfd4b6b8d79319769",
+    "received_sha256": "a2d3a97e8439f3fb8224d239b233b77d93ead0591e8b23c05c03ea57812089cb"
+  },
+  {
+    "video_id": "paper-146",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 10,
+        "first_group": 7,
+        "length": 6
+      }
+    ],
+    "support": [
+      3,
+      0,
+      2,
+      1,
+      0
+    ],
+    "window_types": {
+      "mixed": 6
+    },
+    "full_bits": 376,
+    "received_order_bits": 281,
+    "full_receipt_sha256": "85e9c44444e88713d78d081523286d8af8d72e900e01140ec9ba5ea046a7c28f",
+    "received_sha256": "af15ff7be87b085082274655cb57e9c76601a5fc461f96b2fe61e834cb7cdc4d"
+  },
+  {
+    "video_id": "paper-146",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 74,
+        "first_group": 12,
+        "length": 4
+      }
+    ],
+    "support": [
+      0,
+      2,
+      1,
+      0,
+      1
+    ],
+    "window_types": {
+      "inserted": 3,
+      "intact_correct": 1
+    },
+    "full_bits": 382,
+    "received_order_bits": 294,
+    "full_receipt_sha256": "6dc27d8c9876bf172e6466ca807d4e16453e50103109cfe5362141d743c3578b",
+    "received_sha256": "9cf468ca0e31e67cdbc22cb5897cf633c6aee40a97bcc27a5438c69a37cf7197"
+  },
+  {
+    "video_id": "paper-146",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 15,
+        "first_group": 11,
+        "length": 5
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      5
+    ],
+    "window_types": {
+      "intact_correct": 5
+    },
+    "full_bits": 504,
+    "received_order_bits": 380,
+    "full_receipt_sha256": "a9259de616bbdc8928522f2670138f8d9b9b611f95ba65cace2c02ea9ec59cd2",
+    "received_sha256": "ae86a62c187369b63485aac824b8ab849e828a35f411310674ee39e6d77d1553"
+  },
+  {
+    "video_id": "paper-149",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 26,
+        "first_group": 13,
+        "length": 2
+      }
+    ],
+    "support": [
+      0,
+      0,
+      1,
+      1,
+      0
+    ],
+    "window_types": {
+      "mixed": 2
+    },
+    "full_bits": 373,
+    "received_order_bits": 312,
+    "full_receipt_sha256": "18af7e873d324ebcb0c85fe1938f1f27aaf8295c85717b701baca31df0061b8e",
+    "received_sha256": "87f3925fd7caa5c1994a30904f51aeebfe0f5ec00ab6db72499653e42312d1aa"
+  },
+  {
+    "video_id": "paper-149",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 30,
+        "first_group": 3,
+        "length": 13
+      }
+    ],
+    "support": [
+      6,
+      1,
+      4,
+      2,
+      0
+    ],
+    "window_types": {
+      "inserted": 8,
+      "mixed": 5
+    },
+    "full_bits": 403,
+    "received_order_bits": 260,
+    "full_receipt_sha256": "ce8b8e28e2d5b1372adf4b54e39541e17bd6b7fc0cfb4d7855a7a89b51ae0b39",
+    "received_sha256": "9d1e6602a00ed752046aef33e0d3e342feccdd88047fe34b66fb3724b4d4fe7e"
+  },
+  {
+    "video_id": "paper-149",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 3,
+        "first_group": 8,
+        "length": 8
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      8
+    ],
+    "window_types": {
+      "intact_correct": 8
+    },
+    "full_bits": 493,
+    "received_order_bits": 277,
+    "full_receipt_sha256": "a4f1803a6eebecae287260c8a3cc5388e8513f86bc6e88939f3e8165ffc92f4c",
+    "received_sha256": "78679900a66fc3b14fac0110b8141169db9fc77d05619ccbdec056458e1e7836"
+  },
+  {
+    "video_id": "paper-160",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 20,
+        "first_group": 11,
+        "length": 3
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      2,
+      1
+    ],
+    "window_types": {
+      "mixed": 2,
+      "intact_correct": 1
+    },
+    "full_bits": 390,
+    "received_order_bits": 269,
+    "full_receipt_sha256": "6488e2f5c225307a836f908e98b9cdf7b81d8167e724bc0fda5c81d6981fcc6c",
+    "received_sha256": "00e19a8ba84798e0381b0452236604c40763c785f420273941ab36232a171d87"
+  },
+  {
+    "video_id": "paper-160",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 30,
+        "first_group": 14,
+        "length": 2
+      }
+    ],
+    "support": [
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    "window_types": {
+      "inserted": 2
+    },
+    "full_bits": 259,
+    "received_order_bits": 273,
+    "full_receipt_sha256": "4c685da01056215f758a7c8a1e3ded805a5546b68443826577165668c86c7814",
+    "received_sha256": "505265a7f7a34a577db980381a55624e2416fc4a7e1028c35be0c19f7c548355"
+  },
+  {
+    "video_id": "paper-160",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 7,
+        "first_group": 9,
+        "length": 7
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      1,
+      6
+    ],
+    "window_types": {
+      "mixed": 1,
+      "intact_correct": 6
+    },
+    "full_bits": 474,
+    "received_order_bits": 277,
+    "full_receipt_sha256": "5b629565afacfd848e6fdc30ec54100be60e07df8d37386ce8af3df291b0df2c",
+    "received_sha256": "e4c4c6ac16d276511d1ef2ae3ca78e3d8f1fc9f181fada60b6fd6d6438ed0baf"
+  },
+  {
+    "video_id": "paper-174",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 3,
+        "first_group": 3,
+        "length": 8
+      }
+    ],
+    "support": [
+      4,
+      0,
+      2,
+      1,
+      1
+    ],
+    "window_types": {
+      "mixed": 7,
+      "intact_correct": 1
+    },
+    "full_bits": 388,
+    "received_order_bits": 239,
+    "full_receipt_sha256": "5611250d13fac1a5fe38c04c284ed7c9f3c55a738932c6e60d3742cdb138d504",
+    "received_sha256": "ab41431089e3d51b0ee07fef8c2d1217af1df288e83f7781fdfe219dd0b0d76c"
+  },
+  {
+    "video_id": "paper-174",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 83,
+        "first_group": 13,
+        "length": 3
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      2,
+      1
+    ],
+    "window_types": {
+      "mixed": 1,
+      "inserted": 1,
+      "intact_correct": 1
+    },
+    "full_bits": 383,
+    "received_order_bits": 252,
+    "full_receipt_sha256": "b86317e441e2ffaffb86823d97f66fdd63580410490e82fc88ad073b56a27ce8",
+    "received_sha256": "e6c307481c2ba740ecba4376e82ccb818e2f0a502eeab3c1c8f58ae5fdfa2f0a"
+  },
+  {
+    "video_id": "paper-174",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 1,
+        "first_group": 0,
+        "length": 2
+      },
+      {
+        "start": 15,
+        "first_group": 11,
+        "length": 5
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      7
+    ],
+    "window_types": {
+      "intact_correct": 7
+    },
+    "full_bits": 512,
+    "received_order_bits": 347,
+    "full_receipt_sha256": "6f721fdcf006875a8bf5c4f30b152215cce1519a4723cfe66ce7a3c770d22279",
+    "received_sha256": "2f304a7f25f23a8d6f39f8cd6b4f718a15b44b867988b84f2ac10760b557baa7"
+  },
+  {
+    "video_id": "paper-270",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 21,
+        "first_group": 11,
+        "length": 3
+      }
+    ],
+    "support": [
+      0,
+      0,
+      1,
+      2,
+      0
+    ],
+    "window_types": {
+      "mixed": 3
+    },
+    "full_bits": 391,
+    "received_order_bits": 280,
+    "full_receipt_sha256": "c19733e9ceb49255fd3e0f8326aa8fb5626cc2356f1b603b7f457eb6d29aa6b2",
+    "received_sha256": "b17dbe7f2e5037c107a4bf6afccea7742cdb8f4285cd1b3d9072e0f095153d42"
+  },
+  {
+    "video_id": "paper-270",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 79,
+        "first_group": 12,
+        "length": 4
+      }
+    ],
+    "support": [
+      0,
+      1,
+      1,
+      2,
+      0
+    ],
+    "window_types": {
+      "inserted": 3,
+      "mixed": 1
+    },
+    "full_bits": 406,
+    "received_order_bits": 274,
+    "full_receipt_sha256": "bf13e9e4f2ee911fe8e26adf6f086a2039a2f62f45cb1ba091a1bb84f9e162bd",
+    "received_sha256": "081f7ba2b78ac441981cb220815ea295c5687dc3f50f9f77874cd717382f76e2"
+  },
+  {
+    "video_id": "paper-270",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 19,
+        "first_group": 12,
+        "length": 4
+      }
+    ],
+    "support": [
+      0,
+      0,
+      1,
+      0,
+      3
+    ],
+    "window_types": {
+      "mixed": 1,
+      "intact_correct": 3
+    },
+    "full_bits": 420,
+    "received_order_bits": 429,
+    "full_receipt_sha256": "55a73375405bfef15c1ee8ae41ee9a92227198e82160e1e69f574ea4c0fea514",
+    "received_sha256": "87ff1d0282610703e534932c5c30a509dbb5d6b4fca3c4325f05499c6bf5348c"
+  },
+  {
+    "video_id": "paper-291",
+    "condition": "drop",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 14,
+        "first_group": 14,
+        "length": 2
+      }
+    ],
+    "support": [
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    "window_types": {
+      "mixed": 2
+    },
+    "full_bits": 250,
+    "received_order_bits": 274,
+    "full_receipt_sha256": "a23bfb5cf3aa960c0ce9174fb95eccab1df03b4a88021e2d2eb26f0718d7074f",
+    "received_sha256": "da3b427159111ee792ce810982ccfab45f3c153b4375731a88bd14b152569dd2"
+  },
+  {
+    "video_id": "paper-291",
+    "condition": "insert",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 66,
+        "first_group": 10,
+        "length": 6
+      }
+    ],
+    "support": [
+      1,
+      2,
+      1,
+      0,
+      2
+    ],
+    "window_types": {
+      "inserted": 4,
+      "intact_correct": 2
+    },
+    "full_bits": 370,
+    "received_order_bits": 279,
+    "full_receipt_sha256": "2eed536c95334063742eb795674d0a8628814a3b1d2dbf435e54eaa105c786a5",
+    "received_sha256": "e95f85f8b717f9b7aa6a4bbcaa5c57fbc5668ba5e23657bc0c08f28278fd6312"
+  },
+  {
+    "video_id": "paper-291",
+    "condition": "clip",
+    "route": "ccta",
+    "chains": [
+      {
+        "start": 11,
+        "first_group": 10,
+        "length": 6
+      }
+    ],
+    "support": [
+      0,
+      0,
+      0,
+      0,
+      6
+    ],
+    "window_types": {
+      "intact_correct": 6
+    },
+    "full_bits": 466,
+    "received_order_bits": 335,
+    "full_receipt_sha256": "20d19380c9f07933a1de1f74c5956929a80b8ca183f4ca58ce705ea0ad68d5f0",
+    "received_sha256": "657508a70d26c57917b16740d383b4622ecdf060949d4da8096321d183186278"
+  }
+]

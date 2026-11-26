@@ -1161,6 +1161,22 @@ record a BCH failure. In this case the frozen decoder returns the first
 512 hard decisions unchanged, so the paired differences were already
 present before error correction. The command verifies the shared received-MP4
 fingerprint for every comparison.
+
+The [42 alignment records](../results/hunyuan_i2v_reader14_chain_geometry.json)
+retain the selected chains from each full reader, including the cases where it won.
+They can be checked after extraction using `last.temporal.attack_map(video_id, condition)`.
+For offset `k` in a chain, take the four received positions starting at
+`start + 4*k`. Map them to original frame indices and count how many fall
+between `1 + 4*(first_group + k)` and that index plus three, inclusive.
+The five entries of `support` count windows with zero through four supporting frames.
+An inserted frame has source index -1.
+
+On paper-160 insertion and paper-291 random deletion, both selected windows
+had zero frames from their predicted groups. Both insertion windows contained
+inserted frames; both deletion windows mixed surviving source groups.
+On paper-270 contiguous deletion, three of four selected windows matched all
+four source frames and one matched two, yet received-order fusion recovered
+nine more bits. Window identity alone does not account for this last difference.
 The matched writer comparison uses its own verified input pairs.
 
 The prior report recounts 13/30 frozen
