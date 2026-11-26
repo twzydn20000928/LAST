@@ -1,0 +1,34 @@
+{
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "sigmark",
+  "video_id": "paper-000",
+  "condition": "drop",
+  "received_sha256": "ae0285f95818e9c7d92f93d31b93a9f4f8e37aa5f628cce31e31ecbef63b5815",
+  "original_failure_sha256": "b9423e1b22a0629e33d93bc4394e0751eb15acfcf7626f2579421510ed78cd7e",
+  "retry_receipt_sha256": "d69b66569c5ce14ed011d020b73c99ed2cd2bb0bd4e49743bb9aa49e633b72e3",
+  "reader_source_sha256": "d3164d2720c58a319c9fa3c82689f66ecaae924e076b36daac1fc42841199c09",
+  "status": "failed",
+  "completed_window_inversions": [
+    {
+      "frames": 9,
+      "steps": 50
+    },
+    {
+      "frames": 9,
+      "steps": 50
+    },
+    {
+      "frames": 9,
+      "steps": 50
+    },
+    {
+      "frames": 9,
+      "steps": 50
+    }
+  ],
+  "stage": "segment_group_ordering / pad_video_by_interpolation",
+  "upstream_error": "All frames are None; cannot interpolate.",
+  "correct_bits": null,
+  "total_scored_bits": 0
+}
