@@ -114,6 +114,13 @@ if __name__ == "__main__":
     ids, skipped, counts = compare(reader, writers,
                                    read(root / "configs/paper_subsets.json")["ablation_i2v_30"])
     print(f"Matched {len(ids)}/30 videos. Included: {', '.join(ids)}")
+    writer_ids = {w["video_id"] for w in writers}
+    reader_ids = {row["video_id"] for row in reader["observations"]}
+    plan = reader["ordered_subset"]
+    print("Reader observations available, writer pair missing:",
+          json.dumps([v for v in plan if v in reader_ids and v not in writer_ids]))
+    print("No writer pair or reader observations supplied:",
+          json.dumps([v for v in plan if v not in reader_ids and v not in writer_ids]))
     print("Unmatched full baseline by condition:", json.dumps(skipped))
     print("| Variant | " + " | ".join(CONDITIONS) + " |")
     print("|---" + "|---:" * len(CONDITIONS) + "|")
