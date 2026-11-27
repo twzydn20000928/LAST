@@ -104,17 +104,12 @@ def main():
     p.add_argument('--condition', choices=CONDITIONS,
                    help='Evaluate a single condition. Omit to evaluate all seven.')
     a=p.parse_args()
-    os.umask(0o077);torch.set_num_threads(4);torch.cuda.set_per_process_memory_fraction(.20)
-    from diffusers import AutoencoderKLHunyuanVideo,AutoencoderKLWan
-    from diffusers.video_processor import VideoProcessor
-    cls=AutoencoderKLHunyuanVideo if a.family=='hunyuan' else AutoencoderKLWan
-    vae=cls.from_pretrained(a.model_dir,subfolder='vae',torch_dtype=torch.float32,local_files_only=True).to('cuda');vae.enable_tiling()
-    processor=VideoProcessor(vae_scale_factor=8)
-    codes=torch.load(a.run/'codes.pt',weights_only=True);truth=np.load(a.run/'message.npy');codec=BCH512()
+    os.umask(0o077)
+    vae = None
     generation=json.loads((a.run/'receipt.json').read_text());method=generation.get('method','last')
     if generation.get('status')!='completed' or generation.get('family')!=a.family:raise ValueError('Require completed generation for matching family')
     if method not in ('last','lfg','lfg-c'):raise ValueError('Unsupported method in generation receipt')
-    source=load_mp4(a.run/'marked.mp4');source_sha=hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()
+    source_sha=hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()
     if generation.get('marked_sha256')!=source_sha:raise ValueError('Generation MP4 changed')
     directory=evaluation_directory(a.run,a.map_seed);directory.mkdir(exist_ok=True);failed=False
     for name in ((a.condition,) if a.condition else CONDITIONS):
@@ -124,7 +119,22 @@ def main():
             if prior.get('condition')!=name:raise ValueError('Cached condition mismatch')
             if prior.get('status')=='completed':
                 verify_received(prior,a.run/'marked.mp4' if name=='clean' else directory/(name+'.mp4'))
+                print(name, 'verified cached result', prior.get('correct_bits'), flush=True)
                 continue
+        if vae is None:
+            from diffusers import AutoencoderKLHunyuanVideo, AutoencoderKLWan
+            from diffusers.video_processor import VideoProcessor
+            torch.set_num_threads(4)
+            torch.cuda.set_per_process_memory_fraction(.20)
+            cls = AutoencoderKLHunyuanVideo if a.family == 'hunyuan' else AutoencoderKLWan
+            vae = cls.from_pretrained(a.model_dir, subfolder='vae', torch_dtype=torch.float32,
+                                      local_files_only=True).to('cuda')
+            vae.enable_tiling()
+            processor = VideoProcessor(vae_scale_factor=8)
+            codes = torch.load(a.run/'codes.pt', weights_only=True)
+            truth = np.load(a.run/'message.npy')
+            codec = BCH512()
+            source = load_mp4(a.run/'marked.mp4')
         if receipt.exists():receipt.rename(directory/(name+f'.previous-{time.time_ns()}.json'))
         started=time.time();row={'condition':name,'video_id':a.video_id,'status':'running','source_sha256':source_sha,'map_seed':a.map_seed}
         try:
