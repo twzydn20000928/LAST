@@ -60,7 +60,7 @@
       "condition": "compression",
       "expected": 1,
       "completed": 0,
-      "missing": 1,
+      "missing": 0,
       "failed": 0,
       "correct_bits": 0,
       "total_bits": 0,
@@ -110,16 +110,16 @@
       "method": "sigmark",
       "condition": "noise",
       "expected": 1,
-      "completed": 0,
+      "completed": 1,
       "missing": 0,
       "failed": 0,
-      "correct_bits": 0,
-      "total_bits": 0,
-      "observed_bit_accuracy": null,
-      "final_bit_accuracy": null,
+      "correct_bits": 248,
+      "total_bits": 512,
+      "observed_bit_accuracy": 0.484375,
+      "final_bit_accuracy": 0.484375,
       "exact_messages": 0,
-      "observed_message_recovery": null,
-      "complete": false
+      "observed_message_recovery": 0.0,
+      "complete": true
     }
   ],
   "incomplete_observations": [
@@ -128,16 +128,8 @@
       "mode": "i2v",
       "method": "sigmark",
       "video_id": "paper-291",
-      "condition": "noise",
-      "status": "running"
-    },
-    {
-      "family": "hunyuan",
-      "mode": "i2v",
-      "method": "sigmark",
-      "video_id": "paper-291",
       "condition": "compression",
-      "status": "missing"
+      "status": "running"
     },
     {
       "family": "hunyuan",
@@ -188,6 +180,21 @@
       "exact_message": false,
       "video_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
       "receipt_sha256": "be8c7b5826ac41c2c0635bb186ecdc6f413357b2a2ee6f3e7fc9746e257207d8"
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "video_id": "paper-291",
+      "run": "hunyuan/i2v/sigmark/paper-291",
+      "condition": "noise",
+      "map_seed": 0,
+      "status": "completed",
+      "correct_bits": 248,
+      "total_bits": 512,
+      "exact_message": false,
+      "video_sha256": "0623a40d5c0957aefad6b4b3fc34493ba4e8d03df7fe276e1781fe2b4d3ee81a",
+      "receipt_sha256": "1b83b5994857b8132deadf444cd6e40c1e7471a1d7dfeedac0260975a0c1a2fa"
     }
   ],
   "sample_ids": [
@@ -196,6 +203,6 @@
   "planned_videos_per_method": 400,
   "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
   "plan_sha256": "24d2fcdc9646bb95fe7af03d3ffb981e80f0d9fdbf20698b0f7638711037086f",
-  "recounted_predictions": 1,
-  "predictions_without_historical_digest": 1
+  "recounted_predictions": 2,
+  "predictions_without_historical_digest": 2
 }
