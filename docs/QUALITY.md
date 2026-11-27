@@ -522,6 +522,25 @@ They cover five prompts with four assigned seeds each. The [official per-video s
 
 For Hunyuan I2V Camera Motion, the [paired scoring input list](../results/hunyuan_i2v_last_lfg_camera_inputs20.json) identifies the 20 assigned videos for both LAST and LFG. All 40 video hashes match the marked outputs in the [paired fidelity report](../results/hunyuan_i2v_fidelity20.json). The [official LAST scoring units](../results/hunyuan_i2v_quality_units/camera_all20_last.json) give 5/20 (0.25); the [official LFG units](../results/hunyuan_i2v_lfg_camera_units.json) give 8/20 (0.40).
 
+Across the four pipelines, compare the official binary Camera Motion scores by
+joining each LAST video to its unmarked reference on the same video ID. Each
+row covers 20 videos (five prompts, four seeds each).
+
+| Pipeline | Both satisfy the prompt | LAST only | Reference only | Neither |
+|---|---:|---:|---:|---:|
+| Hunyuan I2V | 5 | 0 | 2 | 13 |
+| Hunyuan T2V | 3 | 1 | 0 | 16 |
+| Wan-2.2 I2V | 15 | 1 | 0 | 4 |
+| Wan-2.2 T2V | 11 | 1 | 0 | 8 |
+
+The scorer changed its binary judgment on 5 of 80 paired observations. These
+observations reuse prompts across pipelines. To reproduce the counts, group
+the paired scores by their ordered value (LAST, reference) using the
+[Hunyuan I2V units](../results/hunyuan_i2v_quality_units/) and the
+[other three pipelines' units](../results/camera_motion/).
+This dimension assesses the requested camera movement; visual fidelity and the
+overall V-score require separate measurements.
+
 On these 20 Camera Motion cases, all five videos satisfying the official criterion under LAST also satisfied it under LFG. Three additional videos satisfied it only under LFG; the other twelve scored zero under both methods. The reference from the LAST generation branch scored 7/20. The 20 videos comprise five prompts with four seeds each. This paired comparison measures adherence to the specified camera motion.
 
 After verifying the score files with the Table 1 workflow, reproduce the binary counts from the repository root:
