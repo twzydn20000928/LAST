@@ -32,18 +32,12 @@ python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
 Use a fresh output filename. The private JSON contains the recovered 512 bits
 in `message_hex` and the error-correction outcome in `bch_success`. A payload
 can still contain errors. If you know the original message, compare it with
-the decoded bytes after extraction. For example, run this in the directory
-containing your original `message.bin` and the returned `decoded.json`:
+the decoded bytes after extraction. The scoring command runs on CPU using
+Python's standard library. It prints the correct-bit count, bit accuracy and
+whether the entire message matches, without printing either message.
 
-```python
-import json
-from pathlib import Path
-
-expected = Path("message.bin").read_bytes()
-decoded = bytes.fromhex(json.loads(Path("decoded.json").read_text())["message_hex"])
-assert len(expected) == len(decoded) == 64
-errors = sum(bin(a ^ b).count("1") for a, b in zip(expected, decoded))
-print(f"Correct bits: {512 - errors}/512; exact recovery: {expected == decoded}")
+```bash
+python -m last.score_message --message /private/message.bin --prediction /private/decoded.json
 ```
 
 To **generate a marked video with your own message**, download and verify the
