@@ -44,6 +44,14 @@ def main():
                 raise ValueError("Conditioning image differs from the completed run")
         if a.key and (a.output/'secret.key').read_bytes()!=a.key.read_bytes():raise ValueError('Completed output belongs to a different key')
         if a.message and not np.array_equal(np.load(a.output/'message.npy'),np.unpackbits(np.frombuffer(a.message.read_bytes(),dtype=np.uint8))):raise ValueError('Completed output belongs to a different message')
+        for label in (("marked",) if a.marked_only else ("marked", "reference")):
+            video = a.output / f"{label}.mp4"
+            if not video.is_file():
+                raise ValueError(f"Completed run is missing {video.name}")
+            expected = prior.get(f"{label}_sha256")
+            # Older runs fingerprinted only the marked video.
+            if (label == "marked" or expected is not None) and hashlib.sha256(video.read_bytes()).hexdigest() != expected:
+                raise ValueError(f"Completed run has an unverified {video.name}")
         return
     start=time.time();r={'status':'starting','scope':'fresh end-to-end smoke, not benchmark','family':a.family,'mode':a.mode,'rows':[],'settings':{'steps':50,'cfg':6 if a.family=='hunyuan' else 5,'shift':7 if a.family=='hunyuan' else 5,'frames':65,'size':[512,512],'clean_crf':18,'fps':8,'vae':'float32','generator':'bfloat16'},'source_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
     def save():
@@ -152,6 +160,8 @@ def main():
                 soft,meta=align(torch.stack(features) if features else torch.empty(0,1776),nodes,codes)
             predicted,dec=codec.decode(soft.cpu().numpy());np.save(a.output/'prediction.npy',predicted)
             r['rows']=[{'condition':'clean','correct_bits':int((predicted==bits).sum()),'total_bits':512,'exact_message':bool(np.array_equal(predicted,bits)),**dec,**meta}]
+            if not a.marked_only:
+                r['reference_sha256'] = hashlib.sha256((a.output / 'reference.mp4').read_bytes()).hexdigest()
             r['marked_sha256']=hashlib.sha256((a.output/'marked.mp4').read_bytes()).hexdigest();r['status']='completed';save()
     except BaseException:r.update(status='failed',error=traceback.format_exc());save();raise
 
