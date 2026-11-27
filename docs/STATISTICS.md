@@ -158,7 +158,7 @@ random-deletion differences. Values are percentage points of bit accuracy
 |---|---:|---:|---:|---:|---:|---:|
 | `hunyuan_i2v_primary23.json` | 23 | 6 | 8,980 / 7,797 | 11,776 | +10.05 | [+4.44, +15.68] |
 | `hunyuan_t2v_primary14.json` | 14 | 4 | 5,421 / 4,641 | 7,168 | +10.88 | [+6.31, +16.97] |
-| `wan22_i2v_primary13.json` | 13 | 4 | 4,321 / 4,452 | 6,656 | -1.97 | [-10.20, +8.63] |
+| `wan22_i2v_primary14.json` | 14 | 4 | 4,704 / 4,733 | 7,168 | -0.40 | [-8.59, +10.51] |
 | `wan22_t2v_primary13.json` | 13 | 4 | 4,885 / 4,385 | 6,656 | +7.51 | [+2.49, +15.55] |
 
 After random deletion, both methods recovered zero entire 512-bit messages in
@@ -175,10 +175,10 @@ To replay any row, pass its report to the command above and multiply
 `bit_accuracy` and `bit_accuracy_ci95` for condition `drop` by 100.
 
 For insertion, LAST recovered more bits on every paired pipeline/sample observation
-(23/23, 14/14, 13/13 and 13/13 in the row order above). For contiguous
-removal it won on 61/63, with both losses in Wan I2V. For random deletion
-the counts were 45 LAST wins, one tie and 17 LFG wins. In Wan I2V alone
-the split was six LAST wins and seven LFG wins. These counts use
+(23/23, 14/14, 14/14 and 13/13 in the row order above). For contiguous
+removal it won on 62/64, with both losses in Wan I2V. For random deletion
+the counts were 46 LAST wins, one tie and 17 LFG wins. In Wan I2V alone
+the split was seven LAST wins and seven LFG wins. These counts use
 `paired_bit_wins` from the same replay. The four pipelines reuse manifest
 IDs. Each has only four to six distinct prompts, so these observations
 give limited evidence about new prompts.
