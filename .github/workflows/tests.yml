@@ -51,7 +51,7 @@ jobs:
             > .ci-tables/robustness/hunyuan-i2v-last-first180-fidelity.json
           python tools/plot_margin_sweep.py --cells results/margin_sweep_cells.json \
             --output .ci-tables/robustness/margin-sweep --tables-only
-          python tools/development_margin_recovery.py --cells results/development_margin_nine_videos.json \
+          python tools/development_margin_recovery.py --cells results/development_margin_ten_videos.json \
             > .ci-tables/robustness/development-margin-sensitivity.json
           python - <<'PY'
           import csv

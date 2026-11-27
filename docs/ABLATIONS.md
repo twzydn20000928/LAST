@@ -1104,6 +1104,19 @@ The extended sweep uses all 80 manifest entries and their eight key slots. Run t
 
 During acquisition, run `python tools/development_margin_recovery.py --completed-root "$SWEEP" --export-cells partial-cells.json` to recount all videos whose five margins have finished. This reads the existing videos and receipts without changing the acquisition directory. Use the same frozen configuration directory as the acquisition via `--configs`. The result reports both observed and planned video counts. An invalid receipt in a selected case fails the audit.
 
+The [ten-video export](../results/development_margin_ten_videos.json) covers
+dev-000 through dev-009 at all five margins. Run
+`python tools/development_margin_recovery.py --cells results/development_margin_ten_videos.json`
+to rebuild these paired results. Each strength has six edits per video.
+
+| Embedding margin | Exact messages / 60 edits | Mean PSNR (dB) |
+|---:|---:|---:|
+| 0.10 | 0/60 | 39.50 |
+| 0.25 | 2/60 | 38.49 |
+| 0.50 | 19/60 | 36.69 |
+| 0.75 | 31/60 | 34.96 |
+| 1.00 | 35/60 | 33.36 |
+
 The [nine-video export](../results/development_margin_nine_videos.json) covers dev-000 through dev-008 at each of the five margins. At margins 0.1, 0.25, 0.5, 0.75 and 1.0, the reader recovered all 512 bits on 0, 2, 19, 31 and 34 of 54 video–attack pairs. Mean PSNR was 40.20, 39.14, 37.27, 35.47 and 33.81 dB, respectively. Each denominator counts six edits of the same nine videos. Rebuild the observations with `python tools/development_margin_recovery.py --cells results/development_margin_nine_videos.json`.
 
 The [eight-video export](../results/development_margin_eight_videos.json)
