@@ -649,3 +649,20 @@ The Table 1 workflow verifies 400 MP4 entries across 16 dimension reports
 for these two arms. The separate VideoMark check covers 20 more entries.
 These are counts of matched input files across methods and dimensions.
 Diversity scores are computed per prompt, with several input videos per score.
+
+
+### Three matched methods on the fixed timing sample
+
+The ordinary Hunyuan I2V evaluations on paper-291 cover seven conditions per method. From the repository root:
+
+```bash
+python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg videoshield --reports results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_videoshield_slice291.json
+```
+
+Rebuild the [VideoShield counts](../results/hunyuan_i2v_videoshield_slice291.json) from the original acquisition:
+
+```bash
+python tools/audit_videomark_prefix.py --root "$PRIMARY_RUNS" --manifest configs/primary_manifest.json --plan "$NATIVE_PLAN" --start-index 291 --count 1 --family hunyuan --mode i2v --method videoshield --output videoshield-paper291.json
+```
+
+The audit checks the conditioning image, prompt, seed, 512-bit message, received MP4s and edit positions. It recounts each stored prediction. The seven historical extraction receipts lack prediction hashes recorded at extraction time. These scores cover one matched video. Formal efficiency measurements on the same sample require an exclusive GPU run.
