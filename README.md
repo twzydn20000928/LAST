@@ -34,6 +34,10 @@ python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
   --video received.mp4 --key /private/secret.key --output /private/decoded.json
 ```
 
+Both `last.extract` and `last.evaluate` default to a PyTorch allocator limit of
+20% of total GPU memory. On a dedicated GPU, add `--memory-fraction 1` to
+allow the reader to use available memory up to the device capacity.
+
 Use a fresh output filename. The private JSON contains the recovered 512 bits
 in `message_hex` and the error-correction outcome in `bch_success`. A payload
 can still contain errors. To save the recovered 64 bytes from this prediction,

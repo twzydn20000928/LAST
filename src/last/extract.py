@@ -4,7 +4,6 @@ from pathlib import Path
 import numpy as np
 import torch
 from .carriers import codebook
-from .coding import BCH512
 from .evaluate import extract, extract_lfg
 from .video import load_mp4
 
@@ -17,15 +16,21 @@ def main():
     p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--include-pre-bch',action='store_true',help='Include the 512 systematic hard decisions in the private prediction file')
-    a=p.parse_args();os.umask(0o077);torch.set_num_threads(4)
+    p.add_argument('--memory-fraction', type=float, default=0.20,
+                   help='Maximum fraction of total GPU memory for the PyTorch allocator (default: 0.20)')
+    a=p.parse_args()
+    if not 0 < a.memory_fraction <= 1:
+        p.error('--memory-fraction must be greater than 0 and at most 1')
+    os.umask(0o077);torch.set_num_threads(4)
     started=time.time()
     if os.path.lexists(a.output):
         raise FileExistsError(f'Choose a new output path: {a.output}')
+    from .coding import BCH512
     key=a.key.read_bytes()
     if len(key)!=32:raise ValueError('Expected a binary key file containing exactly 32 bytes')
     frames=load_mp4(a.video)
     if any(np.asarray(f).shape!=(512,512,3) for f in frames):raise ValueError('Expected a 512 x 512 RGB video')
-    torch.cuda.set_per_process_memory_fraction(.20)
+    torch.cuda.set_per_process_memory_fraction(a.memory_fraction)
     from diffusers import AutoencoderKLHunyuanVideo,AutoencoderKLWan
     from diffusers.video_processor import VideoProcessor
     cls=AutoencoderKLHunyuanVideo if a.family=='hunyuan' else AutoencoderKLWan

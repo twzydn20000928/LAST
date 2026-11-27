@@ -8,7 +8,6 @@ from .temporal import segments, windows
 from .attacks import attacked
 from .elmc import feature
 from .ccta import align
-from .coding import BCH512
 from .report import CONDITIONS, completed_bit_counts
 
 def reader_nodes(frames,reader='ccta',scan=True):
@@ -91,7 +90,11 @@ def main():
     p.add_argument('--map-seed',type=int,choices=range(5),default=0)
     p.add_argument('--condition', choices=CONDITIONS,
                    help='Evaluate a single condition. Omit to evaluate all seven.')
+    p.add_argument('--memory-fraction', type=float, default=0.20,
+                   help='Maximum fraction of total GPU memory for the PyTorch allocator (default: 0.20)')
     a=p.parse_args()
+    if not 0 < a.memory_fraction <= 1:
+        p.error('--memory-fraction must be greater than 0 and at most 1')
     os.umask(0o077)
     vae = None
     generation=json.loads((a.run/'receipt.json').read_text());method=generation.get('method','last')
@@ -110,10 +113,11 @@ def main():
                 print_completed(prior, 'verified cached result')
                 continue
         if vae is None:
+            from .coding import BCH512
             from diffusers import AutoencoderKLHunyuanVideo, AutoencoderKLWan
             from diffusers.video_processor import VideoProcessor
             torch.set_num_threads(4)
-            torch.cuda.set_per_process_memory_fraction(.20)
+            torch.cuda.set_per_process_memory_fraction(a.memory_fraction)
             cls = AutoencoderKLHunyuanVideo if a.family == 'hunyuan' else AutoencoderKLWan
             vae = cls.from_pretrained(a.model_dir, subfolder='vae', torch_dtype=torch.float32,
                                       local_files_only=True).to('cuda')
