@@ -510,6 +510,16 @@ pipelines reuse manifest entries, so the 68 comparisons include repeated
 prompts. This comparison measures the effect of the edit pattern on recovery;
 it cannot isolate which reader operation caused the difference.
 
+The 68 comparisons use 26 distinct video IDs and hence 26 pairs of edit
+maps. Using the original frame numbers, exclude frame 0 (the causal prefix)
+and count a group as intact when all four frames numbered
+`1+4*g` through `4+4*g` survive, for `g` from 0 to 15. Random deletion
+left a median of one intact group per video (range 0–3; five maps left none).
+Contiguous deletion left a median of eight (range 7–8). All 26 contiguous
+maps retained more intact groups than their random-deletion counterparts.
+These counts describe the input to the reader. A partially retained group
+can still carry recoverable bits.
+
 The fidelity scores below use the same samples as the temporal-attack rows above. Each PSNR value averages per-video PSNR in dB. Reference matches count byte-identical unmarked MP4s between methods, verified by SHA-256.
 
 | Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
