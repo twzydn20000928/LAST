@@ -253,7 +253,7 @@ The following paired subsets use the frozen primary manifest and 512 information
 | Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
 |---|---:|---|---|
 | HunyuanVideo, image-to-video | 27 | [First 24](results/hunyuan_i2v_primary24.json), [paper-024](results/hunyuan_i2v_primary_slice024.json), [paper-025](results/hunyuan_i2v_primary_slice025.json) and [paper-291](results/hunyuan_i2v_primary_slice291.json) | [First 24](results/hunyuan_i2v_fidelity24.json), [paper-024](results/hunyuan_i2v_paired_fidelity_slice024.json), [paper-025](results/hunyuan_i2v_paired_fidelity_slice025.json) and [paper-291](results/hunyuan_i2v_paired_fidelity_slice291.json) |
-| HunyuanVideo, text-to-video | 14 | [14 pairs](results/hunyuan_t2v_primary14.json) | [14 pairs](results/hunyuan_t2v_fidelity14.json) |
+| HunyuanVideo, text-to-video | 15 | [First 14](results/hunyuan_t2v_primary14.json) and [paper-014](results/hunyuan_t2v_primary_slice014.json) | [First 14](results/hunyuan_t2v_fidelity14.json) and [paper-014](results/hunyuan_t2v_paired_fidelity_slice014.json) |
 | Wan-2.2, image-to-video | 14 | [14 pairs](results/wan22_i2v_primary14.json) | [14 pairs](results/wan22_i2v_fidelity14.json) |
 | Wan-2.2, text-to-video | 14 | [14 pairs](results/wan22_t2v_primary14.json) | [14 pairs](results/wan22_t2v_fidelity14.json) |
 
