@@ -1,0 +1,109 @@
+{
+  "video_id": "paper-126",
+  "family": "hunyuan",
+  "writer": "last",
+  "complete_reader_set": false,
+  "evaluation_sha256": "4ac8b73520bb58b59b7d41ffbf928eb593b0e349117a7234a17ea4f890a0494d",
+  "source_sha256": "fbb0355ab1fdaaf78289e40997ed5af996b5feca23b43cd1f958de8d843062ce",
+  "rows": [
+    {
+      "condition": "clean",
+      "reader": "received",
+      "blind": true,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "436a650a5e41ae25f5912fe57ef2feccf5b72ec7cf407aebba2e2425841da259",
+      "feature_receipt_sha256": "4a1f396197f7a7de72390272ab39011955a4efe5d761d138912b189edab13223",
+      "extraction_receipt_sha256": "87bf93fd2e26bc4e3cdba1862f0bd05d5b91a535d866257070056b0bdce082b9"
+    },
+    {
+      "condition": "clean",
+      "reader": "ccta",
+      "blind": true,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "436a650a5e41ae25f5912fe57ef2feccf5b72ec7cf407aebba2e2425841da259",
+      "feature_receipt_sha256": "4fbc5da46b97e1e17122d52aaad8025fa5833097f223e772da51466e41560c6c",
+      "extraction_receipt_sha256": "267346a9dcb17d544f1d5b6e36c47e0d0eede057ee783c311dae4b7cae3e0fd5"
+    },
+    {
+      "condition": "clean",
+      "reader": "oracle",
+      "blind": false,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "436a650a5e41ae25f5912fe57ef2feccf5b72ec7cf407aebba2e2425841da259",
+      "feature_receipt_sha256": "695063b4505d91e41b918db7bfb3fc1bdd1ece2c76d435375cd149979431296b",
+      "extraction_receipt_sha256": "ef246e9ea5da98182332d5e6d03e2a86e2d6f8ec5d99a266a29cb902100634d6"
+    },
+    {
+      "condition": "drop",
+      "reader": "received",
+      "blind": true,
+      "correct_bits": 249,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "f9c7fbfd166b2e13d3c93d8810ae5531e2084dfc0796cb6718bb4450ef2e95e2",
+      "feature_receipt_sha256": "abf6ad4fe7708f7bcb6f5d8fa34890a5537ec149e2b377d2e7b622517fa2cd8b",
+      "extraction_receipt_sha256": "af385dc76fe3177335059d4541e73650eb4245a8ea4e4989eb9db7152d0d3e4b"
+    },
+    {
+      "condition": "drop",
+      "reader": "ccta",
+      "blind": true,
+      "correct_bits": 377,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "f9c7fbfd166b2e13d3c93d8810ae5531e2084dfc0796cb6718bb4450ef2e95e2",
+      "feature_receipt_sha256": "091918099f2a7fd746f4e8c9fa0a7e12c5c90596b896f21bea3cc1652394edf3",
+      "extraction_receipt_sha256": "b5d0edd645c01ba2861329b16baa785c426c9c55faaaeb54c929980ce6de3fb4"
+    },
+    {
+      "condition": "drop",
+      "reader": "oracle",
+      "blind": false,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "f9c7fbfd166b2e13d3c93d8810ae5531e2084dfc0796cb6718bb4450ef2e95e2",
+      "feature_receipt_sha256": "492d701e35704bd0f2dd9ebddf562dc4deac0ca5b34fc6a67eeec6889776bef9",
+      "extraction_receipt_sha256": "b45576810628df14396c3559b147a166a6ee229de67f2af53e9ec0fbccbdaab1"
+    },
+    {
+      "condition": "compression",
+      "reader": "received",
+      "blind": true,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "502d5a07af4cda30ea81a28ae64a590faed67d75e5c8591b8389c1aae321c1a2",
+      "feature_receipt_sha256": "a6f869644bd497c804228ced598d074ec1b8efe12a4c18a88fabd59bf4b76e24",
+      "extraction_receipt_sha256": "7a1494dee07e5413a509ab60c5d1237068159a598d3322bfdd813c642d82dc2e"
+    },
+    {
+      "condition": "compression",
+      "reader": "ccta",
+      "blind": true,
+      "correct_bits": 498,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "502d5a07af4cda30ea81a28ae64a590faed67d75e5c8591b8389c1aae321c1a2",
+      "feature_receipt_sha256": "883d52c7ba8eff1a33a6445e199d1cbfb77d7cff27d5649ec701be5efb0a13e9",
+      "extraction_receipt_sha256": "a9a004b3b7e470c845edb10426f587d88e018b5b1d47f4a17d5c2f72df6a9220"
+    },
+    {
+      "condition": "compression",
+      "reader": "oracle",
+      "blind": false,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "502d5a07af4cda30ea81a28ae64a590faed67d75e5c8591b8389c1aae321c1a2",
+      "feature_receipt_sha256": "c8521b8a8a8c0e69622c8fe45aacb9a32bedc148a502a98fb7320cd0b498f78e",
+      "extraction_receipt_sha256": "7f50f8ae0605833e4fb04ccfe89d409437120536f0a6c2a726f33a881430bbc3"
+    }
+  ]
+}
