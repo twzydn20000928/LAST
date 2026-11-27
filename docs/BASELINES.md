@@ -935,3 +935,27 @@ Use the native baseline environment with a trusted local run. The command reads 
 ```bash
 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 CUDA_VISIBLE_DEVICES="" python tools/check_sigmark_initial.py --run "$PRIMARY_RUNS/hunyuan/i2v/sigmark/paper-291" --upstream "$SIGMARK_ROOT"
 ```
+
+### SIGMark insertion workload on paper-000
+
+The native insertion evaluation on Hunyuan I2V paper-000 reads a 95-frame MP4. Stage one sets the first frame aside and applies upstream optical-flow segmentation to the remaining 94 frames. On this input it returns 47 segments. There are 43 segments of at most four frames and four longer segments. With temporal stride four, SGO inverts one padded five-frame clip per short segment and four nine-frame clips per long segment. Thus grouping alone calls inversion 59 times, with 50 diffusion steps per call. If grouping supplies a valid 65-frame reconstruction, ordinary final inversion and message decoding follow. These counts depend on the received video.
+
+Recompute the grouping workload without a GPU in the native baseline environment, using the pinned upstream checkout and acquisition MP4:
+
+```bash
+PYTHONPATH="src:$SIGMARK_ROOT" python - "$PRIMARY_RUNS/hunyuan/i2v/sigmark/paper-000/attacks/insert.mp4" <<'PY'
+import hashlib
+import sys
+from pathlib import Path
+from last.video import load_mp4
+from utils.video_utils import optical_flow_segmentation
+
+video = Path(sys.argv[1])
+assert hashlib.sha256(video.read_bytes()).hexdigest() == "ff6957b37b5bb81f9ccfa15f834299e39d74bad9e0ff0e9665908bd021ec2118"
+frames = load_mp4(video)
+segments = optical_flow_segmentation(frames[1:])
+short = sum(end - start + 1 <= 4 for start, end in segments)
+long = len(segments) - short
+print(len(frames), short, long, short + 4 * long)
+PY
+```
