@@ -1401,6 +1401,14 @@ PYTHONPATH="$table4_src" python -m last.reader_ablation --run /private/verified-
 
 The current Table 4 rebuild covers 13 of the 30 frozen cases (6,656 bits per condition). Use `python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_three.json`. This export adds 28 reads on the regenerated minimum-margin inputs for paper-291 to the 56 archived reads for paper-003 and paper-174. On paper-291, deletion recovered 248/512 bits with the minimum-margin writer and 266/512 with the fixed-target writer. Both results enter the pooled table.
 
+### Intact and partially retained groups at the same group count
+
+The [first 100 Hunyuan I2V deletion cases](../results/assisted_group_equal_counts_first100.json) use original frame identities supplied by the evaluator. In each eligible video, read the surviving intact groups and compare them with every equally sized selection of partially retained groups. Average the partial selections within each video before averaging videos. Under this pairing, intact groups recover 84.12% of bits and partial groups 77.24%; intact groups score higher on 71 of 81 eligible videos. The 4,769 partial selections reuse frames from those same videos. This comparison measures evidence remaining after deletion when group identities are known. The blind alignment results below cover all 100 videos.
+
+```bash
+python tools/summarize_assisted_subsets.py results/assisted_group_equal_counts_first100.json
+```
+
 ### Paired deletion differences across videos
 
 On the first 100 verified Hunyuan I2V videos, blind CCTA recovered more information bits than received-order grouping on 91 videos, tied on one and recovered fewer on eight. The median paired gain was 123 of 512 bits. Providing the true edit map improved over blind CCTA on all 100, with a median gain of 121 bits. The assisted reader receives privileged frame positions. Each difference below compares readers on one identical deletion MP4.
