@@ -140,7 +140,10 @@ decode and export the unmarked reference. Both modes run diffusion once.
 The evaluation command reuses the marked video for all requested conditions.
 In a [single-video Hunyuan application check](results/hunyuan_i2v_marked_only_cli.json),
 a separate extraction process recovered 512/512 bits from the clean MP4 and
-348/512 after random deletion of 30 frames.
+348/512 after random deletion of 30 frames. The seven-condition evaluator on the same
+video recovered the full message after noise and blur, 486/512 bits after
+compression, 431/512 after insertion and 497/512 after contiguous removal.
+All six edited MP4 files matched the outputs of the standalone CPU attack command.
 See the per-condition JSON files in `$LAST_EXAMPLE_DIR/run/attacks/` for
 `correct_bits`, `total_bits` and `exact_message` on completed reads.
 

@@ -46,5 +46,76 @@
       "video_sha256": "109dec8c53587565c2aa7dee06517771d613639f27b0ac041983e39ba115e9da",
       "standalone_extraction_seconds": 103.35423612594604
     }
+  },
+  "evaluation": {
+    "video_id": "marked-only-example",
+    "map_seed": 0,
+    "source": "last.evaluate on the exported marked MP4",
+    "verified_standalone_edits": 6,
+    "conditions": {
+      "clean": {
+        "frames": 65,
+        "correct_bits": 512,
+        "total_bits": 512,
+        "exact_message": true,
+        "received_sha256": "4bc9008e9ebecb4b50e19cd449cd5ec4be801542af28e16c5c484d80e87430ef",
+        "route": "ccta",
+        "receipt_sha256": "e497a2f59c954a5c963254e42fd7ea11b95cbee527232909433c4664520da845"
+      },
+      "noise": {
+        "frames": 65,
+        "correct_bits": 512,
+        "total_bits": 512,
+        "exact_message": true,
+        "received_sha256": "e0da4920e4a461ac4300585b5e51fd2f05013617b8cbd0adbc0a205463c6bb79",
+        "route": "ccta",
+        "receipt_sha256": "43c005115def9e5940f751592131aeaa873ef7f55f0de4d4bf51bd004d25ca6d"
+      },
+      "compression": {
+        "frames": 65,
+        "correct_bits": 486,
+        "total_bits": 512,
+        "exact_message": false,
+        "received_sha256": "d29a84ec2a4ca65d8cf383101ebb62b404060ec2e67593f7dd94844e78236c56",
+        "route": "ccta",
+        "receipt_sha256": "5d4e73489362d6696fbfbd26ca76d89aff90cfab9c641f1b0d913c3cd9188c93"
+      },
+      "blur": {
+        "frames": 65,
+        "correct_bits": 512,
+        "total_bits": 512,
+        "exact_message": true,
+        "received_sha256": "8b3d4b0555cb4a1cd46ea84640ef97f1260efed0e54882870c079d677ce04c42",
+        "route": "ccta",
+        "receipt_sha256": "0b1358354df901a64252e585e23768cde82ca17acfa5cbe157216a25cad6255a"
+      },
+      "drop": {
+        "frames": 35,
+        "correct_bits": 348,
+        "total_bits": 512,
+        "exact_message": false,
+        "received_sha256": "109dec8c53587565c2aa7dee06517771d613639f27b0ac041983e39ba115e9da",
+        "route": "ccta",
+        "receipt_sha256": "6336cba7bfadcacbc4db0c57a116eeaa4fdf9e9780721d34dcfda560740bec0b"
+      },
+      "insert": {
+        "frames": 95,
+        "correct_bits": 431,
+        "total_bits": 512,
+        "exact_message": false,
+        "received_sha256": "d34851de0157c5f73f98bcb9bc36e48bffc3d83a80cf513d12e75faf84738f88",
+        "route": "ccta",
+        "receipt_sha256": "f47f0c77d7dcb8ae61f16b5a9e2da5d902b0b6b3fe0ece5e2ea04a7f8af39ac1"
+      },
+      "clip": {
+        "frames": 35,
+        "correct_bits": 497,
+        "total_bits": 512,
+        "exact_message": false,
+        "received_sha256": "996fece9c9e77d7850fe259db2fe0f6dca3a4cfed2a26da014ac983bbfdc2987",
+        "route": "ccta",
+        "receipt_sha256": "c47ae98e9bb3a20ce80111e8a168192b715668ba59c0c02061da15a9096d6c47"
+      }
+    }
   }
 }
