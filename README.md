@@ -24,7 +24,10 @@ and `--family wan22` in the extraction command below. Its VAE download is
 the reader recovered all 512 bits from one clean 65-frame MP4 using only
 the key and the matching VAE. On the same sample after random deletion of 30 frames,
 the [standalone reader](results/wan22_t2v_vae_only_cli_drop.json) recovered
-329/512 bits from the remaining 35 frames, matching the archived evaluation.
+329/512 bits from the remaining 35 frames, matching the archived evaluation. The
+[seven-condition Wan example](results/wan22_t2v_single_video_attacks.json)
+lists the frame counts, recovered bits and MP4 hashes. All six edits were rebuilt
+with the standalone attack command using `--video-id paper-000 --map-seed 0`.
 
 ```bash
 python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \

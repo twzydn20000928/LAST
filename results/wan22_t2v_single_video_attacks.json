@@ -1,0 +1,68 @@
+{
+  "sample": "paper-000",
+  "family": "wan22",
+  "mode": "t2v",
+  "method": "last",
+  "source_sha256": "f272ad4506433a2f244b16f5db1394eb1a01fe32d15681835818e6977f0a3f21",
+  "map_seed": 0,
+  "attack_source_revision": "886f65a24f4926d10493ddc81cde0ababe7579d3",
+  "extraction": "Archived primary receipts; independent VAE-only reads separately verified for clean and drop.",
+  "conditions": {
+    "clean": {
+      "frames": 65,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "f272ad4506433a2f244b16f5db1394eb1a01fe32d15681835818e6977f0a3f21",
+      "receipt_sha256": "dfad2dc3fdab1675ad93c9366239ef27aa9c0b61b025630403b64f850564905c"
+    },
+    "noise": {
+      "frames": 65,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "15a9ffa861cee2c76d1dc1ba61d638dbc33020fb58ae4dd3a390b69e069a8ccd",
+      "receipt_sha256": "43aa58944f6d94392541a0c6ee3e370b0c8505e6b4f6e84d9a2bfc6b8cbf4dd8"
+    },
+    "compression": {
+      "frames": 65,
+      "correct_bits": 495,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "7a2ee19bdb2da5f5e16900cd79632e17172afc9c1df4723e1732e5899aea6fa8",
+      "receipt_sha256": "c53b340d5925355d87701f478d7bbc8793d90a7e7498a258feaa1beb9278657c"
+    },
+    "blur": {
+      "frames": 65,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "received_sha256": "1f6ae5bb54de80f5ce739268d2a78d0f6243776715d08958a153859cb3f88e89",
+      "receipt_sha256": "4d291eee19030dd07244b2b98dd8e22c6aec5170eb536d4107f4b2dd73e75669"
+    },
+    "drop": {
+      "frames": 35,
+      "correct_bits": 329,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "981ba6956b62d027f3195fc9fc9bc45c0d158e02cc7d54f9a7cb4fc69826ba09",
+      "receipt_sha256": "9a4d4610e8de4a0a474eceb35495a23572aba0d74dff35aaaa897c5d7523fe22"
+    },
+    "insert": {
+      "frames": 95,
+      "correct_bits": 381,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "f9722a438370ebab02ceec442e27cbfa895715c72cfc3617ad8a4d4e4817dcfd",
+      "receipt_sha256": "77c8ae3f6ea3015920732ae7582b9b52026020ed26309ee63a971d1611e387aa"
+    },
+    "clip": {
+      "frames": 35,
+      "correct_bits": 495,
+      "total_bits": 512,
+      "exact_message": false,
+      "received_sha256": "149ff62115372424a8de9e7d12d67e5d27c554e658febc4cdb000292b6e4c9a0",
+      "receipt_sha256": "cd3f85515423d804bc03111ec157df573ffd384f2a65d5bca6bc95871aefd178"
+    }
+  }
+}
