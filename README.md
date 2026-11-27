@@ -118,6 +118,17 @@ than `compression` use CRF 18. The implementation draws each inserted RGB
 channel value uniformly from 0 to 255. The default temporal map seed is 0;
 use the same video ID and map seed across methods to reproduce the edit positions.
 
+If you have only a marked MP4, you can also create an attacked copy on CPU
+without a key, checkpoint or generation run directory. For a 65-frame,
+512 × 512 input, the following command writes a 35-frame output. Pass that
+output as `--video` to the standalone extraction command above and compare
+the decoded message with your original bytes if available.
+
+```bash
+python -m last.attack_video --video received.mp4 --video-id cyclist-example \
+  --condition drop --output received-drop.mp4
+```
+
 The first command generates the reference and marked MP4s and checks clean
 extraction. For watermarking alone, add `--marked-only` to the first command
 and use a fresh output directory. LAST runs diffusion once in either mode.
