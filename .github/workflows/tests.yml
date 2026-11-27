@@ -107,7 +107,7 @@ jobs:
         run: |
           mkdir ci-temporal-diagnostics
           python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg \
-            --reports results/hunyuan_i2v_primary24.json results/hunyuan_i2v_primary_slice291.json \
+            --reports results/hunyuan_i2v_primary24.json results/hunyuan_i2v_primary_slice024.json results/hunyuan_i2v_primary_slice291.json \
             > ci-temporal-diagnostics/hunyuan-i2v-matched-including-paper291.md
           python tools/matched_primary_methods.py --family hunyuan --mode i2v \
             --methods last lfg sigmark videoshield --reports results/hunyuan_i2v_primary24.json \

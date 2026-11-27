@@ -491,11 +491,11 @@ The 72-video Hunyuan T2V report was replayed against the archived acquisition pl
 
 ### Matched temporal attacks by backbone and input mode
 
-All entries are observed information-bit accuracy on the same frozen sample prefix for LAST and LFG. The pairs in each cell are LAST / LFG. Each sample contributes 512 bits per condition. The primary experiment plans 400 samples per pipeline.
+All entries are observed information-bit accuracy on the same frozen sample IDs for LAST and LFG. The pairs in each cell are LAST / LFG. Each sample contributes 512 bits per condition. The primary experiment plans 400 samples per pipeline. Hunyuan I2V includes paper-000 through paper-024 and paper-291.
 
 | Backbone and mode | Paired videos | Deletion | Insertion | Clip |
 |---|---:|---:|---:|---:|
-| [hunyuan i2v](../results/hunyuan_i2v_primary24.json) | 24 | 77.25% / 66.13% | 87.48% / 59.46% | 98.70% / 77.82% |
+| Hunyuan I2V ([first 24](../results/hunyuan_i2v_primary24.json), [024](../results/hunyuan_i2v_primary_slice024.json), [291](../results/hunyuan_i2v_primary_slice291.json)) | 26 | 76.56% / 65.99% | 87.26% / 59.37% | 98.37% / 77.42% |
 | [hunyuan t2v](../results/hunyuan_t2v_primary14.json) | 14 | 75.63% / 64.75% | 90.69% / 57.53% | 97.74% / 73.62% |
 | [wan22 i2v](../results/wan22_i2v_primary14.json) | 14 | 65.625% / 66.03% | 84.42% / 56.57% | 94.81% / 76.88% |
 | [wan22 t2v](../results/wan22_t2v_primary13.json) | 13 | 73.39% / 65.88% | 83.41% / 54.70% | 95.49% / 75.71% |
@@ -504,7 +504,7 @@ The fidelity scores below use the same samples as the temporal-attack rows above
 
 | Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
 |---|---:|---:|---:|---:|
-| [hunyuan_i2v](../results/hunyuan_i2v_fidelity24.json) | 24 | 2/24 | 31.42 / 22.44 | 0.9330 / 0.7220 |
+| Hunyuan I2V ([first 24](../results/hunyuan_i2v_fidelity24.json), [024](../results/hunyuan_i2v_paired_fidelity_slice024.json), [291](../results/hunyuan_i2v_paired_fidelity_slice291.json)) | 26 | 3/26 | 31.67 / 22.46 | 0.9338 / 0.7208 |
 | [hunyuan_t2v](../results/hunyuan_t2v_fidelity14.json) | 14 | 0/14 | 31.80 / 22.53 | 0.9338 / 0.7286 |
 | [wan22_i2v](../results/wan22_i2v_fidelity14.json) | 14 | 14/14 | 30.18 / 23.53 | 0.9382 / 0.8163 |
 | [wan22_t2v](../results/wan22_t2v_fidelity13.json) | 13 | 13/13 | 31.37 / 25.24 | 0.9476 / 0.8446 |
