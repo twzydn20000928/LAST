@@ -133,10 +133,12 @@ def render(groups):
         rows.append((*key,*values))
     text=['# Measured robustness: bit accuracy and coverage','',
           'Percentages are recomputed from correct information bits. Each cell also shows completed/planned videos.',
-          'Partial results are not final paper scores. No ranking or winner highlighting is applied.','',
+          'Coverage differs by method. Partial cells describe the available samples.', '',
+          'I2V uses an input image and prompt. T2V uses a text prompt. Drop removes 30 random frames, '
+          'insert adds 30 noise frames, and clip removes 30 consecutive frames.', '',
           '| '+' | '.join(labels)+' |','|'+'|'.join(['---']*len(labels))+'|']
     text+=['| '+' | '.join(row)+' |' for row in rows]
-    text+=['','Exact-message counts are retained separately in counts.csv; bit accuracy is not message recovery or authentication.',
+    text+=['','For the number of complete 512-bit messages recovered, see [counts.csv](counts.csv).',
            'This formatter consumes audited reports; it does not rerun their artifact audit or prove protocol comparability.']
     return '\n'.join(text)+'\n',coverage
 
@@ -146,7 +148,7 @@ def main():
     p.add_argument('--reports',nargs='+',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--disjoint-snapshots', action='store_true',
                    help='Pool separate sample IDs for the same method on a shared manifest')
-    a=p.parse_args();inputs={str(f):hashlib.sha256(f.read_bytes()).hexdigest() for f in a.reports}
+    a=p.parse_args();inputs={f.as_posix():hashlib.sha256(f.read_bytes()).hexdigest() for f in a.reports}
     collector = collect_disjoint if a.disjoint_snapshots else collect
     groups=collector([json.loads(f.read_text(encoding='utf-8-sig')) for f in a.reports]);markdown,counts=render(groups)
     if any(hashlib.sha256(Path(f).read_bytes()).hexdigest()!=h for f,h in inputs.items()):raise ValueError('Report changed')

@@ -163,6 +163,8 @@ samples omitted the MP4 digest.
 
 ## Reproduction status
 
+View the [measured attack results](results/primary-robustness/table.md) for all available pipelines and methods. Each cell gives the observed bit accuracy and the number of videos scored out of 400. The [underlying counts](results/primary-robustness/counts.csv) also give the number of messages recovered in full.
+
 This repository is being constructed from a frozen manuscript protocol. Full-paper experiments have **not** been reproduced yet. Historical pilot results are not full-benchmark results, and manuscript values are not used as measured outputs.
 
 The reproduction targets 512 information bits, two video backbones (HunyuanVideo and Wan-2.2 A14B), both T2V and I2V, matched baselines, spatial/temporal attacks, quality evaluation and ablations. Runs record model revisions, software versions, seed schedules, codec settings, raw counts, failures and hardware differences.

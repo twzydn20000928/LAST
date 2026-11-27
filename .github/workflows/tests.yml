@@ -31,6 +31,8 @@ jobs:
             results/hunyuan_i2v_sigmark_slice291_partial.json \
             results/hunyuan_t2v_videomark_first40.json \
             --output .ci-tables/robustness
+          diff --strip-trailing-cr -u results/primary-robustness/table.md .ci-tables/robustness/table.md
+          diff --strip-trailing-cr -u results/primary-robustness/counts.csv .ci-tables/robustness/counts.csv
           for report in hunyuan_i2v_primary24 hunyuan_t2v_primary14 wan22_i2v_primary14 wan22_t2v_primary14; do
             python tools/paired_primary_intervals.py --report "results/${report}.json" \
               --output ".ci-tables/robustness/${report}-intervals.json"
