@@ -78,6 +78,21 @@ recompression. To fill in the other conditions later, use the same run and
 video ID and omit `--condition`. The evaluator verifies and reuses completed
 receipts and their corresponding MP4 files.
 
+| `--condition` | Operation on the 65-frame marked MP4 | Frames presented to the reader |
+|---|---|---:|
+| `clean` | Read the original marked MP4 | 65 |
+| `noise` | Add zero-mean Gaussian noise with standard deviation 0.05 to RGB values scaled to [0, 1], then clip and round to 8 bits | 65 |
+| `compression` | Re-encode with H.264 at CRF 28 | 65 |
+| `blur` | Apply a 5 × 5 Gaussian kernel with standard deviation 1 pixel | 65 |
+| `drop` | Remove 30 uniformly sampled, distinct frame positions | 35 |
+| `insert` | Insert 30 noise frames into randomly chosen positions, preserving the original frame order | 95 |
+| `clip` | Remove a contiguous block of 30 frames with a uniformly sampled start | 35 |
+
+All edits are read back from H.264 MP4 at 8 fps. Edited conditions other
+than `compression` use CRF 18. The implementation draws each inserted RGB
+channel value uniformly from 0 to 255. The default temporal map seed is 0;
+use the same video ID and map seed across methods to reproduce the edit positions.
+
 The first command generates the reference and marked MP4s and checks clean
 extraction. For watermarking alone, add `--marked-only` to the first command
 and use a fresh output directory. LAST runs diffusion once in either mode.
