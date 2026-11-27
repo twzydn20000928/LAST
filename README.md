@@ -18,6 +18,12 @@ This downloads the pinned VAE configuration and weights (986 MB for Hunyuan
 I2V). Omit `--download` to verify an existing local copy offline. Generation
 requires the full checkpoint.
 
+For Wan-2.2 text-to-video, use `--name wan22_t2v` in the download command
+and `--family wan22` in the extraction command below. Its VAE download is
+508 MB. In the [offline Wan extraction check](results/wan22_t2v_vae_only_cli.json),
+the reader recovered all 512 bits from one clean 65-frame MP4 using only
+the key and the matching VAE.
+
 ```bash
 python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
   --video received.mp4 --key /private/secret.key --output /private/decoded.json

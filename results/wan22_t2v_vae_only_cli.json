@@ -1,0 +1,20 @@
+{
+  "sample": "paper-000",
+  "mode": "t2v",
+  "condition": "clean",
+  "hardware": "L40 (shared)",
+  "model_revision": "5be7df9619b54f4e2667b2755bc6a756675b5cd7",
+  "verified_model_files": [
+    "vae/config.json",
+    "vae/diffusion_pytorch_model.safetensors"
+  ],
+  "clean_receipt_sha256": "dfad2dc3fdab1675ad93c9366239ef27aa9c0b61b025630403b64f850564905c",
+  "correct": 512,
+  "total": 512,
+  "same_prediction": true,
+  "frames": 65,
+  "seconds": 151.45199990272522,
+  "bch_success": true,
+  "family": "wan22",
+  "video_sha256": "f272ad4506433a2f244b16f5db1394eb1a01fe32d15681835818e6977f0a3f21"
+}
