@@ -8,6 +8,7 @@ from .temporal import attack_map, segments, windows
 from .elmc import feature
 from .ccta import align
 from .coding import BCH512
+from .report import CONDITIONS
 
 def attacked(frames, name, video_id, seed=0):
     from PIL import Image
@@ -99,7 +100,10 @@ def verify_received(row,path):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--run',type=Path,required=True);p.add_argument('--model-dir',required=True);p.add_argument('--video-id',required=True);p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
-    p.add_argument('--map-seed',type=int,choices=range(5),default=0);a=p.parse_args()
+    p.add_argument('--map-seed',type=int,choices=range(5),default=0)
+    p.add_argument('--condition', choices=CONDITIONS,
+                   help='Evaluate a single condition. Omit to evaluate all seven.')
+    a=p.parse_args()
     os.umask(0o077);torch.set_num_threads(4);torch.cuda.set_per_process_memory_fraction(.20)
     from diffusers import AutoencoderKLHunyuanVideo,AutoencoderKLWan
     from diffusers.video_processor import VideoProcessor
@@ -113,7 +117,7 @@ def main():
     source=load_mp4(a.run/'marked.mp4');source_sha=hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()
     if generation.get('marked_sha256')!=source_sha:raise ValueError('Generation MP4 changed')
     directory=evaluation_directory(a.run,a.map_seed);directory.mkdir(exist_ok=True);failed=False
-    for name in ['clean','noise','compression','blur','drop','insert','clip']:
+    for name in ((a.condition,) if a.condition else CONDITIONS):
         receipt=directory/(name+'.json')
         if receipt.exists():
             prior=json.loads(receipt.read_text());check_cached(prior,a.video_id,method,source_sha,a.map_seed)

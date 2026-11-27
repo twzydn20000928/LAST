@@ -41,6 +41,12 @@ python -m last.evaluate --family hunyuan --model-dir /path/to/checkpoint \
   --run /private/cyclist-run --video-id cyclist-example
 ```
 
+For a shorter evaluation, append `--condition drop` to the second command to
+test random frame deletion alone, or `--condition compression` to test
+recompression. To fill in the other conditions later, use the same run and
+video ID and omit `--condition`. The evaluator verifies and reuses completed
+receipts and their corresponding MP4 files.
+
 The first command generates the reference and marked MP4s and checks clean
 extraction. The second reuses the marked video to evaluate clean extraction,
 blur, noise, compression, deletion, insertion and contiguous frame removal.
