@@ -46,8 +46,17 @@ errors = sum(bin(a ^ b).count("1") for a, b in zip(expected, decoded))
 print(f"Correct bits: {512 - errors}/512; exact recovery: {expected == decoded}")
 ```
 
-To **generate a marked video with your own message**, prepare a Hunyuan I2V
-checkpoint, a 32-byte binary key, a 64-byte binary message and a case file
+To **generate a marked video with your own message**, download and verify the
+full Hunyuan I2V checkpoint. The pinned file inventory totals 43.65 GB
+(decimal). If you already have the full checkpoint, omit `--download` for
+an offline check. Run from the repository root:
+
+```bash
+python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \
+  --download --verify-manifest configs/checkpoint_files.json
+```
+
+Prepare a 32-byte binary key, a 64-byte binary message and a case file
 such as `{"prompt":"A cyclist rides along the path","seed":42,"image":"/data/cyclist.png"}`.
 To create example inputs, run the following Python code in a fresh private
 directory. Replace the example text with your identifier. It must fit in 64
