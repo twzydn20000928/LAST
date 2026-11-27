@@ -55,35 +55,20 @@ python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \
   --download --verify-manifest configs/checkpoint_files.json
 ```
 
-Run the following in one Bash session. Set `LAST_IMAGE` to your image path.
-Adjust the prompt to describe your image and replace the example identifier
-with up to 64 UTF-8 bytes. The example pads the message to 64 bytes with zeros.
+Choose a new directory outside the repository for the key, message and case.
+Supply your prompt and image. The text identifier can contain up to 64 UTF-8
+bytes and is padded with zeros. To supply an exact 512-bit payload, replace
+`--text cyclist-example` with `--message-file /private/payload.bin`.
 
 ```bash
-export LAST_IMAGE="/path/to/your/cyclist.png"
-export LAST_EXAMPLE_DIR="$(mktemp -d)"
-python - <<'PY'
-import json
-import os
-import secrets
-from pathlib import Path
-
-os.umask(0o077)
-folder = Path(os.environ["LAST_EXAMPLE_DIR"])
-image = Path(os.environ["LAST_IMAGE"]).expanduser().resolve(strict=True)
-case = {"prompt": "A cyclist rides along the path", "seed": 42, "image": str(image)}
-identifier = "cyclist-example".encode("utf-8")
-if len(identifier) > 64:
-    raise ValueError("Use at most 64 UTF-8 bytes")
-with (folder / "case.json").open("x", encoding="utf-8") as f:
-    json.dump(case, f)
-with (folder / "secret.key").open("xb") as f:
-    f.write(secrets.token_bytes(32))
-with (folder / "message.bin").open("xb") as f:
-    f.write(identifier.ljust(64, b"\x00"))
-print(folder)
-PY
+export LAST_EXAMPLE_DIR="$HOME/last-cyclist-example"
+python -m last.cli prepare-video --output "$LAST_EXAMPLE_DIR" \
+  --prompt "A cyclist rides along the path" --seed 42 \
+  --image /path/to/your/cyclist.png --text cyclist-example
 ```
+
+For text-to-video, omit `--image`, use the matching full T2V checkpoint and
+select `--mode t2v` in the generation command.
 
 Run the following commands after replacing the paths with your own:
 
