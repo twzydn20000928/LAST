@@ -45,6 +45,12 @@ whether the entire message matches, without printing either message.
 python -m last.score_message --message /private/message.bin --prediction /private/decoded.json
 ```
 
+Add `--show-errors` to see which payload bits differ. Positions run from 0 to
+511, with the most significant bit first in each byte. For example, changing
+the first byte from hexadecimal `80` to `00` gives `wrong_bit_positions: [0]`,
+511 correct bits and a failed whole-message match. Only this scoring step
+reads the original payload.
+
 To **generate a marked video with your own message**, download and verify the
 full Hunyuan I2V checkpoint. The pinned file inventory totals 43.65 GB
 (decimal). If you already have the full checkpoint, omit `--download` for
