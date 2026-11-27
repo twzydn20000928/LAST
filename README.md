@@ -146,8 +146,8 @@ blur, noise, compression, deletion, insertion and contiguous frame removal.
 See the per-condition JSON files in `$LAST_EXAMPLE_DIR/run/attacks/` for
 `correct_bits`, `total_bits` and `exact_message` on completed reads.
 
-To preview the seven conditions on CPU before running a model, recount the
-archived LAST and LFG results for the first three videos in the frozen manifest:
+View the [three-video LAST and LFG results](results/quickstart-three-videos.md)
+for all seven conditions. To rebuild the table on CPU, run:
 
 ```bash
 PYTHONPATH=src python tools/matched_primary_methods.py --family hunyuan --mode i2v \
