@@ -124,6 +124,14 @@ without a key, checkpoint or generation run directory. For a 65-frame,
 output as `--video` to the standalone extraction command above and compare
 the decoded message with your original bytes if available.
 
+For attack generation alone, the following dependencies suffice in a Linux
+Python 3.10 environment. Run from the repository root:
+
+```bash
+python -m pip install numpy==1.26.4 pillow==11.0.0 opencv-python-headless==4.10.0.84 imageio-ffmpeg==0.6.0
+export PYTHONPATH="$PWD/src"
+```
+
 ```bash
 python -m last.attack_video --video received.mp4 --video-id cyclist-example \
   --condition drop --output received-drop.mp4

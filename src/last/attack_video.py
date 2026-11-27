@@ -4,7 +4,7 @@ import os
 import tempfile
 from pathlib import Path
 
-from .evaluate import attacked
+from .attacks import attacked
 from .report import CONDITIONS
 from .video import export_mp4, load_mp4
 

@@ -4,31 +4,12 @@ from pathlib import Path
 import numpy as np
 import torch
 from .video import load_mp4, export_mp4
-from .temporal import attack_map, segments, windows
+from .temporal import segments, windows
+from .attacks import attacked
 from .elmc import feature
 from .ccta import align
 from .coding import BCH512
 from .report import CONDITIONS
-
-def attacked(frames, name, video_id, seed=0):
-    from PIL import Image
-    import cv2
-    digest=hashlib.sha256(f'LAST-pixels-v1:{video_id}:{name}:{seed}'.encode()).digest()
-    rng=np.random.Generator(np.random.PCG64(int.from_bytes(digest,'big')))
-    if name in ('clean','compression'):return frames, None
-    if name in ('drop','clip','insert'):
-        mapping=attack_map(video_id,name,seed,frames=len(frames))
-        shape=np.asarray(frames[0]).shape
-        # The paper does not specify the noise-frame distribution; fix uniform RGB8.
-        return [frames[i] if i>=0 else Image.fromarray(rng.integers(0,256,shape,dtype=np.uint8)) for i in mapping], mapping
-    output=[]
-    for f in frames:
-        x=np.asarray(f)
-        if name=='noise':x=np.rint(np.clip(x/255.+rng.normal(0,.05,x.shape),0,1)*255).astype(np.uint8)
-        elif name=='blur':x=cv2.GaussianBlur(x,(5,5),1)
-        else:raise ValueError(name)
-        output.append(Image.fromarray(x))
-    return output,None
 
 def reader_nodes(frames,reader='ccta',scan=True):
     if reader not in ('ccta','energy','received'):raise ValueError('Unknown reader')
