@@ -79,7 +79,10 @@ video ID and omit `--condition`. The evaluator verifies and reuses completed
 receipts and their corresponding MP4 files.
 
 The first command generates the reference and marked MP4s and checks clean
-extraction. The second reuses the marked video to evaluate clean extraction,
+extraction. For watermarking alone, add `--marked-only` to the first command
+and use a fresh output directory. LAST runs diffusion once in either mode.
+This option skips one VAE decode and MP4 export. Keep the reference for paired
+PSNR and SSIM measurements. The second command reuses the marked video to evaluate clean extraction,
 blur, noise, compression, deletion, insertion and contiguous frame removal.
 See the per-condition JSON files in `/private/cyclist-run/attacks/` for
 `correct_bits`, `total_bits` and `exact_message` on completed reads.

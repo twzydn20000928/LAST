@@ -16,9 +16,11 @@ def main():
     p.add_argument('--mu',type=float,default=.5);p.add_argument('--fixed-target',action='store_true')
     p.add_argument('--uniform-profile',action='store_true',help='Supplement control: all sixteen message groups use mu; main default remains non-uniform')
     p.add_argument('--save-endpoint',action='store_true',help='Keep the private normalized endpoint for separate CUDA-event embedding timing')
+    p.add_argument('--marked-only', action='store_true', help='For LAST applications, skip decoding and exporting the unmarked reference')
     p.add_argument('--lfg-alpha',type=float,default=.15)
     p.add_argument('--lfg-final-steps',type=int,choices=[5,10,20],default=10)
     a=p.parse_args()
+    if a.marked_only and a.method != 'last':p.error('--marked-only applies only to LAST')
     if not np.isfinite(a.mu) or a.mu<0:p.error('--mu must be finite and nonnegative')
     if a.method!='last' and (a.mu!=.5 or a.fixed_target or a.uniform_profile):p.error('Margin options apply only to LAST')
     if a.save_endpoint and a.method!='last':p.error('--save-endpoint applies only to LAST')
@@ -28,6 +30,8 @@ def main():
     os.umask(0o077);a.output.mkdir(parents=True,exist_ok=True);out=a.output/'receipt.json'
     if out.exists() and json.loads(out.read_text()).get('status')=='completed':
         prior=json.loads(out.read_text())
+        if prior.get('marked_only', False) != a.marked_only:
+            raise ValueError('Output was created with a different reference setting; use a new directory')
         if a.save_endpoint and (not (a.output/'endpoint.pt').is_file() or prior.get('endpoint_sha256')!=hashlib.sha256((a.output/'endpoint.pt').read_bytes()).hexdigest()):raise ValueError('Completed run has no verified saved endpoint; use a new output directory')
         if prior.get('mu',.5)!=a.mu or prior.get('fixed_target',False)!=a.fixed_target:raise ValueError('Completed run has another embedding configuration')
         if prior.get('uniform_profile',False)!=a.uniform_profile:raise ValueError('Completed run has another group margin profile')
@@ -46,6 +50,7 @@ def main():
         r['seconds']=time.time()-start;r['peak_allocated_gib']=torch.cuda.max_memory_allocated()/1024**3;temp=out.with_suffix('.tmp');temp.write_text(json.dumps(r,indent=2));temp.replace(out)
     try:
         r["hardware"] = torch.cuda.get_device_name(0)
+        r['marked_only'] = a.marked_only
         r['offload']=a.offload;r['memory_limit_gib']=a.memory_gib;r['model_directory']=str(a.model_dir);r['method']=a.method;r['mu']=a.mu;r['fixed_target']=a.fixed_target
         r['lfg_alpha']=a.lfg_alpha;r['lfg_final_steps']=a.lfg_final_steps
         r['uniform_profile']=a.uniform_profile
@@ -126,11 +131,12 @@ def main():
                 torch.save(z.detach().float().cpu(),a.output/'endpoint.pt')
                 r['endpoint_sha256']=hashlib.sha256((a.output/'endpoint.pt').read_bytes()).hexdigest();save()
             if a.method=='last':marked=embed(z,codes,signs,mu=a.mu,fixed_target=a.fixed_target,uniform=a.uniform_profile)
-            for label,latent in [('reference',z),('marked',marked)]:
+            outputs = [('marked', marked)] if a.marked_only else [('reference', z), ('marked', marked)]
+            for label,latent in outputs:
                 pixels=pipe.vae.decode(denorm(latent).float(),return_dict=False)[0];frames=pipe.video_processor.postprocess_video(pixels,output_type='pil')[0]
                 command=export_mp4(frames,a.output/f'{label}.mp4');r[label+'_codec_command']=command
                 del pixels,frames
-            del z,marked;torch.cuda.empty_cache();r['status']='reading';save()
+            del outputs,latent,z,marked;torch.cuda.empty_cache();r['status']='reading';save()
             frames=load_mp4(a.output/'marked.mp4')
             if a.method=='lfg':
                 from .lfg import scores,align_received_frames
