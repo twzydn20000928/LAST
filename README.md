@@ -75,11 +75,16 @@ python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_r
 ```
 
 A [controlled comparison with shared fusion](docs/ABLATIONS.md#shared-fusion-deletion-comparison)
-holds the message fusion rule fixed on the first 109 Hunyuan I2V videos.
-After deletion, grouping frames in received order recovered 52.07% of bits,
-blind CCTA recovered 73.55%, and supplying the true edit map recovered 99.07%.
-Exact recovery was 0/109, 0/109 and 75/109. The last row uses information available
-to the evaluator. The cause of the full discrepancy remains open.
+holds the message fusion rule fixed on the first 110 Hunyuan I2V videos.
+After deleting 30 frames, grouping frames in received order recovered 29,311 of
+56,320 bits (52.04%). Blind CCTA recovered 41,447 (73.59%). Supplying the true
+edit map to the evaluator recovered 55,803 (99.08%). The three readers recovered
+0, 0 and 76 complete 512-bit messages, respectively, out of 110.
+Rebuild all three conditions from the per-video receipts:
+
+```bash
+python tools/controlled_reader_table.py results/hunyuan_i2v_last_controlled_paper*.json
+```
 
 To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
 
