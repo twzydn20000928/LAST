@@ -4,6 +4,15 @@ from collections import defaultdict
 from pathlib import Path
 CONDITIONS=('clean','noise','compression','blur','drop','insert','clip')
 
+def completed_bit_counts(row):
+    total, correct = row.get("total_bits"), row.get("correct_bits")
+    if type(total) is not int or total != 512 or type(correct) is not int or not 0 <= correct <= total:
+        raise ValueError("Invalid bit counts")
+    if row.get("exact_message") is not (correct == total):
+        raise ValueError("Inconsistent exact-message count")
+    return correct, total
+
+
 def aggregate(plan,root,verify_artifacts=False,reextractions=None,*,native_retry_dirs=None):
     cells=defaultdict(list);seen=set();diagnostics=[]
     root=Path(root).resolve();audited=[]
@@ -53,9 +62,7 @@ def aggregate(plan,root,verify_artifacts=False,reextractions=None,*,native_retry
                 if condition in replacement:
                     row=dict(row,**replacement[condition]);state=row['status']
                 if state=='completed':
-                    total=row['total_bits'];correct=row['correct_bits']
-                    if type(total)!=int or total!=512 or type(correct)!=int or not 0<=correct<=total:raise ValueError('Invalid bit counts')
-                    if row['exact_message']!=(correct==total):raise ValueError('Inconsistent exact-message count')
+                    correct,total=completed_bit_counts(row)
                     if verify_artifacts:
                         if marked_sha is None:
                             marked_sha=hashlib.sha256((folder/'marked.mp4').read_bytes()).hexdigest()

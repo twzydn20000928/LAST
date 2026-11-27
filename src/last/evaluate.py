@@ -9,7 +9,7 @@ from .attacks import attacked
 from .elmc import feature
 from .ccta import align
 from .coding import BCH512
-from .report import CONDITIONS
+from .report import CONDITIONS, completed_bit_counts
 
 def reader_nodes(frames,reader='ccta',scan=True):
     if reader not in ('ccta','energy','received'):raise ValueError('Unknown reader')
@@ -79,6 +79,13 @@ def verify_received(row,path):
     if not expected or not Path(path).is_file() or hashlib.sha256(Path(path).read_bytes()).hexdigest()!=expected:
         raise ValueError('Received MP4 missing, changed, or not fingerprinted; audit before reuse')
 
+def print_completed(row, status):
+    correct, total = completed_bit_counts(row)
+    exact = "yes" if row["exact_message"] else "no"
+    print(f"{row['condition']} {status}: {correct}/{total} bits "
+          f"({correct / total:.2%}), exact message: {exact}", flush=True)
+
+
 def main():
     p=argparse.ArgumentParser();p.add_argument('--run',type=Path,required=True);p.add_argument('--model-dir',required=True);p.add_argument('--video-id',required=True);p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
     p.add_argument('--map-seed',type=int,choices=range(5),default=0)
@@ -100,7 +107,7 @@ def main():
             if prior.get('condition')!=name:raise ValueError('Cached condition mismatch')
             if prior.get('status')=='completed':
                 verify_received(prior,a.run/'marked.mp4' if name=='clean' else directory/(name+'.mp4'))
-                print(name, 'verified cached result', prior.get('correct_bits'), flush=True)
+                print_completed(prior, 'verified cached result')
                 continue
         if vae is None:
             from diffusers import AutoencoderKLHunyuanVideo, AutoencoderKLWan
@@ -134,7 +141,10 @@ def main():
         except Exception:row.update(status='failed',error=traceback.format_exc());failed=True
         row['seconds']=time.time()-started
         temp=receipt.with_suffix('.tmp');temp.write_text(json.dumps(row,indent=2));temp.replace(receipt)
-        print(name,row['status'],row.get('correct_bits'),flush=True)
+        if row['status'] == 'completed':
+            print_completed(row, 'completed')
+        else:
+            print(name, row['status'], receipt, flush=True)
     if failed:raise SystemExit(1)
 
 if __name__=='__main__':main()
