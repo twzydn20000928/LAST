@@ -8,6 +8,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+      - name: Exercise standalone attacks before installing inference libraries
+        run: |
+          pip install numpy==1.26.4 pillow==11.0.0 opencv-python-headless==4.10.0.84 imageio-ffmpeg==0.6.0 pytest==8.3.5
+          PYTHONPATH=src python -m pytest -q tests/test_attack_video_cli.py
       - run: pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
       - run: pip install -e '.[test]'
       - run: pytest -q
