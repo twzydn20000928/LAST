@@ -96,8 +96,8 @@ def print_completed(row, status):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--run',type=Path,required=True);p.add_argument('--model-dir',required=True);p.add_argument('--video-id',required=True);p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
     p.add_argument('--map-seed',type=int,choices=range(5),default=0)
-    p.add_argument('--condition', choices=CONDITIONS,
-                   help='Evaluate a single condition. Omit to evaluate all seven.')
+    p.add_argument('--condition', choices=CONDITIONS, action='append',
+                   help='Select an attack condition. Repeat to select several; omit to evaluate all seven.')
     p.add_argument('--memory-fraction', type=float, default=0.20,
                    help='Maximum fraction of total GPU memory for the PyTorch allocator (default: 0.20)')
     a=p.parse_args()
@@ -112,7 +112,7 @@ def main():
     source_sha=hashlib.sha256((a.run/'marked.mp4').read_bytes()).hexdigest()
     if generation.get('marked_sha256')!=source_sha:raise ValueError('Generation MP4 changed')
     directory=evaluation_directory(a.run,a.map_seed);directory.mkdir(exist_ok=True);failed=False
-    for name in ((a.condition,) if a.condition else CONDITIONS):
+    for name in dict.fromkeys(a.condition or CONDITIONS):
         receipt=directory/(name+'.json')
         if receipt.exists():
             prior=json.loads(receipt.read_text());check_cached(prior,a.video_id,method,source_sha,a.map_seed)

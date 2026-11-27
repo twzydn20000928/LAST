@@ -114,8 +114,9 @@ python -m last.evaluate --family hunyuan --model-dir /path/to/checkpoint \
 ```
 
 For a shorter evaluation, append `--condition drop` to the second command to
-test random frame deletion alone, or `--condition compression` to test
-recompression. To fill in the other conditions later, use the same run and
+test random frame deletion alone. To compare two edits that each leave 35 frames,
+append `--condition drop --condition clip`. Both start from the same marked
+MP4, and the evaluator loads the VAE at most once. To fill in the other conditions later, use the same run and
 video ID and omit `--condition`. The evaluator verifies and reuses completed
 receipts and their corresponding MP4 files.
 
