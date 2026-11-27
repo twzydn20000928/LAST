@@ -20,16 +20,17 @@ def read(path):
 
 
 def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v", family="hunyuan",
-          allow_incomplete=False, retry_dirs=None):
+          allow_incomplete=False, retry_dirs=None, start_index=0):
     manifest, plan = read(manifest_path), read(plan_path)
     validate(manifest)
-    if plan["manifest_sha256"] != sha(manifest_path) or not 1 <= count <= len(manifest["samples"]):
-        raise ValueError("Unexpected primary manifest or prefix")
+    if (plan["manifest_sha256"] != sha(manifest_path) or start_index < 0 or count < 1
+            or start_index + count > len(manifest["samples"])):
+        raise ValueError("Unexpected primary manifest or sample range")
     items = []
     retry_dirs = retry_dirs or {}
     legacy = 0
     recounted = {}
-    for sample in manifest["samples"][:count]:
+    for sample in manifest["samples"][start_index:start_index + count]:
         video = sample["id"]
         relative = f"{family}/{mode}/{method}/{video}"
         item, = [i for i in plan["runs"] if i["run"] == relative]
@@ -90,7 +91,8 @@ def audit(root, manifest_path, plan_path, count, method="videomark", mode="t2v",
             recounted[video, condition] = hashlib.sha256(score_bytes).hexdigest()
         items.append(item)
     family_label = {"hunyuan": "Hunyuan", "wan22": "Wan-2.2"}[family]
-    report = aggregate(dict(scope=f"Matched {family_label} {mode} {method} primary prefix", runs=items), root,
+    subset = f"slice starting at index {start_index}" if start_index else "prefix"
+    report = aggregate(dict(scope=f"Matched {family_label} {mode} {method} primary {subset}", runs=items), root,
                        verify_artifacts=True, native_retry_dirs=retry_dirs)
     if not allow_incomplete and not report["complete"]:
         raise ValueError("Missing native measurements")
@@ -107,6 +109,7 @@ if __name__ == "__main__":
     for option in ("root", "manifest", "plan", "output"):
         parser.add_argument("--" + option, type=Path, required=True)
     parser.add_argument("--count", type=int, required=True)
+    parser.add_argument("--start-index", type=int, default=0, help="First frozen manifest row, zero-based")
     parser.add_argument("--method", choices=("videomark", "videoshield", "sigmark"), default="videomark")
     parser.add_argument("--mode", choices=("t2v", "i2v"), default="t2v")
     parser.add_argument("--family", choices=("hunyuan", "wan22"), default="hunyuan")
@@ -122,6 +125,6 @@ if __name__ == "__main__":
             parser.error("Duplicate retry for one video and condition")
         retry_dirs[key] = Path(directory)
     result = audit(args.root, args.manifest, args.plan, args.count, args.method, args.mode, args.family,
-                   args.allow_incomplete, retry_dirs)
+                   args.allow_incomplete, retry_dirs, args.start_index)
     with args.output.open("x", encoding="utf-8") as stream:
         stream.write(json.dumps(result, indent=2) + "\n")
