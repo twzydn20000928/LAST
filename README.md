@@ -26,11 +26,42 @@ python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
 Use a fresh output filename. The private JSON contains the recovered 512 bits
 in `message_hex` and the error-correction outcome in `bch_success`. A payload
 can still contain errors. If you know the original message, compare it with
-the decoded bytes after extraction.
+the decoded bytes after extraction. For example, run this in the directory
+containing your original `message.bin` and the returned `decoded.json`:
+
+```python
+import json
+from pathlib import Path
+
+expected = Path("message.bin").read_bytes()
+decoded = bytes.fromhex(json.loads(Path("decoded.json").read_text())["message_hex"])
+assert len(expected) == len(decoded) == 64
+errors = sum(bin(a ^ b).count("1") for a, b in zip(expected, decoded))
+print(f"Correct bits: {512 - errors}/512; exact recovery: {expected == decoded}")
+```
 
 To **generate a marked video with your own message**, prepare a Hunyuan I2V
 checkpoint, a 32-byte binary key, a 64-byte binary message and a case file
 such as `{"prompt":"A cyclist rides along the path","seed":42,"image":"/data/cyclist.png"}`.
+To create example inputs, run the following Python code in a fresh private
+directory. Replace the example text with your identifier. It must fit in 64
+UTF-8 bytes. The example fills the remaining bytes with zeros.
+
+```python
+import os
+import secrets
+from pathlib import Path
+
+os.umask(0o077)
+identifier = "cyclist-example".encode("utf-8")
+if len(identifier) > 64:
+    raise ValueError("Use at most 64 UTF-8 bytes")
+with Path("secret.key").open("xb") as f:
+    f.write(secrets.token_bytes(32))
+with Path("message.bin").open("xb") as f:
+    f.write(identifier.ljust(64, b"\x00"))
+```
+
 Run the following commands after replacing the paths with your own:
 
 ```bash
