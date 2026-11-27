@@ -500,6 +500,16 @@ All entries are observed information-bit accuracy on the same frozen sample IDs 
 | [wan22 i2v](../results/wan22_i2v_primary14.json) | 14 | 65.625% / 66.03% | 84.42% / 56.57% | 94.81% / 76.88% |
 | [wan22 t2v](../results/wan22_t2v_primary14.json) | 14 | 71.28% / 65.28% | 84.28% / 54.39% | 95.81% / 75.84% |
 
+For LAST, both deletion conditions leave 35 of 65 frames. To compare them
+within a video, subtract the `drop` correct-bit count from the `clip` count
+for the same backbone, mode and video ID in the linked reports (map seed 0).
+Contiguous deletion recovered more bits on 25 of 26 Hunyuan I2V videos, with
+one tie, and on all 14 videos in each of the other three pipelines. The median
+gains were 109, 101, 127 and 125.5 bits out of 512 in table order. The
+pipelines reuse manifest entries, so the 68 comparisons include repeated
+prompts. This comparison measures the effect of the edit pattern on recovery;
+it cannot isolate which reader operation caused the difference.
+
 The fidelity scores below use the same samples as the temporal-attack rows above. Each PSNR value averages per-video PSNR in dB. Reference matches count byte-identical unmarked MP4s between methods, verified by SHA-256.
 
 | Backbone and mode | Paired videos | Matching references | PSNR LAST / LFG | SSIM LAST / LFG |
