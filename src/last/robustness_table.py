@@ -66,6 +66,52 @@ def collect(reports):
     return groups
 
 
+def collect_disjoint(reports):
+    """Combine verified snapshots only when the covered video IDs are disjoint."""
+    groups, coverage = {}, {}
+    manifest = reports[0].get("manifest_sha256") if reports else None
+    if not manifest:
+        raise ValueError("A common frozen manifest is required")
+    for report in reports:
+        if report.get("manifest_sha256") != manifest or "audited_observations" not in report:
+            raise ValueError("Expected individual observations from the same manifest")
+        ids = report.get("sample_ids", [])
+        sample_ids = set(ids)
+        if not ids or len(sample_ids) != len(ids):
+            raise ValueError("Expected distinct sample IDs in each snapshot")
+        if any(row["video_id"] not in sample_ids for row in report["audited_observations"]):
+            raise ValueError("Observation outside declared sample IDs")
+        if any(row["expected"] != len(ids) for row in report["cells"]):
+            raise ValueError("Snapshot size differs from declared sample IDs")
+        for key, cells in collect([report]).items():
+            seen = coverage.setdefault(key, set())
+            if seen & sample_ids:
+                raise ValueError("Overlapping snapshots must not be double counted")
+            seen.update(sample_ids)
+            if len(seen) > next(iter(cells.values()))["expected"]:
+                raise ValueError("Declared samples exceed planned benchmark size")
+            if key not in groups:
+                groups[key] = cells
+                continue
+            for condition, incoming in cells.items():
+                row = groups[key][condition]
+                if row["expected"] != incoming["expected"]:
+                    raise ValueError("Benchmark sizes differ")
+                for field in ("completed", "total_bits", "correct_bits", "exact_messages"):
+                    row[field] += incoming[field]
+                row["failed"] = (row["failed"] + incoming["failed"]
+                                 if row.get("failed") is not None and incoming.get("failed") is not None else None)
+                row["missing"] = (row["missing"] + incoming["missing"]
+                                  if row.get("missing") is not None and incoming.get("missing") is not None else None)
+                row["observed_message_recovery"] = (row["exact_messages"] / row["completed"]
+                                                    if row["completed"] else None)
+                score = row["correct_bits"] / row["total_bits"] if row["total_bits"] else None
+                row["complete"] = row["completed"] == row["expected"]
+                row["observed_bit_accuracy"] = score
+                row["final_bit_accuracy"] = score if row["complete"] else None
+    return groups
+
+
 def render(groups):
     labels=('Family','Mode','Method',*CONDITIONS)
     rows=[];coverage=[]
@@ -98,8 +144,11 @@ def render(groups):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--reports',nargs='+',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--disjoint-snapshots', action='store_true',
+                   help='Pool separate sample IDs for the same method on a shared manifest')
     a=p.parse_args();inputs={str(f):hashlib.sha256(f.read_bytes()).hexdigest() for f in a.reports}
-    groups=collect([json.loads(f.read_text(encoding='utf-8-sig')) for f in a.reports]);markdown,counts=render(groups)
+    collector = collect_disjoint if a.disjoint_snapshots else collect
+    groups=collector([json.loads(f.read_text(encoding='utf-8-sig')) for f in a.reports]);markdown,counts=render(groups)
     if any(hashlib.sha256(Path(f).read_bytes()).hexdigest()!=h for f,h in inputs.items()):raise ValueError('Report changed')
     a.output.mkdir(parents=True,exist_ok=False)
     (a.output/'table.md').write_text(markdown,encoding='utf-8')
@@ -107,6 +156,7 @@ def main():
         writer=csv.DictWriter(stream,fieldnames=list(counts[0]));writer.writeheader();writer.writerows(counts)
     receipt=dict(status='completed_rendering',supplied_cells_complete=all(r['complete'] for g in groups.values() for r in g.values()),
                  input_sha256=inputs,source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+                 disjoint_snapshots=a.disjoint_snapshots,
                  scope='Formatting only; no new measurements or comparability validation')
     (a.output/'receipt.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')
 
