@@ -36,7 +36,17 @@ python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
 
 Use a fresh output filename. The private JSON contains the recovered 512 bits
 in `message_hex` and the error-correction outcome in `bch_success`. A payload
-can still contain errors. If you know the original message, compare it with
+can still contain errors. To save the recovered 64 bytes from this prediction,
+run the following on CPU. Choose a new output file in an existing directory.
+For a message originally supplied with `prepare-video --text`, add `--text`
+to remove trailing zero padding and save the UTF-8 text. A damaged message
+can still be valid UTF-8.
+
+```bash
+python -m last.cli unpack-message --prediction /private/decoded.json --output /private/recovered.bin
+```
+
+If you know the original message, compare it with
 the decoded bytes after extraction. The scoring command runs on CPU using
 Python's standard library. It prints the correct-bit count, bit accuracy and
 whether the entire message matches, without printing either message.

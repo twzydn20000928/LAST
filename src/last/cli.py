@@ -18,6 +18,11 @@ def main():
     keygen = commands.add_parser("keygen")
     keygen.add_argument("--output", type=Path, required=True)
 
+    unpack = commands.add_parser("unpack-message", help="Save a blind prediction as binary bytes or padded UTF-8 text")
+    unpack.add_argument("--prediction", type=Path, required=True, help="JSON written by last.extract")
+    unpack.add_argument("--output", type=Path, required=True, help="New private file")
+    unpack.add_argument("--text", action="store_true", help="Remove trailing zero padding and require valid UTF-8")
+
     case = commands.add_parser("prepare-video", help="Prepare one video for last.smoke")
     case.add_argument("--output", type=Path, required=True, help="New private directory")
     case.add_argument("--prompt", required=True)
@@ -28,6 +33,23 @@ def main():
     payload.add_argument("--text", help="UTF-8 text up to 64 bytes, padded with zero bytes")
     payload.add_argument("--message-file", type=Path, help="Exactly 64 binary bytes")
     args = parser.parse_args()
+    if args.command == "unpack-message":
+        try:
+            prediction = json.loads(args.prediction.read_bytes())
+            data = bytes.fromhex(prediction["message_hex"])
+        except (OSError, ValueError, KeyError, TypeError):
+            parser.error("Expected an extraction JSON with a hexadecimal message_hex field")
+        if len(data) != 64:
+            parser.error("Expected a 512-bit prediction")
+        if args.text:
+            data = data.rstrip(b"\x00")
+            try:
+                data.decode("utf-8")
+            except UnicodeDecodeError:
+                parser.error("Prediction is not valid UTF-8; omit --text to save the recovered bytes")
+        write_private(args.output, data)
+        return
+
     if args.command == "keygen":
         args.output.parent.mkdir(parents=True, exist_ok=True)
         write_private(args.output, secrets.token_bytes(32))
