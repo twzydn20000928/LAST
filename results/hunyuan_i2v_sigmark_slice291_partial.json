@@ -1,0 +1,201 @@
+{
+  "scope": "Matched Hunyuan i2v sigmark primary slice starting at index 291",
+  "complete": false,
+  "cells": [
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "condition": "blur",
+      "expected": 1,
+      "completed": 0,
+      "missing": 1,
+      "failed": 0,
+      "correct_bits": 0,
+      "total_bits": 0,
+      "observed_bit_accuracy": null,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": null,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "condition": "clean",
+      "expected": 1,
+      "completed": 1,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 242,
+      "total_bits": 512,
+      "observed_bit_accuracy": 0.47265625,
+      "final_bit_accuracy": 0.47265625,
+      "exact_messages": 0,
+      "observed_message_recovery": 0.0,
+      "complete": true
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "condition": "clip",
+      "expected": 1,
+      "completed": 0,
+      "missing": 1,
+      "failed": 0,
+      "correct_bits": 0,
+      "total_bits": 0,
+      "observed_bit_accuracy": null,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": null,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "condition": "compression",
+      "expected": 1,
+      "completed": 0,
+      "missing": 1,
+      "failed": 0,
+      "correct_bits": 0,
+      "total_bits": 0,
+      "observed_bit_accuracy": null,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": null,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "condition": "drop",
+      "expected": 1,
+      "completed": 0,
+      "missing": 1,
+      "failed": 0,
+      "correct_bits": 0,
+      "total_bits": 0,
+      "observed_bit_accuracy": null,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": null,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "condition": "insert",
+      "expected": 1,
+      "completed": 0,
+      "missing": 1,
+      "failed": 0,
+      "correct_bits": 0,
+      "total_bits": 0,
+      "observed_bit_accuracy": null,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": null,
+      "complete": false
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "condition": "noise",
+      "expected": 1,
+      "completed": 0,
+      "missing": 0,
+      "failed": 0,
+      "correct_bits": 0,
+      "total_bits": 0,
+      "observed_bit_accuracy": null,
+      "final_bit_accuracy": null,
+      "exact_messages": 0,
+      "observed_message_recovery": null,
+      "complete": false
+    }
+  ],
+  "incomplete_observations": [
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "video_id": "paper-291",
+      "condition": "noise",
+      "status": "running"
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "video_id": "paper-291",
+      "condition": "compression",
+      "status": "missing"
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "video_id": "paper-291",
+      "condition": "blur",
+      "status": "missing"
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "video_id": "paper-291",
+      "condition": "drop",
+      "status": "missing"
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "video_id": "paper-291",
+      "condition": "insert",
+      "status": "missing"
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "video_id": "paper-291",
+      "condition": "clip",
+      "status": "missing"
+    }
+  ],
+  "artifact_verification": true,
+  "audited_observations": [
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "sigmark",
+      "video_id": "paper-291",
+      "run": "hunyuan/i2v/sigmark/paper-291",
+      "condition": "clean",
+      "map_seed": 0,
+      "status": "completed",
+      "correct_bits": 242,
+      "total_bits": 512,
+      "exact_message": false,
+      "video_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
+      "receipt_sha256": "be8c7b5826ac41c2c0635bb186ecdc6f413357b2a2ee6f3e7fc9746e257207d8"
+    }
+  ],
+  "sample_ids": [
+    "paper-291"
+  ],
+  "planned_videos_per_method": 400,
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "plan_sha256": "24d2fcdc9646bb95fe7af03d3ffb981e80f0d9fdbf20698b0f7638711037086f",
+  "recounted_predictions": 1,
+  "predictions_without_historical_digest": 1
+}
