@@ -9,6 +9,7 @@ from .attacks import attacked
 from .elmc import feature
 from .ccta import align
 from .report import CONDITIONS, completed_bit_counts
+from .models import file_hash
 
 def reader_nodes(frames,reader='ccta',scan=True):
     if reader not in ('ccta','energy','received'):raise ValueError('Unknown reader')
@@ -78,6 +79,13 @@ def verify_received(row,path):
     if not expected or not Path(path).is_file() or hashlib.sha256(Path(path).read_bytes()).hexdigest()!=expected:
         raise ValueError('Received MP4 missing, changed, or not fingerprinted; audit before reuse')
 
+def vae_fingerprint(model_dir):
+    files = sorted(path for path in (Path(model_dir) / 'vae').iterdir()
+                   if path.is_file() and path.suffix in ('.json', '.safetensors', '.bin'))
+    if not files:
+        raise ValueError('Missing local VAE files')
+    return {path.name: file_hash(path) for path in files}
+
 def print_completed(row, status):
     correct, total = completed_bit_counts(row)
     exact = "yes" if row["exact_message"] else "no"
@@ -97,6 +105,7 @@ def main():
         p.error('--memory-fraction must be greater than 0 and at most 1')
     os.umask(0o077)
     vae = None
+    model_hashes = None
     generation=json.loads((a.run/'receipt.json').read_text());method=generation.get('method','last')
     if generation.get('status')!='completed' or generation.get('family')!=a.family:raise ValueError('Require completed generation for matching family')
     if method not in ('last','lfg','lfg-c'):raise ValueError('Unsupported method in generation receipt')
@@ -110,9 +119,18 @@ def main():
             if prior.get('condition')!=name:raise ValueError('Cached condition mismatch')
             if prior.get('status')=='completed':
                 verify_received(prior,a.run/'marked.mp4' if name=='clean' else directory/(name+'.mp4'))
+                if 'vae_files_sha256' in prior:
+                    if model_hashes is None:
+                        model_hashes = vae_fingerprint(a.model_dir)
+                    if prior['vae_files_sha256'] != model_hashes:
+                        raise ValueError('Cached result used different VAE files')
+                else:
+                    print(f'{name}: historical receipt has no VAE fingerprint', flush=True)
                 print_completed(prior, 'verified cached result')
                 continue
         if vae is None:
+            if model_hashes is None:
+                model_hashes = vae_fingerprint(a.model_dir)
             from .coding import BCH512
             from diffusers import AutoencoderKLHunyuanVideo, AutoencoderKLWan
             from diffusers.video_processor import VideoProcessor
@@ -129,6 +147,7 @@ def main():
             source = load_mp4(a.run/'marked.mp4')
         if receipt.exists():receipt.rename(directory/(name+f'.previous-{time.time_ns()}.json'))
         started=time.time();row={'condition':name,'video_id':a.video_id,'status':'running','source_sha256':source_sha,'map_seed':a.map_seed}
+        row['vae_files_sha256'] = model_hashes
         try:
             edited,mapping=attacked(source,name,a.video_id,seed=a.map_seed if name in ('drop','insert','clip') else 0)
             if name=='clean':path=a.run/'marked.mp4'
