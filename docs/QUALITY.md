@@ -49,6 +49,13 @@ The primary manifest requires20videos per ordinary dimension (five prompts,
 four seeds each), and60Diversity videos (three prompts,20seeds each). A complete
 score must include the prescribed inputs, valid/applicable denominators and
 all18dimension outputs. Missing or not-applicable results are not zeros.
+To prepare a single dimension, add `--dimension Camera_Motion` (or another
+dimension name from the frozen manifest). The command checks the official
+metadata and scans only the videos assigned to that dimension. By default it
+writes scoring inputs once all assigned videos are available. A selected
+dimension can have full coverage while overall V-score remains unavailable.
+The paired camera example below shows how to run the scorer.
+
 ## Official dimension runner
 
 Before loading large scoring models, audit all eighteen dimension imports:
@@ -350,20 +357,9 @@ sample directories. Each directory must contain its marked and reference videos.
     inputs="$CAMERA_OUT/$state-inputs"
     python -m last.quality_inputs --manifest configs/primary_manifest.json \
       --metadata-root "${QUALITY_METADATA:?}" --run-root "${PRIMARY_RUNS:?}" \
-      --family hunyuan --mode i2v --method "$state" --allow-partial-diagnostic --output "$inputs"
-    python - "$inputs/Camera_Motion.json" configs/primary_manifest.json <<'PY'
-import json
-import sys
-from pathlib import Path
-
-questions, manifest = (json.loads(Path(p).read_text()) for p in sys.argv[1:])
-expected = {s["id"] for s in manifest["samples"] if s["dimension"] == "Camera_Motion"}
-ids = [Path(v).parent.name for q in questions for v in q["video_list"]]
-if len(questions) != 5 or any(len(q["video_list"]) != 4 for q in questions):
-    raise SystemExit("Camera Motion requires five prompts and four videos per prompt")
-if len(ids) != 20 or len(set(ids)) != 20 or set(ids) != expected:
-    raise SystemExit("Missing, duplicate or unexpected Camera Motion sample")
-PY
+      --family hunyuan --mode i2v --method "$state" --dimension Camera_Motion --output "$inputs"
+    python tools/export_quality_dimension.py --manifest configs/primary_manifest.json \
+      --inputs "$inputs" --check-inputs Camera_Motion
     HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 python -m last.quality_score \
       --upstream "${VBENCH:?}" --inputs "$inputs" --dimension Camera_Motion \
       --submodules "$CAMERA_OUT/tracker.json" --cotracker-checkpoint "$TRACKER" \
@@ -397,7 +393,7 @@ planned sample IDs before either arm is scored.
     inputs="$LANDSCAPE_OUT/$state-inputs"
     python -m last.quality_inputs --manifest configs/primary_manifest.json \
       --metadata-root "${QUALITY_METADATA:?}" --run-root "${PRIMARY_RUNS:?}" \
-      --family hunyuan --mode i2v --method "$state" --allow-partial-diagnostic --output "$inputs"
+      --family hunyuan --mode i2v --method "$state" --dimension "$dimension" --output "$inputs"
     python tools/export_quality_dimension.py --manifest configs/primary_manifest.json \
       --inputs "$inputs" --check-inputs "$dimension"
   done

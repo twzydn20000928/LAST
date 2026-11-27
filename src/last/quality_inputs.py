@@ -24,9 +24,13 @@ def verified_video(folder,record,reference=False):
                        receipt_sha256=hashlib.sha256(anchor.read_bytes()).hexdigest())
 
 
-def build(manifest,metadata_root,run_root,family,mode,method):
+def build(manifest,metadata_root,run_root,family,mode,method,selected_dimension=None):
     validate(manifest);groups=defaultdict(list)
-    for row in manifest['samples']:groups[(row['dimension'],row['prompt'])].append(row)
+    for row in manifest['samples']:
+        if selected_dimension is None or row['dimension'] == selected_dimension:
+            groups[(row['dimension'],row['prompt'])].append(row)
+    if not groups:
+        raise ValueError(f'Unknown manifest dimension: {selected_dimension}')
     output=defaultdict(list);coverage=defaultdict(lambda:dict(expected=0,available=0,missing=[]));sources={};videos=[]
     for (dimension,prompt),rows in groups.items():
         text=Path(metadata_root)/'prompt_set/VBench2_aug_prompt'/f'{dimension}.txt'
@@ -67,7 +71,7 @@ def build(manifest,metadata_root,run_root,family,mode,method):
             item['video_list'].append(str(video.resolve()));coverage[dimension]['available']+=1
             videos.append(dict(video_id=row['id'],path=str(video.resolve()),sha256=video_sha,provenance=anchor))
         if item['video_list']:output[dimension].append(item)
-    complete=all(v['expected']==v['available'] for v in coverage.values())
+    complete=selected_dimension is None and all(v['expected']==v['available'] for v in coverage.values())
     return dict(output),dict(complete=complete,coverage=dict(coverage),metadata_sha256=sources,videos=videos,family=family,mode=mode,method=method)
 
 def main():
@@ -76,14 +80,20 @@ def main():
     p.add_argument('--metadata-manifest',type=Path,default=Path('configs/quality_metadata_manifest.json'))
     p.add_argument('--family',choices=['hunyuan','wan22'],required=True);p.add_argument('--mode',choices=['i2v','t2v'],required=True)
     p.add_argument('--method',choices=['reference','last','lfg','sigmark','videoshield','videomark'],required=True)
+    p.add_argument('--dimension', help='Prepare only this dimension from the frozen manifest')
     p.add_argument('--allow-partial-diagnostic',action='store_true');a=p.parse_args()
     verify(a.metadata_root,json.loads(a.metadata_manifest.read_text()))
-    files,report=build(json.loads(a.manifest.read_text()),a.metadata_root,a.run_root,a.family,a.mode,a.method)
+    files,report=build(json.loads(a.manifest.read_text()),a.metadata_root,a.run_root,a.family,a.mode,a.method,a.dimension)
     report['manifest_sha256']=hashlib.sha256(a.manifest.read_bytes()).hexdigest()
     report['scope']='Complete primary quality inputs' if report['complete'] else 'Incomplete inputs; no complete V-score claim'
+    if a.dimension:
+        selected = report['coverage'][a.dimension]
+        report['selected_dimension'] = a.dimension
+        report['selected_dimension_complete'] = selected['available'] == selected['expected']
+        report['scope'] = 'Single-dimension inputs; full primary coverage not evaluated'
     a.output.mkdir(parents=True,exist_ok=False)
     (a.output/'coverage.json').write_text(json.dumps(report,indent=2))
-    if not report['complete'] and not a.allow_partial_diagnostic:raise SystemExit('Incomplete quality inputs; coverage saved, scorer files withheld')
+    if not (report['complete'] or report.get('selected_dimension_complete')) and not a.allow_partial_diagnostic:raise SystemExit('Incomplete quality inputs; coverage saved, scorer files withheld')
     for dimension,rows in files.items():(a.output/f'{dimension}.json').write_text(json.dumps(rows,indent=2))
     print(json.dumps(dict(complete=report['complete'],videos=len(report['videos']),dimension_files=len(files))))
 
