@@ -84,6 +84,17 @@ blur, noise, compression, deletion, insertion and contiguous frame removal.
 See the per-condition JSON files in `/private/cyclist-run/attacks/` for
 `correct_bits`, `total_bits` and `exact_message` on completed reads.
 
+To preview the seven conditions on CPU before running a model, recount the
+archived LAST and LFG results for the first three videos in the frozen manifest:
+
+```bash
+PYTHONPATH=src python tools/matched_primary_methods.py --family hunyuan --mode i2v \
+  --methods last lfg --first 3 --reports results/hunyuan_i2v_primary24.json
+```
+
+Each cell shows correct bits out of 1,536 and complete messages out of three.
+The preview reads existing measurements and requires all three videos for each condition.
+
 ## Reproduction status
 
 This repository is being constructed from a frozen manuscript protocol. Full-paper experiments have **not** been reproduced yet. Historical pilot results are not full-benchmark results, and manuscript values are not used as measured outputs.
