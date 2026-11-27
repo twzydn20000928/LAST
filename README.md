@@ -75,10 +75,10 @@ python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_r
 ```
 
 A [controlled comparison with shared fusion](docs/ABLATIONS.md#shared-fusion-deletion-comparison)
-holds the message fusion rule fixed on the first 95 Hunyuan I2V videos.
-After deletion, grouping frames in received order recovered 52.15% of bits,
-blind CCTA recovered 74.01%, and supplying the true edit map recovered 99.15%.
-Exact recovery was 0/95, 0/95 and 67/95. The last row uses information available
+holds the message fusion rule fixed on the first 100 Hunyuan I2V videos.
+After deletion, grouping frames in received order recovered 52.13% of bits,
+blind CCTA recovered 73.47%, and supplying the true edit map recovered 99.03%.
+Exact recovery was 0/100, 0/100 and 68/100. The last row uses information available
 to the evaluator. The cause of the full discrepancy remains open.
 
 To inspect the [170 original deletion records](results/hunyuan_i2v_primary_deletion_errors.json) separately:
@@ -242,7 +242,7 @@ available command is not evidence that the full prescribed sample set has run.
 | Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `tools/writer_ablation_table.py` | 14/30 writer pairs and [14/30 reader cases](results/hunyuan_i2v_reader_ablation_14.json) cover all seven conditions. Table 4 has 13/30 fully matched cases. For paper-270 the [regenerated video differs](results/hunyuan_i2v_paper270_repeat_rgb.json) and its matched reader run is pending. |
 | Margin sweep and uniform-profile control | [Figure 4 and Supplement Table 5](docs/ABLATIONS.md#completed-development-margin-sweep), [development-set sensitivity](docs/ABLATIONS.md#supplementary-development-set-margin-sensitivity) | All five margins for the three figure examples and for [9 of 80 development videos](results/development_margin_nine_videos.json). The three figure examples are included in the nine. Use `last.writer_replay --uniform-profile` for the separate profile control. |
 | Matched-writer LFG-C, native LFG+CCTA and oracle grouping | [Paired reader command](docs/BASELINES.md#replay-the-seven-condition-reader-comparison), [oracle diagnostic](docs/ABLATIONS.md) | [18 Hunyuan I2V videos](results/hunyuan_i2v_lfg_ccta_first18.json) with seven paired reader comparisons each. Matched-fidelity calibration pending. |
-| Supplement Table 12, shared-fusion reader comparison | [Run the readers and rebuild the table](docs/ABLATIONS.md#shared-fusion-per-case-workflow) | 95 Hunyuan I2V LAST videos. The [paired deletion analysis](docs/ABLATIONS.md#paired-deletion-differences-across-videos) documents its own sample count. Received-order, CCTA and true-map readers share the same clean, deletion and compression inputs; calibrated energy is pending. |
+| Supplement Table 12, shared-fusion reader comparison | [Run the readers and rebuild the table](docs/ABLATIONS.md#shared-fusion-per-case-workflow) | 100 Hunyuan I2V LAST videos. The [paired deletion analysis](docs/ABLATIONS.md#paired-deletion-differences-across-videos) uses the same 100 videos. Received-order, CCTA and true-map readers share the same clean, deletion and compression inputs; calibrated energy is pending. |
 | Supplement Table 15, temporal stress and repeated attack maps | [Rebuild counts and alignment diagnostics](docs/STRESS.md#recount-the-eight-edits-on-primary-videos) | 32 Hunyuan I2V videos with eight edits and five seeds each. Every edit covers 160 of 2,000 planned trials. |
 | Bit errors, whole-message recovery and uncertainty | [Statistics](docs/STATISTICS.md), `last.message_outcomes`, `last.cluster_intervals` | Implemented; final summaries require complete planned observations |
 | Main Table 3 and supplementary timing | [Acquire paired timings and build Table 3](docs/TIMING.md#main-table-3), [embedding time](docs/TIMING.md#direct-embedding-operation) | [Two exclusive L40 extraction measurements](results/hunyuan_i2v_last_extraction_timing.json) cover a separate LAST clip (paper-000). The frozen main-table clip is paper-291. The clean read passed BCH decoding; the deletion read failed. The full five-method comparison is pending. |

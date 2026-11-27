@@ -1403,7 +1403,7 @@ The current Table 4 rebuild covers 13 of the 30 frozen cases (6,656 bits per con
 
 ### Paired deletion differences across videos
 
-On the first 83 verified Hunyuan I2V videos, blind CCTA recovered more information bits than received-order grouping on 79 videos, tied on one and recovered fewer on three. The median paired gain was 128 of 512 bits. Providing the true edit map improved over blind CCTA on all 83, with a median gain of 113 bits. The assisted reader receives privileged frame positions. Each difference below compares readers on one identical deletion MP4.
+On the first 100 verified Hunyuan I2V videos, blind CCTA recovered more information bits than received-order grouping on 91 videos, tied on one and recovered fewer on eight. The median paired gain was 123 of 512 bits. Providing the true edit map improved over blind CCTA on all 100, with a median gain of 121 bits. The assisted reader receives privileged frame positions. Each difference below compares readers on one identical deletion MP4.
 
 Run the shared-fusion table command above to cross-check the primary input fingerprints. From the repository root, reproduce the per-video counts for this snapshot with Python:
 
@@ -1413,7 +1413,7 @@ from pathlib import Path
 from statistics import median
 
 gains = {"CCTA minus received order": [], "True map minus CCTA": []}
-for index in range(83):
+for index in range(100):
     path = Path("results") / f"hunyuan_i2v_last_controlled_paper{index:03d}.json"
     case = json.loads(path.read_bytes())
     assert case["video_id"] == f"paper-{index:03d}"
@@ -1427,6 +1427,8 @@ for label, values in gains.items():
     print(label, "improved", sum(n > 0 for n in values), "tied", values.count(0),
           "worse", sum(n < 0 for n in values), "median gain in bits", median(values))
 ```
+
+On the same deletion videos, the true-map reader recovered complete messages on 19/20 Camera Motion, 20/20 Complex Landscape, 15/20 Complex Plot, 12/20 Composition and 2/20 Diversity samples. For each dimension, count deletion rows with `reader == "oracle"` and `exact_message == true`, joining the video ID to `configs/primary_manifest.json`. All 20 Diversity samples share one prompt, whereas each other dimension here covers five prompts. The counts describe this frozen prefix; the category and prompt effects cannot be separated for Diversity.
 
 Across the 13 matched Table 4 writer pairs ending with paper-291, the minimum-margin writer increased both PSNR and SSIM on every video relative to the fixed-target writer. Within each pair both arms share an unmarked reference. The mean paired gains were 0.682 dB and 0.00263 SSIM. The PSNR gains ranged from 0.201 to 1.119 dB. For deletion, insertion and clipping the respective counts of videos with more / equal / fewer correct bits were 7/0/6, 7/1/5 and 7/3/3. These comparisons use the paired writer exports and the same full reader on each arm.
 
