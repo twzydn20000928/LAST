@@ -6,10 +6,10 @@ for LAST and its unmarked reference. The Hunyuan command also includes the
 available VideoShield and VideoMark measurements. Run from the repository root.
 
 ```bash
-python -m last.clean_table --family hunyuan \
-  --reports results/hunyuan_i2v_primary24.json results/hunyuan_t2v_primary14.json \
-    results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_t2v_videomark_first40.json \
-    results/hunyuan_i2v_sigmark_first1_partial.json \
+python -m last.clean_table --family hunyuan --disjoint-snapshots \
+  --reports results/hunyuan_i2v_primary24.json results/hunyuan_i2v_primary_slice024.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_t2v_primary14.json \
+    results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_i2v_videoshield_slice291.json results/hunyuan_t2v_videomark_first40.json \
+    results/hunyuan_i2v_sigmark_first1_partial.json results/hunyuan_i2v_sigmark_slice291_partial.json \
   --quality results/hunyuan_i2v_quality_six_dimensions_last.json \
     results/hunyuan_i2v_quality_five_dimensions_reference.json \
     results/camera_motion/hunyuan_t2v_last_camera_quality.json \

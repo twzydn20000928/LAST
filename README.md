@@ -154,6 +154,8 @@ samples omitted the MP4 digest.
 
 ## Reproduction status
 
+For clean recovery and official quality results, see [HunyuanVideo](results/clean-quality/hunyuan.md) and [Wan-2.2](results/clean-quality/wan22.md). Each table lists dimension means and the number of applicable scoring units.
+
 View the [measured attack results](results/primary-robustness/table.md) for all available pipelines and methods. Each cell gives the observed bit accuracy and the number of videos scored out of 400. The [underlying counts](results/primary-robustness/counts.csv) also give the number of messages recovered in full.
 
 This repository is being constructed from a frozen manuscript protocol. Full-paper experiments have **not** been reproduced yet. Historical pilot results are not full-benchmark results, and manuscript values are not used as measured outputs.

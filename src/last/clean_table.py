@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from .quality_report import CATEGORIES, aggregate
-from .robustness_table import collect
+from .robustness_table import collect, collect_disjoint
 
 
 METHODS = {
@@ -37,9 +37,10 @@ def scored_dimensions(dimensions):
     return count
 
 
-def render(family, reports, quality):
+def render(family, reports, quality, *, disjoint_snapshots=False):
     clean = {}
-    for (backbone, mode, method), cells in collect(reports).items() if reports else ():
+    collector = collect_disjoint if disjoint_snapshots else collect
+    for (backbone, mode, method), cells in collector(reports).items() if reports else ():
         if backbone == family:
             row = cells['clean']
             if row['expected'] != 400 or mode not in ('i2v', 't2v') or method not in METHODS or method == 'reference':
@@ -47,6 +48,7 @@ def render(family, reports, quality):
             clean[mode, method] = row
     scores = {}
     exclusions = []
+    dimension_rows = []
     for q in quality:
         if q['family'] != family:
             continue
@@ -62,6 +64,9 @@ def render(family, reports, quality):
             raise ValueError('Incomplete official scoring units')
         scores[key] = f'pending ({count}/{total} dimensions)' if v is None else f'{v:.3f}'
         for name, entry in q['dimensions'].items():
+            if scored_dimensions({name: entry}):
+                dimension_rows.append((q['mode'].upper(), METHODS[q['method']][0], name,
+                                       entry['mean'], entry['valid_units'], entry['expected_units']))
             if entry.get('status') == 'completed' and entry.get('not_applicable_units', 0):
                 exclusions.append(f"{q['mode'].upper()} {METHODS[q['method']][0]}, {name}: "
                                   f"{entry['not_applicable_units']}/{entry['expected_units']}")
@@ -90,6 +95,13 @@ def render(family, reports, quality):
                 lines.append(f"| {mode.upper()} | {METHODS[method][0]} | "
                              f"{row['correct_bits']}/{row['total_bits']} | "
                              f"{row['exact_messages']}/{row['completed']} |")
+    if dimension_rows:
+        lines.extend(['', '### Official dimension means', '',
+                      'Diversity uses prompt groups as scoring units. Other dimensions use videos.', '',
+                      '| Mode | Method | Dimension | Mean | Valid / planned units |',
+                      '|---|---|---|---:|---:|'])
+        for mode, method, name, mean, valid, expected in sorted(dimension_rows):
+            lines.append(f'| {mode} | {method} | {name} | {mean:.4f} | {valid}/{expected} |')
     if exclusions:
         lines.extend(['', 'Official scoring units marked inapplicable (excluded from dimension means):',
                       '', *['- ' + label for label in sorted(exclusions)]])
@@ -102,12 +114,14 @@ def main():
     p.add_argument('--reports', nargs='+', type=Path, default=[])
     p.add_argument('--quality', nargs='+', type=Path, default=[])
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--disjoint-snapshots', action='store_true',
+                   help='Pool audited clean results from distinct samples of the same manifest')
     a = p.parse_args()
     if not (a.reports or a.quality):
         p.error('Supply measured reports')
     def read(paths):
         return [json.loads(path.read_bytes()) for path in paths]
-    table = render(a.family, read(a.reports), read(a.quality))
+    table = render(a.family, read(a.reports), read(a.quality), disjoint_snapshots=a.disjoint_snapshots)
     a.output.parent.mkdir(parents=True, exist_ok=True)
     with a.output.open('x', encoding='utf-8') as stream:
         stream.write(table)
