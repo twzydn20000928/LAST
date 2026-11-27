@@ -153,14 +153,14 @@ def main():
     groups=collector([json.loads(f.read_text(encoding='utf-8-sig')) for f in a.reports]);markdown,counts=render(groups)
     if any(hashlib.sha256(Path(f).read_bytes()).hexdigest()!=h for f,h in inputs.items()):raise ValueError('Report changed')
     a.output.mkdir(parents=True,exist_ok=False)
-    (a.output/'table.md').write_text(markdown,encoding='utf-8')
+    (a.output/'table.md').write_bytes(markdown.encode('utf-8'))
     with (a.output/'counts.csv').open('w',newline='',encoding='utf-8') as stream:
-        writer=csv.DictWriter(stream,fieldnames=list(counts[0]));writer.writeheader();writer.writerows(counts)
+        writer=csv.DictWriter(stream,fieldnames=list(counts[0]),lineterminator='\n');writer.writeheader();writer.writerows(counts)
     receipt=dict(status='completed_rendering',supplied_cells_complete=all(r['complete'] for g in groups.values() for r in g.values()),
                  input_sha256=inputs,source_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                  disjoint_snapshots=a.disjoint_snapshots,
                  scope='Formatting only; no new measurements or comparability validation')
-    (a.output/'receipt.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')
+    (a.output/'receipt.json').write_bytes(json.dumps(receipt,indent=2).encode('utf-8'))
 
 
 if __name__=='__main__':main()
