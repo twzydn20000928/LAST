@@ -23,6 +23,7 @@ def main():
     case.add_argument("--prompt", required=True)
     case.add_argument("--seed", type=int, default=42)
     case.add_argument("--image", type=Path, help="Conditioning image for image-to-video")
+    case.add_argument("--key-file", type=Path, help="Existing 32-byte embedding key; default: generate a fresh key")
     payload = case.add_mutually_exclusive_group(required=True)
     payload.add_argument("--text", help="UTF-8 text up to 64 bytes, padded with zero bytes")
     payload.add_argument("--message-file", type=Path, help="Exactly 64 binary bytes")
@@ -53,8 +54,11 @@ def main():
         if len(data) != 64:
             parser.error("Binary message must contain exactly 64 bytes")
 
+    key = secrets.token_bytes(32) if args.key_file is None else args.key_file.read_bytes()
+    if len(key) != 32:
+        parser.error("Key file must contain exactly 32 bytes")
     args.output.mkdir(parents=True, mode=0o700, exist_ok=False)
-    write_private(args.output / "secret.key", secrets.token_bytes(32))
+    write_private(args.output / "secret.key", key)
     write_private(args.output / "message.bin", data)
     write_private(args.output / "case.json", json.dumps(spec).encode("utf-8"))
     print(json.dumps({"created": str(args.output), "information_bits": 512}))

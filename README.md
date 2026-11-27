@@ -73,8 +73,20 @@ python -m last.cli prepare-video --output "$LAST_EXAMPLE_DIR" \
   --image /path/to/your/cyclist.png --text cyclist-example
 ```
 
-For text-to-video, omit `--image`, use the matching full T2V checkpoint and
-select `--mode t2v` in the generation command.
+To mark multiple videos with your own key, add `--key-file /private/secret.key`
+to each `prepare-video` command and choose a fresh output directory per video.
+The file must contain exactly 32 bytes. Omitting this option generates a new key.
+
+Select the checkpoint and pipeline together. For text-to-video, omit
+`--image` from `prepare-video`; image-to-video requires a conditioning image.
+Use the same family and checkpoint directory for generation and evaluation.
+
+| Pipeline | Checkpoint name for `last.models` | Generation flags for `last.smoke` |
+|---|---|---|
+| Hunyuan image-to-video | `hunyuan_i2v` | `--family hunyuan --mode i2v` |
+| Hunyuan text-to-video | `hunyuan_t2v` | `--family hunyuan --mode t2v` |
+| Wan-2.2 image-to-video | `wan22_i2v` | `--family wan22 --mode i2v` |
+| Wan-2.2 text-to-video | `wan22_t2v` | `--family wan22 --mode t2v` |
 
 Run the following commands after replacing the paths with your own:
 
