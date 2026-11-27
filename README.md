@@ -56,35 +56,45 @@ python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \
   --download --verify-manifest configs/checkpoint_files.json
 ```
 
-Prepare a 32-byte binary key, a 64-byte binary message and a case file
-such as `{"prompt":"A cyclist rides along the path","seed":42,"image":"/data/cyclist.png"}`.
-To create example inputs, run the following Python code in a fresh private
-directory. Replace the example text with your identifier. It must fit in 64
-UTF-8 bytes. The example fills the remaining bytes with zeros.
+Run the following in one Bash session. Set `LAST_IMAGE` to your image path.
+Adjust the prompt to describe your image and replace the example identifier
+with up to 64 UTF-8 bytes. The example pads the message to 64 bytes with zeros.
 
-```python
+```bash
+export LAST_IMAGE="/path/to/your/cyclist.png"
+export LAST_EXAMPLE_DIR="$(mktemp -d)"
+python - <<'PY'
+import json
 import os
 import secrets
 from pathlib import Path
 
 os.umask(0o077)
+folder = Path(os.environ["LAST_EXAMPLE_DIR"])
+image = Path(os.environ["LAST_IMAGE"]).expanduser().resolve(strict=True)
+case = {"prompt": "A cyclist rides along the path", "seed": 42, "image": str(image)}
 identifier = "cyclist-example".encode("utf-8")
 if len(identifier) > 64:
     raise ValueError("Use at most 64 UTF-8 bytes")
-with Path("secret.key").open("xb") as f:
+with (folder / "case.json").open("x", encoding="utf-8") as f:
+    json.dump(case, f)
+with (folder / "secret.key").open("xb") as f:
     f.write(secrets.token_bytes(32))
-with Path("message.bin").open("xb") as f:
+with (folder / "message.bin").open("xb") as f:
     f.write(identifier.ljust(64, b"\x00"))
+print(folder)
+PY
 ```
 
 Run the following commands after replacing the paths with your own:
 
 ```bash
 python -m last.smoke --family hunyuan --mode i2v --model-dir /path/to/checkpoint \
-  --case case.json --key /private/secret.key --message /private/message.bin \
-  --output /private/cyclist-run --memory-gib 12 --offload sequential
+  --case "$LAST_EXAMPLE_DIR/case.json" --key "$LAST_EXAMPLE_DIR/secret.key" \
+  --message "$LAST_EXAMPLE_DIR/message.bin" --output "$LAST_EXAMPLE_DIR/run" \
+  --memory-gib 12 --offload sequential
 python -m last.evaluate --family hunyuan --model-dir /path/to/checkpoint \
-  --run /private/cyclist-run --video-id cyclist-example
+  --run "$LAST_EXAMPLE_DIR/run" --video-id cyclist-example
 ```
 
 For a shorter evaluation, append `--condition drop` to the second command to
@@ -114,7 +124,7 @@ and use a fresh output directory. LAST runs diffusion once in either mode.
 This option skips one VAE decode and MP4 export. Keep the reference for paired
 PSNR and SSIM measurements. The second command reuses the marked video to evaluate clean extraction,
 blur, noise, compression, deletion, insertion and contiguous frame removal.
-See the per-condition JSON files in `/private/cyclist-run/attacks/` for
+See the per-condition JSON files in `$LAST_EXAMPLE_DIR/run/attacks/` for
 `correct_bits`, `total_bits` and `exact_message` on completed reads.
 
 To preview the seven conditions on CPU before running a model, recount the
