@@ -1,0 +1,78 @@
+{
+  "family": "hunyuan",
+  "mode": "i2v",
+  "sample_ids": [
+    "paper-025"
+  ],
+  "plan_sha256": {
+    "last": "79ab4539c1dda9d30aabd606605e11f72dcb95f0d4b3069cb649f877126bafc1",
+    "lfg": "27f49c6e3a1757d99b57a8d67c9930042c35a6c5d5f56fefa470487cbbc8f7e2"
+  },
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "identical_reference_files": 0,
+  "observations": {
+    "last": [
+      {
+        "video_id": "paper-025",
+        "quality_receipt_sha256": "64915369a822c3b11c49a49f639e59e321b547c43a64126d203ba9ba80cf0070",
+        "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+        "frames": 65,
+        "rgb_mse": 0.0008524662672502071,
+        "ssim": 0.8927806343333913,
+        "psnr_db": 30.6932279736414,
+        "identical": false,
+        "marked_sha256": "1e93f837329a0b20da66e94238598a3b00e669a7d59c27b002c0037a5659b5d8",
+        "reference_sha256": "f049328fe6bcfabc8a32841b636b1c2b7670ae7e27f5e9c204b951fcd0a37f2f"
+      }
+    ],
+    "lfg": [
+      {
+        "video_id": "paper-025",
+        "quality_receipt_sha256": "bcd2ae778f179657db07d59114e1899a36f1d3b72fb697bdf43af1ce93d41289",
+        "definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true",
+        "frames": 65,
+        "rgb_mse": 0.008115560431641126,
+        "ssim": 0.591524575376536,
+        "psnr_db": 20.906814839751334,
+        "identical": false,
+        "marked_sha256": "80001946f321c89401a5f459b443ae87cd7c3b658d8aa483f24c2f89fc521f17",
+        "reference_sha256": "4e1a147c19946b1152700cccefb95ac7d66ab6021bfc5f36239514d9d64be962"
+      }
+    ]
+  },
+  "cells": {
+    "last": {
+      "expected": 1,
+      "completed": 1,
+      "missing": [],
+      "complete": true,
+      "identical_pairs": 0,
+      "observed_mean_video_psnr_db": 30.6932279736414,
+      "observed_mean_video_psnr_is_infinite": false,
+      "observed_mean_ssim": 0.8927806343333913,
+      "observed_mean_mse": 0.0008524662672502071,
+      "observed_psnr_from_mean_mse_db": 30.6932279736414,
+      "final_mean_video_psnr_db": 30.6932279736414,
+      "final_mean_video_psnr_is_infinite": false,
+      "final_mean_ssim": 0.8927806343333913,
+      "metric_definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true"
+    },
+    "lfg": {
+      "expected": 1,
+      "completed": 1,
+      "missing": [],
+      "complete": true,
+      "identical_pairs": 0,
+      "observed_mean_video_psnr_db": 20.906814839751334,
+      "observed_mean_video_psnr_is_infinite": false,
+      "observed_mean_ssim": 0.591524575376536,
+      "observed_mean_mse": 0.008115560431641126,
+      "observed_psnr_from_mean_mse_db": 20.906814839751334,
+      "final_mean_video_psnr_db": 20.906814839751334,
+      "final_mean_video_psnr_is_infinite": false,
+      "final_mean_ssim": 0.591524575376536,
+      "metric_definition": "PSNR from global RGB MSE in[0,1]; SSIM11x11 Gaussian sigma1.5 population covariance valid centers, mean RGB and frames; identical PSNR is +infinity represented by null+identical=true"
+    }
+  },
+  "scope": "Paired prefix; each method uses its own reference"
+}

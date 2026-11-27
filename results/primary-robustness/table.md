@@ -7,8 +7,8 @@ I2V uses an input image and prompt. T2V uses a text prompt. Drop removes 30 rand
 
 | Family | Mode | Method | clean | noise | compression | blur | drop | insert | clip |
 |---|---|---|---|---|---|---|---|---|---|
-| hunyuan | i2v | last | 100.00% [partial]; 26/400 | 98.96% [partial]; 26/400 | 97.52% [partial]; 26/400 | 99.69% [partial]; 26/400 | 76.56% [partial]; 26/400 | 87.26% [partial]; 26/400 | 98.37% [partial]; 26/400 |
-| hunyuan | i2v | lfg | 97.98% [partial]; 26/400 | 92.83% [partial]; 26/400 | 95.31% [partial]; 26/400 | 95.15% [partial]; 26/400 | 65.99% [partial]; 26/400 | 59.37% [partial]; 26/400 | 77.42% [partial]; 26/400 |
+| hunyuan | i2v | last | 100.00% [partial]; 27/400 | 99.00% [partial]; 27/400 | 97.61% [partial]; 27/400 | 99.70% [partial]; 27/400 | 76.79% [partial]; 27/400 | 87.30% [partial]; 27/400 | 98.43% [partial]; 27/400 |
+| hunyuan | i2v | lfg | 98.05% [partial]; 27/400 | 92.98% [partial]; 27/400 | 95.49% [partial]; 27/400 | 95.26% [partial]; 27/400 | 65.91% [partial]; 27/400 | 59.74% [partial]; 27/400 | 77.47% [partial]; 27/400 |
 | hunyuan | i2v | sigmark | 70.80% [partial]; 2/400 | 49.22% [partial]; 2/400 | 50.20% [partial]; 1/400 | 67.38% [partial]; 1/400 | unscored [partial]; 0/400 (1 failed) | unscored [partial]; 0/400 (1 failed) | 53.12% [partial]; 1/400 |
 | hunyuan | i2v | videoshield | 100.00% [partial]; 3/400 | 99.74% [partial]; 3/400 | 99.87% [partial]; 3/400 | 100.00% [partial]; 3/400 | 100.00% [partial]; 3/400 | 98.96% [partial]; 3/400 | 99.54% [partial]; 3/400 |
 | hunyuan | t2v | last | 100.00% [partial]; 14/400 | 98.86% [partial]; 14/400 | 96.86% [partial]; 14/400 | 99.72% [partial]; 14/400 | 75.63% [partial]; 14/400 | 90.69% [partial]; 14/400 | 97.74% [partial]; 14/400 |

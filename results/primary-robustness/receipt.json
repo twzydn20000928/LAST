@@ -4,6 +4,7 @@
   "input_sha256": {
     "results/hunyuan_i2v_primary24.json": "8447eb156ccdd7226fd19ff95202e031a58871524dbe080e34668904677881d1",
     "results/hunyuan_i2v_primary_slice024.json": "699e616befdb0b038bab26ada467616b335d686daa4d2f06834de79487c98172",
+    "results/hunyuan_i2v_primary_slice025.json": "1d226c22f528881ca17909b57bf6a9b179bedf10a756d66d82a6aa03e389d7cf",
     "results/hunyuan_i2v_primary_slice291.json": "b0ed7a4e59313395a9335e7ddcc605dc2702434e6e2efe5c7a936ed0afe96ced",
     "results/hunyuan_t2v_primary14.json": "e07ab1b3a55a3f96ee124b96f7d4b7da8f989e7d143148a059422f9bafa9aeaa",
     "results/wan22_i2v_primary14.json": "c447dc885b5289bc240e75b25ea87ba1b1d1c5595f2cb8e12ab669839fdb29be",
