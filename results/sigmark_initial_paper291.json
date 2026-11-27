@@ -1,0 +1,11 @@
+{
+  "video_id": "paper-291",
+  "scope": "Saved initial latent, direct CPU decoding",
+  "correct_bits": 512,
+  "total_bits": 512,
+  "clean_video_correct_bits": 242,
+  "generation_state_digest_recorded": false,
+  "upstream_commit": "3713243f2e002cb21bbc3da896094d39b2b528c9",
+  "latent_dtype": "torch.float32",
+  "latent_sha256": "ca9b2cd9edbd1fa0ba91e9c7b9d68f84c1d519f2c74e48e1ba0b9636c71aca97"
+}

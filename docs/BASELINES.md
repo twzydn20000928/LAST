@@ -924,3 +924,14 @@ The [17-case report](../results/hunyuan_i2v_lfg_ccta_first17.json) adds paper-01
 For a run created before the evaluator recorded the message and prediction digests, add `--legacy` to the single-attack recount command. The tool checks all available digests, verifies the MP4 and extraction receipt, compares the two surviving 64-byte files bit by bit, and lists missing historical digest fields. A matching count cannot establish that the surviving bytes are identical to their values at extraction time. The default command requires all three attack and extraction digest fields.
 
 The [four archived SIGMark counts](../results/sigmark_paper000_four_condition_recount.json) cover Hunyuan I2V paper-000. Clean, noise, compression and blur recovered 483, 256, 257 and 345 of 512 bits. The three temporal conditions are outside this recount.
+
+
+### SIGMark clean extraction and saved initial carriers
+
+Two Hunyuan I2V runs have both a clean MP4 prediction and the private initial latent saved by the generator. Direct upstream CPU decoding of that latent recovered 512/512 bits on [paper-000](../results/sigmark_initial_paper000.json) and [paper-291](../results/sigmark_initial_paper291.json). Ordinary clean extraction from the respective videos recovered 483/512 and 242/512. The direct read used the archived native state whose digest matches the clean extraction receipt. The historical generation receipts do not include state digests. These observations establish that the saved initial carrier was readable in both cases. They leave the individual effects of generation, MP4 export, VAE re-encoding and diffusion inversion unresolved.
+
+Use the native baseline environment with a trusted local run. The command reads the private carrier and upstream state locally and prints aggregate counts and provenance:
+
+```bash
+OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 CUDA_VISIBLE_DEVICES="" python tools/check_sigmark_initial.py --run "$PRIMARY_RUNS/hunyuan/i2v/sigmark/paper-291" --upstream "$SIGMARK_ROOT"
+```
