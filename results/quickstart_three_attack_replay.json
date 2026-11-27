@@ -1,0 +1,212 @@
+[
+  {
+    "video_id": "paper-000",
+    "condition": "clean",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "45fb350d450152e012cbc63b5bcf71233bb629009fda9b9d67170573d45971bb",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-000",
+    "condition": "noise",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "2bc99682aa3f81454c9a0c179b7b484f13bb041ea3f58016a3204ae323e76464",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-000",
+    "condition": "compression",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "bcff2291d777fb1ea32447092fdd274ed1bd7624dffa8a5f641c2edcf84e0e38",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-000",
+    "condition": "blur",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "9ed8c48fca94502c910906cc22114b31a80c18106133df7c89501567edaabf94",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-000",
+    "condition": "drop",
+    "frames": 35,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "8562a0f6e475a3a671a5747f77dad6b3ddb358245911ec240a5df58d363bbcf1",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-000",
+    "condition": "insert",
+    "frames": 95,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "e631398a5c358a90ef9f68417e68af67344d7c540ff33ef4e8e5586759964c7d",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-000",
+    "condition": "clip",
+    "frames": 35,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "d036a1f680076c58ea9857f89ee5fbdb0c95b1f4951ec585e9de0a0a7a8e9c44",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-001",
+    "condition": "clean",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "84db39f1d73409349e39e9d06fe735893710073395e921bc049bc897848e80aa",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-001",
+    "condition": "noise",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "949547624f27258d3700ad88c550ae2aad99b046ab1427f5f5830f745dcf610c",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-001",
+    "condition": "compression",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "b9349624b6923ced390ab3a93028915aa9e8c6d29f55492086d76b4edd46ae59",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-001",
+    "condition": "blur",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "38a8ca26bf4a44c74255cceb22d8ce047990166edd4a607563667b1f23925ea8",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-001",
+    "condition": "drop",
+    "frames": 35,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "cfaeef9583b572eeea1cdcf8933477670eefcbf3d830db5c88a57ff3ec42a106",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-001",
+    "condition": "insert",
+    "frames": 95,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "d19350e5aed8134179fd6aa8fa92d9ea95f650afc6ccef02ecb97eac75a3b6f2",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-001",
+    "condition": "clip",
+    "frames": 35,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "594043a521f649c04c9961f25a4ab133298fd74a7000655af9abcd0aa276a38f",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-002",
+    "condition": "clean",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "1b12508605d8b293498feebff8983e25efb12eae5839203a5526ed4ff549881c",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-002",
+    "condition": "noise",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "1261893792ac0d942f1956949e339bb2ecc9f0a251629b0704496edb31cf4e15",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-002",
+    "condition": "compression",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "ff2e5fc6c75bb37e53e2def5b88ce787e10b6aaf8f6aabca00bb710a2e05741d",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-002",
+    "condition": "blur",
+    "frames": 65,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "6632d25e3382bdb76f518d5a86ddeca0e38bae81f92732cd0316fe7e8b72b05b",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-002",
+    "condition": "drop",
+    "frames": 35,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "a495064e317880bafd9cacc7c246d117573ebe234463d7549909c90f7a0d31bd",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-002",
+    "condition": "insert",
+    "frames": 95,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "86eda341d3437e439c7e098b66fcc6b3dd22553d362d24249eee8d39e7070409",
+    "matches_audited_observation": true
+  },
+  {
+    "video_id": "paper-002",
+    "condition": "clip",
+    "frames": 35,
+    "archived_matches": true,
+    "receipt_matches": false,
+    "has_receipt_hash": false,
+    "replayed_video_sha256": "1c94004b89b3dd488025e148fcbf6c1b5c0aa4284dd9ec2e6c0bb1dccd518760",
+    "matches_audited_observation": true
+  }
+]

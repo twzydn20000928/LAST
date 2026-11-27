@@ -137,6 +137,12 @@ PYTHONPATH=src python tools/matched_primary_methods.py --family hunyuan --mode i
 
 Each cell shows correct bits out of 1,536 and complete messages out of three.
 The preview reads existing measurements and requires all three videos for each condition.
+For the LAST inputs, the [attack replay record](results/quickstart_three_attack_replay.json)
+lists the frame count and SHA-256 for every MP4. In the pinned environment,
+all 18 regenerated edits matched the archived files byte for byte. The three
+clean entries refer to the original marked MP4s. All 21 hashes match the audited
+observations used in the preview. The original per-attack receipts for these
+samples omitted the MP4 digest.
 
 ## Reproduction status
 
