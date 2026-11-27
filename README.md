@@ -2,6 +2,42 @@
 
 Training-free, inversion-free video watermarking with endpoint latent-frequency margin coding (ELMC) and cross-group consistency temporal alignment (CCTA).
 
+## Use LAST on one video
+
+Start with the [installation instructions](#install-linux-python310-cuda-capable-nvidia-gpu).
+If you already have a LAST-marked 512 × 512 MP4 and its 32-byte key, skip generation.
+For a Hunyuan video, point `--model-dir` at the checkpoint directory containing
+the matching `vae/` subdirectory. Extraction loads the VAE on a CUDA GPU.
+
+```bash
+python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
+  --video received.mp4 --key /private/secret.key --output /private/decoded.json
+```
+
+Use a fresh output filename. The private JSON contains the recovered 512 bits
+in `message_hex` and the error-correction outcome in `bch_success`. A payload
+can still contain errors. If you know the original message, compare it with
+the decoded bytes after extraction.
+
+To **generate a marked video with your own message**, prepare a Hunyuan I2V
+checkpoint, a 32-byte binary key, a 64-byte binary message and a case file
+such as `{"prompt":"A cyclist rides along the path","seed":42,"image":"/data/cyclist.png"}`.
+Run the following commands after replacing the paths with your own:
+
+```bash
+python -m last.smoke --family hunyuan --mode i2v --model-dir /path/to/checkpoint \
+  --case case.json --key /private/secret.key --message /private/message.bin \
+  --output /private/cyclist-run --memory-gib 12 --offload sequential
+python -m last.evaluate --family hunyuan --model-dir /path/to/checkpoint \
+  --run /private/cyclist-run --video-id cyclist-example
+```
+
+The first command generates the reference and marked MP4s and checks clean
+extraction. The second reuses the marked video to evaluate clean extraction,
+blur, noise, compression, deletion, insertion and contiguous frame removal.
+See the per-condition JSON files in `/private/cyclist-run/attacks/` for
+`correct_bits`, `total_bits` and `exact_message` on completed reads.
+
 ## Reproduction status
 
 This repository is being constructed from a frozen manuscript protocol. Full-paper experiments have **not** been reproduced yet. Historical pilot results are not full-benchmark results, and manuscript values are not used as measured outputs.
