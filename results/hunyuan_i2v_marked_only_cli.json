@@ -1,0 +1,50 @@
+{
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "last",
+  "marked_only": true,
+  "hardware": "shared NVIDIA L40",
+  "settings": {
+    "steps": 50,
+    "cfg": 6,
+    "shift": 7,
+    "frames": 65,
+    "size": [
+      512,
+      512
+    ],
+    "clean_crf": 18,
+    "fps": 8,
+    "vae": "float32",
+    "generator": "bfloat16"
+  },
+  "case_sha256": "42e53248c96444b31efb6851de2c5fd91bb07abe01fef360fd959c6a453487ab",
+  "writer_source_sha256": "f8363ef5846e5cfac1b101154034925884a594a879a3339e34fb7bfc8222e15b",
+  "clean_generation_check_correct_bits": 512,
+  "generation_and_clean_check_seconds": 2850.818703174591,
+  "reference_exported": false,
+  "drop_video_id": "marked-only-example",
+  "drop_map_seed": 0,
+  "conditions": {
+    "clean": {
+      "frames": 65,
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "route": "ccta",
+      "bch_success": true,
+      "video_sha256": "4bc9008e9ebecb4b50e19cd449cd5ec4be801542af28e16c5c484d80e87430ef",
+      "standalone_extraction_seconds": 177.6808729171753
+    },
+    "drop": {
+      "frames": 35,
+      "correct_bits": 348,
+      "total_bits": 512,
+      "exact_message": false,
+      "route": "ccta",
+      "bch_success": false,
+      "video_sha256": "109dec8c53587565c2aa7dee06517771d613639f27b0ac041983e39ba115e9da",
+      "standalone_extraction_seconds": 103.35423612594604
+    }
+  }
+}

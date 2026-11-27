@@ -88,7 +88,7 @@ Run the following commands after replacing the paths with your own:
 python -m last.smoke --family hunyuan --mode i2v --model-dir /path/to/checkpoint \
   --case "$LAST_EXAMPLE_DIR/case.json" --key "$LAST_EXAMPLE_DIR/secret.key" \
   --message "$LAST_EXAMPLE_DIR/message.bin" --output "$LAST_EXAMPLE_DIR/run" \
-  --memory-gib 12 --offload sequential
+  --memory-gib 12 --offload sequential --marked-only
 python -m last.evaluate --family hunyuan --model-dir /path/to/checkpoint \
   --run "$LAST_EXAMPLE_DIR/run" --video-id cyclist-example
 ```
@@ -133,12 +133,14 @@ python -m last.attack_video --video received.mp4 --video-id cyclist-example \
   --condition drop --output received-drop.mp4
 ```
 
-The first command generates the reference and marked MP4s and checks clean
-extraction. For watermarking alone, add `--marked-only` to the first command
-and use a fresh output directory. LAST runs diffusion once in either mode.
-This option skips one VAE decode and MP4 export. Keep the reference for paired
-PSNR and SSIM measurements. The second command reuses the marked video to evaluate clean extraction,
-blur, noise, compression, deletion, insertion and contiguous frame removal.
+The generation example above writes `$LAST_EXAMPLE_DIR/run/marked.mp4`
+and checks the message after reloading the MP4. For paired PSNR and SSIM
+measurements, omit `--marked-only` and use a fresh output directory to also
+decode and export the unmarked reference. Both modes run diffusion once.
+The evaluation command reuses the marked video for all requested conditions.
+In a [single-video Hunyuan application check](results/hunyuan_i2v_marked_only_cli.json),
+a separate extraction process recovered 512/512 bits from the clean MP4 and
+348/512 after random deletion of 30 frames.
 See the per-condition JSON files in `$LAST_EXAMPLE_DIR/run/attacks/` for
 `correct_bits`, `total_bits` and `exact_message` on completed reads.
 
