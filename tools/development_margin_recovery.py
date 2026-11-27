@@ -15,8 +15,10 @@ def summarize_exact(cells, ids, strengths, attacks):
     rows = []
     for mu in strengths:
         exact = {a: sum(cells[name, mu][0][a] == 512 for name in observed) for a in attacks}
+        bit_counts = {attack: sum(cells[name, mu][0][attack] for name in observed) for attack in attacks}
         trials = len(observed)*len(attacks)
         rows.append(dict(mu=mu, exact_messages_by_attack=exact, exact_messages=sum(exact.values()),
+                         correct_bits_by_attack=bit_counts, total_bits_per_attack=512 * len(observed),
                          video_attack_trials=trials, observed_mean_attack_mrr=sum(exact.values())/trials,
                          mean_psnr_db=mean(cells[name, mu][1] for name in observed)))
     return dict(sample_ids=observed, completed_videos=len(observed), planned_videos=len(ids),
