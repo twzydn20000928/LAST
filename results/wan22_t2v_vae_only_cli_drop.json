@@ -1,0 +1,19 @@
+{
+  "sample": "paper-000",
+  "family": "wan22",
+  "mode": "t2v",
+  "condition": "drop",
+  "map_seed": 0,
+  "frames": 35,
+  "correct": 329,
+  "total": 512,
+  "exact_message": false,
+  "bch_success": false,
+  "route": "ccta",
+  "video_sha256": "981ba6956b62d027f3195fc9fc9bc45c0d158e02cc7d54f9a7cb4fc69826ba09",
+  "matches_archived_mp4_digest": true,
+  "archived_correct": 329,
+  "seconds": 82.45451736450195,
+  "hardware": "L40 (shared)",
+  "scope": "Standalone offline extraction from archived attacked MP4 using the same VAE-only checkpoint as the clean test; comparison with original message performed after extraction."
+}

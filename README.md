@@ -22,7 +22,9 @@ For Wan-2.2 text-to-video, use `--name wan22_t2v` in the download command
 and `--family wan22` in the extraction command below. Its VAE download is
 508 MB. In the [offline Wan extraction check](results/wan22_t2v_vae_only_cli.json),
 the reader recovered all 512 bits from one clean 65-frame MP4 using only
-the key and the matching VAE.
+the key and the matching VAE. On the same sample after random deletion of 30 frames,
+the [standalone reader](results/wan22_t2v_vae_only_cli_drop.json) recovered
+329/512 bits from the remaining 35 frames, matching the archived evaluation.
 
 ```bash
 python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
