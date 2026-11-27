@@ -526,6 +526,29 @@ They cover five prompts with four assigned seeds each. The [official per-video s
 
 For Hunyuan I2V Camera Motion, the [paired scoring input list](../results/hunyuan_i2v_last_lfg_camera_inputs20.json) identifies the 20 assigned videos for both LAST and LFG. All 40 video hashes match the marked outputs in the [paired fidelity report](../results/hunyuan_i2v_fidelity20.json). The [official LAST scoring units](../results/hunyuan_i2v_quality_units/camera_all20_last.json) give 5/20 (0.25); the [official LFG units](../results/hunyuan_i2v_lfg_camera_units.json) give 8/20 (0.40).
 
+On these 20 Camera Motion cases, all five videos satisfying the official criterion under LAST also satisfied it under LFG. Three additional videos satisfied it only under LFG; the other twelve scored zero under both methods. The reference from the LAST generation branch scored 7/20. The 20 videos comprise five prompts with four seeds each. This paired comparison measures adherence to the specified camera motion.
+
+After verifying the score files with the Table 1 workflow, reproduce the binary counts from the repository root:
+
+```python
+import json
+from collections import Counter
+from pathlib import Path
+
+root = Path("results")
+def camera_scores(path):
+    report = json.loads(path.read_bytes())
+    assert report["dimension"] == "Camera_Motion"
+    scores = {unit["videos"][0]["video_id"]: unit["score"] for unit in report["units"]}
+    assert len(scores) == 20 and set(scores.values()) <= {0, 1}
+    return scores
+
+last = camera_scores(root / "hunyuan_i2v_quality_units/camera_all20_last.json")
+lfg = camera_scores(root / "hunyuan_i2v_lfg_camera_units.json")
+assert last.keys() == lfg.keys()
+print(Counter((last[key], lfg[key]) for key in last))
+```
+
 The [November 25 input inventory](../results/quality_input_coverage_nov25.json)
 records available and expected videos for each dimension before semantic
 scoring. LAST and its reference had complete inputs for six Hunyuan I2V,

@@ -645,8 +645,7 @@ To check that every VideoMark camera-motion score used the same marked MP4 as th
 For LAST and the unmarked reference, pass the matching single-method fidelity
 report to `tools/quality_units_table.py --fidelity`. The method selects
 `marked_sha256` for LAST and `reference_sha256` for the unmarked video.
-The Table 1 workflow verifies 400 MP4 entries across 16 dimension reports
-for these two arms. The separate VideoMark check covers 20 more entries.
+The Table 1 workflow checks 220 MP4 entries in nine LAST dimension reports and 200 in eight unmarked-reference reports. It also checks 40 entries in two VideoMark reports and 20 in one LFG report. Across the 20 reports, 480 MP4 entries contribute to 366 scoring units. Each of the two Diversity reports groups 60 files into three prompt-level scores.
 These are counts of matched input files across methods and dimensions.
 Diversity scores are computed per prompt, with several input videos per score.
 
