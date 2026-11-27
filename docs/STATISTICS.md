@@ -156,15 +156,15 @@ random-deletion differences. Values are percentage points of bit accuracy
 
 | Report in `results/` | Videos | Distinct prompts | Correct bits, LAST / LFG | Bits per method | Difference | 95% interval |
 |---|---:|---:|---:|---:|---:|---:|
-| `hunyuan_i2v_primary22.json` | 22 | 6 | 8,537 / 7,469 | 11,264 | +9.48 | [+4.08, +15.00] |
+| `hunyuan_i2v_primary23.json` | 23 | 6 | 8,980 / 7,797 | 11,776 | +10.05 | [+4.44, +15.68] |
 | `hunyuan_t2v_primary14.json` | 14 | 4 | 5,421 / 4,641 | 7,168 | +10.88 | [+6.31, +16.97] |
 | `wan22_i2v_primary13.json` | 13 | 4 | 4,321 / 4,452 | 6,656 | -1.97 | [-10.20, +8.63] |
 | `wan22_t2v_primary13.json` | 13 | 4 | 4,885 / 4,385 | 6,656 | +7.51 | [+2.49, +15.55] |
 
 After random deletion, both methods recovered zero entire 512-bit messages in
-each of these four paired prefixes. For example, on Hunyuan I2V the 1,068 extra
-correct bits across 22 videos give a difference of 100 × 1,068 / 11,264 = 9.48
-percentage points, while whole-message recovery is 0/22 for both methods.
+each of these four paired prefixes. For example, on Hunyuan I2V the 1,183 extra
+correct bits across 23 videos give a difference of 100 × 1,183 / 11,776 = 10.05
+percentage points, while whole-message recovery is 0/23 for both methods.
 To verify the counts, filter the Table 2 `counts.csv` to `condition=drop` and
 methods `last` and `lfg`. Its `exact_messages` column counts videos for which
 all 512 decoded bits match.
