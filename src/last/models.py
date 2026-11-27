@@ -37,20 +37,31 @@ def verify_checkpoint(directory, spec, manifest):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--catalog',type=Path,default=Path('configs/models.json'));p.add_argument('--name',required=True);p.add_argument('--directory',type=Path,required=True);p.add_argument('--download',action='store_true');p.add_argument('--hash-output',type=Path)
     p.add_argument('--verify-manifest', type=Path, help='Compare files to pinned Hugging Face Git and LFS digests')
+    p.add_argument('--vae-only', action='store_true', help='Download or inspect only the VAE used for extraction')
     a=p.parse_args()
     spec=json.loads(a.catalog.read_text())[a.name]
     if a.download:
         from huggingface_hub import snapshot_download
-        snapshot_download(repo_id=spec['repo'],revision=spec['revision'],local_dir=a.directory)
-    for required in ['model_index.json','vae/config.json','scheduler/scheduler_config.json']:
+        snapshot_download(repo_id=spec['repo'],revision=spec['revision'],local_dir=a.directory,
+                          allow_patterns=['vae/*'] if a.vae_only else None)
+    required_files = (['vae/config.json', 'vae/diffusion_pytorch_model.safetensors'] if a.vae_only
+                      else ['model_index.json','vae/config.json','scheduler/scheduler_config.json'])
+    for required in required_files:
         if not (a.directory/required).is_file():raise FileNotFoundError(a.directory/required)
     report=dict(model=a.name,repository=spec['repo'],requested_revision=spec['revision'],note='Local hashes record files; they do not by themselves prove correspondence to the requested upstream revision.')
+    scope = a.directory / 'vae' if a.vae_only else a.directory
+    if a.vae_only:
+        report['scope'] = 'vae'
     if a.verify_manifest:
         manifests = json.loads(a.verify_manifest.read_bytes())
-        report['verification'] = verify_checkpoint(a.directory, spec, manifests[a.name])
+        manifest = manifests[a.name]
+        if a.vae_only:
+            manifest = dict(manifest, files=[dict(entry, path=entry['path'][4:])
+                            for entry in manifest['files'] if entry['path'].startswith('vae/')])
+        report['verification'] = verify_checkpoint(scope, spec, manifest)
         report['verification_manifest_sha256'] = file_hash(a.verify_manifest)
     if a.hash_output:
-        files=sorted(p for p in a.directory.rglob('*') if p.is_file() and '.cache' not in p.relative_to(a.directory).parts and '.git' not in p.relative_to(a.directory).parts)
+        files=sorted(p for p in scope.rglob('*') if p.is_file() and '.cache' not in p.relative_to(a.directory).parts and '.git' not in p.relative_to(a.directory).parts)
         report['files']=[dict(path=p.relative_to(a.directory).as_posix(),bytes=p.stat().st_size,sha256=file_hash(p)) for p in files]
         a.hash_output.parent.mkdir(parents=True,exist_ok=True);a.hash_output.write_text(json.dumps(report,indent=2))
         print(json.dumps(dict(model=a.name,files=len(files),hash_output=str(a.hash_output))))

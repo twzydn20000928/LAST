@@ -10,6 +10,15 @@ For a Hunyuan video, point `--model-dir` at the checkpoint directory containing
 the matching `vae/` subdirectory. Extraction loads the VAE on a CUDA GPU.
 
 ```bash
+python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \
+  --vae-only --download --verify-manifest configs/checkpoint_files.json
+```
+
+This downloads the pinned VAE configuration and weights (986 MB for Hunyuan
+I2V). Omit `--download` to verify an existing local copy offline. Generation
+requires the full checkpoint.
+
+```bash
 python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
   --video received.mp4 --key /private/secret.key --output /private/decoded.json
 ```
