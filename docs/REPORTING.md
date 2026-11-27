@@ -666,3 +666,12 @@ python tools/audit_videomark_prefix.py --root "$PRIMARY_RUNS" --manifest configs
 ```
 
 The audit checks the conditioning image, prompt, seed, 512-bit message, received MP4s and edit positions. It recounts each stored prediction. The seven historical extraction receipts lack prediction hashes recorded at extraction time. These scores cover one matched video. Formal efficiency measurements on the same sample require an exclusive GPU run.
+
+
+For the complete intersection of Hunyuan I2V samples currently scored by all three methods (paper-000, paper-001 and paper-291), run:
+
+```bash
+python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg videoshield --reports results/hunyuan_i2v_primary24.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_i2v_videoshield_slice291.json
+```
+
+On random deletion, LAST, LFG and VideoShield recovered 989, 1,037 and 1,536 of 1,536 bits respectively. VideoShield recovered all three messages. On insertion, VideoShield recovered 1,520 bits and ranked first on each video. On contiguous removal, LAST and VideoShield tied at 512 bits on paper-001; VideoShield recovered more bits on the other two. The separate Wan I2V comparison covers only paper-000. These matched intersections include the preselected timing case and have limited coverage of the 400 planned samples per pipeline.
