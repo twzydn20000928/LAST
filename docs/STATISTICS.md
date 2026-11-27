@@ -175,9 +175,9 @@ To replay any row, pass its report to the command above and multiply
 `bit_accuracy` and `bit_accuracy_ci95` for condition `drop` by 100.
 
 For insertion, LAST recovered more bits on every paired pipeline/sample observation
-(22/22, 14/14, 13/13 and 13/13 in the row order above). For contiguous
-removal it won on 60/62, with both losses in Wan I2V. For random deletion
-the counts were 44 LAST wins, one tie and 17 LFG wins. In Wan I2V alone
+(23/23, 14/14, 13/13 and 13/13 in the row order above). For contiguous
+removal it won on 61/63, with both losses in Wan I2V. For random deletion
+the counts were 45 LAST wins, one tie and 17 LFG wins. In Wan I2V alone
 the split was six LAST wins and seven LFG wins. These counts use
 `paired_bit_wins` from the same replay. The four pipelines reuse manifest
 IDs. Each has only four to six distinct prompts, so these observations

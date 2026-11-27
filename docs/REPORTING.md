@@ -552,7 +552,7 @@ python tools/quality_units_table.py results/hunyuan_i2v_quality_units/*_referenc
 python -m last.clean_table --family hunyuan --quality quality-last.json quality-reference.json --output table1-quality.md
 ```
 
-Both rows currently show five of 18 dimensions. Each dimension retains the number of valid and inapplicable scoring units. Creativity is complete for this subset of dimensions; the overall V-score is pending.
+The LAST row covers six of 18 dimensions and the unmarked reference covers five. The additional LAST score is for dynamic spatial relationships. Each dimension retains the number of valid and inapplicable scoring units. Creativity is complete for this subset of dimensions; the overall V-score is pending.
 
 ### Include the native baseline results in the Hunyuan tables
 
