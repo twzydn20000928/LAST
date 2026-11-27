@@ -1322,28 +1322,23 @@ The temporal-diagnostics workflow includes the output as `table12-equal-group-co
 
 ### Render main Table 4
 
-The historical reader-only comparison below uses `python tools/reader_ablation_table.py --report results/hunyuan_i2v_reader_ablation_13.json` and covers 13 videos.
-The main table below covers 12 because it also compares two writing rules.
-For the additional reader case, paper-291, regenerating the minimum-margin
-video for the writer experiment produced a different MP4. Including it in
-the main table requires all four readers to process the writer experiment's
-seven received MP4s. The table command checks these fingerprints before pooling results.
+The [current Table 4](../results/table4-component-ablation.md) compares five
+variants on the same 13 of 30 planned Hunyuan I2V videos. Each cell covers
+6,656 information bits. The independent writer and reader runs each cover 14
+videos. For paper-270, the regenerated marked MP4 differs from the one used
+in the reader experiment. Its seven conditions are excluded until the readers
+have been run on the matching files.
 
 ```bash
 python tools/matched_component_table.py --table4 \
-  --archived-reread results/hunyuan_i2v_archived_reader_pair.json
+  --archived-reread results/hunyuan_i2v_archived_reader_three.json
 ```
 
-The GitHub Actions artifact `audited-partial-robustness-tables` includes the generated `table4-component-ablation.md`. Its first two lines identify the matched samples and any excluded baselines.
-
-This prints the manuscript's five variants and seven columns on the 0–1
-bit-accuracy scale. All 35 cells currently cover the same 12 Hunyuan I2V
-videos, or 6,144 information bits each. Under random deletion the measured
-values in row order are 0.740 (full LAST), 0.709 (fixed targets), 0.493
-(raw energy with spacing), 0.660 (fixed-stride windows) and 0.525
-(received order). MM denotes the minimum-margin write, CGC denotes
-cross-group consistency, and SWS denotes sliding-window search. The calibrated
-energy-and-spacing reader belongs to the separate supplement experiment.
+The table reports bit accuracies, underlying counts and paired writer fidelity.
+On random deletion, full LAST recovered 4,794/6,656 bits, the fixed-target
+writer 4,624, the reader without cross-group consistency 3,291, fixed-stride
+windows 4,316 and received-order grouping 3,499. The calibrated energy reader
+is evaluated separately in the supplement.
 
 To include the completed archived-input reruns for paper-003 and paper-174, run `python tools/matched_component_table.py --archived-reread results/hunyuan_i2v_archived_reader_pair.json`. This yields 12/30 matched videos and 6,144 information bits per condition. The 56 rerun receipts cover both cases, seven conditions and four readers. The original reader data are retained separately. On these 12 videos the full reader scored 73.99%, 80.24% and 96.14% on drop, insert and clip. With received-order grouping the scores were 52.52%, 53.94% and 65.98%.
 The raw reader-receipt aggregation command (`python -m last.ablation_summary`) uses only the Python standard library. With a source checkout, set PYTHONPATH to src. On the archived pair it reproduced all 28 aggregate cells and all 56 receipt fingerprints with third-party site packages disabled.

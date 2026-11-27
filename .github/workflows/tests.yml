@@ -41,6 +41,7 @@ jobs:
           python tools/matched_component_table.py --table4 \
             --archived-reread results/hunyuan_i2v_archived_reader_three.json \
             > .ci-tables/robustness/table4-component-ablation.md
+          diff --strip-trailing-cr -u results/table4-component-ablation.md .ci-tables/robustness/table4-component-ablation.md
           python tools/hunyuan_prefix_recovery.py --additional-original results/hunyuan_i2v_message_178_180.json \
             --verify-original-slice results/hunyuan_i2v_last_primary100_179.json \
             --message-tables results/replayed_message_counts_eight.json \

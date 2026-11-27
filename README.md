@@ -197,7 +197,7 @@ For main Tables 1 and 2, the [reporting guide](docs/REPORTING.md) gives the
 clean and attacked table commands. The [paired temporal results](docs/REPORTING.md#matched-temporal-attacks-by-backbone-and-input-mode)
 use matched LAST and LFG videos. The table below links the observations and
 gives the sample count for each pipeline.
-For the component ablation, run the following command from the repository
+View the [component ablation table](results/table4-component-ablation.md), or run the following command from the repository
 root to compare writer and reader variants on the same 13 of 30 planned
 videos. It prints all seven conditions and the two writer fidelity scores.
 
