@@ -496,7 +496,7 @@ The 72-video Hunyuan T2V report was replayed against the archived acquisition pl
 
 ### Matched temporal attacks by backbone and input mode
 
-All entries are observed information-bit accuracy on the same frozen sample IDs for LAST and LFG. The pairs in each cell are LAST / LFG. Each sample contributes 512 bits per condition. The primary experiment plans 400 samples per pipeline. Hunyuan I2V includes paper-000 through paper-024 and paper-291.
+All entries are observed information-bit accuracy on the same frozen sample IDs for LAST and LFG. The pairs in each cell are LAST / LFG. Each sample contributes 512 bits per condition. The primary experiment plans 400 samples per pipeline. Hunyuan I2V includes paper-000 through paper-025 and paper-291.
 
 | Backbone and mode | Paired videos | Deletion | Insertion | Clip |
 |---|---:|---:|---:|---:|
@@ -508,14 +508,15 @@ All entries are observed information-bit accuracy on the same frozen sample IDs 
 For LAST, both deletion conditions leave 35 of 65 frames. To compare them
 within a video, subtract the `drop` correct-bit count from the `clip` count
 for the same backbone, mode and video ID in the linked reports (map seed 0).
-Contiguous deletion recovered more bits on 25 of 26 Hunyuan I2V videos, with
-one tie, and on all 14 videos in each of the other three pipelines. The median
-gains were 109, 101, 127 and 125.5 bits out of 512 in table order. The
-pipelines reuse manifest entries, so the 68 comparisons include repeated
-prompts. This comparison measures the effect of the edit pattern on recovery;
-it cannot isolate which reader operation caused the difference.
+Contiguous deletion recovered more bits on 26/27 Hunyuan I2V videos (one tie),
+15/15 Hunyuan T2V, 14/14 Wan I2V and 14/14 Wan T2V videos. Median gains
+were 107, 105, 127 and 125.5 bits out of 512 in table order. Complete messages
+after random versus contiguous deletion numbered 1 versus 15, 0 versus 8,
+0 versus 4 and 0 versus 8, respectively. The 70 paired observations reuse
+manifest prompts across pipelines. The comparison measures sensitivity to the
+edit pattern; it cannot isolate which reader operation caused the difference.
 
-The 68 comparisons use 26 distinct video IDs and hence 26 pairs of edit
+An earlier 68-observation subset used 26 distinct video IDs and hence 26 pairs of edit
 maps. Using the original frame numbers, exclude frame 0 (the causal prefix)
 and count a group as intact when all four frames numbered
 `1+4*g` through `4+4*g` survive, for `g` from 0 to 15. Random deletion
