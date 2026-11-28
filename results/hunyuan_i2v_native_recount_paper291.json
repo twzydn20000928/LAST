@@ -204,7 +204,20 @@
       "status": "missing"
     },
     "clip": {
-      "status": "missing"
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videomark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "clip",
+      "correct_bits": 237,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "f5cd1f136dffae7ae0f6df3bd3fa3c7ea1ed7c2d97d3c8dc81c7e446c1990aac",
+      "received_sha256": "01a19f6869421e4bc38c7fda9a2faf814536da1102cca4f0c4bb9a36f6d4aeb3",
+      "attack_receipt_sha256": "91e818bf053c644306c5ef8d5c6c0ebb69daaca9266ef59b71cffb751d696651",
+      "extraction_receipt_sha256": "119c564de092f5f4c922cf96346080fdebc2207b0c87869dc4c6caa8922317e2",
+      "missing_historical_digests": []
     }
   },
   "videoshield": {
