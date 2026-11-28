@@ -1,12 +1,13 @@
 """Evaluate primary and supplementary attacks on a standalone marked MP4 without a generation run."""
 import argparse
-import hashlib
+import hmac
 import json
 import os
 import subprocess
 import sys
 from pathlib import Path
 
+from .models import file_hash
 from .report import CONDITIONS
 from .stress_conditions import STRESS_CONDITIONS
 
@@ -68,17 +69,21 @@ def main():
                         help="Use the public demo encoder settings (16 x264 threads, 2 lookahead threads)")
     parser.add_argument("--donor-reference", type=Path, help="Unmarked same-resolution video for natural30")
     args = parser.parse_args()
-    if args.key.stat().st_size != 32:
+    key = args.key.read_bytes()
+    if len(key) != 32:
         parser.error("Expected a 32-byte key")
     if args.message is not None and args.message.stat().st_size != 64:
         parser.error("Expected a 64-byte message for scoring")
-    source_hash = hashlib.sha256(args.video.read_bytes()).hexdigest()
+    source_hash = file_hash(args.video)
+    retry_tag = hmac.digest(key, b"LAST single-video retry v1" + bytes.fromhex(source_hash), "sha256").hex()
     conditions = list(dict.fromkeys(args.condition or CONDITIONS))
     if args.retry_from:
         previous = json.loads(args.retry_from.read_bytes())
         if (previous["source_sha256"], previous["video_id"], previous["family"]) != (
                 source_hash, args.video_id, args.family):
             parser.error("Retry requires the same source MP4, video ID and model family")
+        if "retry_key_tag" in previous and not hmac.compare_digest(previous["retry_key_tag"], retry_tag):
+            parser.error("Retry key differs from the original extraction key")
         if args.map_seed is not None and args.map_seed != previous["map_seed"]:
             parser.error("Retry must use the previous map seed")
         args.map_seed = previous["map_seed"]
@@ -97,11 +102,16 @@ def main():
         args.map_seed = 0
     if ("natural30" in conditions) != (args.donor_reference is not None):
         parser.error("Select natural30 together with --donor-reference")
+    donor_hash = file_hash(args.donor_reference) if args.donor_reference else None
+    if donor_hash and args.retry_from and previous.get("donor_sha256", donor_hash) != donor_hash:
+        parser.error("Retry donor differs from the original natural30 donor")
     os.umask(0o077)
     args.output.mkdir(parents=True, exist_ok=False)
     summary = dict(video_id=args.video_id, family=args.family, device=args.device,
                    demo_codec_threads=args.demo_codec_threads, map_seed=args.map_seed,
-                   source_sha256=source_hash, requested=conditions, results={})
+                   source_sha256=source_hash, retry_key_tag=retry_tag, requested=conditions, results={})
+    if donor_hash:
+        summary["donor_sha256"] = donor_hash
     save_progress(args.output, summary)
     for condition in conditions:
         row = summary["results"][condition] = {}

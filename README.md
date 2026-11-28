@@ -328,7 +328,7 @@ and exit code while the remaining requested conditions continue.
 To retry failed or interrupted conditions, repeat the command with the same
 video, ID, family and key. Replace the condition flags with
 `--retry-from /private/drop-check/summary.json` and choose a fresh output
-directory. The retry reads the earlier map seed and recorded codec settings.
+directory. The retry reads the earlier map seed and recorded codec settings. New private summaries also verify the key against the original MP4 and check the donor fingerprint for natural insertion. For older summaries that lack these checks, keep the original key and donor with the run.
 Older summaries without a codec setting require you to supply any original
 `--demo-codec-threads` flag again. Supply the original donor if `natural30`
 is pending. Each directory retains the predictions and scores from that run.

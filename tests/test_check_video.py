@@ -21,6 +21,7 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored, con
             "--key", str(key), "--family", "hunyuan", "--model-dir", str(tmp_path),
             "--condition", condition, "--device", "cpu", "--output", str(output)]
     if condition == "natural30":
+        (tmp_path / "donor.mp4").write_bytes(b"original donor")
         argv.extend(["--donor-reference", str(tmp_path / "donor.mp4")])
     if scored:
         message.write_bytes(bytes(64))
@@ -109,8 +110,36 @@ def test_interruption_and_retry_preserve_completed_predictions(tmp_path, monkeyp
     assert calls == ["attack_video", "extract"]
     assert json.loads((second / "summary.json").read_bytes())["requested"] == ["drop"]
     assert (first / "summary.json").read_bytes() == original_summary
+    key.write_bytes(b"x" * 32)
+    monkeypatch.setattr(sys, "argv", retry[:-1] + [str(tmp_path / "wrong-key")])
+    with pytest.raises(SystemExit):
+        check_video.main()
+    assert not (tmp_path / "wrong-key").exists()
+    key.write_bytes(bytes(32))
     video.write_bytes(b"different")
     monkeypatch.setattr(sys, "argv", retry[:-1] + [str(tmp_path / "wrong-source")])
     with pytest.raises(SystemExit):
         check_video.main()
     assert not (tmp_path / "wrong-source").exists()
+
+def test_reject_changed_donor_before_retry(tmp_path, monkeypatch):
+    video, donor, key = (tmp_path / n for n in ("source", "donor", "key"))
+    video.write_bytes(b"source")
+    donor.write_bytes(b"first donor")
+    key.write_bytes(bytes(32))
+    base = ["check_video", "--video", str(video), "--video-id", "case", "--key", str(key),
+            "--family", "hunyuan", "--model-dir", str(tmp_path), "--donor-reference", str(donor)]
+    output = tmp_path / "first"
+    monkeypatch.setattr(sys, "argv", base + ["--condition", "natural30", "--output", str(output)])
+    monkeypatch.setattr(check_video.os, "umask", lambda mode: None)
+    def interrupt(*args, **kwargs):
+        raise KeyboardInterrupt
+    monkeypatch.setattr(check_video, "run_module", interrupt)
+    with pytest.raises(KeyboardInterrupt):
+        check_video.main()
+    donor.write_bytes(b"second donor")
+    retry = tmp_path / "retry"
+    monkeypatch.setattr(sys, "argv", base + ["--retry-from", str(output / "summary.json"), "--output", str(retry)])
+    with pytest.raises(SystemExit):
+        check_video.main()
+    assert not retry.exists()
