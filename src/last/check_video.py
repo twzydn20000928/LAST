@@ -23,6 +23,7 @@ def main():
     parser.add_argument("--key", type=Path, required=True)
     parser.add_argument("--message", type=Path, help="Optional original 64 bytes for scoring after blind extraction")
     parser.add_argument("--family", choices=["hunyuan", "wan22"], required=True)
+    parser.add_argument("--device", choices=["cuda", "cpu"], default="cuda", help="Device for blind extraction")
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--video-id", required=True)
     parser.add_argument("--map-seed", type=int, choices=range(5), default=0)
@@ -52,7 +53,7 @@ def main():
                            *(["--demo-codec-threads"] if args.demo_codec_threads else []))
             prediction = args.output / (condition + "-prediction.json")
             run_module("extract", "--video", received, "--key", args.key, "--family", args.family,
-                       "--model-dir", args.model_dir, "--output", prediction)
+                       "--model-dir", args.model_dir, "--device", args.device, "--output", prediction)
             receipt = json.loads(prediction.read_bytes())
             row.update(frames=receipt["frames"], received_sha256=receipt["video_sha256"],
                        prediction=prediction.name)

@@ -16,6 +16,7 @@ def main():
     p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--include-pre-bch',action='store_true',help='Include the 512 systematic hard decisions in the private prediction file')
+    p.add_argument('--device',choices=['cpu','cuda'],default='cuda', help='Device for VAE encoding (default: cuda)')
     p.add_argument('--memory-fraction', type=float, default=0.20,
                    help='Maximum fraction of total GPU memory for the PyTorch allocator (default: 0.20)')
     a=p.parse_args()
@@ -30,18 +31,19 @@ def main():
     if len(key)!=32:raise ValueError('Expected a binary key file containing exactly 32 bytes')
     frames=load_mp4(a.video)
     if any(np.asarray(f).shape!=(512,512,3) for f in frames):raise ValueError('Expected a 512 x 512 RGB video')
-    torch.cuda.set_per_process_memory_fraction(a.memory_fraction)
+    if a.device == 'cuda':
+        torch.cuda.set_per_process_memory_fraction(a.memory_fraction)
     from diffusers import AutoencoderKLHunyuanVideo,AutoencoderKLWan
     from diffusers.video_processor import VideoProcessor
     cls=AutoencoderKLHunyuanVideo if a.family=='hunyuan' else AutoencoderKLWan
-    vae=cls.from_pretrained(a.model_dir,subfolder='vae',torch_dtype=torch.float32,local_files_only=True).to('cuda');vae.enable_tiling()
+    vae=cls.from_pretrained(a.model_dir,subfolder='vae',torch_dtype=torch.float32,local_files_only=True).to(a.device);vae.enable_tiling()
     processor = VideoProcessor(vae_scale_factor=8)
     if a.method == 'lfg':
         soft, alignment = extract_lfg(frames, vae, processor, a.family, key)
     else:
         soft, alignment = extract(frames, vae, processor, a.family, torch.from_numpy(codebook(key)))
     bits,decoder=BCH512().decode(soft.numpy())
-    result=dict(schema_version=1,method=a.method,information_bits=512,message_hex=np.packbits(bits,bitorder='big').tobytes().hex(),family=a.family,video_sha256=hashlib.sha256(a.video.read_bytes()).hexdigest(),frames=len(frames),seconds=time.time()-started,**decoder,**alignment)
+    result=dict(schema_version=1,device=a.device,method=a.method,information_bits=512,message_hex=np.packbits(bits,bitorder='big').tobytes().hex(),family=a.family,video_sha256=hashlib.sha256(a.video.read_bytes()).hexdigest(),frames=len(frames),seconds=time.time()-started,**decoder,**alignment)
     if a.include_pre_bch:
         result['pre_bch_information_hex'] = np.packbits(soft.numpy()[:512] > 0, bitorder='big').tobytes().hex()
     a.output.parent.mkdir(parents=True,exist_ok=True)

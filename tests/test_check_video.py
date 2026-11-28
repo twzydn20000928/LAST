@@ -18,7 +18,7 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
     output = tmp_path / "out"
     argv = ["check_video", "--video", str(video), "--video-id", "example",
             "--key", str(key), "--family", "hunyuan", "--model-dir", str(tmp_path),
-            "--condition", "drop", "--output", str(output)]
+            "--condition", "drop", "--device", "cpu", "--output", str(output)]
     if scored:
         message.write_bytes(bytes(64))
         argv.extend(["--message", str(message)])
@@ -34,6 +34,7 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
         if module == "attack_video":
             dest.write_bytes(b"edited")
         else:
+            assert args[args.index("--device") + 1] == "cpu"
             assert Path(args[args.index("--video") + 1]).read_bytes() == b"edited"
             dest.write_text(json.dumps(dict(frames=35, video_sha256="digest")))
 

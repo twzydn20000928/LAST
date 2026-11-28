@@ -33,7 +33,7 @@ def candidate_features(frames, vae, processor, family,reader='ccta',scan=True,fe
             if feature_cache is not None and cache_key in feature_cache:
                 features.append(feature_cache[cache_key]);continue
             content=[frames[node['indices'][0]]]+[frames[i] for i in node['indices']]
-            x=processor.preprocess_video([content]).to('cuda',torch.float32)
+            x=processor.preprocess_video([content]).to(vae.device,torch.float32)
             z=vae.encode(x).latent_dist.mode()
             if family=='hunyuan':z=z*vae.config.scaling_factor
             else:
@@ -57,7 +57,7 @@ def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,featur
 def extract_lfg(frames,vae,processor,family,key,prepared_carriers=None):
     from .lfg import align_received_frames,scores
     with torch.inference_mode():
-        x=processor.preprocess_video([align_received_frames(frames)]).to('cuda',torch.float32)
+        x=processor.preprocess_video([align_received_frames(frames)]).to(vae.device,torch.float32)
         z=vae.encode(x).latent_dist.mode()
         if family=='hunyuan':z=z*vae.config.scaling_factor
         else:
