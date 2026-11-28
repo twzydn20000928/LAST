@@ -1,0 +1,78 @@
+{
+  "sample": "paper-291",
+  "family": "hunyuan",
+  "mode": "i2v",
+  "scope": "Verified inputs for the exclusive L40 extraction timing comparison.",
+  "inputs": [
+    {
+      "method": "videoshield",
+      "condition": "clean",
+      "frames": 65,
+      "received_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "attack_receipt_sha256": "6b16bda856473b3b19c82b3b86f39c48211a6e49cdfcca56dc113b7a51c10df0"
+    },
+    {
+      "method": "videoshield",
+      "condition": "drop",
+      "frames": 35,
+      "received_sha256": "e28ddcbf77f3c6188313123fbd6035ba1c5eaf3356adbedb08b08258e9add092",
+      "attack_receipt_sha256": "b35bf1fd703a633bea7c5b5d7f1af2694d336372dea5020d2f2347e86c001d0c"
+    },
+    {
+      "method": "sigmark",
+      "condition": "clean",
+      "frames": 65,
+      "received_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
+      "attack_receipt_sha256": "be8c7b5826ac41c2c0635bb186ecdc6f413357b2a2ee6f3e7fc9746e257207d8"
+    },
+    {
+      "method": "sigmark",
+      "condition": "drop",
+      "frames": 35,
+      "received_sha256": "0ecf0fb5bce2eadf7b5f310820b07f16c0466bd91a72233d38b8a3514e13a37e",
+      "attack_receipt_sha256": "03a305fd1d75f9e7a2df8e1f95ec058c30690e83486f194f8c6ed3d67ab11228"
+    },
+    {
+      "method": "videomark",
+      "condition": "clean",
+      "frames": 65,
+      "received_sha256": "f5cd1f136dffae7ae0f6df3bd3fa3c7ea1ed7c2d97d3c8dc81c7e446c1990aac",
+      "attack_receipt_sha256": "e38443bee1a8624718b0840fbfead25732cc52facd10b6eb9df8c36136e60b8a"
+    },
+    {
+      "method": "videomark",
+      "condition": "drop",
+      "frames": 35,
+      "received_sha256": "e3b6509250aaef545aa623f24733349d43117e79f473c5d86dc62cb8c695c626",
+      "attack_receipt_sha256": "a1bf7ad0b530040f6ee5a5486b6cd1fc856280abba955b46fe5783f79d2af77e"
+    },
+    {
+      "method": "last",
+      "condition": "clean",
+      "frames": 65,
+      "received_sha256": "c6516a5db765a057f22f0c7eac59aef90f1bfed07bb78b8552840dd8acff2542",
+      "attack_receipt_sha256": "d38417700d748798ba345259a27a5996eef31f898ecff3be58f07d78c08cdf18"
+    },
+    {
+      "method": "last",
+      "condition": "drop",
+      "frames": 35,
+      "received_sha256": "da3b427159111ee792ce810982ccfab45f3c153b4375731a88bd14b152569dd2",
+      "attack_receipt_sha256": "81771b3014bc003842ce8301cb822f5e99dda9a04ad5eb5496091e4e84653f85"
+    },
+    {
+      "method": "lfg",
+      "condition": "clean",
+      "frames": 65,
+      "received_sha256": "fa6fa5a38f3e0830fc284762d1e3ff6b0894936a7ea12b676a374e4ee840c0d0",
+      "attack_receipt_sha256": "57d69842e921a3abae5cc447faef3baacbdae931a04e2d2312b123e6a52193ac"
+    },
+    {
+      "method": "lfg",
+      "condition": "drop",
+      "frames": 35,
+      "received_sha256": "a33c81cb886e7080faa348e7641d299385078fe688b4e84247b7e2128bc15ee4",
+      "attack_receipt_sha256": "13a5b109c6a24a35073bd5be7695d59e543d3ee8f31da82c2e1d7601409f369d"
+    }
+  ]
+}
