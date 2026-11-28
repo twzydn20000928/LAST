@@ -1,0 +1,20 @@
+{
+  "sample": "sailboat-demo-v1",
+  "family": "hunyuan",
+  "mode": "t2v",
+  "condition": "clean",
+  "frames": 65,
+  "received_sha256": "e1dd2c7554c903a85ae827d94320695f87cef7687fb4b32e494daa94576c5fe3",
+  "candidate_windows": 62,
+  "cpu_correct": 512,
+  "gpu_correct": 512,
+  "total_bits": 512,
+  "prediction_bit_differences": 0,
+  "exact_message_cpu": true,
+  "utf8_text_exact": true,
+  "text_bytes": 35,
+  "bch_success_cpu": true,
+  "cpu_route": "ccta",
+  "cpu_seconds": 2266.3756074905396,
+  "scope": "One public MP4. CPU-only offline reader with four PyTorch threads; wall time under shared load."
+}

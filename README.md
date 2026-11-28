@@ -74,7 +74,7 @@ python -m last.cli unpack-message --text \
 cat "$LAST_DEMO_DIR/recovered.txt"
 ```
 
-The expected text is `LAST public reader demonstration v1`.
+The expected text is `LAST public reader demonstration v1`. The [CPU-only clean read](results/public_sailboat_cpu_clean.json) recovered all 512 bits and the same 35 text bytes in about 38 minutes on four shared-server threads. Its prediction matched the CUDA prediction bit for bit.
 
 For a real CPU extraction, add `--device cpu --progress` to the demo command,
 select only `--condition drop` and choose a fresh output directory. With the

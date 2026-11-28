@@ -31,7 +31,7 @@ python -m last.cli unpack-message --text --prediction "$work/prediction.json" --
 cat "$work/recovered.txt"
 ```
 
-原片预期文字为 `LAST public reader demonstration v1`。提取默认使用 CUDA。若使用 CPU，在 `last.extract` 或下文的 `last.check_video` 命令中加上 `--device cpu --progress`。公开示例的 35 帧删帧视频曾在四线程 CPU 上用时约 19 分钟。
+原片预期文字为 `LAST public reader demonstration v1`。提取默认使用 CUDA。若使用 CPU，在 `last.extract` 或下文的 `last.check_video` 命令中加上 `--device cpu --progress`。在四线程 CPU 上，65 帧原片通过 62 个候选窗口恢复了全部 512 位，解出的 35 字节文本与原文一致，耗时约 38 分钟。35 帧删帧视频用时约 19 分钟。两项用时均来自共享服务器。[原片 CPU 实测](../results/public_sailboat_cpu_clean.json)
 
 ## 2. 在同一视频上比较两种删帧方式
 
