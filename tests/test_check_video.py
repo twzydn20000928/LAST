@@ -70,7 +70,8 @@ def test_failed_and_pending_conditions_have_no_scores():
     assert "| clip | pending | — | — | — | — |" in table
 
 
-def test_interruption_and_retry_preserve_completed_predictions(tmp_path, monkeypatch):
+@pytest.mark.parametrize("completed", ["clean", "natural30"])
+def test_interruption_and_retry_preserve_completed_predictions(tmp_path, monkeypatch, completed):
     key = tmp_path / "key"
     video = tmp_path / "input.mp4"
     key.write_bytes(bytes(32))
@@ -79,13 +80,20 @@ def test_interruption_and_retry_preserve_completed_predictions(tmp_path, monkeyp
     second = tmp_path / "retry"
     base = ["check_video", "--key", str(key), "--video", str(video),
             "--video-id", "test", "--family", "hunyuan", "--model-dir", str(tmp_path)]
+    if completed == "natural30":
+        donor = tmp_path / "donor.mp4"
+        donor.write_bytes(b"original donor")
+        base += ["--donor-reference", str(donor)]
     calls = []
     interrupted = True
 
     def run(module, *args, capture=False):
         calls.append(module)
         dest = Path(args[args.index("--output") + 1])
-        if module == "attack_video":
+        if module == "stress":
+            dest.mkdir()
+            (dest / "received.mp4").write_bytes(b"edited")
+        elif module == "attack_video":
             assert args[args.index("--map-seed") + 1] == 2 and "--demo-codec-threads" in args
             if interrupted:
                 raise KeyboardInterrupt
@@ -96,11 +104,11 @@ def test_interruption_and_retry_preserve_completed_predictions(tmp_path, monkeyp
     monkeypatch.setattr(check_video, "run_module", run)
     monkeypatch.setattr(check_video.os, "umask", lambda mode: None)
     monkeypatch.setattr(sys, "argv", base + ["--map-seed", "2", "--demo-codec-threads",
-                                             "--output", str(first), "--condition", "clean", "--condition", "drop"])
+                                             "--output", str(first), "--condition", completed, "--condition", "drop"])
     with pytest.raises(KeyboardInterrupt):
         check_video.main()
     original_summary = (first / "summary.json").read_bytes()
-    assert json.loads(original_summary)["results"]["clean"]["status"] == "completed"
+    assert json.loads(original_summary)["results"][completed]["status"] == "completed"
 
     calls.clear()
     interrupted = False

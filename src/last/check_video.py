@@ -98,6 +98,9 @@ def main():
             parser.error("All requested conditions already completed")
         if any(c not in (*CONDITIONS, *STRESS_CONDITIONS) for c in conditions):
             parser.error("Unknown condition in retry summary")
+        if "natural30" in previous["requested"] and "natural30" not in conditions:
+            # The completed insertion stays in the original directory.
+            args.donor_reference = None
     if args.map_seed is None:
         args.map_seed = 0
     if ("natural30" in conditions) != (args.donor_reference is not None):
