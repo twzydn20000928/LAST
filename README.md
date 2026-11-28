@@ -87,6 +87,21 @@ python -m last.cli prepare-video --output "$LAST_EXAMPLE_DIR" \
   --image /path/to/your/cyclist.png --text cyclist-example
 ```
 
+For the reproducible sailboat example, run the following from the repository
+root. It creates the exact public demonstration key, 64-byte padded message,
+prompt and seed used for this Hunyuan T2V case. Anyone can derive this key.
+Use the default randomly generated key above for your own videos.
+
+```bash
+export LAST_EXAMPLE_DIR="$HOME/last-sailboat-example"
+python examples/public_demo/prepare.py --output "$LAST_EXAMPLE_DIR"
+```
+
+For generation, use `--family hunyuan --mode t2v` and the full
+`hunyuan_t2v` checkpoint in the generation command below. For extraction
+alone, use its matching VAE and the example directory's `secret.key`.
+The optional scoring command uses `message.bin`.
+
 To mark multiple videos with your own key, add `--key-file /private/secret.key`
 to each `prepare-video` command and choose a fresh output directory per video.
 The file must contain exactly 32 bytes. Omitting this option generates a new key.
