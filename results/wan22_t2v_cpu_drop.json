@@ -1,0 +1,22 @@
+{
+  "sample": "paper-000",
+  "family": "wan22",
+  "mode": "t2v",
+  "method": "last",
+  "condition": "drop",
+  "map_seed": 0,
+  "total_bits": 512,
+  "cpu_correct": 329,
+  "gpu_correct": 329,
+  "bit_differences": 0,
+  "cpu_seconds": 838.4243812561035,
+  "frames": 35,
+  "received_sha256": "981ba6956b62d027f3195fc9fc9bc45c0d158e02cc7d54f9a7cb4fc69826ba09",
+  "candidate_windows": 32,
+  "cpu_route": "ccta",
+  "gpu_route": "ccta",
+  "cpu_bch_success": false,
+  "gpu_bch_success": false,
+  "torch_cpu_threads": 4,
+  "scope": "One Wan-2.2 T2V sample with a two-file VAE checkpoint and the 46-package reader environment. CPU wall time under shared load."
+}

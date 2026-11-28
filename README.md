@@ -135,7 +135,10 @@ and `--family wan22` in the extraction command below. Its VAE download is
 the reader recovered all 512 bits from one clean 65-frame MP4 using only
 the key and the matching VAE. On the same sample after random deletion of 30 frames,
 the [standalone reader](results/wan22_t2v_vae_only_cli_drop.json) recovered
-329/512 bits from the remaining 35 frames, matching the archived evaluation. The
+329/512 bits from the remaining 35 frames, matching the archived evaluation. A
+[CPU-only read of the same MP4](results/wan22_t2v_cpu_drop.json) took about
+14 minutes with four PyTorch threads. The CPU and CUDA predictions matched at
+all 512 positions, including the 183 errors against the original payload. The
 [seven-condition Wan example](results/wan22_t2v_single_video_attacks.json)
 lists the frame counts, recovered bits and MP4 hashes. All six edits were rebuilt
 with the standalone attack command using `--video-id paper-000 --map-seed 0`.
@@ -202,7 +205,9 @@ python -m last.cli prepare-video --output "$LAST_EXAMPLE_DIR" \
 
 To mark multiple videos with your own key, add `--key-file /private/secret.key`
 to each `prepare-video` command and choose a fresh output directory per video.
-The file must contain exactly 32 bytes. Omitting this option generates a new key.
+The file must contain exactly 32 bytes. Omitting this option generates a new key. When
+changing the key or message, choose a new generation output directory as well.
+Repeating a completed run with the same inputs verifies and reuses its MP4.
 
 Select the checkpoint and pipeline together. For text-to-video, omit
 `--image` from `prepare-video`; image-to-video requires a conditioning image.
