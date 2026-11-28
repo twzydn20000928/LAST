@@ -108,7 +108,8 @@ If you already have a LAST-marked 512 × 512 MP4 and its 32-byte key, skip gener
 For a Hunyuan video, point `--model-dir` at the checkpoint directory containing
 the matching `vae/` subdirectory. Extraction uses CUDA by default. For a CPU-only
 run, add `--device cpu` to `last.extract` or `last.check_video`. CPU extraction
-processes the same candidate windows and can take substantially longer.
+processes the same candidate windows and can take substantially longer. Add
+`--progress` to see which window the reader is currently processing on stderr.
 
 ```bash
 python -m last.models --name hunyuan_i2v --directory /path/to/checkpoint \

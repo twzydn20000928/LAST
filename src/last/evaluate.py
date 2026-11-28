@@ -1,5 +1,5 @@
 """Attack evaluation from exported MP4; secret truth is used only after extraction."""
-import argparse, hashlib, json, os, time, traceback
+import argparse, hashlib, json, os, sys, time, traceback
 from pathlib import Path
 import numpy as np
 import torch
@@ -25,10 +25,12 @@ def reader_nodes(frames,reader='ccta',scan=True):
         return nodes
     return list(windows(segments(frames),scan=scan))
 
-def candidate_features(frames, vae, processor, family,reader='ccta',scan=True,feature_cache=None):
+def candidate_features(frames, vae, processor, family,reader='ccta',scan=True,feature_cache=None,*,progress=False):
     nodes=reader_nodes(frames,reader,scan);features=[]
     with torch.inference_mode():
-        for node in nodes:
+        for index, node in enumerate(nodes, start=1):
+            if progress:
+                print(f"Reading window {index}/{len(nodes)}", file=sys.stderr, flush=True)
             cache_key=tuple(node['indices'])
             if feature_cache is not None and cache_key in feature_cache:
                 features.append(feature_cache[cache_key]);continue
@@ -45,8 +47,8 @@ def candidate_features(frames, vae, processor, family,reader='ccta',scan=True,fe
     values=torch.stack(features) if features else torch.empty(0,1776)
     return values,nodes
 
-def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,feature_cache=None):
-    values,nodes=candidate_features(frames,vae,processor,family,reader,scan,feature_cache)
+def extract(frames, vae, processor, family, codes,reader='ccta',scan=True,feature_cache=None,*,progress=False):
+    values,nodes=candidate_features(frames,vae,processor,family,reader,scan,feature_cache,progress=progress)
     if reader=='received':
         soft=sum((codes[g].float()@value for g,value in enumerate(values)),torch.zeros(codes.shape[1]))
         return soft,{'route':'received_order','groups':len(nodes)}

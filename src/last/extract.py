@@ -16,6 +16,7 @@ def main():
     p.add_argument('--family',choices=['hunyuan','wan22'],required=True)
     p.add_argument('--output',type=Path,required=True)
     p.add_argument('--include-pre-bch',action='store_true',help='Include the 512 systematic hard decisions in the private prediction file')
+    p.add_argument('--progress',action='store_true',help='Report each LAST candidate window on stderr')
     p.add_argument('--device',choices=['cpu','cuda'],default='cuda', help='Device for VAE encoding (default: cuda)')
     p.add_argument('--memory-fraction', type=float, default=0.20,
                    help='Maximum fraction of total GPU memory for the PyTorch allocator (default: 0.20)')
@@ -41,7 +42,7 @@ def main():
     if a.method == 'lfg':
         soft, alignment = extract_lfg(frames, vae, processor, a.family, key)
     else:
-        soft, alignment = extract(frames, vae, processor, a.family, torch.from_numpy(codebook(key)))
+        soft, alignment = extract(frames, vae, processor, a.family, torch.from_numpy(codebook(key)), progress=a.progress)
     bits,decoder=BCH512().decode(soft.numpy())
     result=dict(schema_version=1,device=a.device,method=a.method,information_bits=512,message_hex=np.packbits(bits,bitorder='big').tobytes().hex(),family=a.family,video_sha256=hashlib.sha256(a.video.read_bytes()).hexdigest(),frames=len(frames),seconds=time.time()-started,**decoder,**alignment)
     if a.include_pre_bch:
