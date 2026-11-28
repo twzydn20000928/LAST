@@ -501,3 +501,22 @@ To inspect the 60 seed-zero comparisons on CPU, add
 `--primary results/hunyuan_i2v_last_first100_robustness.json` to the
 60-video command above and omit `--format markdown`. The JSON field
 `primary_seed_zero_comparison` contains both counts for each received MP4.
+
+### Deletion followed by stronger compression on one video
+
+On the sailboat example, retaining the same 35 frames and encoding with H.264
+CRF 18 gave 472/512 correct bits on CPU. CRF 28 gave 441/512. Of the 512
+payload positions, 38 changed from correct to wrong and seven from wrong
+to correct. Neither prediction recovered the entire message. The
+[paired record](../results/public_sailboat_cpu_drop_compression.json)
+includes the source frame indices and both received MP4 hashes.
+
+After preparing the public demo key and VAE using the README, run both
+conditions with the same map seed:
+
+```bash
+python -m last.check_video --video examples/public_demo/sailboat.mp4 --video-id sailboat-demo-v1 \
+  --family hunyuan --model-dir "$LAST_DEMO_VAE" --key "$LAST_DEMO_DIR/secret.key" \
+  --message "$LAST_DEMO_DIR/message.bin" --condition drop30 --condition drop30_crf28 \
+  --map-seed 0 --demo-codec-threads --device cpu --progress --output "$LAST_DEMO_DIR/compression-pair"
+```
