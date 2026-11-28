@@ -70,3 +70,14 @@ python -m last.score_message --message "$mine/message.bin" --prediction "$mine/p
 ```
 
 生成的成片位于 `$mine/run/marked.mp4`，新密钥位于 `$mine/secret.key`。文字最多占 64 个 UTF-8 字节。需要写入任意 512 位数据时，可将 `--text` 换为 `--message-file` 并提供恰好 64 字节的文件。要对自己的成片做攻击评测，在第 2 步换用自己的视频、密钥、消息和视频编号，去掉公开示例专用的 `--demo-codec-threads`。[图生视频与 Wan-2.2 用法](../README.md#generate-and-evaluate-your-own-video)
+
+### 在同一段生成内容上更换消息
+
+首次运行 `last.smoke` 时加上 `--save-endpoint`，并保留其私有输出目录。这样会额外保存扩散采样结束时的潜变量。之后可以沿用相同画面内容、模型和密钥，替换 64 字节消息，再次解码并导出新的水印 MP4，省去重新运行 50 步扩散采样的时间。只有最终 MP4 时，请使用前面的提取流程。
+
+```bash
+python -m last.writer_replay --run "$mine/run" --model-dir "$model" \
+  --message-file /path/to/another-64-byte-message.bin --output "$mine/second-message"
+```
+
+这里的 `$mine/run` 必须是首次就带 `--save-endpoint` 的生成目录，`$model` 要指向当时使用的模型目录。新的成片路径是 `$mine/second-message/marked.mp4`，可使用原密钥盲提取。该操作仍需视频解码器重新渲染画面；输出文件的像素和旧成片可能不同。
