@@ -6,11 +6,15 @@ Training-free, inversion-free video watermarking with endpoint latent-frequency 
 
 ## Use LAST on one video
 
-Try the [marked sailboat MP4](examples/public_demo/sailboat.mp4) (1.04 MB) with the [public demo commands](#read-the-sailboat-demo). This 65-frame example can be read with a VAE-only checkpoint.
+Choose your [installation](#install-on-linux-with-python-310) and workflow below.
 
-To embed your own text or 64-byte payload, follow [Generate and evaluate your own video](#generate-and-evaluate-your-own-video).
+| Task | Inputs | Instructions |
+|---|---|---|
+| Extract a message | Bundled 65-frame sailboat MP4, demo key and video autoencoder (VAE) | [Read the sailboat demo](#read-the-sailboat-demo) |
+| Write a message | Prompt, optional conditioning image, text or 64-byte payload, full generation checkpoint and GPU | [Generate a marked video](#generate-and-evaluate-your-own-video) |
+| Measure robustness | A marked MP4, its key and matching VAE. Supply the original payload to score the predictions. | [Test attacks on one MP4](#test-attacks-on-one-mp4) |
 
-Start with the [installation instructions](#install-linux-python310-cuda-capable-nvidia-gpu).
+To inspect measurements without downloading a checkpoint, open the [three-video LAST and LFG comparison](results/quickstart-three-videos.md) or the [five-method single-sample comparison](results/five-method-paper291.md).
 
 ### Read the sailboat demo
 
@@ -305,6 +309,8 @@ than `compression` use CRF 18. The implementation draws each inserted RGB
 channel value uniformly from 0 to 255. The default temporal map seed is 0;
 use the same video ID and map seed across methods to reproduce the edit positions.
 
+### Test attacks on one MP4
+
 To score attacks on a standalone marked MP4 with a known 64-byte payload,
 use the following command. It writes the received MP4, blind prediction
 and a `summary.json` containing correct bits, total bits and whole-message
@@ -498,7 +504,9 @@ python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods la
 
 Earlier evidence includes the [four LAST integration checks](results/last_backbone_integrations.json), the [LFG adaptation check](results/lfg_integration.json), and the first formal cases for [LFG Hunyuan I2V](results/lfg_primary_first_case.json), [LAST Hunyuan T2V](results/last_t2v_primary_first_case.json), and [LAST Wan I2V](results/last_wan_i2v_primary_first_case.json).
 
-## Install (Linux, Python3.10, CUDA-capable NVIDIA GPU)
+<a id="install-linux-python310-cuda-capable-nvidia-gpu"></a>
+
+## Install on Linux with Python 3.10
 
 ```bash
 git clone https://github.com/twzydn20000928/LAST.git
@@ -507,15 +515,9 @@ python3.10 -m venv .venv
 source .venv/bin/activate
 unset PYTHONPATH
 export PYTHONNOUSERSITE=1
-python -m pip install -r environments/video-linux-py310-cu124.txt
-python -m pip install --no-deps -e .
-python -m pip check
-python -m last.doctor --strict --require-paper-runtime --output .venv/environment.json
-python -m pytest -q
 ```
 
-For extraction and attacks alone, a [smaller reader dependency set](environments/reader-linux-py310-cu124.txt)
-is available for the same Linux platform. In the activated environment, run:
+**For extraction and attacks**, install the [reader dependencies](environments/reader-linux-py310-cu124.txt) in the activated environment. A CPU read uses `--device cpu`.
 
 ```bash
 python -m pip install -r environments/reader-linux-py310-cu124.txt
@@ -527,7 +529,20 @@ This set was checked by isolating the 46 installed distributions, importing
 the reader, decoding all 65 sailboat frames and encoding its first candidate
 window at full resolution with the pinned Hunyuan VAE on CPU. The six CPU
 attack commands reproduced all recorded demo MP4 hashes. A full MP4 extraction on CUDA with this smaller set is pending.
-The video environment above supports generation and the test suite.
+**For generation and embedding**, install the full video environment in the activated environment.
+
+```bash
+python -m pip install -r environments/video-linux-py310-cu124.txt
+python -m pip install --no-deps -e .
+python -m pip check
+```
+
+The following checks validate the paper runtime and run the test suite in the full environment.
+
+```bash
+python -m last.doctor --strict --require-paper-runtime --output .venv/environment.json
+python -m pytest -q
+```
 
 The numerical core implements masked1776-coordinate orthonormal DCT-II carriers, deterministic keyed QR, minimum signed margins, truth-free CCTA, an energy-spacing fallback and shortened BCH. It is distinct from earlier pilot implementations. See [the reproduction contract](docs/REPRODUCTION.md) and [frozen settings](configs/paper_v1.json).
 

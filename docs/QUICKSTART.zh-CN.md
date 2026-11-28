@@ -2,36 +2,6 @@
 
 如果只想看论文设置下的效果，可以直接打开[三个样本的七条件比较](../results/quickstart-three-videos.md)。如果想亲自验证，仓库附带一条 65 帧、512 × 512 的水印视频。下面从这条视频开始，全程在仓库根目录运行 Linux Bash 命令。
 
-### 在 CPU 上核对已有结果
-
-仓库里有 Hunyuan 和 Wan-2.2 的逐样本记录。以下命令只需 Python 3.10，可直接在仓库根目录运行。每张表都取冻结清单的前三个样本，列出 LAST 和 LFG 在原片及六项攻击下分别读对多少位。每格分母为 3 × 512 = 1536 位，括号内给出完整恢复的消息数。
-
-```bash
-for family in hunyuan wan22; do
-  for mode in i2v t2v; do
-    report="results/${family}_${mode}_paired_primary_first_three.json"
-    if [[ "$family/$mode" == "hunyuan/i2v" ]]; then
-      report=results/hunyuan_i2v_primary24.json
-    fi
-    echo "$family/$mode"
-    PYTHONPATH=src python tools/matched_primary_methods.py --family "$family" --mode "$mode" \
-      --methods last lfg --first 3 --reports "$report"
-  done
-done
-```
-
-例如，Wan-2.2 图生视频随机删帧后，LAST 读对 978/1536 位，LFG 读对 1077/1536 位；在同模型的文生视频中，两者分别读对 1149/1536 和 1050/1536 位。这四格均为 0/3 条消息完整恢复。读者可以更换视频生成方式查看差异；三个样本仅作演示。
-
-[五种方法的同样本对照](../results/five-method-paper291.md)使用同一个 Hunyuan 图生样本 `paper-291`。每种方法各自生成水印视频，每格分母为 512 位。原片、噪声、压缩、模糊和随机删帧都有五种方法的结果。表中的横线表示该条件仍缺少五方齐备的评分。用以下命令可从逐样本记录重建此表。
-
-```bash
-PYTHONPATH=src python tools/matched_primary_methods.py --family hunyuan --mode i2v \
-  --methods last lfg sigmark videomark videoshield --reports results/hunyuan_i2v_primary_slice291.json \
-  results/hunyuan_i2v_sigmark_videomark_paper291.json results/hunyuan_i2v_videoshield_slice291.json
-```
-
-在这个样本中，随机删 30 帧与连续删 30 帧都留下 35 帧。按原视频从 0 开始编号，随机删帧后 LAST 选中的两个四帧窗口分别来自画面 `27,28,29,31` 和 `34,35,36,38`，两者都跨越原始组边界，各自有 0 帧属于预测组。纠错前后均读对 250/512 位。连续删帧后选中的六组都完整且编号正确，纠错前后均读对 466/512 位。这个例子展示了两个可以分别核查的问题：分组是否对齐，以及对齐后保留下来的信号能否恢复整条消息。
-
 ## 1. 读出公开视频里的文字
 
 准备 Python 3.10 环境。只做提取和攻击时，安装读端依赖即可。
@@ -133,3 +103,33 @@ python -m last.writer_replay --run "$mine/run" --model-dir "$model" \
 在 Hunyuan 图生样本 `paper-003` 上，我们复用同一个生成终点和密钥，把消息换成“我的第一段视频”。回写后的 65 帧 MP4 经独立盲提取，改变的 250 位全部读对，保留的 262 位也全部读对，解出的 21 个 UTF-8 字节与原文一致。共享服务器上 CPU 回写约 19 分钟，原片提取约 37 分钟。[单样本实测记录](../results/custom_text_endpoint_cpu.json)
 
 对同一成片运行 `--condition drop --video-id paper-003 --map-seed 0`，随机删除 30 帧后只读对 270/512 位。正文读对 87/168 位，补零区域读对 183/344 位，输出无法解码为有效的 UTF-8 文本。这个例子有 344 位补零，即使始终输出零也能碰对 429/512 位。评估文字应用时应同时检查解出的文字，比较方法时使用论文冻结的消息。[删帧实测记录](../results/custom_text_endpoint_cpu_drop.json)
+
+## 在 CPU 上核对已有结果
+
+仓库里有 Hunyuan 和 Wan-2.2 的逐样本记录。以下命令只需 Python 3.10，可直接在仓库根目录运行。每张表都取冻结清单的前三个样本，列出 LAST 和 LFG 在原片及六项攻击下分别读对多少位。每格分母为 3 × 512 = 1536 位，括号内给出完整恢复的消息数。
+
+```bash
+for family in hunyuan wan22; do
+  for mode in i2v t2v; do
+    report="results/${family}_${mode}_paired_primary_first_three.json"
+    if [[ "$family/$mode" == "hunyuan/i2v" ]]; then
+      report=results/hunyuan_i2v_primary24.json
+    fi
+    echo "$family/$mode"
+    PYTHONPATH=src python tools/matched_primary_methods.py --family "$family" --mode "$mode" \
+      --methods last lfg --first 3 --reports "$report"
+  done
+done
+```
+
+例如，Wan-2.2 图生视频随机删帧后，LAST 读对 978/1536 位，LFG 读对 1077/1536 位；在同模型的文生视频中，两者分别读对 1149/1536 和 1050/1536 位。这四格均为 0/3 条消息完整恢复。读者可以更换视频生成方式查看差异；三个样本仅作演示。
+
+[五种方法的同样本对照](../results/five-method-paper291.md)使用同一个 Hunyuan 图生样本 `paper-291`。每种方法各自生成水印视频，每格分母为 512 位。原片、噪声、压缩、模糊和随机删帧都有五种方法的结果。表中的横线表示该条件仍缺少五方齐备的评分。用以下命令可从逐样本记录重建此表。
+
+```bash
+PYTHONPATH=src python tools/matched_primary_methods.py --family hunyuan --mode i2v \
+  --methods last lfg sigmark videomark videoshield --reports results/hunyuan_i2v_primary_slice291.json \
+  results/hunyuan_i2v_sigmark_videomark_paper291.json results/hunyuan_i2v_videoshield_slice291.json
+```
+
+在这个样本中，随机删 30 帧与连续删 30 帧都留下 35 帧。按原视频从 0 开始编号，随机删帧后 LAST 选中的两个四帧窗口分别来自画面 `27,28,29,31` 和 `34,35,36,38`，两者都跨越原始组边界，各自有 0 帧属于预测组。纠错前后均读对 250/512 位。连续删帧后选中的六组都完整且编号正确，纠错前后均读对 466/512 位。这个例子展示了两个可以分别核查的问题：分组是否对齐，以及对齐后保留下来的信号能否恢复整条消息。
