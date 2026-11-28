@@ -71,7 +71,23 @@ python -m last.extract --family hunyuan --model-dir "$model" --video "$mine/run/
 python -m last.score_message --message "$mine/message.bin" --prediction "$mine/prediction.json"
 ```
 
-生成的成片位于 `$mine/run/marked.mp4`，新密钥位于 `$mine/secret.key`。文字最多占 64 个 UTF-8 字节。需要写入任意 512 位数据时，可将 `--text` 换为 `--message-file` 并提供恰好 64 字节的文件。要对自己的成片做攻击评测，在第 2 步换用自己的视频、密钥、消息和视频编号，去掉公开示例专用的 `--demo-codec-threads`。[图生视频与 Wan-2.2 用法](../README.md#generate-and-evaluate-your-own-video)
+生成的成片位于 `$mine/run/marked.mp4`，新密钥位于 `$mine/secret.key`。文字最多占 64 个 UTF-8 字节。需要写入任意 512 位数据时，可将 `--text` 换为 `--message-file` 并提供恰好 64 字节的文件。[图生视频与 Wan-2.2 用法](../README.md#generate-and-evaluate-your-own-video)
+
+例如，要检验自己生成的皮划艇视频在压缩、随机删帧后还能读回哪些位，接收方可以直接运行以下命令。两项攻击分别作用于同一原片，输出目录需为新目录。
+
+```bash
+python -m last.check_video --video "$mine/run/marked.mp4" --video-id kayak-42 \
+  --family hunyuan --model-dir "$model" --key "$mine/secret.key" \
+  --condition compression --condition drop --output "$mine/attacks"
+cat "$mine/attacks/summary.md"
+```
+
+接收方此时只有预测结果。发送方拿到评测目录后，可以在 CPU 上与原消息核对。以下命令复用已保存的预测，输出每项攻击的正确位数、错误位置和整串恢复结果。
+
+```bash
+python -m last.score_message --summary "$mine/attacks/summary.json" \
+  --message "$mine/message.bin" --show-errors
+```
 
 ### 在同一段生成内容上更换消息
 
