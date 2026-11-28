@@ -1,7 +1,7 @@
 {
   "scope": "Hunyuan I2V paper-291 native predictions recounted from archived bytes",
   "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
-  "recount_sha256": "118a92aee6f1d7c24577dd1e1f2183bd12a99f1c2a0b09435c2876deacf291d8",
+  "recount_sha256": "652ebe3b78ad7bd3aa6128b18f470b8ffb8ac9fb03c0d9731b5e42aacf9221d9",
   "sample_ids": [
     "paper-291"
   ],
@@ -118,8 +118,8 @@
       "condition": "clip",
       "expected": 1,
       "completed": 0,
-      "missing": 1,
-      "failed": 0,
+      "missing": 0,
+      "failed": 1,
       "correct_bits": 0,
       "total_bits": 0,
       "exact_messages": 0,
@@ -220,8 +220,8 @@
       "condition": "insert",
       "expected": 1,
       "completed": 0,
-      "missing": 1,
-      "failed": 0,
+      "missing": 0,
+      "failed": 1,
       "correct_bits": 0,
       "total_bits": 0,
       "exact_messages": 0,

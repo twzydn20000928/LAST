@@ -104,7 +104,11 @@
       "status": "failed"
     },
     "clip": {
-      "status": "missing"
+      "status": "failed",
+      "reason": "CUDA out of memory",
+      "received_sha256": "025fd626ec64da591e98e81b840be34eba8c1e26505092e8c1968287da96206a",
+      "attack_receipt_sha256": "e5a508fd402b4019eb5b650f330e0da88fd952b0cb9c2260777d01abdcb87ad3",
+      "extraction_receipt_sha256": "e1c62742dbe4b57a837cf47380955ce12c0e6d972ea53099988b53d4ee19c513"
     }
   },
   "videomark": {
@@ -201,7 +205,11 @@
       "extraction_receipt_sha256": "1a34e276b8f50c12c91f99b88db17ddaa9d7c31d272111765e8296289ce6eaf6"
     },
     "insert": {
-      "status": "missing"
+      "status": "failed",
+      "reason": "CUDA out of memory",
+      "received_sha256": "2d5fa2fc58ba9527c28d619c2aeecac927d7de52bb4f99ceb8b27d5b71c646fe",
+      "attack_receipt_sha256": "4cab7ba1ac8dd416143a61506a61b607a71424f2182cb76117dec28cd37fae2c",
+      "extraction_receipt_sha256": "d46745c666308bbb6d0ee4a1ea415e86b862b599b3f1c061a5e24934fdb2075f"
     },
     "clip": {
       "status": "completed",
