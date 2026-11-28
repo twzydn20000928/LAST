@@ -448,3 +448,18 @@ recovered the complete message under this donor-block protocol. Deleting
 30 source frames and adding compression reduced accuracy by 12.03 percentage
 points relative to the same deletion condition alone. Five maps share each
 source video. The full protocol targets 400 source videos.
+
+The 300 drop30 trials include 64 edits also measured by the primary reader.
+For seed zero, each of the 60 received MP4s matched the primary file by
+SHA-256, and every per-video correct-bit count agreed (24,090/30,720 bits).
+For seeds 1–4 the primary archive also had the four paper-000 edits; those
+hashes and counts matched as well. Across the 64 shared trials the reader
+recovered 25,638/32,768 bits and one complete message. The other 236 trials
+contributed 95,298/120,832 bits and two complete messages. Count each shared
+edit once when combining these sources. The hash check establishes identical
+received videos; the primary summaries record correct-bit counts only.
+
+To inspect the 60 seed-zero comparisons on CPU, add
+`--primary results/hunyuan_i2v_last_first100_robustness.json` to the
+60-video command above and omit `--format markdown`. The JSON field
+`primary_seed_zero_comparison` contains both counts for each received MP4.
