@@ -42,7 +42,9 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
     monkeypatch.setattr(check_video, "run_module", run)
     monkeypatch.setattr(check_video.os, "umask", lambda mode: None)
     check_video.main()
-    row = json.loads((output / "summary.json").read_bytes())["results"]["drop"]
+    summary = json.loads((output / "summary.json").read_bytes())
+    assert summary["device"] == "cpu" and summary["demo_codec_threads"] is False
+    row = summary["results"]["drop"]
     assert calls == ["attack_video", "extract"] + (["score_message"] if scored else [])
     assert row["status"] == "completed" and (output / row["prediction"]).is_file()
     assert ("correct_bits" in row) == scored

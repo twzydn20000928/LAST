@@ -41,7 +41,8 @@ def main():
     os.umask(0o077)
     args.output.mkdir(parents=True, exist_ok=False)
     conditions = list(dict.fromkeys(args.condition or CONDITIONS))
-    summary = dict(video_id=args.video_id, family=args.family, map_seed=args.map_seed,
+    summary = dict(video_id=args.video_id, family=args.family, device=args.device,
+                   demo_codec_threads=args.demo_codec_threads, map_seed=args.map_seed,
                    source_sha256=source_hash, requested=conditions, results={})
     for condition in conditions:
         row = summary["results"][condition] = {}
