@@ -397,24 +397,24 @@ python tools/deletion_chain_audit.py --root /private/primary --report results/hu
 
 Both attacks retain 35 of the 65 frames. For random deletion, 6 of the 74 selected windows contained all four frames of their predicted group. For contiguous deletion, 136 of 147 did. The corresponding correct-bit counts sum to 8,122 and 10,592 out of 10,752. Each command checks the archived receipt digests and the frozen attack maps before classifying windows.
 
-### Hunyuan I2V paired differences on 47 videos
+### Hunyuan I2V paired differences on 48 videos
 
-The [47-video report](../results/hunyuan_i2v_intervals47.json) pools paper-000
-through paper-045 and paper-291. These cases represent 13 distinct prompts.
-With 10,000 paired prompt-cluster bootstrap draws, the LAST minus LFG bit
-accuracy difference for random deletion was 12.21 percentage points
-(95% interval 7.68 to 16.55). LAST recovered more bits on 40 videos, tied
-on one and recovered fewer on six. For noise-frame insertion the difference
-was 27.37 points (22.81 to 31.36), and for contiguous removal it was
-20.67 points (17.20 to 24.49). Both comparisons favored LAST on all 47 cases.
+The [48-video report](../results/hunyuan_i2v_intervals48.json) covers paper-000
+through paper-046 and paper-291 across 13 prompts. The table below gives
+accuracy differences with 95% intervals from 10,000 paired resamples of
+whole prompts. Under random deletion, LAST recovered more bits on 41 videos,
+tied on one and recovered fewer on six. For noise-frame insertion, LAST
+recovered more bits on 47 videos and LFG on one (paper-046). For contiguous
+removal, LAST recovered more bits on all 48 videos.
 Intervals describe resampling within this observed subset of the 400-video plan.
 
 ```bash
 python tools/paired_primary_intervals.py --report results/hunyuan_i2v_primary40.json \
   --additional-report results/hunyuan_i2v_primary_040_043.json \
   --additional-report results/hunyuan_i2v_primary_044_045.json \
+  --additional-report results/hunyuan_i2v_primary_046.json \
   --additional-report results/hunyuan_i2v_primary_slice291.json \
-  --output paired-intervals-47.json
+  --output paired-intervals-48.json
 ```
 
 ### Four paired subsets under temporal attacks
@@ -423,7 +423,7 @@ Entries give the mean paired bit-accuracy difference (LAST minus LFG, percentage
 
 | Pipeline | Paired videos / distinct prompts | Random deletion | Noise-frame insertion | Contiguous removal |
 |---|---:|---:|---:|---:|
-| Hunyuan I2V | 47 / 13 | +12.21 (7.68, 16.55) | +27.37 (22.81, 31.36) | +20.67 (17.20, 24.49) |
+| Hunyuan I2V | 48 / 13 | +12.23 (7.82, 16.47) | +26.39 (21.65, 30.57) | +20.66 (17.29, 24.44) |
 | Hunyuan T2V | 16 / 4 | +12.10 (6.31, 18.33) | +33.70 (28.42, 38.34) | +22.91 (18.38, 26.66) |
 | Wan-2.2 I2V | 15 / 4 | +0.78 (-8.59, 11.50) | +27.60 (18.79, 34.91) | +18.03 (9.83, 27.10) |
 | Wan-2.2 T2V | 15 / 4 | +6.89 (2.49, 11.91) | +29.84 (21.68, 37.36) | +19.09 (14.38, 24.47) |
