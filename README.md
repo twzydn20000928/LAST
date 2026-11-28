@@ -372,7 +372,7 @@ To inspect the [170 original deletion records](results/hunyuan_i2v_primary_delet
 python tools/primary_deletion_errors.py --report results/hunyuan_i2v_primary_deletion_errors.json
 ```
 
-The [statistical protocol](docs/STATISTICS.md) also explains how to repeat the checks against the generated MP4 files. For supplementary margin sensitivity, the three-video Figure 4 measurements and replay commands are in the [ablation guide](docs/ABLATIONS.md). The 80-video sensitivity study and full quality scores are pending.
+The [statistical protocol](docs/STATISTICS.md) also explains how to repeat the checks against the generated MP4 files. For supplementary margin sensitivity, the [five-strength comparison on 12 development videos](docs/ABLATIONS.md#paired-write-strength-sweep-on-twelve-development-videos) includes the Figure 4 curve and its CPU replay command. The 80-video sensitivity study and full quality scores are pending.
 
 The following paired subsets use the frozen primary manifest and 512 information bits per video. Each method has seven observations per video, covering clean extraction and six attacks. The paper protocol calls for 400 videos per generation pipeline. The counts below describe the paired records available in this release.
 
