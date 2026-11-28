@@ -91,6 +91,16 @@ python -m last.score_message --message "$LAST_DEMO_DIR/message.bin" \
   --prediction "$LAST_DEMO_DIR/clean-and-drop/drop-prediction.json" --show-errors
 ```
 
+To score every saved prediction from one run after receiving the original payload,
+use the same command with `--summary`. Keep the prediction files beside the
+summary. This CPU command verifies each prediction's recorded MP4 digest and
+frame count, then prints scores for the completed edits:
+
+```bash
+python -m last.score_message --message "$LAST_DEMO_DIR/message.bin" \
+  --summary "$LAST_DEMO_DIR/clean-and-drop/summary.json"
+```
+
 For the recorded deletion, this gives 471 correct bits and 41 wrong bit
 positions. For the recorded insertion, it gives 408 correct bits and 104
 wrong positions. Both predictions differ from the original message.
