@@ -53,6 +53,20 @@ cat "$work/two-deletions/summary.md"
 
 如果评测被打断，再次运行上面的命令时，保留相同的视频、密钥和模型参数，把两个 `--condition` 参数替换为 `--retry-from "$work/two-deletions/summary.json"`，并将输出目录改为新的 `"$work/two-deletions-retry"`。程序会根据原记录只补跑失败或尚未完成的条件。原目录保存已有结果，新目录保存补跑结果。
 
+### 运行附录的八项攻击
+
+要在同一条帆船视频上运行附录 Table 15 的全部八项攻击，先准备一条无水印视频供自然插帧使用。将下面的路径换成自己的文件，分辨率须为 512 × 512，至少 30 帧。
+
+```bash
+donor="/path/to/unmarked.mp4"
+python -m last.check_video --video "$video" --video-id sailboat-demo-v1 --demo-codec-threads \
+  --family hunyuan --model-dir "$vae" --key "$work/secret.key" --message "$work/message.bin" \
+  --table15 --map-seed 0 --donor-reference "$donor" --output "$work/table15-map0"
+cat "$work/table15-map0/summary.md"
+```
+
+这次运行给出一条视频在一种编辑映射下的八行结果。论文每种攻击使用五种映射。要复跑论文样本的自然插帧，请使用冻结清单指定的供帧视频。[供帧清单与复现命令](STRESS.md)
+
 ## 3. 在生成过程中写入自己的消息
 
 沿用已激活的环境，安装生成依赖并下载完整的 Hunyuan 文生视频模型。此步需要可用的 NVIDIA GPU。若已有固定版本的完整模型，可将 `model` 指向该目录，并省略 `--download`。

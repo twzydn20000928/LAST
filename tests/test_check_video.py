@@ -61,6 +61,38 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored, con
     assert ("500/512 | 97.66% | no" if scored else "extracted, unscored") in table
 
 
+def test_table15_runs_all_edits_at_one_seed(tmp_path, monkeypatch):
+    video, key, donor, output = [tmp_path / n for n in ("source", "key", "donor", "out")]
+    video.write_bytes(b"original")
+    key.write_bytes(bytes(32))
+    donor.write_bytes(b"donor")
+    edits = []
+
+    def run(module, *args):
+        dest = Path(args[args.index("--output") + 1])
+        if module == "stress":
+            condition = args[args.index("--attack") + 1]
+            assert args[args.index("--seed") + 1] == 3
+            assert (donor in args) == (condition == "natural30")
+            edits.append(condition)
+            dest.mkdir()
+            (dest / "received.mp4").write_bytes(b"edited")
+        else:
+            assert module == "extract"
+            assert Path(args[args.index("--video") + 1]) == output / edits[-1] / "received.mp4"
+            dest.write_text(json.dumps({"frames": 35, "video_sha256": "digest"}))
+
+    monkeypatch.setattr(check_video, "run_module", run)
+    monkeypatch.setattr(check_video.os, "umask", lambda mode: None)
+    monkeypatch.setattr(sys, "argv", ["check_video", "--video", str(video), "--key", str(key),
+                        "--video-id", "demo", "--family", "hunyuan", "--model-dir", str(tmp_path),
+                        "--table15", "--map-seed", "3", "--donor-reference", str(donor), "--output", str(output)])
+    check_video.main()
+    summary = json.loads((output / "summary.json").read_bytes())
+    assert edits == summary["requested"] == list(check_video.STRESS_CONDITIONS)
+    assert all(row["status"] == "completed" for row in summary["results"].values())
+
+
 def test_failed_and_pending_conditions_have_no_scores():
     table = check_video.render_attack_table({
         "requested": ["drop", "clip"],

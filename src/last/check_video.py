@@ -62,6 +62,8 @@ def main():
     parser.add_argument("--map-seed", type=int, choices=range(5))
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--retry-from", type=Path, help="Run unfinished conditions from a previous summary in a new directory")
+    selection.add_argument("--table15", action="store_true",
+                           help="Run all eight supplementary attacks at one map seed; requires --donor-reference")
     selection.add_argument("--condition", choices=[*CONDITIONS, *STRESS_CONDITIONS], action="append",
                         help="Repeat to select edits; defaults to the seven primary conditions")
     parser.add_argument("--output", type=Path, required=True, help="New private output directory")
@@ -80,7 +82,7 @@ def main():
     if args.message is not None:
         scoring_tag = hmac.digest(key, b"LAST scoring payload v1" + bytes.fromhex(source_hash)
                                   + args.message.read_bytes(), "sha256").hex()
-    conditions = list(dict.fromkeys(args.condition or CONDITIONS))
+    conditions = list(STRESS_CONDITIONS) if args.table15 else list(dict.fromkeys(args.condition or CONDITIONS))
     if args.retry_from:
         previous = json.loads(args.retry_from.read_bytes())
         if (previous["source_sha256"], previous["video_id"], previous["family"]) != (
