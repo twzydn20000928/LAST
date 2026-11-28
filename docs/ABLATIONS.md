@@ -1422,7 +1422,7 @@ python tools/summarize_assisted_subsets.py results/assisted_group_equal_counts_f
 
 ### Paired deletion differences across videos
 
-On the first 179 Hunyuan I2V videos, blind CCTA recovered more bits than received-order grouping on 165 videos, tied on two and recovered fewer on 12. The median gain was 115 of 512 bits. Providing the true edit map improved over blind CCTA on all 179, with a median gain of 126 bits. Each comparison uses the same received deletion MP4 and fusion rule. The true-map reader receives the original positions of surviving frames.
+On the first 180 Hunyuan I2V videos, blind CCTA recovered more bits than received-order grouping on 166 videos, tied on two and recovered fewer on 12. The median gain was 114.5 of 512 bits. Providing the true edit map improved over blind CCTA on all 180, with a median gain of 126.5 bits. Each comparison uses the same received deletion MP4 and fusion rule. The true-map reader receives the original positions of surviving frames.
 
 Run the shared-fusion table command above to cross-check the primary input fingerprints. From the repository root, reproduce the per-video counts for this snapshot with Python:
 
@@ -1432,7 +1432,7 @@ from pathlib import Path
 from statistics import median
 
 gains = {"CCTA minus received order": [], "True map minus CCTA": []}
-for index in range(179):
+for index in range(180):
     path = Path("results") / f"hunyuan_i2v_last_controlled_paper{index:03d}.json"
     case = json.loads(path.read_bytes())
     assert case["video_id"] == f"paper-{index:03d}"
