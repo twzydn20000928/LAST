@@ -460,6 +460,8 @@ For the first 30 videos, 31 of 150 random 30-frame deletion trials left no intac
 
 ### First 60 videos across eight temporal edits
 
+The [63-video extension](../results/table15-first63.md) also includes paper-060 through paper-062. Each added video contributes all eight attacks and five maps. To rebuild this snapshot, pass both `results/stress_paper0[0-5][0-9]_forty_maps.json` and `results/stress_paper06[0-2]_forty_maps.json` after `--reports` in the command below.
+
 For Hunyuan I2V LAST, the frozen prefix from paper-000 through paper-059 covers
 60 source videos, five edit maps per video and eight attacks. Rebuild these
 2,400 observations with the command below (Bash, from the repository root):
