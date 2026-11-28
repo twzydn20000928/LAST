@@ -6,6 +6,8 @@ Training-free, inversion-free video watermarking with endpoint latent-frequency 
 
 Try the [marked sailboat MP4](examples/public_demo/sailboat.mp4) (1.04 MB) with the [public demo commands](#read-the-sailboat-demo). This 65-frame example can be read with a VAE-only checkpoint.
 
+To embed your own text or 64-byte payload, follow [Generate and evaluate your own video](#generate-and-evaluate-your-own-video).
+
 Start with the [installation instructions](#install-linux-python310-cuda-capable-nvidia-gpu).
 
 ### Read the sailboat demo
@@ -227,6 +229,35 @@ python -m last.smoke --family hunyuan --mode i2v --model-dir /path/to/checkpoint
   --case "$LAST_EXAMPLE_DIR/case.json" --key "$LAST_EXAMPLE_DIR/secret.key" \
   --message "$LAST_EXAMPLE_DIR/message.bin" --output "$LAST_EXAMPLE_DIR/run" \
   --memory-gib 12 --offload sequential --marked-only
+```
+
+The distributable video is `$LAST_EXAMPLE_DIR/run/marked.mp4`. On the receiving
+machine, set `RECEIVED_MP4` to the saved or transferred video and `LAST_KEY` to
+the matching key. The receiver needs the matching VAE and a new output
+directory. The following commands read the video and recover the text:
+
+```bash
+export RECEIVED_MP4="$LAST_EXAMPLE_DIR/run/marked.mp4"
+export LAST_KEY="$LAST_EXAMPLE_DIR/secret.key"
+export LAST_RECEIVED="$HOME/last-cyclist-received"
+mkdir -m 700 "$LAST_RECEIVED" &&
+python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
+  --video "$RECEIVED_MP4" --key "$LAST_KEY" --output "$LAST_RECEIVED/prediction.json" &&
+python -m last.cli unpack-message --text --prediction "$LAST_RECEIVED/prediction.json" \
+  --output "$LAST_RECEIVED/recovered.txt" &&
+cat "$LAST_RECEIVED/recovered.txt"
+```
+
+For a binary payload, omit `--text` and save the output as `recovered.bin`.
+The public sailboat T2V example used this generation and blind reading sequence
+with its own prompt and payload. Decoding the prediction recovered the original
+35 UTF-8 bytes and its padded 512-bit payload exactly. The generation and
+extraction records identify the same saved MP4 by SHA-256.
+[Recorded sailboat results](results/public_sailboat_attacks.json)
+
+To evaluate the attacks on the generator's machine using its known message:
+
+```bash
 python -m last.evaluate --family hunyuan --model-dir /path/to/checkpoint \
   --run "$LAST_EXAMPLE_DIR/run" --video-id cyclist-example
 ```
