@@ -9,6 +9,11 @@
   "read_seconds": 1133.4432702064514,
   "route": "ccta",
   "groups": 2,
+  "intact_original_groups_available": 0,
+  "selected_windows_zero_based": [
+    {"predicted_group": 14, "original_frames": [46, 50, 51, 52], "frames_from_predicted_group": 0},
+    {"predicted_group": 15, "original_frames": [53, 56, 58, 61], "frames_from_predicted_group": 1}
+  ],
   "bch_success": false,
   "score": {
     "status": "completed",
