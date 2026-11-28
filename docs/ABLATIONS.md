@@ -813,11 +813,11 @@ method's exclusive exact count to the `Both exact` column.
 ```bash
 receipts=(results/hunyuan_i2v_oracle_paper*.json)
 python tools/paired_oracle_table.py --report results/hunyuan_i2v_last_first100_robustness.json \
-  --report results/hunyuan_i2v_last_primary100_178.json --manifest configs/primary_manifest.json \
+  --report results/hunyuan_i2v_last_primary100_179.json --manifest configs/primary_manifest.json \
   --oracle-dir results --count "${#receipts[@]}"
 ```
 
-The second blind report covers IDs 100 through 178 (79 videos, 553
+The second blind report covers IDs 100 through 179 (80 videos, 560
 observations). These videos were generated under a 392-case continuation
 plan. Eight earlier IDs already had outputs when that plan was frozen:
 000, 001, 002, 003, 004, 020, 040 and 060. The original plan bytes are
@@ -829,14 +829,14 @@ To recount the second report from the archived primary run tree, set
 python tools/primary_pipeline_report.py \
   --plan configs/historical_hunyuan_i2v_last_remaining_plan.json \
   --manifest configs/primary_manifest.json --root "$RUNS" \
-  --family hunyuan --mode i2v --method last --sample-range 100 179 \
-  --output blind-100-178.json
+  --family hunyuan --mode i2v --method last --sample-range 100 180 \
+  --output blind-100-179.json
 ```
 
 For independently generated videos, use the plan that generated them.
 The report checks the recorded plan and manifest digests, conditioning
-images, case files and received MP4s. The exclusive stop index 179 keeps
-`paper-178` as the last included video.
+images, case files and received MP4s. The exclusive stop index 180 keeps
+`paper-179` as the last included video.
 
 Among the first 80 videos, the map-assisted reader recovered 40,943 of
 40,960 information bits after insertion. The 17 bit errors occurred in two
