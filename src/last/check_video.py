@@ -17,6 +17,27 @@ def run_module(module, *args, capture=False):
     )
 
 
+def render_attack_table(summary):
+    lines = [
+        "| Condition | Status | Received frames | Correct bits | Bit accuracy | Exact message |",
+        "|---|---|---:|---:|---:|---|",
+    ]
+    for condition in summary["requested"]:
+        row = summary["results"].get(condition, {})
+        status = row.get("status", "pending")
+        bits = accuracy = exact = "—"
+        if status == "failed":
+            status = f"failed ({row['stage']}, exit {row['exit_code']})"
+        elif status == "completed" and "correct_bits" in row:
+            bits = f"{row['correct_bits']}/{row['total_bits']}"
+            accuracy = f"{row['bit_accuracy']:.2%}"
+            exact = "yes" if row["exact_message"] else "no"
+        elif status == "completed":
+            status = "extracted, unscored"
+        lines.append(f"| {condition} | {status} | {row.get('frames', '—')} | {bits} | {accuracy} | {exact} |")
+    return "\n".join(lines) + "\n"
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--video", type=Path, required=True)
@@ -70,6 +91,9 @@ def main():
         temp = args.output / "summary.tmp"
         temp.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
         temp.replace(args.output / "summary.json")
+        table = args.output / "summary.md.tmp"
+        table.write_text(render_attack_table(summary), encoding="utf-8")
+        table.replace(args.output / "summary.md")
         print(condition, json.dumps(row), flush=True)
     if any(row["status"] == "failed" for row in summary["results"].values()):
         raise SystemExit(1)

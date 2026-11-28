@@ -28,7 +28,7 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
         calls.append(module)
         if module == "score_message":
             assert message in args and capture
-            return SimpleNamespace(stdout='{"correct_bits": 500}')
+            return SimpleNamespace(stdout=json.dumps(dict(correct_bits=500, total_bits=512, bit_accuracy=500/512, exact_message=False)))
         assert message not in args
         dest = Path(args[args.index("--output") + 1])
         if module == "attack_video":
@@ -48,3 +48,14 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
     assert calls == ["attack_video", "extract"] + (["score_message"] if scored else [])
     assert row["status"] == "completed" and (output / row["prediction"]).is_file()
     assert ("correct_bits" in row) == scored
+    table = (output / "summary.md").read_text(encoding="utf-8")
+    assert ("500/512 | 97.66% | no" if scored else "extracted, unscored") in table
+
+
+def test_failed_and_pending_conditions_have_no_scores():
+    table = check_video.render_attack_table({
+        "requested": ["drop", "clip"],
+        "results": {"drop": {"status": "failed", "stage": "last.extract", "exit_code": 1}},
+    })
+    assert "| drop | failed (last.extract, exit 1) | — | — | — | — |" in table
+    assert "| clip | pending | — | — | — | — |" in table

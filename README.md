@@ -44,7 +44,7 @@ number of CPU cores available.
 
 For all seven conditions, omit both `--condition` flags and choose a fresh
 output directory. Compare your `summary.json` with the [verified demo results](results/public_sailboat_attacks.json).
-Each row counts correctly recovered information bits in this one video.
+Open `summary.md` in the output directory to see received frames, correct bits, bit accuracy and whole-message recovery for each requested condition. Without `--message`, the table identifies completed predictions as unscored.
 
 | Condition | Received frames | Correct bits out of 512 |
 |---|---:|---:|
