@@ -20,7 +20,7 @@
     "results/hunyuan_i2v_sigmark_videomark_paper291.json": "15291c49b4e716710d1db8ed9a83667ea670e2dca0f29e6d025960ce9a40af09",
     "results/hunyuan_t2v_videomark_first40.json": "2bb8fcac92dfb3211ae1c034d6f62c9e1647e18728a9ab18e125f8b0d5506ad8"
   },
-  "source_sha256": "d943597b408a56db8657e1ac17605f4ddffadd25acef001116057442f3c62235",
+  "source_sha256": "a8b476181b0191ecd93e629b2a74ed617dcd00ae6ea1683b53fc89d8d3b875f6",
   "disjoint_snapshots": true,
   "scope": "Formatting only; no new measurements or comparability validation"
 }
