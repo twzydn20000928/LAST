@@ -9,7 +9,8 @@ from last import check_video
 
 
 @pytest.mark.parametrize("scored", [False, True])
-def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
+@pytest.mark.parametrize("condition", ["drop", "duplicate30", "natural30", "drop30_crf28"])
+def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored, condition):
     video = tmp_path / "input.mp4"
     video.write_bytes(b"test")
     key = tmp_path / "key"
@@ -18,7 +19,9 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
     output = tmp_path / "out"
     argv = ["check_video", "--video", str(video), "--video-id", "example",
             "--key", str(key), "--family", "hunyuan", "--model-dir", str(tmp_path),
-            "--condition", "drop", "--device", "cpu", "--output", str(output)]
+            "--condition", condition, "--device", "cpu", "--output", str(output)]
+    if condition == "natural30":
+        argv.extend(["--donor-reference", str(tmp_path / "donor.mp4")])
     if scored:
         message.write_bytes(bytes(64))
         argv.extend(["--message", str(message)])
@@ -33,6 +36,11 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
         dest = Path(args[args.index("--output") + 1])
         if module == "attack_video":
             dest.write_bytes(b"edited")
+        elif module == "stress":
+            assert args[args.index("--attack") + 1] == condition
+            assert ("--donor-reference" in args) == (condition == "natural30")
+            dest.mkdir()
+            (dest / "received.mp4").write_bytes(b"edited")
         else:
             assert args[args.index("--device") + 1] == "cpu"
             assert Path(args[args.index("--video") + 1]).read_bytes() == b"edited"
@@ -44,8 +52,8 @@ def test_payload_only_reaches_optional_scorer(tmp_path, monkeypatch, scored):
     check_video.main()
     summary = json.loads((output / "summary.json").read_bytes())
     assert summary["device"] == "cpu" and summary["demo_codec_threads"] is False
-    row = summary["results"]["drop"]
-    assert calls == ["attack_video", "extract"] + (["score_message"] if scored else [])
+    row = summary["results"][condition]
+    assert calls == ["attack_video" if condition == "drop" else "stress", "extract"] + (["score_message"] if scored else [])
     assert row["status"] == "completed" and (output / row["prediction"]).is_file()
     assert ("correct_bits" in row) == scored
     table = (output / "summary.md").read_text(encoding="utf-8")

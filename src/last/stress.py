@@ -3,6 +3,7 @@ import argparse,hashlib,json
 from pathlib import Path
 import numpy as np
 from .temporal import attack_map
+from .stress_conditions import STRESS_CONDITIONS
 from .video import load_mp4,export_mp4
 
 def midpoint(a,b):
@@ -44,7 +45,7 @@ def edit(frames,attack,video_id,seed=0,donor=None):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--video',type=Path,required=True);p.add_argument('--video-id',required=True);p.add_argument('--output',type=Path,required=True)
-    p.add_argument('--attack',choices=['drop10','drop20','drop30','drop45','duplicate30','natural30','interpolate30','drop30_crf28'],required=True)
+    p.add_argument('--attack',choices=STRESS_CONDITIONS,required=True)
     p.add_argument('--demo-codec-threads',action='store_true',
                    help='Use the public demo H.264 encoder thread counts')
     maps = p.add_mutually_exclusive_group()

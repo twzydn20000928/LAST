@@ -1,4 +1,4 @@
-"""Evaluate primary attacks on a standalone marked MP4 without a generation run."""
+"""Evaluate primary and supplementary attacks on a standalone marked MP4 without a generation run."""
 import argparse
 import hashlib
 import json
@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 from .report import CONDITIONS
+from .stress_conditions import STRESS_CONDITIONS
 
 
 def run_module(module, *args, capture=False):
@@ -49,11 +50,15 @@ def main():
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--video-id", required=True)
     parser.add_argument("--map-seed", type=int, choices=range(5), default=0)
-    parser.add_argument("--condition", choices=CONDITIONS, action="append")
+    parser.add_argument("--condition", choices=[*CONDITIONS, *STRESS_CONDITIONS], action="append",
+                        help="Repeat to select edits; defaults to the seven primary conditions")
     parser.add_argument("--output", type=Path, required=True, help="New private output directory")
     parser.add_argument("--demo-codec-threads", action="store_true",
                         help="Use the public demo encoder settings (16 x264 threads, 2 lookahead threads)")
+    parser.add_argument("--donor-reference", type=Path, help="Unmarked same-resolution video for natural30")
     args = parser.parse_args()
+    if ("natural30" in (args.condition or [])) != (args.donor_reference is not None):
+        parser.error("Select natural30 together with --donor-reference")
     if args.key.stat().st_size != 32:
         parser.error("Expected a 32-byte key")
     if args.message is not None and args.message.stat().st_size != 64:
@@ -69,7 +74,14 @@ def main():
         row = summary["results"][condition] = {}
         try:
             received = args.video
-            if condition != "clean":
+            if condition in STRESS_CONDITIONS:
+                directory = args.output / condition
+                run_module("stress", "--video", args.video, "--video-id", args.video_id,
+                           "--attack", condition, "--seed", args.map_seed, "--output", directory,
+                           *(["--donor-reference", args.donor_reference] if condition == "natural30" else []),
+                           *(["--demo-codec-threads"] if args.demo_codec_threads else []))
+                received = directory / "received.mp4"
+            elif condition != "clean":
                 received = args.output / (condition + ".mp4")
                 run_module("attack_video", "--video", args.video, "--video-id", args.video_id,
                            "--condition", condition, "--map-seed", args.map_seed, "--output", received,

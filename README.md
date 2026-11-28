@@ -56,6 +56,13 @@ Open `summary.md` in the output directory to see received frames, correct bits, 
 | `insert` | 95 | 408 |
 | `clip` | 35 | 512 |
 
+To test the supplementary temporal edits on the same video, replace the
+condition flags with, for example, `--condition duplicate30 --condition
+interpolate30 --condition drop30_crf28` and use a fresh output directory.
+For `--condition natural30`, supply `--donor-reference /path/to/unmarked.mp4`
+with at least 30 frames at the same resolution. Each edit starts from the
+original video. [All eight Table 15 edits](docs/STRESS.md)
+
 To display the decoded message from the original MP4, run:
 
 ```bash
@@ -622,7 +629,7 @@ available command is not evidence that the full prescribed sample set has run.
 | Margin sweep and uniform-profile control | [Figure 4 and Supplement Table 5](docs/ABLATIONS.md#completed-development-margin-sweep), [development-set sensitivity](docs/ABLATIONS.md#supplementary-development-set-margin-sensitivity) | All five margins for the three figure examples and for [10 of 80 development videos](results/development_margin_ten_videos.json). The three figure examples are included in the ten. Use `last.writer_replay --uniform-profile` for the separate profile control. |
 | Matched-writer LFG-C, native LFG+CCTA and oracle grouping | [Paired reader command](docs/BASELINES.md#replay-the-seven-condition-reader-comparison), [oracle diagnostic](docs/ABLATIONS.md) | [18 Hunyuan I2V videos](results/hunyuan_i2v_lfg_ccta_first18.json) with seven paired reader comparisons each. Matched-fidelity calibration pending. |
 | Supplement Table 12, shared-fusion reader comparison | [Run the readers and rebuild the table](docs/ABLATIONS.md#shared-fusion-per-case-workflow) | 110 Hunyuan I2V LAST videos. The [paired deletion analysis](docs/ABLATIONS.md#paired-deletion-differences-across-videos) covers the first 100. Received-order, CCTA and true-map readers share the same clean, deletion and compression inputs; calibrated energy is pending. |
-| Supplement Table 15, temporal stress and repeated attack maps | [Rebuild counts and alignment diagnostics](docs/STRESS.md#recount-the-eight-edits-on-primary-videos) | 33 Hunyuan I2V videos with eight edits and five seeds each. Every edit covers 165 of 2,000 planned trials. |
+| Supplement Table 15, temporal stress and repeated attack maps | [Rebuild counts and alignment diagnostics](docs/STRESS.md#recount-the-eight-edits-on-primary-videos) | 60 Hunyuan I2V videos with eight edits and five seeds each. Every edit covers 300 of 2,000 planned trials. |
 | Bit errors, whole-message recovery and uncertainty | [Statistics](docs/STATISTICS.md), `last.message_outcomes`, `last.cluster_intervals` | Implemented; final summaries require complete planned observations |
 | Main Table 3 and supplementary timing | [Acquire paired timings and build Table 3](docs/TIMING.md#main-table-3), [embedding time](docs/TIMING.md#direct-embedding-operation) | [Two exclusive L40 extraction measurements](results/hunyuan_i2v_last_extraction_timing.json) cover a separate LAST clip (paper-000). The frozen main-table clip is paper-291. The clean read passed BCH decoding; the deletion read failed. The full five-method comparison is pending. |
 | Fresh environment and independent re-extraction | [Environment reconstruction](environments/README.md), [audit protocol](docs/STATISTICS.md), `last.reextract` | Separate seven-condition re-extraction checked; the reader's end-to-end clean-checkout verification is scheduled after repository construction |
