@@ -169,7 +169,21 @@
       ]
     },
     "blur": {
-      "status": "failed"
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videomark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "blur",
+      "correct_bits": 255,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "f5cd1f136dffae7ae0f6df3bd3fa3c7ea1ed7c2d97d3c8dc81c7e446c1990aac",
+      "received_sha256": "67114b4dbeee04a378020a40134fbf822ac0a663a5f563475bda058d230ceed8",
+      "attack_receipt_sha256": "8b68c840572d44c009d267586bc929d63e30799c2bea9cc7f77d984a9bfbd7b5",
+      "extraction_receipt_sha256": "b3c7ad495a2927b3fb057c3741b0cf54d229be41b6ad828c4f575d8734208e27",
+      "missing_historical_digests": [],
+      "retry_of_sha256": "e37b145630b48b9cabf77d366e5f083bfaf283551e5cf21fd299cefd19ba3de3"
     },
     "drop": {
       "status": "missing"

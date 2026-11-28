@@ -1,7 +1,7 @@
 {
   "scope": "Hunyuan I2V paper-291 native predictions recounted from archived bytes",
   "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
-  "recount_sha256": "3722b9745ffc047e2bb0bd048ebd17e9b3cf0eadcdd05ccd0ceb892eb7ce7ae3",
+  "recount_sha256": "03686bd951d756144477e8b0436fd7ac02aa52021a4eb0c3b9b1535a8a35f17a",
   "sample_ids": [
     "paper-291"
   ],
@@ -185,16 +185,16 @@
       "method": "videomark",
       "condition": "blur",
       "expected": 1,
-      "completed": 0,
+      "completed": 1,
       "missing": 0,
-      "failed": 1,
-      "correct_bits": 0,
-      "total_bits": 0,
+      "failed": 0,
+      "correct_bits": 255,
+      "total_bits": 512,
       "exact_messages": 0,
-      "complete": false,
-      "observed_bit_accuracy": null,
-      "final_bit_accuracy": null,
-      "observed_message_recovery": null
+      "complete": true,
+      "observed_bit_accuracy": 0.498046875,
+      "final_bit_accuracy": 0.498046875,
+      "observed_message_recovery": 0.0
     },
     {
       "family": "hunyuan",
@@ -368,6 +368,21 @@
       "exact_message": false,
       "video_sha256": "43b5ab6e5bc9a363ab39bc1608b9281eaa581e76a4569ea154d015bc3f7c7289",
       "receipt_sha256": "f4a8684b315c9cf55e557bee4489bfafcd47541a9ce9875f91403dad1eca25ff"
+    },
+    {
+      "family": "hunyuan",
+      "mode": "i2v",
+      "method": "videomark",
+      "condition": "blur",
+      "video_id": "paper-291",
+      "run": "hunyuan/i2v/videomark/paper-291",
+      "status": "completed",
+      "map_seed": 0,
+      "correct_bits": 255,
+      "total_bits": 512,
+      "exact_message": false,
+      "video_sha256": "67114b4dbeee04a378020a40134fbf822ac0a663a5f563475bda058d230ceed8",
+      "receipt_sha256": "8b68c840572d44c009d267586bc929d63e30799c2bea9cc7f77d984a9bfbd7b5"
     }
   ]
 }

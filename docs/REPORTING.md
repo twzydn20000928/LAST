@@ -711,7 +711,9 @@ Each number counts correct information bits out of 512 on the same manifest case
 | clean | 512 | 512 | 242 | 249 | 512 |
 | noise | 480 | 466 | 248 | 251 | 508 |
 | compression | 474 | 491 | 254 | 237 | 510 |
-| blur | 512 | 493 | 248 | Failed | 512 |
+| blur | 512 | 493 | 248 | 255 | 512 |
 | drop | 250 | 320 | 241 | Pending | 512 |
 | insert | 370 | 286 | Failed | Pending | 499 |
 | clip | 466 | 349 | Pending | Pending | 505 |
+
+VideoMark blur on paper-291 completed on the original blurred MP4 after an out-of-memory failure. The audit links the retry to the failed receipt by SHA256. Both attempts count as one video.
