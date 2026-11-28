@@ -510,6 +510,19 @@ Across methods, the unmarked reference files matched byte for byte in 3/45,
 method-specific references. These pixel-based measures describe fidelity to
 those references. For the official perceptual dimensions see [Quality](QUALITY.md).
 
+**Sensitivity to the reference video.** We also decoded every frame and
+rescored both marked outputs against the same reference, first using LAST's
+reference and then LFG's. In [45 Hunyuan I2V pairs](../results/hunyuan_i2v_shared_reference_psnr45.json),
+the respective mean PSNRs for LAST / LFG were 32.068 / 23.113 dB using
+LAST's reference and 32.067 / 23.113 dB using LFG's. In
+[15 Hunyuan T2V pairs](../results/hunyuan_t2v_shared_reference_psnr15.json),
+both choices gave 31.823 / 22.492 dB to three decimals. LAST had higher
+PSNR on every case under either choice. Across individual marked videos,
+switching reference changed PSNR by at most 0.045 dB (I2V) and 0.006 dB
+(T2V). To repeat this check on the original MP4s, run
+`python tools/shared_reference_psnr.py --root /path/to/primary --report <paired-fidelity.json>`
+with one `--report` per disjoint slice from the same pipeline.
+
 To recompute a row on CPU, pass each disjoint robustness report together with
 its corresponding fidelity report from the [README](../README.md). For example:
 
