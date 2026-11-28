@@ -1530,3 +1530,5 @@ python tools/matched_component_table.py --table4 \
 ```
 
 Use `--paired-condition insert` for the insertion column.
+
+The same command lists each video's paired PSNR, SSIM and recovery differences. All 14 videos gained pixel fidelity with minimum margins, while deletion recovery ranged from 18 fewer bits on paper-291 to 93 more on paper-098. Those two videos gained 1.004 dB and 1.119 dB in PSNR, respectively. A similar improvement in pixel fidelity can accompany opposite changes in message recovery.

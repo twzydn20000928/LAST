@@ -155,11 +155,19 @@ if __name__ == "__main__":
     if args.paired_condition:
         condition = args.paired_condition
         gains = {v: [] for v in labels if v != "full"}
+        print(f"\nMinimum-margin minus fixed-target write on each matched video ({condition}).\n")
+        print("| Video | PSNR difference (dB) | SSIM difference | Correct-bit difference |")
+        print("|---|---:|---:|---:|")
         for writer in writers:
             if writer["video_id"] in ids:
                 _, _, single = compare(reader, [writer], plan)
                 for variant in gains:
                     gains[variant].append(single["full"][condition] - single[variant][condition])
+                margin = writer["variants"]["minimum-margin"]
+                fixed = writer["variants"]["fixed-target"]
+                bit_delta = gains["fixed-target"][-1]
+                print(f"| {writer['video_id']} | {margin['psnr_db'] - fixed['psnr_db']:+.3f} | "
+                      f"{margin['ssim'] - fixed['ssim']:+.5f} | {bit_delta:+d} |")
         print(f"\nPer-video full LAST minus ablation, {condition}, in correct bits out of 512.\n")
         print("| Ablation | Full better | Tied | Full worse | Median gain | Total gain |")
         print("|---|---:|---:|---:|---:|---:|")
