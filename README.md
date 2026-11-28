@@ -84,6 +84,20 @@ I2V and T2V manifests pin identical VAE files. The Hunyuan pair shares
 the VAE weight digest, but its configurations record different Diffusers
 versions. Select the matching mode for file verification.
 
+For offline extraction on a second machine, copy these two files from the
+matching checkpoint and preserve their directory layout:
+
+```text
+checkpoint/
+  vae/config.json
+  vae/diffusion_pytorch_model.safetensors
+```
+
+Pass `checkpoint/` to `--model-dir`. With the reader dependencies installed,
+all four model/mode combinations passed the manifest check and encoded
+a small five-frame window on CPU with only these two model files and an empty
+model cache. For a verified full-video example, see the sailboat results above.
+
 To generate the sailboat video yourself, use `--family hunyuan --mode t2v`,
 the full `hunyuan_t2v` checkpoint, and the prepared case, key and message
 in the generation command below.
