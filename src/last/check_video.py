@@ -76,6 +76,10 @@ def main():
         parser.error("Expected a 64-byte message for scoring")
     source_hash = file_hash(args.video)
     retry_tag = hmac.digest(key, b"LAST single-video retry v1" + bytes.fromhex(source_hash), "sha256").hex()
+    scoring_tag = None
+    if args.message is not None:
+        scoring_tag = hmac.digest(key, b"LAST scoring payload v1" + bytes.fromhex(source_hash)
+                                  + args.message.read_bytes(), "sha256").hex()
     conditions = list(dict.fromkeys(args.condition or CONDITIONS))
     if args.retry_from:
         previous = json.loads(args.retry_from.read_bytes())
@@ -84,6 +88,8 @@ def main():
             parser.error("Retry requires the same source MP4, video ID and model family")
         if "retry_key_tag" in previous and not hmac.compare_digest(previous["retry_key_tag"], retry_tag):
             parser.error("Retry key differs from the original extraction key")
+        if "scoring_payload_tag" in previous and previous["scoring_payload_tag"] != scoring_tag:
+            parser.error("Retry requires the same scoring message or the same unscored mode")
         if args.map_seed is not None and args.map_seed != previous["map_seed"]:
             parser.error("Retry must use the previous map seed")
         args.map_seed = previous["map_seed"]
@@ -112,7 +118,8 @@ def main():
     args.output.mkdir(parents=True, exist_ok=False)
     summary = dict(video_id=args.video_id, family=args.family, device=args.device,
                    demo_codec_threads=args.demo_codec_threads, map_seed=args.map_seed,
-                   source_sha256=source_hash, retry_key_tag=retry_tag, requested=conditions, results={})
+                   source_sha256=source_hash, retry_key_tag=retry_tag, scoring_payload_tag=scoring_tag,
+                   requested=conditions, results={})
     if donor_hash:
         summary["donor_sha256"] = donor_hash
     save_progress(args.output, summary)

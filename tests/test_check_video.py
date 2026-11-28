@@ -130,6 +130,31 @@ def test_interruption_and_retry_preserve_completed_predictions(tmp_path, monkeyp
         check_video.main()
     assert not (tmp_path / "wrong-source").exists()
 
+@pytest.mark.parametrize("replacement", [None, b"B" * 64])
+def test_retry_rejects_missing_or_changed_scoring_message(tmp_path, monkeypatch, replacement):
+    video, key, message = (tmp_path / n for n in ("video", "key", "message"))
+    video.write_bytes(b"source")
+    key.write_bytes(bytes(32))
+    message.write_bytes(b"A" * 64)
+    base = ["check_video", "--video", str(video), "--video-id", "case", "--key", str(key),
+            "--family", "hunyuan", "--model-dir", str(tmp_path)]
+    first, retry = tmp_path / "first", tmp_path / "retry"
+    def interrupt(*args, **kwargs):
+        raise KeyboardInterrupt
+    monkeypatch.setattr(check_video, "run_module", interrupt)
+    monkeypatch.setattr(check_video.os, "umask", lambda mode: None)
+    monkeypatch.setattr(sys, "argv", base + ["--message", str(message), "--condition", "clean", "--output", str(first)])
+    with pytest.raises(KeyboardInterrupt):
+        check_video.main()
+    if replacement is not None:
+        message.write_bytes(replacement)
+        base += ["--message", str(message)]
+    monkeypatch.setattr(sys, "argv", base + ["--retry-from", str(first / "summary.json"), "--output", str(retry)])
+    with pytest.raises(SystemExit):
+        check_video.main()
+    assert not retry.exists()
+
+
 def test_reject_changed_donor_before_retry(tmp_path, monkeypatch):
     video, donor, key = (tmp_path / n for n in ("source", "donor", "key"))
     video.write_bytes(b"source")

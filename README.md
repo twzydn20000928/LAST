@@ -332,7 +332,8 @@ a new output directory. A failed subprocess is recorded with its stage
 and exit code while the remaining requested conditions continue.
 
 To retry failed or interrupted conditions, repeat the command with the same
-video, ID, family and key. Replace the condition flags with
+video, ID, family, key and scoring message (omit the message for an unscored run).
+New summaries verify the scoring message on retry. Replace the condition flags with
 `--retry-from /private/drop-check/summary.json` and choose a fresh output
 directory. The retry reads the earlier map seed and recorded codec settings. New private summaries also verify the key against the original MP4 and check the donor fingerprint for natural insertion. For older summaries that lack these checks, keep the original key and donor with the run.
 Older summaries without a codec setting require you to supply any original
