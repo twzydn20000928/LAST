@@ -22,6 +22,14 @@ done
 
 例如，Wan-2.2 图生视频随机删帧后，LAST 读对 978/1536 位，LFG 读对 1077/1536 位；在同模型的文生视频中，两者分别读对 1149/1536 和 1050/1536 位。这四格均为 0/3 条消息完整恢复。读者可以更换视频生成方式查看差异；三个样本仅作演示。
 
+[五种方法的同样本对照](../results/five-method-paper291.md)使用同一个 Hunyuan 图生样本 `paper-291`。每种方法各自生成水印视频，每格分母为 512 位。原片、噪声、压缩、模糊和随机删帧都有五种方法的结果。表中的横线表示该条件仍缺少五方齐备的评分。用以下命令可从逐样本记录重建此表。
+
+```bash
+PYTHONPATH=src python tools/matched_primary_methods.py --family hunyuan --mode i2v \
+  --methods last lfg sigmark videomark videoshield --reports results/hunyuan_i2v_primary_slice291.json \
+  results/hunyuan_i2v_sigmark_videomark_paper291.json results/hunyuan_i2v_videoshield_slice291.json
+```
+
 ## 1. 读出公开视频里的文字
 
 准备 Python 3.10 环境。只做提取和攻击时，安装读端依赖即可。
