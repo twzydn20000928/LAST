@@ -19,6 +19,19 @@ python -m last.stress --video /private/run/marked.mp4 --video-id paper-000 \
   --attack drop45 --seed 0 --output /private/stress/paper-000/drop45/map0
 ```
 
+To reproduce the public sailboat deletion on CPU, run from the repository root:
+
+```bash
+python -m last.stress --video examples/public_demo/sailboat.mp4 --video-id sailboat-demo-v1 \
+  --attack drop30 --seed 0 --demo-codec-threads --output sailboat-drop30
+sha256sum sailboat-drop30/received.mp4
+```
+
+The expected SHA-256 digest is `355e680d6a82ff9c8b10de34aac21ced4a3d2ed2baeff48a1f3ac85d58475b6d`.
+This 35-frame MP4 is byte-identical to the [scored primary demo deletion](../results/public_sailboat_attacks.json)
+(471/512 bits on CUDA). The demo flag fixes the encoder thread counts. It is
+optional for reader-owned clips.
+
 Table 15 uses eight edits. Choices are `drop10`, `drop20`, `drop30`, `drop45`, `duplicate30`, `natural30`,
 `interpolate30`, and `drop30_crf28`. Map seeds0–4 are fixed before extraction.
 Drop30 uses exactly the primary deletion map. Combined editing uses this same

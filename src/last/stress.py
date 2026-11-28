@@ -45,6 +45,8 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--video',type=Path,required=True);p.add_argument('--video-id',required=True);p.add_argument('--output',type=Path,required=True)
     p.add_argument('--attack',choices=['drop10','drop20','drop30','drop45','duplicate30','natural30','interpolate30','drop30_crf28'],required=True)
+    p.add_argument('--demo-codec-threads',action='store_true',
+                   help='Use the public demo H.264 encoder thread counts')
     maps = p.add_mutually_exclusive_group()
     maps.add_argument('--seed',type=int,choices=range(5),default=0)
     maps.add_argument('--all-seeds',action='store_true',help='Write map0 through map4 below the attack output directory')
@@ -80,7 +82,9 @@ def main():
             directory = directory / f'map{seed}'
             directory.mkdir()
         output,mapping=edit(frames,a.attack,a.video_id,seed,donor)
-        destination=directory/'received.mp4';command=export_mp4(output,destination,crf=28 if a.attack=='drop30_crf28' else 18)
+        destination=directory/'received.mp4'
+        command=export_mp4(output,destination,crf=28 if a.attack=='drop30_crf28' else 18,
+                           demo_codec_threads=a.demo_codec_threads)
         reread=load_mp4(destination)
         if len(reread)!=len(output):raise ValueError('Codec changed frame count')
         if hashlib.sha256(a.video.read_bytes()).hexdigest()!=source_hash:raise ValueError('Source changed during export')
