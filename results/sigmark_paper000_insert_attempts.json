@@ -1,0 +1,30 @@
+{
+  "video_id": "paper-000",
+  "condition": "insert",
+  "method": "sigmark",
+  "failure": "GPU out of memory",
+  "unique_failed_videos": 1,
+  "scored_bits": 0,
+  "attempts": [
+    {
+      "mp4_sha256": "ff6957b37b5bb81f9ccfa15f834299e39d74bad9e0ff0e9665908bd021ec2118",
+      "attack_receipt_sha256": "6e0f516b2dfbafc253feb26f353b56da108d4149ef88d3ff4f939eba760a14c8",
+      "extraction_receipt_sha256": "bc0d50fcce2c061577115b2f58dac5860d84ddd63ef3a394025e47c37f3af95e",
+      "completed_window_calls": 2,
+      "started_calls": 3,
+      "last_zero_based_step": 47,
+      "requested_mib": 72.0,
+      "decoded": false
+    },
+    {
+      "mp4_sha256": "ff6957b37b5bb81f9ccfa15f834299e39d74bad9e0ff0e9665908bd021ec2118",
+      "attack_receipt_sha256": "ac7c074165fe6dd49cfb39cb7525e1ccf9ab0a2eac7da8ccbd5e0fac68c21a2c",
+      "extraction_receipt_sha256": "cc2340004b5d349dc94c42ca5bb2fc7f24849348e452c78b9c8106c63c0a7da1",
+      "completed_window_calls": 56,
+      "started_calls": 57,
+      "last_zero_based_step": 40,
+      "requested_mib": 30.0,
+      "decoded": false
+    }
+  ]
+}
