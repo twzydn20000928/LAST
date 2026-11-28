@@ -419,3 +419,30 @@ For paper-028, all five natural-insertion MP4s were regenerated from the marked 
 For the 33-video prefix through paper-032, all 165 deletion-map pairs shared the source digest and the same 35 retained frame indices. All 330 received MP4s matched their acquisition digests. At CRF28 the reader recovered fewer bits on 163 maps, the same number on one and more on one. Averaging the five map differences within each video, all 33 videos lost correct bits. The median per-video loss was 50.2 of 512 bits, with a range of 28.8 to 115.4 bits. Use the video as the independent unit.
 
 For the first 30 videos, 31 of 150 random 30-frame deletion trials left no intact source group. These trials recovered 12,110/15,872 bits and zero full messages. The 119 trials with at least one intact source group recovered 48,608/60,928 bits and three full messages. The subsets are defined by the frozen edit maps before considering decoder predictions. The same video can occur in both subsets. The Table 15 deletion diagnostic reports the underlying counts under recovery_by_intact_group_availability.
+
+### First 60 videos across eight temporal edits
+
+For Hunyuan I2V LAST, the frozen prefix from paper-000 through paper-059 covers
+60 source videos, five edit maps per video and eight attacks. Rebuild these
+2,400 observations with the command below (Bash, from the repository root):
+
+```bash
+python tools/stress_recovery_table.py --reports results/stress_paper0[0-5][0-9]_forty_maps.json --format markdown
+```
+
+| Attack | Correct bits (%) | Exact 512-bit messages out of 300 |
+|---|---:|---:|
+| Delete 10 frames | 95.20 | 79 |
+| Delete 20 frames | 87.16 | 9 |
+| Delete 30 frames | 78.73 | 3 |
+| Delete 45 frames | 63.40 | 0 |
+| Duplicate 30 frames | 89.95 | 14 |
+| Insert 30 natural donor frames | 100.00 | 300 |
+| Interpolate 30 frames | 89.11 | 13 |
+| Delete 30 frames and compress at CRF 28 | 66.70 | 0 |
+
+Each row scores 153,600 payload bits. All 300 natural-insertion trials
+recovered the complete message under this donor-block protocol. Deleting
+30 source frames and adding compression reduced accuracy by 12.03 percentage
+points relative to the same deletion condition alone. Five maps share each
+source video. The full protocol targets 400 source videos.
