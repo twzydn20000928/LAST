@@ -1486,3 +1486,17 @@ writing gave 36.766 dB and 0.97070 SSIM, compared with 36.112 dB and
 0.96957 for fixed-target writing. To repeat either measurement, run
 `python -m last.quality --reference reference.mp4 --marked marked.mp4
 --output quality-rebuilt.json` inside the corresponding writer directory.
+
+### Paired write-strength sweep on twelve development videos
+
+The [frozen-prefix counts](../results/development_margin_twelve_videos.json) cover dev-000 through dev-011 at all five margins. The exact-message column pools six attacks per video. Drop bit accuracy uses all 6,144 bits at each strength.
+
+| Margin | Random deletion bit accuracy | Exact messages across six attacks | Mean PSNR (dB) |
+|---:|---:|---:|---:|
+| 0.1 | 52.90% | 0/72 | 38.54 |
+| 0.25 | 59.49% | 2/72 | 37.59 |
+| 0.5 | 70.91% | 19/72 | 35.91 |
+| 0.75 | 78.22% | 33/72 | 34.29 |
+| 1 | 81.69% | 39/72 | 32.79 |
+
+Rebuild with `python tools/development_margin_recovery.py --cells results/development_margin_twelve_videos.json`. The full protocol covers 80 development videos.
