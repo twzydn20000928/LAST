@@ -1499,4 +1499,6 @@ The [frozen-prefix counts](../results/development_margin_twelve_videos.json) cov
 | 0.75 | 78.22% | 33/72 | 34.29 |
 | 1 | 81.69% | 39/72 | 32.79 |
 
-Rebuild with `python tools/development_margin_recovery.py --cells results/development_margin_twelve_videos.json`. The full protocol covers 80 development videos.
+![Recovery and pixel fidelity across five margins on twelve development videos](../results/development_margin_twelve_videos.png)
+
+Rebuild the chart and print its underlying counts with `python tools/development_margin_recovery.py --cells results/development_margin_twelve_videos.json --plot development-margin.png`. The full protocol covers 80 development videos.

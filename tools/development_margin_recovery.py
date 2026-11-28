@@ -54,6 +54,7 @@ if __name__ == "__main__":
     source.add_argument("--completed-root", type=Path, help="Audit fully paired cases from an ongoing sweep")
     parser.add_argument("--configs", type=Path, default=Path("configs"))
     parser.add_argument("--export-cells", type=Path, help="Write release-ready per-video counts and quality measurements to a new JSON file")
+    parser.add_argument("--plot", type=Path, help="Save the development recovery and fidelity curves")
     args = parser.parse_args()
     validate_development(read(args.configs/"development_manifest.json"), read(args.configs/"primary_manifest.json"))
     if args.completed_root:
@@ -66,4 +67,23 @@ if __name__ == "__main__":
     summary = summarize_exact(*data)
     if args.export_cells:
         export_public_cells(args.export_cells, data[0])
+    if args.plot:
+        import matplotlib.pyplot as plt
+        rows = summary["rows"]
+        margins = [row["mu"] for row in rows]
+        fig, (recovery, fidelity) = plt.subplots(1, 2, figsize=(9, 3.5), constrained_layout=True)
+        recovery.plot(margins, [100 * row["correct_bits_by_attack"]["drop"] / row["total_bits_per_attack"]
+                                for row in rows], "o-", label="Correct bits after random deletion")
+        recovery.plot(margins, [100 * row["observed_mean_attack_mrr"] for row in rows],
+                      "s--", label="Exact messages across six attacks")
+        recovery.set(ylabel="Recovery (%)", ylim=(0, 100))
+        recovery.legend(fontsize=8)
+        fidelity.plot(margins, [row["mean_psnr_db"] for row in rows], "o-", color="#A04E23")
+        fidelity.set(ylabel="Mean PSNR (dB)")
+        for axis in (recovery, fidelity):
+            axis.set(xlabel="Embedding margin μ", xticks=margins)
+            axis.grid(axis="y", alpha=0.25)
+        fig.suptitle(f"Write strength on {summary['completed_videos']} of {summary['planned_videos']} development videos")
+        fig.savefig(args.plot, dpi=160)
+        plt.close(fig)
     print(json.dumps(summary, indent=2, allow_nan=False))
