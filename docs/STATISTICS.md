@@ -396,3 +396,23 @@ python tools/deletion_chain_audit.py --root /private/primary --report results/hu
 ```
 
 Both attacks retain 35 of the 65 frames. For random deletion, 6 of the 74 selected windows contained all four frames of their predicted group. For contiguous deletion, 136 of 147 did. The corresponding correct-bit counts sum to 8,122 and 10,592 out of 10,752. Each command checks the archived receipt digests and the frozen attack maps before classifying windows.
+
+### Hunyuan I2V paired differences on 47 videos
+
+The [47-video report](../results/hunyuan_i2v_intervals47.json) pools paper-000
+through paper-045 and paper-291. These cases represent 13 distinct prompts.
+With 10,000 paired prompt-cluster bootstrap draws, the LAST minus LFG bit
+accuracy difference for random deletion was 12.21 percentage points
+(95% interval 7.68 to 16.55). LAST recovered more bits on 40 videos, tied
+on one and recovered fewer on six. For noise-frame insertion the difference
+was 27.37 points (22.81 to 31.36), and for contiguous removal it was
+20.67 points (17.20 to 24.49). Both comparisons favored LAST on all 47 cases.
+Intervals describe resampling within this observed subset of the 400-video plan.
+
+```bash
+python tools/paired_primary_intervals.py --report results/hunyuan_i2v_primary40.json \
+  --additional-report results/hunyuan_i2v_primary_040_043.json \
+  --additional-report results/hunyuan_i2v_primary_044_045.json \
+  --additional-report results/hunyuan_i2v_primary_slice291.json \
+  --output paired-intervals-47.json
+```

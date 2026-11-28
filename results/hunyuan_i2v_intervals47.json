@@ -1,0 +1,262 @@
+{
+  "family": "hunyuan",
+  "mode": "i2v",
+  "videos": 47,
+  "planned_videos": 400,
+  "full_benchmark": false,
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "difference": "LAST minus LFG, in units of proportion",
+  "conditions": [
+    {
+      "condition": "clean",
+      "metric": "paired_difference_first_minus_second",
+      "bit_accuracy": 0.02750997340425532,
+      "message_recovery": 0.48936170212765956,
+      "bit_accuracy_ci95": [
+        0.006987537202380953,
+        0.05630817819148936
+      ],
+      "message_recovery_ci95": [
+        0.2618788819875777,
+        0.7021276595744681
+      ],
+      "prompt_clusters": 13,
+      "videos": 47,
+      "video_map_trials": 47,
+      "map_seeds": [
+        0
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 0,
+      "methodology": "Percentile95% prompt-cluster bootstrap; whole clusters resampled with replacement; all their videos/maps retained; paired comparisons share the resampled clusters",
+      "limitation": "One cluster cannot support an interval; few clusters yield unstable intervals. No independence assumption across bits or maps.",
+      "paired_bit_wins": {
+        "last": 23,
+        "tied": 24,
+        "lfg": 0
+      },
+      "paired_exact_messages": {
+        "both": 24,
+        "last_only": 23,
+        "lfg_only": 0,
+        "neither": 0
+      }
+    },
+    {
+      "condition": "noise",
+      "metric": "paired_difference_first_minus_second",
+      "bit_accuracy": 0.06931515957446809,
+      "message_recovery": 0.723404255319149,
+      "bit_accuracy_ci95": [
+        0.04013825500903486,
+        0.1094150390625
+      ],
+      "message_recovery_ci95": [
+        0.48936170212765956,
+        0.9148936170212766
+      ],
+      "prompt_clusters": 13,
+      "videos": 47,
+      "video_map_trials": 47,
+      "map_seeds": [
+        0
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 0,
+      "methodology": "Percentile95% prompt-cluster bootstrap; whole clusters resampled with replacement; all their videos/maps retained; paired comparisons share the resampled clusters",
+      "limitation": "One cluster cannot support an interval; few clusters yield unstable intervals. No independence assumption across bits or maps.",
+      "paired_bit_wins": {
+        "last": 47,
+        "tied": 0,
+        "lfg": 0
+      },
+      "paired_exact_messages": {
+        "both": 0,
+        "last_only": 34,
+        "lfg_only": 0,
+        "neither": 13
+      }
+    },
+    {
+      "condition": "compression",
+      "metric": "paired_difference_first_minus_second",
+      "bit_accuracy": 0.0339095744680851,
+      "message_recovery": 0.40425531914893614,
+      "bit_accuracy_ci95": [
+        0.002048236990715078,
+        0.07635986328125
+      ],
+      "message_recovery_ci95": [
+        0.16279069767441862,
+        0.6326530612244898
+      ],
+      "prompt_clusters": 13,
+      "videos": 47,
+      "video_map_trials": 47,
+      "map_seeds": [
+        0
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 0,
+      "methodology": "Percentile95% prompt-cluster bootstrap; whole clusters resampled with replacement; all their videos/maps retained; paired comparisons share the resampled clusters",
+      "limitation": "One cluster cannot support an interval; few clusters yield unstable intervals. No independence assumption across bits or maps.",
+      "paired_bit_wins": {
+        "last": 33,
+        "tied": 3,
+        "lfg": 11
+      },
+      "paired_exact_messages": {
+        "both": 3,
+        "last_only": 20,
+        "lfg_only": 1,
+        "neither": 23
+      }
+    },
+    {
+      "condition": "blur",
+      "metric": "paired_difference_first_minus_second",
+      "bit_accuracy": 0.053690159574468085,
+      "message_recovery": 0.8723404255319149,
+      "bit_accuracy_ci95": [
+        0.029932462077869867,
+        0.08740319540334301
+      ],
+      "message_recovery_ci95": [
+        0.7332926829268293,
+        0.9782608695652174
+      ],
+      "prompt_clusters": 13,
+      "videos": 47,
+      "video_map_trials": 47,
+      "map_seeds": [
+        0
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 0,
+      "methodology": "Percentile95% prompt-cluster bootstrap; whole clusters resampled with replacement; all their videos/maps retained; paired comparisons share the resampled clusters",
+      "limitation": "One cluster cannot support an interval; few clusters yield unstable intervals. No independence assumption across bits or maps.",
+      "paired_bit_wins": {
+        "last": 46,
+        "tied": 1,
+        "lfg": 0
+      },
+      "paired_exact_messages": {
+        "both": 1,
+        "last_only": 41,
+        "lfg_only": 0,
+        "neither": 5
+      }
+    },
+    {
+      "condition": "drop",
+      "metric": "paired_difference_first_minus_second",
+      "bit_accuracy": 0.12209109042553191,
+      "message_recovery": 0.02127659574468085,
+      "bit_accuracy_ci95": [
+        0.07676968375665484,
+        0.16549479166666667
+      ],
+      "message_recovery_ci95": [
+        0.0,
+        0.06666666666666667
+      ],
+      "prompt_clusters": 13,
+      "videos": 47,
+      "video_map_trials": 47,
+      "map_seeds": [
+        0
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 0,
+      "methodology": "Percentile95% prompt-cluster bootstrap; whole clusters resampled with replacement; all their videos/maps retained; paired comparisons share the resampled clusters",
+      "limitation": "One cluster cannot support an interval; few clusters yield unstable intervals. No independence assumption across bits or maps.",
+      "paired_bit_wins": {
+        "last": 40,
+        "tied": 1,
+        "lfg": 6
+      },
+      "paired_exact_messages": {
+        "both": 0,
+        "last_only": 1,
+        "lfg_only": 0,
+        "neither": 46
+      }
+    },
+    {
+      "condition": "insert",
+      "metric": "paired_difference_first_minus_second",
+      "bit_accuracy": 0.27372839095744683,
+      "message_recovery": 0.10638297872340426,
+      "bit_accuracy_ci95": [
+        0.22807592275191327,
+        0.3135819238973847
+      ],
+      "message_recovery_ci95": [
+        0.021739130434782608,
+        0.20408163265306123
+      ],
+      "prompt_clusters": 13,
+      "videos": 47,
+      "video_map_trials": 47,
+      "map_seeds": [
+        0
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 0,
+      "methodology": "Percentile95% prompt-cluster bootstrap; whole clusters resampled with replacement; all their videos/maps retained; paired comparisons share the resampled clusters",
+      "limitation": "One cluster cannot support an interval; few clusters yield unstable intervals. No independence assumption across bits or maps.",
+      "paired_bit_wins": {
+        "last": 47,
+        "tied": 0,
+        "lfg": 0
+      },
+      "paired_exact_messages": {
+        "both": 0,
+        "last_only": 5,
+        "lfg_only": 0,
+        "neither": 42
+      }
+    },
+    {
+      "condition": "clip",
+      "metric": "paired_difference_first_minus_second",
+      "bit_accuracy": 0.20669880319148937,
+      "message_recovery": 0.6382978723404256,
+      "bit_accuracy_ci95": [
+        0.17196574208656332,
+        0.24488964923665096
+      ],
+      "message_recovery_ci95": [
+        0.45652173913043476,
+        0.7916666666666666
+      ],
+      "prompt_clusters": 13,
+      "videos": 47,
+      "video_map_trials": 47,
+      "map_seeds": [
+        0
+      ],
+      "bootstrap_draws": 10000,
+      "bootstrap_seed": 0,
+      "methodology": "Percentile95% prompt-cluster bootstrap; whole clusters resampled with replacement; all their videos/maps retained; paired comparisons share the resampled clusters",
+      "limitation": "One cluster cannot support an interval; few clusters yield unstable intervals. No independence assumption across bits or maps.",
+      "paired_bit_wins": {
+        "last": 47,
+        "tied": 0,
+        "lfg": 0
+      },
+      "paired_exact_messages": {
+        "both": 0,
+        "last_only": 30,
+        "lfg_only": 0,
+        "neither": 17
+      }
+    }
+  ],
+  "additional_report_sha256": [
+    "a178f0acf95c09d08bd177c3cac971449695c6c39484401d155f56c0f4aec8b1",
+    "3f9cd603205329b886240de9d0ea4fe71c7bed662b4bf9faf05e1c607753ec03",
+    "b0ed7a4e59313395a9335e7ddcc605dc2702434e6e2efe5c7a936ed0afe96ced"
+  ],
+  "report_sha256": "923ea81e2a095b132ef657b844fbd5d390b36f42b7ece311cf921ceb9f4ea3f2"
+}
