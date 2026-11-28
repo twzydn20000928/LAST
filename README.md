@@ -435,8 +435,9 @@ python -m pip check
 ```
 
 This set was checked by isolating the 46 installed distributions, importing
-the reader and encoding a synthetic five-frame input with the pinned Hunyuan
-VAE on CPU. A full MP4 extraction on CUDA with this smaller set is pending.
+the reader, decoding all 65 sailboat frames and encoding its first candidate
+window at full resolution with the pinned Hunyuan VAE on CPU. The six CPU
+attack commands reproduced all recorded demo MP4 hashes. A full MP4 extraction on CUDA with this smaller set is pending.
 The video environment above supports generation and the test suite.
 
 The numerical core implements masked1776-coordinate orthonormal DCT-II carriers, deterministic keyed QR, minimum signed margins, truth-free CCTA, an energy-spacing fallback and shortened BCH. It is distinct from earlier pilot implementations. See [the reproduction contract](docs/REPRODUCTION.md) and [frozen settings](configs/paper_v1.json).
