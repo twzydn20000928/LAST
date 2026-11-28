@@ -7,3 +7,4 @@ configs/primary_manifest.json -text
 results/**/*.json -text
 # The Table 2 receipt records the hash of the renderer source.
 src/last/robustness_table.py text eol=lf
+*.sh text eol=lf
