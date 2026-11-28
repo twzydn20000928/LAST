@@ -1,0 +1,29 @@
+{
+  "scope": "Single Hunyuan I2V saved-endpoint CPU replay, paper-003. Clean MP4 only. Shared-server timings.",
+  "text_utf8_bytes": 21,
+  "padded_payload_bytes": 64,
+  "groups_written": 16,
+  "coded_bits_per_group": 592,
+  "information_bits_changed": 250,
+  "changed_bits_correct": 250,
+  "unchanged_bits_correct": 262,
+  "valid_utf8": true,
+  "text_matches": true,
+  "score": {
+    "correct_bits": 512,
+    "total_bits": 512,
+    "bit_accuracy": 1,
+    "exact_message": true
+  },
+  "old_prediction_scored_against_new": 262,
+  "frames": 65,
+  "read_route": "ccta",
+  "replay_seconds": 1138.2104043960571,
+  "extract_seconds": 2204.0299727916718,
+  "bch_success": true,
+  "marked_sha256": "ae233827712ea8d089db9a6a22cb69c8ce9d63f1a838214d37f058cad2d05e64",
+  "reference_sha256": "3d04805deed23aea5e2e570b56c5c3ddf0c3c2bcf6f5d356b7a57f0cc5c5d51f",
+  "prediction_receipt_sha256": "c728f617215660620d6ab6b7ec03d807f277864c758ea78c326707adcdad1523",
+  "psnr_db": 30.04897473838166,
+  "ssim": 0.9306960809761133
+}
