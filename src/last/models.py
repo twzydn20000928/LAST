@@ -8,6 +8,17 @@ def file_hash(path):
         for block in iter(lambda:f.read(8*1024*1024),b''):digest.update(block)
     return digest.hexdigest()
 
+def vae_fingerprints(model_directory):
+    """Fingerprint the local decoder files used by the supported checkpoints."""
+    vae = Path(model_directory) / "vae"
+    required = ("config.json", "diffusion_pytorch_model.safetensors")
+    if any(not (vae / name).is_file() for name in required):
+        raise ValueError(f"Incomplete VAE directory: {vae}")
+    return {path.relative_to(vae).as_posix(): file_hash(path)
+            for path in sorted(vae.rglob("*"))
+            if path.is_file() and not {".git", ".cache"}.intersection(path.relative_to(vae).parts)}
+
+
 def verify_checkpoint(directory, spec, manifest):
     if (manifest['repository'], manifest['revision']) != (spec['repo'], spec['revision']):
         raise ValueError('Checkpoint manifest and model catalog disagree')

@@ -26,6 +26,18 @@ def validate_source(run):
     return r
 
 
+def verify_replay_vae(source, directory):
+    from .models import vae_fingerprints
+    original = Path(source['model_directory'])
+    expected = source.get('vae_files_sha256')
+    if expected is None and directory.resolve() == original.resolve():
+        return
+    if expected is None:
+        expected = vae_fingerprints(original)
+    if vae_fingerprints(directory) != expected:
+        raise ValueError('Replay VAE differs from the source decoder')
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--run', type=Path, required=True)
@@ -42,8 +54,7 @@ def main():
     if payload is not None and len(payload) != 64:
         p.error('--message-file requires exactly 64 bytes')
     source = validate_source(a.run)
-    if a.model_dir.resolve() != Path(source['model_directory']).resolve():
-        raise ValueError('Replay requires the same local model directory as source generation')
+    verify_replay_vae(source, a.model_dir)
     # Snapshot every paired input, including private state, before any GPU work.
     names = ('receipt.json', 'endpoint.pt', 'codes.pt', 'secret.key', 'message.npy')
     if not source.get('marked_only', False):

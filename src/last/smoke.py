@@ -136,6 +136,8 @@ def main():
                 mean=torch.tensor(pipe.vae.config.latents_mean,device='cuda').view(1,16,1,1,1);std=torch.tensor(pipe.vae.config.latents_std,device='cuda').view(1,16,1,1,1);return (latent-mean)/std
             r['status']='embedding';save()
             if a.save_endpoint:
+                from .models import vae_fingerprints
+                r["vae_files_sha256"] = vae_fingerprints(a.model_dir)
                 torch.save(z.detach().float().cpu(),a.output/'endpoint.pt')
                 r['endpoint_sha256']=hashlib.sha256((a.output/'endpoint.pt').read_bytes()).hexdigest();save()
             if a.method=='last':marked=embed(z,codes,signs,mu=a.mu,fixed_target=a.fixed_target,uniform=a.uniform_profile)

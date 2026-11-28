@@ -80,4 +80,4 @@ python -m last.writer_replay --run "$mine/run" --model-dir "$model" \
   --message-file /path/to/another-64-byte-message.bin --output "$mine/second-message"
 ```
 
-这里的 `$mine/run` 必须是首次就带 `--save-endpoint` 的生成目录，`$model` 要指向当时使用的模型目录。新的成片路径是 `$mine/second-message/marked.mp4`，可使用原密钥盲提取。该操作仍需视频解码器重新渲染画面；输出文件的像素和旧成片可能不同。
+这里的 `$mine/run` 必须是首次就带 `--save-endpoint` 的生成目录。回写只需解码器；`$model` 可指向包含相同 `vae/` 文件的目录。新保存的终点会记录这些文件的摘要。旧终点若要换目录，需让原模型目录可读，以便逐文件核对。新的成片路径是 `$mine/second-message/marked.mp4`，可使用原密钥盲提取。该操作仍需视频解码器重新渲染画面；输出文件的像素和旧成片可能不同。

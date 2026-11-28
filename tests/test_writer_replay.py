@@ -19,3 +19,24 @@ def test_source_replay_requires_success(tmp_path):
     (tmp_path / 'receipt.json').write_text(json.dumps(dict(status='failed', method='last')))
     with pytest.raises(ValueError, match='completed LAST'):
         validate_source(tmp_path)
+
+
+@pytest.mark.parametrize("recorded", [False, True])
+def test_same_decoder_can_move_but_weights_must_match(tmp_path, recorded):
+    from last.models import vae_fingerprints
+    from last.writer_replay import verify_replay_vae
+    import shutil
+
+    original, moved = tmp_path / 'original', tmp_path / 'moved'
+    (original / 'vae').mkdir(parents=True)
+    (original / 'vae/config.json').write_text('{}')
+    (original / 'vae/diffusion_pytorch_model.safetensors').write_bytes(b'weights')
+    shutil.copytree(original, moved)
+    source = {'model_directory': str(original)}
+    if recorded:
+        source['vae_files_sha256'] = vae_fingerprints(original)
+        original.rename(tmp_path / 'stored-elsewhere')
+    verify_replay_vae(source, moved)
+    (moved / 'vae/diffusion_pytorch_model.safetensors').write_bytes(b'changed')
+    with pytest.raises(ValueError, match='differs'):
+        verify_replay_vae(source, moved)
