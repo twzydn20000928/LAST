@@ -153,6 +153,10 @@ jobs:
             --primary results/hunyuan_i2v_last_primary100_179.json --alignment > ci-temporal-diagnostics/table15.json
           python tools/stress_recovery_table.py --reports results/stress_paper*_forty_maps.json \
             --format markdown > ci-temporal-diagnostics/table15-recovery.md
+          python tools/stress_recovery_table.py --reports results/stress_paper0[0-5][0-9]_forty_maps.json \
+            --format markdown > ci-temporal-diagnostics/table15-first60.md
+          sed -n '/^<!-- stress-first60-start -->$/,/^<!-- stress-first60-end -->$/{ /^<!--/d; p; }' \
+            docs/STRESS.md | diff -u - ci-temporal-diagnostics/table15-first60.md
           python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json \
             > ci-temporal-diagnostics/table15-deletion.json
       - uses: actions/upload-artifact@v4

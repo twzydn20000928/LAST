@@ -430,16 +430,18 @@ For Hunyuan I2V LAST, the frozen prefix from paper-000 through paper-059 covers
 python tools/stress_recovery_table.py --reports results/stress_paper0[0-5][0-9]_forty_maps.json --format markdown
 ```
 
-| Attack | Correct bits (%) | Exact 512-bit messages out of 300 |
-|---|---:|---:|
-| Delete 10 frames | 95.20 | 79 |
-| Delete 20 frames | 87.16 | 9 |
-| Delete 30 frames | 78.73 | 3 |
-| Delete 45 frames | 63.40 | 0 |
-| Duplicate 30 frames | 89.95 | 14 |
-| Insert 30 natural donor frames | 100.00 | 300 |
-| Interpolate 30 frames | 89.11 | 13 |
-| Delete 30 frames and compress at CRF 28 | 66.70 | 0 |
+<!-- stress-first60-start -->
+| Attack | Trials (observed/planned) | Observed bit accuracy | Exact messages (observed) | Full-cohort message recovery | 95% interval | Map-seed range |
+|---|---:|---:|---:|---:|---:|---:|
+| drop10 | 300/2000 | 95.20% | 79/300 | — | — | — |
+| drop20 | 300/2000 | 87.16% | 9/300 | — | — | — |
+| drop30 | 300/2000 | 78.73% | 3/300 | — | — | — |
+| drop45 | 300/2000 | 63.40% | 0/300 | — | — | — |
+| duplicate30 | 300/2000 | 89.95% | 14/300 | — | — | — |
+| natural30 | 300/2000 | 100.00% | 300/300 | — | — | — |
+| interpolate30 | 300/2000 | 89.11% | 13/300 | — | — | — |
+| drop30_crf28 | 300/2000 | 66.70% | 0/300 | — | — | — |
+<!-- stress-first60-end -->
 
 Each row scores 153,600 payload bits. All 300 natural-insertion trials
 recovered the complete message under this donor-block protocol. Deleting
