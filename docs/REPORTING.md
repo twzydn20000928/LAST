@@ -685,15 +685,23 @@ For a three-method Hunyuan T2V comparison on identical manifest IDs, run:
 
 ```bash
 python tools/matched_primary_methods.py --family hunyuan --mode t2v \
-  --methods last lfg videomark --reports results/hunyuan_t2v_primary14.json results/hunyuan_t2v_primary_slice014.json \
+  --methods last lfg videomark --first 16 --reports results/hunyuan_t2v_primary14.json results/hunyuan_t2v_primary_slice014.json results/hunyuan_t2v_paired_primary_015.json \
   results/hunyuan_t2v_videomark_first40.json
 ```
 
-All seven conditions have 15 shared videos (7,680 information bits per
-method and condition). On deletion, LAST, LFG and VideoMark recovered
-5,823, 4,982 and 3,871 bits, respectively. Each recovered zero entire
-messages. The CPU workflow exports the seven-condition table, including
-the common video IDs, in `three-method-t2v.md`.
+Each cell gives bit accuracy over 8,192 information bits and, in parentheses, the number of exact 512-bit messages. All three methods cover paper-000 through paper-015. Each method embeds in its own generated video using the same manifest case and primary attack protocol.
+
+| Condition | LAST | LFG | VideoMark |
+|---|---:|---:|---:|
+| clean | 100.00% (16/16) | 96.59% (3/16) | 59.22% (3/16) |
+| noise | 99.00% (12/16) | 90.75% (0/16) | 59.39% (3/16) |
+| compression | 97.25% (6/16) | 93.42% (0/16) | 56.30% (2/16) |
+| blur | 99.76% (14/16) | 93.55% (0/16) | 56.05% (2/16) |
+| drop | 76.76% (0/16) | 64.66% (0/16) | 50.34% (0/16) |
+| insert | 91.13% (1/16) | 57.42% (0/16) | 53.23% (1/16) |
+| clip | 98.02% (9/16) | 75.11% (0/16) | 56.42% (2/16) |
+
+The CPU workflow exports the underlying numerators and sample IDs in `three-method-t2v.md`. The [native VideoMark recount](../results/hunyuan_t2v_videomark_first40.json) uses archived predictions. Its original extraction receipts omit prediction-file hashes.
 
 These commands preserve the sample count for each method. VideoShield recovered 1,024/1,024 clean bits across its two I2V samples. VideoMark recovered 14,592/20,480 clean bits on 40 T2V samples, with 17 entire messages recovered. Its quality row covers two of 18 dimensions. SIGMark's individual integration runs remain separate from the primary table.
 
