@@ -291,13 +291,15 @@ That one video's PSNR is42.5864dB and SSIM0.975846; these are not an80-video
 candidate mean or a matched-fidelity operating point. The report selects by
 fidelity only and does not use message accuracy to choose parameters.
 
-The [57-observation calibration report](../results/lfgc_grid_first57_observations.json)
-uses the same frozen plan and writer revision. The means below cover only the
-available videos for each setting.
+The [61-observation calibration report](../results/lfgc_grid_first61_observations.json)
+adds dev-050 through dev-053 to the [previous 57 observations](../results/lfgc_grid_first57_observations.json)
+under the same frozen plan and writer revision. The means below cover the
+available videos for each setting. The dev-054 attempt exhausted GPU memory
+before producing a video pair and contributes no measurement.
 
 | LFG-C strength | Final guided steps | Measured videos | Mean video PSNR (dB) | Mean SSIM |
 |---:|---:|---:|---:|---:|
-| 0.025 | 5 | 50/80 | 42.4925 | 0.978500 |
+| 0.025 | 5 | 54/80 | 42.6009 | 0.978715 |
 | 0.050 | 5 | 7/80 | 43.5606 | 0.974914 |
 
 The first attempt at dev-048 ran out of GPU memory. A retry with the same settings completed. Its 65 decoded frames yielded 41.0969 dB and 0.981584 SSIM. The remaining 13 settings have zero measured videos in this snapshot. The
