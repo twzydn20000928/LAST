@@ -492,6 +492,34 @@ recovered (1.35%). Each video contributes 512 information bits. The 326
 pending videos are excluded from both observed rates.
 The 72-video Hunyuan T2V report was replayed against the archived acquisition plan (SHA-256 50c3116868fbec36447cac9ae7a03c4ef9d55c9eed001399d66251b564408447). After checking case IDs, prompts, seeds, key slots and the generation receipts against the case files, the output SHA-256 was 8600dfc7143a05d98bc41d016d6e0fbf06d370d019777d8d99db2250c80de876, identical to the released report.
 
+### Fidelity and deletion recovery on the same marked videos
+
+Each cell shows LAST / LFG. PSNR and SSIM compare the clean marked video with
+its own unmarked reference, averaging one measurement per video. Recovery
+uses the same marked videos after 30 randomly selected frames were removed.
+
+| Pipeline | Paired videos | Mean PSNR (dB) | Mean SSIM | Correct bits after deletion (LAST / LFG) | Exact messages (LAST / LFG) |
+|---|---:|---:|---:|---:|---:|
+| Hunyuan I2V | 45 | 32.07 / 23.11 | 0.9353 / 0.7315 | 17,891 / 15,000 of 23,040 each | 1 / 0 |
+| Hunyuan T2V | 15 | 31.82 / 22.49 | 0.9349 / 0.7289 | 5,823 / 4,982 of 7,680 each | 0 / 0 |
+| Wan-2.2 I2V | 14 | 30.18 / 23.53 | 0.9382 / 0.8163 | 4,704 / 4,733 of 7,168 each | 0 / 0 |
+| Wan-2.2 T2V | 14 | 31.47 / 25.21 | 0.9480 / 0.8436 | 5,109 / 4,679 of 7,168 each | 0 / 0 |
+
+Across methods, the unmarked reference files matched byte for byte in 3/45,
+0/15, 14/14 and 14/14 cases respectively. The Hunyuan distortion values use
+method-specific references. These pixel-based measures describe fidelity to
+those references. For the official perceptual dimensions see [Quality](QUALITY.md).
+
+To recompute a row on CPU, pass each disjoint robustness report together with
+its corresponding fidelity report from the [README](../README.md). For example:
+
+```bash
+python tools/paired_deletion_fidelity.py \
+  --pair results/hunyuan_i2v_primary40.json results/hunyuan_i2v_fidelity40.json \
+  --pair results/hunyuan_i2v_primary_040_043.json results/hunyuan_i2v_fidelity_040_043.json \
+  --pair results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_paired_fidelity_slice291.json
+```
+
 ### Matched temporal attacks by backbone and input mode
 
 All entries are observed information-bit accuracy on the same frozen sample IDs for LAST and LFG. The pairs in each cell are LAST / LFG. Each sample contributes 512 bits per condition. The primary experiment plans 400 samples per pipeline. Hunyuan I2V includes paper-000 through paper-043 and paper-291.
