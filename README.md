@@ -65,6 +65,19 @@ cat "$LAST_DEMO_DIR/recovered.txt"
 
 The expected text is `LAST public reader demonstration v1`.
 
+You can score a saved prediction later on CPU, even if the original payload
+was unavailable during extraction. For the deletion example above:
+
+```bash
+python -m last.score_message --message "$LAST_DEMO_DIR/message.bin" \
+  --prediction "$LAST_DEMO_DIR/clean-and-drop/drop-prediction.json" --show-errors
+```
+
+For the recorded deletion, this gives 471 correct bits and 41 wrong bit
+positions. For the recorded insertion, it gives 408 correct bits and 104
+wrong positions. Both predictions differ from the original message.
+
+
 If you already have the pinned T2V checkpoint, point `LAST_DEMO_VAE` to
 that directory and omit `--download` to verify it offline. The Wan-2.2
 I2V and T2V manifests pin identical VAE files. The Hunyuan pair shares
