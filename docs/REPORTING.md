@@ -764,7 +764,9 @@ Each number counts correct information bits out of 512 on the same manifest case
 | compression | 474 | 491 | 254 | 237 | 510 |
 | blur | 512 | 493 | 248 | 255 | 512 |
 | drop | 250 | 320 | 241 | 237 | 512 |
-| insert | 370 | 286 | Failed | Pending | 499 |
-| clip | 466 | 349 | Pending | 237 | 505 |
+| insert | 370 | 286 | Failed | Failed | 499 |
+| clip | 466 | 349 | Failed | 237 | 505 |
+
+The SIGMark clip and VideoMark insertion attempts exhausted GPU memory during extraction. Both traces reported 18.31 MiB free on the shared L40. Neither produced a payload, so each contributes zero evaluated bits. The [attempt records](../results/paper291_native_temporal_oom.json) identify the received MP4 and both receipts for each run.
 
 VideoMark blur on paper-291 completed on the original blurred MP4 after an out-of-memory failure. The audit links the retry to the failed receipt by SHA256. Both attempts count as one video.
