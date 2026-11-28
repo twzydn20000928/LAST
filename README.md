@@ -425,6 +425,20 @@ python -m last.doctor --strict --require-paper-runtime --output .venv/environmen
 python -m pytest -q
 ```
 
+For extraction and attacks alone, a [smaller reader dependency set](environments/reader-linux-py310-cu124.txt)
+is available for the same Linux platform. In the activated environment, run:
+
+```bash
+python -m pip install -r environments/reader-linux-py310-cu124.txt
+python -m pip install --no-deps -e .
+python -m pip check
+```
+
+This set was checked by isolating the 46 installed distributions, importing
+the reader and encoding a synthetic five-frame input with the pinned Hunyuan
+VAE on CPU. A full MP4 extraction on CUDA with this smaller set is pending.
+The video environment above supports generation and the test suite.
+
 The numerical core implements masked1776-coordinate orthonormal DCT-II carriers, deterministic keyed QR, minimum signed margins, truth-free CCTA, an energy-spacing fallback and shortened BCH. It is distinct from earlier pilot implementations. See [the reproduction contract](docs/REPRODUCTION.md) and [frozen settings](configs/paper_v1.json).
 
 ## Fresh end-to-end smoke check
