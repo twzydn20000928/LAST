@@ -222,6 +222,10 @@ python -m last.check_video --video received.mp4 --video-id cyclist-example \
   --message /private/message.bin --condition drop --output /private/drop-check
 ```
 
+For blind extraction across attacks, omit `--message /private/message.bin`.
+Each completed row links its prediction by filename. Bit accuracy and whole-message
+recovery are available when you supply the original payload for scoring.
+
 Omit `--condition drop` to run the original and all six edits. Each
 condition runs in a separate reader process and reloads the VAE. Choose
 a new output directory. A failed subprocess is recorded with its stage

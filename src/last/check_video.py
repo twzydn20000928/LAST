@@ -21,7 +21,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--video", type=Path, required=True)
     parser.add_argument("--key", type=Path, required=True)
-    parser.add_argument("--message", type=Path, required=True, help="Original 64 bytes, used for scoring")
+    parser.add_argument("--message", type=Path, help="Optional original 64 bytes for scoring after blind extraction")
     parser.add_argument("--family", choices=["hunyuan", "wan22"], required=True)
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--video-id", required=True)
@@ -31,8 +31,10 @@ def main():
     parser.add_argument("--demo-codec-threads", action="store_true",
                         help="Use the public demo encoder settings (16 x264 threads, 2 lookahead threads)")
     args = parser.parse_args()
-    if args.key.stat().st_size != 32 or args.message.stat().st_size != 64:
-        parser.error("Expected a 32-byte key and a 64-byte message")
+    if args.key.stat().st_size != 32:
+        parser.error("Expected a 32-byte key")
+    if args.message is not None and args.message.stat().st_size != 64:
+        parser.error("Expected a 64-byte message for scoring")
     source_hash = hashlib.sha256(args.video.read_bytes()).hexdigest()
     os.umask(0o077)
     args.output.mkdir(parents=True, exist_ok=False)
@@ -52,9 +54,13 @@ def main():
             run_module("extract", "--video", received, "--key", args.key, "--family", args.family,
                        "--model-dir", args.model_dir, "--output", prediction)
             receipt = json.loads(prediction.read_bytes())
-            score = run_module("score_message", "--message", args.message, "--prediction", prediction, capture=True)
-            row.update(status="completed", frames=receipt["frames"], received_sha256=receipt["video_sha256"],
-                       **json.loads(score.stdout))
+            row.update(frames=receipt["frames"], received_sha256=receipt["video_sha256"],
+                       prediction=prediction.name)
+            if args.message is not None:
+                score = run_module("score_message", "--message", args.message,
+                                   "--prediction", prediction, capture=True)
+                row.update(json.loads(score.stdout))
+            row["status"] = "completed"
         except subprocess.CalledProcessError as exc:
             row.update(status="failed", stage=exc.cmd[2], exit_code=exc.returncode)
         temp = args.output / "summary.tmp"
