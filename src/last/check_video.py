@@ -39,6 +39,15 @@ def render_attack_table(summary):
     return "\n".join(lines) + "\n"
 
 
+def save_progress(output, summary):
+    for name, content in (("summary.json", json.dumps(summary, indent=2) + "\n"),
+                          ("summary.md", render_attack_table(summary))):
+        target = output / name
+        temporary = target.with_suffix(".tmp")
+        temporary.write_text(content, encoding="utf-8")
+        temporary.replace(target)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--video", type=Path, required=True)
@@ -49,27 +58,51 @@ def main():
     parser.add_argument("--device", choices=["cuda", "cpu"], default="cuda", help="Device for blind extraction")
     parser.add_argument("--model-dir", type=Path, required=True)
     parser.add_argument("--video-id", required=True)
-    parser.add_argument("--map-seed", type=int, choices=range(5), default=0)
-    parser.add_argument("--condition", choices=[*CONDITIONS, *STRESS_CONDITIONS], action="append",
+    parser.add_argument("--map-seed", type=int, choices=range(5))
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--retry-from", type=Path, help="Run unfinished conditions from a previous summary in a new directory")
+    selection.add_argument("--condition", choices=[*CONDITIONS, *STRESS_CONDITIONS], action="append",
                         help="Repeat to select edits; defaults to the seven primary conditions")
     parser.add_argument("--output", type=Path, required=True, help="New private output directory")
     parser.add_argument("--demo-codec-threads", action="store_true",
                         help="Use the public demo encoder settings (16 x264 threads, 2 lookahead threads)")
     parser.add_argument("--donor-reference", type=Path, help="Unmarked same-resolution video for natural30")
     args = parser.parse_args()
-    if ("natural30" in (args.condition or [])) != (args.donor_reference is not None):
-        parser.error("Select natural30 together with --donor-reference")
     if args.key.stat().st_size != 32:
         parser.error("Expected a 32-byte key")
     if args.message is not None and args.message.stat().st_size != 64:
         parser.error("Expected a 64-byte message for scoring")
     source_hash = hashlib.sha256(args.video.read_bytes()).hexdigest()
+    conditions = list(dict.fromkeys(args.condition or CONDITIONS))
+    if args.retry_from:
+        previous = json.loads(args.retry_from.read_bytes())
+        if (previous["source_sha256"], previous["video_id"], previous["family"]) != (
+                source_hash, args.video_id, args.family):
+            parser.error("Retry requires the same source MP4, video ID and model family")
+        if args.map_seed is not None and args.map_seed != previous["map_seed"]:
+            parser.error("Retry must use the previous map seed")
+        args.map_seed = previous["map_seed"]
+        prior_threads = previous.get("demo_codec_threads")
+        if prior_threads is False and args.demo_codec_threads:
+            parser.error("Retry must use the previous codec settings")
+        if prior_threads is not None:
+            args.demo_codec_threads = prior_threads
+        conditions = [c for c in previous["requested"]
+                      if previous["results"].get(c, {}).get("status") != "completed"]
+        if not conditions:
+            parser.error("All requested conditions already completed")
+        if any(c not in (*CONDITIONS, *STRESS_CONDITIONS) for c in conditions):
+            parser.error("Unknown condition in retry summary")
+    if args.map_seed is None:
+        args.map_seed = 0
+    if ("natural30" in conditions) != (args.donor_reference is not None):
+        parser.error("Select natural30 together with --donor-reference")
     os.umask(0o077)
     args.output.mkdir(parents=True, exist_ok=False)
-    conditions = list(dict.fromkeys(args.condition or CONDITIONS))
     summary = dict(video_id=args.video_id, family=args.family, device=args.device,
                    demo_codec_threads=args.demo_codec_threads, map_seed=args.map_seed,
                    source_sha256=source_hash, requested=conditions, results={})
+    save_progress(args.output, summary)
     for condition in conditions:
         row = summary["results"][condition] = {}
         try:
@@ -100,12 +133,7 @@ def main():
             row["status"] = "completed"
         except subprocess.CalledProcessError as exc:
             row.update(status="failed", stage=exc.cmd[2], exit_code=exc.returncode)
-        temp = args.output / "summary.tmp"
-        temp.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
-        temp.replace(args.output / "summary.json")
-        table = args.output / "summary.md.tmp"
-        table.write_text(render_attack_table(summary), encoding="utf-8")
-        table.replace(args.output / "summary.md")
+        save_progress(args.output, summary)
         print(condition, json.dumps(row), flush=True)
     if any(row["status"] == "failed" for row in summary["results"].values()):
         raise SystemExit(1)

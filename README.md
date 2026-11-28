@@ -325,6 +325,14 @@ condition runs in a separate reader process and reloads the VAE. Choose
 a new output directory. A failed subprocess is recorded with its stage
 and exit code while the remaining requested conditions continue.
 
+To retry failed or interrupted conditions, repeat the command with the same
+video, ID, family and key. Replace the condition flags with
+`--retry-from /private/drop-check/summary.json` and choose a fresh output
+directory. The retry reads the earlier map seed and recorded codec settings.
+Older summaries without a codec setting require you to supply any original
+`--demo-codec-threads` flag again. Supply the original donor if `natural30`
+is pending. Each directory retains the predictions and scores from that run.
+
 If you have only a marked MP4, you can also create an attacked copy on CPU
 without a key, checkpoint or generation run directory. For a 65-frame,
 512 × 512 input, the following command writes a 35-frame output. Pass that

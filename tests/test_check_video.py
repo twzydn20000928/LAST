@@ -67,3 +67,50 @@ def test_failed_and_pending_conditions_have_no_scores():
     })
     assert "| drop | failed (last.extract, exit 1) | — | — | — | — |" in table
     assert "| clip | pending | — | — | — | — |" in table
+
+
+def test_interruption_and_retry_preserve_completed_predictions(tmp_path, monkeypatch):
+    key = tmp_path / "key"
+    video = tmp_path / "input.mp4"
+    key.write_bytes(bytes(32))
+    video.write_bytes(b"original")
+    first = tmp_path / "first"
+    second = tmp_path / "retry"
+    base = ["check_video", "--key", str(key), "--video", str(video),
+            "--video-id", "test", "--family", "hunyuan", "--model-dir", str(tmp_path)]
+    calls = []
+    interrupted = True
+
+    def run(module, *args, capture=False):
+        calls.append(module)
+        dest = Path(args[args.index("--output") + 1])
+        if module == "attack_video":
+            assert args[args.index("--map-seed") + 1] == 2 and "--demo-codec-threads" in args
+            if interrupted:
+                raise KeyboardInterrupt
+            dest.write_bytes(b"edited")
+        else:
+            dest.write_text(json.dumps({"frames": 65, "video_sha256": "digest"}))
+
+    monkeypatch.setattr(check_video, "run_module", run)
+    monkeypatch.setattr(check_video.os, "umask", lambda mode: None)
+    monkeypatch.setattr(sys, "argv", base + ["--map-seed", "2", "--demo-codec-threads",
+                                             "--output", str(first), "--condition", "clean", "--condition", "drop"])
+    with pytest.raises(KeyboardInterrupt):
+        check_video.main()
+    original_summary = (first / "summary.json").read_bytes()
+    assert json.loads(original_summary)["results"]["clean"]["status"] == "completed"
+
+    calls.clear()
+    interrupted = False
+    retry = base + ["--retry-from", str(first / "summary.json"), "--output", str(second)]
+    monkeypatch.setattr(sys, "argv", retry)
+    check_video.main()
+    assert calls == ["attack_video", "extract"]
+    assert json.loads((second / "summary.json").read_bytes())["requested"] == ["drop"]
+    assert (first / "summary.json").read_bytes() == original_summary
+    video.write_bytes(b"different")
+    monkeypatch.setattr(sys, "argv", retry[:-1] + [str(tmp_path / "wrong-source")])
+    with pytest.raises(SystemExit):
+        check_video.main()
+    assert not (tmp_path / "wrong-source").exists()

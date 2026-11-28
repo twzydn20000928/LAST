@@ -51,6 +51,8 @@ cat "$work/two-deletions/summary.md"
 
 这是同一条视频的一次对照。移除两个 `--condition` 参数并指定新的输出目录，可运行原片和全部六项主表攻击。附录的组合攻击可用 `--condition drop30_crf28` 单独测试。[原始评分](../results/public_sailboat_attacks.json) · [附录八项攻击设置](STRESS.md)
 
+如果评测被打断，再次运行上面的命令时，保留相同的视频、密钥和模型参数，把两个 `--condition` 参数替换为 `--retry-from "$work/two-deletions/summary.json"`，并将输出目录改为新的 `"$work/two-deletions-retry"`。程序会根据原记录只补跑失败或尚未完成的条件。原目录保存已有结果，新目录保存补跑结果。
+
 ## 3. 在生成过程中写入自己的消息
 
 沿用已激活的环境，安装生成依赖并下载完整的 Hunyuan 文生视频模型。此步需要可用的 NVIDIA GPU。若已有固定版本的完整模型，可将 `model` 指向该目录，并省略 `--download`。
