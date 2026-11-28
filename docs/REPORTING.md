@@ -712,7 +712,7 @@ Each number counts correct information bits out of 512 on the same manifest case
 | noise | 480 | 466 | 248 | 251 | 508 |
 | compression | 474 | 491 | 254 | 237 | 510 |
 | blur | 512 | 493 | 248 | 255 | 512 |
-| drop | 250 | 320 | 241 | Pending | 512 |
+| drop | 250 | 320 | 241 | 237 | 512 |
 | insert | 370 | 286 | Failed | Pending | 499 |
 | clip | 466 | 349 | Pending | Pending | 505 |
 

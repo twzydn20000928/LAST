@@ -186,7 +186,19 @@
       "retry_of_sha256": "e37b145630b48b9cabf77d366e5f083bfaf283551e5cf21fd299cefd19ba3de3"
     },
     "drop": {
-      "status": "missing"
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videomark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "drop",
+      "correct_bits": 237,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "f5cd1f136dffae7ae0f6df3bd3fa3c7ea1ed7c2d97d3c8dc81c7e446c1990aac",
+      "received_sha256": "e3b6509250aaef545aa623f24733349d43117e79f473c5d86dc62cb8c695c626",
+      "attack_receipt_sha256": "a1bf7ad0b530040f6ee5a5486b6cd1fc856280abba955b46fe5783f79d2af77e",
+      "extraction_receipt_sha256": "1a34e276b8f50c12c91f99b88db17ddaa9d7c31d272111765e8296289ce6eaf6"
     },
     "insert": {
       "status": "missing"
