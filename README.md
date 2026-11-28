@@ -152,6 +152,22 @@ than `compression` use CRF 18. The implementation draws each inserted RGB
 channel value uniformly from 0 to 255. The default temporal map seed is 0;
 use the same video ID and map seed across methods to reproduce the edit positions.
 
+To score attacks on a standalone marked MP4 with a known 64-byte payload,
+use the following command. It writes the received MP4, blind prediction
+and a `summary.json` containing correct bits, total bits and whole-message
+recovery. Only the scoring subprocess receives the original message.
+
+```bash
+python -m last.check_video --video received.mp4 --video-id cyclist-example \
+  --family hunyuan --model-dir /path/to/checkpoint --key /private/secret.key \
+  --message /private/message.bin --condition drop --output /private/drop-check
+```
+
+Omit `--condition drop` to run the original and all six edits. Each
+condition runs in a separate reader process and reloads the VAE. Choose
+a new output directory. A failed subprocess is recorded with its stage
+and exit code while the remaining requested conditions continue.
+
 If you have only a marked MP4, you can also create an attacked copy on CPU
 without a key, checkpoint or generation run directory. For a 65-frame,
 512 × 512 input, the following command writes a 35-frame output. Pass that
