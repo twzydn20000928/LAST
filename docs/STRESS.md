@@ -470,6 +470,8 @@ The [64-video table](../results/table15-first64.md) adds paper-063, giving 320 e
 python tools/stress_recovery_table.py --reports results/stress_paper0[0-5][0-9]_forty_maps.json results/stress_paper06[0-3]_forty_maps.json --format markdown
 ```
 
+For paper-063 at seed 0, all eight received MP4s were independently regenerated on CPU from its marked MP4. The frame maps, frame counts and file hashes matched the registered edits. Natural insertion used the unmarked reference of paper-083. The [per-edit records](../results/stress_paper063_forty_maps.json) give the expected received MP4 hashes in the seed-0 rows. This check replayed the edits. The archived bit scores come from the original blind extractions.
+
 For Hunyuan I2V LAST, the frozen prefix from paper-000 through paper-059 covers
 60 source videos, five edit maps per video and eight attacks. Rebuild these
 2,400 observations with the command below (Bash, from the repository root):
