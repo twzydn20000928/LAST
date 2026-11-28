@@ -62,10 +62,18 @@ def main():
         a.donor_reference, donor_id = resolve(a.donor_plan, a.manifest, a.reference_root, a.video_id)
     elif a.reference_root:
         p.error('--reference-root requires --donor-plan')
+    if a.attack == 'natural30' and a.donor_reference is None:
+        p.error('natural30 requires --donor-reference or --donor-plan with --reference-root')
+    if a.attack != 'natural30' and a.donor_reference is not None:
+        p.error('--donor-reference applies only to natural30')
     donor_hash = hashlib.sha256(a.donor_reference.read_bytes()).hexdigest() if a.donor_reference else None
-    a.output.mkdir(parents=True,exist_ok=False)
     source_hash = hashlib.sha256(a.video.read_bytes()).hexdigest()
     frames=load_mp4(a.video);donor=load_mp4(a.donor_reference) if a.donor_reference else None
+    if len(frames) != 65:
+        p.error('The input video must contain 65 frames')
+    if donor is not None and (len(donor) < 30 or any(f.size != frames[0].size for f in donor)):
+        p.error('The donor must contain at least 30 frames at the source resolution')
+    a.output.mkdir(parents=True,exist_ok=False)
     for seed in range(5) if a.all_seeds else [a.seed]:
         directory = a.output
         if a.all_seeds:

@@ -45,6 +45,22 @@ python -m last.stress --video /private/run/marked.mp4 --video-id paper-000 \
   --output /private/registered-stress/paper-000/natural30/map0
 ```
 
+For your own 65-frame marked MP4, you can supply a second, unmarked clip
+directly. It must have the same resolution and contain at least 30 frames.
+Choose a fresh output directory and pass the resulting MP4 to the blind reader:
+
+```bash
+python -m last.stress --video marked.mp4 --video-id my-video --seed 0 \
+  --attack natural30 --donor-reference unmarked.mp4 --output natural-test
+python -m last.extract --family hunyuan --model-dir /path/to/checkpoint \
+  --video natural-test/received.mp4 --key /private/secret.key --output prediction.json
+```
+
+For a Wan-2.2 video, select `--family wan22` and its matching VAE. The
+attack command writes the chosen insertion boundary and donor start in
+`natural-test/attack.json`. The extraction command receives only the edited
+video, key and model. Use the registered donors above for paper comparisons.
+
 The earlier seven-edit integration used the Hunyuan T2V smoke reference as
 its donor. Its donor hash and score remain attached to that diagnostic. The
 new assignment for paper-000 uses the reference from paper-020.
