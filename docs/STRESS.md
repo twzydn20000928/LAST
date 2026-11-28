@@ -464,6 +464,12 @@ The [63-video extension](../results/table15-first63.md) also includes paper-060 
 
 Among its 315 random 30-frame deletions, 60 left no complete original four-frame group. The reader recovered 23,033/30,720 bits and 0/60 whole messages on those edits. On the 255 edits with at least one intact group it recovered 103,255/130,560 bits and 3/255 whole messages. Frame identities are used only for this retrospective grouping. Rebuild the counts with `tools/stress_deletion_alignment.py` and the same two report patterns. The [custom-text example](../results/custom_text_endpoint_cpu_drop.json) separately illustrates a deletion with no intact group.
 
+The [64-video table](../results/table15-first64.md) adds paper-063, giving 320 edits per attack and 2,560 scored edits across eight attacks. Rebuild it on CPU from the published counts:
+
+```bash
+python tools/stress_recovery_table.py --reports results/stress_paper0[0-5][0-9]_forty_maps.json results/stress_paper06[0-3]_forty_maps.json --format markdown
+```
+
 For Hunyuan I2V LAST, the frozen prefix from paper-000 through paper-059 covers
 60 source videos, five edit maps per video and eight attacks. Rebuild these
 2,400 observations with the command below (Bash, from the repository root):
