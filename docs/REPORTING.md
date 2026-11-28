@@ -512,9 +512,9 @@ those references. For the official perceptual dimensions see [Quality](QUALITY.m
 
 **Sensitivity to the reference video.** We also decoded every frame and
 rescored both marked outputs against the same reference, first using LAST's
-reference and then LFG's. In [47 Hunyuan I2V pairs](../results/hunyuan_i2v_shared_reference_psnr47.json),
-the respective mean PSNRs for LAST / LFG were 32.142 / 23.138 dB using
-LAST's reference and 32.141 / 23.138 dB using LFG's. In
+reference and then LFG's. In [48 Hunyuan I2V pairs](../results/hunyuan_i2v_shared_reference_psnr48.json),
+the respective mean PSNRs for LAST / LFG were 32.178 / 23.175 dB using
+LAST's reference and 32.177 / 23.174 dB using LFG's. In
 [15 Hunyuan T2V pairs](../results/hunyuan_t2v_shared_reference_psnr15.json),
 both choices gave 31.823 / 22.492 dB to three decimals. LAST had higher
 PSNR on every case under either choice. Across individual marked videos,
