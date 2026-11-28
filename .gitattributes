@@ -5,3 +5,5 @@ configs/models.json -text
 configs/primary_manifest.json -text
 # Published reports cite exact blob hashes. Preserve bytes on checkout and archive.
 results/**/*.json -text
+# The Table 2 receipt records the hash of the renderer source.
+src/last/robustness_table.py text eol=lf

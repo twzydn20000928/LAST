@@ -32,6 +32,7 @@ jobs:
             --output .ci-tables/robustness
           diff --strip-trailing-cr -u results/primary-robustness/table.md .ci-tables/robustness/table.md
           diff --strip-trailing-cr -u results/primary-robustness/counts.csv .ci-tables/robustness/counts.csv
+          diff -u results/primary-robustness/receipt.json .ci-tables/robustness/receipt.json
           for report in hunyuan_i2v_primary24 hunyuan_t2v_primary14 wan22_i2v_primary14 wan22_t2v_primary14; do
             python tools/paired_primary_intervals.py --report "results/${report}.json" \
               --output ".ci-tables/robustness/${report}-intervals.json"
