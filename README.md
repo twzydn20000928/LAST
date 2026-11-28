@@ -65,6 +65,15 @@ cat "$LAST_DEMO_DIR/recovered.txt"
 
 The expected text is `LAST public reader demonstration v1`.
 
+For a real CPU extraction, add `--device cpu --progress` to the demo command,
+select only `--condition drop` and choose a fresh output directory. With the
+46-package reader environment on a shared Xeon Platinum 8347C (four PyTorch
+threads), blind extraction of this 35-frame MP4 took about 19 minutes. CPU and
+CUDA recovered 472/512 and 471/512 bits respectively. Their 512-bit predictions
+differed at position 137 (zero-based, most significant bit first); both failed
+to recover the complete message. [CPU comparison](results/public_sailboat_cpu_drop.json)
+
+
 You can score a saved prediction later on CPU, even if the original payload
 was unavailable during extraction. For the deletion example above:
 

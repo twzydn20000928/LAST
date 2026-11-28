@@ -1,0 +1,26 @@
+{
+  "sample": "sailboat-demo-v1",
+  "method": "last",
+  "family": "hunyuan",
+  "mode": "t2v",
+  "condition": "drop",
+  "map_seed": 0,
+  "total_bits": 512,
+  "cpu_seconds": 1133.3238246440887,
+  "candidate_windows": 32,
+  "route": "ccta",
+  "prediction_bit_differences": 1,
+  "cpu_correct": 472,
+  "gpu_correct": 471,
+  "device": "cpu",
+  "frames": 35,
+  "received_sha256": "355e680d6a82ff9c8b10de34aac21ced4a3d2ed2baeff48a1f3ac85d58475b6d",
+  "differing_bit_positions_msb_first": [
+    137
+  ],
+  "bch_success_cpu": false,
+  "bch_success_gpu": false,
+  "cpu_model": "Intel Xeon Platinum 8347C",
+  "torch_cpu_threads": 4,
+  "scope": "Single received MP4; CPU wall time under shared load."
+}
