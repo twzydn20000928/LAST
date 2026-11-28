@@ -863,18 +863,24 @@ All seven counts were recomputed from saved predictions. The VideoMark
 generation case fingerprint and 512 information bits matched the primary
 Wan I2V LAST case. On this one case the correct information bits were:
 
-| Condition | LAST | LFG | VideoMark (historical integration) |
-|---|---:|---:|---:|
-| Clean | 512 | 512 | 254 |
-| Noise | 512 | 488 | 264 |
-| Compression | 493 | 512 | 240 |
-| Blur | 512 | 512 | 248 |
-| Random deletion | 255 | 334 | 243 |
-| Insertion | 377 | 255 | 264 |
-| Contiguous removal | 487 | 353 | 264 |
+| Condition | LAST | LFG | VideoMark (historical integration) | VideoShield |
+|---|---:|---:|---:|---:|
+| Clean | 512 | 512 | 254 | 512 |
+| Noise | 512 | 488 | 264 | 512 |
+| Compression | 493 | 512 | 240 | 512 |
+| Blur | 512 | 512 | 248 | 512 |
+| Random deletion | 255 | 334 | 243 | 512 |
+| Insertion | 377 | 255 | 264 | 508 |
+| Contiguous removal | 487 | 353 | 264 | 512 |
 
-For the two primary columns select `video_id == "paper-000"` in the
-[matched Wan I2V report](../results/wan22_i2v_primary13.json).
+The [LAST/LFG paired sample report](../results/wan22_i2v_primary14.json) and
+[VideoShield primary report](../results/wan22_i2v_videoshield_paper000_seven_conditions.json)
+use the same frozen manifest. Each method was evaluated on its own marked
+MP4. VideoMark contributes a separately audited integration run to this
+case comparison. Its seven measurements remain separate from the primary
+Table 2 counts. For example, insertion yielded 508/512 bits for VideoShield
+and 377/512 for LAST; neither recovered the entire payload.
+
 For attack receipts that store message and prediction hashes,
 recompute an individual observation with
 `python tools/recount_native_attack.py --run /private/native-generation --video-id paper-000 --condition noise`.
