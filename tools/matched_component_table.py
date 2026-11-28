@@ -2,7 +2,7 @@
 import argparse
 import json
 from pathlib import Path
-from statistics import mean
+from statistics import mean, median
 
 from reader_ablation_table import CONDITIONS, VARIANTS
 from writer_ablation_table import validated_bits
@@ -106,6 +106,8 @@ if __name__ == "__main__":
     parser.add_argument("--writers", type=Path, nargs="+", help="Paired writer JSON reports, one per video")
     parser.add_argument("--table4", action="store_true",
                         help="Render the manuscript's row order and 0–1 bit accuracies to three decimal places")
+    parser.add_argument("--paired-condition", choices=CONDITIONS,
+                        help="Also show the distribution of per-video full-minus-ablation bit gains")
     args = parser.parse_args()
     writers = [read(p) for p in (args.writers or sorted(results.glob("paired_writer_*.json")))]
     reader = read(args.reader)
@@ -149,3 +151,19 @@ if __name__ == "__main__":
         measurements = [w["variants"][variant] for w in writers if w["video_id"] in ids]
         print(f"| {variant} | {mean(r['psnr_db'] for r in measurements):.3f} | "
               f"{mean(r['ssim'] for r in measurements):.5f} |")
+
+    if args.paired_condition:
+        condition = args.paired_condition
+        gains = {v: [] for v in labels if v != "full"}
+        for writer in writers:
+            if writer["video_id"] in ids:
+                _, _, single = compare(reader, [writer], plan)
+                for variant in gains:
+                    gains[variant].append(single["full"][condition] - single[variant][condition])
+        print(f"\nPer-video full LAST minus ablation, {condition}, in correct bits out of 512.\n")
+        print("| Ablation | Full better | Tied | Full worse | Median gain | Total gain |")
+        print("|---|---:|---:|---:|---:|---:|")
+        for variant, delta in gains.items():
+            assert sum(delta) == counts["full"][condition] - counts[variant][condition]
+            print(f"| {labels[variant]} | {sum(d > 0 for d in delta)} | {delta.count(0)} | "
+                  f"{sum(d < 0 for d in delta)} | {median(delta):g} | {sum(delta)} |")

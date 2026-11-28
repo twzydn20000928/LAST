@@ -1502,3 +1502,31 @@ The [frozen-prefix counts](../results/development_margin_twelve_videos.json) cov
 ![Recovery and pixel fidelity across five margins on twelve development videos](../results/development_margin_twelve_videos.png)
 
 Rebuild the chart and print its underlying counts with `python tools/development_margin_recovery.py --cells results/development_margin_twelve_videos.json --plot development-margin.png`. The full protocol covers 80 development videos.
+
+### Per-video component effects in Table 4
+
+On the 14 matched Hunyuan I2V cases, compare the full method with one
+ablation at a time. Counts below give the number of videos on which full
+LAST recovered more / equal / fewer bits. Median differences are in bits
+out of 512 per video. The reader variants receive identical attacked MP4s;
+the writer comparison uses paired generations.
+
+| Ablated component | Random deletion: better / tied / worse | Median bit gain | Insertion: better / tied / worse | Median bit gain |
+|---|---:|---:|---:|---:|
+| Minimum-margin write (use fixed targets) | 7 / 0 / 7 | 0.5 | 8 / 1 / 5 | 2 |
+| Cross-group consistency | 13 / 0 / 1 | 127.5 | 14 / 0 / 0 | 133 |
+| Sliding-window search | 10 / 3 / 1 | 22.5 | 13 / 1 / 0 | 26 |
+| Entire CCTA reader (use received order) | 13 / 0 / 1 | 108 | 13 / 0 / 1 | 127 |
+
+Cross-group consistency showed the largest median difference for both edits
+on this subset. CCTA contains component operations, so these ablation
+effects overlap. Switching from fixed targets to minimum margins added 164
+correct bits in total on deletion despite the evenly split per-video wins.
+On insertion the same switch lost three bits in total.
+
+```bash
+python tools/matched_component_table.py --table4 \
+  --archived-reread results/hunyuan_i2v_archived_reader_four.json --paired-condition drop
+```
+
+Use `--paired-condition insert` for the insertion column.
