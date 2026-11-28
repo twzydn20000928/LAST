@@ -120,7 +120,7 @@ jobs:
           python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg \
             --first 3 --reports results/hunyuan_i2v_primary24.json \
             > ci-temporal-diagnostics/quickstart-three-videos.md
-          diff -u results/quickstart-three-videos.md ci-temporal-diagnostics/quickstart-three-videos.md
+          diff --strip-trailing-cr -u results/quickstart-three-videos.md ci-temporal-diagnostics/quickstart-three-videos.md
           python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg \
             --reports results/hunyuan_i2v_primary40.json results/hunyuan_i2v_primary_040_043.json results/hunyuan_i2v_primary_044_045.json results/hunyuan_i2v_primary_slice291.json \
             > ci-temporal-diagnostics/hunyuan-i2v-matched-including-paper291.md
@@ -132,7 +132,7 @@ jobs:
             --methods last lfg sigmark videomark videoshield --reports results/hunyuan_i2v_primary_slice291.json \
             results/hunyuan_i2v_sigmark_videomark_paper291.json results/hunyuan_i2v_videoshield_slice291.json \
             > ci-temporal-diagnostics/five-method-paper291.md
-          diff -u results/five-method-paper291.md ci-temporal-diagnostics/five-method-paper291.md
+          diff --strip-trailing-cr -u results/five-method-paper291.md ci-temporal-diagnostics/five-method-paper291.md
           python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg videoshield --reports results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_videoshield_slice291.json > ci-temporal-diagnostics/three-method-hunyuan-paper291.md
           python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg videoshield --reports results/hunyuan_i2v_primary24.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_i2v_videoshield_slice291.json > ci-temporal-diagnostics/three-method-hunyuan-matched.md
           python tools/matched_primary_methods.py --family wan22 --mode i2v --methods last lfg videoshield --reports results/wan22_i2v_primary14.json results/wan22_i2v_videoshield_paper000_seven_conditions.json > ci-temporal-diagnostics/three-method-wan-i2v.md
@@ -158,8 +158,8 @@ jobs:
             --format markdown > ci-temporal-diagnostics/table15-recovery.md
           python tools/stress_recovery_table.py --reports results/stress_paper0[0-5][0-9]_forty_maps.json \
             --format markdown > ci-temporal-diagnostics/table15-first60.md
-          sed -n '/^<!-- stress-first60-start -->$/,/^<!-- stress-first60-end -->$/{ /^<!--/d; p; }' \
-            docs/STRESS.md | diff -u - ci-temporal-diagnostics/table15-first60.md
+          sed -n '/^<!-- stress-first60-start -->/,/^<!-- stress-first60-end -->/{ /^<!--/d; p; }' \
+            docs/STRESS.md | diff --strip-trailing-cr -u - ci-temporal-diagnostics/table15-first60.md
           python tools/stress_deletion_alignment.py --reports results/stress_paper*_forty_maps.json \
             > ci-temporal-diagnostics/table15-deletion.json
       - uses: actions/upload-artifact@v4
