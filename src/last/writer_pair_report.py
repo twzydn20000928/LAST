@@ -21,6 +21,9 @@ def report(minimum, fixed, *, uniform_profile=False):
     left, right = read(minimum/'receipt.json'), read(fixed/'receipt.json')
     if any(r.get('status') != 'completed' or r.get('method') != 'last' for r in (left, right)):
         raise ValueError('Both generations must be completed LAST runs')
+    # The original generation and replay implementations used CUDA exclusively.
+    if left.get('device', 'cuda') != right.get('device', 'cuda'):
+        raise ValueError('Paired writers must use the same compute device')
     expected_fixed_target = not uniform_profile
     if left.get('fixed_target') is not False or right.get('fixed_target') is not expected_fixed_target:
         raise ValueError('Writer rule differs from the requested intervention')

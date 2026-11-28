@@ -55,13 +55,14 @@ def test_profile_comparison_keeps_writer_rule_fixed(pair):
         report(left, right)
 
 
-@pytest.mark.parametrize('change', ['map', 'video', 'key', 'missing'])
+@pytest.mark.parametrize('change', ['map', 'video', 'key', 'message', 'missing'])
 def test_reject_unpaired_or_incomplete_evidence(pair, change):
     left, right = pair
     if change == 'map':
         path=right/'attacks/drop.json';row=json.loads(path.read_text());row['attack_map']=[2,3];write(path,row)
     elif change == 'video': (right/'attacks/drop.mp4').write_bytes(b'tampered')
     elif change == 'key': (right/'secret.key').write_bytes(b'changed')
+    elif change == 'message': (right/'message.npy').write_bytes(b'new application payload')
     else: (right/'attacks/clip.json').unlink()
     with pytest.raises((ValueError, FileNotFoundError)): report(left, right)
 
@@ -74,3 +75,13 @@ def test_reject_matching_but_wrong_maps(pair):
         write(path, row)
     with pytest.raises(ValueError, match='frozen protocol'):
         report(*pair)
+
+def test_legacy_cuda_generation_and_explicit_replay_device(pair):
+    left, right = pair
+    path = right/'receipt.json'
+    receipt = json.loads(path.read_text())
+    write(path, dict(receipt, device='cpu'))
+    with pytest.raises(ValueError, match='same compute device'):
+        report(left, right)
+    write(path, dict(receipt, device='cuda'))
+    assert report(left, right)['video_id'] == 'paper-003'
