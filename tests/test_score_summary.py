@@ -2,7 +2,19 @@ import json
 
 import pytest
 
-from last.score_message import score_summary
+from last.score_message import score_prediction, score_summary
+
+
+def test_padded_text_splits_utf8_bytes_from_padding():
+    expected = "水".encode().ljust(64, b"\x00")
+    recovered = bytearray(expected)
+    recovered[2] ^= 1
+    recovered[-1] = 255
+    result = score_prediction(expected, {"message_hex": recovered.hex()}, False, padded_text=True)
+    assert result["correct_bits"] == 503
+    assert result["padded_text"] == {"body_bits": 24, "correct_body_bits": 23,
+                                     "padding_bits": 488, "correct_padding_bits": 480,
+                                     "valid_utf8": False}
 
 
 @pytest.mark.parametrize("legacy", [False, True])

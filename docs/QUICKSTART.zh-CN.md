@@ -86,7 +86,7 @@ cat "$mine/attacks/summary.md"
 
 ```bash
 python -m last.score_message --summary "$mine/attacks/summary.json" \
-  --message "$mine/message.bin" --show-errors
+  --message "$mine/message.bin" --show-errors --padded-text
 ```
 
 ### 在同一段生成内容上更换消息
