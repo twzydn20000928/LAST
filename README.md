@@ -120,18 +120,17 @@ MP4, and the evaluator loads the VAE at most once. To fill in the other conditio
 video ID and omit `--condition`. The evaluator verifies and reuses completed
 receipts and their corresponding MP4 files.
 
-The two example columns show one different video per model. A cell of 512 means the entire message was recovered. Content, generation mode and edit positions differ across the examples.
-See the [Hunyuan evaluation](results/hunyuan_i2v_marked_only_cli.json) and [Wan evaluation](results/wan22_t2v_single_video_attacks.json) for the underlying counts.
+The four examples below use the first frozen primary case (`paper-000`) in each pipeline. Each cell counts correct payload bits out of 512 after reading the received MP4. A count of 512 means the entire message matches. These four generations illustrate individual outcomes for one case.
 
-| `--condition` | Operation on the 65-frame marked MP4 | Frames presented to the reader | Hunyuan I2V example, bits correct / 512 | Wan-2.2 T2V example, bits correct / 512 |
-|---|---|---:|---:|---:|
-| `clean` | Read the original marked MP4 | 65 | 512 | 512 |
-| `noise` | Add zero-mean Gaussian noise with standard deviation 0.05 to RGB values scaled to [0, 1], then clip and round to 8 bits | 65 | 512 | 512 |
-| `compression` | Re-encode with H.264 at CRF 28 | 65 | 486 | 495 |
-| `blur` | Apply a 5 × 5 Gaussian kernel with standard deviation 1 pixel | 65 | 512 | 512 |
-| `drop` | Remove 30 uniformly sampled, distinct frame positions | 35 | 348 | 329 |
-| `insert` | Insert 30 noise frames into randomly chosen positions, preserving the original frame order | 95 | 431 | 381 |
-| `clip` | Remove a contiguous block of 30 frames with a uniformly sampled start | 35 | 497 | 495 |
+| Condition | Edit | Received frames | [Hunyuan I2V](results/first_primary_sample.json) | [Hunyuan T2V](results/last_t2v_primary_first_case.json) | [Wan-2.2 I2V](results/last_wan_i2v_primary_first_case.json) | [Wan-2.2 T2V](results/wan22_t2v_single_video_attacks.json) |
+|---|---|---:|---:|---:|---:|---:|
+| `clean` | Read the original marked MP4 | 65 | 512 | 512 | 512 | 512 |
+| `noise` | Add zero-mean Gaussian noise with standard deviation 0.05 to RGB values scaled to [0, 1], then clip and round to 8 bits | 65 | 512 | 512 | 512 | 512 |
+| `compression` | Re-encode with H.264 at CRF 28 | 65 | 486 | 512 | 493 | 495 |
+| `blur` | Apply a 5 × 5 Gaussian kernel with standard deviation 1 pixel | 65 | 512 | 512 | 512 | 512 |
+| `drop` | Remove 30 uniformly sampled, distinct frame positions | 35 | 371 | 447 | 255 | 329 |
+| `insert` | Insert 30 noise frames into randomly chosen positions, preserving the original frame order | 95 | 424 | 445 | 377 | 381 |
+| `clip` | Remove a contiguous block of 30 frames with a uniformly sampled start | 35 | 502 | 500 | 487 | 495 |
 
 All edits are read back from H.264 MP4 at 8 fps. Edited conditions other
 than `compression` use CRF 18. The implementation draws each inserted RGB
