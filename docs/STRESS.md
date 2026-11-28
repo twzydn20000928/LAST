@@ -470,6 +470,8 @@ The [64-video table](../results/table15-first64.md) adds paper-063, giving 320 e
 python tools/stress_recovery_table.py --reports results/stress_paper0[0-5][0-9]_forty_maps.json results/stress_paper06[0-3]_forty_maps.json --format markdown
 ```
 
+To isolate the compression change, we paired `drop30` (CRF 18) with `drop30_crf28` (CRF 28) by source video and map seed. The archived edit receipts confirmed the same source digest and the same 35 retained frame indices for all 320 pairs. At CRF 28, the reader recovered fewer bits on 313 edits, the same count on two and more on five. The median loss was 54 of 512 bits. Averaged over the five maps of each video, the correct-bit count fell on all 64 videos.
+
 For paper-063 at seed 0, all eight received MP4s were independently regenerated on CPU from its marked MP4. The frame maps, frame counts and file hashes matched the registered edits. Natural insertion used the unmarked reference of paper-083. The [per-edit records](../results/stress_paper063_forty_maps.json) give the expected received MP4 hashes in the seed-0 rows. This check replayed the edits. The archived bit scores come from the original blind extractions.
 
 For Hunyuan I2V LAST, the frozen prefix from paper-000 through paper-059 covers
