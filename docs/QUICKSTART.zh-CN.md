@@ -30,6 +30,8 @@ PYTHONPATH=src python tools/matched_primary_methods.py --family hunyuan --mode i
   results/hunyuan_i2v_sigmark_videomark_paper291.json results/hunyuan_i2v_videoshield_slice291.json
 ```
 
+在这个样本中，随机删 30 帧与连续删 30 帧都留下 35 帧。按原视频从 0 开始编号，随机删帧后 LAST 选中的两个四帧窗口分别来自画面 `27,28,29,31` 和 `34,35,36,38`，两者都跨越原始组边界，各自有 0 帧属于预测组。纠错前后均读对 250/512 位。连续删帧后选中的六组都完整且编号正确，纠错前后均读对 466/512 位。这个例子展示了两个可以分别核查的问题：分组是否对齐，以及对齐后保留下来的信号能否恢复整条消息。
+
 ## 1. 读出公开视频里的文字
 
 准备 Python 3.10 环境。只做提取和攻击时，安装读端依赖即可。
