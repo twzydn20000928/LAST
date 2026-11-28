@@ -97,10 +97,31 @@ export LAST_EXAMPLE_DIR="$HOME/last-sailboat-example"
 python examples/public_demo/prepare.py --output "$LAST_EXAMPLE_DIR"
 ```
 
-For generation, use `--family hunyuan --mode t2v` and the full
-`hunyuan_t2v` checkpoint in the generation command below. For extraction
-alone, use its matching VAE and the example directory's `secret.key`.
-The optional scoring command uses `message.bin`.
+To read an existing copy of the marked sailboat MP4, download just the
+Hunyuan T2V VAE (986 MB). Set `SAILBOAT_MP4` to the file you received.
+The following example scores the original and the random 30-frame deletion.
+The output directory must be new. Run from the repository root.
+
+```bash
+export SAILBOAT_MP4=/path/to/marked-sailboat.mp4
+export LAST_DEMO_VAE="$HOME/last-checkpoints/hunyuan_t2v"
+python -m last.models --name hunyuan_t2v --directory "$LAST_DEMO_VAE" \
+  --vae-only --download --verify-manifest configs/checkpoint_files.json
+python -m last.check_video --video "$SAILBOAT_MP4" --video-id sailboat-demo-v1 \
+  --family hunyuan --model-dir "$LAST_DEMO_VAE" --key "$LAST_EXAMPLE_DIR/secret.key" \
+  --message "$LAST_EXAMPLE_DIR/message.bin" --condition clean --condition drop \
+  --output "$LAST_EXAMPLE_DIR/clean-and-drop"
+```
+
+If you already have the pinned T2V checkpoint, point `LAST_DEMO_VAE` to
+that directory and omit `--download` to verify it offline. The Wan-2.2
+I2V and T2V manifests pin identical VAE files. The Hunyuan pair shares
+the VAE weight digest, but its configurations record different Diffusers
+versions. Select the matching mode for file verification.
+
+To generate the sailboat video yourself, use `--family hunyuan --mode t2v`,
+the full `hunyuan_t2v` checkpoint, and the prepared case, key and message
+in the generation command below.
 
 To mark multiple videos with your own key, add `--key-file /private/secret.key`
 to each `prepare-video` command and choose a fresh output directory per video.
