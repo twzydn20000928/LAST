@@ -4,6 +4,8 @@ Training-free, inversion-free video watermarking with endpoint latent-frequency 
 
 ## Use LAST on one video
 
+Try the [marked sailboat MP4](examples/public_demo/sailboat.mp4) (1.04 MB) with the [public demo commands](#read-the-sailboat-demo). This 65-frame example can be read with a VAE-only checkpoint.
+
 Start with the [installation instructions](#install-linux-python310-cuda-capable-nvidia-gpu).
 If you already have a LAST-marked 512 × 512 MP4 and its 32-byte key, skip generation.
 For a Hunyuan video, point `--model-dir` at the checkpoint directory containing
@@ -87,6 +89,8 @@ python -m last.cli prepare-video --output "$LAST_EXAMPLE_DIR" \
   --image /path/to/your/cyclist.png --text cyclist-example
 ```
 
+### Read the sailboat demo
+
 For the reproducible sailboat example, run the following from the repository
 root. It creates the exact public demonstration key, 64-byte padded message,
 prompt and seed used for this Hunyuan T2V case. Anyone can derive this key.
@@ -98,12 +102,12 @@ python examples/public_demo/prepare.py --output "$LAST_EXAMPLE_DIR"
 ```
 
 To read an existing copy of the marked sailboat MP4, download just the
-Hunyuan T2V VAE (986 MB). Set `SAILBOAT_MP4` to the file you received.
+Hunyuan T2V VAE (986 MB). The example MP4 is included in this repository.
 The following example scores the original and the random 30-frame deletion.
 The output directory must be new. Run from the repository root.
 
 ```bash
-export SAILBOAT_MP4=/path/to/marked-sailboat.mp4
+export SAILBOAT_MP4=examples/public_demo/sailboat.mp4
 export LAST_DEMO_VAE="$HOME/last-checkpoints/hunyuan_t2v"
 python -m last.models --name hunyuan_t2v --directory "$LAST_DEMO_VAE" \
   --vae-only --download --verify-manifest configs/checkpoint_files.json
@@ -112,6 +116,11 @@ python -m last.check_video --video "$SAILBOAT_MP4" --video-id sailboat-demo-v1 \
   --message "$LAST_EXAMPLE_DIR/message.bin" --condition clean --condition drop \
   --output "$LAST_EXAMPLE_DIR/clean-and-drop"
 ```
+
+On this file, the standalone reader recovered 512/512 bits from the original
+and 471/512 after random deletion (35 remaining frames). Only the original
+message matched in full. The SHA256 of the original MP4 is
+`e1dd2c7554c903a85ae827d94320695f87cef7687fb4b32e494daa94576c5fe3`.
 
 If you already have the pinned T2V checkpoint, point `LAST_DEMO_VAE` to
 that directory and omit `--download` to verify it offline. The Wan-2.2
@@ -122,6 +131,8 @@ versions. Select the matching mode for file verification.
 To generate the sailboat video yourself, use `--family hunyuan --mode t2v`,
 the full `hunyuan_t2v` checkpoint, and the prepared case, key and message
 in the generation command below.
+
+### Generate and evaluate your own video
 
 To mark multiple videos with your own key, add `--key-file /private/secret.key`
 to each `prepare-video` command and choose a fresh output directory per video.
