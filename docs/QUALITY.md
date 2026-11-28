@@ -658,3 +658,22 @@ Recount the [LFG scoring units](../results/hunyuan_i2v_lfg_camera_units.json)
 against the primary marked-video fingerprints with
 `python tools/quality_units_table.py results/hunyuan_i2v_lfg_camera_units.json --primary results/hunyuan_i2v_primary20.json`.
 This is one of the 18 dimensions in the overall V-score.
+
+### Matched Hunyuan T2V camera motion
+
+The official Camera Motion evaluator judged the requested motion present on
+4/20 LAST videos and 4/20 VideoMark videos. Of the 20 matched manifest cases,
+both methods passed on paper-013, LAST alone passed on three, VideoMark alone
+passed on three, and both scored zero on thirteen. The reference from the LAST
+generation branch passed on 3/20. This comparison uses each method's own MP4
+and the same 20 prompt/seed assignments. It measures a single dimension of
+video quality.
+
+Verify the video fingerprints and recount the three means on CPU from the
+repository root:
+
+```bash
+python tools/quality_units_table.py results/camera_motion/hunyuan_t2v_last_camera_units.json --primary results/hunyuan_t2v_last_first74.json
+python tools/quality_units_table.py results/hunyuan_t2v_videomark_camera_units.json --primary results/hunyuan_t2v_videomark_first40.json
+python tools/quality_units_table.py results/camera_motion/hunyuan_t2v_reference_camera_units.json --fidelity results/hunyuan_t2v_last_fidelity74.json
+```
