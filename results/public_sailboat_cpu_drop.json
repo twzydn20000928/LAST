@@ -22,5 +22,62 @@
   "bch_success_gpu": false,
   "cpu_model": "Intel Xeon Platinum 8347C",
   "torch_cpu_threads": 4,
-  "scope": "Single received MP4; CPU wall time under shared load."
+  "scope": "Single received MP4; CPU wall time under shared load.",
+  "chain_comparison": {
+    "index_base": 0,
+    "cpu_score": 1.1708016395568848,
+    "gpu_score": 1.1708531379699707,
+    "same_selected_windows_and_group_ids": true,
+    "windows": [
+      {
+        "received_start": 23,
+        "predicted_group": 12,
+        "original_frame_indices": [
+          44,
+          46,
+          51,
+          52
+        ],
+        "expected_frame_indices": [
+          49,
+          50,
+          51,
+          52
+        ]
+      },
+      {
+        "received_start": 27,
+        "predicted_group": 13,
+        "original_frame_indices": [
+          53,
+          54,
+          55,
+          56
+        ],
+        "expected_frame_indices": [
+          53,
+          54,
+          55,
+          56
+        ]
+      },
+      {
+        "received_start": 31,
+        "predicted_group": 14,
+        "original_frame_indices": [
+          57,
+          58,
+          61,
+          63
+        ],
+        "expected_frame_indices": [
+          57,
+          58,
+          59,
+          60
+        ]
+      }
+    ],
+    "map_source": "last.temporal.attack_map(\"sailboat-demo-v1\", \"drop\", 0); evaluated after blind extraction"
+  }
 }

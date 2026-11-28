@@ -32,6 +32,15 @@ This 35-frame MP4 is byte-identical to the [scored primary demo deletion](../res
 (471/512 bits on CUDA). The demo flag fixes the encoder thread counts. It is
 optional for reader-owned clips.
 
+The [CPU and CUDA predictions](../results/public_sailboat_cpu_drop.json)
+selected the same three windows. For example, received frames 28–31
+correspond to original frames 54–57, exactly the predicted four-frame group
+(one-based frame numbers here). The windows on either side each contained
+only two frames from their predicted group. The two readers differed on
+one information bit despite choosing the same temporal alignment. Both
+returned the raw information-bit signs after BCH decoding failed. The saved
+edit map is needed only to audit the alignment after extraction.
+
 Table 15 uses eight edits. Choices are `drop10`, `drop20`, `drop30`, `drop45`, `duplicate30`, `natural30`,
 `interpolate30`, and `drop30_crf28`. Map seeds0–4 are fixed before extraction.
 Drop30 uses exactly the primary deletion map. Combined editing uses this same
