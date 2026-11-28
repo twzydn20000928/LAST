@@ -2,6 +2,26 @@
 
 如果只想看论文设置下的效果，可以直接打开[三个样本的七条件比较](../results/quickstart-three-videos.md)。如果想亲自验证，仓库附带一条 65 帧、512 × 512 的水印视频。下面从这条视频开始，全程在仓库根目录运行 Linux Bash 命令。
 
+### 在 CPU 上核对已有结果
+
+仓库里有 Hunyuan 和 Wan-2.2 的逐样本记录。以下命令只需 Python 3.10，可直接在仓库根目录运行。每张表都取冻结清单的前三个样本，列出 LAST 和 LFG 在原片及六项攻击下分别读对多少位。每格分母为 3 × 512 = 1536 位，括号内给出完整恢复的消息数。
+
+```bash
+for family in hunyuan wan22; do
+  for mode in i2v t2v; do
+    report="results/${family}_${mode}_paired_primary_first_three.json"
+    if [[ "$family/$mode" == "hunyuan/i2v" ]]; then
+      report=results/hunyuan_i2v_primary24.json
+    fi
+    echo "$family/$mode"
+    PYTHONPATH=src python tools/matched_primary_methods.py --family "$family" --mode "$mode" \
+      --methods last lfg --first 3 --reports "$report"
+  done
+done
+```
+
+例如，Wan-2.2 图生视频随机删帧后，LAST 读对 978/1536 位，LFG 读对 1077/1536 位；在同模型的文生视频中，两者分别读对 1149/1536 和 1050/1536 位。这四格均为 0/3 条消息完整恢复。读者可以更换视频生成方式查看差异；三个样本仅作演示。
+
 ## 1. 读出公开视频里的文字
 
 准备 Python 3.10 环境。只做提取和攻击时，安装读端依赖即可。
