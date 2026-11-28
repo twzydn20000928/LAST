@@ -35,3 +35,19 @@ def test_replay_published_edit(condition, tmp_path):
     expected = REPORT["conditions"][condition]
     assert len(load_mp4(out)) == expected["frames"]
     assert hashlib.sha256(out.read_bytes()).hexdigest() == expected["received_sha256"]
+
+
+@pytest.mark.parametrize("condition", ["drop30", "drop30_crf28"])
+def test_supplement_deletion_uses_published_frames_and_codec(condition, tmp_path):
+    report = json.loads((ROOT / "results/public_sailboat_cpu_drop_compression.json").read_bytes())
+    expected = next(row for row in report["conditions"] if row["condition"] == condition)
+    output = tmp_path / condition
+    subprocess.run([sys.executable, "-m", "last.stress", "--video", str(SOURCE),
+                    "--video-id", report["video_id"], "--attack", condition,
+                    "--seed", str(report["map_seed"]), "--demo-codec-threads",
+                    "--output", str(output)], check=True)
+    receipt = json.loads((output / "attack.json").read_bytes())
+    assert receipt["source_sha256"] == report["source_sha256"]
+    assert receipt["mapping"]["source_indices"] == report["source_indices"]
+    assert receipt["frames"] == expected["frames"]
+    assert hashlib.sha256((output / "received.mp4").read_bytes()).hexdigest() == expected["received_sha256"]

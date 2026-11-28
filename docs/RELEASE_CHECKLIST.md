@@ -50,6 +50,13 @@ made and this single-case evidence does not close the full acceptance checklist.
   These counts measure generation-state consistency. Attack completion and
   bit accuracy are reported separately.
 - [ ] Public CLI for generation, embedding, blind extraction and attacks.
+  The [single-video guide](QUICKSTART.zh-CN.md) covers these operations on a
+  user-supplied payload. In the release candidate, the [public demo regression](../tests/test_public_demo_replay.py)
+  regenerated all six primary edited MP4s and the two supplementary deletion
+  variants on Linux CPU. All eight outputs matched their recorded SHA-256
+  digests. The two supplementary cases share the same 35 source-frame indices.
+  The [clean CPU extraction](../results/public_sailboat_cpu_clean.json) recovered
+  the complete public message. Final reader acceptance follows publication.
 - [x] LAST on both HunyuanVideo and Wan2.2, both T2V and I2V, verified end to end on one integration case each (28 completed attack conditions; `results/last_backbone_integrations.json`). Full benchmarks and other methods remain incomplete.
 - [ ] Reproducible SIGMark, VideoShield, VideoMark and LFG baseline integrations.
 - [ ] Main-paper quality, robustness, efficiency, ablation and margin experiments.
