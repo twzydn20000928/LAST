@@ -701,3 +701,17 @@ On random deletion, LAST, LFG and VideoShield recovered 989, 1,037 and 1,536 of 
 
 
 The [partial SIGMark recount for paper-291](../results/hunyuan_i2v_sigmark_slice291_partial.json) adds clean and noise reads to the four-method intersection. Use the native audit command above with `--method sigmark --allow-incomplete` and a fresh output path. On paper-000 SIGMark recovered 483/512 clean bits, and on paper-291 it recovered 242/512. Each clean read used one completed 50-step inversion of the full 65-frame MP4, with matching generation settings, inversion settings and adapter source hashes across the two runs. Under noise the same two samples yielded 256/512 and 248/512, respectively. The two clean scores describe the observed variation; its cause remains open. The report records the absence of an extraction-time prediction hash. The CI artifact `four-method-i2v.md` lists the common sample IDs for each condition.
+
+### Five methods on Hunyuan I2V paper-291
+
+Each number counts correct information bits out of 512 on the same manifest case. Each method uses its own marked MP4. Completed native reads were recounted from the saved predictions. The [native audit](../results/hunyuan_i2v_native_recount_paper291.json) lists missing historical digests and attack statuses. The [LAST and LFG report](../results/hunyuan_i2v_primary_slice291.json) supplies the other two columns.
+
+| Condition | LAST | LFG | SIGMark | VideoMark | VideoShield |
+|---|---:|---:|---:|---:|---:|
+| clean | 512 | 512 | 242 | 249 | 512 |
+| noise | 480 | 466 | 248 | 251 | 508 |
+| compression | 474 | 491 | 254 | 237 | 510 |
+| blur | 512 | 493 | 248 | Failed | 512 |
+| drop | 250 | 320 | 241 | Pending | 512 |
+| insert | 370 | 286 | Failed | Pending | 499 |
+| clip | 466 | 349 | Pending | Pending | 505 |

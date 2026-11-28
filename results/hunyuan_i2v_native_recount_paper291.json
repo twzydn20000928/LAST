@@ -1,0 +1,326 @@
+{
+  "sigmark": {
+    "clean": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "sigmark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "clean",
+      "correct_bits": 242,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
+      "received_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
+      "attack_receipt_sha256": "be8c7b5826ac41c2c0635bb186ecdc6f413357b2a2ee6f3e7fc9746e257207d8",
+      "extraction_receipt_sha256": "a867910c17d103fe779aa73cda8e6a8bf26975e642a9d35257a874a3572a6e78",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "noise": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "sigmark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "noise",
+      "correct_bits": 248,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
+      "received_sha256": "0623a40d5c0957aefad6b4b3fc34493ba4e8d03df7fe276e1781fe2b4d3ee81a",
+      "attack_receipt_sha256": "1b83b5994857b8132deadf444cd6e40c1e7471a1d7dfeedac0260975a0c1a2fa",
+      "extraction_receipt_sha256": "03eddc3d9913a0f2ce7dea9ac98cb378706fdcf63b682cba4313c10592a9ea01",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "compression": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "sigmark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "compression",
+      "correct_bits": 254,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
+      "received_sha256": "cb748e9efdc16709e9e6a6ea88f14f78b157eed3231af2e1fa26843a801b1631",
+      "attack_receipt_sha256": "36f32d01aaec08aec55c2951ce714559861931d2c69caa27af58e7852192f04f",
+      "extraction_receipt_sha256": "2ec7453550b59d0bdbee22e75ee79daceab368b0ae4d7b68cd0725c7e77abf29",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "blur": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "sigmark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "blur",
+      "correct_bits": 248,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
+      "received_sha256": "912d9635d62d81265e558fa4f4d4c3420c0dcc492b0b553a0a5c68ece5a2fa72",
+      "attack_receipt_sha256": "6a1614c2497e5a4dc963092d2ba9f2793c2f85a5fce3ae7a2a688f0d535db7cd",
+      "extraction_receipt_sha256": "9d65efa2f20633f150a553381b2beef06805fdbd4acda775a63f9947994fd50a",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "drop": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "sigmark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "drop",
+      "correct_bits": 241,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "be45d13bf7ac0cb4bf6b61fb97036bc35d695c4987ec63676dda578c0affbd82",
+      "received_sha256": "0ecf0fb5bce2eadf7b5f310820b07f16c0466bd91a72233d38b8a3514e13a37e",
+      "attack_receipt_sha256": "03a305fd1d75f9e7a2df8e1f95ec058c30690e83486f194f8c6ed3d67ab11228",
+      "extraction_receipt_sha256": "4b695e25c1b720b4b7f0961c8972b25be9e6166d146426b02fd43fdd326b0e14",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "insert": {
+      "status": "failed"
+    },
+    "clip": {
+      "status": "missing"
+    }
+  },
+  "videomark": {
+    "clean": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videomark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "clean",
+      "correct_bits": 249,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "f5cd1f136dffae7ae0f6df3bd3fa3c7ea1ed7c2d97d3c8dc81c7e446c1990aac",
+      "received_sha256": "f5cd1f136dffae7ae0f6df3bd3fa3c7ea1ed7c2d97d3c8dc81c7e446c1990aac",
+      "attack_receipt_sha256": "e38443bee1a8624718b0840fbfead25732cc52facd10b6eb9df8c36136e60b8a",
+      "extraction_receipt_sha256": "d53274773400c6bf73e8f9f0312bb68e8c542a5a43be391e02e4c801678e2e92",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "noise": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videomark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "noise",
+      "correct_bits": 251,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "f5cd1f136dffae7ae0f6df3bd3fa3c7ea1ed7c2d97d3c8dc81c7e446c1990aac",
+      "received_sha256": "3fad617df66fa0501bb005b4305a5cc971b3f990ba10dedff40c5cc9e2cfa0bc",
+      "attack_receipt_sha256": "27a4df42c85a379250929b64b88c0b06e57cc22385a0910ad2996a1282714efa",
+      "extraction_receipt_sha256": "8c5c14151a1e318fb65e6721a942b139f6d0ad8ab7988a21a0654094fcbc096a",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "compression": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videomark",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "compression",
+      "correct_bits": 237,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "f5cd1f136dffae7ae0f6df3bd3fa3c7ea1ed7c2d97d3c8dc81c7e446c1990aac",
+      "received_sha256": "43b5ab6e5bc9a363ab39bc1608b9281eaa581e76a4569ea154d015bc3f7c7289",
+      "attack_receipt_sha256": "f4a8684b315c9cf55e557bee4489bfafcd47541a9ce9875f91403dad1eca25ff",
+      "extraction_receipt_sha256": "e0933537059a7b491e08a513b3901ea2763689074f6ee3781c00452d9343a604",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "blur": {
+      "status": "failed"
+    },
+    "drop": {
+      "status": "missing"
+    },
+    "insert": {
+      "status": "missing"
+    },
+    "clip": {
+      "status": "missing"
+    }
+  },
+  "videoshield": {
+    "clean": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videoshield",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "clean",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "source_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "received_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "attack_receipt_sha256": "6b16bda856473b3b19c82b3b86f39c48211a6e49cdfcca56dc113b7a51c10df0",
+      "extraction_receipt_sha256": "09d4c1dad000bddafbe62c5e3a0d36d2fedf4f044876c9111a2660729a78dbc0",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "noise": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videoshield",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "noise",
+      "correct_bits": 508,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "received_sha256": "1a26196d55b8a2d43405ac2ebdff6215aafd7ec5c82c14a1c2cf1d4d7f965b25",
+      "attack_receipt_sha256": "d5d3b42a8427485942448c133c4a2de0c261dc9de899104c35463928aba1b2f8",
+      "extraction_receipt_sha256": "87810112ae2ce04399f5911b501cf5f2fe91f50a2e7717971ae4077463b64044",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "compression": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videoshield",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "compression",
+      "correct_bits": 510,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "received_sha256": "d6accedaff0eb1f3678214fdf14c9f54697dbaca0fd2aec9099e99a271a79524",
+      "attack_receipt_sha256": "00c142cf8623915b0a8fff8bbbba7901a387c17e9d35e4d572e9cdfe52304702",
+      "extraction_receipt_sha256": "c07339092769d0476dd727a7fe54be97353eda13091bbb67d44872cc801fb1d3",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "blur": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videoshield",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "blur",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "source_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "received_sha256": "714c6fbd77bf0ef214217623191d2ece9eac28497c23d2536c770587a4e782ac",
+      "attack_receipt_sha256": "979d1959d238238c3cb119d74ecd26543411258d7d75e75fbc8761ab589dc136",
+      "extraction_receipt_sha256": "e03bfd8444382e5be5c956fb489a238d27577bf3dc11db30a2683c1b61e6ae28",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "drop": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videoshield",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "drop",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true,
+      "source_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "received_sha256": "e28ddcbf77f3c6188313123fbd6035ba1c5eaf3356adbedb08b08258e9add092",
+      "attack_receipt_sha256": "b35bf1fd703a633bea7c5b5d7f1af2694d336372dea5020d2f2347e86c001d0c",
+      "extraction_receipt_sha256": "a26f1d81228b5e9272b98b857513964c27f82556056a89e7c6d06c8fd14d3993",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "insert": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videoshield",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "insert",
+      "correct_bits": 499,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "received_sha256": "c3d1b24008be4b9d7a5001c262a16a74ead139153f173e7c8d5f1535e53ce771",
+      "attack_receipt_sha256": "8d45e97a32d3bb2129a09d38588403badf9e32568b5caf0189ed48b66b0d1447",
+      "extraction_receipt_sha256": "91194d314fa42e75839b9f02454a1dae45c64b1d3b231f1b9fdb4304c14f9f36",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    },
+    "clip": {
+      "status": "completed",
+      "video_id": "paper-291",
+      "method": "videoshield",
+      "family": "hunyuan",
+      "mode": "i2v",
+      "condition": "clip",
+      "correct_bits": 505,
+      "total_bits": 512,
+      "exact_message": false,
+      "source_sha256": "36ffdd69681a8682ddef53aa788ab22a00b1d7f0cf32bf9ce2b11666bf39eb0d",
+      "received_sha256": "30431541943c2827fa24f30af7edba2741e8cd6b34d30e09615643cbc43e8f69",
+      "attack_receipt_sha256": "aec0b9903090fe601b88371e91cf2b9c748df94b171820105852992792d6c8c7",
+      "extraction_receipt_sha256": "803a9ac48c5ba6cba2960496449f9e48ebb6816b1d2d94798539ffe64c0eaee3",
+      "missing_historical_digests": [
+        "attack.message_sha256",
+        "attack.decoded_sha256",
+        "extraction.decoded_sha256"
+      ]
+    }
+  }
+}
