@@ -28,6 +28,8 @@ def main():
     parser.add_argument("--map-seed", type=int, choices=range(5), default=0)
     parser.add_argument("--condition", choices=CONDITIONS, action="append")
     parser.add_argument("--output", type=Path, required=True, help="New private output directory")
+    parser.add_argument("--demo-codec-threads", action="store_true",
+                        help="Use the public demo encoder settings (16 x264 threads, 2 lookahead threads)")
     args = parser.parse_args()
     if args.key.stat().st_size != 32 or args.message.stat().st_size != 64:
         parser.error("Expected a 32-byte key and a 64-byte message")
@@ -44,7 +46,8 @@ def main():
             if condition != "clean":
                 received = args.output / (condition + ".mp4")
                 run_module("attack_video", "--video", args.video, "--video-id", args.video_id,
-                           "--condition", condition, "--map-seed", args.map_seed, "--output", received)
+                           "--condition", condition, "--map-seed", args.map_seed, "--output", received,
+                           *(["--demo-codec-threads"] if args.demo_codec_threads else []))
             prediction = args.output / (condition + "-prediction.json")
             run_module("extract", "--video", received, "--key", args.key, "--family", args.family,
                        "--model-dir", args.model_dir, "--output", prediction)

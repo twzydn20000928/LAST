@@ -3,10 +3,13 @@ from pathlib import Path
 import subprocess
 import numpy as np
 
-def export_mp4(frames, path, crf=18, fps=8):
+def export_mp4(frames, path, crf=18, fps=8, *, demo_codec_threads=False):
     import imageio_ffmpeg
     first=np.asarray(frames[0],dtype=np.uint8);h,w=first.shape[:2]
     command=[imageio_ffmpeg.get_ffmpeg_exe(),'-y','-loglevel','error','-f','rawvideo','-pix_fmt','rgb24','-s',f'{w}x{h}','-r',str(fps),'-i','pipe:0','-an','-c:v','libx264','-crf',str(crf),'-pix_fmt','yuv420p',str(path)]
+    if demo_codec_threads:
+        options = command.index("-crf")
+        command[options:options] = ["-threads", "16", "-x264-params", "lookahead_threads=2"]
     process=subprocess.Popen(command,stdin=subprocess.PIPE)
     try:
         for frame in frames:

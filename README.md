@@ -30,11 +30,15 @@ export SAILBOAT_MP4=examples/public_demo/sailboat.mp4
 export LAST_DEMO_VAE="$HOME/last-checkpoints/hunyuan_t2v"
 python -m last.models --name hunyuan_t2v --directory "$LAST_DEMO_VAE" \
   --vae-only --download --verify-manifest configs/checkpoint_files.json
-python -m last.check_video --video "$SAILBOAT_MP4" --video-id sailboat-demo-v1 \
+python -m last.check_video --video "$SAILBOAT_MP4" --video-id sailboat-demo-v1 --demo-codec-threads \
   --family hunyuan --model-dir "$LAST_DEMO_VAE" --key "$LAST_DEMO_DIR/secret.key" \
   --message "$LAST_DEMO_DIR/message.bin" --condition clean --condition drop \
   --output "$LAST_DEMO_DIR/clean-and-drop"
 ```
+
+The demo flag fixes the H.264 encoder thread counts used to produce the
+recorded MP4s. With automatic settings, the output bytes can depend on the
+number of CPU cores available.
 
 For all seven conditions, omit both `--condition` flags and choose a fresh
 output directory. Compare your `summary.json` with the [verified demo results](results/public_sailboat_attacks.json).

@@ -16,6 +16,8 @@ def main():
     parser.add_argument("--condition", choices=[c for c in CONDITIONS if c != "clean"], required=True)
     parser.add_argument("--video-id", required=True)
     parser.add_argument("--map-seed", type=int, choices=range(5), default=0)
+    parser.add_argument("--demo-codec-threads", action="store_true",
+                        help="Use the public demo encoder settings (16 x264 threads, 2 lookahead threads)")
     args = parser.parse_args()
     if os.path.lexists(args.output):
         parser.error(f"Choose a new output file: {args.output}")
@@ -27,7 +29,8 @@ def main():
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(dir=args.output.parent) as tmp:
         encoded = Path(tmp) / "edited.mp4"
-        export_mp4(edited, encoded, crf=28 if args.condition == "compression" else 18)
+        export_mp4(edited, encoded, crf=28 if args.condition == "compression" else 18,
+                   demo_codec_threads=args.demo_codec_threads)
         os.link(encoded, args.output)
     print(f"{args.condition}: {len(frames)} -> {len(edited)} frames, saved to {args.output}")
 
