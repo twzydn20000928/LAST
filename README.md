@@ -36,10 +36,19 @@ python -m last.check_video --video "$SAILBOAT_MP4" --video-id sailboat-demo-v1 \
   --output "$LAST_DEMO_DIR/clean-and-drop"
 ```
 
-On this file, the standalone reader recovered 512/512 bits from the original
-and 471/512 after random deletion (35 remaining frames). Only the original
-message matched in full. The SHA256 of the original MP4 is
-`e1dd2c7554c903a85ae827d94320695f87cef7687fb4b32e494daa94576c5fe3`.
+For all seven conditions, omit both `--condition` flags and choose a fresh
+output directory. Compare your `summary.json` with the [verified demo results](results/public_sailboat_attacks.json).
+Each row counts correctly recovered information bits in this one video.
+
+| Condition | Received frames | Correct bits out of 512 |
+|---|---:|---:|
+| `clean` | 65 | 512 |
+| `noise` | 65 | 512 |
+| `compression` | 65 | 512 |
+| `blur` | 65 | 512 |
+| `drop` | 35 | 471 |
+| `insert` | 95 | 408 |
+| `clip` | 35 | 512 |
 
 To display the decoded message from the original MP4, run:
 

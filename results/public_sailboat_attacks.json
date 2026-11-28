@@ -1,0 +1,61 @@
+{
+  "video_id": "sailboat-demo-v1",
+  "family": "hunyuan",
+  "mode": "t2v",
+  "generation_source": "202e4a7",
+  "seed": 42,
+  "map_seed": 0,
+  "source_sha256": "e1dd2c7554c903a85ae827d94320695f87cef7687fb4b32e494daa94576c5fe3",
+  "scope": "Single public demo, separate from the primary benchmark",
+  "conditions": {
+    "clean": {
+      "frames": 65,
+      "received_sha256": "e1dd2c7554c903a85ae827d94320695f87cef7687fb4b32e494daa94576c5fe3",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true
+    },
+    "noise": {
+      "frames": 65,
+      "received_sha256": "2b3a5b5bd82f8c97c9f0665e0cccfbe6063156151d1ba86eb73923c0a1aa66f8",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true
+    },
+    "compression": {
+      "frames": 65,
+      "received_sha256": "344295d603b8e0bbfb7012cf1cb3bb1a03cc261b54a5c4dd74ef3d472a65209c",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true
+    },
+    "blur": {
+      "frames": 65,
+      "received_sha256": "21fd96f941a93ad8b8d69b0ee040d4955a4a90c27b77f15274da4cceb8b016f1",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true
+    },
+    "drop": {
+      "frames": 35,
+      "received_sha256": "355e680d6a82ff9c8b10de34aac21ced4a3d2ed2baeff48a1f3ac85d58475b6d",
+      "correct_bits": 471,
+      "total_bits": 512,
+      "exact_message": false
+    },
+    "insert": {
+      "frames": 95,
+      "received_sha256": "112a0f66d94337652580e5712a04051c1d349aeb4411496763ea938a4694844d",
+      "correct_bits": 408,
+      "total_bits": 512,
+      "exact_message": false
+    },
+    "clip": {
+      "frames": 35,
+      "received_sha256": "e43d803ddb31c273e0a05e7a9751b6dcb71e9b55faff5f5a841b2306c24f7d96",
+      "correct_bits": 512,
+      "total_bits": 512,
+      "exact_message": true
+    }
+  }
+}
