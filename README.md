@@ -236,11 +236,11 @@ clean and attacked table commands. The [paired temporal results](docs/REPORTING.
 use matched LAST and LFG videos. The table below links the observations and
 gives the sample count for each pipeline.
 View the [component ablation table](results/table4-component-ablation.md), or run the following command from the repository
-root to compare writer and reader variants on the same 13 of 30 planned
+root to compare writer and reader variants on the same 14 of 30 planned
 videos. It prints all seven conditions and the two writer fidelity scores.
 
 ```bash
-python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_three.json
+python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_four.json
 ```
 
 The reader-only ablation covers 14 of those 30 videos. Run
@@ -435,7 +435,7 @@ available command is not evidence that the full prescribed sample set has run.
 | Primary LAST/LFG generation and seven attacks | [Campaign](docs/CAMPAIGN.md), `last.smoke`, `last.evaluate` | Paired primary prefixes for both modes of both backbones; measured coverage appears above |
 | SIGMark, VideoShield, VideoMark and LFG | [Baselines](docs/BASELINES.md) | [40 Hunyuan T2V VideoMark videos](results/hunyuan_t2v_videomark_first40.json) cover all seven conditions. Other native baselines have partial coverage; see the [condition counts](docs/REPORTING.md). |
 | Paired PSNR/SSIM and official V-score | [Quality](docs/QUALITY.md), `last.quality`, `last.quality_report` | Hunyuan I2V LAST and its reference each have six of 18 dimensions, including both Creativity dimensions. Hunyuan T2V VideoMark has [two of 18](results/hunyuan_t2v_videomark_quality.json). Overall V-score pending. |
-| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `tools/writer_ablation_table.py` | 14/30 writer pairs and [14/30 reader cases](results/hunyuan_i2v_reader_ablation_14.json) cover all seven conditions. Table 4 has 13/30 fully matched cases. For paper-270 the [regenerated video differs](results/hunyuan_i2v_paper270_repeat_rgb.json) and its matched reader run is pending. |
+| Minimum-margin, CGC, sliding-window and CCTA ablations | [Ablations](docs/ABLATIONS.md), `last.reader_ablation`, `tools/writer_ablation_table.py` | 14/30 writer pairs and [14/30 reader cases](results/hunyuan_i2v_reader_ablation_14.json) cover all seven conditions. Table 4 includes all 14 cases after rerunning the four readers on the matching writer outputs for paper-270. |
 | Margin sweep and uniform-profile control | [Figure 4 and Supplement Table 5](docs/ABLATIONS.md#completed-development-margin-sweep), [development-set sensitivity](docs/ABLATIONS.md#supplementary-development-set-margin-sensitivity) | All five margins for the three figure examples and for [10 of 80 development videos](results/development_margin_ten_videos.json). The three figure examples are included in the ten. Use `last.writer_replay --uniform-profile` for the separate profile control. |
 | Matched-writer LFG-C, native LFG+CCTA and oracle grouping | [Paired reader command](docs/BASELINES.md#replay-the-seven-condition-reader-comparison), [oracle diagnostic](docs/ABLATIONS.md) | [18 Hunyuan I2V videos](results/hunyuan_i2v_lfg_ccta_first18.json) with seven paired reader comparisons each. Matched-fidelity calibration pending. |
 | Supplement Table 12, shared-fusion reader comparison | [Run the readers and rebuild the table](docs/ABLATIONS.md#shared-fusion-per-case-workflow) | 110 Hunyuan I2V LAST videos. The [paired deletion analysis](docs/ABLATIONS.md#paired-deletion-differences-across-videos) covers the first 100. Received-order, CCTA and true-map readers share the same clean, deletion and compression inputs; calibrated energy is pending. |

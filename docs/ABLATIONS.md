@@ -1343,21 +1343,17 @@ The temporal-diagnostics workflow includes the output as `table12-equal-group-co
 ### Render main Table 4
 
 The [current Table 4](../results/table4-component-ablation.md) compares five
-variants on the same 13 of 30 planned Hunyuan I2V videos. Each cell covers
-6,656 information bits. The independent writer and reader runs each cover 14
-videos. For paper-270, the regenerated marked MP4 differs from the one used
-in the reader experiment. Its seven conditions are excluded until the readers
-have been run on the matching files.
+variants on 14 of the 30 planned Hunyuan I2V videos. Each cell covers 7,168 information bits. For paper-270 the four readers were rerun on all seven inputs from the regenerated minimum-margin writer.
 
 ```bash
 python tools/matched_component_table.py --table4 \
-  --archived-reread results/hunyuan_i2v_archived_reader_three.json
+  --archived-reread results/hunyuan_i2v_archived_reader_four.json
 ```
 
 The table reports bit accuracies, underlying counts and paired writer fidelity.
-On random deletion, full LAST recovered 4,794/6,656 bits, the fixed-target
-writer 4,624, the reader without cross-group consistency 3,291, fixed-stride
-windows 4,316 and received-order grouping 3,499. The calibrated energy reader
+On random deletion, full LAST recovered 5,188/7,168 bits, the fixed-target
+writer 5,024, the reader without cross-group consistency 3,540, fixed-stride
+windows 4,696 and received-order grouping 3,781. The calibrated energy reader
 is evaluated separately in the supplement.
 
 To include the completed archived-input reruns for paper-003 and paper-174, run `python tools/matched_component_table.py --archived-reread results/hunyuan_i2v_archived_reader_pair.json`. This yields 12/30 matched videos and 6,144 information bits per condition. The 56 rerun receipts cover both cases, seven conditions and four readers. The original reader data are retained separately. On these 12 videos the full reader scored 73.99%, 80.24% and 96.14% on drop, insert and clip. With received-order grouping the scores were 52.52%, 53.94% and 65.98%.
@@ -1414,7 +1410,7 @@ python tools/replay_primary_attacks.py --run /private/primary/hunyuan/i2v/last/p
 PYTHONPATH="$table4_src" python -m last.reader_ablation --run /private/verified-inputs/paper-291 --family hunyuan --model-dir /models/hunyuan-i2v --output /private/ablations/paper-291
 ```
 
-The current Table 4 rebuild covers 13 of the 30 frozen cases (6,656 bits per condition). Use `python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_three.json`. This export adds 28 reads on the regenerated minimum-margin inputs for paper-291 to the 56 archived reads for paper-003 and paper-174. On paper-291, deletion recovered 248/512 bits with the minimum-margin writer and 266/512 with the fixed-target writer. Both results enter the pooled table.
+The earlier Table 4 snapshot covered 13 of the 30 frozen cases (6,656 bits per condition). Use `python tools/matched_component_table.py --table4 --archived-reread results/hunyuan_i2v_archived_reader_three.json`. This export adds 28 reads on the regenerated minimum-margin inputs for paper-291 to the 56 archived reads for paper-003 and paper-174. On paper-291, deletion recovered 248/512 bits with the minimum-margin writer and 266/512 with the fixed-target writer. Both results enter the pooled table.
 
 ### Intact and partially retained groups at the same group count
 
