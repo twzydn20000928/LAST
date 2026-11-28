@@ -1,0 +1,72 @@
+# 用一条视频试用 LAST
+
+如果只想看论文设置下的效果，可以直接打开[三个样本的七条件比较](../results/quickstart-three-videos.md)。如果想亲自验证，仓库附带一条 65 帧、512 × 512 的水印视频。下面从这条视频开始，全程在仓库根目录运行 Linux Bash 命令。
+
+## 1. 读出公开视频里的文字
+
+准备 Python 3.10 环境。只做提取和攻击时，安装读端依赖即可。
+
+```bash
+git clone https://github.com/twzydn20000928/LAST.git
+cd LAST
+python3.10 -m venv .venv
+source .venv/bin/activate
+unset PYTHONPATH
+export PYTHONNOUSERSITE=1
+python -m pip install -r environments/reader-linux-py310-cu124.txt
+python -m pip install --no-deps -e .
+python -m pip check
+```
+
+选择一个新的工作目录。第一条 Python 命令准备公开示例的密钥和已知消息。第二条下载并核验视频编码器（VAE），约 986 MB。收到视频的人只需视频、对应密钥和编码器即可提取。
+
+```bash
+work="$HOME/last-sailboat-demo"
+vae="$HOME/last-checkpoints/hunyuan_t2v"
+video=examples/public_demo/sailboat.mp4
+python examples/public_demo/prepare.py --output "$work"
+python -m last.models --name hunyuan_t2v --directory "$vae" --vae-only --download --verify-manifest configs/checkpoint_files.json
+python -m last.extract --family hunyuan --model-dir "$vae" --video "$video" --key "$work/secret.key" --output "$work/prediction.json"
+python -m last.cli unpack-message --text --prediction "$work/prediction.json" --output "$work/recovered.txt"
+cat "$work/recovered.txt"
+```
+
+原片预期文字为 `LAST public reader demonstration v1`。提取默认使用 CUDA。若使用 CPU，在 `last.extract` 或下文的 `last.check_video` 命令中加上 `--device cpu --progress`。公开示例的 35 帧删帧视频曾在四线程 CPU 上用时约 19 分钟。
+
+## 2. 在同一视频上比较两种删帧方式
+
+以下命令分别随机删除 30 帧、连续删除 30 帧。两条输出都剩 35 帧。程序将受攻击的视频写入 MP4 后重新读取；已知消息只在提取结束后用于评分。
+
+```bash
+python -m last.check_video --video "$video" --video-id sailboat-demo-v1 --demo-codec-threads \
+  --family hunyuan --model-dir "$vae" --key "$work/secret.key" --message "$work/message.bin" \
+  --condition drop --condition clip --output "$work/two-deletions"
+cat "$work/two-deletions/summary.md"
+```
+
+| 公开示例的 GPU 实测 | 正确位数 | 比特准确率 | 整条消息恢复 |
+|---|---:|---:|---|
+| 随机删除 | 471/512 | 91.99% | 否 |
+| 连续删除 | 512/512 | 100% | 是 |
+
+这是同一条视频的一次对照。移除两个 `--condition` 参数并指定新的输出目录，可运行原片和全部六项主表攻击。附录的组合攻击可用 `--condition drop30_crf28` 单独测试。[原始评分](../results/public_sailboat_attacks.json) · [附录八项攻击设置](STRESS.md)
+
+## 3. 在生成过程中写入自己的消息
+
+沿用已激活的环境，安装生成依赖并下载完整的 Hunyuan 文生视频模型。此步需要可用的 NVIDIA GPU。若已有固定版本的完整模型，可将 `model` 指向该目录，并省略 `--download`。
+
+```bash
+python -m pip install -r environments/video-linux-py310-cu124.txt
+python -m pip check
+model="$HOME/last-checkpoints/hunyuan_t2v"
+mine="$HOME/last-my-video"
+python -m last.models --name hunyuan_t2v --directory "$model" --download --verify-manifest configs/checkpoint_files.json
+python -m last.cli prepare-video --output "$mine" --prompt "A yellow kayak moves across a quiet lake" --seed 42 --text "我的第一段视频"
+python -m last.smoke --family hunyuan --mode t2v --model-dir "$model" --case "$mine/case.json" \
+  --key "$mine/secret.key" --message "$mine/message.bin" --output "$mine/run" --memory-gib 8 --offload sequential --marked-only
+python -m last.extract --family hunyuan --model-dir "$model" --video "$mine/run/marked.mp4" \
+  --key "$mine/secret.key" --output "$mine/prediction.json"
+python -m last.score_message --message "$mine/message.bin" --prediction "$mine/prediction.json"
+```
+
+生成的成片位于 `$mine/run/marked.mp4`，新密钥位于 `$mine/secret.key`。文字最多占 64 个 UTF-8 字节。需要写入任意 512 位数据时，可将 `--text` 换为 `--message-file` 并提供恰好 64 字节的文件。要对自己的成片做攻击评测，在第 2 步换用自己的视频、密钥、消息和视频编号，去掉公开示例专用的 `--demo-codec-threads`。[图生视频与 Wan-2.2 用法](../README.md#generate-and-evaluate-your-own-video)

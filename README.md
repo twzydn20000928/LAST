@@ -2,6 +2,8 @@
 
 Training-free, inversion-free video watermarking with endpoint latent-frequency margin coding (ELMC) and cross-group consistency temporal alignment (CCTA).
 
+[中文单视频快速入门](docs/QUICKSTART.zh-CN.md)
+
 ## Use LAST on one video
 
 Try the [marked sailboat MP4](examples/public_demo/sailboat.mp4) (1.04 MB) with the [public demo commands](#read-the-sailboat-demo). This 65-frame example can be read with a VAE-only checkpoint.
