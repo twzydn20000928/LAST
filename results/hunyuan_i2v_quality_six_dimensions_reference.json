@@ -1,0 +1,84 @@
+{
+  "pipeline": [
+    "hunyuan",
+    "i2v",
+    "reference"
+  ],
+  "family": "hunyuan",
+  "mode": "i2v",
+  "method": "reference",
+  "complete": false,
+  "v_score": null,
+  "categories": {
+    "Creativity": 0.4024315342307091,
+    "Commonsense": null,
+    "Controllability": null,
+    "Human Fidelity": null,
+    "Physics": null
+  },
+  "missing_or_invalid_dimensions": [
+    "Instance_Preservation",
+    "Motion_Rationality",
+    "Dynamic_Attribute",
+    "Human_Interaction",
+    "Motion_Order_Understanding",
+    "Human_Anatomy",
+    "Human_Clothes",
+    "Human_Identity",
+    "Material",
+    "Mechanics",
+    "Multi-View_Consistency",
+    "Thermotics"
+  ],
+  "dimensions": {
+    "Camera_Motion": {
+      "status": "completed",
+      "mean": 0.35,
+      "valid_units": 20,
+      "expected_units": 20,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
+    },
+    "Composition": {
+      "status": "completed",
+      "mean": 0.55,
+      "valid_units": 20,
+      "expected_units": 20,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
+    },
+    "Diversity": {
+      "status": "completed",
+      "mean": 0.25486306846141815,
+      "valid_units": 3,
+      "expected_units": 3,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
+    },
+    "Complex_Landscape": {
+      "status": "completed",
+      "mean": 0.13,
+      "valid_units": 20,
+      "expected_units": 20,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
+    },
+    "Complex_Plot": {
+      "status": "completed",
+      "mean": 0.07,
+      "valid_units": 20,
+      "expected_units": 20,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
+    },
+    "Dynamic_Spatial_Relationship": {
+      "status": "completed",
+      "mean": 0.25,
+      "valid_units": 20,
+      "expected_units": 20,
+      "not_applicable_units": 0,
+      "full_dimension_inputs": true
+    }
+  },
+  "scope": "Incomplete; no full V-score"
+}

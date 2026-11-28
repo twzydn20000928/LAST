@@ -2,7 +2,7 @@
 
 | Method | Inversion-free | Extraction | T2V bit accuracy | T2V V-score | I2V bit accuracy | I2V V-score |
 |---|---|---|---:|---:|---:|---:|
-| No-mark | — | — | — | pending (1/18 dimensions) | — | pending (5/18 dimensions) |
+| No-mark | — | — | — | pending (1/18 dimensions) | — | pending (6/18 dimensions) |
 | VideoMark | No | Non-blind | 0.713 (40/400) | pending (2/18 dimensions) | pending | pending |
 | VideoShield | No | Non-blind | pending | pending | 1.000 (3/400) | pending |
 | SIGMark | No | Blind | pending | pending | 0.708 (2/400) | pending |
@@ -41,6 +41,7 @@ Diversity uses prompt groups as scoring units. Other dimensions use videos.
 | I2V | No-mark | Complex_Plot | 0.0700 | 20/20 |
 | I2V | No-mark | Composition | 0.5500 | 20/20 |
 | I2V | No-mark | Diversity | 0.2549 | 3/3 |
+| I2V | No-mark | Dynamic_Spatial_Relationship | 0.2500 | 20/20 |
 | T2V | LAST | Camera_Motion | 0.2000 | 20/20 |
 | T2V | No-mark | Camera_Motion | 0.1500 | 20/20 |
 | T2V | VideoMark | Camera_Motion | 0.2000 | 20/20 |

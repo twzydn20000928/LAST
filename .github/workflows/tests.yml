@@ -93,6 +93,7 @@ jobs:
           from pathlib import Path
           for name, archived in [
               ("hunyuan_i2v_last", "hunyuan_i2v_quality_six_dimensions_last"),
+              ("hunyuan_i2v_reference", "hunyuan_i2v_quality_six_dimensions_reference"),
               ("hunyuan_t2v_videomark", "hunyuan_t2v_videomark_quality"),
           ]:
               built = json.loads(Path(f"ci-clean-tables/quality/{name}.json").read_bytes())
