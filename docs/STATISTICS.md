@@ -416,3 +416,22 @@ python tools/paired_primary_intervals.py --report results/hunyuan_i2v_primary40.
   --additional-report results/hunyuan_i2v_primary_slice291.json \
   --output paired-intervals-47.json
 ```
+
+### Four paired subsets under temporal attacks
+
+Entries give the mean paired bit-accuracy difference (LAST minus LFG, percentage points). Parentheses give the 95% prompt-cluster bootstrap interval.
+
+| Pipeline | Paired videos / distinct prompts | Random deletion | Noise-frame insertion | Contiguous removal |
+|---|---:|---:|---:|---:|
+| Hunyuan I2V | 47 / 13 | +12.21 (7.68, 16.55) | +27.37 (22.81, 31.36) | +20.67 (17.20, 24.49) |
+| Hunyuan T2V | 16 / 4 | +12.10 (6.31, 18.33) | +33.70 (28.42, 38.34) | +22.91 (18.38, 26.66) |
+| Wan-2.2 I2V | 15 / 4 | +0.78 (-8.59, 11.50) | +27.60 (18.79, 34.91) | +18.03 (9.83, 27.10) |
+| Wan-2.2 T2V | 15 / 4 | +6.89 (2.49, 11.91) | +29.84 (21.68, 37.36) | +19.09 (14.38, 24.47) |
+
+On Wan-2.2 I2V random deletion, LAST won eight video pairs and LFG won seven. The interval includes differences in either direction. Three pipelines currently cover only four distinct prompts each, which limits the stability of their intervals. These results cover the observed subsets at the primary attack seed.
+
+Rebuild all four reports from the published per-video counts on CPU and compare them against the recorded files:
+
+```bash
+bash tools/rebuild_paired_intervals.sh paired-intervals
+```
