@@ -3,7 +3,7 @@
 | Method | Inversion-free | Extraction | T2V bit accuracy | T2V V-score | I2V bit accuracy | I2V V-score |
 |---|---|---|---:|---:|---:|---:|
 | No-mark | — | — | — | pending (1/18 dimensions) | — | pending (6/18 dimensions) |
-| VideoMark | No | Non-blind | 0.713 (40/400) | pending (2/18 dimensions) | pending | pending |
+| VideoMark | No | Non-blind | 0.713 (40/400) | pending (2/18 dimensions) | 0.486 (1/400) | pending |
 | VideoShield | No | Non-blind | pending | pending | 1.000 (3/400) | pending |
 | SIGMark | No | Blind | pending | pending | 0.708 (2/400) | pending |
 | LFG | Yes | Blind | 0.967 (15/400) | pending | 0.970 (41/400) | pending (1/18 dimensions) |
@@ -18,6 +18,7 @@ Bit accuracy is pooled over 512 information bits per completed video. Counts bel
 | I2V | LAST | 20992/20992 | 41/41 |
 | I2V | LFG | 20365/20992 | 21/41 |
 | I2V | SIGMark | 725/1024 | 0/2 |
+| I2V | VideoMark | 249/512 | 0/1 |
 | I2V | VideoShield | 1536/1536 | 3/3 |
 | T2V | LAST | 7680/7680 | 15/15 |
 | T2V | LFG | 7425/7680 | 3/15 |

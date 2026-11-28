@@ -27,7 +27,7 @@ jobs:
             results/hunyuan_i2v_videoshield_first2_complete.json \
             results/hunyuan_i2v_videoshield_slice291.json \
             results/hunyuan_i2v_sigmark_first1_partial.json \
-            results/hunyuan_i2v_sigmark_slice291_partial.json \
+            results/hunyuan_i2v_sigmark_videomark_paper291.json \
             results/hunyuan_t2v_videomark_first40.json \
             --output .ci-tables/robustness
           diff --strip-trailing-cr -u results/primary-robustness/table.md .ci-tables/robustness/table.md
@@ -103,7 +103,7 @@ jobs:
           python -m last.clean_table --family hunyuan --disjoint-snapshots \
             --reports results/hunyuan_i2v_primary40.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_t2v_primary14.json results/hunyuan_t2v_primary_slice014.json \
               results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_i2v_videoshield_slice291.json results/hunyuan_t2v_videomark_first40.json \
-              results/hunyuan_i2v_sigmark_first1_partial.json results/hunyuan_i2v_sigmark_slice291_partial.json \
+              results/hunyuan_i2v_sigmark_first1_partial.json results/hunyuan_i2v_sigmark_videomark_paper291.json \
             --quality ci-clean-tables/quality/hunyuan_*.json --output ci-clean-tables/hunyuan.md
           python -m last.clean_table --family wan22 \
             --reports results/wan22_i2v_primary14.json results/wan22_t2v_primary14.json results/wan22_i2v_videoshield_paper000_seven_conditions.json \
@@ -128,7 +128,7 @@ jobs:
             > ci-temporal-diagnostics/hunyuan-i2v-matched-including-paper291.md
           python tools/matched_primary_methods.py --family hunyuan --mode i2v \
             --methods last lfg sigmark videoshield --reports results/hunyuan_i2v_primary24.json \
-            results/hunyuan_i2v_sigmark_first1_partial.json results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_sigmark_slice291_partial.json results/hunyuan_i2v_videoshield_slice291.json \
+            results/hunyuan_i2v_sigmark_first1_partial.json results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_sigmark_videomark_paper291.json results/hunyuan_i2v_videoshield_slice291.json \
             > ci-temporal-diagnostics/four-method-i2v.md
           python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg videoshield --reports results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_videoshield_slice291.json > ci-temporal-diagnostics/three-method-hunyuan-paper291.md
           python tools/matched_primary_methods.py --family hunyuan --mode i2v --methods last lfg videoshield --reports results/hunyuan_i2v_primary24.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_i2v_videoshield_slice291.json > ci-temporal-diagnostics/three-method-hunyuan-matched.md
