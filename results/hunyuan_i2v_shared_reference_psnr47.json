@@ -1,0 +1,665 @@
+{
+  "family": "hunyuan",
+  "mode": "i2v",
+  "manifest_sha256": "348a52a3d122da7d5895e99246b2cc1bd344133b770f32af3363b73249447b58",
+  "observations": [
+    {
+      "video_id": "paper-000",
+      "reference_rmse_8bit": 2.2722354441398713,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 29.34857121892414,
+          "lfg": 22.403696980880035
+        },
+        "lfg": {
+          "last": 29.347990913166036,
+          "lfg": 22.403474151560804
+        }
+      }
+    },
+    {
+      "video_id": "paper-001",
+      "reference_rmse_8bit": 2.555879906009682,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 29.56144276845346,
+          "lfg": 22.445711210570348
+        },
+        "lfg": {
+          "last": 29.563716912157318,
+          "lfg": 22.445826809356724
+        }
+      }
+    },
+    {
+      "video_id": "paper-002",
+      "reference_rmse_8bit": 2.4669269569831704,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 29.49545238617712,
+          "lfg": 21.72770033217436
+        },
+        "lfg": {
+          "last": 29.49433363090123,
+          "lfg": 21.727291885717875
+        }
+      }
+    },
+    {
+      "video_id": "paper-003",
+      "reference_rmse_8bit": 2.3301796893164064,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.16240463418128,
+          "lfg": 22.607584496142586
+        },
+        "lfg": {
+          "last": 30.162266582248243,
+          "lfg": 22.608122047710644
+        }
+      }
+    },
+    {
+      "video_id": "paper-004",
+      "reference_rmse_8bit": 0.0,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.661358707105933,
+          "lfg": 22.12184469864126
+        },
+        "lfg": {
+          "last": 30.661358707105933,
+          "lfg": 22.12184469864126
+        }
+      }
+    },
+    {
+      "video_id": "paper-005",
+      "reference_rmse_8bit": 0.0,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.982787662835186,
+          "lfg": 23.018947321293282
+        },
+        "lfg": {
+          "last": 31.982787662835186,
+          "lfg": 23.018947321293282
+        }
+      }
+    },
+    {
+      "video_id": "paper-006",
+      "reference_rmse_8bit": 2.028918795062257,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 32.348807670940985,
+          "lfg": 22.077718512985168
+        },
+        "lfg": {
+          "last": 32.34889617037715,
+          "lfg": 22.07697994600178
+        }
+      }
+    },
+    {
+      "video_id": "paper-007",
+      "reference_rmse_8bit": 2.1124209834146157,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 32.18407054013065,
+          "lfg": 23.444796608798608
+        },
+        "lfg": {
+          "last": 32.186344994587,
+          "lfg": 23.444382007294937
+        }
+      }
+    },
+    {
+      "video_id": "paper-008",
+      "reference_rmse_8bit": 1.7598318896001675,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.021884255600106,
+          "lfg": 22.540831032257053
+        },
+        "lfg": {
+          "last": 31.02266456466281,
+          "lfg": 22.541123660870706
+        }
+      }
+    },
+    {
+      "video_id": "paper-009",
+      "reference_rmse_8bit": 2.0227852704007514,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.27214551566873,
+          "lfg": 21.75784701036352
+        },
+        "lfg": {
+          "last": 31.26997237284251,
+          "lfg": 21.758982145444648
+        }
+      }
+    },
+    {
+      "video_id": "paper-010",
+      "reference_rmse_8bit": 2.02206619816634,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.447521809891143,
+          "lfg": 22.15644556450905
+        },
+        "lfg": {
+          "last": 31.454950732302187,
+          "lfg": 22.158109150907762
+        }
+      }
+    },
+    {
+      "video_id": "paper-011",
+      "reference_rmse_8bit": 2.1146373060093064,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.217940805315777,
+          "lfg": 21.978097615524188
+        },
+        "lfg": {
+          "last": 31.216478457135626,
+          "lfg": 21.97674706554498
+        }
+      }
+    },
+    {
+      "video_id": "paper-012",
+      "reference_rmse_8bit": 2.218918626080205,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.29230108162973,
+          "lfg": 22.131150131898295
+        },
+        "lfg": {
+          "last": 31.29408368829315,
+          "lfg": 22.131553860325653
+        }
+      }
+    },
+    {
+      "video_id": "paper-013",
+      "reference_rmse_8bit": 1.6596018764722382,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 35.002810976181976,
+          "lfg": 26.543537906558296
+        },
+        "lfg": {
+          "last": 34.998296491287626,
+          "lfg": 26.53973030024443
+        }
+      }
+    },
+    {
+      "video_id": "paper-014",
+      "reference_rmse_8bit": 1.9451820409140173,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 33.73854593627093,
+          "lfg": 23.60826858414468
+        },
+        "lfg": {
+          "last": 33.73485385830732,
+          "lfg": 23.608296796617
+        }
+      }
+    },
+    {
+      "video_id": "paper-015",
+      "reference_rmse_8bit": 2.0018246225956355,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 33.104029017838776,
+          "lfg": 23.74621918651107
+        },
+        "lfg": {
+          "last": 33.10368793020487,
+          "lfg": 23.74660230419026
+        }
+      }
+    },
+    {
+      "video_id": "paper-016",
+      "reference_rmse_8bit": 2.063286667597063,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.67802176607746,
+          "lfg": 21.159349082841885
+        },
+        "lfg": {
+          "last": 30.67913952726326,
+          "lfg": 21.15981795648263
+        }
+      }
+    },
+    {
+      "video_id": "paper-017",
+      "reference_rmse_8bit": 1.818452507667571,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 32.04675308076411,
+          "lfg": 22.247715290226107
+        },
+        "lfg": {
+          "last": 32.04748284453581,
+          "lfg": 22.24779912762306
+        }
+      }
+    },
+    {
+      "video_id": "paper-018",
+      "reference_rmse_8bit": 1.9709358672140433,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.0112296251947,
+          "lfg": 21.596712419640607
+        },
+        "lfg": {
+          "last": 31.008817457165982,
+          "lfg": 21.596656564120348
+        }
+      }
+    },
+    {
+      "video_id": "paper-019",
+      "reference_rmse_8bit": 2.2561865891349697,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.190523678571743,
+          "lfg": 21.746066662924424
+        },
+        "lfg": {
+          "last": 31.1883476025883,
+          "lfg": 21.746219397423268
+        }
+      }
+    },
+    {
+      "video_id": "paper-020",
+      "reference_rmse_8bit": 2.2047996414974165,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 32.32955200802413,
+          "lfg": 22.96069213129567
+        },
+        "lfg": {
+          "last": 32.32770769930948,
+          "lfg": 22.960673911354426
+        }
+      }
+    },
+    {
+      "video_id": "paper-021",
+      "reference_rmse_8bit": 2.476041477575725,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 29.724036957662427,
+          "lfg": 20.682225355143956
+        },
+        "lfg": {
+          "last": 29.72412201446645,
+          "lfg": 20.681903542101104
+        }
+      }
+    },
+    {
+      "video_id": "paper-022",
+      "reference_rmse_8bit": 2.7495296903067996,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.622085836318334,
+          "lfg": 21.574187127208077
+        },
+        "lfg": {
+          "last": 30.577463426591173,
+          "lfg": 21.573139052758258
+        }
+      }
+    },
+    {
+      "video_id": "paper-023",
+      "reference_rmse_8bit": 2.58296393947369,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 32.545904030386836,
+          "lfg": 22.329720632616553
+        },
+        "lfg": {
+          "last": 32.54922973292139,
+          "lfg": 22.329319802114323
+        }
+      }
+    },
+    {
+      "video_id": "paper-024",
+      "reference_rmse_8bit": 1.774455841844324,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 33.88233429808886,
+          "lfg": 20.316258683929924
+        },
+        "lfg": {
+          "last": 33.87846643910517,
+          "lfg": 20.31596459977328
+        }
+      }
+    },
+    {
+      "video_id": "paper-025",
+      "reference_rmse_8bit": 2.2315836049818722,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.6932279736414,
+          "lfg": 20.907535544669912
+        },
+        "lfg": {
+          "last": 30.69443174227189,
+          "lfg": 20.906814839751334
+        }
+      }
+    },
+    {
+      "video_id": "paper-026",
+      "reference_rmse_8bit": 2.55253308096601,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.15804197386382,
+          "lfg": 21.239381368571202
+        },
+        "lfg": {
+          "last": 30.15873436673371,
+          "lfg": 21.239490265135185
+        }
+      }
+    },
+    {
+      "video_id": "paper-027",
+      "reference_rmse_8bit": 2.277160829924799,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.99808809392926,
+          "lfg": 22.190763727099743
+        },
+        "lfg": {
+          "last": 30.999369627024006,
+          "lfg": 22.18933505637252
+        }
+      }
+    },
+    {
+      "video_id": "paper-028",
+      "reference_rmse_8bit": 1.7499131065845681,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 36.356887377836394,
+          "lfg": 32.40247387687797
+        },
+        "lfg": {
+          "last": 36.356594646974706,
+          "lfg": 32.401727416018815
+        }
+      }
+    },
+    {
+      "video_id": "paper-029",
+      "reference_rmse_8bit": 1.847047956885678,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 33.748502943040826,
+          "lfg": 28.921548026351495
+        },
+        "lfg": {
+          "last": 33.74775829817764,
+          "lfg": 28.92176365170226
+        }
+      }
+    },
+    {
+      "video_id": "paper-030",
+      "reference_rmse_8bit": 1.677423971921835,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 34.687606713643085,
+          "lfg": 30.34861653827867
+        },
+        "lfg": {
+          "last": 34.68794539726053,
+          "lfg": 30.350590033058875
+        }
+      }
+    },
+    {
+      "video_id": "paper-031",
+      "reference_rmse_8bit": 1.6786586030959203,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 35.84428085017873,
+          "lfg": 24.64617749164065
+        },
+        "lfg": {
+          "last": 35.84861434010287,
+          "lfg": 24.6463619585127
+        }
+      }
+    },
+    {
+      "video_id": "paper-032",
+      "reference_rmse_8bit": 2.03402191214784,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 33.462838733230015,
+          "lfg": 22.380443618651658
+        },
+        "lfg": {
+          "last": 33.46049945656298,
+          "lfg": 22.379934415591833
+        }
+      }
+    },
+    {
+      "video_id": "paper-033",
+      "reference_rmse_8bit": 1.8569556394762563,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 32.91771692885814,
+          "lfg": 22.79304245196733
+        },
+        "lfg": {
+          "last": 32.92030561174988,
+          "lfg": 22.793474620306853
+        }
+      }
+    },
+    {
+      "video_id": "paper-034",
+      "reference_rmse_8bit": 2.386346402660212,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.1834102677826,
+          "lfg": 21.041202702725997
+        },
+        "lfg": {
+          "last": 31.184220343527322,
+          "lfg": 21.041112090090046
+        }
+      }
+    },
+    {
+      "video_id": "paper-035",
+      "reference_rmse_8bit": 2.0456002549422583,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 33.65748882284897,
+          "lfg": 22.81303517671941
+        },
+        "lfg": {
+          "last": 33.657718794116015,
+          "lfg": 22.814319822618355
+        }
+      }
+    },
+    {
+      "video_id": "paper-036",
+      "reference_rmse_8bit": 2.3530424137257957,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.57198566777293,
+          "lfg": 21.02653866441571
+        },
+        "lfg": {
+          "last": 30.573088342807534,
+          "lfg": 21.02633228275184
+        }
+      }
+    },
+    {
+      "video_id": "paper-037",
+      "reference_rmse_8bit": 2.3140426808988277,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.080855211232326,
+          "lfg": 21.468642865401257
+        },
+        "lfg": {
+          "last": 31.080152703980204,
+          "lfg": 21.46827984864734
+        }
+      }
+    },
+    {
+      "video_id": "paper-038",
+      "reference_rmse_8bit": 2.3239275515840676,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.56551633634594,
+          "lfg": 21.40186836137794
+        },
+        "lfg": {
+          "last": 30.565199507619823,
+          "lfg": 21.402120407413776
+        }
+      }
+    },
+    {
+      "video_id": "paper-039",
+      "reference_rmse_8bit": 2.6114460971831948,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 30.016606997669115,
+          "lfg": 20.379488390456487
+        },
+        "lfg": {
+          "last": 30.01602067154801,
+          "lfg": 20.3795179548594
+        }
+      }
+    },
+    {
+      "video_id": "paper-040",
+      "reference_rmse_8bit": 1.8675672636245688,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 34.19292602538928,
+          "lfg": 26.59630843788145
+        },
+        "lfg": {
+          "last": 34.19522869266393,
+          "lfg": 26.59500117466522
+        }
+      }
+    },
+    {
+      "video_id": "paper-041",
+      "reference_rmse_8bit": 2.200030485355462,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 31.932183338006492,
+          "lfg": 23.376769153580888
+        },
+        "lfg": {
+          "last": 31.93025018403372,
+          "lfg": 23.3777072811126
+        }
+      }
+    },
+    {
+      "video_id": "paper-042",
+      "reference_rmse_8bit": 1.9950225759767986,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 32.810285385182134,
+          "lfg": 25.721082903962614
+        },
+        "lfg": {
+          "last": 32.813070352517464,
+          "lfg": 25.720663155324104
+        }
+      }
+    },
+    {
+      "video_id": "paper-043",
+      "reference_rmse_8bit": 1.770433087117892,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 34.80634709522472,
+          "lfg": 26.48668426989645
+        },
+        "lfg": {
+          "last": 34.80417443346746,
+          "lfg": 26.48650340933942
+        }
+      }
+    },
+    {
+      "video_id": "paper-044",
+      "reference_rmse_8bit": 2.13853694252953,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 33.48878796016058,
+          "lfg": 23.95707362076915
+        },
+        "lfg": {
+          "last": 33.489677506967304,
+          "lfg": 23.957324464382452
+        }
+      }
+    },
+    {
+      "video_id": "paper-045",
+      "reference_rmse_8bit": 2.2019147352308996,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 34.13066172958276,
+          "lfg": 23.426155034556515
+        },
+        "lfg": {
+          "last": 34.132749497709305,
+          "lfg": 23.425996287399258
+        }
+      }
+    },
+    {
+      "video_id": "paper-291",
+      "reference_rmse_8bit": 0.0,
+      "psnr_db_by_reference": {
+        "last": {
+          "last": 35.48693877280159,
+          "lfg": 25.03461224435247
+        },
+        "lfg": {
+          "last": 35.48693877280159,
+          "lfg": 25.03461224435247
+        }
+      }
+    }
+  ]
+}
