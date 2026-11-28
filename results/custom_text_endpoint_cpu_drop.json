@@ -1,0 +1,28 @@
+{
+  "scope": "Single Hunyuan I2V paper-003 custom message; random deletion, shared-server CPU read",
+  "source_sha256": "ae233827712ea8d089db9a6a22cb69c8ce9d63f1a838214d37f058cad2d05e64",
+  "received_sha256": "99a4edeefc24322b499b8a2f170c00f40964e90f8e6b77b7413cd79bd93ac97a",
+  "prediction_receipt_sha256": "d0c2129929401f0e19149599239f2b7cd57e4d055023902c3723fca76c73d531",
+  "source_frames": 65,
+  "received_frames": 35,
+  "map_seed": 0,
+  "read_seconds": 1133.4432702064514,
+  "route": "ccta",
+  "groups": 2,
+  "bch_success": false,
+  "score": {
+    "status": "completed",
+    "correct_bits": 270,
+    "total_bits": 512,
+    "bit_accuracy": 0.52734375,
+    "exact_message": false
+  },
+  "utf8_content_bits": 168,
+  "utf8_content_wrong_bits": 81,
+  "padding_bits": 344,
+  "padding_wrong_bits": 161,
+  "valid_utf8": false,
+  "text_matches": false,
+  "original_payload_gpu_replay_correct_bits": 332,
+  "constant_zero_correct_bits": 429
+}

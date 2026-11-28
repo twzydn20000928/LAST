@@ -131,3 +131,5 @@ python -m last.writer_replay --run "$mine/run" --model-dir "$model" \
 这里的 `$mine/run` 必须是首次就带 `--save-endpoint` 的生成目录。回写只需解码器；`$model` 可指向包含相同 `vae/` 文件的目录。新保存的终点会记录这些文件的摘要。旧终点若要换目录，需让原模型目录可读，以便逐文件核对。新的成片路径是 `$mine/second-message/marked.mp4`，可使用原密钥盲提取。该操作仍需视频解码器重新渲染画面；输出文件的像素和旧成片可能不同。
 
 在 Hunyuan 图生样本 `paper-003` 上，我们复用同一个生成终点和密钥，把消息换成“我的第一段视频”。回写后的 65 帧 MP4 经独立盲提取，改变的 250 位全部读对，保留的 262 位也全部读对，解出的 21 个 UTF-8 字节与原文一致。共享服务器上 CPU 回写约 19 分钟，原片提取约 37 分钟。[单样本实测记录](../results/custom_text_endpoint_cpu.json)
+
+对同一成片运行 `--condition drop --video-id paper-003 --map-seed 0`，随机删除 30 帧后只读对 270/512 位。正文读对 87/168 位，补零区域读对 183/344 位，输出无法解码为有效的 UTF-8 文本。这个例子有 344 位补零，即使始终输出零也能碰对 429/512 位。评估文字应用时应同时检查解出的文字，比较方法时使用论文冻结的消息。[删帧实测记录](../results/custom_text_endpoint_cpu_drop.json)
