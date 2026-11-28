@@ -427,9 +427,9 @@ The following paired subsets use the frozen primary manifest and 512 information
 | Generation pipeline | Paired videos | Bit counts by attack | Paired PSNR and SSIM |
 |---|---:|---|---|
 | HunyuanVideo, image-to-video | 47 | [First 40](results/hunyuan_i2v_primary40.json), [040–043](results/hunyuan_i2v_primary_040_043.json), [044–045](results/hunyuan_i2v_primary_044_045.json) and [paper-291](results/hunyuan_i2v_primary_slice291.json) | [First 40](results/hunyuan_i2v_fidelity40.json), [040–043](results/hunyuan_i2v_fidelity_040_043.json), [044–045](results/hunyuan_i2v_fidelity_044_045.json) and [paper-291](results/hunyuan_i2v_paired_fidelity_slice291.json) |
-| HunyuanVideo, text-to-video | 15 | [First 14](results/hunyuan_t2v_primary14.json) and [paper-014](results/hunyuan_t2v_primary_slice014.json) | [First 14](results/hunyuan_t2v_fidelity14.json) and [paper-014](results/hunyuan_t2v_paired_fidelity_slice014.json) |
-| Wan-2.2, image-to-video | 14 | [14 pairs](results/wan22_i2v_primary14.json) | [14 pairs](results/wan22_i2v_fidelity14.json) |
-| Wan-2.2, text-to-video | 14 | [14 pairs](results/wan22_t2v_primary14.json) | [14 pairs](results/wan22_t2v_fidelity14.json) |
+| HunyuanVideo, text-to-video | 16 | [First 14](results/hunyuan_t2v_primary14.json) and [paper-014](results/hunyuan_t2v_primary_slice014.json), [015](results/hunyuan_t2v_paired_primary_015.json) | [First 14](results/hunyuan_t2v_fidelity14.json) and [paper-014](results/hunyuan_t2v_paired_fidelity_slice014.json), [015](results/hunyuan_t2v_paired_fidelity_015.json) |
+| Wan-2.2, image-to-video | 15 | [14 pairs](results/wan22_i2v_primary14.json), [014](results/wan22_i2v_paired_primary_014.json) | [14 pairs](results/wan22_i2v_fidelity14.json), [014](results/wan22_i2v_paired_fidelity_014.json) |
+| Wan-2.2, text-to-video | 15 | [14 pairs](results/wan22_t2v_primary14.json), [014](results/wan22_t2v_paired_primary_014.json) | [14 pairs](results/wan22_t2v_fidelity14.json), [014](results/wan22_t2v_paired_fidelity_014.json) |
 
 To sum the correct bits and count fully recovered messages for the 47 HunyuanVideo image-to-video pairs, run the command below. For another row, change the family, mode and input report. Each fidelity score uses the unmarked reference generated for that method. The [reporting notes](docs/REPORTING.md) document reference-file differences and sample coverage.
 

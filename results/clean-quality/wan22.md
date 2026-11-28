@@ -6,8 +6,8 @@
 | VideoMark | No | Non-blind | pending | pending | pending | pending |
 | VideoShield | No | Non-blind | pending | pending | 1.000 (1/400) | pending |
 | SIGMark | No | Blind | pending | pending | pending | pending |
-| LFG | Yes | Blind | 0.991 (14/400) | pending | 0.989 (14/400) | pending |
-| LAST | Yes | Blind | 1.000 (14/400) | pending (1/18 dimensions) | 1.000 (14/400) | pending (1/18 dimensions) |
+| LFG | Yes | Blind | 0.992 (15/400) | pending | 0.987 (15/400) | pending |
+| LAST | Yes | Blind | 1.000 (15/400) | pending (1/18 dimensions) | 1.000 (15/400) | pending (1/18 dimensions) |
 
 Bit accuracy is pooled over 512 information bits per completed video. Counts below 400 indicate interim observations. V-score requires the full quality report.
 
@@ -15,11 +15,11 @@ Bit accuracy is pooled over 512 information bits per completed video. Counts bel
 
 | Mode | Method | Correct information bits | Entire messages recovered |
 |---|---|---:|---:|
-| I2V | LAST | 7168/7168 | 14/14 |
-| I2V | LFG | 7092/7168 | 12/14 |
+| I2V | LAST | 7680/7680 | 15/15 |
+| I2V | LFG | 7582/7680 | 12/15 |
 | I2V | VideoShield | 512/512 | 1/1 |
-| T2V | LAST | 7168/7168 | 14/14 |
-| T2V | LFG | 7107/7168 | 9/14 |
+| T2V | LAST | 7680/7680 | 15/15 |
+| T2V | LFG | 7619/7680 | 10/15 |
 
 ### Official dimension means
 

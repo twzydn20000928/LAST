@@ -20,9 +20,9 @@ jobs:
           python -m last.robustness_table --disjoint-snapshots --reports \
             results/hunyuan_i2v_primary40.json results/hunyuan_i2v_primary_040_043.json results/hunyuan_i2v_primary_044_045.json \
             results/hunyuan_i2v_primary_slice291.json \
-            results/hunyuan_t2v_primary14.json results/hunyuan_t2v_primary_slice014.json \
-            results/wan22_i2v_primary14.json \
-            results/wan22_t2v_primary14.json \
+            results/hunyuan_t2v_primary14.json results/hunyuan_t2v_paired_primary_015.json results/hunyuan_t2v_primary_slice014.json \
+            results/wan22_i2v_primary14.json results/wan22_i2v_paired_primary_014.json \
+            results/wan22_t2v_primary14.json results/wan22_t2v_paired_primary_014.json \
             results/wan22_i2v_videoshield_paper000_seven_conditions.json \
             results/hunyuan_i2v_videoshield_first2_complete.json \
             results/hunyuan_i2v_videoshield_slice291.json \
@@ -102,12 +102,12 @@ jobs:
               assert built == expected, f"Released Table 1 quality input differs from the scoring-unit recount: {name}"
           PY
           python -m last.clean_table --family hunyuan --disjoint-snapshots \
-            --reports results/hunyuan_i2v_primary40.json results/hunyuan_i2v_primary_040_043.json results/hunyuan_i2v_primary_044_045.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_t2v_primary14.json results/hunyuan_t2v_primary_slice014.json \
+            --reports results/hunyuan_i2v_primary40.json results/hunyuan_i2v_primary_040_043.json results/hunyuan_i2v_primary_044_045.json results/hunyuan_i2v_primary_slice291.json results/hunyuan_t2v_primary14.json results/hunyuan_t2v_paired_primary_015.json results/hunyuan_t2v_primary_slice014.json \
               results/hunyuan_i2v_videoshield_first2_complete.json results/hunyuan_i2v_videoshield_slice291.json results/hunyuan_t2v_videomark_first40.json \
               results/hunyuan_i2v_sigmark_first1_partial.json results/hunyuan_i2v_sigmark_videomark_paper291.json \
             --quality ci-clean-tables/quality/hunyuan_*.json --output ci-clean-tables/hunyuan.md
-          python -m last.clean_table --family wan22 \
-            --reports results/wan22_i2v_primary14.json results/wan22_t2v_primary14.json results/wan22_i2v_videoshield_paper000_seven_conditions.json \
+          python -m last.clean_table --family wan22 --disjoint-snapshots \
+            --reports results/wan22_i2v_primary14.json results/wan22_i2v_paired_primary_014.json results/wan22_t2v_primary14.json results/wan22_t2v_paired_primary_014.json results/wan22_i2v_videoshield_paper000_seven_conditions.json \
             --quality ci-clean-tables/quality/wan22_*.json \
             --output ci-clean-tables/wan22.md
           diff --strip-trailing-cr -u results/clean-quality/hunyuan.md ci-clean-tables/hunyuan.md
